@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "EchoEnglish User API",
+    "_postman_id": "e4c3b1e1-1234-4bcd-9abc-abcdef123456",
+    "description": "Test API tạo user cho EchoEnglish",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"Nguyen Van A\",\n  \"gender\": \"MALE\",\n  \"dob\": \"2000-01-01\",\n  \"email\": \"vana@example.com\",\n  \"password\": \"12345678\",\n  \"phoneNumber\": \"0912345678\",\n  \"address\": \"Hanoi\",\n  \"image\": \"\",\n  \"roles\": [\"user\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/users/create",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
