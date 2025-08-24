@@ -1,29 +1,11 @@
-import { Schema, model, Document } from "mongoose";
-import { baseEntityFields, applyBaseEntityMiddleware } from "./baseEntity";
+import { Schema, model, InferSchemaType } from "mongoose";
+import { baseEntitySchema, applyBaseEntityMiddleware } from "./baseEntity";
 import { Gender } from "~/enum/gender";
+import { validateDob } from "~/utils/validation/validateDob";
 
-export interface IUser extends Document {
-  fullName: string;
-  gender?: Gender;
-  dob?: Date;
-  email: string;
-  password: string;
-  phoneNumber?: string;
-  address?: string;
-  image?: string;
-  roles: string[];
-  // baseEntity fields
-  createdAt?: Date;
-  createBy?: string;
-  updateAt?: Date;
-  updateBy?: string;
-  isDeleted?: boolean;
-}
-
-const userSchema = new Schema<IUser>(
+// Kết hợp baseEntitySchema vào userSchema bằng cách dùng .add()
+const userSchema = new Schema(
   {
-    ...baseEntityFields, // thêm các field từ BaseEntity
-
     fullName: {
       type: String,
       required: [true, "FULL_NAME_REQUIRED"],
@@ -37,16 +19,7 @@ const userSchema = new Schema<IUser>(
     dob: {
       type: Date,
       validate: {
-        validator: (value: Date) => {
-          if (!value) return true;
-          const now = new Date();
-          const minAge = 6;
-          const age =
-            now.getFullYear() -
-            value.getFullYear() -
-            (now < new Date(now.getFullYear(), value.getMonth(), value.getDate()) ? 1 : 0);
-          return age >= minAge;
-        },
+        validator: validateDob,
         message: "DOB_INVALID",
       },
     },
@@ -75,15 +48,21 @@ const userSchema = new Schema<IUser>(
     },
     roles: [
       {
-        type: String, // lưu role_name
+        type: String,
         ref: "Role",
       },
     ],
   },
-  { timestamps: false } // tắt timestamps mặc định vì mình tự định nghĩa trong baseEntityFields
+  { timestamps: false }
 );
 
-// áp dụng middleware để update updateAt khi có thay đổi
+// Thêm các trường baseEntity vào userSchema
+userSchema.add(baseEntitySchema.obj);
+
+// Áp dụng middleware cho updateAt
 applyBaseEntityMiddleware(userSchema);
 
-export const User = model<IUser>("User", userSchema);
+// Tự động sinh type User từ schema
+export type UserType = InferSchemaType<typeof userSchema>;
+export const User = model<UserType>("User", userSchema);
+

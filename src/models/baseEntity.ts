@@ -1,27 +1,33 @@
-import { Schema } from "mongoose";
+import { Schema, InferSchemaType } from "mongoose";
 
-export const baseEntityFields = {
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    immutable: true,
+const baseEntitySchema = new Schema(
+  {
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      immutable: true,
+    },
+    createBy: {
+      type: String,
+    },
+    updateAt: {
+      type: Date,
+    },
+    updateBy: {
+      type: String,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
-  createBy: {
-    type: String,
-  },
-  updateAt: {
-    type: Date,
-  },
-  updateBy: {
-    type: String,
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-};
+  { _id: false } // Không tạo _id cho schema lồng
+);
 
-// middleware để update updateAt trước khi save
+export type BaseEntity = InferSchemaType<typeof baseEntitySchema>;
+export { baseEntitySchema };
+
+// Middleware để update updateAt trước khi save
 export function applyBaseEntityMiddleware(schema: Schema) {
   schema.pre("save", function (next) {
     if (this.isModified()) {

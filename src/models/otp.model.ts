@@ -1,19 +1,7 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, InferSchemaType } from "mongoose";
+import { OtpPurpose } from "~/enum/otp_purpose";
 
-export enum OtpPurpose {
-  REGISTER = "REGISTER",
-  FORGOT_PASSWORD = "FORGOT_PASSWORD",
-  LOGIN = "LOGIN",
-}
-
-export interface IOtp extends Document {
-  email: string;
-  otp: string;
-  purpose: OtpPurpose;
-  expiryTime: Date;
-}
-
-const otpSchema = new Schema<IOtp>(
+const otpSchema = new Schema(
   {
     email: {
       type: String,
@@ -37,4 +25,5 @@ const otpSchema = new Schema<IOtp>(
   { timestamps: true }
 );
 
-export const Otp = model<IOtp>("Otp", otpSchema);
+export type OtpType = InferSchemaType<typeof otpSchema>;
+export const Otp = model("Otp", otpSchema);

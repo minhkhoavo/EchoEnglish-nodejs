@@ -1,11 +1,6 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, InferSchemaType } from "mongoose";
 
-export interface IPermission extends Document {
-  name: string; // permission name (primary key)
-  description?: string;
-}
-
-const permissionSchema = new Schema<IPermission>(
+const permissionSchema = new Schema(
   {
     name: {
       type: String,
@@ -19,4 +14,5 @@ const permissionSchema = new Schema<IPermission>(
   { timestamps: true }
 );
 
-export const Permission = model<IPermission>("Permission", permissionSchema);
+export type PermissionType = InferSchemaType<typeof permissionSchema>;
+export const Permission = model("Permission", permissionSchema);

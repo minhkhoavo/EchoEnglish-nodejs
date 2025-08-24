@@ -1,12 +1,6 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, InferSchemaType } from "mongoose";
 
-export interface IRole extends Document {
-  name: string; // role name (primary key)
-  description?: string;
-  permissions: string[]; // permission_name[]
-}
-
-const roleSchema = new Schema<IRole>(
+const roleSchema = new Schema(
   {
     name: {
       type: String,
@@ -26,4 +20,5 @@ const roleSchema = new Schema<IRole>(
   { timestamps: true }
 );
 
-export const Role = model<IRole>("Role", roleSchema);
+export type RoleType = InferSchemaType<typeof roleSchema>;
+export const Role = model("Role", roleSchema);
