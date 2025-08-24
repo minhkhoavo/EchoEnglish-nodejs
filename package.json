@@ -21,15 +21,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon",
     "build": "rimraf ./dist && tsc && tsc-alias",
-    "start": "node dist/index.js"
+    "start": "npx nodemon dist/index.js"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^24.3.0",
     "mongoose-sequence": "^6.0.1",
+    "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
     "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",
