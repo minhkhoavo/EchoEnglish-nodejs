@@ -9,6 +9,11 @@ import { OtpPurpose } from "~/enum/otp_purpose";
 const otpService = new OtpEmailService();
 
 class UserService {
+
+  public getUserById = async (id: string)=>{
+    return await User.findOne({id, isDeleted: false});
+  }
+  
   //get thong tin 
   public getProfile = async (email: string) => {
     return await User.findOne({email});

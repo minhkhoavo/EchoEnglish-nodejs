@@ -5,12 +5,18 @@ import ApiResponse from "~/dto/response/ApiResponse";
 import { SuccessMessage } from "~/enum/success_message";
 
 class UserController {
+    public userService = new UserService();
+
+    public getUserById = async (req: Request, res: Response)=>{
+        const {id} = req.params;
+        return res.status(200).json(new ApiResponse('success', await this.userService.getUserById(id)))
+    }
 
     // Hàm tạo user
     public  createUser = async (req: Request, res: Response, next: NextFunction) => {
-        const userService = new UserService();
+        
         const userDto = new UserCreateRequest(req.body);
-        userService.createUser(userDto)
+        this.userService.createUser(userDto)
         .then(user => {
             res.status(201).json(new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, user));
         })
