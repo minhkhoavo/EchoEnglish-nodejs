@@ -31,7 +31,7 @@ class UserService {
             phoneNumber: userDto.phoneNumber,
             address: userDto.address,
             image: userDto.image,
-            isDeleted: false,
+            isDeleted: true,
             roles: [Role.USER],
           });
           return user.save().then((savedUser) => {
