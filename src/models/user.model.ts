@@ -1,4 +1,5 @@
-import { Schema, model, InferSchemaType, Types  } from "mongoose";
+import "./role.model";
+import { Schema, model, InferSchemaType, Types, models  } from "mongoose";
 import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./baseEntity";
 import { Gender } from "~/enum/gender";
 import { validateDob } from "~/utils/validation/validateDob";
@@ -64,5 +65,5 @@ applyBaseEntityMiddleware(userSchema);
 
 // Tự động sinh type User từ schema
 export type UserType = InferSchemaType<typeof userSchema> & BaseEntity & {_id: Types.ObjectId;};
-export const User = model<UserType>("User", userSchema);
+export const User =  models.User || model<UserType>("User", userSchema);
 

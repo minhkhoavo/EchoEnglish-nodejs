@@ -30,7 +30,10 @@ class UserService {
             throw new Error(ErrorMessage.USER_EXISTED);
           }
           // user chưa active → gửi OTP mới
-          return otpService.sendOtp(existUser.email, OtpPurpose.REGISTER).then(() => existUser);
+          return otpService.sendOtp(existUser.email, OtpPurpose.REGISTER).then(() => User.populate(existUser, {
+              path: "roles",
+              populate: { path: "permissions" }
+            }));
         }
 
         // lấy role USER trong DB
@@ -56,24 +59,22 @@ class UserService {
               roles: [userRole._id], // lưu ObjectId
             });
 
-            return user.save().then((savedUser) => {
-              // gửi OTP lần đầu
-              return otpService
-                .sendOtp(savedUser.email, OtpPurpose.REGISTER)
-                .then(() =>
-                  savedUser.populate({
-                    path: "roles",
-                    populate: { path: "permissions" },
-                  })
-                );
-            });
+            return user.save();
           });
+      })
+      .then((savedUser) => {
+            // gửi OTP lần đầu
+            return otpService.sendOtp(savedUser.email, OtpPurpose.REGISTER)
+              .then(() => User.populate(savedUser, {
+                path: "roles",
+                populate: { path: "permissions" }
+              }));
       });
     })
     .catch((err) => {
       throw err;
     });
-  };
+  }
   
   // Hàm tạo user
   public createUser = async (userDto: UserCreateRequest) => {
@@ -111,7 +112,12 @@ class UserService {
             });
             return user.save();
           })
-          
+        })
+        .then((savedUser) => {
+            return User.populate(savedUser, {
+              path: "roles",
+              populate: { path: "permissions" }
+            });
         });
       })
       .catch((err) => {

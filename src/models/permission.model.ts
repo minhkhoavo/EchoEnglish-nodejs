@@ -1,4 +1,4 @@
-import { Schema, model, InferSchemaType, Types } from "mongoose";
+import { Schema, model, InferSchemaType, Types, models } from "mongoose";
 
 const permissionSchema = new Schema(
   {
@@ -15,4 +15,4 @@ const permissionSchema = new Schema(
 );
 
 export type PermissionType = InferSchemaType<typeof permissionSchema> & { _id: Types.ObjectId };
-export const Permission = model("Permission", permissionSchema);
+export const Permission = models.Permission || model<PermissionType>("Permission", permissionSchema);
