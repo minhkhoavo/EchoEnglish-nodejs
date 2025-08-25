@@ -10,6 +10,11 @@ import { RoleName } from "~/enum/role";
 const otpService = new OtpEmailService();
 
 class UserService {
+
+  public getUserById = async (id: string)=>{
+    return await User.findOne({ _id: id, isDeleted: false});
+  }
+  
   //get thong tin 
   public getProfile = async (email: string) => {
     return await User.findOne({email});

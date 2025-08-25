@@ -2,5 +2,5 @@
   "watch": ["src", ".env"],
   "ext": ".ts,.js",
   "ignore": [],
-  "exec": "tsx ./src/index.ts"
+  "exec": "node --inspect -r tsx ./src/index.ts"
 }
