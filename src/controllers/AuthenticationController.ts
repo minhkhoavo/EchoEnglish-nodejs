@@ -5,11 +5,24 @@ import { SuccessMessage } from "~/enum/success_message";
 import { OtpEmailService } from "~/services/OtpEmailService";
 import UserService from "~/services/UserService";
 import { OtpPurpose } from "~/enum/otp_purpose";
+import {authService} from "../services/AuthService"
 
 const otpEmailService = new OtpEmailService();
 const userService = new UserService();
 
 class AuthenticationController {
+
+    public getProfile = async (req: Request, res: Response)=>{
+        const email = req.user.email;
+        return res.status(200).json(new ApiResponse("Sucess", await userService.getProfile(email)))
+    }
+
+    //ham login
+    public loginUser = async (req: Request, res: Response)=>{
+        const {email, password} = req.body;
+        const result = await authService.login(email, password);
+        return res.status(200).json(new ApiResponse('success', result));
+    }
 
     // Hàm đăng ký user
     public registerUser = async (req: Request, res: Response, next: NextFunction) => {

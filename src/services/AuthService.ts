@@ -1,0 +1,48 @@
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { User, UserType  } from "../models/user.model";
+
+class AuthService{
+  public SECRET_KEY = process.env.JWT_SECRETKEY!;
+
+  public login = async (email: string, password: string)=>{
+    const user = await User.findOne({email: email, isDeleted: false});
+    if(!user){
+      throw new Error("USER_NOT_EXISTED");
+    };
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw new Error("UNAUTHENTICATED");
+    }
+
+    const token = this.generateToken(user);
+    return {token, authenticated: true};
+    
+  }
+
+  //tao token
+  public generateToken = (user: UserType)=>{
+    const scopes: string[] = [];
+
+    if(user.roles && user.roles.length){
+      user.roles.forEach(role =>{
+        scopes.push(role);
+      })
+    }
+
+    return jwt.sign(
+      {
+        sub: user.email,
+        iss: "https://glamora-store.com",
+        scope: scopes.join(" "),
+        userId: user._id.toString(),
+        custom_key: "Custom_value",
+      },
+      this.SECRET_KEY,
+      { algorithm: "HS512", expiresIn: "30m" }
+    );
+  
+  }
+}
+export const authService = new AuthService();
