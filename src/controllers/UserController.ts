@@ -1,17 +1,22 @@
-import {Request, Response, NextFunction } from "express";
-import { User } from "~/models/user.model";
-import { createUser } from "~/services/UserService";
-
+import { Request, Response, NextFunction } from "express";
+import UserService from "~/services/UserService";
+import { UserCreateRequest } from "~/dto/request/iam/UserCreateRequest";
+import ApiResponse from "~/dto/response/ApiResponse";
+import { SuccessMessage } from "~/enum/success_message";
 
 class UserController {
-    async createUser(req: Request,res: Response,next: NextFunction) {
-        try{
-            const user = await createUser(req.body);
-            res.status(201).json(user);
-        }
-        catch(err: any){
-            res.status(400).json({error: err.message});
-        }
+
+    // Hàm tạo user
+    public  createUser = async (req: Request, res: Response, next: NextFunction) => {
+        const userService = new UserService();
+        const userDto = new UserCreateRequest(req.body);
+        userService.createUser(userDto)
+        .then(user => {
+            res.status(201).json(new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, user));
+        })
+        .catch((err: any) => {
+            res.status(400).json({ error: err.message });
+        });
     }
 }
 

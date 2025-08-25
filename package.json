@@ -30,6 +30,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.3.0",
+    "@types/nodemailer": "^7.0.1",
     "mongoose-sequence": "^6.0.1",
     "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
