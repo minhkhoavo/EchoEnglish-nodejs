@@ -50,6 +50,7 @@ class AuthenticationController {
 
     }
 
+    // Hàm quên mật khẩu
     public forgotPassword = async (req: Request, res: Response, next: NextFunction) => {
         await otpEmailService.sendOtp(req.body.email, OtpPurpose.FORGOT_PASSWORD)
         .then(() => {
@@ -60,6 +61,7 @@ class AuthenticationController {
         });
     }
 
+    // Hàm đặt lại mật khẩu
     public resetPassword = async (req: Request, res: Response, next: NextFunction) => {
         // Xác thực OTP
         await otpEmailService.verifyOtp(req.body.email, req.body.otp, OtpPurpose.FORGOT_PASSWORD)

@@ -2,9 +2,10 @@ import { UserCreateRequest } from "~/dto/request/iam/UserCreateRequest";
 import { User } from "../models/user.model";
 import bcrypt from "bcrypt";
 import { ErrorMessage } from "~/enum/error_message";
-import { Role } from "~/enum/role";
 import { OtpEmailService } from "./OtpEmailService";
 import { OtpPurpose } from "~/enum/otp_purpose";
+import { Role } from "~/models/role.model";
+import { RoleName } from "~/enum/role";
 
 const otpService = new OtpEmailService();
 
@@ -15,39 +16,59 @@ class UserService {
   }
 
   // Hàm đăng ký user
-  public registerUser = async (userDto: UserCreateRequest) => {
-    return User.findOne({ email: userDto.email })
-      .then((existUser) => {
-        return this.hashPassword(userDto.password).then((hashPassword) => {
-          if (existUser) {
-            if (existUser.isDeleted === false) {
-              throw new Error(ErrorMessage.USER_EXISTED);
-            }
-            // User chưa active gửi OTP mới
-            return otpService.sendOtp(existUser.email, OtpPurpose.REGISTER);
+  public registerUser = (userDto: UserCreateRequest) => {
+  return User.findOne({ email: userDto.email })
+    .then((existUser) => {
+      return this.hashPassword(userDto.password).then((hashPassword) => {
+        if (existUser) {
+          if (existUser.isDeleted === false) {
+            throw new Error(ErrorMessage.USER_EXISTED);
           }
-          // User chưa tồn tại, tạo mới user
-          const user = new User({
-            fullName: userDto.fullName,
-            email: userDto.email,
-            password: hashPassword,
-            gender: userDto.gender,
-            dob: userDto.dob,
-            phoneNumber: userDto.phoneNumber,
-            address: userDto.address,
-            image: userDto.image,
-            isDeleted: true,
-            roles: [Role.USER],
+          // user chưa active → gửi OTP mới
+          return otpService.sendOtp(existUser.email, OtpPurpose.REGISTER).then(() => existUser);
+        }
+
+        // lấy role USER trong DB
+        return Role.findOne({ name: RoleName.USER })
+          .populate("permissions")
+          .exec()
+          .then((userRole) => {
+            if (!userRole) {
+              throw new Error(ErrorMessage.ROLE_NOT_FOUND);
+            }
+
+            // tạo user mới
+            const user = new User({
+              fullName: userDto.fullName,
+              email: userDto.email,
+              password: hashPassword,
+              gender: userDto.gender,
+              dob: userDto.dob,
+              phoneNumber: userDto.phoneNumber,
+              address: userDto.address,
+              image: userDto.image,
+              isDeleted: true,
+              roles: [userRole._id], // lưu ObjectId
+            });
+
+            return user.save().then((savedUser) => {
+              // gửi OTP lần đầu
+              return otpService
+                .sendOtp(savedUser.email, OtpPurpose.REGISTER)
+                .then(() =>
+                  savedUser.populate({
+                    path: "roles",
+                    populate: { path: "permissions" },
+                  })
+                );
+            });
           });
-          return user.save().then((savedUser) => {
-            return otpService.sendOtp(savedUser.email, OtpPurpose.REGISTER);
-          });
-        });
-      })
-      .catch((err) => {
-        throw err;
       });
-  }
+    })
+    .catch((err) => {
+      throw err;
+    });
+  };
   
   // Hàm tạo user
   public createUser = async (userDto: UserCreateRequest) => {
@@ -63,19 +84,29 @@ class UserService {
             existUser.password = hashPassword;
             return existUser.save();
           }
-          const user = new User({
-            fullName: userDto.fullName,
-            email: userDto.email,
-            password: hashPassword,
-            gender: userDto.gender,
-            dob: userDto.dob,
-            phoneNumber: userDto.phoneNumber,
-            address: userDto.address,
-            image: userDto.image,
-            isDeleted: false,
-            roles: [Role.USER],
-          });
-          return user.save();
+
+          return Role.findOne({ name: RoleName.USER })
+          .populate("permissions")
+          .exec()
+          .then(userRole =>{
+            if(!userRole){
+              throw new Error(ErrorMessage.ROLE_NOT_FOUND);
+            }
+            const user = new User({
+              fullName: userDto.fullName,
+              email: userDto.email,
+              password: hashPassword,
+              gender: userDto.gender,
+              dob: userDto.dob,
+              phoneNumber: userDto.phoneNumber,
+              address: userDto.address,
+              image: userDto.image,
+              isDeleted: false,
+              roles: [userRole._id], // lưu ObjectId
+            });
+            return user.save();
+          })
+          
         });
       })
       .catch((err) => {
