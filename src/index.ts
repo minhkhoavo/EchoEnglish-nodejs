@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import connectDB from './config/db/configDB';
 import apiRouter from './routes';
+import {globalAuth} from './middleware/auth.middleware'
 import morgan from 'morgan';
 
 dotenv.config();
@@ -13,6 +14,7 @@ connectDB();
 
 app.use(express.json());
 app.use(morgan('combined'));
+app.use(globalAuth);
 app.use('/',apiRouter);
 
 app.listen(port, () => {

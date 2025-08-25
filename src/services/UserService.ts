@@ -9,6 +9,11 @@ import { OtpPurpose } from "~/enum/otp_purpose";
 const otpService = new OtpEmailService();
 
 class UserService {
+  //get thong tin 
+  public getProfile = async (email: string) => {
+    return await User.findOne({email});
+  }
+
   // Hàm đăng ký user
   public registerUser = async (userDto: UserCreateRequest) => {
     return User.findOne({ email: userDto.email })

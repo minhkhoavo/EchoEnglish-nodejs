@@ -1,7 +1,7 @@
-    import { Gender } from "~/enum/gender";
-    import { RoleType } from "~/models/role.model";
+import { Gender } from "~/enum/gender";
+import { RoleType } from "~/models/role.model";
 
-    export class UserResponse {
+export class UserResponse {
     userId?: string;
     fullName!: string;
     gender!: Gender;
@@ -20,4 +20,4 @@
     constructor(data: Partial<UserResponse>) {
         Object.assign(this, data);
     }
-    }
+}
