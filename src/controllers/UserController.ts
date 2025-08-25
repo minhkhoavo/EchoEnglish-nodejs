@@ -9,7 +9,8 @@ class UserController {
 
     public getUserById = async (req: Request, res: Response)=>{
         const {id} = req.params;
-        return res.status(200).json(new ApiResponse('success', await this.userService.getUserById(id)))
+        const user = await this.userService.getUserById(id)
+        return res.status(200).json(new ApiResponse('success', user))
     }
 
     // Hàm tạo user

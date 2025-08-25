@@ -11,7 +11,7 @@ const otpService = new OtpEmailService();
 class UserService {
 
   public getUserById = async (id: string)=>{
-    return await User.findOne({id, isDeleted: false});
+    return await User.findOne({ _id: id, isDeleted: false});
   }
   
   //get thong tin 
