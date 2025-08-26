@@ -21,7 +21,7 @@ class UserService {
   }
 
   // Hàm đăng ký user
-  public registerUser = (userDto: UserCreateRequest) => {
+  public registerUser = async (userDto: UserCreateRequest) => {
   return User.findOne({ email: userDto.email })
     .then((existUser) => {
       return this.hashPassword(userDto.password).then((hashPassword) => {
