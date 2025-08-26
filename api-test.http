@@ -1,0 +1,103 @@
+### Variables
+@baseUrl = http://localhost:8099
+@email = vovantri204@gmail.com
+@password = 12345678
+@newPassword = 12341234
+
+### 1. Đăng ký user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Võ Văn Trí",
+  "email": "{{email}}",
+  "password": "{{password}}",
+  "gender": "Male",
+  "dob": "1990-01-01",
+  "phoneNumber": "0912345678",
+  "address": "TP.HCM",
+  "image": ""
+}
+
+### 2. Xác thực OTP đăng ký (chạy sau khi đăng ký và nhận OTP qua email)
+POST {{baseUrl}}/auth/verify-register-otp
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "otp": "177023"
+}
+
+### 3. Đăng nhập
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{newPassword}}"
+}
+
+### 4. Lấy thông tin profile (cần token từ login)
+GET {{baseUrl}}/auth/myInfo
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2b3ZhbnRyaTIwNEBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2dsYW1vcmEtc3RvcmUuY29tIiwic2NvcGUiOiI2NmUwMGJiYjAwMDAwMDAwMDAwMDAwMDEiLCJ1c2VySWQiOiI2OGFkMDZjZGYyNDM3MTk4ODA2ZWIyNjAiLCJjdXN0b21fa2V5IjoiQ3VzdG9tX3ZhbHVlIiwiaWF0IjoxNzU2MTcwMjEyLCJleHAiOjE3NTYxNzIwMTJ9.qjb4bBVn97lM-Qk-Se47P_pZRwF_wS6CwJk9QLFeP51AySV3ebIcOsuajGQb4Hr-9BD33w1QlOdSZ9gd1AImNA
+
+### 5. Quên mật khẩu (gửi OTP)
+POST {{baseUrl}}/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "{{email}}"
+}
+
+### 6. Đặt lại mật khẩu (sau khi nhận OTP)
+POST {{baseUrl}}/auth/reset-password
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "otp": "478145",
+  "newPassword": "{{newPassword}}"
+}
+
+### ===== USER ROUTES =====
+
+### 7. Tạo user (admin)
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "fullName": "Nguyễn Văn A",
+  "email": "nguyenvana@example.com",
+  "password": "password123",
+  "gender": "Female",
+  "dob": "1995-05-15",
+  "phoneNumber": "0987654321",
+  "address": "Hà Nội"
+}
+
+### 8. Lấy user theo ID
+GET {{baseUrl}}/users/USER_ID_HERE
+
+### ===== TEST SCENARIOS =====
+
+### Scenario 1: Đăng ký và xác thực hoàn chỉnh
+# 1. Chạy đăng ký ở trên
+# 2. Kiểm tra email để lấy OTP
+# 3. Chạy verify-register-otp với OTP từ email
+# 4. Chạy login để lấy token
+# 5. Sử dụng token để test các API cần authentication
+
+### Scenario 2: Quên mật khẩu
+# 1. Chạy forgot-password
+# 2. Kiểm tra email để lấy OTP
+# 3. Chạy reset-password với OTP và mật khẩu mới
+# 4. Chạy login với mật khẩu mới
+
+### Notes:
+# - Thay thế YOUR_JWT_TOKEN_HERE bằng token thực từ response login
+# - Thay thế USER_ID_HERE bằng ID user thực
+# - Thay thế OTP bằng mã thực từ email (6 chữ số)
+# - Đảm bảo server đang chạy trên port 8099
+# - Gender có thể là: "Male", "Female", "Other" (chữ hoa đầu tiên)
+# - Các trường bắt buộc: fullName, email, password, gender, dob
+# - Các trường tùy chọn: phoneNumber, address, image
