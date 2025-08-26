@@ -6,19 +6,39 @@ const SECRET_KEY = process.env.JWT_SECRETKEY!;
 
 const PUBLIC_ENDPOINTS = [
   "/auth/login",
-  "/auth/introspect",
+  "/auth/introspect", 
   "/auth/register",
   "/auth/verify-register-otp/**",
   "/auth/forgot-password",
   "/auth/reset-password",
   "/api-docs",
-  "/api/users/",
-  "/auth/verify-register-otp"
+  "/api/users/**"
 ];
+
+// Pattern matching giống Spring Security
+function matchesPattern(pattern: string, path: string): boolean {
+  // Nếu pattern kết thúc bằng /** thì match luôn cả path gốc không có /
+  if (pattern.endsWith('/**')) {
+    const base = pattern.slice(0, -3); // bỏ /**
+    if (path === base) return true;
+  }
+  // Chuyển pattern Spring-style thành regex
+  const regexPattern = pattern
+    .replace(/\*\*/g, '.*')  // ** = match bất kỳ ký tự nào (bao gồm /)
+    .replace(/\*/g, '[^/]*') // * = match bất kỳ ký tự nào trừ /
+    .replace(/\//g, '\\/');  // Escape dấu / để dùng trong regex pattern
+  const regex = new RegExp(`^${regexPattern}$`);
+  return regex.test(path);
+}
+
+// Kiểm tra xem path có phải là public endpoint không
+function isPublicEndpoint(path: string): boolean {
+  return PUBLIC_ENDPOINTS.some(pattern => matchesPattern(pattern, path));
+}
 
 //globalAuth
 export function globalAuth(req: Request, res: Response, next: NextFunction){
-  if(PUBLIC_ENDPOINTS.includes(req.path)){
+  if(isPublicEndpoint(req.path)){
     return next();
   }
   return authenticateJWT(req, res, next);
@@ -35,9 +55,9 @@ export function authenticateJWT(req: Request, res: Response, next: NextFunction)
   try {
     const decoded = jwt.verify(token, SECRET_KEY) as jwt.JwtPayload;
     req.user = {
-      id: decoded.userId,
-      email: decoded.sub,
-      scope: decoded.scope,
+      id: decoded.userId || '',
+      email: decoded.sub || '',
+      scope: decoded.scope || '',
     };
     next();
   } catch (error) {

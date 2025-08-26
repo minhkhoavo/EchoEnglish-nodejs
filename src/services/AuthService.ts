@@ -27,14 +27,14 @@ class AuthService{
 
     if(user.roles && user.roles.length){
       user.roles.forEach(role =>{
-        scopes.push(role);
+        scopes.push(role.toString());
       })
     }
 
     return jwt.sign(
       {
         sub: user.email,
-        iss: "https://glamora-store.com",
+        iss: "https://echo-english.com",
         scope: scopes.join(" "),
         userId: user._id.toString(),
         custom_key: "Custom_value",
