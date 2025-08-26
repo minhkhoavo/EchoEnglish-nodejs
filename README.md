@@ -4,6 +4,14 @@ EchoEnglish là backend service được xây dựng bằng **Node.js + Express 
 
 ---
 
+## Danh sách thành viên thực hiện
+- Lê Đình Lộc - 22110369
+- Võ Minh Khoa - 22110355
+- Võ Văn Trí - 22110444
+- Nguyễn Hoàng Anh Khoa - 22110352
+
+---
+
 ## 🚀 Yêu cầu hệ thống  
 
 - **Node.js** >= 18  
