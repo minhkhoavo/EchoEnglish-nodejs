@@ -25,7 +25,7 @@ Content-Type: application/json
 
 {
   "email": "{{email}}",
-  "otp": "177023"
+  "otp": "444998"
 }
 
 ### 3. Đăng nhập
@@ -34,13 +34,12 @@ Content-Type: application/json
 
 {
   "email": "{{email}}",
-  "password": "{{newPassword}}"
+  "password": "{{password}}"
 }
 
 ### 4. Lấy thông tin profile (cần token từ login)
 GET {{baseUrl}}/auth/myInfo
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2b3ZhbnRyaTIwNEBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2dsYW1vcmEtc3RvcmUuY29tIiwic2NvcGUiOiI2NmUwMGJiYjAwMDAwMDAwMDAwMDAwMDEiLCJ1c2VySWQiOiI2OGFkMDZjZGYyNDM3MTk4ODA2ZWIyNjAiLCJjdXN0b21fa2V5IjoiQ3VzdG9tX3ZhbHVlIiwiaWF0IjoxNzU2MTcwMjEyLCJleHAiOjE3NTYxNzIwMTJ9.qjb4bBVn97lM-Qk-Se47P_pZRwF_wS6CwJk9QLFeP51AySV3ebIcOsuajGQb4Hr-9BD33w1QlOdSZ9gd1AImNA
-
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2b3ZhbnRyaTIwNEBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWQ3NWUyZmZiNjBiZmI0NWNhOTAxMCIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTYxOTg0MzEsImV4cCI6MTc1NjIwMDIzMX0.kMJHmckRQN7gOc6e2DidPAF-V2lzQZGbaoBInebfXP7VfH9seVBjHcL0KlTCXdWPwqGfUN4UOhE9LOWuDcFozg
 ### 5. Quên mật khẩu (gửi OTP)
 POST {{baseUrl}}/auth/forgot-password
 Content-Type: application/json

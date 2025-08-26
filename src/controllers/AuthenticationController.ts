@@ -13,8 +13,11 @@ const userService = new UserService();
 class AuthenticationController {
 
     public getProfile = async (req: Request, res: Response)=>{
-        const email = req.user.email;
-        return res.status(200).json(new ApiResponse("Sucess", await userService.getProfile(email)))
+        const email = req.user?.email;
+        if (!email) {
+            return res.status(401).json(new ApiResponse("Unauthorized: No user information found"));
+        }
+        return res.status(200).json(new ApiResponse("Success", await userService.getProfile(email)))
     }
 
     //ham login
@@ -42,6 +45,8 @@ class AuthenticationController {
         .then((result) => {
             if (result) {
                 res.status(200).json(new ApiResponse(SuccessMessage.OTP_VERIFIED_SUCCESS));
+            } else {
+                res.status(400).json(new ApiResponse(SuccessMessage.OTP_INVALID_OR_EXPIRED));
             }
         })
         .catch((err: any) => {
