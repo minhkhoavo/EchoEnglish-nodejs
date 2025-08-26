@@ -9,7 +9,7 @@ export class UserCreateRequest {
   private _image?: string;
 
   constructor(data: Partial<UserCreateRequest>) {
-    Object.assign(this, data);
+    Object.assign(this, data); 
   }
 
   get email(): string {
