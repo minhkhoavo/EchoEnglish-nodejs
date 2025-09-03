@@ -12,7 +12,8 @@ const PUBLIC_ENDPOINTS = [
   "/auth/forgot-password",
   "/auth/reset-password",
   "/api-docs",
-  "/api/users/**"
+  "/api/users/**",
+  "/tests/**"
 ];
 
 // Pattern matching giống Spring Security
