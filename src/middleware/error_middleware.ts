@@ -6,6 +6,7 @@ import { ErrorMessage } from '~/enum/error_message';
 
 /* Handler exception error */
 /* cách dùng: throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND); */
+/* cách dùng: throw new ApiError({message: 'Khong ton tai nhe', status: 450}) */
 class ErrorMiddleware{
     public handleError(err: any, req: Request, res: Response, next: NextFunction ){
         if(err instanceof ApiError){

@@ -21,7 +21,7 @@ class CategoryFlashcardService{
     }
 
     async updateCategory(id: string, data: Partial<CategoryFlashcardType>) {
-        const category =  CategoryFlashcard.findOneAndUpdate(
+        const category =await CategoryFlashcard.findOneAndUpdate(
             { _id: id, isDeleted: false },
             data,
             { new: true }
@@ -34,12 +34,19 @@ class CategoryFlashcardService{
         return category;
     }
 
+    // Tim category chu bi xoa thi xoa
     async deleteCategory(id: string) {
-        return CategoryFlashcard.findByIdAndUpdate(
-            id,
+        const category = await CategoryFlashcard.findOneAndUpdate(
+            {_id: id, isDeleted: false},
             { isDeleted: true },
             { new: true }
         );
+
+        if(!category){
+            throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
+        }
+
+        return category;
     }
 }
 
