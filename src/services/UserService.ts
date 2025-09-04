@@ -7,6 +7,7 @@ import { OtpPurpose } from "~/enum/otp_purpose";
 import { Role } from "~/models/role.model";
 import { RoleName } from "~/enum/role";
 import { ApiError } from "~/middleware/api_error";
+import { error } from "console";
 
 const otpService = new OtpEmailService();
 
@@ -139,7 +140,7 @@ class UserService {
     return User.findOne({ email: email, isDeleted: false })
       .then((user) => {
         if (!user) {
-          throw new Error(ErrorMessage.USER_NOT_FOUND);
+          throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
         return this.hashPassword(newPassword).then((hashPassword) => {
           user.password = hashPassword;
@@ -158,32 +159,37 @@ class UserService {
                               .select("-password -isDeleted -__v");
       console.log(user);
       if(!user){
-        throw new Error(ErrorMessage.USER_NOT_FOUND);
-
-  return User.findOne({ email: email, isDeleted: false })
-    .then((user) => {
-      if (!user) {
         throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+      }
 
-      }
-      return{
-        id: user._id,
-        fullName: user.fullName,
-        gender: user.gender,
-        dob: user.dob,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-        address: user.address,
-        image: user.image,
-        roles: user.roles,
-        createBy: user.createBy,
-        updateBy: user.updateBy,
-      }
-    }
-    catch(err){
-      throw err;
-    }
+      return User.findOne({ email: user.email, isDeleted: false })
+        .then((user) => {
+          if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+
+          }
+          return{
+            id: user._id,
+            fullName: user.fullName,
+            gender: user.gender,
+            dob: user.dob,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            address: user.address,
+            image: user.image,
+            roles: user.roles,
+            createBy: user.createBy,
+            updateBy: user.updateBy,
+          }
+        })
+        .catch(error => {
+          throw error;
+        })
   }
+  catch(err){
+    throw err
+  }
+}
 
   // Hàm cập nhật thông tin user
   public updateProfileUser = async (userId: string, request: Partial<UserType>) => {
@@ -192,7 +198,7 @@ class UserService {
                               .select("-password -roles -isDeleted -__v"); // options { new: true } để trả về document mới nhất (sau khi update)
       console.log(user);
       if(!user){
-        throw new Error(ErrorMessage.USER_NOT_FOUND);
+        throw new ApiError(ErrorMessage.USER_NOT_FOUND);
       }
       return{
         id: user._id,

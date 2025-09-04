@@ -1,6 +1,7 @@
 import { error } from "console";
 import { Types } from "mongoose";
 import { ErrorMessage } from "~/enum/error_message";
+import { ApiError } from "~/middleware/api_error";
 import { Flashcard, FlashcardType } from "~/models/flashcard.model";
 
 class FlashCardService {
@@ -22,7 +23,7 @@ class FlashCardService {
             return newFlashcard.save();
         }
         catch (err: any) {
-            throw new Error(ErrorMessage.CREATE_FLASHCARD_FAIL);
+            throw new ApiError(ErrorMessage.CREATE_FLASHCARD_FAIL);
         }
     }
 
@@ -31,11 +32,11 @@ class FlashCardService {
         try {
             const flashcard = await Flashcard.findOneAndUpdate({_id: flascardId, isDeleted: false},request,{new: true, userEmail: userEmail}).select("-isDeleted -createBy -updateBy -__v");
             if(!flashcard)
-                throw new Error(ErrorMessage.FLASHCARD_NOT_FOUND);
+                throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
             return flashcard;
         }
         catch (err: any) {
-            throw new Error(ErrorMessage.UPDATE_FLASHCARD_FAIL);
+            throw new ApiError(ErrorMessage.UPDATE_FLASHCARD_FAIL);
         }
     }
 
@@ -44,10 +45,10 @@ class FlashCardService {
         try{
             const flashcard = await Flashcard.findByIdAndUpdate(flashcardId, {isDeleted: true}, {new: true, userEmail: userEmail});
             if(!flashcard)
-                throw new Error(ErrorMessage.FLASHCARD_NOT_FOUND);
+                throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
         }
         catch(err: any){
-            throw new Error(ErrorMessage.DELETE_FLASHCARD_FAIL);
+            throw new ApiError(ErrorMessage.DELETE_FLASHCARD_FAIL);
         }
     }
 
@@ -55,7 +56,7 @@ class FlashCardService {
     public getFlashcardByCategoryId = async (cateId: string, page: number, limit: number) => {
         try {
             if (!Types.ObjectId.isValid(cateId)) {
-                throw new Error(ErrorMessage.INVALID_CATEGORY_ID);
+                throw new ApiError(ErrorMessage.INVALID_ID);
             }
 
             const skip = (page - 1) * limit;
@@ -80,7 +81,7 @@ class FlashCardService {
             };
         } 
         catch (err: any) {
-            throw new Error(ErrorMessage.INVALID_CATEGORY_ID);
+            throw new ApiError(ErrorMessage.INVALID_ID);
         }
     };
 }

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { Model } from "mongoose";
 import ApiResponse from "~/dto/response/ApiResponse";
 import { ErrorMessage } from "~/enum/error_message";
+import { ApiError } from "./api_error";
 
 const SECRET_KEY = process.env.JWT_SECRETKEY!;
 
@@ -93,23 +94,23 @@ export function isOwn(model: Model<any>, idParam: string = "id") {
     try {
       const userEmail = req.user?.email; // Lấy email từ request
       if (!userEmail) {
-        return res.status(401).json(new ApiResponse("UNAUTHORIZED")); 
+        throw new ApiError(ErrorMessage.UNAUTHORIZED);
       }
 
       const docId = req.params[idParam];
       const doc = await model.findById(docId).select("createBy");
 
       if (!doc) {
-        return res.status(404).json(new ApiResponse("NOT_FOUND"));
+        throw new ApiError(ErrorMessage.NOTFOUND);
       }
 
       if (doc.createBy !== userEmail) { // So sánh với email
-        return res.status(403).json(new ApiResponse(ErrorMessage.PERMISSION_DENIED));
+        throw new ApiError(ErrorMessage.PERMISSION_DENIED);
       }
 
       next();
     } catch (err) {
-      return res.status(500).json(new ApiResponse("INTERNAL_SERVER_ERROR"));
+      throw new ApiError(ErrorMessage.INTERNAL_ERROR);
     }
   };
 }
