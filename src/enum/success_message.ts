@@ -8,4 +8,7 @@ export enum SuccessMessage {
     OTP_INVALID_OR_EXPIRED = 'OTP is invalid or has expired',
     OTP_SENT = 'OTP has been sent to your email',
     PASSWORD_RESET_SUCCESS = 'Password has been reset successfully',
+    DELETE_USER_SUCCESS = 'Delete user successfully',
+    CREATE_FLASHCARD_SUCCESS = 'Create flashcard successfully',
+    UPDATE_FLASHCARD_SUCCESS = 'Update flashcard successfully',
 }

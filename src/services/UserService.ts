@@ -1,5 +1,5 @@
 import { UserCreateRequest } from "~/dto/request/iam/UserCreateRequest";
-import { User } from "../models/user.model";
+import { User, UserType } from "../models/user.model";
 import bcrypt from "bcrypt";
 import { ErrorMessage } from "~/enum/error_message";
 import { OtpEmailService } from "./OtpEmailService";
@@ -135,20 +135,91 @@ class UserService {
 
   // Hàm đặt lại mật khẩu
   public resetPassword = async (email: string, newPassword: string) => {
+
+    return User.findOne({ email: email, isDeleted: false })
+      .then((user) => {
+        if (!user) {
+          throw new Error(ErrorMessage.USER_NOT_FOUND);
+        }
+        return this.hashPassword(newPassword).then((hashPassword) => {
+          user.password = hashPassword;
+          return user.save();
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }
+
+  // Hàm cập nhật user
+  public updateUser = async (userId: string, request: Partial<UserType>) => {
+    try{
+      const user = await User.findOneAndUpdate({ _id: userId, isDeleted: false}, request, { new: true })
+                              .select("-password -isDeleted -__v");
+      console.log(user);
+      if(!user){
+        throw new Error(ErrorMessage.USER_NOT_FOUND);
+
   return User.findOne({ email: email, isDeleted: false })
     .then((user) => {
       if (!user) {
         throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+
       }
-      return this.hashPassword(newPassword).then((hashPassword) => {
-        user.password = hashPassword;
-        return user.save();
-      });
-    })
-    .catch((err) => {
+      return{
+        id: user._id,
+        fullName: user.fullName,
+        gender: user.gender,
+        dob: user.dob,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        address: user.address,
+        image: user.image,
+        roles: user.roles,
+        createBy: user.createBy,
+        updateBy: user.updateBy,
+      }
+    }
+    catch(err){
       throw err;
-    });
+    }
   }
+
+  // Hàm cập nhật thông tin user
+  public updateProfileUser = async (userId: string, request: Partial<UserType>) => {
+    try{
+      const user = await User.findOneAndUpdate({ _id: userId, isDeleted: false}, request, { new: true })
+                              .select("-password -roles -isDeleted -__v"); // options { new: true } để trả về document mới nhất (sau khi update)
+      console.log(user);
+      if(!user){
+        throw new Error(ErrorMessage.USER_NOT_FOUND);
+      }
+      return{
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        gender: user.gender,
+        dob: user.dob,
+        phoneNumber: user.phoneNumber,
+        address: user.address,
+        image: user.image,
+      }
+    }
+    catch(err){
+      throw err;
+    }
+  }
+
+  // Hàm xóa mềm user
+  public softDelete = async (userId: string) => {
+    try{
+      await User.findByIdAndUpdate(userId, {isDeleted: true} , {new: true});
+    }
+    catch(err){
+      throw err;
+    }
+  }
+
 }
 
 export default UserService;
