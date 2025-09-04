@@ -9,7 +9,6 @@ const categoryFlashcardSchema = new Schema(
       type: String,
       required: [true, "CATEGORY_NAME_REQUIRED"],
       trim: true,
-      unique: true,
     },
     description: {
       type: String,
