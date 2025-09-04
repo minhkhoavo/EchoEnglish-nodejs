@@ -10,7 +10,7 @@ class UserController {
 
     public getUserById = async (req: Request, res: Response)=>{
         const {id} = req.params;
-        const user = await this.userService.getUserById(id)
+        const user = await this.userService.getUserById(id);
         return res.status(200).json(new ApiResponse('success', user))
     }
 
