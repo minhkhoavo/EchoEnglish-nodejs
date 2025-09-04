@@ -1,15 +1,12 @@
+import { ApiError } from '~/middleware/api_error';
 import { CategoryFlashcard,CategoryFlashcardType } from './../models/category_flashcard.model';
 import { ErrorMessage } from "~/enum/error_message";
 
 
 class CategoryFlashcardService{
     async createCategory (cate: any){
-        try {
-            const category = await CategoryFlashcard.create(cate);
+        const category = await CategoryFlashcard.create(cate);
             return category;
-        } catch (err: any) {
-            throw new Error(ErrorMessage.ERROR_INSERT);
-        }
     }
 
     async getCategories() {
@@ -17,9 +14,9 @@ class CategoryFlashcardService{
     }
 
     async getCategoryById(id: string) {
-        const category = CategoryFlashcard.findOne({ _id: id, isDeleted: false }).lean();
+        const category =await CategoryFlashcard.findOne({ _id: id, isDeleted: false }).lean();
         if(!category)
-            throw new Error(ErrorMessage.CATEGORY_FLASHCARD_NOT_FOUND);
+            throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
         return category;
     }
 
@@ -31,7 +28,7 @@ class CategoryFlashcardService{
         );
 
         if(!category){
-            throw new Error(ErrorMessage.CATEGORY_FLASHCARD_NOT_FOUND);
+            throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
         }
 
         return category;

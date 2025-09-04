@@ -6,6 +6,7 @@ import { OtpEmailService } from "./OtpEmailService";
 import { OtpPurpose } from "~/enum/otp_purpose";
 import { Role } from "~/models/role.model";
 import { RoleName } from "~/enum/role";
+import { ApiError } from "~/middleware/api_error";
 
 const otpService = new OtpEmailService();
 
@@ -27,7 +28,7 @@ class UserService {
       return this.hashPassword(userDto.password).then((hashPassword) => {
         if (existUser) {
           if (existUser.isDeleted === false) {
-            throw new Error(ErrorMessage.USER_EXISTED);
+            throw new ApiError(ErrorMessage.USER_EXISTED);
           }
           // user chưa active → gửi OTP mới
           return otpService.sendOtp(existUser.email, OtpPurpose.REGISTER).then(() => User.populate(existUser, {
@@ -42,7 +43,7 @@ class UserService {
           .exec()
           .then((userRole) => {
             if (!userRole) {
-              throw new Error(ErrorMessage.ROLE_NOT_FOUND);
+              throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
             }
 
             // tạo user mới
@@ -83,7 +84,7 @@ class UserService {
         return User.findOne({ email: userDto.email }).then((existUser) => {
           if (existUser) {
             if (existUser.isDeleted === false) {
-              throw new Error(ErrorMessage.USER_EXISTED);
+              throw new ApiError(ErrorMessage.USER_EXISTED);
             }
             // Nếu user đã bị xóa mềm, active lại user này
             existUser.isDeleted = false;
@@ -96,7 +97,7 @@ class UserService {
           .exec()
           .then(userRole =>{
             if(!userRole){
-              throw new Error(ErrorMessage.ROLE_NOT_FOUND);
+              throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
             }
             const user = new User({
               fullName: userDto.fullName,
@@ -137,7 +138,7 @@ class UserService {
   return User.findOne({ email: email, isDeleted: false })
     .then((user) => {
       if (!user) {
-        throw new Error(ErrorMessage.USER_NOT_FOUND);
+        throw new ApiError(ErrorMessage.USER_NOT_FOUND);
       }
       return this.hashPassword(newPassword).then((hashPassword) => {
         user.password = hashPassword;
