@@ -77,6 +77,14 @@ Content-Type: application/json
 ### 8. Lấy user theo ID
 GET {{baseUrl}}/users/USER_ID_HERE
 
+### ===== TEST ROUTES =====
+
+### 9. Lấy danh sách tất cả các đề thi
+GET {{baseUrl}}/tests
+
+### 10. Lấy chi tiết đề thi theo testId
+GET {{baseUrl}}/tests/4692
+
 ### ===== TEST SCENARIOS =====
 
 ### Scenario 1: Đăng ký và xác thực hoàn chỉnh
