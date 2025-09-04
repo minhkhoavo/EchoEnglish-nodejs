@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { Model } from "mongoose";
 import ApiResponse from "~/dto/response/ApiResponse";
 import { ErrorMessage } from "~/enum/error_message";
 
@@ -87,16 +88,28 @@ export function hasAuthority(...roles: string[]){
 
 }
 
-export function isOwn(paramName: string = "id"){
-  return (req: Request, res: Response, next: NextFunction) => {
-    const userIdFromParams = req.params[paramName];
-    const userIdFromToken = req.user?.id;
+export function isOwn(model: Model<any>, idParam: string = "id") {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userEmail = req.user?.email; // Lấy email từ request
+      if (!userEmail) {
+        return res.status(401).json(new ApiResponse("UNAUTHORIZED")); 
+      }
 
-    if (userIdFromParams !== userIdFromToken) {
-      return res.status(403).json(new ApiResponse(ErrorMessage.ONLY_UPDATE_YOUR_PROFILE ));
+      const docId = req.params[idParam];
+      const doc = await model.findById(docId).select("createBy");
+
+      if (!doc) {
+        return res.status(404).json(new ApiResponse("NOT_FOUND"));
+      }
+
+      if (doc.createBy !== userEmail) { // So sánh với email
+        return res.status(403).json(new ApiResponse(ErrorMessage.PERMISSION_DENIED));
+      }
+
+      next();
+    } catch (err) {
+      return res.status(500).json(new ApiResponse("INTERNAL_SERVER_ERROR"));
     }
-
-    next();
-  }
-    
+  };
 }

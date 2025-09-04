@@ -206,7 +206,7 @@ class UserService {
   // Hàm xóa mềm user
   public softDelete = async (userId: string) => {
     try{
-      await User.findOneAndUpdate({_id: userId, isDeleted: false}, {isDeleted: true} , {new: true}).select("-password -roles -isDeleted -__v");
+      await User.findByIdAndUpdate(userId, {isDeleted: true} , {new: true});
     }
     catch(err){
       throw err;

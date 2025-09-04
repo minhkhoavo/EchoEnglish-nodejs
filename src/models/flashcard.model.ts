@@ -40,7 +40,7 @@ const flashcardSchema = new Schema(
       default: false,
     },
   },
-  { timestamps: false }
+  { timestamps: true }
 );
 
 flashcardSchema.add(baseEntitySchema.obj);
