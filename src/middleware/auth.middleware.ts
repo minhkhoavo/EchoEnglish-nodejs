@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import ApiResponse from "~/dto/response/ApiResponse";
+import { ErrorMessage } from "~/enum/error_message";
 
 const SECRET_KEY = process.env.JWT_SECRETKEY!;
 
@@ -83,4 +84,19 @@ export function hasAuthority(...roles: string[]){
 
     next();
   }
+
+}
+
+export function isOwn(paramName: string = "id"){
+  return (req: Request, res: Response, next: NextFunction) => {
+    const userIdFromParams = req.params[paramName];
+    const userIdFromToken = req.user?.id;
+
+    if (userIdFromParams !== userIdFromToken) {
+      return res.status(403).json(new ApiResponse(ErrorMessage.ONLY_UPDATE_YOUR_PROFILE ));
+    }
+
+    next();
+  }
+    
 }
