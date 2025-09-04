@@ -3,7 +3,8 @@ import {Request, Response} from 'express';
 import ApiResponse from '~/dto/response/ApiResponse';
 import { ErrorMessage } from '~/enum/error_message';
 import { SuccessMessage } from '~/enum/success_message';
-import FlashCardService from '~/services/FlashCardService';
+import { ApiError } from '~/middleware/api_error';
+import FlashCardService from '~/services/FlashcardService';
 class FlashcardController{
     // Hàm tạo flashcard
     public createFlashcard = async (req: Request, res: Response) => {
@@ -31,22 +32,17 @@ class FlashcardController{
 
     // Hàm lấy flashcard theo category
     public getFlashcardByCategory = async (req: Request, res: Response) => {
-        try {
-            const cateId = req.params.cateId;
-            const page = parseInt(req.query.page as string) || 1;
-            const limit = parseInt(req.query.limit as string) || 10;
+        const cateId = req.params.cateId;
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
 
-            const result = await FlashCardService.getFlashcardByCategoryId(cateId, page, limit);
+        const result = await FlashCardService.getFlashcardByCategoryId(cateId, page, limit);
 
-            if (!result.flashcards || result.flashcards.length === 0) {
-                return res.status(404).json(new ApiResponse(ErrorMessage.FLASHCARD_NOT_FOUND));
-            }
-
-            return res.status(200).json(new ApiResponse("Success", result));
-        } 
-        catch (error: any) {
-            return res.status(400).json(new ApiResponse(error.message || "ERROR_GET_FLASHCARDS"));
+        if (!result.flashcards || result.flashcards.length === 0) {
+            return res.status(404).json(new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND));
         }
+
+        return res.status(200).json(new ApiResponse("Success", result));
     }
 }
 
