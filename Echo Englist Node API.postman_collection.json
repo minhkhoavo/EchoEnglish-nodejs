@@ -7,6 +7,685 @@
 	},
 	"item": [
 		{
+			"name": "User",
+			"item": [
+				{
+					"name": "delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/68adaca225aa22270e7910dc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"68adaca225aa22270e7910dc"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "update My Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"Trí\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/my-profile/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"my-profile",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/my-profile/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"my-profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/my-profile/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"my-profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/my-profile/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"my-profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/my-profile/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"my-profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 2883,\n    \"fullName\": \"string\",\n    \"gender\": \"Nam\",\n    \"dob\": \"2018-03-28\",\n    \"email\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"address\": \"string\",\n    \"image\": \"string\",\n    \"roles\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          {\n            \"name\": \"stri\",\n            \"description\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"str\"\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"createdAt\": \"2000-02-18T09:30:17.165Z\",\n    \"createBy\": \"string\",\n    \"updateAt\": \"1978-11-06T09:37:01.427Z\",\n    \"updateBy\": \"string\"\n  }\n}"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "7556",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": []
+		},
+		{
+			"name": "Flashcard",
+			"item": []
+		},
+		{
+			"name": "Category",
+			"item": []
+		},
+		{
 			"name": "register",
 			"request": {
 				"method": "POST",
@@ -1171,6 +1850,961 @@
 					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
 				}
 			]
+		},
+		{
+			"name": "get flashcard info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/flashcard/by-category/68b900e4d4c4d9695d97249d?page=1&limit=3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"flashcard",
+						"by-category",
+						"68b900e4d4c4d9695d97249d"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/myInfo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"myInfo"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
+				},
+				{
+					"name": "Bad Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/myInfo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"myInfo"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/myInfo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"myInfo"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+				},
+				{
+					"name": "Internal Server Error",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/myInfo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"myInfo"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+				}
+			]
+		},
+		{
+			"name": "update My Profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fullName\": \"Trí\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/my-profile/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"my-profile",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/my-profile/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"my-profile",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
+				},
+				{
+					"name": "Bad Request",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/my-profile/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"my-profile",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/my-profile/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"my-profile",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+				},
+				{
+					"name": "Internal Server Error",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/my-profile/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"my-profile",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+				}
+			]
+		},
+		{
+			"name": "delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users/68adaca225aa22270e7910dc",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"68adaca225aa22270e7910dc"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+				},
+				{
+					"name": "Bad Request",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+				},
+				{
+					"name": "Internal Server Error",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+				}
+			]
+		},
+		{
+			"name": "update User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/:userId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "7556",
+							"description": "(Required) "
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 2883,\n    \"fullName\": \"string\",\n    \"gender\": \"Nam\",\n    \"dob\": \"2018-03-28\",\n    \"email\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"address\": \"string\",\n    \"image\": \"string\",\n    \"roles\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          {\n            \"name\": \"stri\",\n            \"description\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"str\"\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"createdAt\": \"2000-02-18T09:30:17.165Z\",\n    \"createBy\": \"string\",\n    \"updateAt\": \"1978-11-06T09:37:01.427Z\",\n    \"updateBy\": \"string\"\n  }\n}"
+				},
+				{
+					"name": "Bad Request",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+				},
+				{
+					"name": "Internal Server Error",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "7556",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+				}
+			]
+		},
+		{
+			"name": "create flashcard",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"front\": \"Hello 1\",\r\n    \"back\": \"Hi 1\",\r\n    \"category\": \"68b900e4d4c4d9695d97249d\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/flashcard/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"flashcard",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update flashcard",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"front\": \"Hello 2\",\r\n    \"back\": \"Hi\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/flashcard/68b945d867a2181212a09019",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"flashcard",
+						"68b945d867a2181212a09019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete flashcard",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/flashcard/68b94b10e93644f378b442e0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"flashcard",
+						"68b94b10e93644f378b442e0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTY5NzYyODcsImV4cCI6MTc1Njk3ODA4N30.lyWANuFbc9h9ZBGk-EHfQrDwH0uKaRetDHJ3Z6vRqarQoUn4EbZ7GbdnOdZpjCT8o3nvMIOo273hxhrGV8Wgog",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8099"
+		},
+		{
+			"key": "access_token",
+			"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTY5NzAyMTEsImV4cCI6MTc1Njk3MjAxMX0.u1ZQpNxNp65xiMP-IFxumYrm8jv8NEZC18LncPwoxboHSG4_zt2iE2A3dklYuZ-jEvC1YfRQyR-zMNs8yiN9hg"
 		}
 	]
 }
