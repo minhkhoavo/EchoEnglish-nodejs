@@ -6,6 +6,7 @@ import { OtpEmailService } from "~/services/OtpEmailService";
 import UserService from "~/services/UserService";
 import { OtpPurpose } from "~/enum/otp_purpose";
 import {authService} from "../services/AuthService"
+import { ApiError } from "~/middleware/api_error";
 
 const otpEmailService = new OtpEmailService();
 const userService = new UserService();
@@ -80,11 +81,11 @@ class AuthenticationController {
                 res.status(200).json(new ApiResponse(SuccessMessage.PASSWORD_RESET_SUCCESS));
             })
             .catch((err: any) => {
-                res.status(400).json({ error: err.message });
+                res.status(400).json(new ApiError(err));
             });
         })
         .catch((err: any) => {
-            res.status(400).json({ error: err.message });
+            res.status(400).json(new ApiError(err));
         });
     }
 }

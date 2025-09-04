@@ -4,6 +4,7 @@ import { UserCreateRequest } from "~/dto/request/iam/UserCreateRequest";
 import ApiResponse from "~/dto/response/ApiResponse";
 import { SuccessMessage } from "~/enum/success_message";
 import { ErrorMessage } from "~/enum/error_message";
+import { ApiError } from "~/middleware/api_error";
 
 class UserController {
     public userService = new UserService();
@@ -36,7 +37,7 @@ class UserController {
             res.status(200).json(new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS,user));
         })
         .catch((err: any) => {
-            res.status(400).json(new ApiResponse(ErrorMessage.UPDATE_USER_FAIL));
+            res.status(400).json(new ApiError(ErrorMessage.UPDATE_USER_FAIL));
         });
     }
 
@@ -49,7 +50,7 @@ class UserController {
             res.status(200).json(new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, user));
         })
         .catch((err: any) => {
-            res.status(400).json(new ApiResponse(ErrorMessage.UPDATE_USER_FAIL));
+            res.status(400).json(new ApiError(ErrorMessage.UPDATE_USER_FAIL));
         });
     }
 
@@ -61,7 +62,7 @@ class UserController {
             res.status(200).json(new ApiResponse(SuccessMessage.DELETE_USER_SUCCESS));
         })
         .catch((err: any) => {
-            res.status(400).json(new ApiResponse(ErrorMessage.DELETE_USER_FAIL));
+            res.status(400).json(new ApiError(ErrorMessage.DELETE_USER_FAIL));
         });
     }
 
