@@ -1,6 +1,7 @@
 import { Schema, model, InferSchemaType, Types, models } from "mongoose";
 import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./baseEntity";
 
+/* Flashcard model */
 const flashcardSchema = new Schema(
   {
     front: {
