@@ -16,6 +16,7 @@ const PUBLIC_ENDPOINTS = [
   "/auth/reset-password",
   "/api-docs",
   "/api/users/**",
+  "/tests/",
   "/tests/**"
 ];
 
