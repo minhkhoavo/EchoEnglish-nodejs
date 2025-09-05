@@ -10,30 +10,28 @@ const SECRET_KEY = process.env.JWT_SECRETKEY!;
 /* 
   ví dụ /api/users/** : cho phep tat ca sau path nay
         /api/users/* : cho phep ngoai tru /
-
+  method: ALL, POST, GET, ...
 */
-const PUBLIC_ENDPOINTS = [
-  "/auth/login",
-  "/auth/introspect", 
-  "/auth/register",
-  "/auth/verify-register-otp/**",
-  "/auth/forgot-password",
-  "/auth/reset-password",
-  "/api-docs",
-  "/api/users/**",
-  "/tests/",
-  "/tests/**",
-  "/category-flashcard/test",
+
+const PUBLIC_ENDPOINTS: { methods: string[], path: string }[] = [
+  { methods: ["POST"], path: "/auth/login" },
+  { methods: ["POST"], path: "/auth/register" },
+  { methods: ["POST"], path: "/auth/verify-register-otp" },
+  { methods: ["POST"], path: "/auth/forgot-password" },
+  { methods: ["POST"], path: "/auth/reset-password" },
+  { methods: ["ALL"],  path: "/api/users/**" },   
+  { methods: ["GET"],  path: "/tests/" },
+  { methods: ["GET"], path: "/tests/**" },
+  { methods: ["GET"],  path: "/category-flashcard/test/**" }, 
 ];
 
-
+/* kiem tra PUBLIC_ENPOINT.path match req.path */
 function matchesPattern(pattern: string, path: string): boolean {
   /* xử lý /api/user/**  */
   if (pattern.endsWith('/**')) {
     const base = pattern.slice(0, -3); 
     return path.startsWith(base);
   }
-
   /* xử lý /api/user/*  */
   const regexPattern = pattern
     .replace(/\*/g, '[^/]*') 
@@ -42,14 +40,18 @@ function matchesPattern(pattern: string, path: string): boolean {
   return regex.test(path);
 }
 
-// Kiểm tra xem path có phải là public endpoint không
-function isPublicEndpoint(path: string): boolean {
-  return PUBLIC_ENDPOINTS.some(pattern => matchesPattern(pattern, path));
+// Kiểm tra xem path thuoc public endpoint 
+function isPublicEndpoint(method: string,path: string): boolean {
+  return PUBLIC_ENDPOINTS.some(entry => {
+    /* kiem tra method duoc phep */
+    const methodMatch = entry.methods.includes("ALL") || entry.methods.includes(method);
+    return methodMatch && matchesPattern(entry.path, path);
+  })
 }
 
 //globalAuth
 export function globalAuth(req: Request, res: Response, next: NextFunction){
-  if(isPublicEndpoint(req.path)){
+  if(isPublicEndpoint(req.method, req.path)){
     return next();
   }
   return authenticateJWT(req, res, next);
