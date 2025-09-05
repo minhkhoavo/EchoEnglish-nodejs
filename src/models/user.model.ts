@@ -2,7 +2,7 @@ import "./role.model";
 import { Schema, model, InferSchemaType, Types, models  } from "mongoose";
 import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./baseEntity";
 import { Gender } from "~/enum/gender";
-import { validateDob } from "~/utils/validation/validateDob";
+import { validateDob } from "~/utils/validation/validate";
 
 // Kết hợp baseEntitySchema vào userSchema bằng cách dùng .add()
 const userSchema = new Schema(
@@ -29,7 +29,7 @@ const userSchema = new Schema(
       required: [true, "EMAIL_REQUIRED"],
       unique: true,
       lowercase: true,
-      match: [/^\S+@\S+\.\S+$/, "EMAIL_INVALID"],
+      match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "EMAIL_INVALID"],
     },
     password: {
       type: String,

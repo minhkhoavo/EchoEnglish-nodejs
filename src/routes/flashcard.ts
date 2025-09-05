@@ -9,6 +9,7 @@ const router = Router();
 
 // Tạo user
 router.post('/create',FlashcardController.createFlashcard);
+router.get('/',FlashcardController.getAllFlashcard);
 router.get('/by-category/:cateId', FlashcardController.getFlashcardByCategory);
 router.put('/:id', isOwn(Flashcard), FlashcardController.updateFlashcard);
 router.delete('/:id', isOwn(Flashcard), FlashcardController.deleteFlashcard);
