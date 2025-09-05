@@ -14,7 +14,6 @@ const flashcardSchema = new Schema(
       required: [true, "BACK_REQUIRED"],
       trim: true,
     },
-    // category reference -> CategoryFlashcard
     category: {
       type: Schema.Types.ObjectId,
       ref: "CategoryFlashcard",

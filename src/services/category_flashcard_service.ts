@@ -35,7 +35,6 @@ class CategoryFlashcardService{
         return category;
     }
 
-    // Tim category chu bi xoa thi xoa
     async deleteCategory(id: string) {
         const category = await CategoryFlashcard.findByIdAndDelete(id);
 

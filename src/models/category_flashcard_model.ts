@@ -18,7 +18,6 @@ const categoryFlashcardSchema = new Schema(
   { timestamps: false }
 );
 
-// thêm base entity
 categoryFlashcardSchema.add(baseEntitySchema.obj);
 applyBaseEntityMiddleware(categoryFlashcardSchema);
 

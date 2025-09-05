@@ -8,7 +8,6 @@ import { Flashcard, FlashcardType } from "~/models/flashcard_model";
 import { User } from "~/models/user_model";
 
 class FlashCardService {
-    // Hàm tạo flashcard
     public createFlashcard = async(request: Partial<FlashcardType>, userId: string) => {
         try {
             const newFlashcard = new Flashcard({
@@ -30,7 +29,6 @@ class FlashCardService {
         }
     }
 
-    // Hàm cập nhật thông tin flashcard
     public updateFlashcard = async (flascardId: string, request: Partial<FlashcardType>, userId: string) => {
         try {
             const flashcard = await Flashcard.findOneAndUpdate({_id: flascardId, isDeleted: false},request,{new: true, userId: userId}).select("-isDeleted -createBy -updateBy -__v");
@@ -43,7 +41,6 @@ class FlashCardService {
         }
     }
 
-    // Hàm xóa flashcard
     public deleteFlashcard = async (flashcardId: string) => {
         try{
             const result = await Flashcard.deleteOne({ _id: flashcardId });
@@ -57,7 +54,6 @@ class FlashCardService {
         }
     }
 
-    // Hàm lấy flashcard theo category_id
     public getFlashcardByCategoryId = async (cateId: string, page: number, limit: number) => {
         try {
 
@@ -92,7 +88,6 @@ class FlashCardService {
         }
     };
 
-    // Hàm lấy tất cả flashcard theo userId
     public getAllFlashcard = async (userId: string) => {
         try{
             const user = User.findOne({_id: userId});
@@ -121,7 +116,6 @@ class FlashCardService {
         }
     }
 
-    //Hàm lấy tất cả flashcard
     
 }
 

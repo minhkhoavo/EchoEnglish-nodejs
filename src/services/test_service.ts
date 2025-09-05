@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
+import { ApiError } from '~/middleware/api_error';
+import { ErrorMessage } from '~/enum/error_message';
 
 class TestService {
     private async getDb() {
         if (mongoose.connection.readyState !== 1) {
-            throw new Error('Database not connected');
+            throw new ApiError(ErrorMessage.INTERNAL_ERROR);
         }
         return mongoose.connection.db!;
     }
@@ -23,7 +25,6 @@ class TestService {
     public async getTestByPart(testId: string, partNumber: number) {
         const db = await this.getDb();
         
-        // Aggregate to get only the specific part
         const result = await db.collection('tests').aggregate([
             { $match: { testId: testId } },
             {

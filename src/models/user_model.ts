@@ -4,7 +4,6 @@ import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./base_
 import { Gender } from "~/enum/gender";
 import { validateDob } from "~/utils/validation/validate";
 
-// Kết hợp baseEntitySchema vào userSchema bằng cách dùng .add()
 const userSchema = new Schema(
   {
     fullName: {
@@ -57,13 +56,10 @@ const userSchema = new Schema(
   { timestamps: false }
 );
 
-// Thêm các trường baseEntity vào userSchema
 userSchema.add(baseEntitySchema.obj);
 
-// Áp dụng middleware cho updateAt
 applyBaseEntityMiddleware(userSchema);
 
-// Tự động sinh type User từ schema
 export type UserType = InferSchemaType<typeof userSchema> & BaseEntity & {_id: Types.ObjectId;};
 export const User =  models.User || model<UserType>("User", userSchema);
 

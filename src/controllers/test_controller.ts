@@ -33,7 +33,6 @@ class TestController {
             const { testId, partNumber } = req.params;
             const partNum = parseInt(partNumber);
 
-            // Validate part number
             if (isNaN(partNum) || partNum < 1 || partNum > 7) {
                 res.status(400).json({ message: 'Invalid part number. Must be between 1 and 7.' });
                 return;

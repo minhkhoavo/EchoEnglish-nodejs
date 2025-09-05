@@ -1,11 +1,9 @@
 import { Router, Request, Response } from "express";
 import CategoryFlashcardController from "../controllers/category_flashcard_controller";
 
-// Các route của user
 const router = Router();
 const categoryCtrl = new CategoryFlashcardController();
 
-// CategoryFlashcard routes
 /* Test public enpoint */
 router.get("/test/:id/:key", (req: Request, res: Response)=>{
     res.status(200).json({success: `${req.params.id} success, ${req.params.key}`});

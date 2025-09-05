@@ -15,7 +15,6 @@ class UserController {
         return res.status(200).json(new ApiResponse('success', user))
     }
 
-    // Hàm tạo user
     public  createUser = async (req: Request, res: Response, next: NextFunction) => {
         
         const userDto = new UserCreateRequest(req.body);
@@ -28,7 +27,6 @@ class UserController {
         });
     }
 
-    // Hàm cập nhật user
     public updateUser = async (req: Request, res: Response, next: NextFunction) => {
         const userId = req.params.id;
         const updateData = req.body;
@@ -41,7 +39,6 @@ class UserController {
         });
     }
 
-    // Hàm cập nhật thông tin user
     public updateProfileUser = async (req: Request, res: Response, next: NextFunction) => {
         const userId = req.params.id;
         const updateData = req.body;
@@ -54,7 +51,6 @@ class UserController {
         });
     }
 
-    // Hàm xóa mềm user
     public softDeleteUser = async (req: Request, res: Response, next: NextFunction) => {
         const userId = req.params.id;
         await this.userService.softDelete(userId)

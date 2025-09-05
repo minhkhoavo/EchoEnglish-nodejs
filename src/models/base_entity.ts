@@ -19,7 +19,6 @@ const baseEntitySchema = new Schema(
 export type BaseEntity = InferSchemaType<typeof baseEntitySchema>;
 export { baseEntitySchema };
 
-// Middleware để update updateAt trước khi save
 export function applyBaseEntityMiddleware(schema: Schema) {
   schema.pre("save", function (next) {
     const userId = (this as any)._userId;

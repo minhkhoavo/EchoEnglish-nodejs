@@ -17,12 +17,10 @@ class UserService {
     return await User.findOne({ _id: id, isDeleted: false});
   }
   
-  //get thong tin 
   public getProfile = async (email: string) => {
     return await User.findOne({email});
   }
 
-  // Hàm đăng ký user
   public registerUser = async (userDto: UserCreateRequest) => {
   return User.findOne({ email: userDto.email })
     .then((existUser) => {
@@ -31,14 +29,12 @@ class UserService {
           if (existUser.isDeleted === false) {
             throw new ApiError(ErrorMessage.USER_EXISTED);
           }
-          // user chưa active → gửi OTP mới
           return otpService.sendOtp(existUser.email, OtpPurpose.REGISTER).then(() => User.populate(existUser, {
               path: "roles",
               populate: { path: "permissions" }
             }));
         }
 
-        // lấy role USER trong DB
         return Role.findOne({ name: RoleName.USER })
           .populate("permissions")
           .exec()
@@ -47,7 +43,6 @@ class UserService {
               throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
             }
 
-            // tạo user mới
             const user = new User({
               fullName: userDto.fullName,
               email: userDto.email,
@@ -65,7 +60,6 @@ class UserService {
           });
       })
       .then((savedUser) => {
-            // gửi OTP lần đầu
             return otpService.sendOtp(savedUser.email, OtpPurpose.REGISTER)
               .then(() => User.populate(savedUser, {
                 path: "roles",
@@ -78,7 +72,6 @@ class UserService {
     });
   }
   
-  // Hàm tạo user
   public createUser = async (userDto: UserCreateRequest) => {
     return this.hashPassword(userDto.password)
       .then((hashPassword) => {
@@ -87,7 +80,6 @@ class UserService {
             if (existUser.isDeleted === false) {
               throw new ApiError(ErrorMessage.USER_EXISTED);
             }
-            // Nếu user đã bị xóa mềm, active lại user này
             existUser.isDeleted = false;
             existUser.password = hashPassword;
             return existUser.save();
@@ -127,14 +119,12 @@ class UserService {
       });
   }
 
-  // Hàm băm mật khẩu bcrypt
   public hashPassword = async (password: string): Promise<string> => {
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
     return bcrypt.hashSync(password, salt);
   }
 
-  // Hàm đặt lại mật khẩu
   public resetPassword = async (email: string, newPassword: string) => {
 
     return User.findOne({ email: email, isDeleted: false })
@@ -152,12 +142,10 @@ class UserService {
       });
   }
 
-  // Hàm cập nhật user
   public updateUser = async (userId: string, request: Partial<UserType>) => {
     try{
       const user = await User.findOneAndUpdate({ _id: userId, isDeleted: false}, request, { new: true })
                               .select("-password -isDeleted -__v");
-      console.log(user);
       if(!user){
         throw new ApiError(ErrorMessage.USER_NOT_FOUND);
       }
@@ -191,12 +179,10 @@ class UserService {
   }
 }
 
-  // Hàm cập nhật thông tin user
   public updateProfileUser = async (userId: string, request: Partial<UserType>) => {
     try{
       const user = await User.findOneAndUpdate({ _id: userId, isDeleted: false}, request, { new: true })
                               .select("-password -roles -isDeleted -__v"); // options { new: true } để trả về document mới nhất (sau khi update)
-      console.log(user);
       if(!user){
         throw new ApiError(ErrorMessage.USER_NOT_FOUND);
       }
@@ -216,7 +202,6 @@ class UserService {
     }
   }
 
-  // Hàm xóa mềm user
   public softDelete = async (userId: string) => {
     try{
       await User.findByIdAndUpdate(userId, {isDeleted: true} , {new: true});

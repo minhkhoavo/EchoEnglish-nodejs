@@ -21,14 +21,12 @@ class AuthenticationController {
         return res.status(200).json(new ApiResponse("Success", await userService.getProfile(email)))
     }
 
-    //ham login
     public loginUser = async (req: Request, res: Response)=>{
         const {email, password} = req.body;
         const result = await authService.login(email, password);
         return res.status(200).json(new ApiResponse('success', result));
     }
 
-    // Hàm đăng ký user
     public registerUser = async (req: Request, res: Response, next: NextFunction) => {
         const userDto = new UserCreateRequest(req.body);
         userService.registerUser(userDto)
@@ -40,7 +38,6 @@ class AuthenticationController {
         });
     }
 
-    // Hàm xác thực OTP đăng ký
     public verifyRegisterOtp = async (req: Request, res: Response, next: NextFunction) => {
         await otpEmailService.verifyOtp(req.body.email, req.body.otp, OtpPurpose.REGISTER)
         .then((result) => {
@@ -56,7 +53,6 @@ class AuthenticationController {
 
     }
 
-    // Hàm quên mật khẩu
     public forgotPassword = async (req: Request, res: Response, next: NextFunction) => {
         await otpEmailService.sendOtp(req.body.email, OtpPurpose.FORGOT_PASSWORD)
         .then(() => {
@@ -67,15 +63,12 @@ class AuthenticationController {
         });
     }
 
-    // Hàm đặt lại mật khẩu
     public resetPassword = async (req: Request, res: Response, next: NextFunction) => {
-        // Xác thực OTP
         await otpEmailService.verifyOtp(req.body.email, req.body.otp, OtpPurpose.FORGOT_PASSWORD)
         .then(async (isValid) => {
             if (!isValid) {
                 return res.status(400).json(new ApiResponse(SuccessMessage.OTP_INVALID_OR_EXPIRED));
             }
-            // Đặt lại mật khẩu
             await userService.resetPassword(req.body.email, req.body.newPassword)
             .then(() => {
                 res.status(200).json(new ApiResponse(SuccessMessage.PASSWORD_RESET_SUCCESS));

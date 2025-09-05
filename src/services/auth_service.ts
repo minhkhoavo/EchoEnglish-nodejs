@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User, UserType  } from "../models/user_model";
+import { ApiError } from '~/middleware/api_error';
+import { ErrorMessage } from '~/enum/error_message';
 
 class AuthService{
   public SECRET_KEY = process.env.JWT_SECRETKEY!;
@@ -8,12 +10,12 @@ class AuthService{
   public login = async (email: string, password: string)=>{
     const user = await User.findOne({email: email, isDeleted: false});
     if(!user){
-      throw new Error("USER_NOT_EXISTED");
+      throw new ApiError(ErrorMessage.USER_NOT_FOUND);
     };
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      throw new Error("UNAUTHENTICATED");
+      throw new ApiError(ErrorMessage.UNAUTHORIZED);
     }
 
     const token = this.generateToken(user);
@@ -21,7 +23,6 @@ class AuthService{
     
   }
 
-  //tao token
   public generateToken = (user: UserType)=>{
     const scopes: string[] = [];
 
