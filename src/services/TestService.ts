@@ -19,6 +19,41 @@ class TestService {
         const test = await db.collection('tests').findOne({ testId: testId });
         return test;
     }
+
+    public async getTestByPart(testId: string, partNumber: number) {
+        const db = await this.getDb();
+        
+        // Aggregate to get only the specific part
+        const result = await db.collection('tests').aggregate([
+            { $match: { testId: testId } },
+            {
+                $project: {
+                    _id: 1,
+                    testId: 1,
+                    testTitle: 1,
+                    resultId: 1,
+                    parts: {
+                        $filter: {
+                            input: "$parts",
+                            as: "part",
+                            cond: { $eq: ["$$part.partName", `Part ${partNumber}`] }
+                        }
+                    }
+                }
+            }
+        ]).toArray();
+
+        if (result.length === 0) {
+            return null;
+        }
+
+        const test = result[0];
+        if (test.parts.length === 0) {
+            return null; // Part not found
+        }
+
+        return test;
+    }
 }
 
 export default new TestService();

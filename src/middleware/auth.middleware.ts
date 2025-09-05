@@ -16,7 +16,6 @@ const PUBLIC_ENDPOINTS = [
   "/auth/reset-password",
   "/api-docs",
   "/api/users/**",
-  "/tests/",
   "/tests/**"
 ];
 
@@ -25,13 +24,22 @@ function matchesPattern(pattern: string, path: string): boolean {
   // Nếu pattern kết thúc bằng /** thì match luôn cả path gốc không có /
   if (pattern.endsWith('/**')) {
     const base = pattern.slice(0, -3); // bỏ /**
-    if (path === base) return true;
+    if (path === base || path.startsWith(base + '/')) {
+      return true;
+    }
   }
+  
+  // Exact match
+  if (pattern === path) {
+    return true;
+  }
+  
   // Chuyển pattern Spring-style thành regex
   const regexPattern = pattern
     .replace(/\*\*/g, '.*')  // ** = match bất kỳ ký tự nào (bao gồm /)
     .replace(/\*/g, '[^/]*') // * = match bất kỳ ký tự nào trừ /
     .replace(/\//g, '\\/');  // Escape dấu / để dùng trong regex pattern
+  
   const regex = new RegExp(`^${regexPattern}$`);
   return regex.test(path);
 }
@@ -43,7 +51,10 @@ function isPublicEndpoint(path: string): boolean {
 
 //globalAuth
 export function globalAuth(req: Request, res: Response, next: NextFunction){
-  if(isPublicEndpoint(req.path)){
+  // Sử dụng req.originalUrl nhưng bỏ query parameters
+  const fullPath = req.originalUrl.split('?')[0];
+  
+  if(isPublicEndpoint(fullPath)){
     return next();
   }
   return authenticateJWT(req, res, next);
