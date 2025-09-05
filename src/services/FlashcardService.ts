@@ -87,7 +87,7 @@ class FlashCardService {
         }
     };
 
-    // Hàm lấy tất cả flashcard
+    // Hàm lấy tất cả flashcard theo userId
     public getAllFlashcard = async (userId: string) => {
         try{
             const flashcard = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
@@ -111,6 +111,9 @@ class FlashCardService {
             throw new ApiError(ErrorMessage.NOTFOUND);
         }
     }
+
+    //Hàm lấy tất cả flashcard
+    
 }
 
 export default new FlashCardService();
