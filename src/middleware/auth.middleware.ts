@@ -7,6 +7,11 @@ import { ApiError } from "./api_error";
 
 const SECRET_KEY = process.env.JWT_SECRETKEY!;
 
+/* 
+  ví dụ /api/users/** : cho phep tat ca sau path nay
+        /api/users/* : cho phep ngoai tru /
+
+*/
 const PUBLIC_ENDPOINTS = [
   "/auth/login",
   "/auth/introspect", 
@@ -21,15 +26,17 @@ const PUBLIC_ENDPOINTS = [
   "/category-flashcard/test",
 ];
 
+
 function matchesPattern(pattern: string, path: string): boolean {
+  /* xử lý /api/user/**  */
   if (pattern.endsWith('/**')) {
     const base = pattern.slice(0, -3); 
     return path.startsWith(base);
   }
 
+  /* xử lý /api/user/*  */
   const regexPattern = pattern
-    .replace(/\*\*/g, '.*')  // ** = match bất kỳ ký tự nào (bao gồm /) ; ví dụ /api/users/**
-    .replace(/\*/g, '[^/]*') // * = match bất kỳ ký tự nào trừ / ; ví dụ /api/users/*
+    .replace(/\*/g, '[^/]*') 
     .replace(/\//g, '\\/'); 
   const regex = new RegExp(`^${regexPattern}$`);
   return regex.test(path);
