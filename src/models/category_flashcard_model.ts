@@ -1,5 +1,5 @@
 import { Schema, model, InferSchemaType, Types, models } from "mongoose";
-import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./baseEntity";
+import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./base_entity";
 
 
 /* Category Flashcard Schema */

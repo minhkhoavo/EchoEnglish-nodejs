@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import TestService from '../services/TestService';
+import TestService from '../services/test_service';
 
 class TestController {
     public async getAllTests(req: Request, res: Response): Promise<void> {

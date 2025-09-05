@@ -1,6 +1,6 @@
-import "./role.model";
+import "./role_model";
 import { Schema, model, InferSchemaType, Types, models  } from "mongoose";
-import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./baseEntity";
+import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./base_entity";
 import { Gender } from "~/enum/gender";
 import { validateDob } from "~/utils/validation/validate";
 
