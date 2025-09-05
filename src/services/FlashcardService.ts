@@ -1,8 +1,11 @@
 import { error } from "console";
 import { Types } from "mongoose";
+import { throwDeprecation } from "process";
 import { ErrorMessage } from "~/enum/error_message";
 import { ApiError } from "~/middleware/api_error";
+import { CategoryFlashcard } from "~/models/category_flashcard.model";
 import { Flashcard, FlashcardType } from "~/models/flashcard.model";
+import { User } from "~/models/user.model";
 
 class FlashCardService {
     // Hàm tạo flashcard
@@ -57,8 +60,10 @@ class FlashCardService {
     // Hàm lấy flashcard theo category_id
     public getFlashcardByCategoryId = async (cateId: string, page: number, limit: number) => {
         try {
-            if (!Types.ObjectId.isValid(cateId)) {
-                throw new ApiError(ErrorMessage.INVALID_ID);
+
+            const category = await CategoryFlashcard.findOne({_id: cateId});
+            if(!category){
+                throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
             }
 
             const skip = (page - 1) * limit;
@@ -83,13 +88,17 @@ class FlashCardService {
             };
         } 
         catch (err: any) {
-            throw new ApiError(ErrorMessage.INVALID_ID);
+            throw new ApiError(err);
         }
     };
 
     // Hàm lấy tất cả flashcard theo userId
     public getAllFlashcard = async (userId: string) => {
         try{
+            const user = User.findOne({_id: userId});
+            if(!user){
+                throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+            }
             const flashcard = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
 
             if (!flashcard || flashcard.length === 0) {
@@ -108,7 +117,7 @@ class FlashCardService {
             }));
         }
         catch(err: any){
-            throw new ApiError(ErrorMessage.NOTFOUND);
+            throw new ApiError(err);
         }
     }
 
