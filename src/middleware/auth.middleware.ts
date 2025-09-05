@@ -17,21 +17,20 @@ const PUBLIC_ENDPOINTS = [
   "/api-docs",
   "/api/users/**",
   "/tests/",
-  "/tests/**"
+  "/tests/**",
+  "/category-flashcard/test",
 ];
 
-// Pattern matching giống Spring Security
 function matchesPattern(pattern: string, path: string): boolean {
-  // Nếu pattern kết thúc bằng /** thì match luôn cả path gốc không có /
   if (pattern.endsWith('/**')) {
-    const base = pattern.slice(0, -3); // bỏ /**
-    if (path === base) return true;
+    const base = pattern.slice(0, -3); 
+    return path.startsWith(base);
   }
-  // Chuyển pattern Spring-style thành regex
+
   const regexPattern = pattern
-    .replace(/\*\*/g, '.*')  // ** = match bất kỳ ký tự nào (bao gồm /)
-    .replace(/\*/g, '[^/]*') // * = match bất kỳ ký tự nào trừ /
-    .replace(/\//g, '\\/');  // Escape dấu / để dùng trong regex pattern
+    .replace(/\*\*/g, '.*')  // ** = match bất kỳ ký tự nào (bao gồm /) ; ví dụ /api/users/**
+    .replace(/\*/g, '[^/]*') // * = match bất kỳ ký tự nào trừ / ; ví dụ /api/users/*
+    .replace(/\//g, '\\/'); 
   const regex = new RegExp(`^${regexPattern}$`);
   return regex.test(path);
 }
