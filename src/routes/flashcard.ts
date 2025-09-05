@@ -14,5 +14,4 @@ router.get('/by-category/:cateId', FlashcardController.getFlashcardByCategory);
 router.put('/:id', isOwn(Flashcard), FlashcardController.updateFlashcard);
 router.delete('/:id', isOwn(Flashcard), FlashcardController.deleteFlashcard);
 
-
 export default router;
