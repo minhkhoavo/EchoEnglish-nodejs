@@ -6,7 +6,7 @@ import { Flashcard, FlashcardType } from "~/models/flashcard.model";
 
 class FlashCardService {
     // Hàm tạo flashcard
-    public createFlashcard = async(request: Partial<FlashcardType>, userEmail: string) => {
+    public createFlashcard = async(request: Partial<FlashcardType>, userId: string) => {
         try {
             const newFlashcard = new Flashcard({
                 front: request.front,
@@ -18,7 +18,7 @@ class FlashCardService {
                 isAIGenerated: request.isAIGenerated ?? false,
             });
 
-            (newFlashcard as any)._userEmail = userEmail;
+            (newFlashcard as any)._userId = userId;
 
             return newFlashcard.save();
         }
@@ -28,9 +28,9 @@ class FlashCardService {
     }
 
     // Hàm cập nhật thông tin flashcard
-    public updateFlashcard = async (flascardId: string, request: Partial<FlashcardType>, userEmail: string) => {
+    public updateFlashcard = async (flascardId: string, request: Partial<FlashcardType>, userId: string) => {
         try {
-            const flashcard = await Flashcard.findOneAndUpdate({_id: flascardId, isDeleted: false},request,{new: true, userEmail: userEmail}).select("-isDeleted -createBy -updateBy -__v");
+            const flashcard = await Flashcard.findOneAndUpdate({_id: flascardId, isDeleted: false},request,{new: true, userId: userId}).select("-isDeleted -createBy -updateBy -__v");
             if(!flashcard)
                 throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
             return flashcard;
@@ -41,11 +41,13 @@ class FlashCardService {
     }
 
     // Hàm xóa flashcard
-    public softDeleteFlashcard = async (flashcardId: string, userEmail: string) => {
+    public deleteFlashcard = async (flashcardId: string) => {
         try{
-            const flashcard = await Flashcard.findByIdAndUpdate(flashcardId, {isDeleted: true}, {new: true, userEmail: userEmail});
-            if(!flashcard)
+            const result = await Flashcard.deleteOne({ _id: flashcardId });
+
+            if (result.deletedCount === 0) {
                 throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+            }
         }
         catch(err: any){
             throw new ApiError(ErrorMessage.DELETE_FLASHCARD_FAIL);
@@ -84,6 +86,31 @@ class FlashCardService {
             throw new ApiError(ErrorMessage.INVALID_ID);
         }
     };
+
+    // Hàm lấy tất cả flashcard
+    public getAllFlashcard = async (userId: string) => {
+        try{
+            const flashcard = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
+
+            if (!flashcard || flashcard.length === 0) {
+                throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+            }
+
+            return flashcard.map(fc => ({
+                id: fc._id,
+                front: fc.front,
+                back: fc.back,
+                category: fc.category,
+                difficulty: fc.difficulty,
+                tags: fc.tags,
+                source: fc.source,
+                isAIGenerated: fc.isAIGenerated
+            }));
+        }
+        catch(err: any){
+            throw new ApiError(ErrorMessage.NOTFOUND);
+        }
+    }
 }
 
 export default new FlashCardService();

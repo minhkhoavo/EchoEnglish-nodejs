@@ -22,18 +22,18 @@ export { baseEntitySchema };
 // Middleware để update updateAt trước khi save
 export function applyBaseEntityMiddleware(schema: Schema) {
   schema.pre("save", function (next) {
-    const userEmail = (this as any)._userEmail;
-    if (this.isNew && userEmail) {
-      this.set("createBy", userEmail);
+    const userId = (this as any)._userId;
+    if (this.isNew && userId) {
+      this.set("createBy", userId);
     }
-    this.set("updateBy", userEmail);
+    this.set("updateBy", userId);
     next();
   });
 
   schema.pre(["updateOne", "findOneAndUpdate"], function (next: any) {
-    const userEmail = (this as any).getOptions().userEmail; 
-    if (userEmail) {
-      this.set("updateBy", userEmail);
+    const userId = (this as any).getOptions().userId; 
+    if (userId) {
+      this.set("updateBy", userId);
     }
     next();
   });

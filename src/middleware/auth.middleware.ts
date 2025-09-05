@@ -91,26 +91,24 @@ export function hasAuthority(...roles: string[]){
 
 export function isOwn(model: Model<any>, idParam: string = "id") {
   return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userEmail = req.user?.email; // Lấy email từ request
-      if (!userEmail) {
-        throw new ApiError(ErrorMessage.UNAUTHORIZED);
-      }
-
-      const docId = req.params[idParam];
-      const doc = await model.findById(docId).select("createBy");
-
-      if (!doc) {
-        throw new ApiError(ErrorMessage.NOTFOUND);
-      }
-
-      if (doc.createBy !== userEmail) { // So sánh với email
-        throw new ApiError(ErrorMessage.PERMISSION_DENIED);
-      }
-
-      next();
-    } catch (err) {
-      throw new ApiError(ErrorMessage.INTERNAL_ERROR);
+    const userId = req.user?.id;
+    console.log(userId); // Lấy id từ request
+    if (!userId) {
+      throw new ApiError(ErrorMessage.UNAUTHORIZED);
     }
+
+    const docId = req.params[idParam];
+    const doc = await model.findById(docId).select("createBy");
+
+    if (!doc) {
+      throw new ApiError(ErrorMessage.NOTFOUND);
+    }
+
+    if (doc.createBy !== userId) {
+      throw new ApiError(ErrorMessage.PERMISSION_DENIED);
+    }
+
+    next();
+    
   };
 }

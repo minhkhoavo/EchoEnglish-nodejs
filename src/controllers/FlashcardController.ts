@@ -8,25 +8,24 @@ import FlashCardService from '~/services/FlashcardService';
 class FlashcardController{
     // Hàm tạo flashcard
     public createFlashcard = async (req: Request, res: Response) => {
-        const userEmail = req.user?.email!;
-        console.log(userEmail);
-        const flashcard = await FlashCardService.createFlashcard(req.body, userEmail);
+        const userId = req.user?.id!;
+        console.log(userId);
+        const flashcard = await FlashCardService.createFlashcard(req.body, userId);
         return res.status(200).json(new ApiResponse(SuccessMessage.CREATE_FLASHCARD_SUCCESS, flashcard));
     }
 
     // Hàm cập nhật flashcard
     public updateFlashcard = async (req: Request, res: Response) => {
-         const userEmail = req.user?.email!;
+        const userId = req.user?.id!;
         const flashcardId = req.params.id;
-        const flashcard = await FlashCardService.updateFlashcard(flashcardId, req.body, userEmail);
+        const flashcard = await FlashCardService.updateFlashcard(flashcardId, req.body, userId);
         return res.status(200).json(new ApiResponse(SuccessMessage.UPDATE_FLASHCARD_SUCCESS, flashcard));
     }
 
     // Hàm xóa flashcard
     public deleteFlashcard = async (req: Request, res: Response) => {
-         const userEmail = req.user?.email!;
         const flascardId = req.params.id;
-        await FlashCardService.softDeleteFlashcard(flascardId, userEmail);
+        await FlashCardService.deleteFlashcard(flascardId);
         return res.status(200).json(new ApiResponse(SuccessMessage.DELETE_USER_SUCCESS));
     }
 
@@ -38,10 +37,13 @@ class FlashcardController{
 
         const result = await FlashCardService.getFlashcardByCategoryId(cateId, page, limit);
 
-        if (!result.flashcards || result.flashcards.length === 0) {
-            return res.status(404).json(new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND));
-        }
+        return res.status(200).json(new ApiResponse("Success", result));
+    }
 
+    public getAllFlashcard = async (req: Request, res: Response) => {
+        const userId = req.user?.id!;
+        console.log(userId);
+        const result = await FlashCardService.getAllFlashcard(userId);
         return res.status(200).json(new ApiResponse("Success", result));
     }
 }
