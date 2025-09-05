@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import CategoryFlashcardController from "../controllers/category-flashcard-controller";
+import CategoryFlashcardController from "../controllers/category_flashcard_controller";
 
 // Các route của user
 const router = Router();

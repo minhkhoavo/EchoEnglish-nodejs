@@ -1,8 +1,8 @@
 import { Express } from "express";
 import { Router } from "express";
-import UserController from "~/controllers/UserController";
-import { globalAuth, hasAuthority, isOwn } from "~/middleware/auth.middleware";
-import { User } from "~/models/user.model";
+import UserController from "~/controllers/user_controller";
+import { globalAuth, hasAuthority, isOwn } from "~/middleware/auth_middleware";
+import { User } from "~/models/user_model";
 // Các route của user
 const router = Router();
 const userController = new UserController();

@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
-import ApiResponse from '~/dto/response/ApiResponse';
+import ApiResponse from '~/dto/response/api_response';
 import { ApiError } from './api_error';
 import mongoose from 'mongoose';
 import { ErrorMessage } from '~/enum/error_message';

@@ -1,5 +1,5 @@
 import { Schema, model, InferSchemaType, Types, models } from "mongoose";
-import "./permission.model";
+import "./permission_model";
 const roleSchema = new Schema(
   {
     name: {

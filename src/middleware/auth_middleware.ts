@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { Model } from "mongoose";
-import ApiResponse from "~/dto/response/ApiResponse";
+import ApiResponse from "~/dto/response/api_response";
 import { ErrorMessage } from "~/enum/error_message";
 import { ApiError } from "./api_error";
 

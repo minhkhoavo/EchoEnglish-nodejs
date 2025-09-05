@@ -3,9 +3,9 @@ import { Types } from "mongoose";
 import { throwDeprecation } from "process";
 import { ErrorMessage } from "~/enum/error_message";
 import { ApiError } from "~/middleware/api_error";
-import { CategoryFlashcard } from "~/models/category_flashcard.model";
-import { Flashcard, FlashcardType } from "~/models/flashcard.model";
-import { User } from "~/models/user.model";
+import { CategoryFlashcard } from "~/models/category_flashcard_model";
+import { Flashcard, FlashcardType } from "~/models/flashcard_model";
+import { User } from "~/models/user_model";
 
 class FlashCardService {
     // Hàm tạo flashcard

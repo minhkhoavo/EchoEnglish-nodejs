@@ -1,8 +1,8 @@
 import { OtpPurpose } from "~/enum/otp_purpose";
 import crypto from "crypto";
-import { Otp, OtpType } from "~/models/otp.model";
-import { mailTransporter } from "~/config/configEmail";
-import { User } from "~/models/user.model";
+import { Otp, OtpType } from "~/models/otp_model";
+import { mailTransporter } from "~/config/config_email";
+import { User } from "~/models/user_model";
 import { ErrorMessage } from "~/enum/error_message";
 
 const OTP_EXPIRY_MINUTES = 10;

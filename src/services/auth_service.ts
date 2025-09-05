@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { User, UserType  } from "../models/user.model";
+import { User, UserType  } from "../models/user_model";
 
 class AuthService{
   public SECRET_KEY = process.env.JWT_SECRETKEY!;

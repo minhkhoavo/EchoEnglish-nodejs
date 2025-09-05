@@ -3,7 +3,7 @@ import userRouter from './users';
 import authRouter from './auth';
 import testRouter from './tests'; 
 import flashcardRouter from './flashcard';
-import categoryFlashcardRouter from './category-flashcard';
+import categoryFlashcardRouter from './category_flashcard';
 import { Router } from "express";
 
 
