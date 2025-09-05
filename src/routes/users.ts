@@ -6,11 +6,11 @@ import { User } from "~/models/user_model";
 const router = Router();
 const userController = new UserController();
 
+router.put('/my-profile', userController.updateProfileUser);
 router.post('/create', hasAuthority("ADMIN"), userController.createUser);
 router.get('/:id', userController.getUserById);
 router.delete('/:id', hasAuthority("ADMIN"), userController.softDeleteUser);
 router.put('/:id', hasAuthority("ADMIN"), userController.updateUser);
-router.put('/my-profile/:id', isOwn(User), userController.updateProfileUser);
 
 
 export default router;

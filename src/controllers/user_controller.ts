@@ -40,7 +40,10 @@ class UserController {
     }
 
     public updateProfileUser = async (req: Request, res: Response, next: NextFunction) => {
-        const userId = req.params.id;
+        if (!req.user || !req.user.id) {
+            return res.status(401).json(new ApiError(ErrorMessage.UNAUTHORIZED));
+        }
+        const userId = req.user.id;
         const updateData = req.body;
         await this.userService.updateProfileUser(userId, updateData)
         .then(user => {

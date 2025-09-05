@@ -1,6 +1,5 @@
 import { Schema, model, InferSchemaType, Types, models } from "mongoose";
-import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./base_entity";
-
+import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity, baseEntityNoSoftDelSchema } from "./base_entity";
 
 /* Category Flashcard Schema */
 const categoryFlashcardSchema = new Schema(
@@ -14,11 +13,31 @@ const categoryFlashcardSchema = new Schema(
       type: String,
       trim: true,
     },
+    color: {
+      type: String,
+      default: '#3B82F6',
+      validate: {
+        validator: function(v: string) {
+          return /^#[0-9A-F]{6}$/i.test(v);
+        },
+        message: 'Color must be a valid hex color code (e.g., #3B82F6)'
+      }
+    },
+    icon: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    createBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: false }
 );
 
-categoryFlashcardSchema.add(baseEntitySchema.obj);
+categoryFlashcardSchema.add(baseEntityNoSoftDelSchema.obj);
 applyBaseEntityMiddleware(categoryFlashcardSchema);
 
 export type CategoryFlashcardType = InferSchemaType<typeof categoryFlashcardSchema> &
