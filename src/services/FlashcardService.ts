@@ -23,7 +23,18 @@ class FlashCardService {
 
             (newFlashcard as any)._userId = userId;
 
-            return newFlashcard.save();
+            const savedFlashcard = await newFlashcard.save();
+            console.log(savedFlashcard);
+            return {
+                id: savedFlashcard._id,
+                front: savedFlashcard.front,
+                back: savedFlashcard.back,
+                category: savedFlashcard.category,
+                difficulty: savedFlashcard.difficulty,
+                tags: savedFlashcard.tags,
+                source: savedFlashcard.source,
+                isAIGenerated: savedFlashcard.isAIGenerated
+            }
         }
         catch (err: any) {
             throw new ApiError(ErrorMessage.CREATE_FLASHCARD_FAIL);
