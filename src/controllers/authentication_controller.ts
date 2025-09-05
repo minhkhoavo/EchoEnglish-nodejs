@@ -1,11 +1,11 @@
 import { Request,Response,NextFunction } from "express";
-import { UserCreateRequest } from "~/dto/request/iam/UserCreateRequest";
-import ApiResponse from "~/dto/response/ApiResponse";
+import { UserCreateRequest } from "~/dto/request/iam/user_create_request";
+import ApiResponse from "~/dto/response/api_response";
 import { SuccessMessage } from "~/enum/success_message";
-import { OtpEmailService } from "~/services/OtpEmailService";
-import UserService from "~/services/UserService";
+import { OtpEmailService } from "~/services/otp_email_service";
+import UserService from "~/services/user_service";
 import { OtpPurpose } from "~/enum/otp_purpose";
-import {authService} from "../services/AuthService"
+import {authService} from "../services/auth_service"
 import { ApiError } from "~/middleware/api_error";
 
 const otpEmailService = new OtpEmailService();

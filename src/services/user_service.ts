@@ -1,10 +1,10 @@
-import { UserCreateRequest } from "~/dto/request/iam/UserCreateRequest";
-import { User, UserType } from "../models/user.model";
+import { UserCreateRequest } from "~/dto/request/iam/user_create_request";
+import { User, UserType } from "../models/user_model";
 import bcrypt from "bcrypt";
 import { ErrorMessage } from "~/enum/error_message";
-import { OtpEmailService } from "./OtpEmailService";
+import { OtpEmailService } from "./otp_email_service";
 import { OtpPurpose } from "~/enum/otp_purpose";
-import { Role } from "~/models/role.model";
+import { Role } from "~/models/role_model";
 import { RoleName } from "~/enum/role";
 import { ApiError } from "~/middleware/api_error";
 import { error } from "console";

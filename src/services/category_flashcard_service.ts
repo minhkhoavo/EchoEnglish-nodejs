@@ -1,7 +1,7 @@
 import { ApiError } from '~/middleware/api_error';
-import { CategoryFlashcard,CategoryFlashcardType } from './../models/category_flashcard.model';
+import { CategoryFlashcard,CategoryFlashcardType } from '../models/category_flashcard_model';
 import { ErrorMessage } from "~/enum/error_message";
-import { Flashcard } from '~/models/flashcard.model';
+import { Flashcard } from '~/models/flashcard_model';
 
 
 class CategoryFlashcardService{

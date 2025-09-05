@@ -1,7 +1,7 @@
-import ApiResponse from "~/dto/response/ApiResponse";
-import { CategoryFlashcard } from "../models/category_flashcard.model";
+import ApiResponse from "~/dto/response/api_response";
+import { CategoryFlashcard } from "../models/category_flashcard_model";
 import {Request, Response} from 'express';
-import CategoryFlashcardService from "~/services/category-flashcard-service";
+import CategoryFlashcardService from "~/services/category_flashcard_service";
 import { SuccessMessage } from "~/enum/success_message";
 
 class CategoryFlashcardController{

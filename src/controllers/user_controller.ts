@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import UserService from "~/services/UserService";
-import { UserCreateRequest } from "~/dto/request/iam/UserCreateRequest";
-import ApiResponse from "~/dto/response/ApiResponse";
+import UserService from "~/services/user_service";
+import { UserCreateRequest } from "~/dto/request/iam/user_create_request";
+import ApiResponse from "~/dto/response/api_response";
 import { SuccessMessage } from "~/enum/success_message";
 import { ErrorMessage } from "~/enum/error_message";
 import { ApiError } from "~/middleware/api_error";

@@ -1,10 +1,10 @@
-import { Flashcard } from './../models/flashcard.model';
+import { Flashcard } from '../models/flashcard_model';
 import {Request, Response} from 'express';
-import ApiResponse from '~/dto/response/ApiResponse';
+import ApiResponse from '~/dto/response/api_response';
 import { ErrorMessage } from '~/enum/error_message';
 import { SuccessMessage } from '~/enum/success_message';
 import { ApiError } from '~/middleware/api_error';
-import FlashCardService from '~/services/FlashcardService';
+import FlashCardService from '~/services/flashcard_service';
 class FlashcardController{
     // Hàm tạo flashcard
     public createFlashcard = async (req: Request, res: Response) => {
