@@ -2,6 +2,7 @@ import ApiResponse from "~/dto/response/ApiResponse";
 import { CategoryFlashcard } from "../models/category_flashcard.model";
 import {Request, Response} from 'express';
 import CategoryFlashcardService from "~/services/category-flashcard-service";
+import { SuccessMessage } from "~/enum/success_message";
 
 class CategoryFlashcardController{
     public categoryService = new CategoryFlashcardService();
@@ -32,7 +33,7 @@ class CategoryFlashcardController{
     // Delete
     public deleteCategory = async (req: Request, res: Response) => {
         const category = await this.categoryService.deleteCategory(req.params.id);
-        res.json(new ApiResponse('Success', category));
+        res.json(new ApiResponse(SuccessMessage.DELETE_CATEGORY_SUCCESS, category));
     }
 }
 

@@ -1,4 +1,5 @@
 export enum SuccessMessage {
+    /* user */
     CREATE_USER_SUCCESS = 'Create user successfully',
     UPDATE_USER_SUCCESS = 'Update user successfully',
     NO_DATA_FOUND = 'No data found',
@@ -11,4 +12,12 @@ export enum SuccessMessage {
     DELETE_USER_SUCCESS = 'Delete user successfully',
     CREATE_FLASHCARD_SUCCESS = 'Create flashcard successfully',
     UPDATE_FLASHCARD_SUCCESS = 'Update flashcard successfully',
+
+    /* global */
+    DELETE_SUCCESS = 'Delete success',
+
+    /* category */
+    DELETE_CATEGORY_SUCCESS = 'Delete category successfully',
+
+    
 }
