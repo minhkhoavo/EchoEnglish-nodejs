@@ -1,6 +1,3 @@
-import { error } from "console";
-import { Types } from "mongoose";
-import { throwDeprecation } from "process";
 import { ErrorMessage } from "~/enum/error_message";
 import { ApiError } from "~/middleware/api_error";
 import { CategoryFlashcard } from "~/models/category_flashcard_model";
@@ -70,70 +67,57 @@ class FlashCardService {
 
     // Hàm lấy flashcard theo category_id
     public getFlashcardByCategoryId = async (cateId: string, page: number, limit: number) => {
-        try {
-
-            const category = await CategoryFlashcard.findOne({_id: cateId});
-            if(!category){
-                throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
-            }
-
-            const skip = (page - 1) * limit;
-
-            const [flashcards, total] = await Promise.all([
-                Flashcard.find({ category: cateId })
-                    .populate("category", "name description")
-                    .skip(skip)
-                    .limit(limit)
-                    .lean(),
-                Flashcard.countDocuments({ category: cateId })
-            ]);
-
-            return {
-                flashcards,
-                pagination: {
-                    total,
-                    page,
-                    limit,
-                    totalPages: Math.ceil(total / limit),
-                },
-            };
-        } 
-        catch (err: any) {
-            throw new ApiError(err);
+        const category = await CategoryFlashcard.findOne({_id: cateId});
+        if(!category){
+            throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
         }
+
+        const skip = (page - 1) * limit;
+
+        const [flashcards, total] = await Promise.all([
+            Flashcard.find({ category: cateId })
+                .populate("category", "name description")
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            Flashcard.countDocuments({ category: cateId })
+        ]);
+
+        return {
+            flashcards,
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit),
+            },
+        };
+        
     };
 
     // Hàm lấy tất cả flashcard theo userId
     public getAllFlashcard = async (userId: string) => {
-        try{
-            const user = User.findOne({_id: userId});
-            if(!user){
-                throw new ApiError(ErrorMessage.USER_NOT_FOUND);
-            }
-            const flashcard = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
-
-            if (!flashcard || flashcard.length === 0) {
-                throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
-            }
-
-            return flashcard.map(fc => ({
-                id: fc._id,
-                front: fc.front,
-                back: fc.back,
-                category: fc.category,
-                difficulty: fc.difficulty,
-                tags: fc.tags,
-                source: fc.source,
-                isAIGenerated: fc.isAIGenerated
-            }));
+        const user = User.findOne({_id: userId});
+        if(!user){
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
-        catch(err: any){
-            throw new ApiError(err);
+        const flashcard = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
+
+        if (!flashcard || flashcard.length === 0) {
+            throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
         }
+
+        return flashcard.map(fc => ({
+            id: fc._id,
+            front: fc.front,
+            back: fc.back,
+            category: fc.category,
+            difficulty: fc.difficulty,
+            tags: fc.tags,
+            source: fc.source,
+            isAIGenerated: fc.isAIGenerated
+        }));
     }
-
-    //Hàm lấy tất cả flashcard
-    
 }
 
 export default new FlashCardService();
