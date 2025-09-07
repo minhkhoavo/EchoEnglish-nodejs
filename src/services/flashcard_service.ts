@@ -6,6 +6,7 @@ import { ApiError } from "~/middleware/api_error";
 import { CategoryFlashcard } from "~/models/category_flashcard_model";
 import { Flashcard, FlashcardType } from "~/models/flashcard_model";
 import { User } from "~/models/user_model";
+import { PaginationHelper } from "~/utils/pagination";
 
 class FlashCardService {
     public createFlashcard = async(request: Partial<FlashcardType>, userId: string) => {
@@ -64,25 +65,16 @@ class FlashCardService {
                 throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
             }
 
-            const skip = (page - 1) * limit;
-
-            const [flashcards, total] = await Promise.all([
-                Flashcard.find({ category: cateId, createBy: userId })
-                    .populate("category", "name description")
-                    .skip(skip)
-                    .limit(limit)
-                    .lean(),
-                Flashcard.countDocuments({ category: cateId, createBy: userId })
-            ]);
+            const result = await PaginationHelper.paginate(
+                Flashcard,
+                { category: cateId, createBy: userId },
+                { page, limit },
+                { path: "category", select: "name description" }
+            );
 
             return {
-                flashcards,
-                pagination: {
-                    total,
-                    page,
-                    limit,
-                    totalPages: Math.ceil(total / limit),
-                },
+                flashcards: result.data,
+                pagination: result.pagination,
             };
         } 
         catch (err: any) {
@@ -90,37 +82,60 @@ class FlashCardService {
         }
     };
 
-    public getAllFlashcard = async (userId: string) => {
+    public getAllFlashcard = async (userId: string, page?: number, limit?: number) => {
         try{
             const user = await User.findOne({_id: userId});
             if(!user){
                 throw new ApiError(ErrorMessage.USER_NOT_FOUND);
             }
-            const flashcard = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
 
-            if (!flashcard || flashcard.length === 0) {
-                throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+            if (page && limit) {
+                const result = await PaginationHelper.paginate(
+                    Flashcard,
+                    { createBy: userId },
+                    { page, limit }
+                );
+
+                return {
+                    flashcards: result.data.map(fc => ({
+                        id: fc._id,
+                        front: fc.front,
+                        back: fc.back,
+                        category: fc.category,
+                        difficulty: fc.difficulty,
+                        tags: fc.tags,
+                        source: fc.source,
+                        isAIGenerated: fc.isAIGenerated,
+                        createdAt: fc.createdAt,
+                        updatedAt: fc.updatedAt
+                    })),
+                    pagination: result.pagination,
+                };
+            } else {
+                const flashcards = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
+
+                if (!flashcards || flashcards.length === 0) {
+                    throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+                }
+
+                return flashcards.map(fc => ({
+                    id: fc._id,
+                    front: fc.front,
+                    back: fc.back,
+                    category: fc.category,
+                    difficulty: fc.difficulty,
+                    tags: fc.tags,
+                    source: fc.source,
+                    isAIGenerated: fc.isAIGenerated,
+                    createdAt: fc.createdAt,
+                    updatedAt: fc.updatedAt
+                }));
             }
-
-            return flashcard.map(fc => ({
-                id: fc._id,
-                front: fc.front,
-                back: fc.back,
-                category: fc.category,
-                difficulty: fc.difficulty,
-                tags: fc.tags,
-                source: fc.source,
-                isAIGenerated: fc.isAIGenerated,
-                createdAt: fc.createdAt,
-                updatedAt: fc.updatedAt
-            }));
         }
         catch(err: any){
             throw new ApiError(err);
         }
     }
-
-    
 }
 
 export default new FlashCardService();

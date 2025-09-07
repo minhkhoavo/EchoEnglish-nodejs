@@ -13,7 +13,7 @@ router.post("/", FlashcardController.createFlashcard);
 router.put("/:id", isOwn(Flashcard), FlashcardController.updateFlashcard);
 router.delete("/:id", isOwn(Flashcard), FlashcardController.deleteFlashcard);
 
-// CATEGORY ENDPOINTS (gộp chung)
+// CATEGORY ENDPOINTS
 router.get("/categories", categoryCtrl.getCategories);
 router.post("/categories", categoryCtrl.createCategory);
 router.put("/categories/:id", categoryCtrl.updateCategory);

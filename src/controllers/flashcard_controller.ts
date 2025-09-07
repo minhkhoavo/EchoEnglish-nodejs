@@ -39,7 +39,9 @@ class FlashcardController{
 
     public getAllFlashcard = async (req: Request, res: Response) => {
         const userId = req.user?.id!;
-        const result = await FlashCardService.getAllFlashcard(userId);
+        const page = req.query.page ? parseInt(req.query.page as string) : undefined;
+        const limit = req.query.limit ? parseInt(req.query.limit as string) : undefined;
+        const result = await FlashCardService.getAllFlashcard(userId, page, limit);
         return res.status(200).json(new ApiResponse("Success", result));
     }
 }
