@@ -13,9 +13,7 @@ const PUBLIC_ENDPOINTS: { methods: string[], path: string }[] = [
   { methods: ["POST"], path: "/auth/verify-register-otp" },
   { methods: ["POST"], path: "/auth/forgot-password" },
   { methods: ["POST"], path: "/auth/reset-password" },
-  { methods: ["ALL"],  path: "/api/users/**" },   
-  { methods: ["GET"],  path: "/tests/" },
-  { methods: ["GET"], path: "/tests/**" },
+  { methods: ["ALL"],  path: "/api/users/**" },    
   { methods: ["GET"],  path: "/category-flashcard/test/**" }, 
 ];
 
