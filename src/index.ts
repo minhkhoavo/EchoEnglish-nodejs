@@ -21,7 +21,6 @@ app.use(globalAuth);
 app.use('/',apiRouter);
 
 
-//middleware de xu ly loi, luon de duoi cung
 app.use(ErrorMiddleware.handleError)
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

@@ -8,31 +8,32 @@ class CategoryFlashcardController{
     public categoryService = new CategoryFlashcardService();
 
     public createCategory = async (req: Request, res: Response) => {
-        const category = await this.categoryService.createCategory(req.body);
+        const userId = req.user?.id!;
+        const category = await this.categoryService.createCategory(req.body, userId);
         res.status(201).json(new ApiResponse("success", category));
     };
 
-    // Read all
     public getCategories = async (req: Request, res: Response) => {
-        const categories = await this.categoryService.getCategories();
+        const userId = req.user?.id!;
+        const categories = await this.categoryService.getCategories(userId);
         res.json(new ApiResponse('success', categories));
     };
 
-    // Read one
     public getCategoryById = async (req: Request, res: Response) => {
-        const category = await this.categoryService.getCategoryById(req.params.id);
+        const userId = req.user?.id!;
+        const category = await this.categoryService.getCategoryById(req.params.id, userId);
         res.json(category);
     };
 
-    // Update
     public updateCategory = async (req: Request, res: Response) => {
-        const category = await this.categoryService.updateCategory(req.params.id, req.body);
+        const userId = req.user?.id!;
+        const category = await this.categoryService.updateCategory(req.params.id, req.body, userId);
         res.json(new ApiResponse('Success', category))
     };
 
-    // Delete
     public deleteCategory = async (req: Request, res: Response) => {
-        const category = await this.categoryService.deleteCategory(req.params.id);
+        const userId = req.user?.id!;
+        const category = await this.categoryService.deleteCategory(req.params.id, userId);
         res.json(new ApiResponse(SuccessMessage.DELETE_CATEGORY_SUCCESS, category));
     }
 }

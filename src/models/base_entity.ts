@@ -13,13 +13,25 @@ const baseEntitySchema = new Schema(
       default: false,
     },
   },
-  { _id: false, timestamps: false } // Không tạo _id cho schema lồng
+  { _id: false, timestamps: false } 
+);
+
+const baseEntityNoSoftDelSchema = new Schema(
+  {
+    createBy: {
+      type: String,
+    },
+    updateBy: {
+      type: String,
+    },
+  },
+  { _id: false, timestamps: false } 
 );
 
 export type BaseEntity = InferSchemaType<typeof baseEntitySchema>;
-export { baseEntitySchema };
+export type BaseEntityNoSoftDel = InferSchemaType<typeof baseEntityNoSoftDelSchema>;
+export { baseEntitySchema, baseEntityNoSoftDelSchema };
 
-// Middleware để update updateAt trước khi save
 export function applyBaseEntityMiddleware(schema: Schema) {
   schema.pre("save", function (next) {
     const userId = (this as any)._userId;

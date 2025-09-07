@@ -2,7 +2,6 @@ import { Express } from "express";
 import { Router } from "express";
 import AuthenticationController from "~/controllers/authentication_controller";
 
-// Các route của user
 const router = Router();
 const authController = new AuthenticationController();
 

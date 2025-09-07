@@ -7,12 +7,6 @@ import { ApiError } from "./api_error";
 
 const SECRET_KEY = process.env.JWT_SECRETKEY!;
 
-/* 
-  ví dụ /api/users/** : cho phep tat ca sau path nay
-        /api/users/* : cho phep ngoai tru /
-  method: ALL, POST, GET, ...
-*/
-
 const PUBLIC_ENDPOINTS: { methods: string[], path: string }[] = [
   { methods: ["POST"], path: "/auth/login" },
   { methods: ["POST"], path: "/auth/register" },
@@ -27,12 +21,10 @@ const PUBLIC_ENDPOINTS: { methods: string[], path: string }[] = [
 
 /* kiem tra PUBLIC_ENPOINT.path match req.path */
 function matchesPattern(pattern: string, path: string): boolean {
-  /* xử lý /api/user/**  */
   if (pattern.endsWith('/**')) {
     const base = pattern.slice(0, -3); 
     return path.startsWith(base);
   }
-  /* xử lý /api/user/*  */
   const regexPattern = pattern
     .replace(/\*/g, '[^/]*') 
     .replace(/\//g, '\\/'); 
@@ -40,16 +32,13 @@ function matchesPattern(pattern: string, path: string): boolean {
   return regex.test(path);
 }
 
-// Kiểm tra xem path thuoc public endpoint 
 function isPublicEndpoint(method: string,path: string): boolean {
   return PUBLIC_ENDPOINTS.some(entry => {
-    /* kiem tra method duoc phep */
     const methodMatch = entry.methods.includes("ALL") || entry.methods.includes(method);
     return methodMatch && matchesPattern(entry.path, path);
   })
 }
 
-//globalAuth
 export function globalAuth(req: Request, res: Response, next: NextFunction){
   if(isPublicEndpoint(req.method, req.path)){
     return next();
@@ -57,7 +46,6 @@ export function globalAuth(req: Request, res: Response, next: NextFunction){
   return authenticateJWT(req, res, next);
 }
 
-//xac thuc jwt
 export function authenticateJWT(req: Request, res: Response, next: NextFunction){
   const authHeader = req.headers.authorization;
   if(!authHeader?.startsWith("Bearer ")){
@@ -78,7 +66,6 @@ export function authenticateJWT(req: Request, res: Response, next: NextFunction)
   }
 }
 
-//middleware check role 
 export function hasAuthority(...roles: string[]){
   return (req: Request, res: Response, next: NextFunction)=>{
     const user = req.user as any;
@@ -101,7 +88,6 @@ export function hasAuthority(...roles: string[]){
 export function isOwn(model: Model<any>, idParam: string = "id") {
   return async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.user?.id;
-    console.log(userId); // Lấy id từ request
     if (!userId) {
       throw new ApiError(ErrorMessage.UNAUTHORIZED);
     }

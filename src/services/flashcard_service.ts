@@ -5,7 +5,6 @@ import { Flashcard, FlashcardType } from "~/models/flashcard_model";
 import { User } from "~/models/user_model";
 
 class FlashCardService {
-    // Hàm tạo flashcard
     public createFlashcard = async(request: Partial<FlashcardType>, userId: string) => {
         try {
             const newFlashcard = new Flashcard({
@@ -16,6 +15,7 @@ class FlashCardService {
                 tags: request.tags || [],
                 source: request.source || "",
                 isAIGenerated: request.isAIGenerated ?? false,
+                createBy: userId,
             });
 
             (newFlashcard as any)._userId = userId;
@@ -32,29 +32,35 @@ class FlashCardService {
                 source: savedFlashcard.source,
                 isAIGenerated: savedFlashcard.isAIGenerated
             }
+
+            return newFlashcard.save();
+
         }
         catch (err: any) {
             throw new ApiError(ErrorMessage.CREATE_FLASHCARD_FAIL);
         }
     }
 
-    // Hàm cập nhật thông tin flashcard
     public updateFlashcard = async (flascardId: string, request: Partial<FlashcardType>, userId: string) => {
         try {
-            const flashcard = await Flashcard.findOneAndUpdate({_id: flascardId, isDeleted: false},request,{new: true, userId: userId}).select("-isDeleted -createBy -updateBy -__v");
+            const flashcard = await Flashcard.findOneAndUpdate(
+                { _id: flascardId, createBy: userId },
+                request,
+                { new: true }
+            ).select("-isDeleted -createBy -updateBy -__v");
             if(!flashcard)
                 throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
             return flashcard;
         }
         catch (err: any) {
+            console.log(err.message);
             throw new ApiError(ErrorMessage.UPDATE_FLASHCARD_FAIL);
         }
     }
 
-    // Hàm xóa flashcard
-    public deleteFlashcard = async (flashcardId: string) => {
+    public deleteFlashcard = async (flashcardId: string, userId: string) => {
         try{
-            const result = await Flashcard.deleteOne({ _id: flashcardId });
+            const result = await Flashcard.deleteOne({ _id: flashcardId, createBy: userId });
 
             if (result.deletedCount === 0) {
                 throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
@@ -65,59 +71,72 @@ class FlashCardService {
         }
     }
 
+
     // Hàm lấy flashcard theo category_id
-    public getFlashcardByCategoryId = async (cateId: string, page: number, limit: number) => {
-        const category = await CategoryFlashcard.findOne({_id: cateId});
-        if(!category){
-            throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
+    public getFlashcardByCategoryId = async (cateId: string, userId: string, page: number, limit: number) => {
+        try {
+            const category = await CategoryFlashcard.findOne({_id: cateId, createBy: userId});
+            if(!category){
+                throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
+            }
+
+            const skip = (page - 1) * limit;
+
+            const [flashcards, total] = await Promise.all([
+                Flashcard.find({ category: cateId, createBy: userId })
+                    .populate("category", "name description")
+                    .skip(skip)
+                    .limit(limit)
+                    .lean(),
+                Flashcard.countDocuments({ category: cateId, createBy: userId })
+            ]);
+
+            return {
+                flashcards,
+                pagination: {
+                    total,
+                    page,
+                    limit,
+                    totalPages: Math.ceil(total / limit),
+                },
+            };
+        } 
+        catch (err: any) {
+            throw new ApiError(err);
         }
-
-        const skip = (page - 1) * limit;
-
-        const [flashcards, total] = await Promise.all([
-            Flashcard.find({ category: cateId })
-                .populate("category", "name description")
-                .skip(skip)
-                .limit(limit)
-                .lean(),
-            Flashcard.countDocuments({ category: cateId })
-        ]);
-
-        return {
-            flashcards,
-            pagination: {
-                total,
-                page,
-                limit,
-                totalPages: Math.ceil(total / limit),
-            },
-        };
         
     };
 
-    // Hàm lấy tất cả flashcard theo userId
     public getAllFlashcard = async (userId: string) => {
-        const user = User.findOne({_id: userId});
-        if(!user){
-            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
-        }
-        const flashcard = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
+        try{
+            const user = await User.findOne({_id: userId});
+            if(!user){
+                throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+            }
+            const flashcard = await Flashcard.find({ createBy: userId }).select("-isDeleted -__v");
 
-        if (!flashcard || flashcard.length === 0) {
-            throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
-        }
+            if (!flashcard || flashcard.length === 0) {
+                throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+            }
 
-        return flashcard.map(fc => ({
-            id: fc._id,
-            front: fc.front,
-            back: fc.back,
-            category: fc.category,
-            difficulty: fc.difficulty,
-            tags: fc.tags,
-            source: fc.source,
-            isAIGenerated: fc.isAIGenerated
-        }));
+            return flashcard.map(fc => ({
+                id: fc._id,
+                front: fc.front,
+                back: fc.back,
+                category: fc.category,
+                difficulty: fc.difficulty,
+                tags: fc.tags,
+                source: fc.source,
+                isAIGenerated: fc.isAIGenerated,
+                createdAt: fc.createdAt,
+                updatedAt: fc.updatedAt
+            }));
+        }
+        catch(err: any){
+            throw new ApiError(err);
+        }
     }
+
 }
 
 export default new FlashCardService();

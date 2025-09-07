@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
+import { ApiError } from '~/middleware/api_error';
+import { ErrorMessage } from '~/enum/error_message';
 
 class TestService {
     private async getDb() {
         if (mongoose.connection.readyState !== 1) {
-            throw new Error('Database not connected');
+            throw new ApiError(ErrorMessage.INTERNAL_ERROR);
         }
         return mongoose.connection.db!;
     }
@@ -17,6 +19,40 @@ class TestService {
     public async getTestById(testId: string) {
         const db = await this.getDb();
         const test = await db.collection('tests').findOne({ testId: testId });
+        return test;
+    }
+
+    public async getTestByPart(testId: string, partNumber: number) {
+        const db = await this.getDb();
+        
+        const result = await db.collection('tests').aggregate([
+            { $match: { testId: testId } },
+            {
+                $project: {
+                    _id: 1,
+                    testId: 1,
+                    testTitle: 1,
+                    resultId: 1,
+                    parts: {
+                        $filter: {
+                            input: "$parts",
+                            as: "part",
+                            cond: { $eq: ["$$part.partName", `Part ${partNumber}`] }
+                        }
+                    }
+                }
+            }
+        ]).toArray();
+
+        if (result.length === 0) {
+            return null;
+        }
+
+        const test = result[0];
+        if (test.parts.length === 0) {
+            return null; // Part not found
+        }
+
         return test;
     }
 }
