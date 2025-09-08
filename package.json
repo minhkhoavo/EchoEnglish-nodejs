@@ -29,8 +29,10 @@
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.3.0",
     "@types/nodemailer": "^7.0.1",
+    "@types/uuid": "^10.0.0",
     "mongoose-sequence": "^6.0.1",
     "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
@@ -41,6 +43,8 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.883.0",
+    "@aws-sdk/s3-request-presigner": "^3.883.0",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
@@ -50,6 +54,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.18.0",
     "mongoose": "^8.17.2",
-    "nodemailer": "^7.0.5"
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.5",
+    "uuid": "^12.0.0"
   }
 }
