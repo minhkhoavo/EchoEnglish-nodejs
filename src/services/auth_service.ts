@@ -41,7 +41,7 @@ class AuthService{
         custom_key: "Custom_value",
       },
       this.SECRET_KEY,
-      { algorithm: "HS512", expiresIn: "30m" }
+      { algorithm: "HS512", expiresIn: "30d" }
     );
   
   }

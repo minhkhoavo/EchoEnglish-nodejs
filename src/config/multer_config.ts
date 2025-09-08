@@ -14,6 +14,7 @@ const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCa
         'audio/mpeg',
         'audio/mp3',
         'audio/wav',
+        'audio/wave',
         'application/octet-stream',
     ];
 

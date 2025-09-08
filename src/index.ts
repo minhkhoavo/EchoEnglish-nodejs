@@ -16,7 +16,7 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(globalAuth);
 app.use('/',apiRouter);
 
