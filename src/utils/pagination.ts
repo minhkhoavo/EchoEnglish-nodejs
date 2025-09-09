@@ -36,7 +36,7 @@ export class PaginationHelper {
                 .skip(skip)
                 .limit(limit)
                 .lean(),
-            model.countDocuments(query)
+            model.countDocuments(query),
         ]);
 
         const totalPages = Math.ceil(total / limit);
