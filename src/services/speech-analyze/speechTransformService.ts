@@ -40,7 +40,10 @@ class SpeechTransformService {
         const TICKS_PER_MILLISECOND = 10000;
         const words = segmentData.NBest[0].Words;
         const segmentConfidence = (segmentData.NBest[0].Confidence || 0) * 100;
-        return words.map((wordData: any) => {
+        const normalize = (w: any) => (typeof w === 'string' ? w.toLowerCase() : '');
+        return words.map((wordData: any, idx: number) => {
+            const prevWord = idx > 0 ? words[idx - 1]?.Word : undefined;
+            const isDuplicated = idx > 0 && normalize(wordData?.Word) === normalize(prevWord);
             const phonemes = (wordData.Phonemes || []).map((phonemeData: any) => {
                 const isCorrect = (phonemeData?.PronunciationAssessment?.AccuracyScore || 0) > 60;
                 const actualPhoneme = isCorrect
@@ -78,7 +81,7 @@ class SpeechTransformService {
                 syllables,
                 errors,
                 isStressed: false,
-                isDuplicated: false,
+                isDuplicated,
                 confidenceScore: segmentConfidence,
                 expectedPronunciation,
                 actualPronunciation,
@@ -105,16 +108,22 @@ class SpeechTransformService {
             .filter(Boolean);
 
         const totalDuration = segments.length ? (segments[segments.length - 1] as any).endTime : 0;
+        const speakingTime = segments.reduce((segSum: number, seg: any) => {
+            const wDur = (seg.words || []).reduce((wSum: number, w: any) => wSum + (w.duration || 0), 0);
+            return segSum + wDur;
+        }, 0);
+
         return {
             audioUrl,
             segments,
             metadata: {
                 duration: totalDuration,
+                speakingTime,
                 language: 'en-US',
                 assessmentType: 'pronunciation',
                 createdAt: new Date().toISOString(),
             },
-            advancedFeatures: {
+            overall: {
                 AccuracyScore: azureResponseArray?.[0]?.NBest?.[0]?.PronunciationAssessment?.AccuracyScore || 0,
                 FluencyScore: azureResponseArray?.[0]?.NBest?.[0]?.PronunciationAssessment?.FluencyScore || 0,
                 ProsodyScore: azureResponseArray?.[0]?.NBest?.[0]?.PronunciationAssessment?.ProsodyScore || 0,
