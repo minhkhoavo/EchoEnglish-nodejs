@@ -1,15 +1,15 @@
-import { Express } from "express";
-import { Router } from "express";
-import AuthenticationController from "~/controllers/authentication_controller";
+import { Express } from 'express';
+import { Router } from 'express';
+import AuthenticationController from '~/controllers/authenticationController';
 
 const router = Router();
 const authController = new AuthenticationController();
 
-router.post('/register',authController.registerUser); // Đăng ký user
-router.post('/verify-register-otp',authController.verifyRegisterOtp); // Xác thực OTP đăng ký
-router.post('/forgot-password',authController.forgotPassword); // Quên mật khẩu
-router.post('/reset-password',authController.resetPassword); // Đặt lại mật khẩu
-router.post('/login', authController.loginUser); // Đăng nhập
-router.get('/myInfo', authController.getProfile); // Lấy thông tin người dùng
+router.post('/register', authController.registerUser); 
+router.post('/verify-register-otp', authController.verifyRegisterOtp); 
+router.post('/forgot-password', authController.forgotPassword); 
+router.post('/reset-password', authController.resetPassword);
+router.post('/login', authController.loginUser);
+router.get('/myInfo', authController.getProfile);
 
 export default router;
