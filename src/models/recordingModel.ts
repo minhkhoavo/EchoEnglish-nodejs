@@ -9,6 +9,8 @@ export interface IRecording {
     mimeType?: string;
     size?: number;
     transcript?: string;
+    analysisStatus?: 'pending' | 'processing' | 'done' | 'failed';
+    analysis?: any;
     createdAt: Date;
 }
 
@@ -22,6 +24,12 @@ const RecordingSchema = new Schema<IRecording>(
         mimeType: { type: String },
         size: { type: Number },
         transcript: { type: String },
+        analysisStatus: {
+            type: String,
+            enum: ['pending', 'processing', 'done', 'failed'],
+            default: 'pending',
+        },
+    analysis: { type: Schema.Types.Mixed },
     },
     { timestamps: { createdAt: true, updatedAt: false } }
 );
