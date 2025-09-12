@@ -52,6 +52,11 @@ const userSchema = new Schema(
                 ref: 'Role',
             },
         ],
+        token: {
+            type: Number,
+            default: 0,
+            min: [0, 'TOKEN_INVALID'],
+        },
     },
     { timestamps: false }
 );
