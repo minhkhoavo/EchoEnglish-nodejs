@@ -1,8 +1,8 @@
 import { Router } from "express";
-import FlashcardController from "~/controllers/flashcard_controller";
-import CategoryFlashcardController from "../controllers/category_flashcard_controller";
-import { isOwn } from "~/middleware/auth_middleware";
-import { Flashcard } from "~/models/flashcard_model";
+import FlashcardController from "~/controllers/flashcardController";
+import CategoryFlashcardController from "../controllers/categoryFlashcardController";
+import { isOwn } from "~/middleware/authMiddleware";
+import { Flashcard } from "~/models/flashcardModel";
 
 const router = Router();
 const categoryCtrl = new CategoryFlashcardController();
@@ -13,7 +13,7 @@ router.post("/", FlashcardController.createFlashcard);
 router.put("/:id", isOwn(Flashcard), FlashcardController.updateFlashcard);
 router.delete("/:id", isOwn(Flashcard), FlashcardController.deleteFlashcard);
 
-// CATEGORY ENDPOINTS (gộp chung)
+// CATEGORY ENDPOINTS
 router.get("/categories", categoryCtrl.getCategories);
 router.post("/categories", categoryCtrl.createCategory);
 router.put("/categories/:id", categoryCtrl.updateCategory);
