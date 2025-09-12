@@ -1,56 +1,74 @@
 import { Request, Response } from 'express';
 import TestService from '../services/testService';
+import ApiResponse from '~/dto/response/apiResponse';
+import { ApiError } from '~/middleware/apiError';
+import { ErrorMessage } from '~/enum/errorMessage';
 
 class TestController {
-    public async getAllTests(req: Request, res: Response): Promise<void> {
-        try {
-            const tests = await TestService.getAllTests();
-            res.status(200).json(tests);
-        } catch (error) {
-            console.error('Error fetching all tests:', error);
-            res.status(500).json({ message: 'Internal server error' });
-        }
+  public getAllTests = async (req: Request, res: Response) => {
+    try {
+      const tests = await TestService.getAllTests();
+      return res
+        .status(200)
+        .json(new ApiResponse('Get all tests success', tests));
+    } catch (error) {
+      console.error('Error fetching all tests:', error);
+      return res
+        .status(500)
+        .json(new ApiResponse(ErrorMessage.INTERNAL_ERROR.message));
     }
+  };
 
-    public async getTestById(req: Request, res: Response): Promise<void> {
-        try {
-            const { testId } = req.params;
-            const test = await TestService.getTestById(testId);
+  public getTestById = async (req: Request, res: Response) => {
+    try {
+      const { testId } = req.params;
+      const test = await TestService.getTestById(testId);
 
-            if (!test) {
-                res.status(404).json({ message: 'Test not found' });
-                return;
-            }
-            res.status(200).json(test);
-        } catch (error) {
-            console.error('Error fetching test by ID:', error);
-            res.status(500).json({ message: 'Internal server error' });
-        }
+      if (!test) {
+        return res
+          .status(ErrorMessage.TEST_NOT_FOUND.status)
+          .json(new ApiResponse(ErrorMessage.TEST_NOT_FOUND.message));
+      }
+      return res
+        .status(200)
+        .json(new ApiResponse('Get test by ID success', test));
+    } catch (error) {
+      console.error('Error fetching test by ID:', error);
+      return res
+        .status(500)
+        .json(new ApiResponse(ErrorMessage.INTERNAL_ERROR.message));
     }
+  };
 
-    public async getTestByPart(req: Request, res: Response): Promise<void> {
-        try {
-            const { testId, partNumber } = req.params;
-            const partNum = parseInt(partNumber);
+  public getTestByPart = async (req: Request, res: Response) => {
+    try {
+      const { testId, partNumber } = req.params;
+      const partNum = parseInt(partNumber);
 
-            if (isNaN(partNum) || partNum < 1 || partNum > 7) {
-                res.status(400).json({ message: 'Invalid part number. Must be between 1 and 7.' });
-                return;
-            }
+      if (isNaN(partNum) || partNum < 1 || partNum > 7) {
+        return res
+          .status(ErrorMessage.INVALID_PART_NUMBER.status)
+          .json(new ApiResponse(ErrorMessage.INVALID_PART_NUMBER.message));
+      }
 
-            const test = await TestService.getTestByPart(testId, partNum);
+      const test = await TestService.getTestByPart(testId, partNum);
 
-            if (!test) {
-                res.status(404).json({ message: 'Test or part not found' });
-                return;
-            }
+      if (!test) {
+        return res
+          .status(ErrorMessage.TEST_NOT_FOUND.status)
+          .json(new ApiResponse(ErrorMessage.TEST_NOT_FOUND.message));
+      }
 
-            res.status(200).json(test);
-        } catch (error) {
-            console.error('Error fetching test by part:', error);
-            res.status(500).json({ message: 'Internal server error' });
-        }
+      return res
+        .status(200)
+        .json(new ApiResponse('Get test by part success', test));
+    } catch (error) {
+      console.error('Error fetching test by part:', error);
+      return res
+        .status(500)
+        .json(new ApiResponse(ErrorMessage.INTERNAL_ERROR.message));
     }
+  };
 }
 
 export default new TestController();
