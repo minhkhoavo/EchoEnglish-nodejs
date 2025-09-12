@@ -217,14 +217,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/my-profile/1",
+							"raw": "{{baseUrl}}/users/my-profile/68b9013fd4c4d9695d9724a7",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"users",
 								"my-profile",
-								"1"
+								"68b9013fd4c4d9695d9724a7"
 							]
 						}
 					},
@@ -892,7 +892,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"anhkhoaxn11@gmail.com\",\n  \"fullName\": \"String\",\n  \"password\": \"12341234\",\n  \"gender\": \"Other\",\n  \"dob\": \"2019-08-21\",\n  \"phoneNumber\": \"0326567123\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+							"raw": "{\n  \"email\": \"anhkhoaxn112@gmail.com\",\n  \"fullName\": \"String\",\n  \"password\": \"12341234\",\n  \"gender\": \"Other\",\n  \"dob\": \"2019-08-21\",\n  \"phoneNumber\": \"0326567123\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1307,9 +1307,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -2070,14 +2067,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/flashcard/by-category/68b900e4d4c4d9695d97249d?page=1&limit=3",
+							"raw": "{{baseUrl}}/flashcard/by-category/68b9474478578c301f4f2e8e?page=1&limit=3",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"flashcard",
 								"by-category",
-								"68b900e4d4c4d9695d97249d"
+								"68b9474478578c301f4f2e8e"
 							],
 							"query": [
 								{
@@ -2249,24 +2246,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/flashcard/by-category/68b900e4d4c4d9695d97249d?page=1&limit=3",
+							"raw": "{{baseUrl}}/flashcard",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"flashcard",
-								"by-category",
-								"68b900e4d4c4d9695d97249d"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "3"
-								}
+								"flashcard"
 							]
 						}
 					},
@@ -2420,13 +2405,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/flashcard/68b945d867a2181212a09019",
+							"raw": "{{baseUrl}}/flashcard/68ba34e398536c5a0f47cb92",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"flashcard",
-								"68b945d867a2181212a09019"
+								"68ba34e398536c5a0f47cb92"
 							]
 						}
 					},
@@ -2439,7 +2424,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"front\": \"Hello 1\",\r\n    \"back\": \"Hi 1\",\r\n    \"category\": \"68b900e4d4c4d9695d97249d\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
+							"raw": "{\r\n    \"front\": \"Hello 110\",\r\n    \"back\": \"Hi 110\",\r\n    \"category\": \"68b9474478578c301f4f2e80\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2465,13 +2450,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/flashcard/68b94b10e93644f378b442e0",
+							"raw": "{{baseUrl}}/flashcard/68b94642537245153f0bedc8",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"flashcard",
-								"68b94b10e93644f378b442e0"
+								"68b94642537245153f0bedc8"
 							]
 						}
 					},
@@ -2622,6 +2607,162 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "create payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": 10,\n  \"promoCode\": \"\",\n  \"paymentGateway\": \"VNPAY\",\n  \"description\": \"Purchase tokens\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payments/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payments",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vnpay return",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8099/payments/vnpay/return?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=20250912174845&vnp_CurrCode=VND&vnp_ExpireDate=20250912180345&vnp_IpAddr=%3A%3A1&vnp_Locale=vn&vnp_OrderInfo=Mua%2010%20token&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A8099%2Fpayments%2Fvnpay%2Freturn&vnp_TmnCode=MA92HMNU&vnp_TxnRef=68c3fa8d3762a4eec9a2fbb8&vnp_Version=2.1.0&vnp_SecureHash=f9e5944fed805995946cd29d9c6b942a8aa2893fe386cb07d65b80e6d9c6a44363aca9d28515a9c4eb558934536462ddcf3c83642109ee476f788b29e3bee350",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8099",
+							"path": [
+								"payments",
+								"vnpay",
+								"return"
+							],
+							"query": [
+								{
+									"key": "vnp_Amount",
+									"value": "1000000"
+								},
+								{
+									"key": "vnp_Command",
+									"value": "pay"
+								},
+								{
+									"key": "vnp_CreateDate",
+									"value": "20250912174845"
+								},
+								{
+									"key": "vnp_CurrCode",
+									"value": "VND"
+								},
+								{
+									"key": "vnp_ExpireDate",
+									"value": "20250912180345"
+								},
+								{
+									"key": "vnp_IpAddr",
+									"value": "%3A%3A1"
+								},
+								{
+									"key": "vnp_Locale",
+									"value": "vn"
+								},
+								{
+									"key": "vnp_OrderInfo",
+									"value": "Mua%2010%20token"
+								},
+								{
+									"key": "vnp_OrderType",
+									"value": "other"
+								},
+								{
+									"key": "vnp_ReturnUrl",
+									"value": "http%3A%2F%2Flocalhost%3A8099%2Fpayments%2Fvnpay%2Freturn"
+								},
+								{
+									"key": "vnp_TmnCode",
+									"value": "MA92HMNU"
+								},
+								{
+									"key": "vnp_TxnRef",
+									"value": "68c3fa8d3762a4eec9a2fbb8"
+								},
+								{
+									"key": "vnp_Version",
+									"value": "2.1.0"
+								},
+								{
+									"key": "vnp_SecureHash",
+									"value": "f9e5944fed805995946cd29d9c6b942a8aa2893fe386cb07d65b80e6d9c6a44363aca9d28515a9c4eb558934536462ddcf3c83642109ee476f788b29e3bee350"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vnpay ipn",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payments/vnpay/ipn?vnp_TxnRef={{transactionRef}}&vnp_Amount={{amount}}&vnp_ResponseCode=00&vnp_TransactionStatus=00&vnp_SecureHash={{secureHash}}&vnp_BankCode=NCB",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payments",
+								"vnpay",
+								"ipn"
+							],
+							"query": [
+								{
+									"key": "vnp_TxnRef",
+									"value": "{{transactionRef}}"
+								},
+								{
+									"key": "vnp_Amount",
+									"value": "{{amount}}"
+								},
+								{
+									"key": "vnp_ResponseCode",
+									"value": "00"
+								},
+								{
+									"key": "vnp_TransactionStatus",
+									"value": "00"
+								},
+								{
+									"key": "vnp_SecureHash",
+									"value": "{{secureHash}}"
+								},
+								{
+									"key": "vnp_BankCode",
+									"value": "NCB"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -2629,7 +2770,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTcwMzQ5MTIsImV4cCI6MTc1NzAzNjcxMn0.b6EtkIsWTSqgNaTZNhfKE9tzK3n8SJy_s7epZAP7VPNTCFMOItIewlgP62qF4FMm4ss7N-dyIm2K0QxKw0rl-A",
+				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTc2ODQxODMsImV4cCI6MTc2MDI3NjE4M30.GDeyTnNlBzh3OzZMQPRDiVhKeWzFiRwSx_OABrzmAQzefghcARxIhHskgFsBoX-7XNv8De-j1EaZaCwsphbHMg",
 				"type": "string"
 			}
 		]
@@ -2662,7 +2803,7 @@
 			"value": "http://localhost:8099"
 		},
 		{
-			"key": "access_token",
+			"key": "token",
 			"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTY5NzAyMTEsImV4cCI6MTc1Njk3MjAxMX0.u1ZQpNxNp65xiMP-IFxumYrm8jv8NEZC18LncPwoxboHSG4_zt2iE2A3dklYuZ-jEvC1YfRQyR-zMNs8yiN9hg"
 		}
 	]

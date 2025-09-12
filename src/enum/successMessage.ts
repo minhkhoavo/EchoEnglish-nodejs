@@ -18,4 +18,9 @@ export enum SuccessMessage {
 
     /* category */
     DELETE_CATEGORY_SUCCESS = 'Delete category successfully',
+
+    /* payment */
+    CREATE_PAYMENT_SUCCESS = 'Create payment successfully',
+    PAYMENT_PENDING = 'Payment is pending',
+    PAYMENT_STATUS_SUCCESS = 'Payment is scuccessful',
 }
