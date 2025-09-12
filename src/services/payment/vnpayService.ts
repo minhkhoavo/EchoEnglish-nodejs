@@ -1,4 +1,3 @@
-import { VNPay } from "vnpay";
 import { TransactionModelType } from "~/models/payment";
 import querystring from "querystring";
 import crypto from "crypto";
@@ -8,12 +7,19 @@ class VnPayService {
     VNP_URL = process.env.VNP_URL!;
     VNP_RETURNURL = process.env.VNP_RETURN_URL!;
 
-    private sortObject(obj: Record<string, any>): Record<string, any> {
-        const sorted: Record<string, any> = {};
-        const keys = Object.keys(obj).sort();
-        keys.forEach((key) => {
-            sorted[key] = obj[key];
-        });
+    private sortObject = (obj: Record<string, any>):Record<string, any>  => {
+        let sorted:Record<string, any> = {};
+        let str: string[] = [];
+        let key: string;
+        for (key in obj){
+            if (obj.hasOwnProperty(key)) {
+            str.push(encodeURIComponent(key));
+            }
+        }
+        str.sort();
+        for (let i = 0; i < str.length; i++) {
+            sorted[str[i]] = encodeURIComponent(obj[str[i]]).replace(/%20/g, "+");
+        }
         return sorted;
     }
 
