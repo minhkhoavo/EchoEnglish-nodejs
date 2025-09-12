@@ -1,15 +1,29 @@
-import {Request, Response, NextFunction} from 'express'
-import PaymentService from '../services/payment/paymentService'
-import ApiResponse from '~/dto/response/apiResponse';
-import { SuccessMessage } from '~/enum/successMessage';
-import { ErrorMessage } from '~/enum/errorMessage';
-import { ApiError } from '~/middleware/apiError';
+import { Request, Response } from "express";
+import ApiResponse from "~/dto/response/apiResponse";
+import { ErrorMessage } from "~/enum/errorMessage";
+import { SuccessMessage } from "~/enum/successMessage";
+import { ApiError } from "~/middleware/apiError";
+import paymentService from "~/services/payment/paymentService";
+import vnpayService from "~/services/payment/vnpayService";
 class PaymentController {
-    public paymentService = new PaymentService();
+    public getTransactions = async (req: Request, res: Response) =>{
+        const userId = req.user?.id;
+        const {status, type, gateway, page, limit} = req.query;
 
-    useToken = async (req: Request, res: Response) =>{
+        const result = await paymentService.getTransactions({
+            userId: userId as string,
+            status: status as string,
+            type: type as string,
+            gateway:gateway as string,
+            page: page ? parseInt(page as string, 1) : 1,
+            limit: limit ? parseInt(limit as string, 10) : 10,
+        })
+        res.status(200).json(new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, result));
+    }
+
+    public  useToken = async (req: Request, res: Response) =>{
         const { tokens, description} = req.body;
-        const result = await this.paymentService.useToken({
+        const result = await paymentService.useToken({
             userId: req.user?.id,
             tokens,
             description,
@@ -19,22 +33,50 @@ class PaymentController {
         
     }
 
-    getTransactions = async (req: Request, res: Response) =>{
+    public createPayment = async (req: Request, res: Response) => {
         const userId = req.user?.id;
-        const {status, type, gateway, page, limit} = req.query;
+        console.log("UserID:", userId);
+        const {token, promoCode, paymentGateway, description} = req.body;
+        console.log("Request Body:", req.body);
+        let ipAddr = "127.0.0.1"
 
-        const result = await this.paymentService.getTransactions({
-            userId: userId as string,
-            status: status as string,
-            type: type as string,
-            gateway:gateway as string,
-            page: page ? parseInt(page as string, 1) : 1,
-            limit: limit ? parseInt(limit as string, 10) : 10,
-        })
+        const result = await paymentService.createPayment(userId!, ipAddr, {
+            tokens: token,
+            promoCode,
+            paymentGateway,
+            description}
+        );
 
-        res.status(200).json(new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, result));
+        return res.status(201).json(new ApiResponse(SuccessMessage.CREATE_PAYMENT_SUCCESS, result));
+    }
 
+    public vnPayReturn = async (req: Request, res: Response) => {
+        try {
+            const params = req.query;
+            const result = await vnpayService.handleVnPayReturn({...params});
+            if (!result) throw new ApiError(ErrorMessage.PAYMENT_FAILED);
+            console.log(result);
+            if (!result.success) {
+                throw new ApiError({ message: result.message.toString() });
+            }
+            return res.status(200).json(new ApiResponse(result.message.toString(), {
+                paymentId: result.paymentId,
+                status: result.status
+            }));
+        } catch (err: any) {
+            return res.status(400).json(new ApiResponse(err.message || "Payment failed"));
+        }
+    }
+
+    public vnPayIpn = async (req: Request, res: Response) => {
+        try {
+            const params = req.query;
+            const result = await vnpayService.handleVnPayIpn({...params});
+            return res.status(200).json(result);
+        } catch (err) {
+            return res.status(500).send("99");
+        }
     }
 }
 
-export default PaymentController;
+export default new PaymentController();

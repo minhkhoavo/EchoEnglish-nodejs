@@ -52,6 +52,9 @@ export const ErrorMessage = {
     PROMO_EXPIRED: { message: 'PROMO EXPIRED', status: 400 },
     PROMO_USAGE_LIMIT_REACHED: { message: 'PROMO USAGE LIMIT REACHED', status: 400 },
 
+    PAYMENT_FAILED: { message: 'Payment failed', status: 400 },
+    SIGNATURE_INVALID: { message: 'Signature is invalid', status: 400 },
+    PAYMENT_NOT_FOUND: { message: 'Payment is invalid', status: 404 },
 
     PERMISSION_DENIED: { message: "You don't have permission", status: 403 },
     UNAUTHORIZED: { message: 'You are not authorized to view this page', status: 401 },
