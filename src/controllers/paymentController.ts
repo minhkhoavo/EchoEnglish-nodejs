@@ -9,6 +9,13 @@ class PaymentController {
 
     useToken = async (req: Request, res: Response) =>{
         const { tokens, description} = req.body;
+        const result = await this.paymentService.useToken({
+            userId: req.user?.id,
+            tokens,
+            description,
+        })
+
+        res.status(200).json(new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, result));
         
     }
 

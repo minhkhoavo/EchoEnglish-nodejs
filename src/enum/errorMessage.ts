@@ -43,6 +43,15 @@ export const ErrorMessage = {
     PAYMENT_STATUS_NOT_FOUND: { message: 'PaymentStatus not found', status: 404 },
     TRANSACTION_TYPE_NOT_FOUND: { message: 'TransactionType not found', status: 404 },
     PAYMENT_GATEWAY_NOT_FOUND: { message: 'PaymentGateway not found', status: 404 },
+    INVALID_TOKEN_AMOUNT: { message: 'INVALID TOKEN AMOUNT', status: 404 },
+    NOT_ENOUGH_TOKENS: { message: 'NOT ENOUGH TOKENS', status: 404 },
+    INVALID_PROMO_DATA: { message: 'INVALID PROMO DATA', status: 400 },
+    PROMO_ALREADY_EXISTS: { message: 'PROMO ALREADY EXISTS', status: 400 },
+    PROMO_CODE_REQUIRED: { message: 'PROMO CODE REQUIRED', status: 400 },
+    PROMO_NOT_FOUND: { message: 'PROMO NOT FOUND', status: 400 },
+    PROMO_EXPIRED: { message: 'PROMO EXPIRED', status: 400 },
+    PROMO_USAGE_LIMIT_REACHED: { message: 'PROMO USAGE LIMIT REACHED', status: 400 },
+
 
     PERMISSION_DENIED: { message: "You don't have permission", status: 403 },
     UNAUTHORIZED: { message: 'You are not authorized to view this page', status: 401 },
