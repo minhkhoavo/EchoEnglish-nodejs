@@ -1,6 +1,3 @@
-import { error } from 'console';
-import { Types } from 'mongoose';
-import { throwDeprecation } from 'process';
 import { ErrorMessage } from '~/enum/errorMessage';
 import { ApiError } from '~/middleware/apiError';
 import { CategoryFlashcard } from '~/models/categoryFlashcardModel';
