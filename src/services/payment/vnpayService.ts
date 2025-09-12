@@ -27,7 +27,7 @@ class VnPayService {
             vnp_Version: "2.1.0",
             vnp_Command: "pay",
             vnp_TmnCode: this.VNP_TMNCODE,
-            vnp_Amount: transaction.amount_vnd! * 100,
+            vnp_Amount: transaction.amount! * 100,
             vnp_CreateDate: this.formatDate(nowDate),
             vnp_CurrCode: "VND",
             vnp_IpAddr: ipAddress,

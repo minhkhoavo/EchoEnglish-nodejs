@@ -8,7 +8,7 @@ const promoCodeSchema = new Schema({
     uppercase: true,
     trim: true,
   },
-  discount_vnd: {
+  discount: {
     type: Number,
     required: [true, "DISCOUNT_REQUIRED"],
     min: 0,

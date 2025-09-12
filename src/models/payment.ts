@@ -22,10 +22,10 @@ const paymentSchema = new Schema({
   description: {
     type: String,
   },
-  amount_vnd: {
+  amount: {
     type: Number,
   },
-  discount_vnd: {
+  discount: {
     type: Number,
     default: 0,
   },
