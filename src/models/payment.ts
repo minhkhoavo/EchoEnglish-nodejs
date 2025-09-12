@@ -57,5 +57,5 @@ paymentSchema.add(baseEntitySchema.obj);
 
 applyBaseEntityMiddleware(paymentSchema);
 
-export type TransactionModelType = InferSchemaType<typeof paymentSchema> & BaseEntity & { _id: Types.ObjectId };
-export const Transaction = models.Transaction || model<TransactionModelType>("Transaction", paymentSchema);
+export type PaymentType = InferSchemaType<typeof paymentSchema> & BaseEntity & { _id: Types.ObjectId };
+export const Payment = models.Transaction || model<PaymentType>("Payment", paymentSchema);

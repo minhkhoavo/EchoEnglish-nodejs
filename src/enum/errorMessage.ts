@@ -40,6 +40,9 @@ export const ErrorMessage = {
     /*Payment error*/
     TYPE_REQUIRED: { message: 'Transaction type is required', status: 400 },
     TOKENS_REQUIRED: { message: 'Tokens is required', status: 400 },
+    PAYMENT_STATUS_NOT_FOUND: { message: 'PaymentStatus not found', status: 404 },
+    TRANSACTION_TYPE_NOT_FOUND: { message: 'TransactionType not found', status: 404 },
+    PAYMENT_GATEWAY_NOT_FOUND: { message: 'PaymentGateway not found', status: 404 },
 
     PERMISSION_DENIED: { message: "You don't have permission", status: 403 },
     UNAUTHORIZED: { message: 'You are not authorized to view this page', status: 401 },
