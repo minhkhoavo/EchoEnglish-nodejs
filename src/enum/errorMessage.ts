@@ -28,7 +28,7 @@ export const ErrorMessage = {
 
     /* Test error */
     TEST_NOT_FOUND: { message: 'Test not found', status: 404 },
-    INVALID_PART_NUMBER: { message: 'Invalid part number. Must be between 1 and 7.', status: 400 },
+    PART_NOT_FOUND: { message: 'Part not found', status: 404 },
 
 } as const;
 

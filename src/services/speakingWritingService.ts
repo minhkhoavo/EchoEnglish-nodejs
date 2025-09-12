@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { ApiError } from '~/middleware/apiError';
 import { ErrorMessage } from '~/enum/errorMessage';
 
-class TestService {
+class SpeakingWritingService {
   private async getDb() {
     if (mongoose.connection.readyState !== 1) {
       throw new ApiError(ErrorMessage.INTERNAL_ERROR);
@@ -10,52 +10,56 @@ class TestService {
     return mongoose.connection.db!;
   }
 
-  public async getAllTests() {
+  public async getAllTests(query: Record<string, unknown> = {}) {
     const db = await this.getDb();
     const tests = await db
-      .collection('tests')
-      .find(
-        {},
-        {
-          projection: {
-            testId: 1,
-            testTitle: 1,
-            type: 1,
-            number_of_parts: 1,
-            number_of_questions: 1,
-            duration: 1,
-            _id: 0,
-          },
-        }
-      )
+      .collection('sw_tests')
+      .find(query, {
+        projection: {
+          testId: 1,
+          testTitle: 1,
+          type: 1,
+          number_of_parts: 1,
+          number_of_questions: 1,
+          duration: 1,
+          _id: 0,
+        },
+      })
       .toArray();
     return tests;
   }
 
   public async getTestById(testId: string) {
     const db = await this.getDb();
-    const test = await db.collection('tests').findOne({ testId: testId });
+    const test = await db
+      .collection('sw_tests')
+      .findOne({ testId: parseInt(testId) });
     return test;
   }
 
-  public async getTestByPart(testId: string, partNumber: number) {
+  public async getTestByPart( 
+    testId: number | string,
+    partNumber: number
+  ) {
     const db = await this.getDb();
-
+    // Ensure testId is number
+    const testIdNum = typeof testId === 'string' ? parseInt(testId) : testId;
+    // Find the test and filter the part by offset
     const result = await db
-      .collection('tests')
+      .collection('sw_tests')
       .aggregate([
-        { $match: { testId: testId } },
+        { $match: { testId: testIdNum } },
         {
           $project: {
-            _id: 1,
+            _id: 0,
             testId: 1,
             testTitle: 1,
             type: 1,
-            parts: {
+            part: {
               $filter: {
                 input: '$parts',
                 as: 'part',
-                cond: { $eq: ['$$part.partName', `Part ${partNumber}`] },
+                cond: { $eq: ['$$part.offset', partNumber] },
               },
             },
           },
@@ -64,11 +68,10 @@ class TestService {
       .toArray();
 
     if (result.length === 0) {
-      return null;
+      null;
     }
-
     const test = result[0];
-    if (test.parts.length === 0) {
+    if (!test.part || test.part.length === 0) {
       return null; // Part not found
     }
 
@@ -76,4 +79,4 @@ class TestService {
   }
 }
 
-export default new TestService();
+export default new SpeakingWritingService();

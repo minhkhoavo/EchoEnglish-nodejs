@@ -18,4 +18,9 @@ export enum SuccessMessage {
 
     /* category */
     DELETE_CATEGORY_SUCCESS = 'Delete category successfully',
+
+    /* test */
+    GET_ALL_TESTS_SUCCESS = 'Get all tests successfully',
+    GET_TEST_BY_ID_SUCCESS = 'Get test by ID successfully',
+    GET_TEST_BY_PART_SUCCESS = 'Get test by part successfully',
 }
