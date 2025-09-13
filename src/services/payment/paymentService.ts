@@ -96,7 +96,7 @@ class PaymentService {
     }
 
     // Trừ token
-    await User.updateOne({ _id: user._id }, { $inc: { token: -tokens } });
+    await User.updateOne({ _id: user._id }, { $inc: { tokens: -tokens } });
 
     // Lưu transaction
     const transaction = await Payment.create({
