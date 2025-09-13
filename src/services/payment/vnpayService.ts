@@ -15,6 +15,7 @@ class VnPayService {
     private VNP_URL = process.env.VNP_URL!;
     private VNP_RETURNURL = process.env.VNP_RETURN_URL!;
 
+    // Hàm sắp xếp các tham số theo thứ tự tên tham số (tăng dần)
     private sortObject = (obj: Record<string, any>): Record<string, any> => {
         let sorted: Record<string,any> = {};
         let str:string[] = [];
@@ -31,16 +32,19 @@ class VnPayService {
         return sorted;
     };
 
+    // Hàm định dạng ngày tháng theo chuẩn của VNPay
     private formatDate(date: Date): string {
         return moment(date).format('YYYYMMDDHHmmss');
     }
 
+    // Hàm tạo chữ ký bảo mật
     public generateSecureHash = (params: Record<string, any>) => {
         const sortedParams = this.sortObject(params);
         const signData = QueryString.stringify(sortedParams, { encode: false });
         return crypto.createHmac("sha512", this.VNP_HASHSECRET.trim()).update(signData).digest("hex");
     };
 
+    // Hàm tạo URL thanh toán VNPay nạp tiền
     public createVnpayPaymentUrl = async (payment: Partial<PaymentType>, ipAddress: string) => {
         console.log(payment._id);
         const nowDate = new Date();
@@ -61,19 +65,28 @@ class VnPayService {
         };
 
         const signedParams = { ...params, vnp_SecureHash: this.generateSecureHash(params) };
-        console.log(signedParams);
-        console.log("VNP_URL URL:", `${this.VNP_URL}?${QueryString.stringify(signedParams, { encode: false })}`);
         return `${this.VNP_URL}?${QueryString.stringify(signedParams, { encode: false })}`;
     }
 
+    // Hàm xử lý phản hồi từ VNPay sau khi thanh toán
     public handleVnPayReturn = async (params: Record<string, any>) => {
+        if (!params) 
+            throw new ApiError(ErrorMessage.PAYMENT_FAILED);
+
         let secureHash = params.vnp_SecureHash;
+
+        if (!secureHash) 
+            throw new ApiError(ErrorMessage.SIGNATURE_INVALID);
+
         delete params.vnp_SecureHash;
         delete params.vnp_SecureHashType;
+
         const signed = this.generateSecureHash(params);
 
         const payment = await Payment.findOne({ _id: params.vnp_TxnRef });
-        if (!payment) throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
+
+        if (!payment) 
+            throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
 
         if(secureHash !== signed){
             payment.status = PaymentStatus.FAILED;
@@ -82,6 +95,14 @@ class VnPayService {
         }
 
         const isSuccess = params.vnp_ResponseCode === "00" && params.vnp_TransactionStatus === "00";
+
+        const receivedAmount = params.vnp_Amount ? parseInt(params.vnp_Amount) / 100 : NaN;
+        if (!Number.isNaN(receivedAmount) && payment.amount !== receivedAmount) {
+            payment.status = PaymentStatus.FAILED;
+            await payment.save();
+            throw new ApiError(ErrorMessage.AMOUNT_NOT_MATCH);
+        }
+
         payment.status = isSuccess ? PaymentStatus.PENDING : PaymentStatus.FAILED;
         await payment.save();
 
@@ -94,47 +115,78 @@ class VnPayService {
         
     }
 
+    // Hàm xử lý IPN từ VNPay
     public handleVnPayIpn = async (params: Record<string, any>) => {
-        const secureHash = params.vnp_SecureHash;
-        delete params.vnp_SecureHash;
-        delete params.vnp_SecureHashType;
-        const signed = this.generateSecureHash(params);
-        const payment = await Payment.findOne({ _id: params.vnp_TxnRef });
-        if (!payment) return {RspCode: "01", Message: "Payment not found"};
+        try{
+            if (!params) 
+                return { RspCode: "99", Message: "No params" };
+            const secureHash = params.vnp_SecureHash;
 
-        if(secureHash !== signed) return {RspCode: "97", Message: "Invalid signature"};
-        if (payment.status === PaymentStatus.SUCCEEDED) return {RspCode: "02", Message: "Already confirmed"};
+            if (!secureHash) 
+                return { RspCode: "97", Message: "Missing signature" };
 
-        const receivedAmount = parseInt(params.vnp_Amount) / 100;
-        const isSuccess = params.vnp_ResponseCode === "00" && params.vnp_TransactionStatus === "00" && receivedAmount === payment.amount;
+            delete params.vnp_SecureHash;
+            delete params.vnp_SecureHashType;
 
-        if(isSuccess) {
-            payment.status = PaymentStatus.SUCCEEDED;
-            await payment.save();
-            const user = await User.findById(payment.user);
-            if(user) {
-                await User.findByIdAndUpdate(payment.user, { $inc: { tokens: payment.tokens } });
+            const signed = this.generateSecureHash(params);
+
+            const payment = await Payment.findOne({ _id: params.vnp_TxnRef });
+
+            if (!payment) 
+                return {RspCode: "01", Message: "Payment not found"};
+
+            if(secureHash !== signed) 
+                return {RspCode: "97", Message: "Invalid signature"};
+
+            if (payment.status === PaymentStatus.SUCCEEDED) 
+                return {RspCode: "02", Message: "Already confirmed"};
+
+            const receivedAmount = parseInt(params.vnp_Amount) / 100;
+
+            if (receivedAmount !== payment.amount) {
+                payment.status = PaymentStatus.FAILED;
+                await payment.save();
+                return { RspCode: "04", Message: "Amount mismatch" };
             }
-            return {RspCode: "00", Message: "Confirm Success"};
+
+            const isSuccess = params.vnp_ResponseCode === "00" && params.vnp_TransactionStatus === "00" && receivedAmount === payment.amount;
+
+            if(isSuccess) {
+                payment.status = PaymentStatus.SUCCEEDED;
+                await payment.save();
+
+                const user = await User.findById(payment.user);
+
+                if(user) {
+                    await User.findByIdAndUpdate(payment.user, { $inc: { tokens: payment.tokens } });
+                }
+                return {RspCode: "00", Message: "Confirm Success"};
+            }
+            else{
+                payment.status = PaymentStatus.FAILED;
+                await payment.save();
+                return { RspCode: "99", Message: "Unknown Error" };;
+            }
         }
-        else{
-            payment.status = PaymentStatus.FAILED;
-            await payment.save();
-            return { RspCode: "99", Message: "Unknown Error" };;
+        catch(err){
+            console.error("IPN error:", err);
+            return { RspCode: "99", Message: "Internal error" };
         }
+        
     }
 
+    // Hàm hoàn tiền token nếu giao dịch thất bại
     public refundTokens = async (payment: Partial<PaymentType>) => {
-        if (payment.status === PaymentStatus.SUCCEEDED || payment.tokens! <=0) return; // Không hoàn nếu đã thành công
+        if (payment.status === PaymentStatus.SUCCEEDED || payment.tokens! <=0) return; 
         const user = await User.findById(payment.user);
         if (user && payment.tokens! > 0) {
-            user.tokens = (user.tokens || 0) + payment.tokens; // Hoàn lại token đã cộng trước đó (nếu có)
+            user.tokens = (user.tokens || 0) + payment.tokens; 
             await user.save();
             await new Payment({
                 user: payment.user,
                 type: "refund",
                 tokens: payment.tokens,
-                description: `Hoàn trả token từ giao dịch thất bại ${payment._id}`,
+                description: `Giao dịch thất bại ${payment._id}`,
                 status: PaymentStatus.SUCCEEDED,
             }).save();
         }

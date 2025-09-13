@@ -54,6 +54,7 @@ export const ErrorMessage = {
     INVALID_DISCOUNT: { message: 'INVALID DISCOUNT', status: 400 },
     INVALID_USAGE_LIMIT: { message: 'INVALID USAGE LIMIT', status: 400 },
     INVALID_ACTIVE: { message: 'INVALID ACTIVE', status: 400 },
+    AMOUNT_NOT_MATCH: { message: 'AMOUNT MISMATCH', status: 400 },
 
     PAYMENT_FAILED: { message: 'Payment failed', status: 400 },
     SIGNATURE_INVALID: { message: 'Signature is invalid', status: 400 },
