@@ -15,6 +15,7 @@ class VnPayService {
     private VNP_URL = process.env.VNP_URL!;
     private VNP_RETURNURL = process.env.VNP_RETURN_URL!;
 
+    // Hàm sắp xếp các tham số theo thứ tự tên tham số (tăng dần)
     private sortObject = (obj: Record<string, any>): Record<string, any> => {
         let sorted: Record<string,any> = {};
         let str:string[] = [];
@@ -31,16 +32,19 @@ class VnPayService {
         return sorted;
     };
 
+    // Hàm định dạng ngày tháng theo chuẩn của VNPay
     private formatDate(date: Date): string {
         return moment(date).format('YYYYMMDDHHmmss');
     }
 
+    // Hàm tạo chữ ký bảo mật
     public generateSecureHash = (params: Record<string, any>) => {
         const sortedParams = this.sortObject(params);
         const signData = QueryString.stringify(sortedParams, { encode: false });
         return crypto.createHmac("sha512", this.VNP_HASHSECRET.trim()).update(signData).digest("hex");
     };
 
+    // Hàm tạo URL thanh toán VNPay nạp tiền
     public createVnpayPaymentUrl = async (payment: Partial<PaymentType>, ipAddress: string) => {
         console.log(payment._id);
         const nowDate = new Date();
@@ -64,6 +68,7 @@ class VnPayService {
         return `${this.VNP_URL}?${QueryString.stringify(signedParams, { encode: false })}`;
     }
 
+    // Hàm xử lý phản hồi từ VNPay sau khi thanh toán
     public handleVnPayReturn = async (params: Record<string, any>) => {
         if (!params) 
             throw new ApiError(ErrorMessage.PAYMENT_FAILED);
@@ -72,12 +77,14 @@ class VnPayService {
 
         if (!secureHash) 
             throw new ApiError(ErrorMessage.SIGNATURE_INVALID);
+
         delete params.vnp_SecureHash;
         delete params.vnp_SecureHashType;
 
         const signed = this.generateSecureHash(params);
 
         const payment = await Payment.findOne({ _id: params.vnp_TxnRef });
+
         if (!payment) 
             throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
 
@@ -108,6 +115,7 @@ class VnPayService {
         
     }
 
+    // Hàm xử lý IPN từ VNPay
     public handleVnPayIpn = async (params: Record<string, any>) => {
         try{
             if (!params) 
@@ -176,6 +184,7 @@ class VnPayService {
         
     }
 
+    // Hàm hoàn tiền token nếu giao dịch thất bại
     public refundTokens = async (payment: Partial<PaymentType>) => {
         if (payment.status === PaymentStatus.SUCCEEDED || payment.tokens! <=0) return; 
         const user = await User.findById(payment.user);
