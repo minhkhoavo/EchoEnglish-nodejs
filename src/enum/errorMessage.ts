@@ -51,10 +51,13 @@ export const ErrorMessage = {
     PROMO_NOT_FOUND: { message: 'PROMO NOT FOUND', status: 400 },
     PROMO_EXPIRED: { message: 'PROMO EXPIRED', status: 400 },
     PROMO_USAGE_LIMIT_REACHED: { message: 'PROMO USAGE LIMIT REACHED', status: 400 },
+    INVALID_DISCOUNT: { message: 'INVALID DISCOUNT', status: 400 },
+    INVALID_USAGE_LIMIT: { message: 'INVALID USAGE LIMIT', status: 400 },
+    INVALID_ACTIVE: { message: 'INVALID ACTIVE', status: 400 },
 
     PAYMENT_FAILED: { message: 'Payment failed', status: 400 },
     SIGNATURE_INVALID: { message: 'Signature is invalid', status: 400 },
-    PAYMENT_NOT_FOUND: { message: 'Payment is invalid', status: 404 },
+    PAYMENT_NOT_FOUND: { message: 'Payment not found', status: 404 },
 
     PERMISSION_DENIED: { message: "You don't have permission", status: 403 },
     UNAUTHORIZED: { message: 'You are not authorized to view this page', status: 401 },

@@ -9,6 +9,15 @@ import vnpayService from "./vnpayService";
 import { User, UserType } from "../../models/userModel";
 
 class PaymentService {
+   public async getTransactionById(id: string): Promise<PaymentType | null> {
+    const payment = await Payment.findById(id).lean<PaymentType>().exec();
+    if(!payment){
+      throw new ApiError(ErrorMessage.PAYMENT_NOT_FOUND);
+    }
+    return payment;
+  }
+  
+
   /* Lay danh sach payment */
   getTransactions = async ({
     userId,

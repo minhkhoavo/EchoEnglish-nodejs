@@ -14,6 +14,8 @@ export enum SuccessMessage {
     UPDATE_FLASHCARD_SUCCESS = 'Update flashcard successfully',
 
     /* global */
+    GET_SUCCESS = 'Get successfully',
+    CREATE_SUCCESS = 'CREATE successfully',
     DELETE_SUCCESS = 'Delete success',
 
     /* category */
@@ -23,4 +25,7 @@ export enum SuccessMessage {
     CREATE_PAYMENT_SUCCESS = 'Create payment successfully',
     PAYMENT_PENDING = 'Payment is pending',
     PAYMENT_STATUS_SUCCESS = 'Payment is scuccessful',
+    USE_TOKEN_SUCCESS = 'Use token is scuccessful',
+    GET_PAYMENT_SUCCESS = 'Get payment is scuccessful',
+    DELETE_PROMO_SUCCESS = 'Delete promo is scuccessful',
 }

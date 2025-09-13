@@ -12,5 +12,8 @@ router.post("/create", paymentController.createPayment);
 router.get("/vnpay/return", paymentController.vnPayReturn);
 router.get("/vnpay/ipn", paymentController.vnPayIpn);
 
+// Xem chi tiết giao dịch
+router.get("/:id", paymentController.getTransactionById);
+
 
 export default router;

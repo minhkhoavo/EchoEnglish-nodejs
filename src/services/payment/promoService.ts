@@ -4,8 +4,7 @@ import { Payment } from "../../models/payment";
 import { PaymentGateway } from "~/enum/paymentGateway";
 import { ErrorMessage } from "~/enum/errorMessage";
 import { ApiError } from "~/middleware/apiError";
-import { PromoCode, PromoCodeType } from "../../models/PromoCode";
-import { token } from "morgan";
+import { PromoCode, PromoCodeType } from "../../models/promoCode";
 
 interface PromoInput {
   code: string;
@@ -15,6 +14,50 @@ interface PromoInput {
 }
 
 class PromoService {
+    public async deletePromo(id: string){
+        const promo = await PromoCode.findByIdAndDelete(id);
+        if(!promo){
+            throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND)
+        }
+        return promo;
+    }
+
+    public async updatePromo(id: string, data: Partial<PromoCodeType>){
+        return await PromoCode.findByIdAndUpdate(id, data, {new : true})
+    }
+
+    public async getPromoById(id: string){
+        const promo = await PromoCode.findById(id);
+        if(!promo){
+            throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
+        }
+        return promo;
+    }
+
+    /* Search promos */
+    public async getAllPromos(search: string = '', page: number = 1, limit: number = 10){
+        const query : any = {};
+        if(search){
+            query.code = { $regex: search, $options: 'i'};
+        }
+
+        const total = await PromoCode.countDocuments(query);
+        const promos = await PromoCode.find(query)
+            .sort({creatAt: -1})
+            .skip((page-1)*limit)
+            .limit(limit);
+
+        return {
+            data: promos,
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total/limit)
+            }
+        }
+    }
+
     createPromoCode = async ({ code, discount, expiration, usageLimit }: PromoInput) => {
         if (!code || !discount) {
             throw new ApiError(ErrorMessage.INVALID_PROMO_DATA);
