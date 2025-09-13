@@ -10,10 +10,10 @@ import { ApiError } from "~/middleware/apiError";
 import moment from "moment-timezone";
 import QueryString from "qs";
 class VnPayService {
-    VNP_TMNCODE = process.env.VNP_TMNCODE!;
-    VNP_HASHSECRET = process.env.VNP_HASH_SECRET!;
-    VNP_URL = process.env.VNP_URL!;
-    VNP_RETURNURL = process.env.VNP_RETURN_URL!;
+    private VNP_TMNCODE = process.env.VNP_TMNCODE!;
+    private VNP_HASHSECRET = process.env.VNP_HASH_SECRET!;
+    private VNP_URL = process.env.VNP_URL!;
+    private VNP_RETURNURL = process.env.VNP_RETURN_URL!;
 
     private sortObject = (obj: Record<string, any>): Record<string, any> => {
         let sorted: Record<string,any> = {};
@@ -41,7 +41,8 @@ class VnPayService {
         return crypto.createHmac("sha512", this.VNP_HASHSECRET.trim()).update(signData).digest("hex");
     };
 
-    public createVnpayPaymentUrl = async (transaction: Partial<PaymentType>, ipAddress: string) => {
+    public createVnpayPaymentUrl = async (payment: Partial<PaymentType>, ipAddress: string) => {
+        console.log(payment._id);
         const nowDate = new Date();
         let params: Record<string, any> = {
             vnp_Version: "2.1.0",
@@ -49,10 +50,10 @@ class VnPayService {
             vnp_TmnCode: this.VNP_TMNCODE.trim(),
             vnp_Locale: "vn",
             vnp_CurrCode: "VND",
-            vnp_TxnRef: transaction.transactionRef || "",
-            vnp_OrderInfo: `Mua ${transaction.tokens} token`,
+            vnp_TxnRef: payment._id?.toString() || "",
+            vnp_OrderInfo: `Mua ${payment.tokens} token`,
             vnp_OrderType: "other",
-            vnp_Amount: transaction.amount! * 100,
+            vnp_Amount: payment.amount! * 100,
             vnp_ReturnUrl: this.VNP_RETURNURL.trim(),
             vnp_ExpireDate: this.formatDate(new Date(nowDate.getTime() + 15 * 60 * 1000)),
             vnp_IpAddr: ipAddress,
@@ -71,7 +72,7 @@ class VnPayService {
         delete params.vnp_SecureHashType;
         const signed = this.generateSecureHash(params);
 
-        const payment = await Payment.findOne({ transactionRef: params.vnp_TxnRef });
+        const payment = await Payment.findOne({ _id: params.vnp_TxnRef });
         if (!payment) throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
 
         if(secureHash !== signed){
@@ -87,7 +88,7 @@ class VnPayService {
         return {
             success: isSuccess, 
             message: isSuccess ? SuccessMessage.PAYMENT_PENDING : ErrorMessage.PAYMENT_FAILED, 
-            paymentId: payment._id, 
+            paymentId: payment._id.toString(), 
             status: payment.status 
         };
         
@@ -98,7 +99,7 @@ class VnPayService {
         delete params.vnp_SecureHash;
         delete params.vnp_SecureHashType;
         const signed = this.generateSecureHash(params);
-        const payment = await Payment.findOne({ transactionRef: params.vnp_TxnRef });
+        const payment = await Payment.findOne({ _id: params.vnp_TxnRef });
         if (!payment) return {RspCode: "01", Message: "Payment not found"};
 
         if(secureHash !== signed) return {RspCode: "97", Message: "Invalid signature"};
@@ -112,7 +113,7 @@ class VnPayService {
             await payment.save();
             const user = await User.findById(payment.user);
             if(user) {
-                await User.findByIdAndUpdate(payment.user, { $inc: { token: payment.tokens } });
+                await User.findByIdAndUpdate(payment.user, { $inc: { tokens: payment.tokens } });
             }
             if(payment.promoCode) {
                 const promotion = await PromoCode.findOne({ code: payment.promoCode });
@@ -135,13 +136,13 @@ class VnPayService {
         if (payment.status === PaymentStatus.SUCCEEDED || payment.tokens! <=0) return; // Không hoàn nếu đã thành công
         const user = await User.findById(payment.user);
         if (user && payment.tokens! > 0) {
-            user.token = (user.token || 0) + payment.tokens; // Hoàn lại token đã cộng trước đó (nếu có)
+            user.tokens = (user.tokens || 0) + payment.tokens; // Hoàn lại token đã cộng trước đó (nếu có)
             await user.save();
             await new Payment({
                 user: payment.user,
                 type: "refund",
                 tokens: payment.tokens,
-                description: `Hoàn trả token từ giao dịch thất bại ${payment.transactionRef}`,
+                description: `Hoàn trả token từ giao dịch thất bại ${payment._id}`,
                 status: PaymentStatus.SUCCEEDED,
             }).save();
         }

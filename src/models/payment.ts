@@ -42,9 +42,6 @@ const paymentSchema = new Schema({
     enum: Object.values(PaymentGateway),
     default: PaymentGateway.STRIPE,
   },
-  transactionRef: {
-    type: String,
-  },
   payUrl: {
     type: String,
   },
