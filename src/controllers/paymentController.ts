@@ -6,7 +6,7 @@ import { ApiError } from "~/middleware/apiError";
 import paymentService from "~/services/payment/paymentService";
 import vnpayService from "~/services/payment/vnpayService";
 class PaymentController {
-    getTransactionById = async (req: Request, res: Response) => {
+    public getTransactionById = async (req: Request, res: Response) => {
         const payment = await paymentService.getTransactionById(req.params.id);
         res.status(200).json(new ApiResponse(SuccessMessage.GET_PAYMENT_SUCCESS, payment));
     };
@@ -40,9 +40,16 @@ class PaymentController {
 
     public createPayment = async (req: Request, res: Response) => {
         const userId = req.user?.id;
-        console.log("UserID:", userId);
+        if(!userId) 
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+
         const {token, paymentGateway, description} = req.body;
-        console.log("Request Body:", req.body);
+
+        if (token === undefined || token === null) 
+            throw new ApiError(ErrorMessage.TOKENS_REQUIRED);
+        if (!paymentGateway) 
+            throw new ApiError(ErrorMessage.PAYMENT_GATEWAY_NOT_FOUND);
+
         let ipAddr = "127.0.0.1";
 
         const result = await paymentService.createPayment(userId!, ipAddr, {
@@ -55,31 +62,24 @@ class PaymentController {
     }
 
     public vnPayReturn = async (req: Request, res: Response) => {
-        try {
-            const params = req.query;
-            const result = await vnpayService.handleVnPayReturn({...params});
-            if (!result) throw new ApiError(ErrorMessage.PAYMENT_FAILED);
-            console.log(result);
-            if (!result.success) {
-                throw new ApiError({ message: result.message.toString() });
-            }
-            return res.status(200).json(new ApiResponse(result.message.toString(), {
-                paymentId: result.paymentId,
-                status: result.status
-            }));
-        } catch (err: any) {
-            return res.status(400).json(new ApiResponse(err.message || "Payment failed"));
+        const params = req.query as Record<string, any>;
+        const result = await vnpayService.handleVnPayReturn({...params});
+        if (!result) 
+            throw new ApiError(ErrorMessage.PAYMENT_FAILED);
+        
+        if (!result.success) {
+            throw new ApiError({ message: result.message.toString() });
         }
+        return res.status(200).json(new ApiResponse(result.message.toString(), {
+            paymentId: result.paymentId,
+            status: result.status
+        }));
     }
 
     public vnPayIpn = async (req: Request, res: Response) => {
-        try {
-            const params = req.query;
-            const result = await vnpayService.handleVnPayIpn({...params});
-            return res.status(200).json(result);
-        } catch (err) {
-            return res.status(500).send("99");
-        }
+        const params = req.query;
+        const result = await vnpayService.handleVnPayIpn({...params});
+        return res.status(200).json(result);
     }
 }
 

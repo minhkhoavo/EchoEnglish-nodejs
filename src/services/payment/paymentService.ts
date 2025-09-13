@@ -116,45 +116,46 @@ class PaymentService {
     };
   };
 
-    public createPayment = async (userId: string,  ipAddr: string, request: Partial<PaymentType>) => {
-        if(request.tokens! <= 0)
-            throw new ApiError(ErrorMessage.TOKEN_INVALID);
+  /* Tạo payment nạp tiền (cộng token) */
+  public createPayment = async (userId: string,  ipAddr: string, request: Partial<PaymentType>) => {
+    
+    if(request.tokens! <= 0)
+        throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
-        const amount = request.tokens! * 1000;
-        const now = new Date();
-        const expiredAt = new Date(now.getTime() + 15 * 60 * 1000); // Hết hạn sau 15 phút
+    const amount = request.tokens! * 1000;
+    const now = new Date();
+    const expiredAt = new Date(now.getTime() + 15 * 60 * 1000); // Hết hạn sau 15 phút
 
-        const payment = new Payment({
-            user: userId,
-            type: TransactionType.PURCHASE,
-            tokens: request.tokens,
-            description: request.description,
-            amount,
-            promoCode: request.promoCode,
-            status: PaymentStatus.INITIATED,
-            paymentGateway: request.paymentGateway,
-            expiredAt,
-        });
+    const payment = new Payment({
+        user: userId,
+        type: TransactionType.PURCHASE,
+        tokens: request.tokens,
+        description: request.description,
+        amount,
+        promoCode: request.promoCode,
+        status: PaymentStatus.INITIATED,
+        paymentGateway: request.paymentGateway,
+        expiredAt,
+    });
 
+    await payment.save();
+
+    let vnpUrl = "";
+    if(payment.paymentGateway == PaymentGateway.VNPAY) {
+        vnpUrl = await vnpayService.createVnpayPaymentUrl(payment, ipAddr);
+        payment.payUrl = vnpUrl;
         await payment.save();
-
-        let vnpUrl = "";
-        if(payment.paymentGateway == PaymentGateway.VNPAY) {
-            vnpUrl = await vnpayService.createVnpayPaymentUrl(payment, ipAddr);
-            payment.payUrl = vnpUrl;
-            await payment.save();
-        }
-        
-
-        return {
-            paymentId: payment._id,
-            payUrl: vnpUrl, 
-            amount: payment.amount,
-            status: payment.status,
-            expiredAt: payment.expiredAt,
-        };
-        
     }
+    
+    return {
+        paymentId: payment._id,
+        payUrl: vnpUrl, 
+        amount: payment.amount,
+        status: payment.status,
+        expiredAt: payment.expiredAt,
+    };
+      
+  }
 }
 
 interface UseTokenInput {
