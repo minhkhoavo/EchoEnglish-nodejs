@@ -6,6 +6,38 @@ import { ApiError } from "~/middleware/apiError";
 import paymentService from "~/services/payment/paymentService";
 import vnpayService from "~/services/payment/vnpayService";
 class PaymentController {
+    getTransactionById = async (req: Request, res: Response) => {
+        const payment = await paymentService.getTransactionById(req.params.id);
+        res.status(200).json(new ApiResponse(SuccessMessage.GET_PAYMENT_SUCCESS, payment));
+    };
+    
+    public getTransactions = async (req: Request, res: Response) =>{
+        const userId = req.user?.id;
+        const {status, type, gateway, page, limit} = req.query;
+
+        const result = await paymentService.getTransactions({
+            userId: userId as string,
+            status: status as string,
+            type: type as string,
+            gateway:gateway as string,
+            page: page ? parseInt(page as string, 1) : 1,
+            limit: limit ? parseInt(limit as string, 10) : 10,
+        })
+        res.status(200).json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
+    }
+
+    public useToken = async (req: Request, res: Response) =>{
+        const { tokens, description} = req.body;
+        const result = await paymentService.useToken({
+            userId: req.user?.id,
+            tokens,
+            description,
+        })
+
+        res.status(200).json(new ApiResponse(SuccessMessage.USE_TOKEN_SUCCESS, result));
+        
+    }
+
     public createPayment = async (req: Request, res: Response) => {
         const userId = req.user?.id;
         console.log("UserID:", userId);

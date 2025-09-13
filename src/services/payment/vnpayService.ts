@@ -61,8 +61,6 @@ class VnPayService {
         };
 
         const signedParams = { ...params, vnp_SecureHash: this.generateSecureHash(params) };
-        console.log(signedParams);
-        console.log("VNP_URL URL:", `${this.VNP_URL}?${QueryString.stringify(signedParams, { encode: false })}`);
         return `${this.VNP_URL}?${QueryString.stringify(signedParams, { encode: false })}`;
     }
 

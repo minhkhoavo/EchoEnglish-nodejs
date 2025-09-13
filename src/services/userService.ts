@@ -95,7 +95,7 @@ class UserService {
                             .then((userRole) => {
                                 if (!userRole) {
                                     throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
-                                }
+                                } 
                                 const user = new User({
                                     fullName: userDto.fullName,
                                     email: userDto.email,
