@@ -5,7 +5,8 @@ import flashcardRouter from "./flashcard";
 import filesRouter from "./files";
 import { Router } from "express";
 import speechRouter from "./speech";
-import paymentRouter from "./payment";
+import payment from "./payments";
+import promo from "./promo";
 
 const apiRouter = Router();
 
@@ -15,6 +16,7 @@ apiRouter.use("/tests", testRouter);
 apiRouter.use("/flashcards", flashcardRouter);
 apiRouter.use("/files", filesRouter);
 apiRouter.use("/speech", speechRouter);
-apiRouter.use("/payments", paymentRouter);
+apiRouter.use("/payments", payment);
+apiRouter.use("/promo", promo);
 
 export default apiRouter;
