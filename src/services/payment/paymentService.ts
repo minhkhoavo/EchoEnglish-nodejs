@@ -12,23 +12,7 @@ class PaymentService {
         if(request.tokens! <= 0)
             throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
-        let discount = 0;
-        // Kiểm tra nếu có mã giảm giá, áp dụng mã giảm giá
-        if(request.promoCode) {
-            const promotion = await PromoCode.findOne({
-                code: request.promoCode,
-                active: true,
-                $or: [{ expiration: { $exists: false } }, { expiration: { $gt: new Date() } }],
-            });
-
-            if(!promotion || promotion.usedCount >= promotion.usageLimit) {
-                throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
-            }
-
-            discount = promotion.discount;
-        }
-
-        const amount = Math.max(request.tokens! * 1000 - discount, 0);
+        const amount = request.tokens! * 1000;
         const now = new Date();
         const expiredAt = new Date(now.getTime() + 15 * 60 * 1000); // Hết hạn sau 15 phút
 
@@ -38,7 +22,6 @@ class PaymentService {
             tokens: request.tokens,
             description: request.description,
             amount,
-            discount,
             promoCode: request.promoCode,
             status: PaymentStatus.INITIATED,
             paymentGateway: request.paymentGateway,

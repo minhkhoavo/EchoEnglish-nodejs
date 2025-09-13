@@ -9,13 +9,12 @@ class PaymentController {
     public createPayment = async (req: Request, res: Response) => {
         const userId = req.user?.id;
         console.log("UserID:", userId);
-        const {token, promoCode, paymentGateway, description} = req.body;
+        const {token, paymentGateway, description} = req.body;
         console.log("Request Body:", req.body);
         let ipAddr = "127.0.0.1";
 
         const result = await paymentService.createPayment(userId!, ipAddr, {
             tokens: token,
-            promoCode,
             paymentGateway,
             description}
         );
