@@ -52,7 +52,7 @@ const userSchema = new Schema(
                 ref: 'Role',
             },
         ],
-        token: {
+        tokens: {
             type: Number,
             default: 0,
             min: [0, 'TOKEN_INVALID'],
