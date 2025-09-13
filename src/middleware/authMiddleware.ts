@@ -17,6 +17,7 @@ const PUBLIC_ENDPOINTS: { methods: string[], path: string }[] = [
   { methods: ["GET"],  path: "/tests/" },
   { methods: ["GET"], path: "/tests/**" },
   { methods: ["GET"],  path: "/category-flashcard/test/**" }, 
+  { methods: ["GET"],  path: "/payments/vnpay/ipn/**" }, 
 ];
 
 /* kiem tra PUBLIC_ENPOINT.path match req.path */
