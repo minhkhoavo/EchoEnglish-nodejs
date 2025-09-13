@@ -115,14 +115,6 @@ class VnPayService {
             if(user) {
                 await User.findByIdAndUpdate(payment.user, { $inc: { tokens: payment.tokens } });
             }
-            if(payment.promoCode) {
-                const promotion = await PromoCode.findOne({ code: payment.promoCode });
-                if(promotion) {
-                    promotion.usedCount += 1;
-                    if(promotion.usedCount >= promotion.usageLimit) promotion.active = false;
-                    await promotion.save();
-                }
-            }
             return {RspCode: "00", Message: "Confirm Success"};
         }
         else{
