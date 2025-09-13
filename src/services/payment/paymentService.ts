@@ -91,7 +91,7 @@ class PaymentService {
       throw new ApiError(ErrorMessage.USER_NOT_FOUND);
     }
 
-    if (user.token < tokens) {
+    if (user.tokens < tokens) {
       throw new ApiError(ErrorMessage.NOT_ENOUGH_TOKENS);
     }
 
@@ -112,7 +112,7 @@ class PaymentService {
       transactionId: transaction._id,
       status: transaction.status,
       tokensDeducted: tokens,
-      userTokenBalance: user.token,
+      userTokenBalance: user.tokens,
     };
   };
 
