@@ -47,9 +47,6 @@ class PaymentService {
 
         await payment.save();
 
-        const transactionRef = payment._id.toString();
-        payment.transactionRef = transactionRef;
-
         let vnpUrl = "";
         if(payment.paymentGateway == PaymentGateway.VNPAY) {
             vnpUrl = await vnpayService.createVnpayPaymentUrl(payment, ipAddr);
