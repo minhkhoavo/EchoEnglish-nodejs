@@ -32,6 +32,8 @@
     "@types/multer": "^2.0.0",
     "@types/node": "^24.3.0",
     "@types/nodemailer": "^7.0.1",
+    "@types/stripe": "^8.0.416",
+    "@types/stripe-v3": "^3.1.33",
     "@types/uuid": "^10.0.0",
     "mongoose-sequence": "^6.0.1",
     "morgan": "^1.10.1",
@@ -61,6 +63,7 @@
     "node-wav": "^0.0.2",
     "nodemailer": "^7.0.5",
     "qs": "^6.14.0",
+    "stripe": "^18.5.0",
     "uuid": "^12.0.0",
     "vnpay": "^2.4.2"
   }

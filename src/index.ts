@@ -6,6 +6,7 @@ import { globalAuth } from './middleware/authMiddleware';
 import morgan from 'morgan';
 import cors from 'cors';
 import ErrorMiddleware from './middleware/errorMiddleware';
+import paymentController from "~/controllers/paymentController";
 
 dotenv.config();
 
@@ -15,6 +16,13 @@ const app = express();
 connectDB();
 
 app.use(cors());
+
+app.post(
+  "/payments/stripe/webhook",
+  express.raw({ type: "application/json" }),
+  paymentController.stripeWebhook
+);
+
 app.use(express.json());
 // app.use(morgan('combined'));
 app.use(globalAuth);
