@@ -40,6 +40,7 @@ class SpeechAssessmentService {
         };
 
         const paConfig = sdk.PronunciationAssessmentConfig.fromJSON(JSON.stringify(paConfigJson));
+        paConfig.enableProsodyAssessment = true;
         paConfig.applyTo(recognizer);
 
         const result = await new Promise<sdk.SpeechRecognitionResult>((resolve, reject) => {

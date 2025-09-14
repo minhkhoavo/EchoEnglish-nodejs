@@ -47,12 +47,19 @@ echoenglish-nodejs/
 ## ⚙️ Cầu hình file .env
 - Tạo file .env ở thư mục gốc và cấu hình như sau:
 ## Sửa cấu hình SMTP để gửi email
+#### Tham số cấu hình mail
 - SMTP_HOST=smtp.gmail.com
 - SMTP_PORT=587
 - SMTP_USER=your_email@gmail.com
 - SMTP_PASS=your_email_password
 - FROM_EMAIL=your_email@gmail.com
-
+#### Tham số JWT token
+- JWT_SECRETKEY=your_jwt_token
+#### Tham số cấu hình VNPay
+- VNP_URL=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+- VNP_TMNCODE=your_tmn_code
+- VNP_HASH_SECRET=your_hash_secret
+- VNP_RETURN_URL=http://localhost:8099/payments/vnpay/return
 
 ## 📦 Cài đặt
 ```bash
@@ -66,11 +73,25 @@ npm install
 ```bash
 npm run dev
 ```
+or
+```bash
+pnpm dev
+```
+
 ## Build TypeScript sang JavaScript
 ```bash
 npm run build
 ```
+or
+```bash
+pnpm build
+```
+
 ## Run sau khi build
 ```bash
 npm run start
+```
+or
+```bash
+pnpm start
 ```

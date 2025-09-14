@@ -11,7 +11,10 @@ class RecordingService {
         const filter: any = {};
         if (userId) filter.userId = userId;
 
-        const items = await RecordingModel.find(filter).sort({ createdAt: -1 }).lean();
+        const items = await RecordingModel.find(filter)
+            .select('-analysis')
+            .sort({ createdAt: -1 })
+            .lean();
 
         return {
             items,
@@ -24,6 +27,10 @@ class RecordingService {
 
     async remove(id: string) {
         return RecordingModel.findByIdAndDelete(id).lean();
+    }
+
+    async update(id: string, patch: Partial<IRecording>) {
+        return RecordingModel.findByIdAndUpdate(id, { $set: patch }, { new: true }).lean();
     }
 }
 
