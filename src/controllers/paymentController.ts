@@ -27,10 +27,11 @@ class PaymentController {
     }
 
     public useToken = async (req: Request, res: Response) =>{
-        const { tokens, description} = req.body;
+        const { tokens, promoCode, description} = req.body;
         const result = await paymentService.useToken({
             userId: req.user?.id,
             tokens,
+            promoCode,
             description,
         })
 

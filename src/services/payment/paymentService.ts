@@ -4,7 +4,7 @@ import { PaymentStatus } from "~/enum/paymentStatus";
 import { TransactionType } from "~/enum/transactionType";
 import { ApiError } from "~/middleware/apiError"
 import { Payment, PaymentType } from "~/models/payment";
-import { PromoCode } from "~/models/promoCode";
+import { PromoCode, PromoCodeType } from "~/models/promoCode";
 import vnpayService from "./vnpayService";
 import { User, UserType } from "../../models/userModel";
 
@@ -77,7 +77,7 @@ class PaymentService {
   };
 
   /* Sử dụng token cua user để thanh toan */
-  useToken = async ({ userId, tokens, description }: UseTokenInput) => {
+  useToken = async ({ userId, tokens, promoCode, description }: UseTokenInput) => {
     if (!userId) {
       throw new ApiError(ErrorMessage.UNAUTHORIZED);
     }
@@ -91,12 +91,38 @@ class PaymentService {
       throw new ApiError(ErrorMessage.USER_NOT_FOUND);
     }
 
+    /* xu ly promo */
+    let promo;
+    if(promoCode){
+      promo = await PromoCode.findOne({code: promoCode, active: true}).lean<PromoCodeType>().exec();
+      if(!promo){
+        throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
+      }
+
+      if(promo.usageLimit && promo.usageLimit<= promo.usedCount){
+        throw new ApiError(ErrorMessage.PROMO_USAGE_LIMIT_REACHED)
+      }
+      /* het han dung */
+      if(promo.expiration && promo.expiration <= new Date()){
+        throw new ApiError(ErrorMessage.PROMO_EXPIRED)
+      }
+      /* Giam tien */
+      let discountedTokens = tokens - promo.discount;
+      if(discountedTokens < 0){
+        discountedTokens = 0;
+      }
+
+      tokens = discountedTokens;
+      await PromoCode.updateOne({ _id: promo._id}, {$inc: {usedCount : 1}});
+    }
+
+    /* Sau giam gia van khong du tien */
     if (user.tokens < tokens) {
       throw new ApiError(ErrorMessage.NOT_ENOUGH_TOKENS);
     }
-
-    // Trừ token
-    await User.updateOne({ _id: user._id }, { $inc: { tokens: -tokens } });
+    
+    // cập nhật token user
+    const userUpdated = await User.findByIdAndUpdate({ _id: user._id }, { $inc: { tokens: -tokens }},{ new: true}).lean<UserType>().exec();
 
     // Lưu transaction
     const transaction = await Payment.create({
@@ -104,6 +130,7 @@ class PaymentService {
       type: TransactionType.DEDUCTION,
       tokens,
       description,
+      promoCode: promo?._id,
       amount: 0,
       status: PaymentStatus.SUCCEEDED,
     });
@@ -112,7 +139,7 @@ class PaymentService {
       transactionId: transaction._id,
       status: transaction.status,
       tokensDeducted: tokens,
-      userTokenBalance: user.tokens,
+      userTokenBalance: userUpdated?.tokens,
     };
   };
 
@@ -161,6 +188,7 @@ class PaymentService {
 interface UseTokenInput {
   userId?: string;
   tokens: number;
+  promoCode?: string;
   description?: string;
 }
 
