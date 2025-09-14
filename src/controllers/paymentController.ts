@@ -5,7 +5,38 @@ import { SuccessMessage } from "~/enum/successMessage";
 import { ApiError } from "~/middleware/apiError";
 import paymentService from "~/services/payment/paymentService";
 import vnpayService from "~/services/payment/vnpayService";
+import stripeService from "../services/payment/stripeService";
 class PaymentController {
+    public stripeWebhook = async (req: Request, res: Response) => {
+        const stripeSig = req.headers["stripe-signature"] as string | undefined;
+        if (!stripeSig) {
+            console.error("Missing stripe-signature header");
+            return res.status(400).send("Missing signature");
+        }
+
+        try {
+            const StripeLib = await import("stripe");
+            const stripe = new StripeLib.default(process.env.STRIPE_SECRET_KEY || "");
+
+            const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
+            const event = stripe.webhooks.constructEvent(req.body, stripeSig, webhookSecret);
+
+            // delegate handling to stripeService
+            const result = await stripeService.handleEvent(event);
+
+            if (result && result.handled) {
+                return res.status(200).json({ received: true });
+            } else {
+                return res.status(200).json({ received: true, note: "unhandled_event" });
+            }
+        } catch (err: any) {
+            console.error("Stripe webhook error:", err);
+            return res.status(400).send(`Webhook Error: ${err?.message ?? err}`);
+        }
+    }
+
+
+
     public getTransactionById = async (req: Request, res: Response) => {
         const payment = await paymentService.getTransactionById(req.params.id);
         res.status(200).json(new ApiResponse(SuccessMessage.GET_PAYMENT_SUCCESS, payment));

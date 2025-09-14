@@ -7,6 +7,9 @@ import { Payment, PaymentType } from "~/models/payment";
 import { PromoCode, PromoCodeType } from "~/models/promoCode";
 import vnpayService from "./vnpayService";
 import { User, UserType } from "../../models/userModel";
+import stripeService from "./stripeService";
+
+const EXCHANGE_RATE_USD = 0.04;
 
 class PaymentService {
    public async getTransactionById(id: string): Promise<PaymentType | null> {
@@ -120,7 +123,7 @@ class PaymentService {
     if (user.tokens < tokens) {
       throw new ApiError(ErrorMessage.NOT_ENOUGH_TOKENS);
     }
-    
+
     // cập nhật token user
     const userUpdated = await User.findByIdAndUpdate({ _id: user._id }, { $inc: { tokens: -tokens }},{ new: true}).lean<UserType>().exec();
 
@@ -146,10 +149,18 @@ class PaymentService {
   /* Tạo payment nạp tiền (cộng token) */
   public createPayment = async (userId: string,  ipAddr: string, request: Partial<PaymentType>) => {
     
-    if(request.tokens! <= 0)
+    if(!request.tokens && request.tokens! <= 0)
         throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
-    const amount = request.tokens! * 1000;
+    // const amount = request.tokens! * 1000;
+    let amount = 0;
+    if(request.paymentGateway == PaymentGateway.VNPAY){
+      amount = request.tokens! * 1000;
+    }
+    else if(request.paymentGateway == PaymentGateway.STRIPE){
+      amount = request.tokens! * EXCHANGE_RATE_USD;
+    }
+
     const now = new Date();
     const expiredAt = new Date(now.getTime() + 15 * 60 * 1000); // Hết hạn sau 15 phút
 
@@ -167,16 +178,27 @@ class PaymentService {
 
     await payment.save();
 
-    let vnpUrl = "";
+    let payUrl = ""; // chung cho cả gateway
+    /* Thanh toan = vnpay */
     if(payment.paymentGateway == PaymentGateway.VNPAY) {
-        vnpUrl = await vnpayService.createVnpayPaymentUrl(payment, ipAddr);
+        const vnpUrl = await vnpayService.createVnpayPaymentUrl(payment, ipAddr);
         payment.payUrl = vnpUrl;
         await payment.save();
+        payUrl = vnpUrl;
+    }
+    /* Thanh toan = stripe */
+    if(payment.paymentGateway == PaymentGateway.STRIPE){
+      const session = await stripeService.createCheckoutSession(payment);
+      if (session && session.url) {
+        payment.payUrl = session.url;
+        await payment.save();
+        payUrl = session.url;
+      }
     }
     
     return {
         paymentId: payment._id,
-        payUrl: vnpUrl, 
+        payUrl, 
         amount: payment.amount,
         status: payment.status,
         expiredAt: payment.expiredAt,
