@@ -2,6 +2,8 @@ import { NOTFOUND } from 'dns';
 
 /* Định nghĩa các enum lỗi */
 export const ErrorMessage = {
+    INTERNAL_ERROR: { message: 'Internal server error', status: 500 },
+    
     /* User eror */
     USER_EXISTED: { message: 'User already existed', status: 400 },
     USER_NOT_FOUND: { message: 'User not found', status: 404 },
@@ -63,9 +65,13 @@ export const ErrorMessage = {
     PERMISSION_DENIED: { message: "You don't have permission", status: 403 },
     UNAUTHORIZED: { message: 'You are not authorized to view this page', status: 401 },
     VALIDATION_ERROR: { message: 'Validation error', status: 400 },
-    INTERNAL_ERROR: { message: 'Internal server error', status: 500 },
     INVALID_ID: { message: 'Invalid ID format', status: 400 },
     NOTFOUND: { message: 'Date not found', status: 404 },
+
+    /* Test error */
+    TEST_NOT_FOUND: { message: 'Test not found', status: 404 },
+    PART_NOT_FOUND: { message: 'Part not found', status: 404 },
+
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;
