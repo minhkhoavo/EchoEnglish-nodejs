@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "b654ac56-79b6-43bd-b964-fd31d78284e6",
-		"name": "Echo Englist Node API",
+		"_postman_id": "7a39d572-514d-494b-ae30-d5f43d853210",
+		"name": "Echo Englist Node API -14/9",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "41180819"
+		"_exporter_id": "38517569",
+		"_collection_link": "https://cccc33-6500.postman.co/workspace/cccc-Workspace~b7eba50b-fc24-4522-a812-60dffdca8e13/collection/38517569-7a39d572-514d-494b-ae30-d5f43d853210?action=share&source=collection_link&creator=38517569"
 	},
 	"item": [
 		{
@@ -1304,6 +1305,16 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
 					],
 					"request": {
@@ -1320,7 +1331,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"anhkhoaxn11@gmail.com\",\n  \"password\": \"12341234\"\n}",
+							"raw": "{\n  \"email\": \"ledinhloc7@gmail.com\",\n  \"password\": \"12341234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2623,7 +2634,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"token\": 10,\n  \"promoCode\": \"\",\n  \"paymentGateway\": \"VNPAY\",\n  \"description\": \"Purchase tokens\"\n}"
+							"raw": "{\n  \"token\": 100,\n  \"paymentGateway\": \"STRIPE\",\n  \"description\": \"Purchase tokens\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/payments/create",
@@ -2761,6 +2772,438 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get payment by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payments/68c3e6326e0c01bd5a877650",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payments",
+								"68c3e6326e0c01bd5a877650"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get list payment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/payments?gateway=STRIPE",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"payments"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "deduction",
+									"disabled": true
+								},
+								{
+									"key": "gateway",
+									"value": "STRIPE"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get list promo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/promo?search=Loc&page=1&limit=3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"promo"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Loc"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "use token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tokens\": 0,\r\n    \"promoCode\": \"PROMO_LOC1\",\r\n    \"description\": \"Ban da bi tru tien\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payments/use-token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payments",
+								"use-token"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "deduction",
+									"disabled": true
+								},
+								{
+									"key": "gateway",
+									"value": "STRIPE",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create promo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"PROMO_Loc10\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-10-21T00:00:00.000Z\",\r\n    \"usageLimit\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/promo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"promo"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "deduction",
+									"disabled": true
+								},
+								{
+									"key": "gateway",
+									"value": "STRIPE",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get promo by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"PROMO_Loc8\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-07-21\",\r\n    \"usageLimit\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/promo/68c5155091eca5dc383c2508",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"promo",
+								"68c5155091eca5dc383c2508"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "deduction",
+									"disabled": true
+								},
+								{
+									"key": "gateway",
+									"value": "STRIPE",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete promo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"PROMO_Loc8\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-07-21\",\r\n    \"usageLimit\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/promo/68c554f6d9364070e47c9f56",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"promo",
+								"68c554f6d9364070e47c9f56"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "deduction",
+									"disabled": true
+								},
+								{
+									"key": "gateway",
+									"value": "STRIPE",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update promo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"PROMO_Loc9\",\r\n    \"discount\": 1,\r\n    \"expiration\": \"2025-02-21T00:00:00.000Z\",\r\n    \"usageLimit\": 1,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/promo/68c51f4f035ba2ff65d709af",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"promo",
+								"68c51f4f035ba2ff65d709af"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "deduction",
+									"disabled": true
+								},
+								{
+									"key": "gateway",
+									"value": "STRIPE",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate promo Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"PROMO_DEMO\",\r\n    \"discount\": 2,\r\n    \"expiration\": \"2025-10-21\",\r\n    \"usageLimit\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/promo/validate?code=PROMO_DEMO",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"promo",
+								"validate"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "PROMO_DEMO"
+								},
+								{
+									"key": "type",
+									"value": "deduction",
+									"disabled": true
+								},
+								{
+									"key": "gateway",
+									"value": "STRIPE",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -2770,7 +3213,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTc2ODQxODMsImV4cCI6MTc2MDI3NjE4M30.GDeyTnNlBzh3OzZMQPRDiVhKeWzFiRwSx_OABrzmAQzefghcARxIhHskgFsBoX-7XNv8De-j1EaZaCwsphbHMg",
+				"value": "{{access_token}}",
 				"type": "string"
 			}
 		]

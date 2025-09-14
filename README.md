@@ -60,6 +60,15 @@ echoenglish-nodejs/
 - VNP_TMNCODE=your_tmn_code
 - VNP_HASH_SECRET=your_hash_secret
 - VNP_RETURN_URL=http://localhost:8099/payments/vnpay/return
+#### Lưu ý: Cách lấy VNP_TMNCODE và VNP_HASH_SECRET
+- Bước 1: Truy cập https://sandbox.vnpayment.vn/devreg/
+- Bước 2: Tạo tài khoản với email chính xác.
+- Bước 3: Xác thực tài khoản qua mail.
+- Bước 4: Sau khi xác thực sẽ nhận được mail chứa VNP_TMNCODE và VNP_HASH_SECRET
+
+#### Stripe 
+- Truy cập https://dashboard.stripe.com/test/dashboard -> copy STRIPE_SECRET_KEY
+- Chọn develop -> webhook -> hướng dẫn local -> lấy được STRIPE_WEBHOOK_SECRET
 
 ## 📦 Cài đặt
 ```bash
