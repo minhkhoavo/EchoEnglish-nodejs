@@ -8,17 +8,12 @@ import { ErrorMessage } from "~/enum/errorMessage";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
 class StripeService {
-  private successUrl = process.env.STRIPE_SUCCESS_URL || "https://example.com/success"; // override in env
-  private cancelUrl = process.env.STRIPE_CANCEL_URL || "https://example.com/cancel";   // override in env
-  private currency = (process.env.STRIPE_CURRENCY || "usd").toLowerCase(); // ensure lowercase
+  private successUrl = process.env.STRIPE_SUCCESS_URL; 
+  private cancelUrl = process.env.STRIPE_CANCEL_URL ;   
+  private currency = (process.env.STRIPE_CURRENCY || "vnd").toLowerCase(); 
 
   public createCheckoutSession = async (payment: PaymentType) => {
-    const amountInUSD  = Math.round(payment.amount || 0); 
-    const amountInCents = Math.round(amountInUSD * 100);
-
-    if (amountInCents < 50) {
-      throw new ApiError(ErrorMessage.AMOUNT_LIMIT);
-    }
+    const amount  = Math.round(payment.amount || 0); 
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -30,7 +25,7 @@ class StripeService {
             product_data: {
               name: `Mua ${payment.tokens} token`,
             },
-            unit_amount: amountInCents,
+            unit_amount: amount,
           },
           quantity: 1,
         },
@@ -47,11 +42,7 @@ class StripeService {
     return session;
   };
 
-  /**
-   * Xử lý webhook (stripe signature verification được controller truyền vào)
-   * - event: Stripe.Event
-   * - trả về object để controller trả response
-   */
+  /* Handler khi stripe tra ve */
   public handleEvent = async (event: Stripe.Event) => {
     try {
       if (event.type === "checkout.session.completed") {
@@ -76,8 +67,6 @@ class StripeService {
 
         return { handled: true };
       }
-
-      // Bạn có thể handle event khác (payment_intent.succeeded, charge.refunded...) nếu cần
       return { handled: false };
     } catch (err) {
       console.error("Stripe webhook handling error:", err);

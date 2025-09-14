@@ -9,8 +9,6 @@ import vnpayService from "./vnpayService";
 import { User, UserType } from "../../models/userModel";
 import stripeService from "./stripeService";
 
-const EXCHANGE_RATE_USD = 0.04;
-
 class PaymentService {
    public async getTransactionById(id: string): Promise<PaymentType | null> {
     const payment = await Payment.findById(id).lean<PaymentType>().exec();
@@ -152,14 +150,7 @@ class PaymentService {
     if(!request.tokens && request.tokens! <= 0)
         throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
-    // const amount = request.tokens! * 1000;
-    let amount = 0;
-    if(request.paymentGateway == PaymentGateway.VNPAY){
-      amount = request.tokens! * 1000;
-    }
-    else if(request.paymentGateway == PaymentGateway.STRIPE){
-      amount = request.tokens! * EXCHANGE_RATE_USD;
-    }
+    const amount = request.tokens! * 1000;
 
     const now = new Date();
     const expiredAt = new Date(now.getTime() + 15 * 60 * 1000); // Hết hạn sau 15 phút
