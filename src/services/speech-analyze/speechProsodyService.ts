@@ -68,19 +68,13 @@ export type StressWord = { index: number; word: string; stressScore: number; isS
 class SpeechProsodyService {
     // Expect transformed object from SpeechTransformService.createTranscriptData
     analyze({
-        azureSegments,
         transformed,
         audioBuffer,
-        mimeType,
-        userId,
-        recordingId,
+        mimeType
     }: {
-        azureSegments: any[];
         transformed: any;
         audioBuffer: Buffer;
         mimeType: string;
-        userId: string;
-        recordingId: string;
     }): { prosody: ProsodyAnalysis; fluency: FluencyAnalysis; stressWords: StressWord[] } {
         // If not WAV, we can only do fluency based on timing metadata, skip waveform prosody
         let sampleRate = 0;

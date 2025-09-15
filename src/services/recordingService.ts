@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import RecordingModel, { IRecording } from '~/models/recordingModel';
 
 class RecordingService {
@@ -6,7 +7,7 @@ class RecordingService {
         return doc.toObject();
     }
 
-    async list(params: { userId?: string }) {
+    async list(params: { userId?: string | Types.ObjectId }) {
         const { userId } = params;
         const filter: any = {};
         if (userId) filter.userId = userId;
@@ -21,15 +22,15 @@ class RecordingService {
         };
     }
 
-    async getById(id: string) {
+    async getById(id: string | Types.ObjectId) {
         return RecordingModel.findById(id).lean();
     }
 
-    async remove(id: string) {
+    async remove(id: string | Types.ObjectId) {
         return RecordingModel.findByIdAndDelete(id).lean();
     }
 
-    async update(id: string, patch: Partial<IRecording>) {
+    async update(id: string | Types.ObjectId, patch: Partial<IRecording>) {
         return RecordingModel.findByIdAndUpdate(id, { $set: patch }, { new: true }).lean();
     }
 }
