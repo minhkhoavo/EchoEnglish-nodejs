@@ -41,7 +41,7 @@ REQUIRED JSON OUTPUT STRUCTURE:
   "overallScore": <final score 0-3>,
   "feedback": {{
     "summary": "<Concise summary of how well the question was answered>",
-    "strengths": "<A list of strengths, written briefly>",
-    "areasForImprovement": "<A list of advice, written briefly>"
+    "strengths": "<A list of strengths, up to 5 brief items>",
+    "areasForImprovement": "<A list of advice, up to 5 brief items>"
   }}
 }}

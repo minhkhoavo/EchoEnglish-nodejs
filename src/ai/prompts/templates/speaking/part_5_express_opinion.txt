@@ -25,7 +25,7 @@ CANDIDATE'S PERFORMANCE DATA:
 {fluencyIssues}
 
 EVALUATION TASK:
-Assess if the candidate states a clear opinion and supports it with logical reasons/examples. Evaluate pronunciation, intonation/stress, grammar accuracy, vocabulary range/appropriacy, and overall fluency/cohesion. Provide a final overallScore from 0 to 3.
+Assess if the candidate states a clear opinion and supports it with logical reasons/examples. Evaluate pronunciation, intonation/stress, grammar accuracy, vocabulary range/appropriacy, and overall fluency/cohesion. Provide a final overallScore from 0 to 5.
 
 REQUIRED JSON OUTPUT STRUCTURE:
 {{
@@ -34,12 +34,14 @@ REQUIRED JSON OUTPUT STRUCTURE:
     "intonationAndStress": <score 0-5>,
     "grammar": <score 0-5>,
     "vocabulary": <score 0-5>,
-    "fluencyAndCohesion": <score 0-5>
+    "fluencyAndCohesion": <score 0-5>,
+    "relevance": <score 0-3>,
+    "completeness": <score 0-3>
   }},
   "overallScore": <final score 0-5>,
   "feedback": {{
     "summary": "<Concise summary of the opinion response>",
-    "strengths": "<A list of strengths, written briefly>",
-    "areasForImprovement": "<A list of advice, written briefly>"
+    "strengths": "<A list of strengths, up to 5 brief items>",
+    "areasForImprovement": "<A list of advice, up to 5 brief items>"
   }}
 }}

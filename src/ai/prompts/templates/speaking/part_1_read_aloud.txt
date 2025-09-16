@@ -40,7 +40,7 @@ REQUIRED JSON OUTPUT STRUCTURE:
   "overallScore": <final score 0-3>,
   "feedback": {{
     "summary": "<One-sentence summary of reading performance>",
-    "strengths": "<A list of strengths, written briefly>",
-    "areasForImprovement": "<A list of advice, written briefly>"
+    "strengths": "<A list of strengths, up to 5 brief items>",
+    "areasForImprovement": "<A list of advice, up to 5 brief items>"
   }}
 }}

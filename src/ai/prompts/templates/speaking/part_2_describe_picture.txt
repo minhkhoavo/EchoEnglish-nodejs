@@ -40,7 +40,7 @@ Assess the candidate's ability to describe the picture clearly and coherently. E
   "overallScore": <final score for this question, on a scale of 0-3>,
   "feedback": {{
     "summary": "<A concise summary of the picture description performance.>",
-    "strengths": "<A list of strengths, written briefly>",
-    "areasForImprovement": "<A list of advice, written briefly>"
+    "strengths": "<A list of strengths, up to 5 brief items>",
+    "areasForImprovement": "<A list of advice, up to 5 brief items>"
   }}
 }}

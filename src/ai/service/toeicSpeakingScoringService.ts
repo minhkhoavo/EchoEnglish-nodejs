@@ -10,6 +10,8 @@ import { googleGenAIClient } from '../provider/googleGenAIClient';
 export interface IQuestionContext {
     questionType: 'speaking_part1' | 'speaking_part2' | 'speaking_part3' | 'speaking_part4' | 'speaking_part5' | 'speaking_part6';
     referenceText?: string;
+    questionPrompt?: string;
+    providedInfo?: string;
     imageUrl?: string;      
 }
 
@@ -52,7 +54,6 @@ class AIScoringService {
         };
 
         const formattedText = await PromptTemplate.fromTemplate(templateString).format(inputData);
-
         const model = googleGenAIClient.getModel();
         const parser = new JsonOutputParser();
         let message: string | Array<{ role: string; content: any }>;
@@ -71,8 +72,6 @@ class AIScoringService {
         } else {
             message = formattedText;
         }
-        console.log("[AIScoringService] Prepared message for model:", message);
-        console.log(`[AIScoringService] Invoking chain for recording ${recordingId} with ${context.imageUrl ? 'multi-modal' : 'text-only'} input.`);
         try {
             const chain = model.pipe(parser);
             return await chain.invoke(message);

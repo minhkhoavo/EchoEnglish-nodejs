@@ -31,13 +31,18 @@ You are a highly experienced and certified TOEIC Speaking examiner. Your task is
 **REQUIRED JSON OUTPUT STRUCTURE:**
 {{
   "scores": {{
-    "pronunciation": <score 1-3>,
-    "taskCompletion": <score 1-3>
+    "pronunciation": <score 0-3>,
+    "intonationAndStress": <score 0-3>,
+    "grammar": <score 0-3>,
+    "vocabulary": <score 0-3>,
+    "fluencyAndCohesion": <score 0-3>,
+    "relevance": <score 0-3>,
+    "completeness": <score 0-3>
   }},
   "overallScore": <final score for this question, on a scale of 0-3>,
   "feedback": {{
     "summary": "<A concise summary of the performance.>",
-    "strengths": "<A list of strengths, written briefly>",
-    "areasForImprovement": "<A list of advice, written briefly>"
+    "strengths": "<A list of strengths, up to 5 brief items>",
+    "areasForImprovement": "<A list of advice, up to 5 brief items>"
   }}
 }}

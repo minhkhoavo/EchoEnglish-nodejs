@@ -68,7 +68,7 @@ export default class SpeakingAttemptService {
                     promptImage: q.image || undefined,
                     s3AudioUrl: null,
                     recordingId: null,
-                    scores: null,
+                    result: null,
                 });
             }
 
@@ -76,15 +76,7 @@ export default class SpeakingAttemptService {
                 partIndex: parts.length + 1,
                 partTitle: p.title || p.name || p.partName || (p.offset ? `Part ${p.offset}` : 'Part'),
                 partDirection: p.direction || p.instruction || p.instructions || undefined,
-                questionType:
-                    [
-                        'speaking_part1',
-                        'speaking_part2',
-                        'speaking_part3',
-                        'speaking_part4',
-                        'speaking_part5',
-                        'speaking_part6',
-                    ][parts.length] || 'speaking_part1',
+                partScenario: p.narrator?.text || undefined,
                 questions,
             });
         }
@@ -118,153 +110,46 @@ export default class SpeakingAttemptService {
         if (attempt.userId?.toString?.() !== params.userId) throw new ApiError(ErrorMessage.PERMISSION_DENIED);
 
         const folder = `${params.userId}/${attemptObjectId.toString()}`;
-        const orchestration = await createRecordingAndStartAnalysisHelper({
-            userId: params.userId,
-            buffer: params.file.buffer,
-            originalname: params.file.originalname,
-            mimetype: params.file.mimetype,
-            folder,
-        });
-
-        // Update nested question by questionNumber
-        const updateRes = await db.collection('toeic_speaking_results').updateOne(
-            { _id: attemptObjectId, 'parts.questions.questionNumber': params.questionNumber },
+        const orchestration = await createRecordingAndStartAnalysisHelper(
             {
-                $set: {
-                    'parts.$[part].questions.$[question].s3AudioUrl': orchestration.url,
-                    'parts.$[part].questions.$[question].recordingId': orchestration.recordingId,
-                    'parts.$[part].questions.$[question].scores': null,
-                },
+                userId: params.userId,
+                buffer: params.file.buffer,
+                originalname: params.file.originalname,
+                mimetype: params.file.mimetype,
+                folder,
             },
-            {
-                arrayFilters: [
-                    { 'part.questions.questionNumber': params.questionNumber },
-                    { 'question.questionNumber': params.questionNumber },
-                ],
-            } as any
-        );
+            // onComplete callback invoked when analysis finishes or fails
+            async (err, result) => {
+                try {
+                    // Re-fetch attempt doc to locate part/question context
+                    const attemptDoc: any = await db
+                        .collection('toeic_speaking_results')
+                        .findOne({ _id: attemptObjectId });
 
-        if (!updateRes.matchedCount) {
-            throw new ApiError(ErrorMessage.PART_NOT_FOUND);
-        }
-
-        // Fire-and-forget background scoring workflow: wait until analysis is done, then score with AI
-        (async () => {
-            // Helper: sleep
-            const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-            try {
-                // Re-fetch attempt doc to locate part/question context
-                const attemptDoc: any = await db
-                    .collection('toeic_speaking_results')
-                    .findOne({ _id: attemptObjectId });
-
-                // Locate the question by questionNumber and capture its part index
-                let foundPartIndex = -1;
-                let foundQuestion: any = null;
-                const partsArr: any[] = Array.isArray(attemptDoc?.parts) ? attemptDoc.parts : [];
-                for (let i = 0; i < partsArr.length; i++) {
-                    const p = partsArr[i];
-                    const qs: any[] = Array.isArray(p?.questions) ? p.questions : [];
-                    const match = qs.find((q: any) => q?.questionNumber === params.questionNumber);
-                    if (match) {
-                        foundPartIndex = i; // 0-based
-                        foundQuestion = match;
-                        break;
-                    }
-                }
-
-                if (foundQuestion && orchestration.recordingId) {
-                    // Poll for analysis completion
-                    const maxWaitMs = 2 * 60 * 1000; // 2 minutes
-                    const intervalMs = 2000;
-                    const start = Date.now();
-                    let status: string | undefined = 'processing';
-
-                    while (Date.now() - start < maxWaitMs) {
-                        const rec: any = await RecordingService.getById(orchestration.recordingId as any);
-                        status = rec?.analysisStatus;
-                        if (status === 'done' || status === 'failed') break;
-                        await sleep(intervalMs);
-                    }
-
-                    if (status === 'done') {
-                        // Map part index (0-based) to TOEIC speaking part
-                        const mapIdxToType = (idx: number) => {
-                            const types = [
-                                'speaking_part1',
-                                'speaking_part2',
-                                'speaking_part3',
-                                'speaking_part4',
-                                'speaking_part5',
-                                'speaking_part6',
-                            ] as const;
-                            return types[idx] ?? 'speaking_part1';
-                        };
-
-                        const questionType = mapIdxToType(foundPartIndex);
-
-                        // Build AI scoring context using available metadata
-                        const context: any = {
-                            questionType,
-                        };
-                        if (foundQuestion?.promptText) context.referenceText = foundQuestion.promptText;
-                        if (foundQuestion?.promptImage) context.imageUrl = foundQuestion.promptImage;
-
-                        try {
-                            const scoreResult = await aiScoringService.scoreRecording(
-                                orchestration.recordingId as any,
-                                context
-                            );
-
-                            // Persist scores back into the corresponding question
-                            await db.collection('toeic_speaking_results').updateOne(
-                                { _id: attemptObjectId, 'parts.questions.questionNumber': params.questionNumber },
-                                {
-                                    $set: {
-                                        'parts.$[part].questions.$[question].scores': {
-                                            provider: 'toeicSpeakingScoringService',
-                                            scoredAt: new Date(),
-                                            result: scoreResult,
-                                        },
-                                    },
-                                },
-                                {
-                                    arrayFilters: [
-                                        { 'part.questions.questionNumber': params.questionNumber },
-                                        { 'question.questionNumber': params.questionNumber },
-                                    ],
-                                } as any
-                            );
-                        } catch (scoreErr) {
-                            console.error('[speakingAttempt] AI scoring failed:', scoreErr);
-                            // Optionally mark an error in scores
-                            await db.collection('toeic_speaking_results').updateOne(
-                                { _id: attemptObjectId, 'parts.questions.questionNumber': params.questionNumber },
-                                {
-                                    $set: {
-                                        'parts.$[part].questions.$[question].scores': {
-                                            provider: 'toeicSpeakingScoringService',
-                                            scoredAt: new Date(),
-                                            error: 'scoring_failed',
-                                        },
-                                    },
-                                },
-                                {
-                                    arrayFilters: [
-                                        { 'part.questions.questionNumber': params.questionNumber },
-                                        { 'question.questionNumber': params.questionNumber },
-                                    ],
-                                } as any
-                            );
+                    // Locate the question by questionNumber and capture its part index
+                    let foundPartIndex = -1;
+                    let foundQuestion: any = null;
+                    const partsArr: any[] = Array.isArray(attemptDoc?.parts) ? attemptDoc.parts : [];
+                    for (let i = 0; i < partsArr.length; i++) {
+                        const p = partsArr[i];
+                        const qs: any[] = Array.isArray(p?.questions) ? p.questions : [];
+                        const match = qs.find((q: any) => q?.questionNumber === params.questionNumber);
+                        if (match) {
+                            foundPartIndex = i; // 0-based
+                            foundQuestion = match;
+                            break;
                         }
-                    } else if (status === 'failed') {
-                        // Analysis failed – mark accordingly
+                    }
+
+                    if (!foundQuestion) return;
+
+                    // If analysis failed or error, write analysis_failed
+                    if (err || !result || result.analysisStatus === 'failed') {
                         await db.collection('toeic_speaking_results').updateOne(
                             { _id: attemptObjectId, 'parts.questions.questionNumber': params.questionNumber },
                             {
                                 $set: {
-                                    'parts.$[part].questions.$[question].scores': {
+                                    'parts.$[part].questions.$[question].result': {
                                         provider: 'toeicSpeakingScoringService',
                                         scoredAt: new Date(),
                                         error: 'analysis_failed',
@@ -278,12 +163,89 @@ export default class SpeakingAttemptService {
                                 ],
                             } as any
                         );
+                        return;
                     }
+
+                    // Build AI scoring context: derive questionType from partIndex
+                    const partIndexFromDoc = attemptDoc.parts?.[foundPartIndex]?.partIndex;
+                    const partIndex = typeof partIndexFromDoc === 'number' ? partIndexFromDoc : foundPartIndex + 1;
+                    const bounded = Math.max(1, Math.min(6, partIndex));
+                    const questionType = `speaking_part${bounded}`;
+
+                    const context: any = { questionType };
+                    if (foundQuestion?.promptText) context.referenceText = foundQuestion.promptText;
+                    if (foundQuestion?.promptImage) context.imageUrl = foundQuestion.promptImage;
+                    context.questionPrompt = foundQuestion?.promptText || '';
+                    context.providedInfo = attemptDoc?.parts?.[foundPartIndex]?.partScenario || '';
+                    try {
+                        const scoreResult = await aiScoringService.scoreRecording(result.recordingId as any, context);
+                        console.log("[speakingAttempt] AI scoring result:", scoreResult);
+                        await db.collection('toeic_speaking_results').updateOne(
+                            { _id: attemptObjectId, 'parts.questions.questionNumber': params.questionNumber },
+                            {
+                                $set: {
+                                    'parts.$[part].questions.$[question].result': {
+                                        provider: 'toeicSpeakingScoringService',
+                                        scoredAt: new Date(),
+                                        ...scoreResult,
+                                    },
+                                },
+                            },
+                            {
+                                arrayFilters: [
+                                    { 'part.questions.questionNumber': params.questionNumber },
+                                    { 'question.questionNumber': params.questionNumber },
+                                ],
+                            } as any
+                        );
+                    } catch (scoreErr) {
+                        console.error('[speakingAttempt] AI scoring failed (callback):', scoreErr);
+                        await db.collection('toeic_speaking_results').updateOne(
+                            { _id: attemptObjectId, 'parts.questions.questionNumber': params.questionNumber },
+                            {
+                                $set: {
+                                    'parts.$[part].questions.$[question].result': {
+                                        provider: 'toeicSpeakingScoringService',
+                                        scoredAt: new Date(),
+                                        error: 'scoring_failed',
+                                    },
+                                },
+                            },
+                            {
+                                arrayFilters: [
+                                    { 'part.questions.questionNumber': params.questionNumber },
+                                    { 'question.questionNumber': params.questionNumber },
+                                ],
+                            } as any
+                        );
+                    }
+                } catch (cbErr) {
+                    console.error('[speakingAttempt] onComplete callback error:', cbErr);
                 }
-            } catch (bgErr) {
-                console.error('[speakingAttempt] Background scoring workflow error:', bgErr);
             }
-        })();
+        );
+
+        // Update nested question by questionNumber
+        const updateRes = await db.collection('toeic_speaking_results').updateOne(
+            { _id: attemptObjectId, 'parts.questions.questionNumber': params.questionNumber },
+            {
+                $set: {
+                    'parts.$[part].questions.$[question].s3AudioUrl': orchestration.url,
+                    'parts.$[part].questions.$[question].recordingId': orchestration.recordingId,
+                    'parts.$[part].questions.$[question].result': null,
+                },
+            },
+            {
+                arrayFilters: [
+                    { 'part.questions.questionNumber': params.questionNumber },
+                    { 'question.questionNumber': params.questionNumber },
+                ],
+            } as any
+        );
+
+        if (!updateRes.matchedCount) {
+            throw new ApiError(ErrorMessage.PART_NOT_FOUND);
+        }
 
         return {
             message: 'Recording created. Analysis in progress',

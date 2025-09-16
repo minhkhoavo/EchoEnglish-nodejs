@@ -9,6 +9,7 @@ import payment from './payments';
 import promo from './promo';
 import speakingWritingRouter from './speakingWriting';
 import speakingAttemptsRouter from './speakingAttempts';
+import speakingRouter from './speaking';
 
 const apiRouter = Router();
 
@@ -23,5 +24,6 @@ apiRouter.use('/promo', promo);
 apiRouter.use('/sw-tests', speakingWritingRouter);
 apiRouter.use('/speaking-attempts', speakingAttemptsRouter);
 apiRouter.use('/api/v1/speaking-attempts', speakingAttemptsRouter);
+apiRouter.use('/speaking', speakingRouter);
 
 export default apiRouter;

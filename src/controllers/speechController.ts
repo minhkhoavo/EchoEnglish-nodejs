@@ -9,13 +9,16 @@ import RecordingService from '~/services/recordingService';
 import SpeechProsodyService from '~/services/speech-analyze/speechProsodyService';
 import PronunciationSummaryService from '~/services/speech-analyze/pronunciationSummaryService';
 // Helper orchestrator functions for recording + analysis
-export async function createRecordingAndStartAnalysisHelper(params: {
-    userId: string;
-    buffer: Buffer;
-    originalname: string;
-    mimetype: string;
-    folder?: string;
-}) {
+export async function createRecordingAndStartAnalysisHelper(
+    params: {
+        userId: string;
+        buffer: Buffer;
+        originalname: string;
+        mimetype: string;
+        folder?: string;
+    },
+    onComplete?: (err: any, result?: { recordingId: any; url: string; analysisStatus: string; analysis?: any }) => void
+) {
     const { userId, buffer, mimetype, originalname } = params;
     const folder = params.folder || userId || undefined;
 
@@ -99,20 +102,53 @@ export async function createRecordingAndStartAnalysisHelper(params: {
                     .join(' ')
                     .trim();
 
-                await RecordingService.update(recordingId, {
+                const updated = await RecordingService.update(recordingId, {
                     transcript: transcriptText || '',
                     duration: (finalPayload as any).metadata?.duration || 0,
                     speakingTime: (finalPayload as any).metadata?.speakingTime || 0,
                     analysisStatus: 'done',
                     analysis: finalPayload,
                 } as any);
+
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(null, {
+                            recordingId,
+                            url: uploadResult.url,
+                            analysisStatus: 'done',
+                            analysis: finalPayload,
+                        });
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (done):', cbErr);
+                    }
+                }
+                return updated;
             } catch (err) {
                 console.error('Update recording failed:', err);
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(err, {
+                            recordingId,
+                            url: uploadResult.url,
+                            analysisStatus: 'done',
+                            analysis: finalPayload,
+                        });
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (update failed):', cbErr);
+                    }
+                }
             }
         } catch (err) {
             console.error('Background analysis failed:', err);
             try {
                 await RecordingService.update(recordingId, { analysisStatus: 'failed' } as any);
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(err);
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (failed):', cbErr);
+                    }
+                }
             } catch {}
         }
     })();
