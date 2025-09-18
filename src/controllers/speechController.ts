@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { Types } from 'mongoose';
 import SpeechAssessmentService from '~/services/speech-analyze/speechAssessmentService';
 import SpeechTransformService from '~/services/speech-analyze/speechTransformService';
 import ApiResponse from '~/dto/response/apiResponse';
@@ -7,7 +8,157 @@ import S3Service from '~/services/s3Service';
 import RecordingService from '~/services/recordingService';
 import SpeechProsodyService from '~/services/speech-analyze/speechProsodyService';
 import PronunciationSummaryService from '~/services/speech-analyze/pronunciationSummaryService';
-// File persistence removed; analyses stored in MongoDB
+// Helper orchestrator functions for recording + analysis
+export async function createRecordingAndStartAnalysisHelper(
+    params: {
+        userId: string;
+        buffer: Buffer;
+        originalname: string;
+        mimetype: string;
+        folder?: string;
+    },
+    onComplete?: (err: any, result?: { recordingId: any; url: string; analysisStatus: string; analysis?: any }) => void
+) {
+    const { userId, buffer, mimetype, originalname } = params;
+    const folder = params.folder || userId || undefined;
+
+    // Upload to S3
+    const uploadResult = await S3Service.uploadFile(buffer, originalname, mimetype, folder);
+
+    // Create recording (processing)
+    const recording = await RecordingService.create({
+        userId,
+        name: originalname,
+        url: uploadResult.url,
+        duration: 0,
+        speakingTime: 0,
+        mimeType: mimetype,
+        size: buffer.length,
+        transcript: '',
+        analysisStatus: 'processing',
+    } as any);
+
+    // Keep recordingId as an ObjectId to match other references in the codebase
+    const recordingId = (recording as any)?._id as Types.ObjectId;
+
+    // Background analysis
+    (async () => {
+        try {
+            const azureResponse = await SpeechAssessmentService.assess(buffer, mimetype);
+            const parsed = Array.isArray(azureResponse) ? azureResponse : [azureResponse];
+            const transformed = SpeechTransformService.createTranscriptData(parsed, uploadResult.url);
+
+            let prosody: any = null;
+            let fluency: any = null;
+            let stressWords: any[] = [];
+            let pronunciation: any = null;
+
+            try {
+                const analysis = SpeechProsodyService.analyze({
+                    transformed,
+                    audioBuffer: buffer,
+                    mimeType: mimetype
+                });
+                prosody = analysis.prosody;
+                fluency = analysis.fluency;
+                stressWords = analysis.stressWords;
+            } catch (e) {
+                console.error('Prosody analysis error:', e);
+            }
+
+            try {
+                const sum = PronunciationSummaryService.summarize(parsed);
+                pronunciation = sum;
+            } catch (e) {
+                console.error('Pronunciation summary error:', e);
+            }
+
+            if (
+                Array.isArray(stressWords) &&
+                stressWords.length &&
+                Array.isArray((transformed as any).segments)
+            ) {
+                let idx = 0;
+                for (const seg of (transformed as any).segments) {
+                    for (const w of seg.words || []) {
+                        const st = stressWords[idx++];
+                        if (st) (w as any).isStressed = !!st.isStressed;
+                    }
+                }
+            }
+
+            const finalPayload = {
+                ...transformed,
+                analyses: {
+                    prosody,
+                    fluency,
+                    pronunciation,
+                },
+            };
+
+            try {
+                const transcriptText = (finalPayload as any).segments
+                    ?.map((s: any) => s.text)
+                    .join(' ')
+                    .trim();
+
+                const updated = await RecordingService.update(recordingId, {
+                    transcript: transcriptText || '',
+                    duration: (finalPayload as any).metadata?.duration || 0,
+                    speakingTime: (finalPayload as any).metadata?.speakingTime || 0,
+                    analysisStatus: 'done',
+                    analysis: finalPayload,
+                } as any);
+
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(null, {
+                            recordingId,
+                            url: uploadResult.url,
+                            analysisStatus: 'done',
+                            analysis: finalPayload,
+                        });
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (done):', cbErr);
+                    }
+                }
+                return updated;
+            } catch (err) {
+                console.error('Update recording failed:', err);
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(err, {
+                            recordingId,
+                            url: uploadResult.url,
+                            analysisStatus: 'done',
+                            analysis: finalPayload,
+                        });
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (update failed):', cbErr);
+                    }
+                }
+            }
+        } catch (err) {
+            console.error('Background analysis failed:', err);
+            try {
+                await RecordingService.update(recordingId, { analysisStatus: 'failed' } as any);
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(err);
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (failed):', cbErr);
+                    }
+                }
+            } catch {}
+        }
+    })();
+
+    return {
+        recordingId,
+        url: uploadResult.url,
+        analysisStatus: 'processing' as const,
+    };
+}
 
 class SpeechController {
     async assess(req: Request, res: Response, next: NextFunction) {
@@ -20,124 +171,17 @@ class SpeechController {
         const userId = (req.user as any)?.id || (req as any).userId || '';
         const folder = userId || undefined;
 
-        // 1) Upload first
-        const uploadResult = await S3Service.uploadFile(
-            req.file.buffer,
-            req.file.originalname,
-            req.file.mimetype,
-            folder
-        );
-
-        // 2) Create a minimal recording immediately (analysis async)
-        const recording = await RecordingService.create({
+        const result = await createRecordingAndStartAnalysisHelper({
             userId,
-            name: req.file.originalname,
-            url: uploadResult.url,
-            duration: 0,
-            speakingTime: 0,
-            mimeType: req.file.mimetype,
-            size: req.file.size,
-            transcript: '',
-            analysisStatus: 'processing',
-        } as any);
+            buffer: req.file.buffer,
+            originalname: req.file.originalname,
+            mimetype: req.file.mimetype,
+            folder,
+        });
 
-        // 3) Return fast to client with recording info
-        res.status(202).json(
-            new ApiResponse('Recording created. Analysis in progress', {
-                recordingId: (recording as any)?._id?.toString?.(),
-                url: uploadResult.url,
-                analysisStatus: 'processing',
-            })
-        );
-
-        // 4) Run analysis in background (best-effort)
-        (async () => {
-            try {
-                const azureResponse = await SpeechAssessmentService.assess(req.file!.buffer, mimeType);
-                const parsed = Array.isArray(azureResponse) ? azureResponse : [azureResponse];
-
-                const transformed = SpeechTransformService.createTranscriptData(parsed, uploadResult.url);
-
-                // Prosody + Fluency analysis
-                let prosody: any = null;
-                let fluency: any = null;
-                let stressWords: any[] = [];
-                let pronunciation: any = null;
-                try {
-                    const analysis = SpeechProsodyService.analyze({
-                        azureSegments: parsed,
-                        transformed,
-                        audioBuffer: req.file!.buffer,
-                        mimeType: req.file!.mimetype,
-                        userId: userId || '',
-                        recordingId: (recording as any)?._id?.toString?.() || 'rec',
-                    });
-                    prosody = analysis.prosody;
-                    fluency = analysis.fluency;
-                    stressWords = analysis.stressWords;
-                } catch (e) {
-                    console.error('Prosody analysis error:', e);
-                }
-
-                // Pronunciation summary (top errors + resources)
-                try {
-                    const sum = PronunciationSummaryService.summarize(parsed);
-                    pronunciation = sum;
-                } catch (e) {
-                    console.error('Pronunciation summary error:', e);
-                }
-
-                // Merge stress flags into words
-                if (
-                    Array.isArray(stressWords) &&
-                    stressWords.length &&
-                    Array.isArray((transformed as any).segments)
-                ) {
-                    let idx = 0;
-                    for (const seg of (transformed as any).segments) {
-                        for (const w of seg.words || []) {
-                            const st = stressWords[idx++];
-                            if (st) w.isStressed = !!st.isStressed;
-                        }
-                    }
-                }
-
-                const finalPayload = {
-                    ...transformed,
-                    analyses: {
-                        prosody,
-                        fluency,
-                        pronunciation,
-                    },
-                };
-
-                // Update recording with transcript, durations, analysis file
-                try {
-                    const transcriptText = (finalPayload as any).segments
-                        ?.map((s: any) => s.text)
-                        .join(' ')
-                        .trim();
-
-                    await RecordingService.update((recording as any)?._id, {
-                        transcript: transcriptText || '',
-                        duration: (finalPayload as any).metadata?.duration || 0,
-                        speakingTime: (finalPayload as any).metadata?.speakingTime || 0,
-                        analysisStatus: 'done',
-                        analysis: finalPayload,
-                    } as any);
-                } catch (err) {
-                    console.error('Update recording failed:', err);
-                }
-            } catch (err) {
-                console.error('Background analysis failed:', err);
-                try {
-                    await RecordingService.update((recording as any)?._id, { analysisStatus: 'failed' } as any);
-                } catch {}
-            }
-        })();
+        res.status(202).json(new ApiResponse('Recording created. Analysis in progress', result));
     }
 
-    // Recording handlers moved here for convenience
     async listRecordings(req: Request, res: Response, next: NextFunction) {
         const userId = (req.user as any)?.id || (req as any).userId;
         const data = await RecordingService.list({ userId });

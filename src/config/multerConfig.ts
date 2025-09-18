@@ -56,4 +56,5 @@ const upload = multer({
 });
 
 export const uploadSingle = upload.single('file');
+export const uploadAudioSingle = upload.single('audio');
 export default upload;

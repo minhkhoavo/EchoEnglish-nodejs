@@ -18,11 +18,12 @@ class SpeechAssessmentService {
         if (isWav) {
             audioConfig = sdk.AudioConfig.fromWavFileInput(buffer);
         } else if (isMp3) {
-            const pushStream = sdk.AudioInputStream.createPushStream();
-            const ab = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
-            pushStream.write(ab as ArrayBuffer);
-            pushStream.close();
-            audioConfig = sdk.AudioConfig.fromStreamInput(pushStream);
+            throw new Error('MP3 is not supported now, please convert it to WAV first.');
+            // const pushStream = sdk.AudioInputStream.createPushStream();
+            // const ab = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+            // pushStream.write(ab as ArrayBuffer);
+            // pushStream.close();
+            // audioConfig = sdk.AudioConfig.fromStreamInput(pushStream);
         } else {
             throw new Error('Only WAV or MP3 is supported');
         }

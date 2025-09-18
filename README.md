@@ -65,6 +65,13 @@ echoenglish-nodejs/
 - Bước 2: Tạo tài khoản với email chính xác.
 - Bước 3: Xác thực tài khoản qua mail.
 - Bước 4: Sau khi xác thực sẽ nhận được mail chứa VNP_TMNCODE và VNP_HASH_SECRET
+
+#### Stripe 
+- Bước 1: Truy cập https://dashboard.stripe.com/test/dashboard -> Login with google -> copy Secret key (sk_test_...) thay vào file .env biến STRIPE_SECRET_KEY
+- Bước 2: Truy cập https://dashboard.stripe.com/test/dashboard
+-> Chọn develop -> Webhooks -> Chọn Test with a local listener -> Chọn Download the Stripe CLI -> Chọn Install the Stripe CLI -> Chọn Window và làm theo hướng dẫn
+-> mở cmd chạy : stripe login -> tiếp theo chạy cmd: stripe listen --forward-to localhost:8099/payments/stripe/webhook ->  lấy được STRIPE_WEBHOOK_SECRET (whsec_...) copy và dán vào .env
+
 ## 📦 Cài đặt
 ```bash
 git clone https://github.com/minhkhoavo/EchoEnglish-nodejs.git
