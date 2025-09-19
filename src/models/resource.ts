@@ -50,7 +50,7 @@ const resourceSchema = new Schema(
   { timestamps: true }
 );
 
-resourceSchema.add(baseEntitySchema.obj);
+// resourceSchema.add(baseEntitySchema.obj);
 applyBaseEntityMiddleware(resourceSchema);
 
 export type ResourceTypeModel = InferSchemaType<typeof resourceSchema> &
