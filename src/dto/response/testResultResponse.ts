@@ -26,6 +26,7 @@ export interface TestHistoryResponse {
   totalQuestions: number;
   duration: number;
   percentage: number;
+  partsKey?: string;
 }
 
 export interface TestResultSummaryResponse {

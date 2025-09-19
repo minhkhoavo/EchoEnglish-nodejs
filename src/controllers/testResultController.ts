@@ -7,10 +7,8 @@ import { ErrorMessage } from '../enum/errorMessage';
 export class TestResultController {
   async submitTestResult(req: Request, res: Response) {
     try {
-      console.log('[submitTestResult] Raw body:', req.body);
       const userId = req.user?.id;
       if (!userId) {
-        console.error('[submitTestResult] No userId in request');
         return res.status(401).json({
           success: false,
           message: ErrorMessage.UNAUTHORIZED.message,
@@ -19,14 +17,7 @@ export class TestResultController {
 
       const requestData: SubmitTestResultRequest = req.body;
 
-      // Debug logging
-      console.log('🔍 TestResult submission data:', {
-        testId: requestData.testId,
-        testTitle: requestData.testTitle,
-        userAnswersLength: requestData.userAnswers?.length,
-        parts: requestData.parts,
-        rawBody: req.body,
-      });
+ 
 
       // Validate required fields
       if (
@@ -166,7 +157,7 @@ export class TestResultController {
         });
       }
 
-      const stats = await testResultService.getUserStats(userId);
+      const stats: any = await testResultService.getUserStats(userId);
 
       res.status(200).json({
         success: true,
