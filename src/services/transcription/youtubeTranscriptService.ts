@@ -1,6 +1,8 @@
 import { ErrorMessage } from "~/enum/errorMessage";
 import { ApiError } from "~/middleware/apiError";
 import { YoutubeTranscript } from '@danielxceron/youtube-transcript';
+import resourceService from "./resourceService";
+import { ResourceType } from "~/enum/resourceType";
 
 interface TranscriptSegment {
   text: string;
@@ -42,6 +44,28 @@ class YoutubeTranscriptService {
             end: r.duration +r.offset
         }));
     }
+
+    public saveTranscriptAsResource = async (url: string) => {
+        const transcript = await this.fetchTranscript(url);
+        const fullContent = transcript.map(t => t.text).join(" ");
+
+        // Gọi AI phân tích
+        const analyzed = await resourceService.analyzeContentWithLLM(fullContent);
+
+        return await resourceService.createResource({
+            type: ResourceType.YOUTUBE,
+            url,
+            title: analyzed.title || "Youtube Resource",
+            publishedAt: new Date(),
+            lang: "en",
+            summary: analyzed.summary,
+            content: fullContent,
+            keyPoints: analyzed.keyPoints,
+            labels: analyzed.labels,
+            suitableForLearners: analyzed.suitableForLearners,
+            moderationNotes: analyzed.moderationNotes,
+        });
+    };
 }
 
 export default new YoutubeTranscriptService();
