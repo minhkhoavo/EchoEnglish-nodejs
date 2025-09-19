@@ -50,6 +50,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.883.0",
     "@aws-sdk/s3-request-presigner": "^3.883.0",
+    "@danielxceron/youtube-transcript": "^1.2.3",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@langchain/core": "^0.3.75",
     "@langchain/google-genai": "^0.2.17",
@@ -72,6 +73,7 @@
     "qs": "^6.14.0",
     "stripe": "^18.5.0",
     "uuid": "^12.0.0",
-    "vnpay": "^2.4.2"
+    "vnpay": "^2.4.2",
+    "youtube-transcript": "^1.2.1"
   }
 }
