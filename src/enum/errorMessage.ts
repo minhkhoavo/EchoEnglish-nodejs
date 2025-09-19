@@ -73,6 +73,10 @@ export const ErrorMessage = {
     TEST_NOT_FOUND: { message: 'Test not found', status: 404 },
     PART_NOT_FOUND: { message: 'Part not found', status: 404 },
 
+    /*youtube*/
+    INVALID_URL_ID_YOUTUBE: {message: 'Invalid YouTube URL', status: 400},
+    YOUTUBE_URL_REQUIRE: {message: 'Youtube url is required', status: 400},
+
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;
