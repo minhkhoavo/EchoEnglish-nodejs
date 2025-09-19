@@ -40,8 +40,8 @@ REQUIRED JSON OUTPUT STRUCTURE:
     "grammar": <score 0-5>,
     "vocabulary": <score 0-5>,
     "fluencyAndCohesion": <score 0-5>,
-    "relevance": <score 0-3>,
-    "completeness": <score 0-3>
+    "relevance": <score 0-5>,
+    "completeness": <score 0-5>
   }},
   "overallScore": <final score 0-5>,
   "feedback": {{

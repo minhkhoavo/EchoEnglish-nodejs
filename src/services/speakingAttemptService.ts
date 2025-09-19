@@ -150,6 +150,7 @@ export default class SpeakingAttemptService {
                             {
                                 $set: {
                                     'parts.$[part].questions.$[question].result': {
+                                        recordingId: result?.recordingId,
                                         provider: 'toeicSpeakingScoringService',
                                         scoredAt: new Date(),
                                         error: 'analysis_failed',
@@ -185,6 +186,7 @@ export default class SpeakingAttemptService {
                             {
                                 $set: {
                                     'parts.$[part].questions.$[question].result': {
+                                        recordingId: result?.recordingId,
                                         provider: 'toeicSpeakingScoringService',
                                         scoredAt: new Date(),
                                         ...scoreResult,
@@ -205,6 +207,7 @@ export default class SpeakingAttemptService {
                             {
                                 $set: {
                                     'parts.$[part].questions.$[question].result': {
+                                        recordingId: result?.recordingId,
                                         provider: 'toeicSpeakingScoringService',
                                         scoredAt: new Date(),
                                         error: 'scoring_failed',
