@@ -35,6 +35,15 @@ class TestService {
   public async getTestById(testId: string) {
     const db = await this.getDb();
     const test = await db.collection('tests').findOne({ testId: testId });
+    if (
+      test &&
+      (!test.parts || !Array.isArray(test.parts) || test.parts.length === 0)
+    ) {
+      console.warn(
+        '[getTestById] Test found but missing or empty parts:',
+        test
+      );
+    }
     return test;
   }
 
