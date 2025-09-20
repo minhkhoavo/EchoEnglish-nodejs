@@ -7,6 +7,7 @@ import { ResourceType } from "~/enum/resourceType";
 import Parser from "rss-parser";
 import { ApiError } from "~/middleware/apiError";
 import { ErrorMessage } from "~/enum/errorMessage";
+import { YoutubeTranscript } from "youtube-transcript";
 
 
 class ResourceService {
@@ -77,6 +78,69 @@ class ResourceService {
     public async createResource(data: Partial<ResourceTypeModel>) {
         return await Resource.create(data);
     }
+
+    public extractVideoId = (url: string): string | null => {
+            if (!url) return null;
+    
+            // Regex này match được nhiều dạng link youtube khác nhau
+            const regex =
+                /(?:youtube\.com\/(?:.*v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        };
+    
+    public fetchTranscript = async (url: string):Promise<TranscriptSegment[]> => {
+        if (!url)
+            throw new ApiError(ErrorMessage.YOUTUBE_URL_REQUIRE);
+
+        const vid = this.extractVideoId(url);
+        if(!vid)
+            throw new ApiError(ErrorMessage.INVALID_URL_ID_YOUTUBE);
+
+            console.log(">>> Extracted videoId:", vid);
+
+        const transcriptItems = await YoutubeTranscript.fetchTranscript(vid,{ lang: 'en' });
+
+        console.log(">>> Raw transcriptItems:", transcriptItems);
+
+        return transcriptItems.map(r => ({
+            text: r.text,
+            start: r.offset,
+            duration: r.duration,
+            end: r.duration +r.offset
+        }));
+    }
+
+    public saveTranscriptAsResource = async (url: string) => {
+        const transcript = await this.fetchTranscript(url);
+        const fullContent = transcript.map(t => t.text).join(" ");
+
+        // Gọi AI phân tích
+        const analyzed = await this.analyzeContentWithLLM(fullContent);
+
+        return await this.createResource({
+            type: ResourceType.YOUTUBE,
+            url,
+            title: analyzed.title || "Youtube Resource",
+            publishedAt: new Date(),
+            lang: "en",
+            summary: analyzed.summary,
+            content: fullContent,
+            keyPoints: analyzed.keyPoints,
+            labels: analyzed.labels,
+            suitableForLearners: analyzed.suitableForLearners,
+            moderationNotes: analyzed.moderationNotes,
+        });
+    };
+}
+
+
+interface TranscriptSegment {
+  text: string;
+  start: number;    
+  duration: number;  
+  end: number;      
 }
 
 export default new ResourceService();

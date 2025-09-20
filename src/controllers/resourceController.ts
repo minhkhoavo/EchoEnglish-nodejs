@@ -24,6 +24,21 @@ class ResourceController {
     const newResources = await resourceService.fetchAndSaveRss(feedUrl);
     return res.status(201).json(new ApiResponse(SuccessMessage.CREATE_SUCCESS, newResources));
   };
+
+  public getTranscriptHanlder = async (req: Request, res: Response) => {
+    const { url } = req.body;
+    const transcript = await resourceService.fetchTranscript(url);
+    console.log(url);
+    console.log(transcript);
+    return res.status(200).json(new ApiResponse(SuccessMessage.GET_SUCCESS, transcript));
+  }
+  
+      // Lấy transcript, phân tích bằng LLM và lưu vào Resource
+  public saveTranscriptHandler = async (req: Request, res: Response) => {
+    const { url } = req.body;
+    const resource = await resourceService.saveTranscriptAsResource(url);
+    return res.status(201).json(new ApiResponse(SuccessMessage.CREATE_SUCCESS, resource));
+  };
 }
 
 export const resourceController = new ResourceController();
