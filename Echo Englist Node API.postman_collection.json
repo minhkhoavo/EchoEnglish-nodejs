@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "b654ac56-79b6-43bd-b964-fd31d78284e6",
-		"name": "Echo Englist Node API",
+		"_postman_id": "7ea3b620-e69b-481b-b6ae-17752bbe7fbd",
+		"name": "Echo Englist Node 19/9",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "41180819"
+		"_exporter_id": "38517569",
+		"_collection_link": "https://cccc33-6500.postman.co/workspace/cccc-Workspace~b7eba50b-fc24-4522-a812-60dffdca8e13/collection/38517569-7ea3b620-e69b-481b-b6ae-17752bbe7fbd?action=share&source=collection_link&creator=38517569"
 	},
 	"item": [
 		{
@@ -3206,7 +3207,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=cpvFzFHZTXI\"\r\n}",
+							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=uJbbtrx5M_E\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3220,6 +3221,120 @@
 							],
 							"path": [
 								"youtube-transcript"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save transcript",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=hjjc_JEFzPA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/youtube-transcript/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"youtube-transcript",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resource",
+			"item": [
+				{
+					"name": "update resource",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"AI in Healthcare - Updated\",\r\n  \"summary\": \"Updated summary with more details\",\r\n  \"approved\": true,\r\n  \"lang\": \"en\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resources/68ce3b8d428c847c77507f91",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resources",
+								"68ce3b8d428c847c77507f91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete resource",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resources/68ce3b8b428c847c77507f8f",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resources",
+								"68ce3b8b428c847c77507f8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete resource Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"feedUrl\": \"https://learningenglish.voanews.com/api/zyg__l-vomx-tpetmty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resources/rss/trigger",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resources",
+								"rss",
+								"trigger"
 							]
 						}
 					},

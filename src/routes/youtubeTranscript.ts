@@ -4,5 +4,6 @@ import youtubeTranscriptController from '~/controllers/youtubeTranscriptControll
 const router = Router();
 
 router.post('/', youtubeTranscriptController.getTranscriptHanlder);
+router.post('/save', youtubeTranscriptController.saveTranscriptHandler);
 
 export default router;

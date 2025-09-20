@@ -12,6 +12,7 @@ import speakingAttemptsRouter from './speakingAttempts';
 import speakingRouter from './speaking';
 import testResultsRouter from './testResults';
 import youtubeTranscriptRouter from './youtubeTranscript';
+import resourceRouter from './resourceRoutes';
 
 
 const apiRouter = Router();
@@ -30,5 +31,6 @@ apiRouter.use('/api/v1/speaking-attempts', speakingAttemptsRouter);
 apiRouter.use('/speaking', speakingRouter);
 apiRouter.use('/test-results', testResultsRouter);
 apiRouter.use('/youtube-transcript', youtubeTranscriptRouter);
+apiRouter.use('/resources', resourceRouter);
 
 export default apiRouter;
