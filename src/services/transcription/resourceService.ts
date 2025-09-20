@@ -5,12 +5,15 @@ import { promptManagerService } from "../../ai//service/PromptManagerService";
 import { Resource, ResourceTypeModel } from "~/models/resource";
 import { ResourceType } from "~/enum/resourceType";
 import Parser from "rss-parser";
+import { ApiError } from "~/middleware/apiError";
+import { ErrorMessage } from "~/enum/errorMessage";
 
 
 class ResourceService {
     public async updateResource(id: string, updateData: Partial<ResourceTypeModel>) {
-        const resource = await Resource.findByIdAndUpdate(id, updateData, { new: true });
-        if (!resource) throw new Error("Resource not found");
+        const { title, summary, approved, lang } = updateData;
+        const resource = await Resource.findByIdAndUpdate(id, { title, summary, approved, lang }, { new: true });
+        if (!resource) throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
         return resource;
     }
 

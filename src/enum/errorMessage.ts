@@ -77,6 +77,9 @@ export const ErrorMessage = {
     INVALID_URL_ID_YOUTUBE: {message: 'Invalid YouTube URL', status: 400},
     YOUTUBE_URL_REQUIRE: {message: 'Youtube url is required', status: 400},
 
+    /*Resource*/
+    RESOURCE_NOT_FOUND: {message: 'Resource not found', status: 404},
+
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;
