@@ -19,6 +19,7 @@ interface ITestResult extends BaseEntity {
   totalQuestions: number;
   userAnswers: IUserAnswer[];
   parts: string[]; // which parts were included in this test
+  partsKey?: string; // key for selected parts (sorted, joined by '-')
 }
 
 const userAnswerSchema = new Schema<IUserAnswer>({
@@ -84,9 +85,14 @@ const testResultSchema = new Schema<ITestResult>(
         required: true,
       },
     ],
+    partsKey: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,
+    collection: 'test_results',
   }
 );
 

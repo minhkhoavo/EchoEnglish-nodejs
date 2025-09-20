@@ -14,7 +14,38 @@ import {
 } from '../dto/response/testResultResponse';
 import testService from './testService';
 
+// TOEIC part question counts
+const PART_QUESTION_COUNTS: Record<string, number> = {
+  part1: 6,
+  part2: 25,
+  part3: 39,
+  part4: 30,
+  part5: 30,
+  part6: 16,
+  part7: 54,
+};
+
 class TestResultService {
+  // Calculate total questions based on selected parts
+  private calculateTotalQuestions(parts: string[]): number {
+    if (!parts || parts.length === 0) {
+      // If no parts specified, assume full test
+      return Object.values(PART_QUESTION_COUNTS).reduce(
+        (sum, count) => sum + count,
+        0
+      );
+    }
+
+    return parts.reduce((sum, part) => {
+      const count = PART_QUESTION_COUNTS[part];
+      if (!count) {
+        console.warn(`[calculateTotalQuestions] Unknown part: ${part}`);
+        return sum;
+      }
+      return sum + count;
+    }, 0);
+  }
+
   async submitTestResult(
     userId: string,
     requestData: SubmitTestResultRequest
@@ -26,6 +57,20 @@ class TestResultService {
         throw new Error('Test not found');
       }
 
+      // Normalize parts: nếu parts là 1 phần tử dạng "part1-part4-part3" thì tách ra thành mảng
+      let normalizedParts = requestData.parts;
+      if (
+        Array.isArray(requestData.parts) &&
+        requestData.parts.length === 1 &&
+        typeof requestData.parts[0] === 'string' &&
+        requestData.parts[0].includes('-')
+      ) {
+        normalizedParts = requestData.parts[0].split('-');
+      }
+
+      // Calculate total questions based on selected parts
+      const totalQuestions = this.calculateTotalQuestions(normalizedParts);
+
       // Calculate scores and validate answers
       const processedAnswers = this.processUserAnswers(
         requestData.userAnswers,
@@ -34,7 +79,15 @@ class TestResultService {
       const score = processedAnswers.filter(
         (answer) => answer.isCorrect
       ).length;
-      const totalQuestions = processedAnswers.length;
+
+      // Tạo partKey: nếu đủ 7 part thì là 'full', còn lại thì sort và join '-'
+      let partsKey = 'full';
+      if (normalizedParts && normalizedParts.length > 0) {
+        partsKey =
+          normalizedParts.length === 7
+            ? 'full'
+            : [...normalizedParts].sort().join('-');
+      }
 
       // Create test result
       const testResult = new TestResult({
@@ -44,9 +97,10 @@ class TestResultService {
         testType: requestData.testType,
         duration: requestData.duration,
         score,
-        totalQuestions,
+        totalQuestions, // Now based on selected parts, not answers submitted
         userAnswers: processedAnswers,
-        parts: requestData.parts,
+        parts: normalizedParts,
+        partsKey,
         completedAt: new Date(),
       });
 
@@ -174,6 +228,7 @@ class TestResultService {
         totalQuestions: result.totalQuestions,
         duration: result.duration,
         percentage: Math.round((result.score / result.totalQuestions) * 100),
+        partsKey: result.partsKey,
       }));
 
       return {
@@ -219,9 +274,9 @@ class TestResultService {
   }
 
   async getUserStats(userId: string): Promise<{
-    totalTests: number;
+    listeningReadingTests: number;
     averageScore: number;
-    bestScore: number;
+    highestScore: number;
     recentTests: TestHistoryResponse[];
   }> {
     try {
@@ -229,25 +284,37 @@ class TestResultService {
 
       if (results.length === 0) {
         return {
-          totalTests: 0,
+          listeningReadingTests: 0,
           averageScore: 0,
-          bestScore: 0,
+          highestScore: 0,
           recentTests: [],
         };
       }
 
-      const totalTests = results.length;
-      const averageScore = Math.round(
-        results.reduce(
-          (sum, result) => sum + (result.score / result.totalQuestions) * 100,
-          0
-        ) / totalTests
+      // Filter by test type
+      const listeningReadingTests = results.filter(
+        (result) => result.testType === 'listening-reading'
       );
-      const bestScore = Math.max(
-        ...results.map((result) =>
-          Math.round((result.score / result.totalQuestions) * 100)
-        )
+
+      const fullModeResults = results.filter(
+        (result) => result.partsKey === 'full'
       );
+
+      const averageScore =
+        fullModeResults.length > 0
+          ? Math.round(
+              fullModeResults.reduce(
+                (sum, result) => sum + result.score * 5,
+                0
+              ) / fullModeResults.length
+            )
+          : 0;
+
+      // Calculate highest score (score * 5 for listening-reading tests)
+      const highestScore =
+        listeningReadingTests.length > 0
+          ? Math.max(...listeningReadingTests.map((result) => result.score * 5))
+          : 0;
 
       const recentTests = results
         .sort(
@@ -265,12 +332,14 @@ class TestResultService {
           totalQuestions: result.totalQuestions,
           duration: result.duration,
           percentage: Math.round((result.score / result.totalQuestions) * 100),
+          partsKey: result.partsKey,
         }));
 
       return {
-        totalTests,
+        listeningReadingTests: listeningReadingTests.length,
         averageScore,
-        bestScore,
+
+        highestScore,
         recentTests,
       };
     } catch (error: unknown) {
