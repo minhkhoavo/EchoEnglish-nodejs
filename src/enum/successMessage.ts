@@ -17,6 +17,7 @@ export enum SuccessMessage {
     GET_SUCCESS = 'Get successfully',
     CREATE_SUCCESS = 'CREATE successfully',
     DELETE_SUCCESS = 'Delete success',
+    UPDATE_SUCCESS = "UPDATE_SUCCESS",
 
     /* category */
     DELETE_CATEGORY_SUCCESS = 'Delete category successfully',
@@ -31,4 +32,5 @@ export enum SuccessMessage {
 	/* test */
     GET_ALL_TESTS_SUCCESS = 'Get all tests successfully',
     GET_TEST_BY_ID_SUCCESS = 'Get test by ID successfully',
-    GET_TEST_BY_PART_SUCCESS = 'Get test by part successfully',}
+    GET_TEST_BY_PART_SUCCESS = 'Get test by part successfully',
+}
