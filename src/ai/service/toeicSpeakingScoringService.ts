@@ -50,8 +50,7 @@ class AIScoringService {
             prosodyScore: summary.quantitativeMetrics.prosodyScore,
             wordsPerMinute: summary.quantitativeMetrics.wordsPerMinute,
             pronunciationMistakes: summary.qualitativeAnalysis.pronunciationMistakes.map((e: string) => `- ${e}`).join('\n') || 'None',
-            // fluencyIssues: summary.qualitativeAnalysis.fluencyIssues.map((e: string) => `- ${e}`).join('\n') || 'None',
-            fluencyIssues: 'None',
+            fluencyIssues: summary.qualitativeAnalysis.fluencyIssues.map((e: string) => `- ${e}`).join('\n') || 'None',
         };
 
         const formattedText = await PromptTemplate.fromTemplate(templateString).format(inputData);

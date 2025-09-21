@@ -60,15 +60,18 @@ class RecordingService {
             const words = unpronouncedEndings.map((w: any) => `'${w.word}'`).join(', ');
             pronunciationMistakes.push(`Final sound mistake: The final sound is not pronounced clearly in the words: ${words}.`);
         }
+        
+        // Detect other pronunciation errors
+        const wordsWithErrors = allWords.filter((word: any) => word.errors && word.errors.length > 0);
+        if (wordsWithErrors.length > 0) {
+            wordsWithErrors.forEach((word: any) => {
+                const errorTypes = word.errors.map((error: any) => error.type).join(', ');
+                pronunciationMistakes.push(`The word '${word.word}' has the following error(s): ${errorTypes}.`);
+            });
+        }
 
         // 2. Fluency
         const fluencyIssues: string[] = [];
-        if (analyses?.fluency?.feedbacks) {
-            const pauses = analyses.fluency.feedbacks.filter((f: any) => f.correctness === 'incorrect' || f.correctness === 'warning');
-            if (pauses.length > 0) {
-                fluencyIssues.push(`There are ${pauses.length} instances of hesitation or unnatural pauses detected.`);
-            }
-        }
         const duplicatedWords = allWords.filter((word: any) => word.isDuplicated);
         if (duplicatedWords.length > 0) {
             const words = duplicatedWords.map((w: any) => `'${w.word}'`).join(', ');
