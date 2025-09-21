@@ -3,6 +3,7 @@ import { NOTFOUND } from 'dns';
 /* Định nghĩa các enum lỗi */
 export const ErrorMessage = {
     INTERNAL_ERROR: { message: 'Internal server error', status: 500 },
+    INVALID_PAGE_LIMIT: {message: "Invalid page or limit", status: 400},
     
     /* User eror */
     USER_EXISTED: { message: 'User already existed', status: 400 },

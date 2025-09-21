@@ -4,10 +4,12 @@ import bcrypt from 'bcrypt';
 import { ErrorMessage } from '~/enum/errorMessage';
 import { OtpEmailService } from './otpEmailService';
 import { OtpPurpose } from '~/enum/otpPurpose';
-import { Role } from '~/models/roleModel';
+import { Role, RoleType } from '~/models/roleModel';
 import { RoleName } from '~/enum/role';
 import { ApiError } from '~/middleware/apiError';
 import { error } from 'console';
+import { List } from 'microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common/List';
+import { Types } from 'mongoose';
 
 const otpService = new OtpEmailService();
 
@@ -211,6 +213,12 @@ class UserService {
             throw err;
         }
     };
+
+    public isAdmin = async (userScope: string) => {
+        const roles = await Role.find({ _id: userScope });
+        const isAdmin = roles.some((role: RoleType) => role.name === "ADMIN");
+        return isAdmin;
+    }
 }
 
 export default UserService;

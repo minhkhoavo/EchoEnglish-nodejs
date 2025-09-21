@@ -8,6 +8,10 @@ import Parser from "rss-parser";
 import { ApiError } from "~/middleware/apiError";
 import { ErrorMessage } from "~/enum/errorMessage";
 import { YoutubeTranscript } from "youtube-transcript";
+import { PaginationHelper } from "~/utils/pagination";
+import { Domain } from "domain";
+import { Style } from "~/enum/style";
+import { FilterQuery } from "mongoose";
 
 
 class ResourceService {
@@ -133,6 +137,46 @@ class ResourceService {
             moderationNotes: analyzed.moderationNotes,
         });
     };
+
+    public searchResource = async (isAdmin: any, filters: ResourceFilters, page: number, limit: number, sortOption: any) => {
+        try{
+            const query: FilterQuery<ResourceTypeModel> = {};
+
+            if(!isAdmin){
+                query.suitableForLearners = filters.suitableForLearners !== undefined ? filters.suitableForLearners : true;
+                query.approved = filters.approved !== undefined ? filters.approved : true;
+            }
+            
+
+            
+            if (filters.type) query.type = filters.type;
+            if (filters.style) query['labels.style'] = filters.style;
+            if (filters.domain) query['labels.domain'] = filters.domain;
+            if (filters.topic) query['labels.topic'] = { $in: [filters.topic] };
+            if (filters.genre) query['labels.genre'] = filters.genre;
+
+            if (filters.q) {
+                const searchRegex = new RegExp(filters.q, 'i');
+                query.$or = [
+                    { title: searchRegex },
+                    { summary: searchRegex },
+                    { content: searchRegex },
+                    { keyPoints: { $in: [searchRegex] } }
+                ];
+            }
+            
+            const result = await PaginationHelper.paginate(Resource, query, {page, limit},'','-labels',sortOption); 
+
+            return {
+                resource: result.data,
+                pagination: result.pagination,
+            }
+            
+        }
+        catch(err: any){
+            throw new ApiError(err);
+        }
+    }
 }
 
 
@@ -141,6 +185,19 @@ interface TranscriptSegment {
   start: number;    
   duration: number;  
   end: number;      
+}
+
+interface ResourceFilters {
+    type?: ResourceType;
+    style?: Style;
+    domain?: Domain;
+    topic?: string;
+    genre?: string;
+    suitableForLearners?: boolean;
+    approved?: boolean;
+    publishedAt?: Date;
+    q?: string;
+    sort?: string;
 }
 
 export default new ResourceService();

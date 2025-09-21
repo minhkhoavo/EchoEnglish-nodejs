@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7ea3b620-e69b-481b-b6ae-17752bbe7fbd",
-		"name": "Echo Englist Node 19/9",
+		"_postman_id": "b654ac56-79b6-43bd-b964-fd31d78284e6",
+		"name": "Echo Englist Node API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38517569",
-		"_collection_link": "https://cccc33-6500.postman.co/workspace/cccc-Workspace~b7eba50b-fc24-4522-a812-60dffdca8e13/collection/38517569-7ea3b620-e69b-481b-b6ae-17752bbe7fbd?action=share&source=collection_link&creator=38517569"
+		"_exporter_id": "41180819"
 	},
 	"item": [
 		{
@@ -3207,7 +3206,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=uJbbtrx5M_E\"\r\n}",
+							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=cpvFzFHZTXI\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3339,6 +3338,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get resource",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		}
@@ -3348,7 +3355,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTc4NTU2MTgsImV4cCI6MTc2MDQ0NzYxOH0.Kk835XER7RgZ93s88RR3k7PXJJgCqxueGeY3fVOVUI725oLiJ4AgupvrMRg5UQOtIAFyyzJiTmxf79T_VGl6HQ",
+				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMiIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTg0MzE1NDcsImV4cCI6MTc2MTAyMzU0N30.mPJ0qwZkccz_cKrJBEZz5nb8YJ-D6YijXGFsFWjtQyeq0vzlqcqL1R-YOB7sgfdQf79q4w6zmBnQCotz1XyBmQ",
 				"type": "string"
 			}
 		]
