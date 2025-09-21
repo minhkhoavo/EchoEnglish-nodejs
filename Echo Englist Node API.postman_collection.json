@@ -1,3273 +1,2868 @@
 {
-	"info": {
-		"_postman_id": "b654ac56-79b6-43bd-b964-fd31d78284e6",
-		"name": "Echo Englist Node API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "41180819"
-	},
-	"item": [
-		{
-			"name": "User",
-			"item": [
-				{
-					"name": "delete User",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/users/68adaca225aa22270e7910dc",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users",
-								"68adaca225aa22270e7910dc"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/:userId",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/:userId",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/:userId",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/:userId",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "update My Profile",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"fullName\": \"Trí\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/users/my-profile/68b9013fd4c4d9695d9724a7",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users",
-								"my-profile",
-								"68b9013fd4c4d9695d9724a7"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users/my-profile/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"my-profile",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users/my-profile/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"my-profile",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users/my-profile/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"my-profile",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users/my-profile/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"my-profile",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "update User",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/users/:userId",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users",
-								":userId"
-							],
-							"variable": [
-								{
-									"key": "userId",
-									"value": "7556",
-									"description": "(Required) "
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users/:userId",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 2883,\n    \"fullName\": \"string\",\n    \"gender\": \"Nam\",\n    \"dob\": \"2018-03-28\",\n    \"email\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"address\": \"string\",\n    \"image\": \"string\",\n    \"roles\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          {\n            \"name\": \"stri\",\n            \"description\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"str\"\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"createdAt\": \"2000-02-18T09:30:17.165Z\",\n    \"createBy\": \"string\",\n    \"updateAt\": \"1978-11-06T09:37:01.427Z\",\n    \"updateBy\": \"string\"\n  }\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users/:userId",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users/:userId",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users/:userId",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "7556",
-											"description": "(Required) "
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "create User",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"string@gmail.com\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/users",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 2883,\n    \"fullName\": \"string\",\n    \"gender\": \"Nam\",\n    \"dob\": \"2018-03-28\",\n    \"email\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"address\": \"string\",\n    \"image\": \"string\",\n    \"roles\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          {\n            \"name\": \"stri\",\n            \"description\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"str\"\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"createdAt\": \"2000-02-18T09:30:17.165Z\",\n    \"createBy\": \"string\",\n    \"updateAt\": \"1978-11-06T09:37:01.427Z\",\n    \"updateBy\": \"string\"\n  }\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/users",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "register",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"anhkhoaxn112@gmail.com\",\n  \"fullName\": \"String\",\n  \"password\": \"12341234\",\n  \"gender\": \"Other\",\n  \"dob\": \"2019-08-21\",\n  \"phoneNumber\": \"0326567123\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/register",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Created",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/register",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"register"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 2883,\n    \"fullName\": \"string\",\n    \"gender\": \"Nam\",\n    \"dob\": \"2018-03-28\",\n    \"email\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"address\": \"string\",\n    \"image\": \"string\",\n    \"roles\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          {\n            \"name\": \"stri\",\n            \"description\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"str\"\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"createdAt\": \"2000-02-18T09:30:17.165Z\",\n    \"createBy\": \"string\",\n    \"updateAt\": \"1978-11-06T09:37:01.427Z\",\n    \"updateBy\": \"string\"\n  }\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/register",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"register"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/register",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"register"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/register",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"register"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "reset Password",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"vovantri204@gmail.com\",\n  \"newPassword\": \"12345678\",\n  \"otp\": \"756289\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/reset-password",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"reset-password"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"newPassword\": \"stringstri\",\n  \"otp\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/reset-password",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"reset-password"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"newPassword\": \"stringstri\",\n  \"otp\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/reset-password",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"reset-password"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"newPassword\": \"stringstri\",\n  \"otp\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/reset-password",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"reset-password"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"newPassword\": \"stringstri\",\n  \"otp\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/reset-password",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"reset-password"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Parse the JSON response body\r",
-									"var jsonData = pm.response.json();\r",
-									"\r",
-									"// Set the access_token in the environment variable if it exists\r",
-									"if (jsonData?.data?.token) {\r",
-									"    pm.environment.set(\"access_token\", jsonData.data.token);\r",
-									"}"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"anhkhoaxn11@gmail.com\",\n  \"password\": \"12341234\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"password\": \"stringstring\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"token\": \"string\",\n    \"authenticated\": false\n  }\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"password\": \"stringstring\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"login"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"password\": \"stringstring\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"login"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\",\n  \"password\": \"stringstring\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"login"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "forgot Password",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"vovantri204@gmail.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/forgot-password",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"forgot-password"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/forgot-password",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"forgot-password"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/forgot-password",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"forgot-password"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/forgot-password",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"forgot-password"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\": \"string\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/forgot-password",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"forgot-password"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "verify Register Otp",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"anhkhoaxn11@gmail.com\",\n  \"otp\": \"806611\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/verify-register-otp",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"verify-register-otp"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/auth/verify-register-otp",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"verify-register-otp"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/auth/verify-register-otp",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"verify-register-otp"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/auth/verify-register-otp",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"verify-register-otp"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/auth/verify-register-otp",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"verify-register-otp"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "get My Info",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/auth/myInfo",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"myInfo"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Flashcard",
-			"item": [
-				{
-					"name": "get flashcard info",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/flashcard/by-category/68b9474478578c301f4f2e8e?page=1&limit=3",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"flashcard",
-								"by-category",
-								"68b9474478578c301f4f2e8e"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "3"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "get all flashcard",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/flashcard",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"flashcard"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "OK",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
-						},
-						{
-							"name": "Bad Request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
-						},
-						{
-							"name": "Forbidden",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						},
-						{
-							"name": "Internal Server Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/users/myInfo",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"myInfo"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
-						}
-					]
-				},
-				{
-					"name": "update flashcard",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"front\": \"Hello 2\",\r\n    \"back\": \"Hi\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/flashcard/68ba34e398536c5a0f47cb92",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"flashcard",
-								"68ba34e398536c5a0f47cb92"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create flashcard",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"front\": \"Hello 110\",\r\n    \"back\": \"Hi 110\",\r\n    \"category\": \"68b9474478578c301f4f2e80\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/flashcard/create",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"flashcard",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete flashcard",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/flashcard/68b94642537245153f0bedc8",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"flashcard",
-								"68b94642537245153f0bedc8"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Category",
-			"item": [
-				{
-					"name": "create category",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"cate d5\",\r\n    \"description\": \"day le cate 4d\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/category-flashcard",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"category-flashcard"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all category",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"cate3\",\r\n    \"description\": \"day le cate 3\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/category-flashcard",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"category-flashcard"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get category",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"cate3\",\r\n    \"description\": \"day le cate 3\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e82",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"category-flashcard",
-								"68b9475a78578c301f4f2e82"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update category",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"cate new 2\",\r\n    \"description\": \"day le cate 2 new\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e82",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"category-flashcard",
-								"68b9475a78578c301f4f2e82"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete category",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"cate new\",\r\n    \"description\": \"day le cate 1 new\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e8ad",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"category-flashcard",
-								"68b9475a78578c301f4f2e8ad"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Payment",
-			"item": [
-				{
-					"name": "create payment",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"token\": 10,\n  \"promoCode\": \"\",\n  \"paymentGateway\": \"VNPAY\",\n  \"description\": \"Purchase tokens\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/payments/create",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"payments",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "vnpay return",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8099/payments/vnpay/return?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=20250912174845&vnp_CurrCode=VND&vnp_ExpireDate=20250912180345&vnp_IpAddr=%3A%3A1&vnp_Locale=vn&vnp_OrderInfo=Mua%2010%20token&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A8099%2Fpayments%2Fvnpay%2Freturn&vnp_TmnCode=MA92HMNU&vnp_TxnRef=68c3fa8d3762a4eec9a2fbb8&vnp_Version=2.1.0&vnp_SecureHash=f9e5944fed805995946cd29d9c6b942a8aa2893fe386cb07d65b80e6d9c6a44363aca9d28515a9c4eb558934536462ddcf3c83642109ee476f788b29e3bee350",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8099",
-							"path": [
-								"payments",
-								"vnpay",
-								"return"
-							],
-							"query": [
-								{
-									"key": "vnp_Amount",
-									"value": "1000000"
-								},
-								{
-									"key": "vnp_Command",
-									"value": "pay"
-								},
-								{
-									"key": "vnp_CreateDate",
-									"value": "20250912174845"
-								},
-								{
-									"key": "vnp_CurrCode",
-									"value": "VND"
-								},
-								{
-									"key": "vnp_ExpireDate",
-									"value": "20250912180345"
-								},
-								{
-									"key": "vnp_IpAddr",
-									"value": "%3A%3A1"
-								},
-								{
-									"key": "vnp_Locale",
-									"value": "vn"
-								},
-								{
-									"key": "vnp_OrderInfo",
-									"value": "Mua%2010%20token"
-								},
-								{
-									"key": "vnp_OrderType",
-									"value": "other"
-								},
-								{
-									"key": "vnp_ReturnUrl",
-									"value": "http%3A%2F%2Flocalhost%3A8099%2Fpayments%2Fvnpay%2Freturn"
-								},
-								{
-									"key": "vnp_TmnCode",
-									"value": "MA92HMNU"
-								},
-								{
-									"key": "vnp_TxnRef",
-									"value": "68c3fa8d3762a4eec9a2fbb8"
-								},
-								{
-									"key": "vnp_Version",
-									"value": "2.1.0"
-								},
-								{
-									"key": "vnp_SecureHash",
-									"value": "f9e5944fed805995946cd29d9c6b942a8aa2893fe386cb07d65b80e6d9c6a44363aca9d28515a9c4eb558934536462ddcf3c83642109ee476f788b29e3bee350"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "vnpay ipn",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/payments/vnpay/ipn?vnp_TxnRef={{transactionRef}}&vnp_Amount={{amount}}&vnp_ResponseCode=00&vnp_TransactionStatus=00&vnp_SecureHash={{secureHash}}&vnp_BankCode=NCB",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"payments",
-								"vnpay",
-								"ipn"
-							],
-							"query": [
-								{
-									"key": "vnp_TxnRef",
-									"value": "{{transactionRef}}"
-								},
-								{
-									"key": "vnp_Amount",
-									"value": "{{amount}}"
-								},
-								{
-									"key": "vnp_ResponseCode",
-									"value": "00"
-								},
-								{
-									"key": "vnp_TransactionStatus",
-									"value": "00"
-								},
-								{
-									"key": "vnp_SecureHash",
-									"value": "{{secureHash}}"
-								},
-								{
-									"key": "vnp_BankCode",
-									"value": "NCB"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "use token",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tokens\": 0,\r\n    \"promoCode\": \"PROMO_LOC1\",\r\n    \"description\": \"Ban da bi tru tien\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/payments/use-token",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"payments",
-								"use-token"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "PENDING",
-									"disabled": true
-								},
-								{
-									"key": "type",
-									"value": "deduction",
-									"disabled": true
-								},
-								{
-									"key": "gateway",
-									"value": "STRIPE",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get promo by id",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"PROMO_Loc8\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-07-21\",\r\n    \"usageLimit\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/promo/68c5155091eca5dc383c2508",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"promo",
-								"68c5155091eca5dc383c2508"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "PENDING",
-									"disabled": true
-								},
-								{
-									"key": "type",
-									"value": "deduction",
-									"disabled": true
-								},
-								{
-									"key": "gateway",
-									"value": "STRIPE",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create promo",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"PROMO_Loc10\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-10-21T00:00:00.000Z\",\r\n    \"usageLimit\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/promo",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"promo"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "PENDING",
-									"disabled": true
-								},
-								{
-									"key": "type",
-									"value": "deduction",
-									"disabled": true
-								},
-								{
-									"key": "gateway",
-									"value": "STRIPE",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get list promo",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/promo?search=Loc&page=1&limit=3",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"promo"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": "Loc"
-								},
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "3"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "validate promo Copy",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"PROMO_DEMO\",\r\n    \"discount\": 2,\r\n    \"expiration\": \"2025-10-21\",\r\n    \"usageLimit\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/promo/validate?code=PROMO_DEMO",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"promo",
-								"validate"
-							],
-							"query": [
-								{
-									"key": "code",
-									"value": "PROMO_DEMO"
-								},
-								{
-									"key": "type",
-									"value": "deduction",
-									"disabled": true
-								},
-								{
-									"key": "gateway",
-									"value": "STRIPE",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete promo",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"PROMO_Loc8\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-07-21\",\r\n    \"usageLimit\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/promo/68c554f6d9364070e47c9f56",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"promo",
-								"68c554f6d9364070e47c9f56"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "PENDING",
-									"disabled": true
-								},
-								{
-									"key": "type",
-									"value": "deduction",
-									"disabled": true
-								},
-								{
-									"key": "gateway",
-									"value": "STRIPE",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update promo",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"PROMO_Loc9\",\r\n    \"discount\": 1,\r\n    \"expiration\": \"2025-02-21T00:00:00.000Z\",\r\n    \"usageLimit\": 1,\r\n    \"active\": true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/promo/68c51f4f035ba2ff65d709af",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"promo",
-								"68c51f4f035ba2ff65d709af"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "PENDING",
-									"disabled": true
-								},
-								{
-									"key": "type",
-									"value": "deduction",
-									"disabled": true
-								},
-								{
-									"key": "gateway",
-									"value": "STRIPE",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get list payment",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseurl}}/payments?gateway=STRIPE",
-							"host": [
-								"{{baseurl}}"
-							],
-							"path": [
-								"payments"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "PENDING",
-									"disabled": true
-								},
-								{
-									"key": "type",
-									"value": "deduction",
-									"disabled": true
-								},
-								{
-									"key": "gateway",
-									"value": "STRIPE"
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get payment by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/payments/68c3e6326e0c01bd5a877650",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"payments",
-								"68c3e6326e0c01bd5a877650"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Youtube Transcript",
-			"item": [
-				{
-					"name": "get transcript",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=cpvFzFHZTXI\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/youtube-transcript",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"youtube-transcript"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	],
-	"auth": {
-		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTc4NTU2MTgsImV4cCI6MTc2MDQ0NzYxOH0.Kk835XER7RgZ93s88RR3k7PXJJgCqxueGeY3fVOVUI725oLiJ4AgupvrMRg5UQOtIAFyyzJiTmxf79T_VGl6HQ",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "http://localhost:8099"
-		},
-		{
-			"key": "token",
-			"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTY5NzAyMTEsImV4cCI6MTc1Njk3MjAxMX0.u1ZQpNxNp65xiMP-IFxumYrm8jv8NEZC18LncPwoxboHSG4_zt2iE2A3dklYuZ-jEvC1YfRQyR-zMNs8yiN9hg"
-		}
-	]
+  "info": {
+    "_postman_id": "b654ac56-79b6-43bd-b964-fd31d78284e6",
+    "name": "Echo Englist Node API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "41180819"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/68adaca225aa22270e7910dc",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "68adaca225aa22270e7910dc"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", ":userId"],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", ":userId"],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", ":userId"],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", ":userId"],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "update My Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Trí\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/my-profile/68b9013fd4c4d9695d9724a7",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "my-profile", "68b9013fd4c4d9695d9724a7"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/my-profile/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "my-profile", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/my-profile/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "my-profile", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/my-profile/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "my-profile", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fullName\": \"string\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2012-03-08\",\n  \"phoneNumber\": \"+84995567645\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/my-profile/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "my-profile", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/:userId",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":userId"],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "7556",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", ":userId"],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 2883,\n    \"fullName\": \"string\",\n    \"gender\": \"Nam\",\n    \"dob\": \"2018-03-28\",\n    \"email\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"address\": \"string\",\n    \"image\": \"string\",\n    \"roles\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          {\n            \"name\": \"stri\",\n            \"description\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"str\"\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"createdAt\": \"2000-02-18T09:30:17.165Z\",\n    \"createBy\": \"string\",\n    \"updateAt\": \"1978-11-06T09:37:01.427Z\",\n    \"updateBy\": \"string\"\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", ":userId"],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", ":userId"],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"gender\": \"Nữ\",\n  \"dob\": \"1947-08-01\",\n  \"phoneNumber\": \"0818015016\",\n  \"address\": \"str\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", ":userId"],
+                  "variable": [
+                    {
+                      "key": "userId",
+                      "value": "7556",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"string@gmail.com\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 2883,\n    \"fullName\": \"string\",\n    \"gender\": \"Nam\",\n    \"dob\": \"2018-03-28\",\n    \"email\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"address\": \"string\",\n    \"image\": \"string\",\n    \"roles\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          {\n            \"name\": \"stri\",\n            \"description\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"str\"\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"createdAt\": \"2000-02-18T09:30:17.165Z\",\n    \"createBy\": \"string\",\n    \"updateAt\": \"1978-11-06T09:37:01.427Z\",\n    \"updateBy\": \"string\"\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"anhkhoaxn112@gmail.com\",\n  \"fullName\": \"String\",\n  \"password\": \"12341234\",\n  \"gender\": \"Other\",\n  \"dob\": \"2019-08-21\",\n  \"phoneNumber\": \"0326567123\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          },
+          "response": [
+            {
+              "name": "Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 2883,\n    \"fullName\": \"string\",\n    \"gender\": \"Nam\",\n    \"dob\": \"2018-03-28\",\n    \"email\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"address\": \"string\",\n    \"image\": \"string\",\n    \"roles\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          },\n          {\n            \"name\": \"stri\",\n            \"description\": \"string\"\n          }\n        ]\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"permissions\": [\n          {\n            \"name\": \"string\",\n            \"description\": \"str\"\n          },\n          {\n            \"name\": \"string\",\n            \"description\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"createdAt\": \"2000-02-18T09:30:17.165Z\",\n    \"createBy\": \"string\",\n    \"updateAt\": \"1978-11-06T09:37:01.427Z\",\n    \"updateBy\": \"string\"\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"fullName\": \"string\",\n  \"password\": \"stringstring\",\n  \"gender\": \"Khác\",\n  \"dob\": \"2003-07-21\",\n  \"phoneNumber\": \"+84385245814\",\n  \"address\": \"string\",\n  \"image\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"vovantri204@gmail.com\",\n  \"newPassword\": \"12345678\",\n  \"otp\": \"756289\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/reset-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "reset-password"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"newPassword\": \"stringstri\",\n  \"otp\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/reset-password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "reset-password"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"newPassword\": \"stringstri\",\n  \"otp\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/reset-password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "reset-password"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"newPassword\": \"stringstri\",\n  \"otp\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/reset-password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "reset-password"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"newPassword\": \"stringstri\",\n  \"otp\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/reset-password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "reset-password"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Parse the JSON response body\r",
+                  "var jsonData = pm.response.json();\r",
+                  "\r",
+                  "// Set the access_token in the environment variable if it exists\r",
+                  "if (jsonData?.data?.token) {\r",
+                  "    pm.environment.set(\"access_token\", jsonData.data.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"anhkhoaxn11@gmail.com\",\n  \"password\": \"12341234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"password\": \"stringstring\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"token\": \"string\",\n    \"authenticated\": false\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"password\": \"stringstring\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"password\": \"stringstring\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"password\": \"stringstring\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"vovantri204@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/forgot-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "forgot-password"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/forgot-password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "forgot-password"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/forgot-password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "forgot-password"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/forgot-password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "forgot-password"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/forgot-password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "forgot-password"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "verify Register Otp",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"anhkhoaxn11@gmail.com\",\n  \"otp\": \"806611\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/verify-register-otp",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "verify-register-otp"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/verify-register-otp",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "verify-register-otp"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/verify-register-otp",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "verify-register-otp"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/verify-register-otp",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "verify-register-otp"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/verify-register-otp",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "verify-register-otp"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "get My Info",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/myInfo",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "myInfo"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Flashcard",
+      "item": [
+        {
+          "name": "get flashcard info",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/flashcard/by-category/68b9474478578c301f4f2e8e?page=1&limit=3",
+              "host": ["{{baseUrl}}"],
+              "path": ["flashcard", "by-category", "68b9474478578c301f4f2e8e"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "get all flashcard",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/flashcard",
+              "host": ["{{baseUrl}}"],
+              "path": ["flashcard"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"userId\": 5775,\n    \"fullName\": \"str\",\n    \"gender\": \"Khác\",\n    \"dob\": \"1993-04-16\",\n    \"email\": \"s\",\n    \"phoneNumber\": \"s\",\n    \"address\": \"string\",\n    \"image\": \"string\"\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": \"string\"\n}"
+            },
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            },
+            {
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/myInfo",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "myInfo"]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "update flashcard",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"front\": \"Hello 2\",\r\n    \"back\": \"Hi\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/flashcard/68ba34e398536c5a0f47cb92",
+              "host": ["{{baseUrl}}"],
+              "path": ["flashcard", "68ba34e398536c5a0f47cb92"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create flashcard",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"front\": \"Hello 110\",\r\n    \"back\": \"Hi 110\",\r\n    \"category\": \"68b9474478578c301f4f2e80\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/flashcard/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["flashcard", "create"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete flashcard",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/flashcard/68b94642537245153f0bedc8",
+              "host": ["{{baseUrl}}"],
+              "path": ["flashcard", "68b94642537245153f0bedc8"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "create category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"cate d5\",\r\n    \"description\": \"day le cate 4d\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/category-flashcard",
+              "host": ["{{baseUrl}}"],
+              "path": ["category-flashcard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"cate3\",\r\n    \"description\": \"day le cate 3\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/category-flashcard",
+              "host": ["{{baseUrl}}"],
+              "path": ["category-flashcard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"cate3\",\r\n    \"description\": \"day le cate 3\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e82",
+              "host": ["{{baseUrl}}"],
+              "path": ["category-flashcard", "68b9475a78578c301f4f2e82"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update category",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"cate new 2\",\r\n    \"description\": \"day le cate 2 new\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e82",
+              "host": ["{{baseUrl}}"],
+              "path": ["category-flashcard", "68b9475a78578c301f4f2e82"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"cate new\",\r\n    \"description\": \"day le cate 1 new\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e8ad",
+              "host": ["{{baseUrl}}"],
+              "path": ["category-flashcard", "68b9475a78578c301f4f2e8ad"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "create payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": 10,\n  \"promoCode\": \"\",\n  \"paymentGateway\": \"VNPAY\",\n  \"description\": \"Purchase tokens\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "create"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "vnpay return",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8099/payments/vnpay/return?vnp_Amount=1000000&vnp_Command=pay&vnp_CreateDate=20250912174845&vnp_CurrCode=VND&vnp_ExpireDate=20250912180345&vnp_IpAddr=%3A%3A1&vnp_Locale=vn&vnp_OrderInfo=Mua%2010%20token&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A8099%2Fpayments%2Fvnpay%2Freturn&vnp_TmnCode=MA92HMNU&vnp_TxnRef=68c3fa8d3762a4eec9a2fbb8&vnp_Version=2.1.0&vnp_SecureHash=f9e5944fed805995946cd29d9c6b942a8aa2893fe386cb07d65b80e6d9c6a44363aca9d28515a9c4eb558934536462ddcf3c83642109ee476f788b29e3bee350",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8099",
+              "path": ["payments", "vnpay", "return"],
+              "query": [
+                {
+                  "key": "vnp_Amount",
+                  "value": "1000000"
+                },
+                {
+                  "key": "vnp_Command",
+                  "value": "pay"
+                },
+                {
+                  "key": "vnp_CreateDate",
+                  "value": "20250912174845"
+                },
+                {
+                  "key": "vnp_CurrCode",
+                  "value": "VND"
+                },
+                {
+                  "key": "vnp_ExpireDate",
+                  "value": "20250912180345"
+                },
+                {
+                  "key": "vnp_IpAddr",
+                  "value": "%3A%3A1"
+                },
+                {
+                  "key": "vnp_Locale",
+                  "value": "vn"
+                },
+                {
+                  "key": "vnp_OrderInfo",
+                  "value": "Mua%2010%20token"
+                },
+                {
+                  "key": "vnp_OrderType",
+                  "value": "other"
+                },
+                {
+                  "key": "vnp_ReturnUrl",
+                  "value": "http%3A%2F%2Flocalhost%3A8099%2Fpayments%2Fvnpay%2Freturn"
+                },
+                {
+                  "key": "vnp_TmnCode",
+                  "value": "MA92HMNU"
+                },
+                {
+                  "key": "vnp_TxnRef",
+                  "value": "68c3fa8d3762a4eec9a2fbb8"
+                },
+                {
+                  "key": "vnp_Version",
+                  "value": "2.1.0"
+                },
+                {
+                  "key": "vnp_SecureHash",
+                  "value": "f9e5944fed805995946cd29d9c6b942a8aa2893fe386cb07d65b80e6d9c6a44363aca9d28515a9c4eb558934536462ddcf3c83642109ee476f788b29e3bee350"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "vnpay ipn",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payments/vnpay/ipn?vnp_TxnRef={{transactionRef}}&vnp_Amount={{amount}}&vnp_ResponseCode=00&vnp_TransactionStatus=00&vnp_SecureHash={{secureHash}}&vnp_BankCode=NCB",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "vnpay", "ipn"],
+              "query": [
+                {
+                  "key": "vnp_TxnRef",
+                  "value": "{{transactionRef}}"
+                },
+                {
+                  "key": "vnp_Amount",
+                  "value": "{{amount}}"
+                },
+                {
+                  "key": "vnp_ResponseCode",
+                  "value": "00"
+                },
+                {
+                  "key": "vnp_TransactionStatus",
+                  "value": "00"
+                },
+                {
+                  "key": "vnp_SecureHash",
+                  "value": "{{secureHash}}"
+                },
+                {
+                  "key": "vnp_BankCode",
+                  "value": "NCB"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "use token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"tokens\": 0,\r\n    \"promoCode\": \"PROMO_LOC1\",\r\n    \"description\": \"Ban da bi tru tien\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/use-token",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "use-token"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PENDING",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "deduction",
+                  "disabled": true
+                },
+                {
+                  "key": "gateway",
+                  "value": "STRIPE",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get promo by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"PROMO_Loc8\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-07-21\",\r\n    \"usageLimit\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promo/68c5155091eca5dc383c2508",
+              "host": ["{{baseUrl}}"],
+              "path": ["promo", "68c5155091eca5dc383c2508"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PENDING",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "deduction",
+                  "disabled": true
+                },
+                {
+                  "key": "gateway",
+                  "value": "STRIPE",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create promo",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"PROMO_Loc10\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-10-21T00:00:00.000Z\",\r\n    \"usageLimit\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promo",
+              "host": ["{{baseUrl}}"],
+              "path": ["promo"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PENDING",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "deduction",
+                  "disabled": true
+                },
+                {
+                  "key": "gateway",
+                  "value": "STRIPE",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get list promo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/promo?search=Loc&page=1&limit=3",
+              "host": ["{{baseUrl}}"],
+              "path": ["promo"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Loc"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validate promo Copy",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"PROMO_DEMO\",\r\n    \"discount\": 2,\r\n    \"expiration\": \"2025-10-21\",\r\n    \"usageLimit\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promo/validate?code=PROMO_DEMO",
+              "host": ["{{baseUrl}}"],
+              "path": ["promo", "validate"],
+              "query": [
+                {
+                  "key": "code",
+                  "value": "PROMO_DEMO"
+                },
+                {
+                  "key": "type",
+                  "value": "deduction",
+                  "disabled": true
+                },
+                {
+                  "key": "gateway",
+                  "value": "STRIPE",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete promo",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"PROMO_Loc8\",\r\n    \"discount\": 9,\r\n    \"expiration\": \"2025-07-21\",\r\n    \"usageLimit\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promo/68c554f6d9364070e47c9f56",
+              "host": ["{{baseUrl}}"],
+              "path": ["promo", "68c554f6d9364070e47c9f56"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PENDING",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "deduction",
+                  "disabled": true
+                },
+                {
+                  "key": "gateway",
+                  "value": "STRIPE",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update promo",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"PROMO_Loc9\",\r\n    \"discount\": 1,\r\n    \"expiration\": \"2025-02-21T00:00:00.000Z\",\r\n    \"usageLimit\": 1,\r\n    \"active\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/promo/68c51f4f035ba2ff65d709af",
+              "host": ["{{baseUrl}}"],
+              "path": ["promo", "68c51f4f035ba2ff65d709af"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PENDING",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "deduction",
+                  "disabled": true
+                },
+                {
+                  "key": "gateway",
+                  "value": "STRIPE",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get list payment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseurl}}/payments?gateway=STRIPE",
+              "host": ["{{baseurl}}"],
+              "path": ["payments"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PENDING",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "deduction",
+                  "disabled": true
+                },
+                {
+                  "key": "gateway",
+                  "value": "STRIPE"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get payment by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payments/68c3e6326e0c01bd5a877650",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "68c3e6326e0c01bd5a877650"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Youtube Transcript",
+      "item": [
+        {
+          "name": "get transcript",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=cpvFzFHZTXI\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/youtube-transcript",
+              "host": ["{{baseUrl}}"],
+              "path": ["youtube-transcript"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTc4NTU2MTgsImV4cCI6MTc2MDQ0NzYxOH0.Kk835XER7RgZ93s88RR3k7PXJJgCqxueGeY3fVOVUI725oLiJ4AgupvrMRg5UQOtIAFyyzJiTmxf79T_VGl6HQ",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8099"
+    },
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTY5NzAyMTEsImV4cCI6MTc1Njk3MjAxMX0.u1ZQpNxNp65xiMP-IFxumYrm8jv8NEZC18LncPwoxboHSG4_zt2iE2A3dklYuZ-jEvC1YfRQyR-zMNs8yiN9hg"
+    }
+  ]
 }

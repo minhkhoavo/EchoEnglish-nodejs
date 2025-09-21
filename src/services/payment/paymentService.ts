@@ -1,23 +1,22 @@
-import { ErrorMessage } from "~/enum/errorMessage"
-import { PaymentGateway } from "~/enum/paymentGateway";
-import { PaymentStatus } from "~/enum/paymentStatus";
-import { TransactionType } from "~/enum/transactionType";
-import { ApiError } from "~/middleware/apiError"
-import { Payment, PaymentType } from "~/models/payment";
-import { PromoCode, PromoCodeType } from "~/models/promoCode";
-import vnpayService from "./vnpayService";
-import { User, UserType } from "../../models/userModel";
-import stripeService from "./stripeService";
+import { ErrorMessage } from '~/enum/errorMessage';
+import { PaymentGateway } from '~/enum/paymentGateway';
+import { PaymentStatus } from '~/enum/paymentStatus';
+import { TransactionType } from '~/enum/transactionType';
+import { ApiError } from '~/middleware/apiError';
+import { Payment, PaymentType } from '~/models/payment';
+import { PromoCode, PromoCodeType } from '~/models/promoCode';
+import vnpayService from './vnpayService';
+import { User, UserType } from '../../models/userModel';
+import stripeService from './stripeService';
 
 class PaymentService {
-   public async getTransactionById(id: string): Promise<PaymentType | null> {
+  public async getTransactionById(id: string): Promise<PaymentType | null> {
     const payment = await Payment.findById(id).lean<PaymentType>().exec();
-    if(!payment){
+    if (!payment) {
       throw new ApiError(ErrorMessage.PAYMENT_NOT_FOUND);
     }
     return payment;
   }
-  
 
   /* Lay danh sach payment */
   getTransactions = async ({
@@ -78,7 +77,12 @@ class PaymentService {
   };
 
   /* Sử dụng token cua user để thanh toan */
-  useToken = async ({ userId, tokens, promoCode, description }: UseTokenInput) => {
+  useToken = async ({
+    userId,
+    tokens,
+    promoCode,
+    description,
+  }: UseTokenInput) => {
     if (!userId) {
       throw new ApiError(ErrorMessage.UNAUTHORIZED);
     }
@@ -94,27 +98,29 @@ class PaymentService {
 
     /* xu ly promo */
     let promo;
-    if(promoCode){
-      promo = await PromoCode.findOne({code: promoCode, active: true}).lean<PromoCodeType>().exec();
-      if(!promo){
+    if (promoCode) {
+      promo = await PromoCode.findOne({ code: promoCode, active: true })
+        .lean<PromoCodeType>()
+        .exec();
+      if (!promo) {
         throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
       }
 
-      if(promo.usageLimit && promo.usageLimit<= promo.usedCount){
-        throw new ApiError(ErrorMessage.PROMO_USAGE_LIMIT_REACHED)
+      if (promo.usageLimit && promo.usageLimit <= promo.usedCount) {
+        throw new ApiError(ErrorMessage.PROMO_USAGE_LIMIT_REACHED);
       }
       /* het han dung */
-      if(promo.expiration && promo.expiration <= new Date()){
-        throw new ApiError(ErrorMessage.PROMO_EXPIRED)
+      if (promo.expiration && promo.expiration <= new Date()) {
+        throw new ApiError(ErrorMessage.PROMO_EXPIRED);
       }
       /* Giam tien */
       let discountedTokens = tokens - promo.discount;
-      if(discountedTokens < 0){
+      if (discountedTokens < 0) {
         discountedTokens = 0;
       }
 
       tokens = discountedTokens;
-      await PromoCode.updateOne({ _id: promo._id}, {$inc: {usedCount : 1}});
+      await PromoCode.updateOne({ _id: promo._id }, { $inc: { usedCount: 1 } });
     }
 
     /* Sau giam gia van khong du tien */
@@ -123,7 +129,13 @@ class PaymentService {
     }
 
     // cập nhật token user
-    const userUpdated = await User.findByIdAndUpdate({ _id: user._id }, { $inc: { tokens: -tokens }},{ new: true}).lean<UserType>().exec();
+    const userUpdated = await User.findByIdAndUpdate(
+      { _id: user._id },
+      { $inc: { tokens: -tokens } },
+      { new: true }
+    )
+      .lean<UserType>()
+      .exec();
 
     // Lưu transaction
     const transaction = await Payment.create({
@@ -145,10 +157,13 @@ class PaymentService {
   };
 
   /* Tạo payment nạp tiền (cộng token) */
-  public createPayment = async (userId: string,  ipAddr: string, request: Partial<PaymentType>) => {
-    
-    if(!request.tokens && request.tokens! <= 0)
-        throw new ApiError(ErrorMessage.TOKEN_INVALID);
+  public createPayment = async (
+    userId: string,
+    ipAddr: string,
+    request: Partial<PaymentType>
+  ) => {
+    if (!request.tokens && request.tokens! <= 0)
+      throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
     const amount = request.tokens! * 1000;
 
@@ -156,29 +171,29 @@ class PaymentService {
     const expiredAt = new Date(now.getTime() + 15 * 60 * 1000); // Hết hạn sau 15 phút
 
     const payment = new Payment({
-        user: userId,
-        type: TransactionType.PURCHASE,
-        tokens: request.tokens,
-        description: request.description,
-        amount,
-        promoCode: request.promoCode,
-        status: PaymentStatus.INITIATED,
-        paymentGateway: request.paymentGateway,
-        expiredAt,
+      user: userId,
+      type: TransactionType.PURCHASE,
+      tokens: request.tokens,
+      description: request.description,
+      amount,
+      promoCode: request.promoCode,
+      status: PaymentStatus.INITIATED,
+      paymentGateway: request.paymentGateway,
+      expiredAt,
     });
 
     await payment.save();
 
-    let payUrl = ""; // chung cho cả gateway
+    let payUrl = ''; // chung cho cả gateway
     /* Thanh toan = vnpay */
-    if(payment.paymentGateway == PaymentGateway.VNPAY) {
-        const vnpUrl = await vnpayService.createVnpayPaymentUrl(payment, ipAddr);
-        payment.payUrl = vnpUrl;
-        await payment.save();
-        payUrl = vnpUrl;
+    if (payment.paymentGateway == PaymentGateway.VNPAY) {
+      const vnpUrl = await vnpayService.createVnpayPaymentUrl(payment, ipAddr);
+      payment.payUrl = vnpUrl;
+      await payment.save();
+      payUrl = vnpUrl;
     }
     /* Thanh toan = stripe */
-    if(payment.paymentGateway == PaymentGateway.STRIPE){
+    if (payment.paymentGateway == PaymentGateway.STRIPE) {
       const session = await stripeService.createCheckoutSession(payment);
       if (session && session.url) {
         payment.payUrl = session.url;
@@ -186,16 +201,15 @@ class PaymentService {
         payUrl = session.url;
       }
     }
-    
+
     return {
-        paymentId: payment._id,
-        payUrl, 
-        amount: payment.amount,
-        status: payment.status,
-        expiredAt: payment.expiredAt,
+      paymentId: payment._id,
+      payUrl,
+      amount: payment.amount,
+      status: payment.status,
+      expiredAt: payment.expiredAt,
     };
-      
-  }
+  };
 }
 
 interface UseTokenInput {

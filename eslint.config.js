@@ -18,13 +18,13 @@ export default tseslint.config([
       },
     },
     extends: [
-      js.configs.recommended,          // ESLint mặc định
+      js.configs.recommended, // ESLint mặc định
       ...tseslint.configs.recommended, // TypeScript rules
     ],
     rules: {
       '@typescript-eslint/no-unused-vars': ['warn'],
       'no-unused-vars': 'off', // để tránh conflict
-      'no-console': 'off',     // cho phép console.log trong server
+      'no-console': 'off', // cho phép console.log trong server
     },
   },
 ]);

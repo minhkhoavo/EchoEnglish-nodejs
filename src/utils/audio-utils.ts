@@ -25,31 +25,43 @@ export async function convertMp3ToWav(buffer: Buffer): Promise<Buffer> {
     const wav = await fs.readFile(outPath);
     return wav;
   } finally {
-    try { await fs.rm(tmpDir, { recursive: true, force: true }); } catch {}
+    try {
+      await fs.rm(tmpDir, { recursive: true, force: true });
+    } catch {}
   }
 }
 
-export function makeAudioConfigFromPcm16kMonoWav(wavBuf: Buffer): sdk.AudioConfig {
+export function makeAudioConfigFromPcm16kMonoWav(
+  wavBuf: Buffer
+): sdk.AudioConfig {
   try {
-    if (wavBuf.length >= 4 && wavBuf.toString('ascii',0,4) === 'RIFF') {
-      if (wavBuf.length < 44 || wavBuf.toString('ascii',8,12) !== 'WAVE') throw new Error('not RIFF/WAVE');
+    if (wavBuf.length >= 4 && wavBuf.toString('ascii', 0, 4) === 'RIFF') {
+      if (wavBuf.length < 44 || wavBuf.toString('ascii', 8, 12) !== 'WAVE')
+        throw new Error('not RIFF/WAVE');
       let offset = 12;
       let dataStart = -1;
       let dataSize = 0;
       while (offset + 8 <= wavBuf.length) {
-        const id = wavBuf.toString('ascii', offset, offset+4);
-        const size = wavBuf.readUInt32LE(offset+4);
+        const id = wavBuf.toString('ascii', offset, offset + 4);
+        const size = wavBuf.readUInt32LE(offset + 4);
         const chunkStart = offset + 8;
         const chunkEnd = chunkStart + size;
         if (chunkEnd > wavBuf.length) break;
-        if (id === 'data') { dataStart = chunkStart; dataSize = size; break; }
+        if (id === 'data') {
+          dataStart = chunkStart;
+          dataSize = size;
+          break;
+        }
         offset = chunkEnd + (chunkEnd % 2);
       }
       if (dataStart === -1) throw new Error('no data chunk');
       const pcm = wavBuf.subarray(dataStart, dataStart + dataSize);
       const format = sdk.AudioStreamFormat.getWaveFormatPCM(16000, 16, 1);
       const pushStream = sdk.AudioInputStream.createPushStream(format);
-      const ab = pcm.buffer.slice(pcm.byteOffset, pcm.byteOffset + pcm.byteLength);
+      const ab = pcm.buffer.slice(
+        pcm.byteOffset,
+        pcm.byteOffset + pcm.byteLength
+      );
       pushStream.write(ab as ArrayBuffer);
       pushStream.close();
       return sdk.AudioConfig.fromStreamInput(pushStream);

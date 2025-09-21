@@ -37,10 +37,7 @@ class SpeakingWritingService {
     return test;
   }
 
-  public async getTestByPart( 
-    testId: number | string,
-    partNumber: number
-  ) {
+  public async getTestByPart(testId: number | string, partNumber: number) {
     const db = await this.getDb();
     // Ensure testId is number
     const testIdNum = typeof testId === 'string' ? parseInt(testId) : testId;
