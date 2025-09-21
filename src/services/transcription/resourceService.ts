@@ -9,17 +9,36 @@ import { ApiError } from "~/middleware/apiError";
 import { ErrorMessage } from "~/enum/errorMessage";
 import { YoutubeTranscript } from "youtube-transcript";
 import axios from "axios";
+import * as cheerio from "cheerio";
 
 class ResourceService {
-     async fetchArticleHtml(url: string): Promise<string> {
+     async fetchArticleText(url: string): Promise<string> {
           try {
                const { data } = await axios.get(url, { timeout: 10000 });
-               return data; 
+               const $ = cheerio.load(data);
+
+               // Ưu tiên lấy text trong <article>
+               const articleText = $("article").text().replace(/\s+/g, " ").trim();
+
+               // Nếu không có <article> thì lấy body text
+               const bodyText = $("body").text().replace(/\s+/g, " ").trim();
+
+               return articleText || bodyText;
           } catch (err) {
-               console.error(`[fetchArticleHtml] Error: ${url}`, err);
+               console.error(`[fetchArticleText] Error: ${url}`, err);
                return "";
           }
      }
+
+     // async fetchArticleHtml(url: string): Promise<string> {
+     //      try {
+     //           const { data } = await axios.get(url, { timeout: 10000 });
+     //           return data;
+     //      } catch (err) {
+     //           console.error(`[fetchArticleHtml] Error: ${url}`, err);
+     //           return "";
+     //      }
+     // }
 
      public async updateResource(
           id: string,
@@ -41,8 +60,8 @@ class ResourceService {
 
      private readonly rssFeeds: readonly string[] = [
           "https://vnexpress.net/rss/so-hoa.rss",
-          "https://www.nytimes.com/rss",
-          "https://www.theguardian.com/uk/rss",
+          // "https://www.nytimes.com/rss",
+          // "https://www.theguardian.com/uk/rss",
      ];
 
      // Crawl RSS feed, phân tích bằng LLM rồi lưu vào DB
@@ -62,8 +81,9 @@ class ResourceService {
                     }
 
                     // const fullContent = `${item.title}\n${item.contentSnippet || ""}`;
-                    const htmlContent = item.link ? await this.fetchArticleHtml(item.link) : "";
+                    const htmlContent = item.link ? await this.fetchArticleText(item.link) : "";
                     const fullContent = `${item.title}\n${item.contentSnippet || ""}\n${htmlContent}`;
+                    console.log(fullContent);
                     const analyzed = await this.analyzeContentWithLLM(fullContent);
 
                     const saved = await this.createResource({
@@ -115,7 +135,12 @@ class ResourceService {
      }
 
      public async createResource(data: Partial<ResourceTypeModel>) {
-          return await Resource.create(data);
+          try {
+               return await Resource.create(data);
+          } catch (err) {
+               console.error("[ResourceService] Skipped invalid resource", err);
+               return null;
+          }
      }
 
      public extractVideoId = (url: string): string | null => {
@@ -159,7 +184,7 @@ class ResourceService {
           if (existing) {
                throw new ApiError(ErrorMessage.RESOURCE_ALREADY_EXISTS)
           }
-          
+
           const transcript = await this.fetchTranscript(url);
           const fullContent = transcript.map((t) => t.text).join(" ");
 

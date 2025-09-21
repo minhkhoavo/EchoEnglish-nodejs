@@ -18,7 +18,6 @@ class PaymentService {
     return payment;
   }
   
-
   /* Lay danh sach payment */
   getTransactions = async ({
     userId,
