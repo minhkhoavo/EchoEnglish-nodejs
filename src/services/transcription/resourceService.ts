@@ -10,6 +10,7 @@ import { ErrorMessage } from "~/enum/errorMessage";
 import { YoutubeTranscript } from "youtube-transcript";
 import axios from "axios";
 import * as cheerio from "cheerio";
+import pLimit from "p-limit";
 
 class ResourceService {
      async fetchArticleText(url: string): Promise<string> {
@@ -67,42 +68,45 @@ class ResourceService {
      // Crawl RSS feed, phân tích bằng LLM rồi lưu vào DB
      public async fetchAndSaveAllRss() {
           const results: ResourceTypeModel[] = [];
+          const limit = pLimit(5); // chỉ chạy 5 task song song
 
           for (const feedUrl of this.rssFeeds) {
                const parser = new Parser();
                const feed = await parser.parseURL(feedUrl);
 
-               for (const item of feed.items) {
-                    // check trùng link
-                    const exist = await Resource.findOne({ url: item.link });
-                    if (exist) {
-                         console.log(`[RSS] Skip duplicated: ${item.link}`);
-                         continue;
-                    }
+               const itemPromises = feed.items.map((item) =>
+                    limit(async () => {
+                         const exist = await Resource.findOne({ url: item.link });
+                         if (exist) {
+                              console.log(`[RSS] Skip duplicated: ${item.link}`);
+                              return null;
+                         }
 
-                    // const fullContent = `${item.title}\n${item.contentSnippet || ""}`;
-                    const htmlContent = item.link ? await this.fetchArticleText(item.link) : "";
-                    const fullContent = `${item.title}\n${item.contentSnippet || ""}\n${htmlContent}`;
-                    console.log(fullContent);
-                    const analyzed = await this.analyzeContentWithLLM(fullContent);
+                         const htmlContent = item.link ? await this.fetchArticleText(item.link) : "";
+                         const fullContent = `${item.title}\n${item.contentSnippet || ""}\n${htmlContent}`;
 
-                    const saved = await this.createResource({
-                         type: ResourceType.WEB_RSS,
-                         url: item.link || "",
-                         title: item.title || "Untitled",
-                         publishedAt: item.pubDate ? new Date(item.pubDate) : new Date(),
-                         lang: "en",
-                         summary: analyzed.summary,
-                         content: fullContent,
-                         keyPoints: analyzed.keyPoints,
-                         labels: analyzed.labels,
-                         suitableForLearners: analyzed.suitableForLearners,
-                         moderationNotes: analyzed.moderationNotes,
-                    });
+                         const analyzed = await this.analyzeContentWithLLM(fullContent);
 
-                    results.push(saved);
-               }
+                         return await this.createResource({
+                              type: ResourceType.WEB_RSS,
+                              url: item.link || "",
+                              title: item.title || "Untitled",
+                              publishedAt: item.pubDate ? new Date(item.pubDate) : new Date(),
+                              lang: "en",
+                              summary: analyzed.summary,
+                              content: fullContent,
+                              keyPoints: analyzed.keyPoints,
+                              labels: analyzed.labels,
+                              suitableForLearners: analyzed.suitableForLearners,
+                              moderationNotes: analyzed.moderationNotes,
+                         });
+                    })
+               );
+
+               const feedResults = await Promise.all(itemPromises);
+               results.push(...feedResults.filter((r): r is ResourceTypeModel => r !== null));
           }
+
           return results;
      }
 
