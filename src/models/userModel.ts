@@ -1,6 +1,6 @@
 import './roleModel';
 import { Schema, model, InferSchemaType, Types, models } from 'mongoose';
-import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from './baseEntity';
+import { baseEntitySchema, BaseEntity } from './baseEntity';
 import { Gender } from '~/enum/gender';
 import { validateDob } from '~/utils/validation/validate';
 
@@ -62,8 +62,6 @@ const userSchema = new Schema(
 );
 
 userSchema.add(baseEntitySchema.obj);
-
-applyBaseEntityMiddleware(userSchema);
 
 export type UserType = InferSchemaType<typeof userSchema> & BaseEntity & { _id: Types.ObjectId };
 export type UserResponseType = Omit<UserType, 'password'>;

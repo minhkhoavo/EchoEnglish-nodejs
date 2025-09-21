@@ -1,5 +1,5 @@
 import { Schema, model, InferSchemaType, Types, models } from 'mongoose';
-import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity, baseEntityNoSoftDelSchema } from './baseEntity';
+import { baseEntitySchema, BaseEntity } from './baseEntity';
 
 /* Flashcard model */
 const flashcardSchema = new Schema(
@@ -46,9 +46,6 @@ const flashcardSchema = new Schema(
     },
     { timestamps: true }
 );
-
-flashcardSchema.add(baseEntityNoSoftDelSchema.obj);
-applyBaseEntityMiddleware(flashcardSchema);
 
 export type FlashcardType = InferSchemaType<typeof flashcardSchema> & BaseEntity & { _id: Types.ObjectId };
 

@@ -1,7 +1,7 @@
 import { Schema, model, InferSchemaType, Types, models } from "mongoose";
 import { PaymentStatus } from "~/enum/paymentStatus";
 import { TransactionType } from "~/enum/transactionType";
-import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./baseEntity";
+import { baseEntitySchema, BaseEntity } from "./baseEntity";
 import { PaymentGateway } from "~/enum/paymentGateway";
 
 const paymentSchema = new Schema({
@@ -51,8 +51,6 @@ const paymentSchema = new Schema({
 }, { timestamps: true });
 
 paymentSchema.add(baseEntitySchema.obj);
-
-applyBaseEntityMiddleware(paymentSchema);
 
 export type PaymentType = InferSchemaType<typeof paymentSchema> & BaseEntity & { _id: Types.ObjectId };
 export const Payment = models.Payment || model<PaymentType>("Payment", paymentSchema);
