@@ -3224,6 +3224,128 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "save transcript",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=hjjc_JEFzPA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/youtube-transcript/save",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"youtube-transcript",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resource",
+			"item": [
+				{
+					"name": "update resource",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"AI in Healthcare - Updated\",\r\n  \"summary\": \"Updated summary with more details\",\r\n  \"approved\": true,\r\n  \"lang\": \"en\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resources/68ce3b8d428c847c77507f91",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resources",
+								"68ce3b8d428c847c77507f91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete resource",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resources/68ce3b8b428c847c77507f8f",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resources",
+								"68ce3b8b428c847c77507f8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete resource Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"feedUrl\": \"https://learningenglish.voanews.com/api/zyg__l-vomx-tpetmty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resources/rss/trigger",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resources",
+								"rss",
+								"trigger"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get resource",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		}
@@ -3233,7 +3355,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTc4NTU2MTgsImV4cCI6MTc2MDQ0NzYxOH0.Kk835XER7RgZ93s88RR3k7PXJJgCqxueGeY3fVOVUI725oLiJ4AgupvrMRg5UQOtIAFyyzJiTmxf79T_VGl6HQ",
+				"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMiIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTg0MzE1NDcsImV4cCI6MTc2MTAyMzU0N30.mPJ0qwZkccz_cKrJBEZz5nb8YJ-D6YijXGFsFWjtQyeq0vzlqcqL1R-YOB7sgfdQf79q4w6zmBnQCotz1XyBmQ",
 				"type": "string"
 			}
 		]

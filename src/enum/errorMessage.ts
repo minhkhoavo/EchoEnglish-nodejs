@@ -3,6 +3,7 @@ import { NOTFOUND } from 'dns';
 /* Định nghĩa các enum lỗi */
 export const ErrorMessage = {
     INTERNAL_ERROR: { message: 'Internal server error', status: 500 },
+    INVALID_PAGE_LIMIT: {message: "Invalid page or limit", status: 400},
     
     /* User eror */
     USER_EXISTED: { message: 'User already existed', status: 400 },
@@ -76,6 +77,11 @@ export const ErrorMessage = {
     /*youtube*/
     INVALID_URL_ID_YOUTUBE: {message: 'Invalid YouTube URL', status: 400},
     YOUTUBE_URL_REQUIRE: {message: 'Youtube url is required', status: 400},
+
+    /*Resource*/
+    RESOURCE_NOT_FOUND: {message: 'Resource not found', status: 404},
+    RESOURCE_ALREADY_EXISTS: {message: 'RESOURCE ALREADY EXISTS', status: 400},
+    
 
 } as const;
 

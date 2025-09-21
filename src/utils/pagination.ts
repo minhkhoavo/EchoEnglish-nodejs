@@ -23,7 +23,8 @@ export class PaginationHelper {
         query: any,
         options: PaginationOptions,
         populate?: any,
-        select?: string
+        select?: string,
+        sort?: any
     ): Promise<PaginationResult<T>> {
         const { page, limit } = options;
         const skip = (page - 1) * limit;
@@ -33,6 +34,7 @@ export class PaginationHelper {
                 .find(query)
                 .populate(populate || '')
                 .select(select || '')
+                .sort(sort || {})
                 .skip(skip)
                 .limit(limit)
                 .lean(),
