@@ -79,6 +79,8 @@ export const ErrorMessage = {
 
     /*Resource*/
     RESOURCE_NOT_FOUND: {message: 'Resource not found', status: 404},
+    RESOURCE_ALREADY_EXISTS: {message: 'RESOURCE ALREADY EXISTS', status: 400},
+    
 
 } as const;
 
