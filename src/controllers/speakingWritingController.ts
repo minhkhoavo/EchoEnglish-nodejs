@@ -42,11 +42,14 @@ class SpeakingWritingController {
   };
 
   public getTestByPart = async (req: Request, res: Response) => {
-    try {
+    try { 
       const { testId, partNumber } = req.params;
-      const partNum = parseInt(partNumber);
+      const partNum = parseInt(partNumber); 
 
-      const test = await SpeakingWritingService.getTestByPart(testId, partNum);
+      const test = await SpeakingWritingService.getTestByPart( 
+        testId,
+        partNum
+      );
 
       if (!test) {
         return res

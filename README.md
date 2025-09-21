@@ -1,11 +1,10 @@
-# EchoEnglish Node.js
+# EchoEnglish Node.js  
 
-EchoEnglish là backend service được xây dựng bằng **Node.js + Express + TypeScript + MongoDB** để quản lý hệ thống học tiếng Anh.
+EchoEnglish là backend service được xây dựng bằng **Node.js + Express + TypeScript + MongoDB** để quản lý hệ thống học tiếng Anh.  
 
 ---
 
 ## Danh sách thành viên thực hiện
-
 - Lê Đình Lộc - 22110369
 - Võ Minh Khoa - 22110355
 - Võ Văn Trí - 22110444
@@ -13,15 +12,15 @@ EchoEnglish là backend service được xây dựng bằng **Node.js + Express 
 
 ---
 
-## 🚀 Yêu cầu hệ thống
+## 🚀 Yêu cầu hệ thống  
 
-- **Node.js** >= 18
-- **npm** >= 9 hoặc **yarn**
-- **MongoDB** >= 6
+- **Node.js** >= 18  
+- **npm** >= 9 hoặc **yarn**  
+- **MongoDB** >= 6  
 
 ---
 
-## 📂 Cấu trúc thư mục
+## 📂 Cấu trúc thư mục  
 
 ```bash
 echoenglish-nodejs/
@@ -45,48 +44,35 @@ echoenglish-nodejs/
 ```
 
 ---
-
 ## ⚙️ Cầu hình file .env
-
 - Tạo file .env ở thư mục gốc và cấu hình như sau:
-
 ## Sửa cấu hình SMTP để gửi email
-
 #### Tham số cấu hình mail
-
 - SMTP_HOST=smtp.gmail.com
 - SMTP_PORT=587
 - SMTP_USER=your_email@gmail.com
 - SMTP_PASS=your_email_password
 - FROM_EMAIL=your_email@gmail.com
-
 #### Tham số JWT token
-
 - JWT_SECRETKEY=your_jwt_token
-
 #### Tham số cấu hình VNPay
-
 - VNP_URL=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
 - VNP_TMNCODE=your_tmn_code
 - VNP_HASH_SECRET=your_hash_secret
 - VNP_RETURN_URL=http://localhost:8099/payments/vnpay/return
-
 #### Lưu ý: Cách lấy VNP_TMNCODE và VNP_HASH_SECRET
-
 - Bước 1: Truy cập https://sandbox.vnpayment.vn/devreg/
 - Bước 2: Tạo tài khoản với email chính xác.
 - Bước 3: Xác thực tài khoản qua mail.
 - Bước 4: Sau khi xác thực sẽ nhận được mail chứa VNP_TMNCODE và VNP_HASH_SECRET
 
-#### Stripe
-
-- Bước 1: Truy cập https://dashboard.stripe.com/test/dashboard -> Login with google -> copy Secret key (sk*test*...) thay vào file .env biến STRIPE_SECRET_KEY
+#### Stripe 
+- Bước 1: Truy cập https://dashboard.stripe.com/test/dashboard -> Login with google -> copy Secret key (sk_test_...) thay vào file .env biến STRIPE_SECRET_KEY
 - Bước 2: Truy cập https://dashboard.stripe.com/test/dashboard
-  -> Chọn develop -> Webhooks -> Chọn Test with a local listener -> Chọn Download the Stripe CLI -> Chọn Install the Stripe CLI -> Chọn Window và làm theo hướng dẫn
-  -> mở cmd chạy : stripe login -> tiếp theo chạy cmd: stripe listen --forward-to localhost:8099/payments/stripe/webhook -> lấy được STRIPE*WEBHOOK_SECRET (whsec*...) copy và dán vào .env
+-> Chọn develop -> Webhooks -> Chọn Test with a local listener -> Chọn Download the Stripe CLI -> Chọn Install the Stripe CLI -> Chọn Window và làm theo hướng dẫn
+-> mở cmd chạy : stripe login -> tiếp theo chạy cmd: stripe listen --forward-to localhost:8099/payments/stripe/webhook ->  lấy được STRIPE_WEBHOOK_SECRET (whsec_...) copy và dán vào .env
 
 ## 📦 Cài đặt
-
 ```bash
 git clone https://github.com/minhkhoavo/EchoEnglish-nodejs.git
 cd EchoEnglish-nodejs
@@ -94,39 +80,29 @@ npm install
 ```
 
 ## ▶️ Chạy dự án
-
 ## Development (hot reload với Nodemon + TSX)
-
 ```bash
 npm run dev
 ```
-
 or
-
 ```bash
 pnpm dev
 ```
 
 ## Build TypeScript sang JavaScript
-
 ```bash
 npm run build
 ```
-
 or
-
 ```bash
 pnpm build
 ```
 
 ## Run sau khi build
-
 ```bash
 npm run start
 ```
-
 or
-
 ```bash
 pnpm start
 ```

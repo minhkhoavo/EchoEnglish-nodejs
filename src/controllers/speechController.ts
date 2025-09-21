@@ -10,226 +10,195 @@ import SpeechProsodyService from '~/services/speech-analyze/speechProsodyService
 import PronunciationSummaryService from '~/services/speech-analyze/pronunciationSummaryService';
 // Helper orchestrator functions for recording + analysis
 export async function createRecordingAndStartAnalysisHelper(
-  params: {
-    userId: string;
-    buffer: Buffer;
-    originalname: string;
-    mimetype: string;
-    folder?: string;
-  },
-  onComplete?: (
-    err: any,
-    result?: {
-      recordingId: any;
-      url: string;
-      analysisStatus: string;
-      analysis?: any;
-    }
-  ) => void
+    params: {
+        userId: string;
+        buffer: Buffer;
+        originalname: string;
+        mimetype: string;
+        folder?: string;
+    },
+    onComplete?: (err: any, result?: { recordingId: any; url: string; analysisStatus: string; analysis?: any }) => void
 ) {
-  const { userId, buffer, mimetype, originalname } = params;
-  const folder = params.folder || userId || undefined;
+    const { userId, buffer, mimetype, originalname } = params;
+    const folder = params.folder || userId || undefined;
 
-  // Upload to S3
-  const uploadResult = await S3Service.uploadFile(
-    buffer,
-    originalname,
-    mimetype,
-    folder
-  );
+    // Upload to S3
+    const uploadResult = await S3Service.uploadFile(buffer, originalname, mimetype, folder);
 
-  // Create recording (processing)
-  const recording = await RecordingService.create({
-    userId,
-    name: originalname,
-    url: uploadResult.url,
-    duration: 0,
-    speakingTime: 0,
-    mimeType: mimetype,
-    size: buffer.length,
-    transcript: '',
-    analysisStatus: 'processing',
-  } as any);
+    // Create recording (processing)
+    const recording = await RecordingService.create({
+        userId,
+        name: originalname,
+        url: uploadResult.url,
+        duration: 0,
+        speakingTime: 0,
+        mimeType: mimetype,
+        size: buffer.length,
+        transcript: '',
+        analysisStatus: 'processing',
+    } as any);
 
-  // Keep recordingId as an ObjectId to match other references in the codebase
-  const recordingId = (recording as any)?._id as Types.ObjectId;
+    // Keep recordingId as an ObjectId to match other references in the codebase
+    const recordingId = (recording as any)?._id as Types.ObjectId;
 
-  // Background analysis
-  (async () => {
-    try {
-      const azureResponse = await SpeechAssessmentService.assess(
-        buffer,
-        mimetype
-      );
-      const parsed = Array.isArray(azureResponse)
-        ? azureResponse
-        : [azureResponse];
-      const transformed = SpeechTransformService.createTranscriptData(
-        parsed,
-        uploadResult.url
-      );
+    // Background analysis
+    (async () => {
+        try {
+            const azureResponse = await SpeechAssessmentService.assess(buffer, mimetype);
+            const parsed = Array.isArray(azureResponse) ? azureResponse : [azureResponse];
+            const transformed = SpeechTransformService.createTranscriptData(parsed, uploadResult.url);
 
-      let prosody: any = null;
-      let fluency: any = null;
-      let stressWords: any[] = [];
-      let pronunciation: any = null;
+            let prosody: any = null;
+            let fluency: any = null;
+            let stressWords: any[] = [];
+            let pronunciation: any = null;
 
-      try {
-        const analysis = SpeechProsodyService.analyze({
-          transformed,
-          audioBuffer: buffer,
-          mimeType: mimetype,
-        });
-        prosody = analysis.prosody;
-        fluency = analysis.fluency;
-        stressWords = analysis.stressWords;
-      } catch (e) {
-        console.error('Prosody analysis error:', e);
-      }
+            try {
+                const analysis = SpeechProsodyService.analyze({
+                    transformed,
+                    audioBuffer: buffer,
+                    mimeType: mimetype
+                });
+                prosody = analysis.prosody;
+                fluency = analysis.fluency;
+                stressWords = analysis.stressWords;
+            } catch (e) {
+                console.error('Prosody analysis error:', e);
+            }
 
-      try {
-        const sum = PronunciationSummaryService.summarize(parsed);
-        pronunciation = sum;
-      } catch (e) {
-        console.error('Pronunciation summary error:', e);
-      }
+            try {
+                const sum = PronunciationSummaryService.summarize(parsed);
+                pronunciation = sum;
+            } catch (e) {
+                console.error('Pronunciation summary error:', e);
+            }
 
-      if (
-        Array.isArray(stressWords) &&
-        stressWords.length &&
-        Array.isArray((transformed as any).segments)
-      ) {
-        let idx = 0;
-        for (const seg of (transformed as any).segments) {
-          for (const w of seg.words || []) {
-            const st = stressWords[idx++];
-            if (st) (w as any).isStressed = !!st.isStressed;
-          }
+            if (
+                Array.isArray(stressWords) &&
+                stressWords.length &&
+                Array.isArray((transformed as any).segments)
+            ) {
+                let idx = 0;
+                for (const seg of (transformed as any).segments) {
+                    for (const w of seg.words || []) {
+                        const st = stressWords[idx++];
+                        if (st) (w as any).isStressed = !!st.isStressed;
+                    }
+                }
+            }
+
+            const finalPayload = {
+                ...transformed,
+                analyses: {
+                    prosody,
+                    fluency,
+                    pronunciation,
+                },
+            };
+
+            try {
+                const transcriptText = (finalPayload as any).segments
+                    ?.map((s: any) => s.text)
+                    .join(' ')
+                    .trim();
+
+                const updated = await RecordingService.update(recordingId, {
+                    transcript: transcriptText || '',
+                    duration: (finalPayload as any).metadata?.duration || 0,
+                    speakingTime: (finalPayload as any).metadata?.speakingTime || 0,
+                    analysisStatus: 'done',
+                    analysis: finalPayload,
+                } as any);
+
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(null, {
+                            recordingId,
+                            url: uploadResult.url,
+                            analysisStatus: 'done',
+                            analysis: finalPayload,
+                        });
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (done):', cbErr);
+                    }
+                }
+                return updated;
+            } catch (err) {
+                console.error('Update recording failed:', err);
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(err, {
+                            recordingId,
+                            url: uploadResult.url,
+                            analysisStatus: 'done',
+                            analysis: finalPayload,
+                        });
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (update failed):', cbErr);
+                    }
+                }
+            }
+        } catch (err) {
+            console.error('Background analysis failed:', err);
+            try {
+                await RecordingService.update(recordingId, { analysisStatus: 'failed' } as any);
+                if (typeof onComplete === 'function') {
+                    try {
+                        onComplete(err);
+                    } catch (cbErr) {
+                        console.error('onComplete callback error (failed):', cbErr);
+                    }
+                }
+            } catch {}
         }
-      }
+    })();
 
-      const finalPayload = {
-        ...transformed,
-        analyses: {
-          prosody,
-          fluency,
-          pronunciation,
-        },
-      };
-
-      try {
-        const transcriptText = (finalPayload as any).segments
-          ?.map((s: any) => s.text)
-          .join(' ')
-          .trim();
-
-        const updated = await RecordingService.update(recordingId, {
-          transcript: transcriptText || '',
-          duration: (finalPayload as any).metadata?.duration || 0,
-          speakingTime: (finalPayload as any).metadata?.speakingTime || 0,
-          analysisStatus: 'done',
-          analysis: finalPayload,
-        } as any);
-
-        if (typeof onComplete === 'function') {
-          try {
-            onComplete(null, {
-              recordingId,
-              url: uploadResult.url,
-              analysisStatus: 'done',
-              analysis: finalPayload,
-            });
-          } catch (cbErr) {
-            console.error('onComplete callback error (done):', cbErr);
-          }
-        }
-        return updated;
-      } catch (err) {
-        console.error('Update recording failed:', err);
-        if (typeof onComplete === 'function') {
-          try {
-            onComplete(err, {
-              recordingId,
-              url: uploadResult.url,
-              analysisStatus: 'done',
-              analysis: finalPayload,
-            });
-          } catch (cbErr) {
-            console.error('onComplete callback error (update failed):', cbErr);
-          }
-        }
-      }
-    } catch (err) {
-      console.error('Background analysis failed:', err);
-      try {
-        await RecordingService.update(recordingId, {
-          analysisStatus: 'failed',
-        } as any);
-        if (typeof onComplete === 'function') {
-          try {
-            onComplete(err);
-          } catch (cbErr) {
-            console.error('onComplete callback error (failed):', cbErr);
-          }
-        }
-      } catch {}
-    }
-  })();
-
-  return {
-    recordingId,
-    url: uploadResult.url,
-    analysisStatus: 'processing' as const,
-  };
+    return {
+        recordingId,
+        url: uploadResult.url,
+        analysisStatus: 'processing' as const,
+    };
 }
 
 class SpeechController {
-  async assess(req: Request, res: Response, next: NextFunction) {
-    if (!req.file)
-      throw new ApiError({ message: 'No file provided', status: 400 });
-    const mimeType = req.file.mimetype || '';
+    async assess(req: Request, res: Response, next: NextFunction) {
+        if (!req.file) throw new ApiError({ message: 'No file provided', status: 400 });
+        const mimeType = req.file.mimetype || '';
 
-    if (!mimeType.startsWith('audio/'))
-      throw new ApiError({
-        message: 'Only audio files are allowed',
-        status: 400,
-      });
+        if (!mimeType.startsWith('audio/'))
+            throw new ApiError({ message: 'Only audio files are allowed', status: 400 });
 
-    const userId = (req.user as any)?.id || (req as any).userId || '';
-    const folder = userId || undefined;
+        const userId = (req.user as any)?.id || (req as any).userId || '';
+        const folder = userId || undefined;
 
-    const result = await createRecordingAndStartAnalysisHelper({
-      userId,
-      buffer: req.file.buffer,
-      originalname: req.file.originalname,
-      mimetype: req.file.mimetype,
-      folder,
-    });
+        const result = await createRecordingAndStartAnalysisHelper({
+            userId,
+            buffer: req.file.buffer,
+            originalname: req.file.originalname,
+            mimetype: req.file.mimetype,
+            folder,
+        });
 
-    res
-      .status(202)
-      .json(new ApiResponse('Recording created. Analysis in progress', result));
-  }
+        res.status(202).json(new ApiResponse('Recording created. Analysis in progress', result));
+    }
 
-  async listRecordings(req: Request, res: Response, next: NextFunction) {
-    const userId = (req.user as any)?.id || (req as any).userId;
-    const data = await RecordingService.list({ userId });
-    res.status(200).json(new ApiResponse('OK', data));
-  }
+    async listRecordings(req: Request, res: Response, next: NextFunction) {
+        const userId = (req.user as any)?.id || (req as any).userId;
+        const data = await RecordingService.list({ userId });
+        res.status(200).json(new ApiResponse('OK', data));
+    }
 
-  async detailRecording(req: Request, res: Response, next: NextFunction) {
-    const rec = await RecordingService.getById(req.params.id);
-    if (!rec)
-      throw new ApiError({ message: 'Recording not found', status: 404 });
-    res.status(200).json(new ApiResponse('OK', rec));
-  }
+    async detailRecording(req: Request, res: Response, next: NextFunction) {
+        const rec = await RecordingService.getById(req.params.id);
+        if (!rec) throw new ApiError({ message: 'Recording not found', status: 404 });
+        res.status(200).json(new ApiResponse('OK', rec));
+    }
 
-  async removeRecording(req: Request, res: Response, next: NextFunction) {
-    const rec = await RecordingService.remove(req.params.id);
-    if (!rec)
-      throw new ApiError({ message: 'Recording not found', status: 404 });
-    res.status(200).json(new ApiResponse('Deleted', rec));
-  }
+    async removeRecording(req: Request, res: Response, next: NextFunction) {
+        const rec = await RecordingService.remove(req.params.id);
+        if (!rec) throw new ApiError({ message: 'Recording not found', status: 404 });
+        res.status(200).json(new ApiResponse('Deleted', rec));
+    }
 }
 
 export default new SpeechController();
