@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { testResultService } from '../services/testResultService';
-import { SubmitTestResultRequest } from '../dto/request/testResultRequest';
-import { SuccessMessage } from '../enum/successMessage';
-import { ErrorMessage } from '../enum/errorMessage';
+import { testResultService } from '../services/testResultService.js';
+import { SubmitTestResultRequest } from '../dto/request/testResultRequest.js';
+import { SuccessMessage } from '../enum/successMessage.js';
+import { ErrorMessage } from '../enum/errorMessage.js';
 
 export class TestResultController {
   async submitTestResult(req: Request, res: Response) {
@@ -16,8 +16,6 @@ export class TestResultController {
       }
 
       const requestData: SubmitTestResultRequest = req.body;
-
- 
 
       // Validate required fields
       if (
@@ -48,16 +46,16 @@ export class TestResultController {
         message: SuccessMessage.CREATE_SUCCESS,
         data: result,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(
         '[submitTestResult] ERROR:',
-        error && error.stack ? error.stack : error
+        error && (error as Error).stack ? (error as Error).stack : error
       );
       res.status(500).json({
         success: false,
         message:
-          error && error.message
-            ? error.message
+          error && (error as Error).message
+            ? (error as Error).message
             : ErrorMessage.INTERNAL_ERROR.message,
       });
     }
@@ -96,10 +94,11 @@ export class TestResultController {
           totalPages: Math.ceil(result.total / limit),
         },
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       res.status(500).json({
         success: false,
-        message: error.message || ErrorMessage.INTERNAL_ERROR.message,
+        message:
+          (error as Error).message || ErrorMessage.INTERNAL_ERROR.message,
       });
     }
   }
@@ -132,17 +131,18 @@ export class TestResultController {
         message: SuccessMessage.GET_SUCCESS,
         data: result,
       });
-    } catch (error: any) {
-      if (error.message.includes('not found')) {
+    } catch (error: unknown) {
+      if ((error as Error).message.includes('not found')) {
         return res.status(404).json({
           success: false,
-          message: error.message,
+          message: (error as Error).message,
         });
       }
 
       res.status(500).json({
         success: false,
-        message: error.message || ErrorMessage.INTERNAL_ERROR.message,
+        message:
+          (error as Error).message || ErrorMessage.INTERNAL_ERROR.message,
       });
     }
   }
@@ -157,17 +157,18 @@ export class TestResultController {
         });
       }
 
-      const stats: any = await testResultService.getUserStats(userId);
+      const stats = await testResultService.getUserStats(userId);
 
       res.status(200).json({
         success: true,
         message: SuccessMessage.GET_SUCCESS,
         data: stats,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       res.status(500).json({
         success: false,
-        message: error.message || ErrorMessage.INTERNAL_ERROR.message,
+        message:
+          (error as Error).message || ErrorMessage.INTERNAL_ERROR.message,
       });
     }
   }

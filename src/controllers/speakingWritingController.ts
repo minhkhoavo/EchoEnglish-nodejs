@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import SpeakingWritingService from '~/services/speakingWritingService';
-import ApiResponse from '~/dto/response/apiResponse';
-import { ApiError } from '~/middleware/apiError';
-import { ErrorMessage } from '~/enum/errorMessage';
-import { SuccessMessage } from '~/enum/successMessage';
+import SpeakingWritingService from '~/services/speakingWritingService.js';
+import ApiResponse from '~/dto/response/apiResponse.js';
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { SuccessMessage } from '~/enum/successMessage.js';
 
 class SpeakingWritingController {
   public getAllTests = async (req: Request, res: Response) => {
@@ -42,14 +42,11 @@ class SpeakingWritingController {
   };
 
   public getTestByPart = async (req: Request, res: Response) => {
-    try { 
+    try {
       const { testId, partNumber } = req.params;
-      const partNum = parseInt(partNumber); 
+      const partNum = parseInt(partNumber);
 
-      const test = await SpeakingWritingService.getTestByPart( 
-        testId,
-        partNum
-      );
+      const test = await SpeakingWritingService.getTestByPart(testId, partNum);
 
       if (!test) {
         return res

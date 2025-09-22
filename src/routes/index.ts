@@ -1,18 +1,17 @@
-import userRouter from './users';
-import authRouter from './auth';
-import testRouter from './tests';
-import flashcardRouter from './flashcard';
-import filesRouter from './files';
+import userRouter from './users.js';
+import authRouter from './auth.js';
+import testRouter from './tests.js';
+import flashcardRouter from './flashcard.js';
+import filesRouter from './files.js';
 import { Router } from 'express';
-import speechRouter from './speech';
-import payment from './payments';
-import promo from './promo';
-import speakingWritingRouter from './speakingWriting';
-import speakingAttemptsRouter from './speakingAttempts';
-import speakingRouter from './speaking';
-import testResultsRouter from './testResults';
-import resourceRouter from './resourceRoutes';
-
+import speechRouter from './speech.js';
+import payment from './payments.js';
+import promo from './promo.js';
+import speakingWritingRouter from './speakingWriting.js';
+import speakingAttemptsRouter from './speakingAttempts.js';
+import speakingRouter from './speaking.js';
+import testResultsRouter from './testResults.js';
+import resourceRouter from './resourceRoutes.js';
 
 const apiRouter = Router();
 

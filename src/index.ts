@@ -1,15 +1,14 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import connectDB from './config/db/configDb';
-import apiRouter from './routes';
-import { globalAuth } from './middleware/authMiddleware';
+import connectDB from './config/db/configDb.js';
+import apiRouter from '~/routes/index.js';
+import { globalAuth } from './middleware/authMiddleware.js';
 import morgan from 'morgan';
 import cors from 'cors';
-import ErrorMiddleware from './middleware/errorMiddleware';
-import paymentController from '~/controllers/paymentController';
-import cron from "node-cron";
-import resourceService from "./services/transcription/resourceService";
-
+import ErrorMiddleware from './middleware/errorMiddleware.js';
+import paymentController from '~/controllers/paymentController.js';
+import cron from 'node-cron';
+import resourceService from './services/transcription/resourceService.js';
 
 dotenv.config();
 
@@ -26,8 +25,8 @@ app.post(
   paymentController.stripeWebhook
 );
 
-cron.schedule("0 0 * * 0", async () => {
-  console.log("[CRON] Trigger RSS fetching...");
+cron.schedule('0 0 * * 0', async () => {
+  console.log('[CRON] Trigger RSS fetching...');
   await resourceService.fetchAndSaveAllRss();
 });
 

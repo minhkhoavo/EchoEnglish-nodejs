@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { ApiError } from '~/middleware/apiError';
-import { ErrorMessage } from '~/enum/errorMessage';
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
 
 class SpeakingWritingService {
   private async getDb() {
@@ -37,10 +37,7 @@ class SpeakingWritingService {
     return test;
   }
 
-  public async getTestByPart( 
-    testId: number | string,
-    partNumber: number
-  ) {
+  public async getTestByPart(testId: number | string, partNumber: number) {
     const db = await this.getDb();
     // Ensure testId is number
     const testIdNum = typeof testId === 'string' ? parseInt(testId) : testId;
@@ -68,7 +65,7 @@ class SpeakingWritingService {
       .toArray();
 
     if (result.length === 0) {
-      null;
+      return null;
     }
     const test = result[0];
     if (!test.part || test.part.length === 0) {
