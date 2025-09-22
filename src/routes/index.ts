@@ -13,7 +13,6 @@ import speakingRouter from './speaking.js';
 import testResultsRouter from './testResults.js';
 import resourceRouter from './resourceRoutes.js';
 
-
 const apiRouter = Router();
 
 apiRouter.use('/auth', authRouter);

@@ -45,7 +45,7 @@ class TestController {
     try {
       const { testId, partNumber } = req.params;
       const partNum = parseInt(partNumber);
- 
+
       const test = await TestService.getTestByPart(testId, partNum);
 
       if (!test) {

@@ -7,9 +7,8 @@ import morgan from 'morgan';
 import cors from 'cors';
 import ErrorMiddleware from './middleware/errorMiddleware.js';
 import paymentController from '~/controllers/paymentController.js';
-import cron from "node-cron";
-import resourceService from "./services/transcription/resourceService.js";
-
+import cron from 'node-cron';
+import resourceService from './services/transcription/resourceService.js';
 
 dotenv.config();
 
@@ -26,8 +25,8 @@ app.post(
   paymentController.stripeWebhook
 );
 
-cron.schedule("0 0 * * 0", async () => {
-  console.log("[CRON] Trigger RSS fetching...");
+cron.schedule('0 0 * * 0', async () => {
+  console.log('[CRON] Trigger RSS fetching...');
   await resourceService.fetchAndSaveAllRss();
 });
 
