@@ -5,6 +5,7 @@ const router = Router();
 const userController = new UserController();
 
 router.put('/my-profile', userController.updateProfileUser);
+router.get('/credits', userController.getCredit);
 router.post('/create', hasAuthority('ADMIN'), userController.createUser);
 router.get('/:id', userController.getUserById);
 router.delete('/:id', hasAuthority('ADMIN'), userController.softDeleteUser);

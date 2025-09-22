@@ -6,6 +6,7 @@ import { ApiError } from '~/middleware/apiError.js';
 import paymentService from '~/services/payment/paymentService.js';
 import vnpayService from '~/services/payment/vnpayService.js';
 import stripeService from '../services/payment/stripeService.js';
+import { User, UserType } from '~/models/userModel.js';
 class PaymentController {
     public stripeWebhook = async (req: Request, res: Response) => {
         const stripeSig = req.headers['stripe-signature'] as string | undefined;
@@ -87,9 +88,9 @@ class PaymentController {
         const userId = req.user?.id;
         if (!userId) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
 
-        const { token, paymentGateway, description } = req.body;
+        const { credits, paymentGateway, description } = req.body;
 
-        if (token === undefined || token === null)
+        if (credits === undefined || credits === null)
             throw new ApiError(ErrorMessage.TOKENS_REQUIRED);
         if (!paymentGateway)
             throw new ApiError(ErrorMessage.PAYMENT_GATEWAY_NOT_FOUND);
@@ -97,7 +98,7 @@ class PaymentController {
         let ipAddr = '127.0.0.1';
 
         const result = await paymentService.createPayment(userId!, ipAddr, {
-            tokens: token,
+            tokens: credits,
             paymentGateway,
             description,
         });
@@ -149,6 +150,28 @@ class PaymentController {
 
         const result = await vnpayService.handleVnPayIpn(paramRecord);
         return res.status(200).json(result);
+    };
+
+    public getCredit = async (req: Request, res: Response) => {
+        if (!req.user || !req.user.id) {
+            return res
+                .status(401)
+                .json(new ApiError(ErrorMessage.UNAUTHORIZED));
+        }
+        const userId = req.user.id;
+        const user = (await User.findById(
+            userId
+        ).lean()) as unknown as UserType;
+        if (!user) {
+            return res
+                .status(404)
+                .json(new ApiError(ErrorMessage.USER_NOT_FOUND));
+        }
+        return res.status(200).json(
+            new ApiResponse(SuccessMessage.GET_SUCCESS, {
+                credits: user.credits,
+            })
+        );
     };
 }
 
