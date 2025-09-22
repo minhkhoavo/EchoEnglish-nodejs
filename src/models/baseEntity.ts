@@ -1,4 +1,4 @@
-import { Schema, InferSchemaType, Types } from 'mongoose';
+import { Schema, InferSchemaType } from 'mongoose';
 
 const baseEntitySchema = new Schema(
     {
@@ -7,7 +7,7 @@ const baseEntitySchema = new Schema(
             default: false,
         },
     },
-    { _id: false, timestamps: false }
+    { _id: false, timestamps: true }
 );
 
 export type BaseEntity = InferSchemaType<typeof baseEntitySchema>;

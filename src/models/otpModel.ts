@@ -22,7 +22,9 @@ const otpSchema = new Schema(
             required: true,
         },
     },
-    { timestamps: true }
+    {
+        collection: 'otps',
+    }
 );
 
 export type OtpType = InferSchemaType<typeof otpSchema>;

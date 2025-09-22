@@ -1,5 +1,5 @@
 import mongoose, { Schema, model, Types, InferSchemaType } from 'mongoose';
-import { baseEntitySchema, BaseEntity } from './baseEntity.js';
+import { BaseEntity } from './baseEntity.js';
 
 // Import enum
 import { ResourceType } from '../enum/resourceType.js';
@@ -48,7 +48,9 @@ const resourceSchema = new Schema(
         moderationNotes: { type: String }, //ghi chú kiểm duyệt
         approved: { type: Boolean, default: false }, //đã duyệt chưa
     },
-    { timestamps: true }
+    {
+        collection: 'resources',
+    }
 );
 
 // resourceSchema.add(baseEntitySchema.obj);

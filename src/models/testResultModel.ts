@@ -91,7 +91,6 @@ const testResultSchema = new Schema<ITestResult>(
         },
     },
     {
-        timestamps: true,
         collection: 'test_results',
     }
 );

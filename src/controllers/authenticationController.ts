@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
-import { UserCreateRequest } from '~/dto/request/iam/userCreateRequest.js';
+import { UserCreateRequest } from '~/types/user.types.js';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { OtpEmailService } from '~/services/otpEmailService.js';
 import UserService from '~/services/userService.js';
 import { OtpPurpose } from '~/enum/otpPurpose.js';
 import { authService } from '../services/authService.js';
-import { ApiError } from '~/middleware/apiError.js';
-import { UserType } from '~/models/userModel.js';
 
 const otpEmailService = new OtpEmailService();
 const userService = new UserService();
@@ -36,80 +34,41 @@ class AuthenticationController {
     };
 
     public registerUser = async (req: Request, res: Response) => {
-        const userDto = new UserCreateRequest(req.body);
-        userService
-            .registerUser(userDto)
-            .then((user: UserType) => {
-                res.status(201).json(
-                    new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, user)
-                );
-            })
-            .catch((err: Error) => {
-                res.status(400).json({ error: err.message });
-            });
+        const userDto: UserCreateRequest = req.body;
+        const user = await userService.registerUser(userDto);
+        res.status(201).json(
+            new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, user)
+        );
     };
 
     public verifyRegisterOtp = async (req: Request, res: Response) => {
-        await otpEmailService
-            .verifyOtp(req.body.email, req.body.otp, OtpPurpose.REGISTER)
-            .then((result) => {
-                if (result) {
-                    res.status(200).json(
-                        new ApiResponse(SuccessMessage.OTP_VERIFIED_SUCCESS)
-                    );
-                } else {
-                    res.status(400).json(
-                        new ApiResponse(SuccessMessage.OTP_INVALID_OR_EXPIRED)
-                    );
-                }
-            })
-            .catch(() => {
-                res.status(400).json(
-                    new ApiResponse(SuccessMessage.OTP_INVALID_OR_EXPIRED)
-                );
-            });
+        await otpEmailService.verifyOtp(
+            req.body.email,
+            req.body.otp,
+            OtpPurpose.REGISTER
+        );
+        res.status(200).json(
+            new ApiResponse(SuccessMessage.OTP_VERIFIED_SUCCESS)
+        );
     };
 
     public forgotPassword = async (req: Request, res: Response) => {
-        await otpEmailService
-            .sendOtp(req.body.email, OtpPurpose.FORGOT_PASSWORD)
-            .then(() => {
-                res.status(200).json(new ApiResponse(SuccessMessage.OTP_SENT));
-            })
-            .catch((err: Error) => {
-                res.status(400).json({ error: err.message });
-            });
+        await otpEmailService.sendOtp(
+            req.body.email,
+            OtpPurpose.FORGOT_PASSWORD
+        );
+        res.status(200).json(new ApiResponse(SuccessMessage.OTP_SENT));
     };
 
     public resetPassword = async (req: Request, res: Response) => {
-        await otpEmailService
-            .verifyOtp(req.body.email, req.body.otp, OtpPurpose.FORGOT_PASSWORD)
-            .then(async (isValid) => {
-                if (!isValid) {
-                    return res
-                        .status(400)
-                        .json(
-                            new ApiResponse(
-                                SuccessMessage.OTP_INVALID_OR_EXPIRED
-                            )
-                        );
-                }
-                await userService
-                    .resetPassword(req.body.email, req.body.newPassword)
-                    .then(() => {
-                        res.status(200).json(
-                            new ApiResponse(
-                                SuccessMessage.PASSWORD_RESET_SUCCESS
-                            )
-                        );
-                    })
-                    .catch((err: Error) => {
-                        res.status(400).json(new ApiError(err));
-                    });
-            })
-            .catch((err: Error) => {
-                res.status(400).json(new ApiError(err));
-            });
+        await userService.resetPasswordWithOtp(
+            req.body.email,
+            req.body.newPassword,
+            req.body.otp
+        );
+        res.status(200).json(
+            new ApiResponse(SuccessMessage.PASSWORD_RESET_SUCCESS)
+        );
     };
 }
 

@@ -11,7 +11,9 @@ const permissionSchema = new Schema(
             type: String,
         },
     },
-    { timestamps: true }
+    {
+        collection: 'permissions',
+    }
 );
 
 export type PermissionType = InferSchemaType<typeof permissionSchema> & {

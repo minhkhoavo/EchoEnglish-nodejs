@@ -50,7 +50,9 @@ const paymentSchema = new Schema(
             type: Date,
         },
     },
-    { timestamps: true }
+    {
+        collection: 'payments',
+    }
 );
 
 paymentSchema.add(baseEntitySchema.obj);

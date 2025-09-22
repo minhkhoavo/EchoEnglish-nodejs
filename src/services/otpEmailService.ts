@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { Otp, OtpType } from '~/models/otpModel.js';
 import { mailTransporter } from '~/config/configEmail.js';
 import { User } from '~/models/userModel.js';
+import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 
 const OTP_EXPIRY_MINUTES = 10;
@@ -43,7 +44,7 @@ export class OtpEmailService {
         recipientEmail: string,
         otpCode: string,
         purpose: OtpPurpose
-    ) => {
+    ): Promise<void> => {
         const subject =
             purpose === OtpPurpose.REGISTER
                 ? 'Confirm Your Registration'
@@ -80,37 +81,29 @@ export class OtpEmailService {
         email: string,
         otpCode: string,
         purpose: OtpPurpose
-    ): Promise<boolean> => {
+    ): Promise<void> => {
         const normalizedEmail = email.toLowerCase();
-        return Otp.findOne({ email: normalizedEmail, otp: otpCode, purpose })
-            .exec()
-            .then((otpDoc) => {
-                if (!otpDoc) return false;
 
-                if (otpDoc.expiryTime < new Date()) {
-                    return Otp.deleteOne({ _id: otpDoc._id })
-                        .exec()
-                        .then(() => false);
-                }
+        const otpDoc = await Otp.findOne({
+            email: normalizedEmail,
+            otp: otpCode,
+            purpose,
+        }).exec();
+        if (!otpDoc) throw new ApiError(ErrorMessage.OTP_INVALID);
 
-                return Otp.deleteMany({ email: normalizedEmail, purpose })
-                    .exec()
-                    .then(() => {
-                        if (purpose === OtpPurpose.REGISTER) {
-                            return User.findOne({ email: normalizedEmail })
-                                .exec()
-                                .then((user) => {
-                                    if (!user) return false;
-                                    user.isDeleted = false;
-                                    return user.save().then(() => true);
-                                });
-                        }
-                        return true;
-                    });
-            })
-            .catch((err) => {
-                console.error('verifyOtp error:', err);
-                throw err;
-            });
+        if (otpDoc.expiryTime < new Date()) {
+            await Otp.deleteOne({ _id: otpDoc._id }).exec();
+            throw new ApiError(ErrorMessage.OTP_EXPIRED);
+        }
+
+        await Otp.deleteMany({ email: normalizedEmail, purpose }).exec();
+        if (purpose === OtpPurpose.REGISTER) {
+            const user = await User.findOne({
+                email: normalizedEmail,
+            }).exec();
+            if (!user) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+            user.isDeleted = false;
+            await user.save();
+        }
     };
 }

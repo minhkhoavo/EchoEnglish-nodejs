@@ -1,4 +1,3 @@
-import { Express } from 'express';
 import { Router } from 'express';
 import AuthenticationController from '~/controllers/authenticationController.js';
 

@@ -1,4 +1,10 @@
-import { UserCreateRequest } from '~/dto/request/iam/userCreateRequest.js';
+import {
+    UserResponse,
+    UserProfileResponse,
+    UserCreateRequest,
+    UserUpdateRequest,
+} from '~/types/user.types.js';
+import omit from 'lodash/omit.js';
 import { User, UserType } from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import { ErrorMessage } from '~/enum/errorMessage.js';
@@ -7,130 +13,126 @@ import { OtpPurpose } from '~/enum/otpPurpose.js';
 import { Role, RoleType } from '~/models/roleModel.js';
 import { RoleName } from '~/enum/role.js';
 import { ApiError } from '~/middleware/apiError.js';
-import { error } from 'console';
-import { List } from 'microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common/List.js';
-import { Types } from 'mongoose';
 
-const otpService = new OtpEmailService();
+const otpEmailService = new OtpEmailService();
 
 class UserService {
-    public getUserById = async (id: string) => {
-        return await User.findOne({ _id: id, isDeleted: false });
+    public getUserById = async (id: string): Promise<UserResponse> => {
+        const user = await User.findOne({ _id: id, isDeleted: false }).select(
+            '-password -isDeleted -__v'
+        );
+        if (!user) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        return user;
     };
 
-    public getProfile = async (email: string) => {
-        return await User.findOne({ email });
+    public getProfile = async (email: string): Promise<UserProfileResponse> => {
+        const user = await User.findOne({ email }).select(
+            '-password -isDeleted -roles -__v'
+        );
+        if (!user) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+
+        return user;
     };
 
-    public registerUser = async (userDto: UserCreateRequest) => {
-        return User.findOne({ email: userDto.email })
-            .then((existUser) => {
-                return this.hashPassword(userDto.password)
-                    .then((hashPassword) => {
-                        if (existUser) {
-                            if (existUser.isDeleted === false) {
-                                throw new ApiError(ErrorMessage.USER_EXISTED);
-                            }
-                            return otpService
-                                .sendOtp(existUser.email, OtpPurpose.REGISTER)
-                                .then(() =>
-                                    User.populate(existUser, {
-                                        path: 'roles',
-                                        populate: { path: 'permissions' },
-                                    })
-                                );
-                        }
+    public registerUser = async (
+        userDto: UserCreateRequest
+    ): Promise<UserResponse> => {
+        const existUser = await User.findOne({ email: userDto.email });
+        const hashPassword = await this.hashPassword(userDto.password);
 
-                        return Role.findOne({ name: RoleName.USER })
-                            .populate('permissions')
-                            .exec()
-                            .then((userRole) => {
-                                if (!userRole) {
-                                    throw new ApiError(
-                                        ErrorMessage.ROLE_NOT_FOUND
-                                    );
-                                }
-
-                                const user = new User({
-                                    fullName: userDto.fullName,
-                                    email: userDto.email,
-                                    password: hashPassword,
-                                    gender: userDto.gender,
-                                    dob: userDto.dob,
-                                    phoneNumber: userDto.phoneNumber,
-                                    address: userDto.address,
-                                    image: userDto.image,
-                                    isDeleted: true,
-                                    roles: [userRole._id], // lưu ObjectId
-                                });
-
-                                return user.save();
-                            });
-                    })
-                    .then((savedUser) => {
-                        return otpService
-                            .sendOtp(savedUser.email, OtpPurpose.REGISTER)
-                            .then(() =>
-                                User.populate(savedUser, {
-                                    path: 'roles',
-                                    populate: { path: 'permissions' },
-                                })
-                            );
-                    });
-            })
-            .catch((err) => {
-                throw err;
+        if (existUser) {
+            if (existUser.isDeleted === false) {
+                throw new ApiError(ErrorMessage.USER_EXISTED);
+            }
+            await otpEmailService.sendOtp(existUser.email, OtpPurpose.REGISTER);
+            const populatedUser = await User.populate(existUser, {
+                path: 'roles',
+                populate: { path: 'permissions' },
             });
+            const userResponse = populatedUser.toObject();
+            return omit(userResponse, [
+                'password',
+                'isDeleted',
+                '__v',
+            ]) as UserResponse;
+        }
+
+        const userRole = await Role.findOne({ name: RoleName.USER })
+            .populate('permissions')
+            .exec();
+        if (!userRole) {
+            throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
+        }
+
+        const user = new User({
+            fullName: userDto.fullName,
+            email: userDto.email,
+            password: hashPassword,
+            gender: userDto.gender,
+            dob: userDto.dob,
+            phoneNumber: userDto.phoneNumber,
+            address: userDto.address,
+            image: userDto.image,
+            isDeleted: true,
+            roles: [userRole._id],
+        });
+        const savedUser = await user.save();
+        await otpEmailService.sendOtp(savedUser.email, OtpPurpose.REGISTER);
+        const populatedUser = await User.populate(savedUser, {
+            path: 'roles',
+            populate: { path: 'permissions' },
+        });
+        return omit(populatedUser.toObject(), [
+            'password',
+            'isDeleted',
+            '__v',
+        ]) as UserResponse;
     };
 
-    public createUser = async (userDto: UserCreateRequest) => {
-        return this.hashPassword(userDto.password)
-            .then((hashPassword) => {
-                return User.findOne({ email: userDto.email })
-                    .then((existUser) => {
-                        if (existUser) {
-                            if (existUser.isDeleted === false) {
-                                throw new ApiError(ErrorMessage.USER_EXISTED);
-                            }
-                            existUser.isDeleted = false;
-                            existUser.password = hashPassword;
-                            return existUser.save();
-                        }
+    public createUser = async (
+        userDto: UserCreateRequest
+    ): Promise<UserResponse> => {
+        const hashPassword = await this.hashPassword(userDto.password);
+        const existUser = await User.findOne({ email: userDto.email });
+        if (existUser) {
+            if (existUser.isDeleted === false) {
+                throw new ApiError(ErrorMessage.USER_EXISTED);
+            }
+            existUser.isDeleted = false;
+            existUser.password = hashPassword;
+            const savedUser = await existUser.save();
 
-                        return Role.findOne({ name: RoleName.USER })
-                            .populate('permissions')
-                            .exec()
-                            .then((userRole) => {
-                                if (!userRole) {
-                                    throw new ApiError(
-                                        ErrorMessage.ROLE_NOT_FOUND
-                                    );
-                                }
-                                const user = new User({
-                                    fullName: userDto.fullName,
-                                    email: userDto.email,
-                                    password: hashPassword,
-                                    gender: userDto.gender,
-                                    dob: userDto.dob,
-                                    phoneNumber: userDto.phoneNumber,
-                                    address: userDto.address,
-                                    image: userDto.image,
-                                    isDeleted: false,
-                                    roles: [userRole._id], // lưu ObjectId
-                                });
-                                return user.save();
-                            });
-                    })
-                    .then((savedUser) => {
-                        return User.populate(savedUser, {
-                            path: 'roles',
-                            populate: { path: 'permissions' },
-                        });
-                    });
-            })
-            .catch((err) => {
-                throw err;
-            });
+            return omit(savedUser.toObject(), [
+                'password',
+                'isDeleted',
+                '__v',
+            ]) as UserResponse;
+        }
+
+        const userRole = await Role.findOne({ name: RoleName.USER })
+            .populate('permissions')
+            .exec();
+        if (!userRole) {
+            throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
+        }
+        const user = new User({
+            fullName: userDto.fullName,
+            email: userDto.email,
+            password: hashPassword,
+            gender: userDto.gender,
+            dob: userDto.dob,
+            phoneNumber: userDto.phoneNumber,
+            address: userDto.address,
+            image: userDto.image,
+            isDeleted: false,
+            roles: [userRole._id],
+        });
+        const savedUser = await user.save();
+        return omit(savedUser.toObject(), [
+            'password',
+            'isDeleted',
+            '__v',
+        ]) as UserResponse;
     };
 
     public hashPassword = async (password: string): Promise<string> => {
@@ -139,89 +141,61 @@ class UserService {
         return bcrypt.hashSync(password, salt);
     };
 
-    public resetPassword = async (email: string, newPassword: string) => {
-        return User.findOne({ email: email, isDeleted: false })
-            .then((user) => {
-                if (!user) {
-                    throw new ApiError(ErrorMessage.USER_NOT_FOUND);
-                }
-                return this.hashPassword(newPassword).then((hashPassword) => {
-                    user.password = hashPassword;
-                    return user.save();
-                });
-            })
-            .catch((err) => {
-                throw err;
-            });
+    public resetPasswordWithOtp = async (
+        email: string,
+        newPassword: string,
+        otp: string
+    ): Promise<void> => {
+        await otpEmailService.verifyOtp(email, otp, OtpPurpose.FORGOT_PASSWORD);
+        const user = await User.findOne({ email: email, isDeleted: false });
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        const hashPassword = await this.hashPassword(newPassword);
+        user.password = hashPassword;
+        await user.save();
     };
 
-    public updateUser = async (userId: string, request: Partial<UserType>) => {
+    public updateUser = async (
+        userId: string,
+        request: UserUpdateRequest
+    ): Promise<UserResponse> => {
         const user = await User.findOneAndUpdate(
             { _id: userId, isDeleted: false },
             request,
-            { new: true }
+            { new: true, runValidators: true }
         ).select('-password -isDeleted -__v');
         if (!user) {
             throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
-
-        return User.findOne({ email: user.email, isDeleted: false })
-            .then((user) => {
-                if (!user) {
-                    throw new ApiError(ErrorMessage.USER_NOT_FOUND);
-                }
-                return {
-                    id: user._id,
-                    fullName: user.fullName,
-                    gender: user.gender,
-                    dob: user.dob,
-                    email: user.email,
-                    phoneNumber: user.phoneNumber,
-                    address: user.address,
-                    image: user.image,
-                    roles: user.roles,
-                    createBy: user.createBy,
-                    updateBy: user.updateBy,
-                };
-            })
-            .catch((error) => {
-                throw error;
-            });
+        return user;
     };
 
     public updateProfileUser = async (
         userId: string,
         request: Partial<UserType>
-    ) => {
+    ): Promise<UserProfileResponse> => {
         const user = await User.findOneAndUpdate(
             { _id: userId, isDeleted: false },
             request,
-            { new: true }
-        ).select('-password -roles -isDeleted -__v'); // options { new: true } để trả về document mới nhất (sau khi update)
+            { new: true, runValidators: true }
+        ).select('-password -isDeleted -roles -__v');
         if (!user) {
             throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
-        return {
-            id: user._id,
-            fullName: user.fullName,
-            email: user.email,
-            gender: user.gender,
-            dob: user.dob,
-            phoneNumber: user.phoneNumber,
-            address: user.address,
-            image: user.image,
-        };
+        return user;
     };
 
-    public softDelete = async (userId: string) => {
-        await User.findByIdAndUpdate(
-            userId,
-            { isDeleted: true },
-            { new: true }
-        );
+    public softDelete = async (userId: string): Promise<void> => {
+        const user = await User.findById(userId);
+        if (!user || user.isDeleted) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        user.isDeleted = true;
+        await user.save();
     };
 
-    public isAdmin = async (userScope: string) => {
+    public isAdmin = async (userScope: string): Promise<boolean> => {
         const roles = await Role.find({ _id: userScope });
         const isAdmin = roles.some((role: RoleType) => role.name === 'ADMIN');
         return isAdmin;

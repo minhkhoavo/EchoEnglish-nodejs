@@ -30,7 +30,9 @@ const promoCodeSchema = new Schema(
             default: true,
         },
     },
-    { timestamps: true }
+    {
+        collection: 'promo_codes',
+    }
 );
 
 export type PromoCodeType = InferSchemaType<typeof promoCodeSchema> & {

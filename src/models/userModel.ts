@@ -58,7 +58,9 @@ const userSchema = new Schema(
             min: [0, 'TOKEN_INVALID'],
         },
     },
-    { timestamps: false }
+    {
+        collection: 'users',
+    }
 );
 
 userSchema.add(baseEntitySchema.obj);
@@ -66,17 +68,4 @@ userSchema.add(baseEntitySchema.obj);
 export type UserType = InferSchemaType<typeof userSchema> &
     BaseEntity & { _id: Types.ObjectId };
 export type UserResponseType = Omit<UserType, 'password'>;
-export type UserUpdateResponseType = {
-    id: Types.ObjectId;
-    fullName: string;
-    gender: string;
-    dob: Date | null;
-    email: string;
-    phoneNumber: string | null;
-    address: string | null;
-    image: string | null;
-    roles: Types.ObjectId[];
-    createBy: Types.ObjectId | null;
-    updateBy: Types.ObjectId | null;
-};
 export const User = mongoose.models.User || model<UserType>('User', userSchema);

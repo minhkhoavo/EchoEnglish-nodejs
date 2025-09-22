@@ -31,7 +31,10 @@ const RecordingSchema = new Schema<IRecording>(
         },
         analysis: { type: Schema.Types.Mixed },
     },
-    { timestamps: { createdAt: true, updatedAt: false } }
+    {
+        timestamps: { createdAt: true, updatedAt: false },
+        collection: 'recordings',
+    }
 );
 
 export default model<IRecording>('Recording', RecordingSchema);

@@ -17,7 +17,9 @@ const roleSchema = new Schema(
             },
         ],
     },
-    { timestamps: true }
+    {
+        collection: 'roles',
+    }
 );
 
 export type RoleType = InferSchemaType<typeof roleSchema> & {
