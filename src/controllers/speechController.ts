@@ -8,6 +8,7 @@ import S3Service from '~/services/s3Service.js';
 import RecordingService from '~/services/recordingService.js';
 import SpeechProsodyService from '~/services/speech-analyze/speechProsodyService.js';
 import PronunciationSummaryService from '~/services/speech-analyze/pronunciationSummaryService.js';
+import VocabularyService from '~/services/speech-analyze/vocabularyService.js';
 // Helper orchestrator functions for recording + analysis
 export async function createRecordingAndStartAnalysisHelper(
     params: {
@@ -94,6 +95,16 @@ export async function createRecordingAndStartAnalysisHelper(
                 console.error('Pronunciation summary error:', e);
             }
 
+            // Vocabulary field (Paraphrase + Suggestions + Analysis)
+            let vocabulary: Record<string, unknown> | null = null;
+            try {
+                const field =
+                    await VocabularyService.buildVocabularyField(transformed);
+                vocabulary = field as unknown as Record<string, unknown>;
+            } catch (e) {
+                console.error('Vocabulary analysis error:', e);
+            }
+
             if (
                 Array.isArray(stressWords) &&
                 stressWords.length &&
@@ -119,6 +130,7 @@ export async function createRecordingAndStartAnalysisHelper(
                     prosody,
                     fluency,
                     pronunciation,
+                    vocabulary,
                 },
             };
 
