@@ -1,5 +1,5 @@
-import { Gender } from '~/enum/gender';
-import { RoleType } from '~/models/roleModel';
+import { Gender } from '~/enum/gender.js';
+import { RoleType } from '~/models/roleModel.js';
 
 export class UserResponse {
     userId?: string;

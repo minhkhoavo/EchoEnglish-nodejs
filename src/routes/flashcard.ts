@@ -1,8 +1,8 @@
 import { Router } from "express";
-import FlashcardController from "~/controllers/flashcardController";
-import CategoryFlashcardController from "../controllers/categoryFlashcardController";
-import { isOwn } from "~/middleware/authMiddleware";
-import { Flashcard } from "~/models/flashcardModel";
+import FlashcardController from "~/controllers/flashcardController.js";
+import CategoryFlashcardController from "../controllers/categoryFlashcardController.js";
+import { isOwn } from "~/middleware/authMiddleware.js";
+import { Flashcard } from "~/models/flashcardModel.js";
 
 const router = Router();
 const categoryCtrl = new CategoryFlashcardController();

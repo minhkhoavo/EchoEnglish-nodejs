@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import SpeakingWritingController from '../controllers/speakingWritingController';
+import SpeakingWritingController from '../controllers/speakingWritingController.js';
 
 const router = Router();
 

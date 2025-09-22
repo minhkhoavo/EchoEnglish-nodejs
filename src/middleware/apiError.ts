@@ -1,4 +1,4 @@
-import { ErrorMessage, ErrorMessageKey } from '../enum/errorMessage';
+import { ErrorMessage, ErrorMessageKey } from '../enum/errorMessage.js';
 
 /* Custom error */
 export class ApiError extends Error {

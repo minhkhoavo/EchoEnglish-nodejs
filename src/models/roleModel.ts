@@ -1,4 +1,4 @@
-import { Schema, model, InferSchemaType, Types, models } from 'mongoose';
+import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 import './permissionModel';
 const roleSchema = new Schema(
     {
@@ -21,4 +21,4 @@ const roleSchema = new Schema(
 );
 
 export type RoleType = InferSchemaType<typeof roleSchema> & { _id: Types.ObjectId };
-export const Role = models.Role || model<RoleType>('Role', roleSchema);
+export const Role = mongoose.models.Role || model<RoleType>('Role', roleSchema);

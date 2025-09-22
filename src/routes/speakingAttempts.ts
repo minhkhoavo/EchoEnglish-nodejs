@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import SpeakingAttemptController from '~/controllers/speakingAttemptController';
+import SpeakingAttemptController from '~/controllers/speakingAttemptController.js';
 import multer from 'multer';
 
 const router = Router();

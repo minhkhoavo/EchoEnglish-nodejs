@@ -1,6 +1,6 @@
 import { Router } from "express";
-import SpeechController from "~/controllers/speechController";
-import { uploadSingle } from "~/config/multerConfig";
+import SpeechController from "~/controllers/speechController.js";
+import { uploadSingle } from "~/config/multerConfig.js";
 
 const router = Router();
 

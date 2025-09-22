@@ -1,10 +1,10 @@
-import { Schema, model, models, Types, InferSchemaType } from "mongoose";
-import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity } from "./baseEntity";
+import mongoose, { Schema, model,  Types, InferSchemaType } from "mongoose";
+import { baseEntitySchema, BaseEntity } from "./baseEntity.js";
 
 // Import enum
-import { ResourceType } from "../enum/resourceType";
-import { Style } from "../enum/style";
-import { Domain } from "../enum/domain";
+import { ResourceType } from "../enum/resourceType.js";
+import { Style } from "../enum/style.js";
+import { Domain } from "../enum/domain.js";
 
 const resourceSchema = new Schema(
   {
@@ -51,10 +51,9 @@ const resourceSchema = new Schema(
 );
 
 // resourceSchema.add(baseEntitySchema.obj);
-applyBaseEntityMiddleware(resourceSchema);
 
 export type ResourceTypeModel = InferSchemaType<typeof resourceSchema> &
   BaseEntity & { _id: Types.ObjectId };
 
 export const Resource =
-  models.Resource || model<ResourceTypeModel>("Resource", resourceSchema);
+  mongoose.models.Resource || model<ResourceTypeModel>("Resource", resourceSchema);

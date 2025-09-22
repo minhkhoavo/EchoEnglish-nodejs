@@ -1,5 +1,5 @@
-import { Schema, model, InferSchemaType, Types, models } from 'mongoose';
-import { baseEntitySchema, BaseEntity } from './baseEntity';
+import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
+import { baseEntitySchema, BaseEntity } from './baseEntity.js';
 
 /* Category Flashcard Schema */
 const categoryFlashcardSchema = new Schema(
@@ -41,4 +41,4 @@ export type CategoryFlashcardType = InferSchemaType<typeof categoryFlashcardSche
     BaseEntity & { _id: Types.ObjectId };
 
 export const CategoryFlashcard =
-    models.CategoryFlashcard || model<CategoryFlashcardType>('CategoryFlashcard', categoryFlashcardSchema);
+    mongoose.models.CategoryFlashcard || model<CategoryFlashcardType>('CategoryFlashcard', categoryFlashcardSchema);

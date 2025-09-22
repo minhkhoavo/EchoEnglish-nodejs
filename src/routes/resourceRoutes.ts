@@ -1,6 +1,6 @@
 // routes/resourceRoutes.ts
 import { Router } from "express";
-import { resourceController } from "~/controllers/resourceController";
+import { resourceController } from "~/controllers/resourceController.js";
 
 const router = Router();
 router.get('/', resourceController.searchResource);

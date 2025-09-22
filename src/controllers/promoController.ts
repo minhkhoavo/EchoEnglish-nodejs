@@ -1,10 +1,10 @@
 import {Request, Response, NextFunction} from 'express'
-import PaymentService from '../services/payment/paymentService'
-import ApiResponse from '~/dto/response/apiResponse';
-import { SuccessMessage } from '~/enum/successMessage';
-import { ErrorMessage } from '~/enum/errorMessage';
-import { ApiError } from '~/middleware/apiError';
-import PromoService from '~/services/payment/promoService';
+import PaymentService from '../services/payment/paymentService.js'
+import ApiResponse from '~/dto/response/apiResponse.js';
+import { SuccessMessage } from '~/enum/successMessage.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { ApiError } from '~/middleware/apiError.js';
+import PromoService from '~/services/payment/promoService.js';
 class PromoController {
     public promoService = new PromoService();
 

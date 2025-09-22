@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { BaseEntity } from './baseEntity';
+import { BaseEntity } from './baseEntity.js';
 
 interface IUserAnswer {
   questionNumber: number;

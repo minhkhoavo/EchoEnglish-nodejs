@@ -1,4 +1,4 @@
-import { Schema, model, InferSchemaType, Types, models } from "mongoose";
+import mongoose, { Schema, model, InferSchemaType, Types } from "mongoose";
 
 const promoCodeSchema = new Schema({
   code: {
@@ -31,4 +31,4 @@ const promoCodeSchema = new Schema({
 }, { timestamps: true });
 
 export type PromoCodeType = InferSchemaType<typeof promoCodeSchema> & { _id: Types.ObjectId };
-export const PromoCode = models.PromoCode || model<PromoCodeType>("PromoCode", promoCodeSchema);
+export const PromoCode = mongoose.models.PromoCode || model<PromoCodeType>("PromoCode", promoCodeSchema);

@@ -1,8 +1,8 @@
 import './roleModel';
-import { Schema, model, InferSchemaType, Types, models } from 'mongoose';
-import { baseEntitySchema, BaseEntity } from './baseEntity';
-import { Gender } from '~/enum/gender';
-import { validateDob } from '~/utils/validation/validate';
+import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
+import { baseEntitySchema, BaseEntity } from './baseEntity.js';
+import { Gender } from '~/enum/gender.js';
+import { validateDob } from '~/utils/validation/validate.js';
 
 const userSchema = new Schema(
     {
@@ -78,4 +78,4 @@ export type UserUpdateResponseType = {
     createBy: Types.ObjectId | null;
     updateBy: Types.ObjectId | null;
 };
-export const User = models.User || model<UserType>('User', userSchema);
+export const User = mongoose.models.User || model<UserType>('User', userSchema);

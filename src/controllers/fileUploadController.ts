@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import S3Service, { UploadResult } from '../services/s3Service';
-import ApiResponse from '../dto/response/apiResponse';
-import { ApiError } from '../middleware/apiError';
-import { uploadSingle } from '../config/multerConfig';
+import S3Service, { UploadResult } from '../services/s3Service.js';
+import ApiResponse from '../dto/response/apiResponse.js';
+import { ApiError } from '../middleware/apiError.js';
+import { uploadSingle } from '../config/multerConfig.js';
 
 class FileUploadController {
     async uploadSingleFile(req: Request, res: Response, next: NextFunction): Promise<void> {

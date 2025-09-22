@@ -1,18 +1,28 @@
-import {
-  TestResult,
-  ITestResult,
-  IUserAnswer,
-} from '../models/testResultModel';
-import {
-  SubmitTestResultRequest,
-  TestResultSummary,
-} from '../dto/request/testResultRequest';
+import { TestResult, IUserAnswer } from '../models/testResultModel.js';
+import { SubmitTestResultRequest } from '../dto/request/testResultRequest.js';
 import {
   TestResultResponse,
   TestHistoryResponse,
   TestResultSummaryResponse,
-} from '../dto/response/testResultResponse';
-import testService from './testService';
+} from '../dto/response/testResultResponse.js';
+import testService from './testService.js';
+
+interface TestQuestion {
+  correctAnswer?: string;
+}
+
+interface TestQuestionGroup {
+  questions: TestQuestion[];
+}
+
+interface TestPart {
+  questions?: TestQuestion[];
+  questionGroups?: TestQuestionGroup[];
+}
+
+interface TestData {
+  parts: TestPart[];
+}
 
 // TOEIC part question counts
 const PART_QUESTION_COUNTS: Record<string, number> = {
@@ -52,10 +62,11 @@ class TestResultService {
   ): Promise<TestResultSummaryResponse> {
     try {
       // Get test data to validate answers
-      const testData = await testService.getTestById(requestData.testId);
-      if (!testData) {
+      const testDataResult = await testService.getTestById(requestData.testId);
+      if (!testDataResult) {
         throw new Error('Test not found');
       }
+      const testData = testDataResult as unknown as TestData;
 
       // Normalize parts: nếu parts là 1 phần tử dạng "part1-part4-part3" thì tách ra thành mảng
       let normalizedParts = requestData.parts;
@@ -125,7 +136,7 @@ class TestResultService {
 
   private processUserAnswers(
     userAnswers: Array<{ questionNumber: number; selectedAnswer: string }>,
-    testData: any
+    testData: TestData
   ): IUserAnswer[] {
     const processedAnswers: IUserAnswer[] = [];
 
@@ -155,37 +166,39 @@ class TestResultService {
     return processedAnswers;
   }
 
-  private extractCorrectAnswers(testData: any): Record<number, string> {
+  private extractCorrectAnswers(testData: TestData): Record<number, string> {
     const correctAnswers: Record<number, string> = {};
     let questionNumber = 1;
 
-    testData.parts.forEach((part: any, partIdx: number) => {
+    testData.parts.forEach((part: TestPart, partIdx: number) => {
       if (part.questions) {
         // For parts with direct questions (Part 1, 2, 5)
-        part.questions.forEach((question: any, qIdx: number) => {
+        part.questions.forEach((question: TestQuestion, qIdx: number) => {
           if (!('correctAnswer' in question)) {
             console.error(
               '[extractCorrectAnswers] Missing correctAnswer in question:',
               { partIdx, qIdx, question }
             );
           }
-          correctAnswers[questionNumber] = question.correctAnswer;
+          correctAnswers[questionNumber] = question.correctAnswer || 'N/A';
           questionNumber++;
         });
       } else if (part.questionGroups) {
         // For parts with question groups (Part 3, 4, 6, 7)
-        part.questionGroups.forEach((group: any, gIdx: number) => {
-          group.questions.forEach((question: any, qIdx: number) => {
-            if (!('correctAnswer' in question)) {
-              console.error(
-                '[extractCorrectAnswers] Missing correctAnswer in group question:',
-                { partIdx, gIdx, qIdx, question }
-              );
-            }
-            correctAnswers[questionNumber] = question.correctAnswer;
-            questionNumber++;
-          });
-        });
+        part.questionGroups.forEach(
+          (group: TestQuestionGroup, gIdx: number) => {
+            group.questions.forEach((question: TestQuestion, qIdx: number) => {
+              if (!('correctAnswer' in question)) {
+                console.error(
+                  '[extractCorrectAnswers] Missing correctAnswer in group question:',
+                  { partIdx, gIdx, qIdx, question }
+                );
+              }
+              correctAnswers[questionNumber] = question.correctAnswer || 'N/A';
+              questionNumber++;
+            });
+          }
+        );
       } else {
         console.error(
           '[extractCorrectAnswers] Part missing questions or questionGroups:',
@@ -205,7 +218,7 @@ class TestResultService {
   ): Promise<{ results: TestHistoryResponse[]; total: number }> {
     try {
       const skip = (page - 1) * limit;
-      const query: any = { userId };
+      const query: { userId: string; testId?: string } = { userId };
       if (testId) {
         query.testId = testId;
       }

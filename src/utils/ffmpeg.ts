@@ -1,6 +1,8 @@
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import ffmpeg from 'fluent-ffmpeg';
+import inst from '@ffmpeg-installer/ffmpeg';
+import mod from 'ffmpeg-static';
 
 function canRun(bin: string): boolean {
     try {
@@ -27,8 +29,7 @@ function trySystem(): string | null {
 
 function tryFfmpegInstaller(): string | null {
     try {
-        const inst = require('@ffmpeg-installer/ffmpeg');
-        const p: string | undefined = (inst && inst.path) || (inst?.default && inst.default.path);
+        const p: string | undefined = inst?.path;
         if (p && fs.existsSync(p) && canRun(p)) return p;
     } catch {
         /* ignore */
@@ -37,9 +38,8 @@ function tryFfmpegInstaller(): string | null {
 }
 
 function tryFfmpegStatic(): string | null {
-    try {
-        const mod = require('ffmpeg-static');
-        const cands = [mod, mod?.default, mod?.path].filter(Boolean) as string[];
+    try { 
+        const cands = [mod, mod?.default].filter(Boolean) as string[];
         for (const c of cands) {
             if (fs.existsSync(c) && canRun(c)) return c;
         }

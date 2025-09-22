@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { ApiError } from '~/middleware/apiError';
-import { ErrorMessage } from '~/enum/errorMessage';
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
 
 class TestService {
   private async getDb() {

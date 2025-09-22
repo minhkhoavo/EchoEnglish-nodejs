@@ -1,9 +1,9 @@
 import Stripe from "stripe";
-import { Payment, PaymentType } from "~/models/payment";
-import { PaymentStatus } from "~/enum/paymentStatus";
-import { User } from "~/models/userModel";
-import { ApiError } from "~/middleware/apiError";
-import { ErrorMessage } from "~/enum/errorMessage";
+import { Payment, PaymentType } from "~/models/payment.js";
+import { PaymentStatus } from "~/enum/paymentStatus.js";
+import { User } from "~/models/userModel.js";
+import { ApiError } from "~/middleware/apiError.js";
+import { ErrorMessage } from "~/enum/errorMessage.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 

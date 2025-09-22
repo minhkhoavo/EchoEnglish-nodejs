@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import TestService from '../services/testService';
-import ApiResponse from '~/dto/response/apiResponse';
-import { ApiError } from '~/middleware/apiError';
-import { ErrorMessage } from '~/enum/errorMessage';
-import { SuccessMessage } from '~/enum/successMessage';
+import TestService from '../services/testService.js';
+import ApiResponse from '~/dto/response/apiResponse.js';
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { SuccessMessage } from '~/enum/successMessage.js';
 
 class TestController {
   public getAllTests = async (req: Request, res: Response) => {

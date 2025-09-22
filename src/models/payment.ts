@@ -1,8 +1,8 @@
-import { Schema, model, InferSchemaType, Types, models } from "mongoose";
-import { PaymentStatus } from "~/enum/paymentStatus";
-import { TransactionType } from "~/enum/transactionType";
-import { baseEntitySchema, BaseEntity } from "./baseEntity";
-import { PaymentGateway } from "~/enum/paymentGateway";
+import mongoose, { Schema, model, InferSchemaType, Types } from "mongoose";
+import { PaymentStatus } from "~/enum/paymentStatus.js";
+import { TransactionType } from "~/enum/transactionType.js";
+import { baseEntitySchema, BaseEntity } from "./baseEntity.js";
+import { PaymentGateway } from "~/enum/paymentGateway.js";
 
 const paymentSchema = new Schema({
   user: {
@@ -53,4 +53,4 @@ const paymentSchema = new Schema({
 paymentSchema.add(baseEntitySchema.obj);
 
 export type PaymentType = InferSchemaType<typeof paymentSchema> & BaseEntity & { _id: Types.ObjectId };
-export const Payment = models.Payment || model<PaymentType>("Payment", paymentSchema);
+export const Payment = mongoose.models.Payment || model<PaymentType>("Payment", paymentSchema);

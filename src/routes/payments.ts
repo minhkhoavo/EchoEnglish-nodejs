@@ -1,7 +1,7 @@
 import { Express } from "express";
 import { Router } from "express";
-import paymentController from "~/controllers/paymentController";
-import { globalAuth, hasAuthority, isOwn } from "~/middleware/authMiddleware";
+import paymentController from "~/controllers/paymentController.js";
+import { globalAuth, hasAuthority, isOwn } from "~/middleware/authMiddleware.js";
 const router = Router();
 
 router.get("", paymentController.getTransactions);

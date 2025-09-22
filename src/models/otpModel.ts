@@ -1,5 +1,5 @@
 import { Schema, model, InferSchemaType } from 'mongoose';
-import { OtpPurpose } from '~/enum/otpPurpose';
+import { OtpPurpose } from '~/enum/otpPurpose.js';
 
 const otpSchema = new Schema(
     {

@@ -1,8 +1,8 @@
 import { Express } from "express";
 import { Router } from "express";
-import PaymentController from "~/controllers/paymentController";
-import PromoController from "~/controllers/promoController";
-import { globalAuth, hasAuthority, isOwn } from "~/middleware/authMiddleware";
+import PaymentController from "~/controllers/paymentController.js";
+import PromoController from "~/controllers/promoController.js";
+import { globalAuth, hasAuthority, isOwn } from "~/middleware/authMiddleware.js";
 const router = Router();
 const promoController = new PromoController();
 
