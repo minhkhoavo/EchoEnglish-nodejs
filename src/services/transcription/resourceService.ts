@@ -7,7 +7,7 @@ import { ResourceType } from "~/enum/resourceType";
 import Parser from "rss-parser";
 import { ApiError } from "~/middleware/apiError";
 import { ErrorMessage } from "~/enum/errorMessage";
-import { YoutubeTranscript } from "youtube-transcript";
+import { YoutubeTranscript } from "@danielxceron/youtube-transcript";
 import { PaginationHelper } from "~/utils/pagination";
 import { Domain } from "domain";
 import { Style } from "~/enum/style";
