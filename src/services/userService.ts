@@ -7,11 +7,10 @@ import { OtpPurpose } from '~/enum/otpPurpose.js';
 import { Role, RoleType } from '~/models/roleModel.js';
 import { RoleName } from '~/enum/role.js';
 import { ApiError } from '~/middleware/apiError.js';
-import { error } from 'console';
-import { List } from 'microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common/List.js';
-import { Types } from 'mongoose';
+import CategoryFlashcardService from './categoryFlashcardService.js';
 
 const otpService = new OtpEmailService();
+const categoryService = new CategoryFlashcardService();
 
 class UserService {
     public getUserById = async (id: string) => {
@@ -118,7 +117,20 @@ class UserService {
                                     isDeleted: false,
                                     roles: [userRole._id], // lưu ObjectId
                                 });
-                                return user.save();
+                                return user
+                                    .save()
+                                    .then((savedUser: UserType) => {
+                                        categoryService.createCategory(
+                                            {
+                                                name: 'Uncategorized',
+                                                description:
+                                                    'Default category for uncategorized flashcards',
+                                                is_default: true,
+                                            },
+                                            savedUser._id.toString()
+                                        );
+                                        return savedUser;
+                                    });
                             });
                     })
                     .then((savedUser) => {
