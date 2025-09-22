@@ -19,5 +19,10 @@ router.get(
 
 // Get user test stats
 router.get('/stats', authenticateJWT, testResultController.getUserStats);
+router.get(
+    '/listening-reading',
+    authenticateJWT,
+    testResultController.getListeningReading
+);
 
 export default router;

@@ -387,6 +387,37 @@ class TestResultService {
             throw new Error(`Failed to get user stats: ${errorMessage}`);
         }
     }
+
+    // Return all listening-reading test results for a user (no pagination)
+    async getListeningReadingResults(userId: string) {
+        try {
+            const results = await TestResult.find({
+                userId,
+                testType: 'listening-reading',
+            })
+                .sort({ completedAt: -1 })
+                .lean();
+
+            return results.map((result) => ({
+                id: result._id.toString(),
+                testTitle: result.testTitle,
+                completedAt: result.completedAt.toISOString(),
+                score: result.score,
+                totalQuestions: result.totalQuestions,
+                duration: result.duration,
+                percentage: Math.round(
+                    (result.score / result.totalQuestions) * 100
+                ),
+                partsKey: result.partsKey,
+            }));
+        } catch (error: unknown) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(
+                `Failed to get listening-reading results: ${errorMessage}`
+            );
+        }
+    }
 }
 
 export const testResultService = new TestResultService();

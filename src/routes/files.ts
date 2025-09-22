@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import FileUploadController from '../controllers/fileUploadController.js';
-import { authenticateJWT } from '../middleware/authMiddleware.js';
 import { uploadSingle } from '~/config/multerConfig.js';
 
 const router = Router();
