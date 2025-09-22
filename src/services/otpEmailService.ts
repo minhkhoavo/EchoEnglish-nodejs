@@ -8,57 +8,57 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 const OTP_EXPIRY_MINUTES = 10;
 
 export class OtpEmailService {
-  private senderEmail: string;
+    private senderEmail: string;
 
-  constructor() {
-    this.senderEmail = process.env.SMTP_USER || '';
-  }
+    constructor() {
+        this.senderEmail = process.env.SMTP_USER || '';
+    }
 
-  public sendOtp = async (
-    email: string,
-    purpose: OtpPurpose
-  ): Promise<string> => {
-    const normalizedEmail = email.trim().toLowerCase();
-    const otpCode = this.generateOtp();
-    const expiry = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60 * 1000);
+    public sendOtp = async (
+        email: string,
+        purpose: OtpPurpose
+    ): Promise<string> => {
+        const normalizedEmail = email.trim().toLowerCase();
+        const otpCode = this.generateOtp();
+        const expiry = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60 * 1000);
 
-    await Otp.create({
-      email: normalizedEmail,
-      otp: otpCode,
-      purpose,
-      expiryTime: expiry,
-    } as Partial<OtpType>);
+        await Otp.create({
+            email: normalizedEmail,
+            otp: otpCode,
+            purpose,
+            expiryTime: expiry,
+        } as Partial<OtpType>);
 
-    await this.sendOtpEmail(normalizedEmail, otpCode, purpose);
+        await this.sendOtpEmail(normalizedEmail, otpCode, purpose);
 
-    return otpCode;
-  };
+        return otpCode;
+    };
 
-  private generateOtp(): string {
-    const n = crypto.randomInt(100_000, 1_000_000); // 6 chữ số
-    return String(n);
-  }
+    private generateOtp(): string {
+        const n = crypto.randomInt(100_000, 1_000_000); // 6 chữ số
+        return String(n);
+    }
 
-  private sendOtpEmail = async (
-    recipientEmail: string,
-    otpCode: string,
-    purpose: OtpPurpose
-  ) => {
-    const subject =
-      purpose === OtpPurpose.REGISTER
-        ? 'Confirm Your Registration'
-        : 'OTP for Password Reset';
+    private sendOtpEmail = async (
+        recipientEmail: string,
+        otpCode: string,
+        purpose: OtpPurpose
+    ) => {
+        const subject =
+            purpose === OtpPurpose.REGISTER
+                ? 'Confirm Your Registration'
+                : 'OTP for Password Reset';
 
-    await mailTransporter.sendMail({
-      from: this.senderEmail,
-      to: recipientEmail,
-      subject,
-      html: this.generateHtmlContent(otpCode, purpose),
-    });
-  };
+        await mailTransporter.sendMail({
+            from: this.senderEmail,
+            to: recipientEmail,
+            subject,
+            html: this.generateHtmlContent(otpCode, purpose),
+        });
+    };
 
-  private generateHtmlContent(otpCode: string, purpose: OtpPurpose): string {
-    const htmlContent = `
+    private generateHtmlContent(otpCode: string, purpose: OtpPurpose): string {
+        const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width:600px; margin:auto; padding:20px; border:1px solid #eee; border-radius:8px;">
         <h2 style="color:#00466a; text-align:center;">Echo English</h2>
         <p>Hi,</p>
@@ -73,44 +73,44 @@ export class OtpEmailService {
         <p style="font-size:12px; color:#aaa; text-align:center;">Echo Inc, 1600 Amphitheatre Parkway, California</p>
       </div>
     `;
-    return htmlContent;
-  }
+        return htmlContent;
+    }
 
-  public verifyOtp = async (
-    email: string,
-    otpCode: string,
-    purpose: OtpPurpose
-  ): Promise<boolean> => {
-    const normalizedEmail = email.toLowerCase();
-    return Otp.findOne({ email: normalizedEmail, otp: otpCode, purpose })
-      .exec()
-      .then((otpDoc) => {
-        if (!otpDoc) return false;
-
-        if (otpDoc.expiryTime < new Date()) {
-          return Otp.deleteOne({ _id: otpDoc._id })
+    public verifyOtp = async (
+        email: string,
+        otpCode: string,
+        purpose: OtpPurpose
+    ): Promise<boolean> => {
+        const normalizedEmail = email.toLowerCase();
+        return Otp.findOne({ email: normalizedEmail, otp: otpCode, purpose })
             .exec()
-            .then(() => false);
-        }
+            .then((otpDoc) => {
+                if (!otpDoc) return false;
 
-        return Otp.deleteMany({ email: normalizedEmail, purpose })
-          .exec()
-          .then(() => {
-            if (purpose === OtpPurpose.REGISTER) {
-              return User.findOne({ email: normalizedEmail })
-                .exec()
-                .then((user) => {
-                  if (!user) return false;
-                  user.isDeleted = false;
-                  return user.save().then(() => true);
-                });
-            }
-            return true;
-          });
-      })
-      .catch((err) => {
-        console.error('verifyOtp error:', err);
-        throw err;
-      });
-  };
+                if (otpDoc.expiryTime < new Date()) {
+                    return Otp.deleteOne({ _id: otpDoc._id })
+                        .exec()
+                        .then(() => false);
+                }
+
+                return Otp.deleteMany({ email: normalizedEmail, purpose })
+                    .exec()
+                    .then(() => {
+                        if (purpose === OtpPurpose.REGISTER) {
+                            return User.findOne({ email: normalizedEmail })
+                                .exec()
+                                .then((user) => {
+                                    if (!user) return false;
+                                    user.isDeleted = false;
+                                    return user.save().then(() => true);
+                                });
+                        }
+                        return true;
+                    });
+            })
+            .catch((err) => {
+                console.error('verifyOtp error:', err);
+                throw err;
+            });
+    };
 }

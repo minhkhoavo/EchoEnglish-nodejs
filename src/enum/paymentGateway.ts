@@ -1,4 +1,4 @@
 export enum PaymentGateway {
-  VNPAY = 'VNPAY',
-  STRIPE = 'STRIPE',
+    VNPAY = 'VNPAY',
+    STRIPE = 'STRIPE',
 }

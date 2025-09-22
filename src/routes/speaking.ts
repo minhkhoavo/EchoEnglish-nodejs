@@ -4,7 +4,7 @@ import speakingResultController from '~/controllers/speakingResultController.js'
 const router = Router();
 
 router.get('/result/:id', (req, res, next) =>
-  speakingResultController.getById(req, res, next)
+    speakingResultController.getById(req, res, next)
 );
 
 export default router;

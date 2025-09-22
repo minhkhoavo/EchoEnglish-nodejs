@@ -8,21 +8,21 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 /* cách dùng: throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND); */
 /* cách dùng: throw new ApiError({message: 'Khong ton tai nhe', status: 450}) */
 class ErrorMiddleware {
-  public handleError(err: Error, req: Request, res: Response) {
-    if (err instanceof ApiError) {
-      return res.status(err.status).json(new ApiResponse(err.message));
-    }
+    public handleError(err: Error, req: Request, res: Response) {
+        if (err instanceof ApiError) {
+            return res.status(err.status).json(new ApiResponse(err.message));
+        }
 
-    /* loi id khong hop le */
-    if (err instanceof mongoose.Error.CastError) {
-      return res
-        .status(ErrorMessage.INVALID_ID.status)
-        .json(new ApiResponse(ErrorMessage.INVALID_ID.message));
-    }
+        /* loi id khong hop le */
+        if (err instanceof mongoose.Error.CastError) {
+            return res
+                .status(ErrorMessage.INVALID_ID.status)
+                .json(new ApiResponse(ErrorMessage.INVALID_ID.message));
+        }
 
-    console.error('Unhandled error:', err);
-    return res.status(500).json(new ApiResponse('Internal Server Error'));
-  }
+        console.error('Unhandled error:', err);
+        return res.status(500).json(new ApiResponse('Internal Server Error'));
+    }
 }
 
 export default new ErrorMiddleware();

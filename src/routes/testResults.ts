@@ -12,9 +12,9 @@ router.get('/history', authenticateJWT, testResultController.getTestHistory);
 
 // Get specific test result detail
 router.get(
-  '/detail/:resultId',
-  authenticateJWT,
-  testResultController.getTestResultDetail
+    '/detail/:resultId',
+    authenticateJWT,
+    testResultController.getTestResultDetail
 );
 
 // Get user test stats

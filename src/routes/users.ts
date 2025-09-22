@@ -2,9 +2,9 @@ import { Express } from 'express';
 import { Router } from 'express';
 import UserController from '~/controllers/userController.js';
 import {
-  globalAuth,
-  hasAuthority,
-  isOwn,
+    globalAuth,
+    hasAuthority,
+    isOwn,
 } from '~/middleware/authMiddleware.js';
 const router = Router();
 const userController = new UserController();

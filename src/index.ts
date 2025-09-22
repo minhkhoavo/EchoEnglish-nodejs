@@ -20,14 +20,14 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.post(
-  '/payments/stripe/webhook',
-  express.raw({ type: 'application/json' }),
-  paymentController.stripeWebhook
+    '/payments/stripe/webhook',
+    express.raw({ type: 'application/json' }),
+    paymentController.stripeWebhook
 );
 
 cron.schedule('0 0 * * 0', async () => {
-  console.log('[CRON] Trigger RSS fetching...');
-  await resourceService.fetchAndSaveAllRss();
+    console.log('[CRON] Trigger RSS fetching...');
+    await resourceService.fetchAndSaveAllRss();
 });
 
 // app.use(morgan('combined'));
@@ -36,6 +36,6 @@ app.use('/', apiRouter);
 
 app.use(ErrorMiddleware.handleError);
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-  console.log(`Url:   http://localhost:${port}`);
+    console.log(`App listening on port ${port}`);
+    console.log(`Url:   http://localhost:${port}`);
 });
