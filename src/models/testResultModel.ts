@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { BaseEntity } from './baseEntity.js';
+import { setBaseOptions } from './baseEntity.js';
 
 interface IUserAnswer {
     questionNumber: number;
@@ -8,7 +8,7 @@ interface IUserAnswer {
     correctAnswer: string;
 }
 
-interface ITestResult extends BaseEntity {
+interface ITestResult {
     userId: Schema.Types.ObjectId;
     testId: string;
     testTitle: string;
@@ -98,6 +98,8 @@ const testResultSchema = new Schema<ITestResult>(
 // Index for efficient queries
 testResultSchema.index({ userId: 1, completedAt: -1 });
 testResultSchema.index({ testId: 1 });
+
+setBaseOptions(testResultSchema);
 
 export const TestResult = model<ITestResult>('TestResult', testResultSchema);
 export type { ITestResult, IUserAnswer };

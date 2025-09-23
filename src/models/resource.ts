@@ -1,5 +1,5 @@
 import mongoose, { Schema, model, Types, InferSchemaType } from 'mongoose';
-import { BaseEntity } from './baseEntity.js';
+import { setBaseOptions } from './baseEntity.js';
 
 // Import enum
 import { ResourceType } from '../enum/resourceType.js';
@@ -53,10 +53,11 @@ const resourceSchema = new Schema(
     }
 );
 
-// resourceSchema.add(baseEntitySchema.obj);
+setBaseOptions(resourceSchema);
 
-export type ResourceTypeModel = InferSchemaType<typeof resourceSchema> &
-    BaseEntity & { _id: Types.ObjectId };
+export type ResourceTypeModel = InferSchemaType<typeof resourceSchema> & {
+    _id: Types.ObjectId;
+};
 
 export const Resource =
     mongoose.models.Resource ||

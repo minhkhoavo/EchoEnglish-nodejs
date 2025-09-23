@@ -1,3 +1,4 @@
+import { setBaseOptions } from './baseEntity.js';
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 
 const permissionSchema = new Schema(
@@ -15,6 +16,8 @@ const permissionSchema = new Schema(
         collection: 'permissions',
     }
 );
+
+setBaseOptions(permissionSchema);
 
 export type PermissionType = InferSchemaType<typeof permissionSchema> & {
     _id: Types.ObjectId;
