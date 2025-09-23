@@ -1,5 +1,6 @@
 import { Schema, model, InferSchemaType } from 'mongoose';
 import { OtpPurpose } from '~/enum/otpPurpose.js';
+import { setBaseOptions } from './baseEntity.js';
 
 const otpSchema = new Schema(
     {
@@ -22,8 +23,12 @@ const otpSchema = new Schema(
             required: true,
         },
     },
-    { timestamps: true }
+    {
+        collection: 'otps',
+    }
 );
+
+setBaseOptions(otpSchema);
 
 export type OtpType = InferSchemaType<typeof otpSchema>;
 export const Otp = model('Otp', otpSchema);

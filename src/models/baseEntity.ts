@@ -1,14 +1,11 @@
-import { Schema, InferSchemaType, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 
-const baseEntitySchema = new Schema(
-    {
-        isDeleted: {
-            type: Boolean,
-            default: false,
-        },
-    },
-    { _id: false, timestamps: false }
-);
+export function addBaseFields(schema: Schema) {
+    schema.add({
+        isDeleted: { type: Boolean, default: false },
+    });
+}
 
-export type BaseEntity = InferSchemaType<typeof baseEntitySchema>;
-export { baseEntitySchema };
+export function setBaseOptions(schema: Schema) {
+    schema.set('timestamps', true);
+}

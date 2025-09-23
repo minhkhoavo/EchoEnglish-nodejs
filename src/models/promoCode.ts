@@ -1,4 +1,5 @@
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
+import { setBaseOptions } from './baseEntity.js';
 
 const promoCodeSchema = new Schema(
     {
@@ -30,8 +31,12 @@ const promoCodeSchema = new Schema(
             default: true,
         },
     },
-    { timestamps: true }
+    {
+        collection: 'promo_codes',
+    }
 );
+
+setBaseOptions(promoCodeSchema);
 
 export type PromoCodeType = InferSchemaType<typeof promoCodeSchema> & {
     _id: Types.ObjectId;

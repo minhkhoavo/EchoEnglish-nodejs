@@ -1,5 +1,5 @@
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
-import { baseEntitySchema, BaseEntity } from './baseEntity.js';
+import { setBaseOptions } from './baseEntity.js';
 
 /* Category Flashcard Schema */
 const categoryFlashcardSchema = new Schema(
@@ -38,13 +38,17 @@ const categoryFlashcardSchema = new Schema(
             required: true,
         },
     },
-    { timestamps: false, collection: 'category_flashcards' }
+    {
+        collection: 'category_flashcards',
+        timestamps: true,
+    }
 );
+
+setBaseOptions(categoryFlashcardSchema);
 
 export type CategoryFlashcardType = InferSchemaType<
     typeof categoryFlashcardSchema
-> &
-    BaseEntity & { _id: Types.ObjectId };
+> & { _id: Types.ObjectId };
 
 export const CategoryFlashcard =
     mongoose.models.CategoryFlashcard ||

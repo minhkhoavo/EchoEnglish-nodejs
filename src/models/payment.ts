@@ -1,7 +1,7 @@
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 import { PaymentStatus } from '~/enum/paymentStatus.js';
 import { TransactionType } from '~/enum/transactionType.js';
-import { baseEntitySchema, BaseEntity } from './baseEntity.js';
+import { setBaseOptions } from './baseEntity.js';
 import { PaymentGateway } from '~/enum/paymentGateway.js';
 
 const paymentSchema = new Schema(
@@ -50,13 +50,15 @@ const paymentSchema = new Schema(
             type: Date,
         },
     },
-    { timestamps: true }
+    {
+        collection: 'payments',
+    }
 );
 
-paymentSchema.add(baseEntitySchema.obj);
+setBaseOptions(paymentSchema);
 
-export type PaymentType = InferSchemaType<typeof paymentSchema> &
-    BaseEntity & { _id: Types.ObjectId };
+export type PaymentType = InferSchemaType<typeof paymentSchema> & {
+    _id: Types.ObjectId;
+};
 export const Payment =
     mongoose.models.Payment || model<PaymentType>('Payment', paymentSchema);
-

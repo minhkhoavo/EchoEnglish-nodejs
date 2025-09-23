@@ -1,5 +1,6 @@
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 import './permissionModel';
+import { setBaseOptions } from './baseEntity.js';
 const roleSchema = new Schema(
     {
         name: {
@@ -17,8 +18,12 @@ const roleSchema = new Schema(
             },
         ],
     },
-    { timestamps: true }
+    {
+        collection: 'roles',
+    }
 );
+
+setBaseOptions(roleSchema);
 
 export type RoleType = InferSchemaType<typeof roleSchema> & {
     _id: Types.ObjectId;

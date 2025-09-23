@@ -1,14 +1,19 @@
+// Định nghĩa type cho role đã populate
+type PopulatedRole = { name: string };
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { User, UserType } from '../models/userModel.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
-
 class AuthService {
     public SECRET_KEY = process.env.JWT_SECRETKEY!;
 
     public login = async (email: string, password: string) => {
-        const user = await User.findOne({ email: email, isDeleted: false });
+        // Lấy user và populate roles để có name
+        const user = await User.findOne({
+            email: email,
+            isDeleted: false,
+        }).populate({ path: 'roles', select: 'name' }); // _id không select vẫn có kèm theo name (trừ khi dùng -_id)
         if (!user) {
             throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
@@ -18,17 +23,16 @@ class AuthService {
             throw new ApiError(ErrorMessage.UNAUTHORIZED);
         }
 
-        const token = this.generateToken(user);
+        const token = await this.generateToken(user);
         return { token, authenticated: true };
     };
 
     public generateToken = (user: UserType) => {
-        const scopes: string[] = [];
-
+        let scopes: string[] = [];
         if (user.roles && user.roles.length) {
-            user.roles.forEach((role) => {
-                scopes.push(role.toString());
-            });
+            scopes = user.roles.map(
+                (role) => (role as unknown as { name: string }).name
+            );
         }
 
         return jwt.sign(

@@ -1,6 +1,6 @@
 import './roleModel';
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
-import { baseEntitySchema, BaseEntity } from './baseEntity.js';
+import { addBaseFields, setBaseOptions } from './baseEntity.js';
 import { Gender } from '~/enum/gender.js';
 import { validateDob } from '~/utils/validation/validate.js';
 
@@ -58,25 +58,16 @@ const userSchema = new Schema(
             min: [0, 'TOKEN_INVALID'],
         },
     },
-    { timestamps: false }
+    {
+        collection: 'users',
+    }
 );
 
-userSchema.add(baseEntitySchema.obj);
+addBaseFields(userSchema);
+setBaseOptions(userSchema);
 
-export type UserType = InferSchemaType<typeof userSchema> &
-    BaseEntity & { _id: Types.ObjectId };
-export type UserResponseType = Omit<UserType, 'password'>;
-export type UserUpdateResponseType = {
-    id: Types.ObjectId;
-    fullName: string;
-    gender: string;
-    dob: Date | null;
-    email: string;
-    phoneNumber: string | null;
-    address: string | null;
-    image: string | null;
-    roles: Types.ObjectId[];
-    createBy: Types.ObjectId | null;
-    updateBy: Types.ObjectId | null;
+export type UserType = InferSchemaType<typeof userSchema> & {
+    _id: Types.ObjectId;
 };
+export type UserResponseType = Omit<UserType, 'password'>;
 export const User = mongoose.models.User || model<UserType>('User', userSchema);

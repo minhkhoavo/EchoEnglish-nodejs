@@ -1,20 +1,20 @@
-import { PromptTemplate } from "@langchain/core/prompts";
-import { JsonOutputParser } from "@langchain/core/output_parsers";
-import { googleGenAIClient } from "../../ai/provider/googleGenAIClient.js";
-import { promptManagerService } from "../../ai//service/PromptManagerService.js";
-import { Resource, ResourceTypeModel } from "~/models/resource.js";
-import { ResourceType } from "~/enum/resourceType.js";
-import Parser from "rss-parser";
-import { ApiError } from "~/middleware/apiError.js";
-import { ErrorMessage } from "~/enum/errorMessage.js";
-import { YoutubeTranscript } from "@danielxceron/youtube-transcript";
-import { PaginationHelper } from "~/utils/pagination.js";
-import { Domain } from "domain";
+import { PromptTemplate } from '@langchain/core/prompts';
+import { JsonOutputParser } from '@langchain/core/output_parsers';
+import { googleGenAIClient } from '../../ai/provider/googleGenAIClient.js';
+import { promptManagerService } from '../../ai//service/PromptManagerService.js';
+import { Resource, ResourceTypeModel } from '~/models/resource.js';
+import { ResourceType } from '~/enum/resourceType.js';
+import Parser from 'rss-parser';
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { YoutubeTranscript } from '@danielxceron/youtube-transcript';
+import { PaginationHelper } from '~/utils/pagination.js';
+import { Domain } from 'domain';
 import { FilterQuery } from 'mongoose';
-import { Style } from "~/enum/style.js";
-import axios from "axios";
-import * as cheerio from "cheerio";
-import pLimit from "p-limit"
+import { Style } from '~/enum/style.js';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+import pLimit from 'p-limit';
 class ResourceService {
     async fetchArticleText(url: string): Promise<string> {
         try {

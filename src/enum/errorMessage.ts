@@ -1,5 +1,3 @@
-import { NOTFOUND } from 'dns';
-
 /* Định nghĩa các enum lỗi */
 export const ErrorMessage = {
     INTERNAL_ERROR: { message: 'Internal server error', status: 500 },
@@ -23,6 +21,9 @@ export const ErrorMessage = {
     PASSWORD_INVALID: { message: 'Password is invalid', status: 400 },
     PHONE_NUMBER_INVALID: { message: 'Phone number is invalid', status: 400 },
     TOKEN_INVALID: { message: 'Token is invalid', status: 400 },
+    OTP_INVALID: { message: 'OTP is invalid', status: 400 },
+    OTP_EXPIRED: { message: 'OTP is expired', status: 400 },
+
     /* Role eror */
 
     /* Flashcard eror */

@@ -179,13 +179,12 @@ class PaymentService {
             throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
         let amount = request.tokens! * 1000;
-        if(request.promoCode) {
-            const promo = await PromoCode.findOne({code: request.promoCode});
-            amount =  amount * (1-promo.discount/100);
+        if (request.promoCode) {
+            const promo = await PromoCode.findOne({ code: request.promoCode });
+            amount = amount * (1 - promo.discount / 100);
         }
 
-        if(amount<0)
-            throw new ApiError(ErrorMessage.AMOUNT_INVALID);
+        if (amount < 0) throw new ApiError(ErrorMessage.AMOUNT_INVALID);
 
         const now = new Date();
         const expiredAt = new Date(now.getTime() + 15 * 60 * 1000); // Hết hạn sau 15 phút
@@ -201,7 +200,6 @@ class PaymentService {
             paymentGateway: request.paymentGateway,
             expiredAt,
         });
-
 
         await payment.save();
 
@@ -238,17 +236,17 @@ class PaymentService {
     public triggerExpiredPayment = async () => {
         const now = new Date();
         const result = await Payment.updateMany(
-        {
-            status: PaymentStatus.PENDING,
-            expiredAt: { $lte: now },
-        },
-        { $set: { status: PaymentStatus.EXPIRED } }
+            {
+                status: PaymentStatus.PENDING,
+                expiredAt: { $lte: now },
+            },
+            { $set: { status: PaymentStatus.EXPIRED } }
         );
 
         if (result.modifiedCount > 0) {
-        console.log(`Expired ${result.modifiedCount} payments`);
+            console.log(`Expired ${result.modifiedCount} payments`);
         }
-    }
+    };
 }
 
 interface UseTokenInput {

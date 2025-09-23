@@ -31,7 +31,7 @@ cron.schedule('0 0 * * 0', async () => {
     await resourceService.fetchAndSaveAllRss();
 });
 
-cron.schedule("*/1 * * * *", async () => {
+cron.schedule('*/1 * * * *', async () => {
     console.log('[CRON] Trigger Check Payment Expired fetching...');
     await paymentService.triggerExpiredPayment();
 });
