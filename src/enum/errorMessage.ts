@@ -40,6 +40,10 @@ export const ErrorMessage = {
         message: 'Category name is required',
         status: 400,
     },
+    CATEGORY_CANNOT_DELETE_DEFAULT: {
+        message: 'Cannot delete default category',
+        status: 400,
+    },
 
     /*Promotion error*/
     PROMOTION_NOT_FOUND: { message: 'Promotion not found', status: 404 },

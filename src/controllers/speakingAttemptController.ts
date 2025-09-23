@@ -80,6 +80,24 @@ class SpeakingAttemptController {
         }
     }
 
+    async getAllSpeakingAttempts(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
+        try {
+            const userId = req.user?.id || '';
+            const result = await speakingAttemptService.getAllSpeakingAttempts({
+                userId,
+            });
+            res.status(200).json(
+                new ApiResponse('Get all speaking attempts success', result)
+            );
+        } catch (err) {
+            next(err);
+        }
+    }
+
     async finish(req: Request, res: Response, next: NextFunction) {
         try {
             const userId = (req.user as Record<string, unknown>)?.id as string;

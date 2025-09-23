@@ -63,7 +63,7 @@ class CategoryFlashcardService {
     }
 
     async deleteCategory(id: string, userId: string) {
-        const category = await CategoryFlashcard.findOneAndDelete({
+        const category = await CategoryFlashcard.findOne({
             _id: id,
             createBy: userId,
         });
@@ -71,6 +71,16 @@ class CategoryFlashcardService {
         if (!category) {
             throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
         }
+
+        if (category.is_default) {
+            throw new ApiError(ErrorMessage.CATEGORY_CANNOT_DELETE_DEFAULT);
+        }
+
+        await CategoryFlashcard.findOneAndDelete({
+            _id: id,
+            createBy: userId,
+        });
+
         /* xoa flashcard thuoc category nay */
         await Flashcard.deleteMany({ category: id, createBy: userId });
     }

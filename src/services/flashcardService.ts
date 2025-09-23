@@ -11,10 +11,22 @@ class FlashCardService {
         userId: string
     ) => {
         try {
+            let categoryId = request.category;
+            if (!categoryId) {
+                const defaultCategory = await CategoryFlashcard.findOne({
+                    createBy: userId,
+                    is_default: true,
+                });
+                if (defaultCategory) {
+                    categoryId = defaultCategory._id;
+                } else {
+                    throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
+                }
+            }
             const newFlashcard = new Flashcard({
                 front: request.front,
                 back: request.back,
-                category: request.category,
+                category: categoryId,
                 difficulty: request.difficulty,
                 tags: request.tags || [],
                 source: request.source || '',

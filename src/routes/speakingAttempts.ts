@@ -5,16 +5,13 @@ import multer from 'multer';
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.post('/start', (req, res, next) =>
-    SpeakingAttemptController.start(req, res, next)
-);
+router.post('/start', SpeakingAttemptController.start);
+router.get('/', SpeakingAttemptController.getAllSpeakingAttempts);
 router.post(
     '/:testAttemptId/submit-question',
     upload.single('audio'),
-    (req, res, next) => SpeakingAttemptController.submitQuestion(req, res, next)
+    SpeakingAttemptController.submitQuestion
 );
-router.post('/:testAttemptId/finish', (req, res, next) =>
-    SpeakingAttemptController.finish(req, res, next)
-);
+router.post('/:testAttemptId/finish', SpeakingAttemptController.finish);
 
 export default router;

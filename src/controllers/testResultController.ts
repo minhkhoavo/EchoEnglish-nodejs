@@ -175,6 +175,27 @@ export class TestResultController {
             });
         }
     }
+
+    async getListeningReading(req: Request, res: Response) {
+        try {
+            const userId = req.user?.id as string;
+            const results =
+                await testResultService.getListeningReadingResults(userId);
+
+            res.status(200).json({
+                success: true,
+                message: 'OK',
+                data: results,
+            });
+        } catch (error: unknown) {
+            res.status(500).json({
+                success: false,
+                message:
+                    (error as Error).message ||
+                    ErrorMessage.INTERNAL_ERROR.message,
+            });
+        }
+    }
 }
 
 export const testResultController = new TestResultController();

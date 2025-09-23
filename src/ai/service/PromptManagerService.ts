@@ -1,6 +1,9 @@
 // src/services/PromptManagerService.ts (Phiên bản mới)
 import * as fs from 'fs/promises';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 class PromptManagerService {
     private promptCache = new Map<string, string>();

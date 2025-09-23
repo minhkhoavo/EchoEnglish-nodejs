@@ -137,14 +137,14 @@ class PaymentService {
         }
 
         /* Sau giam gia van khong du tien */
-        if (user.tokens < tokens) {
+        if (user.credits < tokens) {
             throw new ApiError(ErrorMessage.NOT_ENOUGH_TOKENS);
         }
 
         // cập nhật token user
         const userUpdated = await User.findByIdAndUpdate(
             { _id: user._id },
-            { $inc: { tokens: -tokens } },
+            { $inc: { credits: -tokens } },
             { new: true }
         )
             .lean<UserType>()
@@ -165,7 +165,7 @@ class PaymentService {
             transactionId: transaction._id,
             status: transaction.status,
             tokensDeducted: tokens,
-            userTokenBalance: userUpdated?.tokens,
+            userTokenBalance: userUpdated?.credits,
         };
     };
 

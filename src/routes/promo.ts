@@ -1,4 +1,3 @@
-import { Express } from 'express';
 import { Router } from 'express';
 import PaymentController from '~/controllers/paymentController.js';
 import PromoController from '~/controllers/promoController.js';

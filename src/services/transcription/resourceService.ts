@@ -18,8 +18,12 @@ import pLimit from "p-limit"
 class ResourceService {
     async fetchArticleText(url: string): Promise<string> {
         try {
-            const { data } = await axios.get(url, { timeout: 10000 });
-            const $ = cheerio.load(data as string);
+            const { data } = await axios.get(url, {
+                timeout: 10000,
+                responseType: 'text',
+            });
+            const html = typeof data === 'string' ? data : String(data);
+            const $ = cheerio.load(html as string);
 
             // Ưu tiên lấy text trong <article>
             const articleText = $('article').text().replace(/\s+/g, ' ').trim();

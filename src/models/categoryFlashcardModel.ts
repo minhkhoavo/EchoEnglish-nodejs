@@ -28,13 +28,17 @@ const categoryFlashcardSchema = new Schema(
             default: '',
             trim: true,
         },
+        is_default: {
+            type: Boolean,
+            default: false,
+        },
         createBy: {
             type: Schema.Types.ObjectId,
             ref: 'User',
             required: true,
         },
     },
-    { timestamps: false }
+    { timestamps: false, collection: 'category_flashcards' }
 );
 
 export type CategoryFlashcardType = InferSchemaType<
