@@ -10,7 +10,7 @@ export interface IRecording {
     size?: number;
     transcript?: string;
     analysisStatus?: 'pending' | 'processing' | 'done' | 'failed';
-    analysis?: any;
+    analysis?: Record<string, unknown>;
     createdAt: Date;
 }
 
@@ -29,7 +29,7 @@ const RecordingSchema = new Schema<IRecording>(
             enum: ['pending', 'processing', 'done', 'failed'],
             default: 'pending',
         },
-    analysis: { type: Schema.Types.Mixed },
+        analysis: { type: Schema.Types.Mixed },
     },
     { timestamps: { createdAt: true, updatedAt: false } }
 );

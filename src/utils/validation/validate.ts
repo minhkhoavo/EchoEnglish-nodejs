@@ -5,6 +5,8 @@ export function validateDob(value: Date): boolean {
     const age =
         now.getFullYear() -
         value.getFullYear() -
-        (now < new Date(now.getFullYear(), value.getMonth(), value.getDate()) ? 1 : 0);
+        (now < new Date(now.getFullYear(), value.getMonth(), value.getDate())
+            ? 1
+            : 0);
     return age >= minAge;
 }

@@ -1,5 +1,5 @@
-import { Schema, model, InferSchemaType, Types, models } from 'mongoose';
-import { baseEntitySchema, applyBaseEntityMiddleware, BaseEntity, baseEntityNoSoftDelSchema } from './baseEntity';
+import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
+import { baseEntitySchema, BaseEntity } from './baseEntity.js';
 
 /* Category Flashcard Schema */
 const categoryFlashcardSchema = new Schema(
@@ -37,11 +37,11 @@ const categoryFlashcardSchema = new Schema(
     { timestamps: false }
 );
 
-categoryFlashcardSchema.add(baseEntityNoSoftDelSchema.obj);
-applyBaseEntityMiddleware(categoryFlashcardSchema);
-
-export type CategoryFlashcardType = InferSchemaType<typeof categoryFlashcardSchema> &
+export type CategoryFlashcardType = InferSchemaType<
+    typeof categoryFlashcardSchema
+> &
     BaseEntity & { _id: Types.ObjectId };
 
 export const CategoryFlashcard =
-    models.CategoryFlashcard || model<CategoryFlashcardType>('CategoryFlashcard', categoryFlashcardSchema);
+    mongoose.models.CategoryFlashcard ||
+    model<CategoryFlashcardType>('CategoryFlashcard', categoryFlashcardSchema);

@@ -70,13 +70,27 @@ const ERROR_THRESHOLD = 60; // AccuracyScore < threshold => error
 function resolveResourceIndexPath(): string | null {
     // Try dist path first, then src
     const candidates = [
-        path.join(process.cwd(), 'dist', 'resources', 'data', 'ipa_resource_index.json'),
-        path.join(process.cwd(), 'src', 'resources', 'data', 'ipa_resource_index.json'),
+        path.join(
+            process.cwd(),
+            'dist',
+            'resources',
+            'data',
+            'ipa_resource_index.json'
+        ),
+        path.join(
+            process.cwd(),
+            'src',
+            'resources',
+            'data',
+            'ipa_resource_index.json'
+        ),
     ];
     for (const p of candidates) {
         try {
             if (fs.existsSync(p)) return p;
-        } catch {}
+        } catch {
+            // Ignore errors when parsing resource index
+        }
     }
     return null;
 }
@@ -104,26 +118,59 @@ function normalizeForResourceMatch(sym: string): string {
 }
 
 class PronunciationSummaryService {
-    summarize(azureResponseArray: any[]): { chartData: ChartItem[]; topMistakes: TopMistake[] } {
+    summarize(azureResponseArray: unknown[]): {
+        chartData: ChartItem[];
+        topMistakes: TopMistake[];
+    } {
         const totalMap: Map<string, number> = new Map();
         const errorMap: Map<
             string,
-            { count: number; substitutions: Map<string, number>; wordsWithMistakes: WordMistake[] }
+            {
+                count: number;
+                substitutions: Map<string, number>;
+                wordsWithMistakes: WordMistake[];
+            }
         > = new Map();
 
         for (const segment of azureResponseArray || []) {
-            const words = segment?.NBest?.[0]?.Words || [];
+            const segmentData = segment as Record<string, unknown>;
+            const NBest = segmentData?.NBest as Array<Record<string, unknown>>;
+            const words =
+                (NBest?.[0]?.Words as Array<Record<string, unknown>>) || [];
             for (const word of words) {
-                const phonemes = word?.Phonemes || [];
-                const syllables = (word?.Syllables || []).map((s: any) => s?.Syllable).join('');
+                const wordData = word as Record<string, unknown>;
+                const phonemes =
+                    (wordData?.Phonemes as Array<Record<string, unknown>>) ||
+                    [];
+                const syllables = (
+                    (wordData?.Syllables as Array<Record<string, unknown>>) ||
+                    []
+                )
+                    .map(
+                        (s: unknown) => (s as Record<string, unknown>)?.Syllable
+                    )
+                    .join('');
                 for (const ph of phonemes) {
-                    const expected = ph?.Phoneme;
+                    const phonemeData = ph as Record<string, unknown>;
+                    const expected = phonemeData?.Phoneme as string;
                     if (!expected) continue;
                     totalMap.set(expected, (totalMap.get(expected) || 0) + 1);
 
-                    const acc = ph?.PronunciationAssessment?.AccuracyScore ?? 100;
+                    const pronAssessment =
+                        phonemeData?.PronunciationAssessment as Record<
+                            string,
+                            unknown
+                        >;
+                    const acc =
+                        (pronAssessment?.AccuracyScore as number) ?? 100;
                     if (acc < ERROR_THRESHOLD) {
-                        const actual = ph?.PronunciationAssessment?.NBestPhonemes?.[0]?.Phoneme || 'omitted';
+                        const nbestPhonemes =
+                            pronAssessment?.NBestPhonemes as Array<
+                                Record<string, unknown>
+                            >;
+                        const actual =
+                            (nbestPhonemes?.[0]?.Phoneme as string) ||
+                            'omitted';
                         if (!errorMap.has(expected))
                             errorMap.set(expected, {
                                 count: 0,
@@ -132,10 +179,19 @@ class PronunciationSummaryService {
                             });
                         const e = errorMap.get(expected)!;
                         e.count += 1;
-                        e.substitutions.set(actual, (e.substitutions.get(actual) || 0) + 1);
-                        const w = String(word?.Word || '');
-                        if (w && !e.wordsWithMistakes.some((x) => x.word === w)) {
-                            e.wordsWithMistakes.push({ word: w, phoneticTranscription: `/${syllables}/` });
+                        e.substitutions.set(
+                            actual,
+                            (e.substitutions.get(actual) || 0) + 1
+                        );
+                        const w = String(wordData?.Word || '');
+                        if (
+                            w &&
+                            !e.wordsWithMistakes.some((x) => x.word === w)
+                        ) {
+                            e.wordsWithMistakes.push({
+                                word: w,
+                                phoneticTranscription: `/${syllables}/`,
+                            });
                         }
                     }
                 }
@@ -149,29 +205,49 @@ class PronunciationSummaryService {
             const rate = totals > 0 ? Math.round((errors / totals) * 100) : 0;
             chartData.push({ sound: `/${phoneme}/`, errorRate: rate });
         }
-        chartData.sort((a, b) => b.errorRate - a.errorRate || a.sound.localeCompare(b.sound));
+        chartData.sort(
+            (a, b) =>
+                b.errorRate - a.errorRate || a.sound.localeCompare(b.sound)
+        );
 
-    // Keep only Top 5 for chartData
-    const topFiveChart = chartData.filter((x) => x.errorRate > 0).slice(0, 5);
+        // Keep only Top 5 for chartData
+        const topFiveChart = chartData
+            .filter((x) => x.errorRate > 0)
+            .slice(0, 5);
 
-    // Top 3 details (from top 5)
-    const resourceIndex = loadResourceIndex();
-    const topSounds = topFiveChart.slice(0, 3);
+        // Top 3 details (from top 5)
+        const resourceIndex = loadResourceIndex();
+        const topSounds = topFiveChart.slice(0, 3);
         const topMistakes: TopMistake[] = topSounds.map((item) => {
-            const key = normalizeForResourceMatch(item.sound.replace(/\//g, ''));
+            const key = normalizeForResourceMatch(
+                item.sound.replace(/\//g, '')
+            );
             const details = errorMap.get(key);
             const mostCommonSub = details
-                ? [...details.substitutions.entries()].sort((a, b) => b[1] - a[1])[0]
+                ? [...details.substitutions.entries()].sort(
+                      (a, b) => b[1] - a[1]
+                  )[0]
                 : undefined;
             const actual = mostCommonSub ? mostCommonSub[0] : null;
 
             let mistakeSummary = `You had trouble with the ${item.sound} sound.`;
             if (actual && actual !== 'omitted')
                 mistakeSummary = `You sometimes said /${actual}/ instead of ${item.sound}.`;
-            if (actual === 'omitted') mistakeSummary = `You sometimes forgot to pronounce ${item.sound}.`;
+            if (actual === 'omitted')
+                mistakeSummary = `You sometimes forgot to pronounce ${item.sound}.`;
 
-            const help = PhonemeSuggestionDB[key] || 'Practice this sound by listening and repeating.';
-            const resources = Array.isArray((resourceIndex as any)[key]) ? (resourceIndex as any)[key].slice(0, 3) : [];
+            const help =
+                PhonemeSuggestionDB[key] ||
+                'Practice this sound by listening and repeating.';
+            const resources = Array.isArray(
+                (resourceIndex as Record<string, unknown>)[key]
+            )
+                ? (
+                      (resourceIndex as Record<string, unknown>)[
+                          key
+                      ] as unknown[]
+                  ).slice(0, 3)
+                : [];
 
             const determineLevel = (rate: number) => {
                 if (rate >= 70) return 'Needs Improvement';
@@ -184,12 +260,16 @@ class PronunciationSummaryService {
                       {
                           title: `Skill ${item.sound}`,
                           level: determineLevel(item.errorRate),
-                          resources: resources.map((r: any) => {
-                              const url = r.url;
-                              const isYouTube = /(?:youtube\.com|youtu\.be)/i.test(url);
+                          resources: resources.map((r: unknown) => {
+                              const resource = r as Record<string, unknown>;
+                              const url = resource.url;
+                              const isYouTube =
+                                  /(?:youtube\.com|youtu\.be)/i.test(
+                                      url as string
+                                  );
                               return {
-                                  title: r.name,
-                                  url,
+                                  title: resource.name as string,
+                                  url: url as string,
                                   type: isYouTube ? 'video' : 'article',
                               };
                           }),
@@ -207,7 +287,7 @@ class PronunciationSummaryService {
             };
         });
 
-    return { chartData: topFiveChart, topMistakes };
+        return { chartData: topFiveChart, topMistakes };
     }
 }
 

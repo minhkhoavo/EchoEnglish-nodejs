@@ -1,10 +1,14 @@
 import wav from 'node-wav';
 
 // Simple helpers
-const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max);
-const mean = (arr: number[]) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);
-const std = (arr: number[], m = mean(arr)) => Math.sqrt(mean(arr.map((x) => (x - m) ** 2)));
-const normalize = (val: number, min: number, max: number) => (max === min ? 0 : (val - min) / (max - min));
+const clamp = (v: number, min: number, max: number) =>
+    Math.min(Math.max(v, min), max);
+const mean = (arr: number[]) =>
+    arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
+const std = (arr: number[], m = mean(arr)) =>
+    Math.sqrt(mean(arr.map((x) => (x - m) ** 2)));
+const normalize = (val: number, min: number, max: number) =>
+    max === min ? 0 : (val - min) / (max - min);
 
 function rms(samples: Float32Array | number[]) {
     if (!samples || samples.length === 0) return 0;
@@ -14,7 +18,12 @@ function rms(samples: Float32Array | number[]) {
 }
 
 // Autocorrelation-based pitch estimator (YIN-lite)
-function estimatePitchHz(frame: Float32Array, sampleRate: number, minHz = 50, maxHz = 500): number | null {
+function estimatePitchHz(
+    frame: Float32Array,
+    sampleRate: number,
+    minHz = 50,
+    maxHz = 500
+): number | null {
     if (frame.length < sampleRate / minHz) return null;
     const minLag = Math.floor(sampleRate / maxHz);
     const maxLag = Math.floor(sampleRate / minHz);
@@ -63,23 +72,38 @@ export type FluencyAnalysis = {
     feedbacks: FluencyFeedbackItem[]; // minimal pause markers for UI
 };
 
-export type StressWord = { index: number; word: string; stressScore: number; isStressed: boolean };
+export type StressWord = {
+    index: number;
+    word: string;
+    stressScore: number;
+    isStressed: boolean;
+};
 
 class SpeechProsodyService {
     // Expect transformed object from SpeechTransformService.createTranscriptData
     analyze({
         transformed,
         audioBuffer,
-        mimeType
+        mimeType,
     }: {
-        transformed: any;
+        transformed: unknown;
         audioBuffer: Buffer;
         mimeType: string;
-    }): { prosody: ProsodyAnalysis; fluency: FluencyAnalysis; stressWords: StressWord[] } {
+    }): {
+        prosody: ProsodyAnalysis;
+        fluency: FluencyAnalysis;
+        stressWords: StressWord[];
+    } {
         // If not WAV, we can only do fluency based on timing metadata, skip waveform prosody
         let sampleRate = 0;
         let channel: Float32Array | null = null;
-        let totalSeconds = (transformed?.metadata?.duration || 0) / 1000;
+        let totalSeconds =
+            ((
+                (transformed as Record<string, unknown>)?.metadata as Record<
+                    string,
+                    unknown
+                >
+            )?.duration as number) || 0 / 1000;
 
         const isWav = /wav|wave/i.test(mimeType);
         if (isWav) {
@@ -90,17 +114,34 @@ class SpeechProsodyService {
                 if (channel && sampleRate) {
                     totalSeconds = channel.length / sampleRate;
                 }
-            } catch {}
+            } catch {
+                // Ignore errors when loading prosody data
+            }
         }
 
         // Build word timeline from transformed words (convert ms -> seconds)
-        const allWords: { word: string; start: number; end: number; index: number }[] = [];
+        const allWords: {
+            word: string;
+            start: number;
+            end: number;
+            index: number;
+        }[] = [];
         let wIndex = 0;
-        for (const seg of transformed.segments || []) {
-            for (const w of seg.words || []) {
-                const startSec = (w.offset || 0) / 1000;
-                const endSec = ((w.offset || 0) + (w.duration || 0)) / 1000;
-                allWords.push({ word: w.word, start: startSec, end: endSec, index: wIndex++ });
+        for (const seg of ((transformed as Record<string, unknown>)
+            .segments as Array<Record<string, unknown>>) || []) {
+            for (const w of (seg.words as Array<Record<string, unknown>>) ||
+                []) {
+                const startSec = ((w.offset as number) || 0) / 1000;
+                const endSec =
+                    (((w.offset as number) || 0) +
+                        ((w.duration as number) || 0)) /
+                    1000;
+                allWords.push({
+                    word: w.word as string,
+                    start: startSec,
+                    end: endSec,
+                    index: wIndex++,
+                });
             }
         }
 
@@ -112,7 +153,10 @@ class SpeechProsodyService {
         if (channel && sampleRate) {
             intensities = allWords.map((w) => {
                 const s = Math.max(0, Math.floor(w.start * sampleRate));
-                const e = Math.min(channel!.length, Math.floor(w.end * sampleRate));
+                const e = Math.min(
+                    channel!.length,
+                    Math.floor(w.end * sampleRate)
+                );
                 return rms(channel!.subarray(s, e));
             });
         }
@@ -155,8 +199,15 @@ class SpeechProsodyService {
                 const window = channel.subarray(start, start + frame);
                 const p = estimatePitchHz(window, sampleRate);
                 const e = rms(window);
-                if (p) pitch_points.push({ time: Number(t.toFixed(2)), value: Number(p.toFixed(2)) });
-                energy_points.push({ time: Number(t.toFixed(2)), value: Number((e * 100).toFixed(2)) });
+                if (p)
+                    pitch_points.push({
+                        time: Number(t.toFixed(2)),
+                        value: Number(p.toFixed(2)),
+                    });
+                energy_points.push({
+                    time: Number(t.toFixed(2)),
+                    value: Number((e * 100).toFixed(2)),
+                });
             }
         }
 
@@ -177,13 +228,24 @@ class SpeechProsodyService {
 
         // Fluency based on word timings
         const totalWords = allWords.length;
-        const words_per_minute = totalSeconds > 0 ? (totalWords / totalSeconds) * 60 : 0;
+        const words_per_minute =
+            totalSeconds > 0 ? (totalWords / totalSeconds) * 60 : 0;
         const pauseThreshold = 0.5; // seconds
-        const pauses: { start: number; duration: number; start_index: number; end_index: number }[] = [];
+        const pauses: {
+            start: number;
+            duration: number;
+            start_index: number;
+            end_index: number;
+        }[] = [];
         for (let i = 1; i < allWords.length; i++) {
             const gap = allWords[i].start - allWords[i - 1].end;
             if (gap >= pauseThreshold) {
-                pauses.push({ start: allWords[i - 1].end, duration: gap, start_index: i - 1, end_index: i });
+                pauses.push({
+                    start: allWords[i - 1].end,
+                    duration: gap,
+                    start_index: i - 1,
+                    end_index: i,
+                });
             }
         }
 
@@ -200,11 +262,34 @@ class SpeechProsodyService {
         let fluency: FluencyAnalysis = {
             words_per_minute: Number(words_per_minute.toFixed(2)),
             pausing_score: Number(pausing_score.toFixed(2)),
-            pausing_decision: pauses.length === 0 ? 'correct' : pauses.length <= 2 ? 'warning' : 'incorrect',
-            points: (transformed.segments || []).map((s: any) => {
-                const durationSec = Math.max(0.001, (s.endTime - s.startTime) / 1000);
-                const wpm = ((s.words?.length || 0) / durationSec) * 60;
-                return { time: Number((s.endTime / 1000).toFixed(2)), value: Number(wpm.toFixed(2)) };
+            pausing_decision:
+                pauses.length === 0
+                    ? 'correct'
+                    : pauses.length <= 2
+                      ? 'warning'
+                      : 'incorrect',
+            points: (
+                ((transformed as Record<string, unknown>).segments as Array<
+                    Record<string, unknown>
+                >) || []
+            ).map((s: unknown) => {
+                const segment = s as Record<string, unknown>;
+                const durationSec = Math.max(
+                    0.001,
+                    ((segment.endTime as number) -
+                        (segment.startTime as number)) /
+                        1000
+                );
+                const wpm =
+                    (((segment.words as Array<unknown>)?.length || 0) /
+                        durationSec) *
+                    60;
+                return {
+                    time: Number(
+                        ((segment.endTime as number) / 1000).toFixed(2)
+                    ),
+                    value: Number(wpm.toFixed(2)),
+                };
             }),
             feedbacks,
         };
@@ -215,18 +300,25 @@ class SpeechProsodyService {
             const step = Math.ceil(pts.length / maxPoints);
             const out: ProsodyPoint[] = [];
             for (let i = 0; i < pts.length; i += step) out.push(pts[i]);
-            if (out[out.length - 1] !== pts[pts.length - 1]) out.push(pts[pts.length - 1]);
+            if (out[out.length - 1] !== pts[pts.length - 1])
+                out.push(pts[pts.length - 1]);
             return out;
         };
 
         // Choose reasonable caps by duration (seconds)
-        const maxPoints = totalSeconds < 30 ? 80 : totalSeconds < 120 ? 140 : 200;
+        const maxPoints =
+            totalSeconds < 30 ? 80 : totalSeconds < 120 ? 140 : 200;
         prosody.pitch_points = downsample(prosody.pitch_points, maxPoints);
         prosody.energy_points = downsample(prosody.energy_points, maxPoints);
-        fluency.points = downsample(fluency.points, Math.max(10, Math.min(60, Math.round(totalSeconds))));
+        fluency.points = downsample(
+            fluency.points,
+            Math.max(10, Math.min(60, Math.round(totalSeconds)))
+        );
 
         // Keep only most relevant pauses: top 5 by duration
-        fluency.feedbacks = [...fluency.feedbacks].sort((a, b) => b.duration - a.duration).slice(0, 5);
+        fluency.feedbacks = [...fluency.feedbacks]
+            .sort((a, b) => b.duration - a.duration)
+            .slice(0, 5);
 
         return { prosody, fluency, stressWords };
     }

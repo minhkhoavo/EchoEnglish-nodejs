@@ -1,9 +1,13 @@
-import { PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import {
+    PutObjectCommand,
+    DeleteObjectCommand,
+    GetObjectCommand,
+} from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import AWS_CONFIG from '../config/awsConfig';
+import AWS_CONFIG from '../config/awsConfig.js';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
-import { ApiError } from '~/middleware/apiError';
+import { ApiError } from '~/middleware/apiError.js';
 
 export interface UploadResult {
     key: string;
@@ -17,7 +21,12 @@ class S3Service {
     private s3Client = AWS_CONFIG.s3Client;
     private bucketName = AWS_CONFIG.bucketName;
 
-    async uploadFile(file: Buffer, originalName: string, mimeType: string, folder?: string): Promise<UploadResult> {
+    async uploadFile(
+        file: Buffer,
+        originalName: string,
+        mimeType: string,
+        folder?: string
+    ): Promise<UploadResult> {
         try {
             const fileExtension = path.extname(originalName);
             const fileName = `${uuidv4()}${fileExtension}`;
@@ -41,15 +50,25 @@ class S3Service {
                 size: file.length,
                 mimeType,
             };
-        } catch (error: any) {
+        } catch (error: unknown) {
+            const errorObj = error as {
+                message?: string;
+                Code?: string;
+                name?: string;
+                $fault?: string;
+                $metadata?: { httpStatusCode?: number; requestId?: string };
+            };
             console.error('ApiError uploading file to S3:', {
-                message: error?.message,
-                code: error?.Code || error?.name,
-                fault: error?.$fault,
-                statusCode: error?.$metadata?.httpStatusCode,
-                requestId: error?.$metadata?.requestId,
+                message: errorObj?.message,
+                code: errorObj?.Code || errorObj?.name,
+                fault: errorObj?.$fault,
+                statusCode: errorObj?.$metadata?.httpStatusCode,
+                requestId: errorObj?.$metadata?.requestId,
             });
-            throw new ApiError({ message: 'Failed to upload file to S3', status: 500 });
+            throw new ApiError({
+                message: 'Failed to upload file to S3',
+                status: 500,
+            });
         }
     }
 
@@ -63,22 +82,33 @@ class S3Service {
             await this.s3Client.send(command);
         } catch (error) {
             console.error('ApiError deleting file from S3:', error);
-            throw new ApiError({ message: 'Failed to delete file from S3', status: 500 });
+            throw new ApiError({
+                message: 'Failed to delete file from S3',
+                status: 500,
+            });
         }
     }
 
-    async getPresignedUrl(key: string, expiresIn: number = 3600): Promise<string> {
+    async getPresignedUrl(
+        key: string,
+        expiresIn: number = 3600
+    ): Promise<string> {
         try {
             const command = new GetObjectCommand({
                 Bucket: this.bucketName,
                 Key: key,
             });
 
-            const signedUrl = await getSignedUrl(this.s3Client, command, { expiresIn });
+            const signedUrl = await getSignedUrl(this.s3Client, command, {
+                expiresIn,
+            });
             return signedUrl;
         } catch (error) {
             console.error('ApiError generating presigned URL:', error);
-            throw new ApiError({ message: 'Failed to generate presigned URL', status: 500 });
+            throw new ApiError({
+                message: 'Failed to generate presigned URL',
+                status: 500,
+            });
         }
     }
 }

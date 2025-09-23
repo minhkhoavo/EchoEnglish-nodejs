@@ -1,8 +1,13 @@
 import multer from 'multer';
+import { Request } from 'express';
 
 const storage = multer.memoryStorage();
 
-const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+const fileFilter = (
+    req: Request,
+    file: Express.Multer.File,
+    cb: multer.FileFilterCallback
+) => {
     const allowedMimeTypes = [
         'image/jpeg',
         'image/jpg',
@@ -33,7 +38,9 @@ const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCa
             '.wav',
             '.mp4',
         ];
-        const fileExtension = file.originalname.toLowerCase().slice(file.originalname.lastIndexOf('.'));
+        const fileExtension = file.originalname
+            .toLowerCase()
+            .slice(file.originalname.lastIndexOf('.'));
 
         if (allowedExtensions.includes(fileExtension)) {
             cb(null, true);

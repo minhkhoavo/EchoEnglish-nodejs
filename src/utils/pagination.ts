@@ -20,11 +20,11 @@ export interface PaginationResult<T> {
 export class PaginationHelper {
     static async paginate<T extends Document>(
         model: Model<T>,
-        query: any,
+        query: Record<string, unknown>,
         options: PaginationOptions,
-        populate?: any,
+        populate?: PopulateOptions | PopulateOptions[],
         select?: string,
-        sort?: any
+        sort?: Record<string, 1 | -1>
     ): Promise<PaginationResult<T>> {
         const { page, limit } = options;
         const skip = (page - 1) * limit;
@@ -32,7 +32,7 @@ export class PaginationHelper {
         const [data, total] = await Promise.all([
             model
                 .find(query)
-                .populate(populate || '')
+                .populate(populate || [])
                 .select(select || '')
                 .sort(sort || {})
                 .skip(skip)

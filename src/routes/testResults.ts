@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { testResultController } from '../controllers/testResultController';
-import { authenticateJWT } from '../middleware/authMiddleware';
+import { testResultController } from '../controllers/testResultController.js';
+import { authenticateJWT } from '../middleware/authMiddleware.js';
 
 const router = Router();
 
@@ -12,9 +12,9 @@ router.get('/history', authenticateJWT, testResultController.getTestHistory);
 
 // Get specific test result detail
 router.get(
-  '/detail/:resultId',
-  authenticateJWT,
-  testResultController.getTestResultDetail
+    '/detail/:resultId',
+    authenticateJWT,
+    testResultController.getTestResultDetail
 );
 
 // Get user test stats

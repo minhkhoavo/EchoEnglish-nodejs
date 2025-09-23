@@ -1,21 +1,34 @@
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
-import { convertMp3ToWav, makeAudioConfigFromPcm16kMonoWav } from '~/utils/audio-utils';
+import {
+    convertMp3ToWav,
+    makeAudioConfigFromPcm16kMonoWav,
+} from '~/utils/audio-utils.js';
 
 class SpeechAssessmentService {
-    async assess(buffer: Buffer, mimeType: string, referenceText: string = ''): Promise<any[]> {
+    async assess(
+        buffer: Buffer,
+        mimeType: string,
+        referenceText: string = ''
+    ): Promise<unknown[]> {
         const key = process.env.SPEECH_KEY;
         const region = process.env.SPEECH_REGION;
-        if (!key || !region) throw new Error('Missing SPEECH_KEY or SPEECH_REGION');
+        if (!key || !region)
+            throw new Error('Missing SPEECH_KEY or SPEECH_REGION');
 
         const speechConfig = sdk.SpeechConfig.fromSubscription(key, region);
         speechConfig.speechRecognitionLanguage = 'en-US';
         speechConfig.outputFormat = sdk.OutputFormat.Detailed;
-        const anyCfg = speechConfig as any;
-        if (typeof anyCfg.requestWordLevelTimestamps === 'function') anyCfg.requestWordLevelTimestamps();
+        const anyCfg = speechConfig as unknown as Record<string, unknown>;
+        if (typeof anyCfg.requestWordLevelTimestamps === 'function')
+            (anyCfg.requestWordLevelTimestamps as () => void)();
 
         let audioConfig: sdk.AudioConfig;
 
-        const isWavBuffer = (b: Buffer) => b && b.length >= 12 && b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WAVE';
+        const isWavBuffer = (b: Buffer) =>
+            b &&
+            b.length >= 12 &&
+            b.toString('ascii', 0, 4) === 'RIFF' &&
+            b.toString('ascii', 8, 12) === 'WAVE';
         let wavBuffer: Buffer = buffer;
         const isMp3 = /mp3/i.test(mimeType || '');
 
@@ -23,18 +36,25 @@ class SpeechAssessmentService {
             try {
                 wavBuffer = await convertMp3ToWav(buffer);
             } catch (err) {
-                throw new Error(`Failed to convert input to WAV: ${(err as any)?.message || err}`);
+                throw new Error(
+                    `Failed to convert input to WAV: ${(err as Error)?.message || err}`
+                );
             }
         }
 
         if (!isWavBuffer(wavBuffer)) {
-            throw new Error('Converted audio is not a valid WAV (RIFF/WAVE header missing)');
+            throw new Error(
+                'Converted audio is not a valid WAV (RIFF/WAVE header missing)'
+            );
         }
 
         try {
             audioConfig = sdk.AudioConfig.fromWavFileInput(wavBuffer);
         } catch (e) {
-            console.warn('[Speech] fromWavFileInput failed, falling back to stream input:', (e as any)?.message || e);
+            console.warn(
+                '[Speech] fromWavFileInput failed, falling back to stream input:',
+                (e as Error)?.message || e
+            );
             audioConfig = makeAudioConfigFromPcm16kMonoWav(wavBuffer);
         }
 
@@ -50,12 +70,14 @@ class SpeechAssessmentService {
             enableProsodyAssessment: true,
         };
 
-        const paConfig = sdk.PronunciationAssessmentConfig.fromJSON(JSON.stringify(paConfigJson));
+        const paConfig = sdk.PronunciationAssessmentConfig.fromJSON(
+            JSON.stringify(paConfigJson)
+        );
         paConfig.enableProsodyAssessment = true;
         paConfig.applyTo(recognizer);
 
-        return new Promise<any[]>((resolve, reject) => {
-            const results: any[] = [];
+        return new Promise<unknown[]>((resolve, reject) => {
+            const results: unknown[] = [];
             let lastPartial: string = '';
 
             recognizer.sessionStarted = (s, e) => {
@@ -64,8 +86,10 @@ class SpeechAssessmentService {
             recognizer.sessionStopped = (s, e) => {
                 console.log('[Speech] sessionStopped');
             };
-            recognizer.speechStartDetected = () => console.log('[Speech] speechStartDetected');
-            recognizer.speechEndDetected = () => console.log('[Speech] speechEndDetected');
+            recognizer.speechStartDetected = () =>
+                console.log('[Speech] speechStartDetected');
+            recognizer.speechEndDetected = () =>
+                console.log('[Speech] speechEndDetected');
             recognizer.recognizing = (s, e) => {
                 if (e.result?.text) {
                     lastPartial = e.result.text;
@@ -74,12 +98,17 @@ class SpeechAssessmentService {
             };
             recognizer.recognized = (s, e) => {
                 if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
-                    const rawResult = e.result.properties.getProperty(sdk.PropertyId.SpeechServiceResponse_JsonResult);
+                    const rawResult = e.result.properties.getProperty(
+                        sdk.PropertyId.SpeechServiceResponse_JsonResult
+                    );
                     if (rawResult) {
                         try {
                             results.push(JSON.parse(rawResult));
                         } catch (error) {
-                            console.error("Failed to parse pronunciation assessment result JSON", error);
+                            console.error(
+                                'Failed to parse pronunciation assessment result JSON',
+                                error
+                            );
                         }
                     }
                 } else if (e.result.reason === sdk.ResultReason.NoMatch) {
@@ -92,7 +121,9 @@ class SpeechAssessmentService {
                     () => {
                         recognizer.close();
                         if (!results.length) {
-                            console.warn('[Speech] sessionStopped with zero results');
+                            console.warn(
+                                '[Speech] sessionStopped with zero results'
+                            );
                         }
                         resolve(results);
                     },
@@ -107,28 +138,47 @@ class SpeechAssessmentService {
                 const reason = e.reason;
                 const code = e.errorCode;
                 const details = e.errorDetails;
-                const reasonName = sdk.CancellationReason[reason as any] || reason;
-                console.error('[Speech] Canceled:', { reason, reasonName, code, details });
+                const reasonName =
+                    (sdk.CancellationReason as Record<string, unknown>)[
+                        reason as unknown as string
+                    ] || reason;
+                console.error('[Speech] Canceled:', {
+                    reason,
+                    reasonName,
+                    code,
+                    details,
+                });
                 let hint = '';
                 if (reason === sdk.CancellationReason.Error) {
                     if (!details) {
-                        hint = 'No errorDetails supplied. Possible causes: invalid subscription key/region, audio format mismatch, empty audio, network issue.';
+                        hint =
+                            'No errorDetails supplied. Possible causes: invalid subscription key/region, audio format mismatch, empty audio, network issue.';
                     } else if (/Forbidden|401|403/i.test(details)) {
-                        hint = 'Check SPEECH_KEY / SPEECH_REGION environment variables.';
+                        hint =
+                            'Check SPEECH_KEY / SPEECH_REGION environment variables.';
                     } else if (/format|header|chunk/i.test(details)) {
-                        hint = 'Audio format issue. Ensure 16kHz 16-bit mono PCM WAV.';
+                        hint =
+                            'Audio format issue. Ensure 16kHz 16-bit mono PCM WAV.';
                     }
                 } else if (reason === sdk.CancellationReason.EndOfStream) {
-                    hint = 'Stream ended unexpectedly. Verify the WAV data chunk length.';
+                    hint =
+                        'Stream ended unexpectedly. Verify the WAV data chunk length.';
                 }
                 if (hint) console.error('[Speech] Hint:', hint);
-                const finish = (err?: any, treatAsSuccess = false) => {
+                const finish = (err?: Error, treatAsSuccess = false) => {
                     recognizer.close();
                     if (treatAsSuccess) {
                         if (!results.length && lastPartial) {
                             results.push({
                                 DisplayText: lastPartial,
-                                NBest: [ { Lexical: lastPartial, ITN: lastPartial, MaskedITN: lastPartial, Display: lastPartial } ],
+                                NBest: [
+                                    {
+                                        Lexical: lastPartial,
+                                        ITN: lastPartial,
+                                        MaskedITN: lastPartial,
+                                        Display: lastPartial,
+                                    },
+                                ],
                                 RecognitionStatus: 'Success',
                                 Duration: 0,
                             });
@@ -136,20 +186,30 @@ class SpeechAssessmentService {
                         return resolve(results);
                     }
                     if (err) return reject(err);
-                    reject(new Error(`Recognition canceled. reason=${reasonName} code=${code} details=${details || 'n/a'} ${hint}`));
+                    reject(
+                        new Error(
+                            `Recognition canceled. reason=${reasonName} code=${code} details=${details || 'n/a'} ${hint}`
+                        )
+                    );
                 };
 
                 if (reason === sdk.CancellationReason.EndOfStream) {
-                    console.log('[Speech] Treating EndOfStream as graceful end. Using collected results / partials.');
+                    console.log(
+                        '[Speech] Treating EndOfStream as graceful end. Using collected results / partials.'
+                    );
                     return finish(undefined, true);
                 }
 
-                recognizer.stopContinuousRecognitionAsync(() => finish(), (err) => finish(err));
+                recognizer.stopContinuousRecognitionAsync(
+                    () => finish(),
+                    (err) => finish(new Error(err))
+                );
             };
 
             recognizer.startContinuousRecognitionAsync(
                 () => {
-                    console.log('Recognition started');},
+                    console.log('Recognition started');
+                },
                 (err) => {
                     recognizer.close();
                     reject(err);

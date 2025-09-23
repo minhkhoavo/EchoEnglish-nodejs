@@ -1,50 +1,54 @@
-import { TransactionType } from "./../../enum/transactionType";
-import { PaymentStatus } from "~/enum/paymentStatus";
-import { Payment } from "../../models/payment";
-import { PaymentGateway } from "~/enum/paymentGateway";
-import { ErrorMessage } from "~/enum/errorMessage";
-import { ApiError } from "~/middleware/apiError";
-import { PromoCode, PromoCodeType } from "../../models/promoCode";
+import { TransactionType } from '~/enum/transactionType.js';
+import { PaymentStatus } from '~/enum/paymentStatus.js';
+import { Payment } from '~/models/payment.js';
+import { PaymentGateway } from '~/enum/paymentGateway.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { ApiError } from '~/middleware/apiError.js';
+import { PromoCode, PromoCodeType } from '../../models/promoCode.js';
 
 interface PromoInput {
-  code: string;
-  discount: number;
-  expiration?: Date;
-  usageLimit?: number;
+    code: string;
+    discount: number;
+    expiration?: Date;
+    usageLimit?: number;
 }
 
 class PromoService {
-    public async deletePromo(id: string){
+    public async deletePromo(id: string) {
         const promo = await PromoCode.findByIdAndDelete(id);
-        if(!promo){
-            throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND)
+        if (!promo) {
+            throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
         }
         return promo;
     }
 
-    public async updatePromo(id: string, data: Partial<PromoCodeType>){
-        return await PromoCode.findByIdAndUpdate(id, data, {new : true})
+    public async updatePromo(id: string, data: Partial<PromoCodeType>) {
+        return await PromoCode.findByIdAndUpdate(id, data, { new: true });
     }
 
-    public async getPromoById(id: string){
+    public async getPromoById(id: string) {
         const promo = await PromoCode.findById(id);
-        if(!promo){
+        if (!promo) {
             throw new ApiError(ErrorMessage.PROMOTION_NOT_FOUND);
         }
         return promo;
     }
 
     /* Search promos */
-    public async getAllPromos(search: string = '', page: number = 1, limit: number = 10){
-        const query : any = {};
-        if(search){
-            query.code = { $regex: search, $options: 'i'};
+    public async getAllPromos(
+        search: string = '',
+        page: number = 1,
+        limit: number = 10
+    ) {
+        const query: Record<string, unknown> = {};
+        if (search) {
+            query.code = { $regex: search, $options: 'i' };
         }
 
         const total = await PromoCode.countDocuments(query);
         const promos = await PromoCode.find(query)
-            .sort({creatAt: -1})
-            .skip((page-1)*limit)
+            .sort({ creatAt: -1 })
+            .skip((page - 1) * limit)
             .limit(limit);
 
         return {
@@ -53,12 +57,17 @@ class PromoService {
                 total,
                 page,
                 limit,
-                totalPages: Math.ceil(total/limit)
-            }
-        }
+                totalPages: Math.ceil(total / limit),
+            },
+        };
     }
 
-    createPromoCode = async ({ code, discount, expiration, usageLimit }: PromoInput) => {
+    createPromoCode = async ({
+        code,
+        discount,
+        expiration,
+        usageLimit,
+    }: PromoInput) => {
         if (!code || !discount) {
             throw new ApiError(ErrorMessage.INVALID_PROMO_DATA);
         }
@@ -77,13 +86,16 @@ class PromoService {
 
         return promo;
     };
-    
+
     validatePromoCode = async (code: string) => {
         if (!code) {
             throw new ApiError(ErrorMessage.PROMO_CODE_REQUIRED);
         }
 
-        const promo = await PromoCode.findOne({ code: code.toUpperCase(), active: true });
+        const promo = await PromoCode.findOne({
+            code: code.toUpperCase(),
+            active: true,
+        });
         if (!promo) {
             throw new ApiError(ErrorMessage.PROMO_NOT_FOUND);
         }

@@ -1,14 +1,14 @@
-import { UserCreateRequest } from '~/dto/request/iam/userCreateRequest';
-import { User, UserType } from '../models/userModel';
+import { UserCreateRequest } from '~/dto/request/iam/userCreateRequest.js';
+import { User, UserType } from '../models/userModel.js';
 import bcrypt from 'bcrypt';
-import { ErrorMessage } from '~/enum/errorMessage';
-import { OtpEmailService } from './otpEmailService';
-import { OtpPurpose } from '~/enum/otpPurpose';
-import { Role, RoleType } from '~/models/roleModel';
-import { RoleName } from '~/enum/role';
-import { ApiError } from '~/middleware/apiError';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { OtpEmailService } from './otpEmailService.js';
+import { OtpPurpose } from '~/enum/otpPurpose.js';
+import { Role, RoleType } from '~/models/roleModel.js';
+import { RoleName } from '~/enum/role.js';
+import { ApiError } from '~/middleware/apiError.js';
 import { error } from 'console';
-import { List } from 'microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common/List';
+import { List } from 'microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common/List.js';
 import { Types } from 'mongoose';
 
 const otpService = new OtpEmailService();
@@ -31,12 +31,14 @@ class UserService {
                             if (existUser.isDeleted === false) {
                                 throw new ApiError(ErrorMessage.USER_EXISTED);
                             }
-                            return otpService.sendOtp(existUser.email, OtpPurpose.REGISTER).then(() =>
-                                User.populate(existUser, {
-                                    path: 'roles',
-                                    populate: { path: 'permissions' },
-                                })
-                            );
+                            return otpService
+                                .sendOtp(existUser.email, OtpPurpose.REGISTER)
+                                .then(() =>
+                                    User.populate(existUser, {
+                                        path: 'roles',
+                                        populate: { path: 'permissions' },
+                                    })
+                                );
                         }
 
                         return Role.findOne({ name: RoleName.USER })
@@ -44,7 +46,9 @@ class UserService {
                             .exec()
                             .then((userRole) => {
                                 if (!userRole) {
-                                    throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
+                                    throw new ApiError(
+                                        ErrorMessage.ROLE_NOT_FOUND
+                                    );
                                 }
 
                                 const user = new User({
@@ -64,12 +68,14 @@ class UserService {
                             });
                     })
                     .then((savedUser) => {
-                        return otpService.sendOtp(savedUser.email, OtpPurpose.REGISTER).then(() =>
-                            User.populate(savedUser, {
-                                path: 'roles',
-                                populate: { path: 'permissions' },
-                            })
-                        );
+                        return otpService
+                            .sendOtp(savedUser.email, OtpPurpose.REGISTER)
+                            .then(() =>
+                                User.populate(savedUser, {
+                                    path: 'roles',
+                                    populate: { path: 'permissions' },
+                                })
+                            );
                     });
             })
             .catch((err) => {
@@ -96,8 +102,10 @@ class UserService {
                             .exec()
                             .then((userRole) => {
                                 if (!userRole) {
-                                    throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
-                                } 
+                                    throw new ApiError(
+                                        ErrorMessage.ROLE_NOT_FOUND
+                                    );
+                                }
                                 const user = new User({
                                     fullName: userDto.fullName,
                                     email: userDto.email,
@@ -148,77 +156,76 @@ class UserService {
     };
 
     public updateUser = async (userId: string, request: Partial<UserType>) => {
-        try {
-            const user = await User.findOneAndUpdate({ _id: userId, isDeleted: false }, request, { new: true }).select(
-                '-password -isDeleted -__v'
-            );
-            if (!user) {
-                throw new ApiError(ErrorMessage.USER_NOT_FOUND);
-            }
-
-            return User.findOne({ email: user.email, isDeleted: false })
-                .then((user) => {
-                    if (!user) {
-                        throw new ApiError(ErrorMessage.USER_NOT_FOUND);
-                    }
-                    return {
-                        id: user._id,
-                        fullName: user.fullName,
-                        gender: user.gender,
-                        dob: user.dob,
-                        email: user.email,
-                        phoneNumber: user.phoneNumber,
-                        address: user.address,
-                        image: user.image,
-                        roles: user.roles,
-                        createBy: user.createBy,
-                        updateBy: user.updateBy,
-                    };
-                })
-                .catch((error) => {
-                    throw error;
-                });
-        } catch (err) {
-            throw err;
+        const user = await User.findOneAndUpdate(
+            { _id: userId, isDeleted: false },
+            request,
+            { new: true }
+        ).select('-password -isDeleted -__v');
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
+
+        return User.findOne({ email: user.email, isDeleted: false })
+            .then((user) => {
+                if (!user) {
+                    throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+                }
+                return {
+                    id: user._id,
+                    fullName: user.fullName,
+                    gender: user.gender,
+                    dob: user.dob,
+                    email: user.email,
+                    phoneNumber: user.phoneNumber,
+                    address: user.address,
+                    image: user.image,
+                    roles: user.roles,
+                    createBy: user.createBy,
+                    updateBy: user.updateBy,
+                };
+            })
+            .catch((error) => {
+                throw error;
+            });
     };
 
-    public updateProfileUser = async (userId: string, request: Partial<UserType>) => {
-        try {
-            const user = await User.findOneAndUpdate({ _id: userId, isDeleted: false }, request, { new: true }).select(
-                '-password -roles -isDeleted -__v'
-            ); // options { new: true } để trả về document mới nhất (sau khi update)
-            if (!user) {
-                throw new ApiError(ErrorMessage.USER_NOT_FOUND);
-            }
-            return {
-                id: user._id,
-                fullName: user.fullName,
-                email: user.email,
-                gender: user.gender,
-                dob: user.dob,
-                phoneNumber: user.phoneNumber,
-                address: user.address,
-                image: user.image,
-            };
-        } catch (err) {
-            throw err;
+    public updateProfileUser = async (
+        userId: string,
+        request: Partial<UserType>
+    ) => {
+        const user = await User.findOneAndUpdate(
+            { _id: userId, isDeleted: false },
+            request,
+            { new: true }
+        ).select('-password -roles -isDeleted -__v'); // options { new: true } để trả về document mới nhất (sau khi update)
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
+        return {
+            id: user._id,
+            fullName: user.fullName,
+            email: user.email,
+            gender: user.gender,
+            dob: user.dob,
+            phoneNumber: user.phoneNumber,
+            address: user.address,
+            image: user.image,
+        };
     };
 
     public softDelete = async (userId: string) => {
-        try {
-            await User.findByIdAndUpdate(userId, { isDeleted: true }, { new: true });
-        } catch (err) {
-            throw err;
-        }
+        await User.findByIdAndUpdate(
+            userId,
+            { isDeleted: true },
+            { new: true }
+        );
     };
 
     public isAdmin = async (userScope: string) => {
         const roles = await Role.find({ _id: userScope });
-        const isAdmin = roles.some((role: RoleType) => role.name === "ADMIN");
+        const isAdmin = roles.some((role: RoleType) => role.name === 'ADMIN');
         return isAdmin;
-    }
+    };
 }
 
 export default UserService;

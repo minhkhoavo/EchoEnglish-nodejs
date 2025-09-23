@@ -10,13 +10,20 @@ class PromptManagerService {
             return this.promptCache.get(templateName)!;
         }
 
-        const promptPath = path.join(__dirname, '../prompts/templates/speaking', `${templateName}.txt`);
+        const promptPath = path.join(
+            __dirname,
+            '../prompts/templates/speaking',
+            `${templateName}.txt`
+        );
         try {
             const template = await fs.readFile(promptPath, 'utf-8');
             this.promptCache.set(templateName, template);
             return template;
         } catch (error) {
-            console.error(`Error reading prompt template: ${templateName}`, error);
+            console.error(
+                `Error reading prompt template: ${templateName}`,
+                error
+            );
             throw new Error(`Prompt template ${templateName} not found.`);
         }
     }

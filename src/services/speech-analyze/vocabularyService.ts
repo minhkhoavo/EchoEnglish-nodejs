@@ -5,13 +5,21 @@ type CEFREntry = Record<string, string>;
 
 function resolveCefrPath(): string | null {
     const candidates = [
-        path.join(process.cwd(), 'dist', 'resources', 'data', 'cefr_words.json'),
+        path.join(
+            process.cwd(),
+            'dist',
+            'resources',
+            'data',
+            'cefr_words.json'
+        ),
         path.join(process.cwd(), 'src', 'resources', 'data', 'cefr_words.json'),
     ];
     for (const p of candidates) {
         try {
             if (fs.existsSync(p)) return p;
-        } catch {}
+        } catch {
+            /* ignore error */
+        }
     }
     return null;
 }
@@ -24,14 +32,18 @@ function loadCefrMap(): CEFREntry {
         const obj = JSON.parse(raw);
         return obj || {};
     } catch {
-        return {};
+        return {
+            /* ignore error */
+        };
     }
 }
 
 const cefrMap = loadCefrMap();
 
 function normalizeWord(w: string): string {
-    return String(w || '').toLowerCase().replace(/[^a-z']/g, '');
+    return String(w || '')
+        .toLowerCase()
+        .replace(/[^a-z']/g, '');
 }
 
 export type VocabularyAnalysis = {
@@ -44,11 +56,12 @@ export type VocabularyAnalysis = {
     topAdvanced: { word: string; level: string }[]; // frequent words at B2/C1/C2
 };
 
-function analyzeVocabulary(transformed: any): VocabularyAnalysis {
+function analyzeVocabulary(transformed: unknown): VocabularyAnalysis {
     const words: string[] = [];
-    for (const seg of transformed.segments || []) {
-        for (const w of seg.words || []) {
-            const normalized = normalizeWord(w.word || '');
+    for (const seg of ((transformed as Record<string, unknown>)
+        .segments as Array<Record<string, unknown>>) || []) {
+        for (const w of (seg.words as Array<Record<string, unknown>>) || []) {
+            const normalized = normalizeWord((w.word as string) || '');
             if (normalized) words.push(normalized);
         }
     }

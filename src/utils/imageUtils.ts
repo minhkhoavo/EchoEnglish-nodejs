@@ -30,14 +30,18 @@ export async function imageUrlToDataUrl(imageUrl: string): Promise<string> {
         const buffer = Buffer.from(arrayBuffer);
         let contentType = res.headers.get('content-type') || '';
         if (!contentType) {
-            const ext = path.extname(new URL(imageUrl).pathname).replace('.', '');
+            const ext = path
+                .extname(new URL(imageUrl).pathname)
+                .replace('.', '');
             contentType = mimeFromExt(ext);
         }
         return `data:${contentType};base64,${buffer.toString('base64')}`;
     }
 
     try {
-        const resolved = path.isAbsolute(imageUrl) ? imageUrl : path.resolve(process.cwd(), imageUrl);
+        const resolved = path.isAbsolute(imageUrl)
+            ? imageUrl
+            : path.resolve(process.cwd(), imageUrl);
         const fileBuffer = await fs.readFile(resolved);
         const ext = path.extname(resolved).replace('.', '');
         const contentType = mimeFromExt(ext);

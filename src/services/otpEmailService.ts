@@ -1,9 +1,9 @@
-import { OtpPurpose } from '~/enum/otpPurpose';
+import { OtpPurpose } from '~/enum/otpPurpose.js';
 import crypto from 'crypto';
-import { Otp, OtpType } from '~/models/otpModel';
-import { mailTransporter } from '~/config/configEmail';
-import { User } from '~/models/userModel';
-import { ErrorMessage } from '~/enum/errorMessage';
+import { Otp, OtpType } from '~/models/otpModel.js';
+import { mailTransporter } from '~/config/configEmail.js';
+import { User } from '~/models/userModel.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
 
 const OTP_EXPIRY_MINUTES = 10;
 
@@ -14,7 +14,10 @@ export class OtpEmailService {
         this.senderEmail = process.env.SMTP_USER || '';
     }
 
-    public sendOtp = async (email: string, purpose: OtpPurpose): Promise<string> => {
+    public sendOtp = async (
+        email: string,
+        purpose: OtpPurpose
+    ): Promise<string> => {
         const normalizedEmail = email.trim().toLowerCase();
         const otpCode = this.generateOtp();
         const expiry = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60 * 1000);
@@ -36,8 +39,15 @@ export class OtpEmailService {
         return String(n);
     }
 
-    private sendOtpEmail = async (recipientEmail: string, otpCode: string, purpose: OtpPurpose) => {
-        const subject = purpose === OtpPurpose.REGISTER ? 'Confirm Your Registration' : 'OTP for Password Reset';
+    private sendOtpEmail = async (
+        recipientEmail: string,
+        otpCode: string,
+        purpose: OtpPurpose
+    ) => {
+        const subject =
+            purpose === OtpPurpose.REGISTER
+                ? 'Confirm Your Registration'
+                : 'OTP for Password Reset';
 
         await mailTransporter.sendMail({
             from: this.senderEmail,
@@ -66,7 +76,11 @@ export class OtpEmailService {
         return htmlContent;
     }
 
-    public verifyOtp = async (email: string, otpCode: string, purpose: OtpPurpose): Promise<boolean> => {
+    public verifyOtp = async (
+        email: string,
+        otpCode: string,
+        purpose: OtpPurpose
+    ): Promise<boolean> => {
         const normalizedEmail = email.toLowerCase();
         return Otp.findOne({ email: normalizedEmail, otp: otpCode, purpose })
             .exec()
