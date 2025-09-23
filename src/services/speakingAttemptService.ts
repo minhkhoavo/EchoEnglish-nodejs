@@ -1,5 +1,4 @@
 import mongoose, { Types } from 'mongoose';
-import S3Service from '~/services/s3Service.js';
 import SpeechAssessmentService from '~/services/speech-analyze/speechAssessmentService.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
@@ -68,6 +67,8 @@ interface AttemptDocument {
     testIdNumeric: number;
     submissionTimestamp: Date;
     status: string;
+    totalScore: number;
+    level: string;
     parts: AttemptPart[];
     createdAt: Date;
 }
@@ -162,6 +163,8 @@ export default class SpeakingAttemptService {
             testIdNumeric: tid!,
             submissionTimestamp: now,
             status: 'in_progress',
+            totalScore: 0,
+            level: 'Beginner',
             parts,
             createdAt: now,
         };
@@ -311,6 +314,8 @@ export default class SpeakingAttemptService {
                             '[speakingAttempt] AI scoring result:',
                             scoreResult
                         );
+
+                        // Save the per-question result
                         await db.collection('toeic_speaking_results').updateOne(
                             {
                                 _id: attemptObjectId,
@@ -340,6 +345,52 @@ export default class SpeakingAttemptService {
                                             params.questionNumber,
                                     },
                                 ],
+                            }
+                        );
+
+                        const roundTo10 = (n: number) =>
+                            Math.round(n / 10) * 10;
+                        const overall =
+                            scoreResult &&
+                            typeof scoreResult.overallScore === 'number'
+                                ? scoreResult.overallScore
+                                : undefined;
+                        let perQuestionScaled = 0;
+                        if (typeof overall === 'number' && !isNaN(overall)) {
+                            perQuestionScaled = roundTo10((overall / 35) * 200);
+                        }
+
+                        // Fetch current totalScore
+                        const currentTotal =
+                            typeof attemptDoc?.totalScore === 'number'
+                                ? attemptDoc.totalScore
+                                : 0;
+                        const newTotal = Math.max(
+                            0,
+                            Math.min(
+                                200,
+                                Math.round(currentTotal + perQuestionScaled)
+                            )
+                        );
+                        const overallPercentage = (newTotal / 200) * 100;
+
+                        function getProficiencyFromPercent(pct: number) {
+                            if (pct >= 90) return 'Expert';
+                            if (pct >= 75) return 'Advanced';
+                            if (pct >= 50) return 'Intermediate';
+                            return 'Beginner';
+                        }
+
+                        const newLevel =
+                            getProficiencyFromPercent(overallPercentage);
+
+                        await db.collection('toeic_speaking_results').updateOne(
+                            { _id: attemptObjectId },
+                            {
+                                $set: {
+                                    totalScore: newTotal,
+                                    level: newLevel,
+                                },
                             }
                         );
                     } catch (scoreErr) {
@@ -449,6 +500,26 @@ export default class SpeakingAttemptService {
 
         if (!res.matchedCount) throw new ApiError(ErrorMessage.NOTFOUND);
         return { status: 'completed' };
+    }
+
+    public async getAllSpeakingAttempts(options?: { userId?: string }) {
+        const db = await this.getDb();
+        const { userId } = options || {};
+
+        const query: Record<string, unknown> = {};
+        if (userId) {
+            try {
+                query.userId = this.toObjectId(userId);
+            } catch {
+                query.userId = userId;
+            }
+        }
+
+        return await db
+            .collection('toeic_speaking_results')
+            .find(query, { projection: { parts: 0 } })
+            .sort({ createdAt: -1 })
+            .toArray();
     }
 }
 

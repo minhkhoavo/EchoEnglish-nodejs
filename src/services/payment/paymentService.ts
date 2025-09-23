@@ -137,14 +137,14 @@ class PaymentService {
         }
 
         /* Sau giam gia van khong du tien */
-        if (user.tokens < tokens) {
+        if (user.credits < tokens) {
             throw new ApiError(ErrorMessage.NOT_ENOUGH_TOKENS);
         }
 
         // cập nhật token user
         const userUpdated = await User.findByIdAndUpdate(
             { _id: user._id },
-            { $inc: { tokens: -tokens } },
+            { $inc: { credits: -tokens } },
             { new: true }
         )
             .lean<UserType>()
@@ -165,7 +165,7 @@ class PaymentService {
             transactionId: transaction._id,
             status: transaction.status,
             tokensDeducted: tokens,
-            userTokenBalance: userUpdated?.tokens,
+            userTokenBalance: userUpdated?.credits,
         };
     };
 
@@ -178,7 +178,13 @@ class PaymentService {
         if (!request.tokens && request.tokens! <= 0)
             throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
-        const amount = request.tokens! * 1000;
+        let amount = request.tokens! * 1000;
+        if (request.promoCode) {
+            const promo = await PromoCode.findOne({ code: request.promoCode });
+            amount = amount * (1 - promo.discount / 100);
+        }
+
+        if (amount < 0) throw new ApiError(ErrorMessage.AMOUNT_INVALID);
 
         const now = new Date();
         const expiredAt = new Date(now.getTime() + 15 * 60 * 1000); // Hết hạn sau 15 phút
@@ -190,7 +196,7 @@ class PaymentService {
             description: request.description,
             amount,
             promoCode: request.promoCode,
-            status: PaymentStatus.INITIATED,
+            status: PaymentStatus.PENDING,
             paymentGateway: request.paymentGateway,
             expiredAt,
         });
@@ -225,6 +231,21 @@ class PaymentService {
             status: payment.status,
             expiredAt: payment.expiredAt,
         };
+    };
+
+    public triggerExpiredPayment = async () => {
+        const now = new Date();
+        const result = await Payment.updateMany(
+            {
+                status: PaymentStatus.PENDING,
+                expiredAt: { $lte: now },
+            },
+            { $set: { status: PaymentStatus.EXPIRED } }
+        );
+
+        if (result.modifiedCount > 0) {
+            console.log(`Expired ${result.modifiedCount} payments`);
+        }
     };
 }
 

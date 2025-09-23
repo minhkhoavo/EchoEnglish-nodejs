@@ -46,6 +46,7 @@ const flashcardSchema = new Schema(
     },
     {
         collection: 'flashcards',
+        timestamps: true,
     }
 );
 

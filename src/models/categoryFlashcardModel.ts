@@ -28,6 +28,10 @@ const categoryFlashcardSchema = new Schema(
             default: '',
             trim: true,
         },
+        is_default: {
+            type: Boolean,
+            default: false,
+        },
         createBy: {
             type: Schema.Types.ObjectId,
             ref: 'User',
@@ -36,6 +40,7 @@ const categoryFlashcardSchema = new Schema(
     },
     {
         collection: 'category_flashcards',
+        timestamps: true,
     }
 );
 

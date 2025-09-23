@@ -57,6 +57,21 @@ class UserController {
             new ApiResponse(SuccessMessage.DELETE_USER_SUCCESS)
         );
     };
+
+    public getCredit = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const user = await this.userService.getUserById(userId);
+        if (!user) {
+            return res
+                .status(404)
+                .json(new ApiError(ErrorMessage.USER_NOT_FOUND));
+        }
+        return res.status(200).json(
+            new ApiResponse(SuccessMessage.GET_SUCCESS, {
+                credits: user.credits,
+            })
+        );
+    };
 }
 
 export default UserController;

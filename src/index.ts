@@ -9,6 +9,7 @@ import ErrorMiddleware from './middleware/errorMiddleware.js';
 import paymentController from '~/controllers/paymentController.js';
 import cron from 'node-cron';
 import resourceService from './services/transcription/resourceService.js';
+import paymentService from './services/payment/paymentService.js';
 
 dotenv.config();
 
@@ -28,6 +29,11 @@ app.post(
 cron.schedule('0 0 * * 0', async () => {
     console.log('[CRON] Trigger RSS fetching...');
     await resourceService.fetchAndSaveAllRss();
+});
+
+cron.schedule('*/1 * * * *', async () => {
+    console.log('[CRON] Trigger Check Payment Expired fetching...');
+    await paymentService.triggerExpiredPayment();
 });
 
 // app.use(morgan('combined'));

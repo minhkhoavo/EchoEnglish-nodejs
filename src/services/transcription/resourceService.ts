@@ -7,18 +7,23 @@ import { ResourceType } from '~/enum/resourceType.js';
 import Parser from 'rss-parser';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
-import { YoutubeTranscript } from 'youtube-transcript';
+import { YoutubeTranscript } from '@danielxceron/youtube-transcript';
 import { PaginationHelper } from '~/utils/pagination.js';
+import { Domain } from 'domain';
 import { FilterQuery } from 'mongoose';
+import { Style } from '~/enum/style.js';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import pLimit from 'p-limit';
-
 class ResourceService {
     async fetchArticleText(url: string): Promise<string> {
         try {
-            const { data } = await axios.get(url, { timeout: 10000 });
-            const $ = cheerio.load(data as string);
+            const { data } = await axios.get(url, {
+                timeout: 10000,
+                responseType: 'text',
+            });
+            const html = typeof data === 'string' ? data : String(data);
+            const $ = cheerio.load(html as string);
 
             // Ưu tiên lấy text trong <article>
             const articleText = $('article').text().replace(/\s+/g, ' ').trim();

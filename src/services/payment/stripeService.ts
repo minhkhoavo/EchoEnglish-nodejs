@@ -65,7 +65,7 @@ class StripeService {
                 // cộng token cho user
                 if (payment.user && payment.tokens && payment.tokens > 0) {
                     await User.findByIdAndUpdate(payment.user, {
-                        $inc: { tokens: payment.tokens },
+                        $inc: { credits: payment.tokens },
                     });
                 }
 

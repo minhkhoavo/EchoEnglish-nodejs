@@ -13,8 +13,10 @@ import { OtpPurpose } from '~/enum/otpPurpose.js';
 import { Role, RoleType } from '~/models/roleModel.js';
 import { RoleName } from '~/enum/role.js';
 import { ApiError } from '~/middleware/apiError.js';
+import CategoryFlashcardService from './categoryFlashcardService.js';
 
 const otpEmailService = new OtpEmailService();
+const categoryService = new CategoryFlashcardService();
 
 class UserService {
     public getUserById = async (id: string): Promise<UserResponse> => {
@@ -128,6 +130,17 @@ class UserService {
             roles: [userRole._id],
         });
         const savedUser = await user.save();
+
+        // Tạo category mặc định cho user
+
+        await categoryService.createCategory(
+            {
+                name: 'Uncategorized',
+                description: 'Default category for uncategorized flashcards',
+                is_default: true,
+            },
+            savedUser._id.toString()
+        );
         return omit(savedUser.toObject(), [
             'password',
             'isDeleted',

@@ -122,14 +122,14 @@ class VnPayService {
         }
 
         payment.status = isSuccess
-            ? PaymentStatus.PENDING
+            ? PaymentStatus.SUCCEEDED
             : PaymentStatus.FAILED;
         await payment.save();
 
         return {
             success: isSuccess,
             message: isSuccess
-                ? SuccessMessage.PAYMENT_PENDING
+                ? SuccessMessage.PAYMENT_STATUS_SUCCESS
                 : ErrorMessage.PAYMENT_FAILED,
             paymentId: payment._id.toString(),
             status: payment.status,
@@ -182,7 +182,7 @@ class VnPayService {
 
                 if (user) {
                     await User.findByIdAndUpdate(payment.user, {
-                        $inc: { tokens: payment.tokens },
+                        $inc: { credits: payment.tokens },
                     });
                 }
                 return { RspCode: '00', Message: 'Confirm Success' };
@@ -203,7 +203,7 @@ class VnPayService {
             return;
         const user = await User.findById(payment.user);
         if (user && payment.tokens! > 0) {
-            user.tokens = (user.tokens || 0) + payment.tokens;
+            user.credits = (user.credits || 0) + payment.tokens;
             await user.save();
             await new Payment({
                 user: payment.user,

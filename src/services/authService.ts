@@ -24,7 +24,7 @@ class AuthService {
         }
 
         const token = await this.generateToken(user);
-        return { token, authenticated: true, user };
+        return { token, authenticated: true };
     };
 
     public generateToken = (user: UserType) => {

@@ -80,23 +80,23 @@ class SpeechAssessmentService {
             const results: unknown[] = [];
             let lastPartial: string = '';
 
-            recognizer.sessionStarted = (s, e) => {
+            recognizer.sessionStarted = () => {
                 console.log('[Speech] sessionStarted');
             };
-            recognizer.sessionStopped = (s, e) => {
+            recognizer.sessionStopped = () => {
                 console.log('[Speech] sessionStopped');
             };
             recognizer.speechStartDetected = () =>
                 console.log('[Speech] speechStartDetected');
             recognizer.speechEndDetected = () =>
                 console.log('[Speech] speechEndDetected');
-            recognizer.recognizing = (s, e) => {
+            recognizer.recognizing = (_, e) => {
                 if (e.result?.text) {
                     lastPartial = e.result.text;
                     // console.log('[Speech] recognizing partial:', e.result.text);
                 }
             };
-            recognizer.recognized = (s, e) => {
+            recognizer.recognized = (_, e) => {
                 if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
                     const rawResult = e.result.properties.getProperty(
                         sdk.PropertyId.SpeechServiceResponse_JsonResult

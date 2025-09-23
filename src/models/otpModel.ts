@@ -23,6 +23,7 @@ const otpSchema = new Schema(
         },
     },
     {
+        timestamps: true,
         collection: 'otps',
     }
 );
