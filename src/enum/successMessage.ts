@@ -15,9 +15,9 @@ export enum SuccessMessage {
 
     /* global */
     GET_SUCCESS = 'Get successfully',
-    CREATE_SUCCESS = 'CREATE successfully',
-    DELETE_SUCCESS = 'Delete success',
-    UPDATE_SUCCESS = 'UPDATE_SUCCESS',
+    CREATE_SUCCESS = 'Ceate successfully',
+    DELETE_SUCCESS = 'Delete successfully',
+    UPDATE_SUCCESS = 'Update successfully',
 
     /* category */
     DELETE_CATEGORY_SUCCESS = 'Delete category successfully',
