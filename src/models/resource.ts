@@ -19,7 +19,6 @@ const resourceSchema = new Schema(
         },
         title: { type: String },
         publishedAt: { type: Date },
-        lang: { type: String, default: 'en' },
         summary: { type: String },
         content: { type: String },
         keyPoints: [{ type: String }], //mảng các ý chính
