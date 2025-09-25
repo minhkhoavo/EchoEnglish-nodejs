@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
+import { RoleName } from '~/enum/role.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import resourceService from '~/services/transcription/resourceService.js';
@@ -61,7 +62,7 @@ class ResourceController {
         if (!userScope) {
             throw new ApiError(ErrorMessage.UNAUTHORIZED);
         }
-        const isAdmin = await this.userService.isAdmin(userScope);
+        const isAdmin = userScope === RoleName.ADMIN;
         console.log(req.user?.scope);
 
         let sortOption: Record<string, 1 | -1> = {};

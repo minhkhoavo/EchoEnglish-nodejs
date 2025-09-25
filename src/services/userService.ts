@@ -207,12 +207,6 @@ class UserService {
         user.isDeleted = true;
         await user.save();
     };
-
-    public isAdmin = async (userScope: string): Promise<boolean> => {
-        const roles = await Role.find({ _id: userScope });
-        const isAdmin = roles.some((role: RoleType) => role.name === 'ADMIN');
-        return isAdmin;
-    };
 }
 
 export default UserService;

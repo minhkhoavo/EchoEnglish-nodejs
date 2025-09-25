@@ -239,14 +239,18 @@ class ResourceService {
     ) => {
         try {
             const query: FilterQuery<ResourceTypeModel> = {};
-
+            console.log(isAdmin);
             if (!isAdmin) {
                 query.suitableForLearners =
                     filters.suitableForLearners !== undefined
-                        ? filters.suitableForLearners
+                        ? filters.suitableForLearners === 'true'
                         : true;
+                console.log(filters.suitableForLearners);
                 query.approved =
-                    filters.approved !== undefined ? filters.approved : true;
+                    filters.approved !== undefined
+                        ? filters.approved === 'true'
+                        : true;
+                console.log(filters.approved);
             }
 
             if (filters.type) query.type = filters.type;
