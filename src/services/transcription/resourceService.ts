@@ -9,9 +9,7 @@ import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { YoutubeTranscript } from '@danielxceron/youtube-transcript';
 import { PaginationHelper } from '~/utils/pagination.js';
-import { Domain } from 'domain';
 import { FilterQuery } from 'mongoose';
-import { Style } from '~/enum/style.js';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import pLimit from 'p-limit';
@@ -52,10 +50,10 @@ class ResourceService {
         id: string,
         updateData: Partial<ResourceTypeModel>
     ) {
-        const { title, summary, approved, lang } = updateData;
+        const { title, summary, approved } = updateData;
         const resource = await Resource.findByIdAndUpdate(
             id,
-            { title, summary, approved, lang },
+            { title, summary, approved },
             { new: true }
         );
         if (!resource) throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
@@ -67,9 +65,9 @@ class ResourceService {
     }
 
     private readonly rssFeeds: readonly string[] = [
-        'https://vnexpress.net/rss/so-hoa.rss',
-        // "https://www.nytimes.com/rss",
-        // "https://www.theguardian.com/uk/rss",
+        'https://e.vnexpress.net/rss/travel.rss',
+        'https://tuoitrenews.vn/rss',
+        'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml',
     ];
 
     // Crawl RSS feed, phân tích bằng LLM rồi lưu vào DB
@@ -80,41 +78,47 @@ class ResourceService {
         for (const feedUrl of this.rssFeeds) {
             const parser = new Parser();
             const feed = await parser.parseURL(feedUrl);
+            // Lấy tối đa 3 bài hợp lệ (không trùng) mỗi feed url
+            let validCount = 0;
+            const itemPromises: Promise<ResourceTypeModel | null>[] = [];
+            for (const item of feed.items) {
+                if (validCount >= 3) break;
 
-            const itemPromises = feed.items.map((item) =>
-                limit(async () => {
-                    const exist = await Resource.findOne({ url: item.link });
-                    if (exist) {
-                        console.log(`[RSS] Skip duplicated: ${item.link}`);
-                        return null;
-                    }
+                const exist = await Resource.findOne({ url: item.link });
+                if (exist) {
+                    console.log(`[RSS] Skip duplicated: ${item.link}`);
+                    continue;
+                }
 
-                    const htmlContent = item.link
-                        ? await this.fetchArticleText(item.link)
-                        : '';
-                    const fullContent = `${item.title}\n${item.contentSnippet || ''}\n${htmlContent}`;
+                validCount++;
+                itemPromises.push(
+                    limit(async () => {
+                        const htmlContent = item.link
+                            ? await this.fetchArticleText(item.link)
+                            : '';
+                        const fullContent = `${item.title}\n${item.contentSnippet || ''}\n${htmlContent}`;
 
-                    const analyzed =
-                        await this.analyzeContentWithLLM(fullContent);
+                        const analyzed =
+                            await this.analyzeContentWithLLM(fullContent);
 
-                    return await this.createResource({
-                        type: ResourceType.WEB_RSS,
-                        url: item.link || '',
-                        title: item.title || 'Untitled',
-                        publishedAt: item.pubDate
-                            ? new Date(item.pubDate)
-                            : new Date(),
-                        lang: 'en',
-                        summary: analyzed.summary,
-                        content: fullContent,
-                        keyPoints: analyzed.keyPoints,
-                        labels: analyzed.labels,
-                        suitableForLearners: analyzed.suitableForLearners,
-                        moderationNotes: analyzed.moderationNotes,
-                    });
-                })
-            );
-
+                        return await this.createResource({
+                            type: ResourceType.WEB_RSS,
+                            url: item.link || '',
+                            title: item.title || 'Untitled',
+                            publishedAt: item.pubDate
+                                ? new Date(item.pubDate)
+                                : new Date(),
+                            lang: 'en',
+                            summary: analyzed.summary,
+                            content: fullContent,
+                            keyPoints: analyzed.keyPoints,
+                            labels: analyzed.labels,
+                            suitableForLearners: analyzed.suitableForLearners,
+                            moderationNotes: analyzed.moderationNotes,
+                        });
+                    })
+                );
+            }
             const feedResults = await Promise.all(itemPromises);
             results.push(
                 ...feedResults.filter((r): r is ResourceTypeModel => r !== null)
@@ -183,13 +187,13 @@ class ResourceService {
         const vid = this.extractVideoId(url);
         if (!vid) throw new ApiError(ErrorMessage.INVALID_URL_ID_YOUTUBE);
 
-        console.log('>>> Extracted videoId:', vid);
+        // console.log('>>> Extracted videoId:', vid);
 
         const transcriptItems = await YoutubeTranscript.fetchTranscript(vid, {
             lang: 'en',
         });
 
-        console.log('>>> Raw transcriptItems:', transcriptItems);
+        // console.log('>>> Raw transcriptItems:', transcriptItems);
 
         return transcriptItems.map((r) => ({
             text: r.text,
