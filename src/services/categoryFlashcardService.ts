@@ -20,15 +20,15 @@ class CategoryFlashcardService {
             createBy: userId,
         }).lean();
         const categoriesWithCount = await Promise.all(
-            categories.map(async (category) => {
+            categories.map(async (category: unknown) => {
+                const c = category as unknown as CategoryFlashcardType & {
+                    [k: string]: unknown;
+                };
                 const flashcardCount = await Flashcard.countDocuments({
-                    category: category._id,
+                    category: c._id,
                     createBy: userId,
                 });
-                return {
-                    ...category,
-                    flashcardCount,
-                };
+                return { ...c, flashcardCount };
             })
         );
 

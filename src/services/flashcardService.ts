@@ -35,6 +35,7 @@ class FlashCardService {
             });
             return newFlashcard.save();
         } catch (err: unknown) {
+            if (err instanceof ApiError) throw err;
             throw new ApiError(ErrorMessage.CREATE_FLASHCARD_FAIL);
         }
     };
@@ -76,6 +77,22 @@ class FlashCardService {
         } catch (err: unknown) {
             if (err instanceof ApiError) throw err;
             throw new ApiError(ErrorMessage.DELETE_FLASHCARD_FAIL);
+        }
+    };
+
+    public getFlashcardById = async (id: string, userId: string) => {
+        try {
+            const flashcard = await Flashcard.findOne({
+                _id: id,
+                createBy: userId,
+            }).select('-isDeleted -createBy -updateBy -__v');
+            if (!flashcard) {
+                throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+            }
+            return flashcard;
+        } catch (err: unknown) {
+            if (err instanceof ApiError) throw err;
+            throw new ApiError({ message: 'Unknown error occurred' });
         }
     };
 
@@ -156,7 +173,7 @@ class FlashCardService {
                     throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
                 }
 
-                return flashcards.map((fc) => ({
+                return flashcards.map((fc: FlashcardType) => ({
                     id: fc._id,
                     front: fc.front,
                     back: fc.back,

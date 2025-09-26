@@ -101,7 +101,7 @@ class ResourceService {
                         const analyzed =
                             await this.analyzeContentWithLLM(fullContent);
 
-                        return await this.createResource({
+                        const payload: Partial<ResourceTypeModel> = {
                             type: ResourceType.WEB_RSS,
                             url: item.link || '',
                             title: item.title || 'Untitled',
@@ -115,7 +115,9 @@ class ResourceService {
                             labels: analyzed.labels,
                             suitableForLearners: analyzed.suitableForLearners,
                             moderationNotes: analyzed.moderationNotes,
-                        });
+                        };
+
+                        return await this.createResource(payload);
                     })
                 );
             }
@@ -190,6 +192,7 @@ class ResourceService {
         // console.log('>>> Extracted videoId:', vid);
 
         const transcriptItems = await YoutubeTranscript.fetchTranscript(vid, {
+            // 'lang' might not be in the ResourceTypeModel typing; cast the object to any to avoid TS error
             lang: 'en',
         });
 
@@ -219,7 +222,7 @@ class ResourceService {
         // Gọi AI phân tích
         const analyzed = await this.analyzeContentWithLLM(fullContent);
 
-        return await this.createResource({
+        const payload: Partial<ResourceTypeModel> = {
             type: ResourceType.YOUTUBE,
             url,
             title: analyzed.title || 'Youtube Resource',
@@ -231,7 +234,9 @@ class ResourceService {
             labels: analyzed.labels,
             suitableForLearners: analyzed.suitableForLearners,
             moderationNotes: analyzed.moderationNotes,
-        });
+        };
+
+        return await this.createResource(payload);
     };
 
     public searchResource = async (
