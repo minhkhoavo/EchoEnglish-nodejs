@@ -27,9 +27,6 @@ export const ErrorMessage = {
     /* Role eror */
 
     /* Flashcard eror */
-    CREATE_FLASHCARD_FAIL: { message: 'Create flashcard fail', status: 400 },
-    UPDATE_FLASHCARD_FAIL: { message: 'Update flashcard fail', status: 400 },
-    DELETE_FLASHCARD_FAIL: { message: 'Delete flashcard fail', status: 400 },
     FLASHCARD_NOT_FOUND: { message: 'Flashcard not found', status: 404 },
     FRONT_REQUIRED: { message: 'Front is required', status: 400 },
     BACK_REQUIRED: { message: 'Back is required', status: 400 },

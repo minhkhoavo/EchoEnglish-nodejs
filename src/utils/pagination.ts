@@ -23,7 +23,7 @@ export class PaginationHelper {
         query: Record<string, unknown>,
         options: PaginationOptions,
         populate?: PopulateOptions | PopulateOptions[],
-        select?: string,
+        select: string = '-__v',
         sort?: Record<string, 1 | -1>
     ): Promise<PaginationResult<T>> {
         const { page, limit } = options;
