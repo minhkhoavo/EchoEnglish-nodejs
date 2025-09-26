@@ -54,7 +54,7 @@ class FlashcardController {
         await FlashCardService.deleteFlashcard(flashcardId, userId);
         return res
             .status(200)
-            .json(new ApiResponse(SuccessMessage.DELETE_USER_SUCCESS));
+            .json(new ApiResponse(SuccessMessage.DELETE_FLASHCARD_SUCCESS));
     };
 
     public getFlashcardByCategory = async (req: Request, res: Response) => {

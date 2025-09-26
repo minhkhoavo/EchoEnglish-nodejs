@@ -18,4 +18,8 @@ export enum Domain {
     SAFETY = 'safety',
     NEWS = 'news',
     ENTERTAINMENT = 'entertainment',
+    SPORTS = 'sports',
+    POLITICS = 'politics',
+    ENVIRONMENT = 'environment',
+    SCIENCE = 'science',
 }
