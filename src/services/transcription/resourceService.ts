@@ -14,6 +14,7 @@ import axios from 'axios';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import pLimit from 'p-limit';
+import omit from 'lodash/omit.js';
 
 class ResourceService {
     public cleanHtmlContent(html: string): string {
@@ -63,11 +64,14 @@ class ResourceService {
             { new: true }
         );
         if (!resource) throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
-        return resource;
+        return omit(resource.toObject(), ['__v']);
     }
 
     public async deleteResource(id: string) {
-        return await Resource.findByIdAndDelete(id);
+        const resource = await Resource.findByIdAndDelete(id);
+        if (!resource) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
     }
 
     private readonly rssFeeds: readonly string[] = [
@@ -242,7 +246,8 @@ class ResourceService {
             moderationNotes: analyzed.moderationNotes,
         };
 
-        return await this.createResource(payload);
+        const resource = await this.createResource(payload);
+        return omit(resource.toObject(), ['__v']);
     };
 
     public searchResource = async (

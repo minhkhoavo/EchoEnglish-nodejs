@@ -26,7 +26,7 @@ class ResourceController {
         await resourceService.deleteResource(id);
         return res
             .status(200)
-            .json(new ApiResponse(SuccessMessage.DELETE_SUCCESS, null));
+            .json(new ApiResponse(SuccessMessage.DELETE_SUCCESS));
     };
 
     public triggerRssHandler = async (req: Request, res: Response) => {
