@@ -10,8 +10,8 @@ const categoryCtrl = new CategoryFlashcardController();
 router.get('/', FlashcardController.getAllFlashcard);
 router.get('/category/:cateId', FlashcardController.getFlashcardByCategory);
 router.post('/', FlashcardController.createFlashcard);
-router.put('/:id', isOwn(Flashcard), FlashcardController.updateFlashcard);
-router.delete('/:id', isOwn(Flashcard), FlashcardController.deleteFlashcard);
+router.put('/:id', FlashcardController.updateFlashcard);
+router.delete('/:id', FlashcardController.deleteFlashcard);
 
 // CATEGORY ENDPOINTS
 router.get('/categories', categoryCtrl.getCategories);
