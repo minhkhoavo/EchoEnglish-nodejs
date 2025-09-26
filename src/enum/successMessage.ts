@@ -10,8 +10,11 @@ export enum SuccessMessage {
     OTP_SENT = 'OTP has been sent to your email',
     PASSWORD_RESET_SUCCESS = 'Password has been reset successfully',
     DELETE_USER_SUCCESS = 'Delete user successfully',
+
+    /* flashcard */
     CREATE_FLASHCARD_SUCCESS = 'Create flashcard successfully',
     UPDATE_FLASHCARD_SUCCESS = 'Update flashcard successfully',
+    DELETE_FLASHCARD_SUCCESS = 'Delete flashcard successfully',
 
     /* global */
     GET_SUCCESS = 'Get successfully',

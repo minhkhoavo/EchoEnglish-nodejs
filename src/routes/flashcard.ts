@@ -5,7 +5,6 @@ import { isOwn } from '~/middleware/authMiddleware.js';
 import { Flashcard } from '~/models/flashcardModel.js';
 
 const router = Router();
-const categoryCtrl = new CategoryFlashcardController();
 
 router.get('/', FlashcardController.getAllFlashcard);
 router.get('/category/:cateId', FlashcardController.getFlashcardByCategory);
@@ -14,9 +13,10 @@ router.put('/:id', FlashcardController.updateFlashcard);
 router.delete('/:id', FlashcardController.deleteFlashcard);
 
 // CATEGORY ENDPOINTS
-router.get('/categories', categoryCtrl.getCategories);
-router.post('/categories', categoryCtrl.createCategory);
-router.put('/categories/:id', categoryCtrl.updateCategory);
-router.delete('/categories/:id', categoryCtrl.deleteCategory);
+router.get('/categories', CategoryFlashcardController.getCategories);
+router.get('/categories/:id', CategoryFlashcardController.getCategoryById);
+router.post('/categories', CategoryFlashcardController.createCategory);
+router.put('/categories/:id', CategoryFlashcardController.updateCategory);
+router.delete('/categories/:id', CategoryFlashcardController.deleteCategory);
 
 export default router;

@@ -69,4 +69,4 @@ class CategoryFlashcardController {
     };
 }
 
-export default CategoryFlashcardController;
+export default new CategoryFlashcardController();
