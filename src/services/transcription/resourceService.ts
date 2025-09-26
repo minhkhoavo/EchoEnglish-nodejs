@@ -14,6 +14,7 @@ import axios from 'axios';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import pLimit from 'p-limit';
+import omit from 'lodash/omit.js';
 
 class ResourceService {
     public cleanHtmlContent(html: string): string {
@@ -63,11 +64,14 @@ class ResourceService {
             { new: true }
         );
         if (!resource) throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
-        return resource;
+        return omit(resource.toObject(), ['__v']);
     }
 
     public async deleteResource(id: string) {
-        return await Resource.findByIdAndDelete(id);
+        const resource = await Resource.findByIdAndDelete(id);
+        if (!resource) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
     }
 
     private readonly rssFeeds: readonly string[] = [
@@ -107,7 +111,7 @@ class ResourceService {
                             item.title + '\n' + htmlContent
                         );
 
-                        return await this.createResource({
+                        const payload: Partial<ResourceTypeModel> = {
                             type: ResourceType.WEB_RSS,
                             url: item.link || '',
                             title: item.title || 'Untitled',
@@ -121,7 +125,9 @@ class ResourceService {
                             labels: analyzed.labels,
                             suitableForLearners: analyzed.suitableForLearners,
                             moderationNotes: analyzed.moderationNotes,
-                        });
+                        };
+
+                        return await this.createResource(payload);
                     })
                 );
             }
@@ -196,6 +202,7 @@ class ResourceService {
         // console.log('>>> Extracted videoId:', vid);
 
         const transcriptItems = await YoutubeTranscript.fetchTranscript(vid, {
+            // 'lang' might not be in the ResourceTypeModel typing; cast the object to any to avoid TS error
             lang: 'en',
         });
 
@@ -225,7 +232,7 @@ class ResourceService {
         // Gọi AI phân tích
         const analyzed = await this.analyzeContentWithLLM(fullContent);
 
-        return await this.createResource({
+        const payload: Partial<ResourceTypeModel> = {
             type: ResourceType.YOUTUBE,
             url,
             title: analyzed.title || 'Youtube Resource',
@@ -237,7 +244,10 @@ class ResourceService {
             labels: analyzed.labels,
             suitableForLearners: analyzed.suitableForLearners,
             moderationNotes: analyzed.moderationNotes,
-        });
+        };
+
+        const resource = await this.createResource(payload);
+        return omit(resource.toObject(), ['__v']);
     };
 
     public searchResource = async (

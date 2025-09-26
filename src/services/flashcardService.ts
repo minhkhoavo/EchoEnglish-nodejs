@@ -50,7 +50,7 @@ class FlashCardService {
             {
                 new: true,
             }
-        ).select('-__v');
+        ).select('-__v -createBy');
         if (!flashcard) throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
         return flashcard;
     };
@@ -63,6 +63,22 @@ class FlashCardService {
 
         if (result.deletedCount === 0) {
             throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+        }
+    };
+
+    public getFlashcardById = async (id: string, userId: string) => {
+        try {
+            const flashcard = await Flashcard.findOne({
+                _id: id,
+                createBy: userId,
+            }).select('-isDeleted -createBy -updateBy -__v');
+            if (!flashcard) {
+                throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+            }
+            return flashcard;
+        } catch (err: unknown) {
+            if (err instanceof ApiError) throw err;
+            throw new ApiError({ message: 'Unknown error occurred' });
         }
     };
 
@@ -84,7 +100,9 @@ class FlashCardService {
             Flashcard,
             { category: cateId, createBy: userId },
             { page, limit },
-            { path: 'category', select: 'name description' }
+            { path: 'category', select: 'name description' },
+            '-__v -createBy',
+            { createdAt: -1 }
         );
 
         return {
@@ -123,7 +141,9 @@ class FlashCardService {
         } else {
             const flashcards = await Flashcard.find({
                 createBy: userId,
-            }).select('-createBy -__v');
+            })
+                .select('-createBy -__v')
+                .sort({ createdAt: -1 });
 
             if (!flashcards || flashcards.length === 0) {
                 throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);

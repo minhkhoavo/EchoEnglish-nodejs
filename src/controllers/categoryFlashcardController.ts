@@ -59,13 +59,8 @@ class CategoryFlashcardController {
         if (!userId) {
             throw new ApiError(ErrorMessage.UNAUTHORIZED);
         }
-        const category = await this.categoryService.deleteCategory(
-            req.params.id,
-            userId
-        );
-        res.json(
-            new ApiResponse(SuccessMessage.DELETE_CATEGORY_SUCCESS, category)
-        );
+        await this.categoryService.deleteCategory(req.params.id, userId);
+        res.json(new ApiResponse(SuccessMessage.DELETE_CATEGORY_SUCCESS));
     };
 }
 

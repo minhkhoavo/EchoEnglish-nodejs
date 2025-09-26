@@ -1,22 +1,18 @@
-import { Request, Response, NextFunction } from 'express';
+﻿import { Request, Response, NextFunction } from 'express';
 import S3Service, { UploadResult } from '../services/s3Service.js';
 import ApiResponse from '../dto/response/apiResponse.js';
 import { ApiError } from '../middleware/apiError.js';
-import { uploadSingle } from '../config/multerConfig.js';
+import { fileIntelligenceService } from '~/services/document-analyze/fileAnalysis.js';
 
 class FileUploadController {
-    async uploadSingleFile(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async uploadOnly(req: Request, res: Response): Promise<void> {
         if (!req.file) {
             throw new ApiError({ message: 'No file provided', status: 400 });
         }
 
         const { folder } = req.body;
 
-        const result: UploadResult = await S3Service.uploadFile(
+        const uploadResult: UploadResult = await S3Service.uploadFile(
             req.file.buffer,
             req.file.originalname,
             req.file.mimetype,
@@ -24,8 +20,72 @@ class FileUploadController {
         );
 
         res.status(200).json(
-            new ApiResponse('File uploaded successfully', result)
+            new ApiResponse('File uploaded successfully', uploadResult)
         );
+    }
+
+    async analyzeFile(req: Request, res: Response): Promise<void> {
+        if (!req.file) {
+            throw new ApiError({ message: 'No file provided', status: 400 });
+        }
+
+        const { folder } = req.body;
+
+        const uploadResult: UploadResult = await S3Service.uploadFile(
+            req.file.buffer,
+            req.file.originalname,
+            req.file.mimetype,
+            folder
+        );
+
+        const processing = await fileIntelligenceService.processUpload({
+            file: req.file,
+            folder,
+            userId: req.user?.id || '',
+            upload: uploadResult,
+        });
+
+        res.status(200).json(
+            new ApiResponse('File uploaded and analyzed successfully', {
+                ...processing.upload,
+                status: processing.metadata.status,
+                metadataId: processing.metadata._id,
+                language: processing.metadata.language,
+                tagsPart: processing.metadata.tagsPart,
+                moderation: processing.moderation,
+                analysis: processing.analysis,
+                embedding: processing.embedding,
+                aiUsage: processing.aiUsage,
+            })
+        );
+    }
+
+    async chatWithUploads(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        if (!req.user?.id) {
+            throw new ApiError({ message: 'Unauthorized', status: 401 });
+        }
+
+        const { question, fileIds, topK, language } = req.body ?? {};
+        if (!question || typeof question !== 'string') {
+            throw new ApiError({
+                message: 'question is required to chat with documents',
+                status: 400,
+            });
+        }
+
+        const result = await fileIntelligenceService.chat({
+            userId: req.user.id,
+            question,
+            fileIds: Array.isArray(fileIds) ? fileIds : undefined,
+            topK: typeof topK === 'number' ? topK : undefined,
+            language: typeof language === 'string' ? language : undefined,
+        });
+
+        res.status(200).json(new ApiResponse('Chat completed', result));
     }
 
     async deleteFile(
