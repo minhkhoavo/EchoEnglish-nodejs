@@ -14,7 +14,7 @@ class CategoryFlashcardService {
             ...cate,
             createBy: userId,
         });
-        return omit(category.toObject(), ['__v']);
+        return omit(category.toObject(), ['__v', 'createBy']);
     }
 
     async getCategories(userId: string) {
@@ -22,7 +22,7 @@ class CategoryFlashcardService {
             createBy: userId,
         })
             .lean()
-            .select('-__v');
+            .select('-__v -createBy');
         const categoriesWithCount = await Promise.all(
             categories.map(async (category: unknown) => {
                 const c = category as unknown as CategoryFlashcardType & {
@@ -45,7 +45,7 @@ class CategoryFlashcardService {
             createBy: userId,
         })
             .lean()
-            .select('-__v');
+            .select('-__v -createBy');
         if (!category) throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
         return category;
     }
@@ -59,7 +59,7 @@ class CategoryFlashcardService {
             { _id: id, createBy: userId },
             data,
             { new: true }
-        ).select('-__v');
+        ).select('-__v -createBy');
 
         if (!category) {
             throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);

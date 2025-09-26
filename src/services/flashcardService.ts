@@ -50,7 +50,7 @@ class FlashCardService {
             {
                 new: true,
             }
-        ).select('-__v');
+        ).select('-__v -createBy');
         if (!flashcard) throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
         return flashcard;
     };
@@ -100,7 +100,9 @@ class FlashCardService {
             Flashcard,
             { category: cateId, createBy: userId },
             { page, limit },
-            { path: 'category', select: 'name description' }
+            { path: 'category', select: 'name description' },
+            '-__v -createBy',
+            { createdAt: -1 }
         );
 
         return {
@@ -139,7 +141,9 @@ class FlashCardService {
         } else {
             const flashcards = await Flashcard.find({
                 createBy: userId,
-            }).select('-createBy -__v');
+            })
+                .select('-createBy -__v')
+                .sort({ createdAt: -1 });
 
             if (!flashcards || flashcards.length === 0) {
                 throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
