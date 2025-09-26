@@ -147,3 +147,4 @@ pnpm-lock.yaml
 *.iml
 out/
 gen/
+package-lock.json
