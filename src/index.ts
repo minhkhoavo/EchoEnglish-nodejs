@@ -3,18 +3,20 @@ import express from 'express';
 import connectDB from './config/db/configDb.js';
 import apiRouter from '~/routes/index.js';
 import { globalAuth } from './middleware/authMiddleware.js';
-import morgan from 'morgan';
 import cors from 'cors';
 import ErrorMiddleware from './middleware/errorMiddleware.js';
 import paymentController from '~/controllers/paymentController.js';
 import cron from 'node-cron';
 import resourceService from './services/transcription/resourceService.js';
 import paymentService from './services/payment/paymentService.js';
+import socketService from './services/notifications/socketService.js';
+import { createServer } from 'http';
 
 dotenv.config();
 
 const port = process.env.PORT || 4000;
 const app = express();
+const httpServer = createServer(app);
 
 connectDB();
 
@@ -32,7 +34,7 @@ cron.schedule('0 0 * * 0', async () => {
 });
 
 cron.schedule('*/1 * * * *', async () => {
-    console.log('[CRON] Trigger Check Payment Expired fetching...');
+    //console.log('[CRON] Trigger Check Payment Expired fetching...');
     await paymentService.triggerExpiredPayment();
 });
 
@@ -41,7 +43,9 @@ app.use(globalAuth);
 app.use('/', apiRouter);
 
 app.use(ErrorMiddleware.handleError);
-app.listen(port, () => {
+socketService.initSocket(httpServer);
+
+httpServer.listen(port, () => {
     console.log(`App listening on port ${port}`);
     console.log(`Url:   http://localhost:${port}`);
 });

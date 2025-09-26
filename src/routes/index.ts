@@ -12,6 +12,7 @@ import speakingAttemptsRouter from './speakingAttempts.js';
 import speakingRouter from './speaking.js';
 import testResultsRouter from './testResults.js';
 import resourceRouter from './resourceRoutes.js';
+import notificationRouter from './notifications.js';
 
 const apiRouter = Router();
 
@@ -29,5 +30,6 @@ apiRouter.use('/api/v1/speaking-attempts', speakingAttemptsRouter);
 apiRouter.use('/speaking', speakingRouter);
 apiRouter.use('/test-results', testResultsRouter);
 apiRouter.use('/resources', resourceRouter);
+apiRouter.use('/notifications', notificationRouter);
 
 export default apiRouter;

@@ -114,6 +114,15 @@ export const ErrorMessage = {
         message: 'RESOURCE ALREADY EXISTS',
         status: 400,
     },
+
+    NOTIFICATION_ALREADY_MARK: {
+        message: 'Notification already marked as read',
+        status: 400,
+    },
+    NOTIFICATION_ALREADY_MARK_ALL: {
+        message: 'All notification already marked as read',
+        status: 400,
+    },
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;

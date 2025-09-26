@@ -16,6 +16,7 @@ const PUBLIC_ENDPOINTS: { methods: string[]; path: string }[] = [
     { methods: ['ALL'], path: '/api/users/**' },
     { methods: ['GET'], path: '/category-flashcard/test/**' },
     { methods: ['GET'], path: '/payments/vnpay/ipn/**' },
+    { methods: ['ALL'], path: '/socket.io/**' },
 ];
 
 /* kiem tra PUBLIC_ENPOINT.path match req.path */
