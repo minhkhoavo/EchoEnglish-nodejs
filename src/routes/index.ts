@@ -13,6 +13,7 @@ import speakingRouter from './speaking.js';
 import testResultsRouter from './testResults.js';
 import resourceRouter from './resourceRoutes.js';
 import chatbotRouter from './chatbot.js';
+import notificationRouter from './notifications.js';
 
 const apiRouter = Router();
 
@@ -31,5 +32,6 @@ apiRouter.use('/speaking', speakingRouter);
 apiRouter.use('/test-results', testResultsRouter);
 apiRouter.use('/resources', resourceRouter);
 apiRouter.use('/chat', chatbotRouter);
+apiRouter.use('/notifications', notificationRouter);
 
 export default apiRouter;
