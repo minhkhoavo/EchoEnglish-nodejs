@@ -38,7 +38,8 @@ const createFlashcardTool = tool(
     },
     {
         name: 'create_flashcard',
-        description: 'Create a new flashcard (front/back).',
+        description:
+            'Create a new flashcard (front/back), always set isAIGenerated=true. Please check valid categoryId first. Use the get_category tool to find the correct category or set it to null for the default category.',
         schema: z.object({
             front: z.string(),
             back: z.string(),

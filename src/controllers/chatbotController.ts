@@ -13,17 +13,12 @@ class ChatbotAgentController {
                 throw new ApiError({ message: 'Prompt is required' });
             }
             const result = await flashcardAgent.run(prompt, userId);
-
-            return res
-                .status(200)
-                .json(
-                    new ApiResponse('Agent executed successfully', { result })
-                );
+            return res.status(200).json(result);
         } catch (error) {
+            console.error('Error executing agent:', error);
             if (error instanceof ApiError) {
                 throw error;
             }
-            console.error('Error executing agent:', error);
             throw new ApiError({ message: 'Failed to execute agent' });
         }
     };

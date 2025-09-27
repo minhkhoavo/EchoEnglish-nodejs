@@ -68,7 +68,7 @@ class PaymentService {
         const skip = (page - 1) * limit;
         const [transaction, total] = await Promise.all([
             Payment.find(query)
-                .sort({ createAt: -1 })
+                .sort({ createdAt: -1 })
                 .skip(skip)
                 .limit(limit)
                 .lean(),

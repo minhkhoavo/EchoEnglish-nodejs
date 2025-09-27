@@ -30,6 +30,21 @@ class PromptManagerService {
             throw new Error(`Prompt template ${templateName} not found.`);
         }
     }
+
+    public async getSystemPrompt(promptName: string): Promise<string> {
+        const promptPath = path.join(
+            __dirname,
+            '../prompts/systems',
+            `${promptName}.txt`
+        );
+        try {
+            const prompt = await fs.readFile(promptPath, 'utf-8');
+            return prompt;
+        } catch (error) {
+            console.error(`Error reading system prompt: ${promptName}`, error);
+            throw new Error(`System prompt ${promptName} not found.`);
+        }
+    }
 }
 
 export const promptManagerService = new PromptManagerService();
