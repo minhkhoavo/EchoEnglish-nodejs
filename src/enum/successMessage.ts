@@ -36,4 +36,7 @@ export enum SuccessMessage {
 
     // Notification
     MARK_AS_READ_SUCCESS = 'Mark as read successfully',
+    MARK_ALL_AS_READ_SUCCESS = 'Mark all as read successfully',
+    PUSH_NOTIFICATION_SUCCESS = 'Push notification successfully',
+    BROADCAST_NOTIFICATION_SUCCESS = 'Broadcast notification successfully',
 }

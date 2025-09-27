@@ -40,7 +40,6 @@ const categoryFlashcardSchema = new Schema(
     },
     {
         collection: 'category_flashcards',
-        timestamps: true,
     }
 );
 

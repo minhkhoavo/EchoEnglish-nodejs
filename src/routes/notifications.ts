@@ -5,10 +5,14 @@ import { hasAuthority } from '~/middleware/authMiddleware.js';
 
 const router = Router();
 
-router.post('', notificationsController.pushNotification);
+router.post(
+    '',
+    hasAuthority(RoleName.ADMIN),
+    notificationsController.pushNotification
+);
 router.get('', notificationsController.getAllNotificationsForUser);
-router.post('/read/all', notificationsController.markAllAsRead);
-router.post('/read/:id', notificationsController.markAsRead);
+router.put('/read/all', notificationsController.markAllAsRead);
+router.put('/read/:id', notificationsController.markAsRead);
 router.get(
     '/all',
     hasAuthority(RoleName.ADMIN),

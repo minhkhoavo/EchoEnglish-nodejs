@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "b654ac56-79b6-43bd-b964-fd31d78284e6",
+		"_postman_id": "51496c32-402c-4314-aa8f-915dcb607862",
 		"name": "Echo Englist Node API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "41180819"
+		"_exporter_id": "41332350"
 	},
 	"item": [
 		{
@@ -2045,7 +2045,7 @@
 			"name": "Flashcard",
 			"item": [
 				{
-					"name": "get flashcard info",
+					"name": "get flashcard in categoryId",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2067,14 +2067,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/flashcard/by-category/68b9474478578c301f4f2e8e?page=1&limit=3",
+							"raw": "{{baseUrl}}/flashcards/category/68d14f5a99daa8de60c4ccc2?page=1&limit=3",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"flashcard",
-								"by-category",
-								"68b9474478578c301f4f2e8e"
+								"flashcards",
+								"category",
+								"68d14f5a99daa8de60c4ccc2"
 							],
 							"query": [
 								{
@@ -2224,7 +2224,7 @@
 					]
 				},
 				{
-					"name": "get all flashcard",
+					"name": "get all flashcard of user",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2246,12 +2246,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/flashcard",
+							"raw": "{{baseUrl}}/flashcards/",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"flashcard"
+								"flashcards",
+								""
 							]
 						}
 					},
@@ -2397,7 +2398,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"front\": \"Hello 2\",\r\n    \"back\": \"Hi\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
+							"raw": "{\r\n    \"front\": \"home\",\r\n    \"back\": \"Cái nhà\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2405,13 +2406,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/flashcard/68ba34e398536c5a0f47cb92",
+							"raw": "{{baseUrl}}/flashcards/68d63e7631d75270482d222a",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"flashcard",
-								"68ba34e398536c5a0f47cb92"
+								"flashcards",
+								"68d63e7631d75270482d222a"
 							]
 						}
 					},
@@ -2424,7 +2425,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"front\": \"Hello 110\",\r\n    \"back\": \"Hi 110\",\r\n    \"category\": \"68b9474478578c301f4f2e80\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
+							"raw": "{\r\n    \"front\": \"Hello 110\",\r\n    \"back\": \"Hi 110\",\r\n    \"category\": \"68d63d8931d75270482d2208\",\r\n    \"difficulty\": \"Easy\",\r\n    \"tags\": [\"english\", \"communication\"],\r\n    \"source\": \"manual\",\r\n    \"isAIGenerated\": true\r\n}\r\n  ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2432,13 +2433,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/flashcard/create",
+							"raw": "{{baseUrl}}/flashcards",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"flashcard",
-								"create"
+								"flashcards"
 							]
 						}
 					},
@@ -2450,13 +2450,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/flashcard/68b94642537245153f0bedc8",
+							"raw": "{{baseUrl}}/flashcards/68d50031273c33ec1bb4d48b",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"flashcard",
-								"68b94642537245153f0bedc8"
+								"flashcards",
+								"68d50031273c33ec1bb4d48b"
 							]
 						}
 					},
@@ -2482,12 +2482,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/category-flashcard",
+							"raw": "{{baseUrl}}/flashcards/categories",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"category-flashcard"
+								"flashcards",
+								"categories"
 							]
 						}
 					},
@@ -2511,19 +2512,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/category-flashcard",
+							"raw": "{{baseUrl}}/flashcards/categories",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"category-flashcard"
+								"flashcards",
+								"categories"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "get category",
+					"name": "get category by categoryId",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2540,13 +2542,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e82",
+							"raw": "{{baseUrl}}/flashcards/categories/68d14f5a99daa8de60c4ccc2",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"category-flashcard",
-								"68b9475a78578c301f4f2e82"
+								"flashcards",
+								"categories",
+								"68d14f5a99daa8de60c4ccc2"
 							]
 						}
 					},
@@ -2559,7 +2562,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"cate new 2\",\r\n    \"description\": \"day le cate 2 new\"\r\n}",
+							"raw": "{\r\n    \"name\": \"cate d5\",\r\n    \"description\": \"day le cate 4ds232323\",\r\n    \"color\": \"#3B82F6\",\r\n    \"icon\": \"\",\r\n    \"is_default\": false,\r\n    \"createBy\": \"68c2e70085d6020eae5e0b34\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2567,13 +2570,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e82",
+							"raw": "{{baseUrl}}/flashcards/categories/68d64d5183776a050571ba1d",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"category-flashcard",
-								"68b9475a78578c301f4f2e82"
+								"flashcards",
+								"categories",
+								"68d64d5183776a050571ba1d"
 							]
 						}
 					},
@@ -2594,13 +2598,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/category-flashcard/68b9475a78578c301f4f2e8ad",
+							"raw": "{{baseUrl}}/flashcards/categories/68d64d5183776a050571ba1d",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"category-flashcard",
-								"68b9475a78578c301f4f2e8ad"
+								"flashcards",
+								"categories",
+								"68d64d5183776a050571ba1d"
 							]
 						}
 					},
@@ -3214,12 +3219,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/youtube-transcript",
+							"raw": "{{baseUrl}}/resources",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"youtube-transcript"
+								"resources"
 							]
 						}
 					},
@@ -3264,7 +3269,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"title\": \"AI in Healthcare - Updated\",\r\n  \"summary\": \"Updated summary with more details\",\r\n  \"approved\": true,\r\n  \"lang\": \"en\"\r\n}",
+							"raw": "{\r\n  \"title\": \"Malaysian seafood noodle chain Hai Kah Lang to open first Singapore outlet - Updated\",\r\n  \"summary\": \"Hai Kah Lang, a popular Malaysian seafood noodle chain, is expanding internationally by opening its first outlet in Singapore's Funan mall. The restaurant is known for its rich broths, fresh seafood, and has received the Michelin Bib Gourmand award\",\r\n  \"approved\": true,\r\n  \"lang\": \"en\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3272,13 +3277,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/resources/68ce3b8d428c847c77507f91",
+							"raw": "{{baseUrl}}/resources/68d53fd01c5fcdb6387426a6",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"resources",
-								"68ce3b8d428c847c77507f91"
+								"68d53fd01c5fcdb6387426a6"
 							]
 						}
 					},
@@ -3312,13 +3317,16 @@
 					"response": []
 				},
 				{
-					"name": "delete resource Copy",
+					"name": "crawl web rss",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"feedUrl\": \"https://learningenglish.voanews.com/api/zyg__l-vomx-tpetmty\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3340,10 +3348,26 @@
 					"response": []
 				},
 				{
-					"name": "get resource",
+					"name": "get all resource",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resources",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resources"
+							]
+						}
 					},
 					"response": []
 				}
@@ -3536,7 +3560,7 @@
 			"value": "http://localhost:8099"
 		},
 		{
-			"key": "access_token",
+			"key": "token",
 			"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbmhraG9heG4xMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2VjaG8tZW5nbGlzaC5jb20iLCJzY29wZSI6IjY2ZTAwYmJiMDAwMDAwMDAwMDAwMDAwMSIsInVzZXJJZCI6IjY4YWRhY2EyMjVhYTIyMjcwZTc5MTBkYyIsImN1c3RvbV9rZXkiOiJDdXN0b21fdmFsdWUiLCJpYXQiOjE3NTY5NzAyMTEsImV4cCI6MTc1Njk3MjAxMX0.u1ZQpNxNp65xiMP-IFxumYrm8jv8NEZC18LncPwoxboHSG4_zt2iE2A3dklYuZ-jEvC1YfRQyR-zMNs8yiN9hg"
 		}
 	]

@@ -8,6 +8,7 @@ import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { Types } from 'mongoose';
+import omit from 'lodash/omit.js';
 
 class NotificationService {
     // Hàm gửi thông báo
@@ -19,6 +20,7 @@ class NotificationService {
             title: payload.title,
             body: payload.body,
             deep_link: payload.deep_link,
+            type: payload.type,
             userIds: payload.userIds,
             creatBy: id,
             readBy: [],
@@ -29,6 +31,7 @@ class NotificationService {
             title: notification.title,
             body: notification.body,
             deep_link: notification.deep_link,
+            type: notification.type,
             createdAt: notification.createdAt,
             isRead: false,
         };
@@ -42,7 +45,7 @@ class NotificationService {
             socketService.emitToUsers(userIds, 'notifications', outPayload);
         }
 
-        return notification;
+        return omit(notification.toObject(), ['__v', 'readBy']);
     };
 
     // Hàm lấy tất cả thông báo của user
@@ -60,43 +63,43 @@ class NotificationService {
             { page, limit }
         );
 
-        return notifications.data.map((n) => ({
-            _id: n._id,
-            title: n.title,
-            body: n.body,
-            deep_link: n.deep_link,
-            createdAt: n.createdAt,
-            isRead: Array.isArray(n.readBy)
-                ? n.readBy.some(
-                      (r: { userId: string; readAt: Date }) =>
-                          r.userId === userId
-                  )
-                : false,
-        }));
+        return {
+            notifications: notifications.data.map((n) => ({
+                _id: n._id,
+                title: n.title,
+                body: n.body,
+                deep_link: n.deep_link,
+                type: n.type,
+                createdAt: n.createdAt,
+                updatedAt: n.updatedAt,
+                isRead: Array.isArray(n.readBy)
+                    ? n.readBy.some(
+                          (r: { userId: string; readAt: Date }) =>
+                              r.userId.toString() === userId
+                      )
+                    : false,
+            })),
+            pagination: notifications.pagination,
+        };
     };
 
     // Hàm lấy thông báo admin
-    public getBroadcastNotfications = async (
-        adminId: string,
-        page: number,
-        limit: number
-    ) => {
-        const query = { userIds: { $size: 0 }, creatBy: adminId };
+    public getBroadcastNotfications = async (page: number, limit: number) => {
+        const query = {};
 
-        const notifications = await PaginationHelper.paginate(
+        const result = await PaginationHelper.paginate(
             Notifications,
             query,
-            { page, limit }
+            { page, limit },
+            undefined,
+            '-__v -readBy',
+            { createdAt: -1 }
         );
 
-        return notifications.data.map((n) => ({
-            _id: n._id,
-            title: n.title,
-            body: n.body,
-            deep_link: n.deep_link,
-            createdAt: n.createdAt,
-            readBy: n.readBy,
-        }));
+        return {
+            notifications: result.data,
+            pagination: result.pagination,
+        };
     };
 
     // Hàm đánh dấu đã đọc
@@ -120,8 +123,6 @@ class NotificationService {
                 notificationId,
             });
         }
-
-        return updated;
     };
 
     // Hàm đánh dấu đã đọc tất cả
@@ -141,17 +142,7 @@ class NotificationService {
                 message: SuccessMessage.MARK_AS_READ_SUCCESS,
                 timestamp: new Date(),
             });
-            return updateNotifications.modifiedCount > 0;
         }
-    };
-
-    // Hàm đếm số thông báo chưa đọc
-    public getUnreadCount = async (userId: string) => {
-        const count = await Notifications.countDocuments({
-            $or: [{ userIds: { $size: 0 } }, { userIds: userId }],
-            'readBy.userId': { $ne: userId },
-        });
-        return count;
     };
 }
 

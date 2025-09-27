@@ -1,5 +1,6 @@
 import mongoose, { InferSchemaType, model, Schema, Types } from 'mongoose';
 import { setBaseOptions } from './baseEntity.js';
+import { NotificationType } from '~/enum/notificationType.js';
 
 const notificationSchema = new Schema(
     {
@@ -12,6 +13,12 @@ const notificationSchema = new Schema(
         },
         deep_link: {
             type: String,
+        },
+        type: {
+            type: String,
+            enum: Object.values(NotificationType),
+            default: NotificationType.INFO,
+            required: true,
         },
         userIds: [
             {
@@ -39,7 +46,6 @@ const notificationSchema = new Schema(
     },
     {
         collection: 'notifications',
-        timestamps: true,
     }
 );
 
