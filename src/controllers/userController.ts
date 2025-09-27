@@ -18,9 +18,9 @@ class UserController {
     public createUser = async (req: Request, res: Response) => {
         const userDto: UserCreateRequest = req.body;
         const user = await this.userService.createUser(userDto);
-        res.status(201).json(
-            new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, user)
-        );
+        return res
+            .status(201)
+            .json(new ApiResponse(SuccessMessage.CREATE_USER_SUCCESS, user));
     };
 
     public updateUser = async (req: Request, res: Response) => {
@@ -28,9 +28,9 @@ class UserController {
         const updateData = req.body;
 
         const user = await this.userService.updateUser(userId, updateData);
-        res.status(200).json(
-            new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, user)
-        );
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, user));
     };
 
     public updateProfileUser = async (req: Request, res: Response) => {
@@ -45,17 +45,17 @@ class UserController {
             userId,
             updateData
         );
-        res.status(200).json(
-            new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, user)
-        );
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, user));
     };
 
     public softDeleteUser = async (req: Request, res: Response) => {
         const userId = req.params.id;
         await this.userService.softDelete(userId);
-        res.status(200).json(
-            new ApiResponse(SuccessMessage.DELETE_USER_SUCCESS)
-        );
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.DELETE_USER_SUCCESS));
     };
 
     public getCredit = async (req: Request, res: Response) => {

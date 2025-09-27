@@ -68,6 +68,8 @@ setBaseOptions(userSchema);
 
 export type UserType = InferSchemaType<typeof userSchema> & {
     _id: Types.ObjectId;
+    isDeleted: boolean;
 };
+
 export type UserResponseType = Omit<UserType, 'password'>;
 export const User = mongoose.models.User || model<UserType>('User', userSchema);

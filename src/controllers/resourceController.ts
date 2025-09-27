@@ -26,7 +26,7 @@ class ResourceController {
         await resourceService.deleteResource(id);
         return res
             .status(200)
-            .json(new ApiResponse(SuccessMessage.DELETE_SUCCESS, null));
+            .json(new ApiResponse(SuccessMessage.DELETE_SUCCESS));
     };
 
     public triggerRssHandler = async (req: Request, res: Response) => {
@@ -39,8 +39,8 @@ class ResourceController {
     public getTranscriptHanlder = async (req: Request, res: Response) => {
         const { url } = req.body;
         const transcript = await resourceService.fetchTranscript(url);
-        console.log(url);
-        console.log(transcript);
+        // console.log(url);
+        // console.log(transcript);
         return res
             .status(200)
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, transcript));
@@ -62,8 +62,9 @@ class ResourceController {
         if (!userScope) {
             throw new ApiError(ErrorMessage.UNAUTHORIZED);
         }
-        const isAdmin = userScope === RoleName.ADMIN;
-        console.log(req.user?.scope);
+        // Allow userScope to be a string or array, check if it contains ADMIN
+        const isAdmin = userScope.includes(RoleName.ADMIN);
+        console.log(userScope);
 
         let sortOption: Record<string, 1 | -1> = {};
         if (filters.sort === 'newest') sortOption = { publishedAt: -1 };

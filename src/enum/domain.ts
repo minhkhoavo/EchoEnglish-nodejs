@@ -16,4 +16,10 @@ export enum Domain {
     REAL_ESTATE = 'real_estate',
     LEGAL_COMPLIANCE = 'legal_compliance',
     SAFETY = 'safety',
+    NEWS = 'news',
+    ENTERTAINMENT = 'entertainment',
+    SPORTS = 'sports',
+    POLITICS = 'politics',
+    ENVIRONMENT = 'environment',
+    SCIENCE = 'science',
 }

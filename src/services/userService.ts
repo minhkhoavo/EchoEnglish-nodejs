@@ -10,7 +10,7 @@ import bcrypt from 'bcrypt';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { OtpEmailService } from './otpEmailService.js';
 import { OtpPurpose } from '~/enum/otpPurpose.js';
-import { Role, RoleType } from '~/models/roleModel.js';
+import { Role } from '~/models/roleModel.js';
 import { RoleName } from '~/enum/role.js';
 import { ApiError } from '~/middleware/apiError.js';
 import CategoryFlashcardService from './categoryFlashcardService.js';

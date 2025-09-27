@@ -9,13 +9,22 @@ import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { YoutubeTranscript } from '@danielxceron/youtube-transcript';
 import { PaginationHelper } from '~/utils/pagination.js';
-import { Domain } from 'domain';
 import { FilterQuery } from 'mongoose';
-import { Style } from '~/enum/style.js';
 import axios from 'axios';
-import * as cheerio from 'cheerio';
+import { JSDOM } from 'jsdom';
+import { Readability } from '@mozilla/readability';
 import pLimit from 'p-limit';
+import omit from 'lodash/omit.js';
+
 class ResourceService {
+    public cleanHtmlContent(html: string): string {
+        if (!html) return '';
+        let cleaned = html
+            .replace(/<a\b[^>]*>(.*?)<\/a>/gi, '$1') // bỏ thẻ a, giữ text
+            .trim();
+        return cleaned;
+    }
+
     async fetchArticleText(url: string): Promise<string> {
         try {
             const { data } = await axios.get(url, {
@@ -23,15 +32,11 @@ class ResourceService {
                 responseType: 'text',
             });
             const html = typeof data === 'string' ? data : String(data);
-            const $ = cheerio.load(html as string);
+            const dom = new JSDOM(html, { url });
 
-            // Ưu tiên lấy text trong <article>
-            const articleText = $('article').text().replace(/\s+/g, ' ').trim();
-
-            // Nếu không có <article> thì lấy body text
-            const bodyText = $('body').text().replace(/\s+/g, ' ').trim();
-
-            return articleText || bodyText;
+            const reader = new Readability(dom.window.document);
+            const article = reader.parse();
+            return article?.content || '';
         } catch (err) {
             console.error(`[fetchArticleText] Error: ${url}`, err);
             return '';
@@ -52,24 +57,27 @@ class ResourceService {
         id: string,
         updateData: Partial<ResourceTypeModel>
     ) {
-        const { title, summary, approved, lang } = updateData;
+        const { title, summary, approved } = updateData;
         const resource = await Resource.findByIdAndUpdate(
             id,
-            { title, summary, approved, lang },
+            { title, summary, approved },
             { new: true }
         );
         if (!resource) throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
-        return resource;
+        return omit(resource.toObject(), ['__v']);
     }
 
     public async deleteResource(id: string) {
-        return await Resource.findByIdAndDelete(id);
+        const resource = await Resource.findByIdAndDelete(id);
+        if (!resource) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
     }
 
     private readonly rssFeeds: readonly string[] = [
-        'https://vnexpress.net/rss/so-hoa.rss',
-        // "https://www.nytimes.com/rss",
-        // "https://www.theguardian.com/uk/rss",
+        'https://e.vnexpress.net/rss/travel.rss',
+        'https://e.vnexpress.net/rss/world.rss',
+        'https://tuoitrenews.vn/rss',
     ];
 
     // Crawl RSS feed, phân tích bằng LLM rồi lưu vào DB
@@ -80,41 +88,49 @@ class ResourceService {
         for (const feedUrl of this.rssFeeds) {
             const parser = new Parser();
             const feed = await parser.parseURL(feedUrl);
+            // Lấy tối đa 3 bài hợp lệ (không trùng) mỗi feed url
+            let validCount = 0;
+            const itemPromises: Promise<ResourceTypeModel | null>[] = [];
+            for (const item of feed.items) {
+                if (validCount >= 1) break;
 
-            const itemPromises = feed.items.map((item) =>
-                limit(async () => {
-                    const exist = await Resource.findOne({ url: item.link });
-                    if (exist) {
-                        console.log(`[RSS] Skip duplicated: ${item.link}`);
-                        return null;
-                    }
+                const exist = await Resource.findOne({ url: item.link });
+                if (exist) {
+                    console.log(`[RSS] Skip duplicated: ${item.link}`);
+                    continue;
+                }
 
-                    const htmlContent = item.link
-                        ? await this.fetchArticleText(item.link)
-                        : '';
-                    const fullContent = `${item.title}\n${item.contentSnippet || ''}\n${htmlContent}`;
+                validCount++;
+                itemPromises.push(
+                    limit(async () => {
+                        const htmlContent = item.link
+                            ? await this.fetchArticleText(item.link)
+                            : '';
 
-                    const analyzed =
-                        await this.analyzeContentWithLLM(fullContent);
+                        const analyzed = await this.analyzeContentWithLLM(
+                            item.title + '\n' + htmlContent
+                        );
 
-                    return await this.createResource({
-                        type: ResourceType.WEB_RSS,
-                        url: item.link || '',
-                        title: item.title || 'Untitled',
-                        publishedAt: item.pubDate
-                            ? new Date(item.pubDate)
-                            : new Date(),
-                        lang: 'en',
-                        summary: analyzed.summary,
-                        content: fullContent,
-                        keyPoints: analyzed.keyPoints,
-                        labels: analyzed.labels,
-                        suitableForLearners: analyzed.suitableForLearners,
-                        moderationNotes: analyzed.moderationNotes,
-                    });
-                })
-            );
+                        const payload: Partial<ResourceTypeModel> = {
+                            type: ResourceType.WEB_RSS,
+                            url: item.link || '',
+                            title: item.title || 'Untitled',
+                            publishedAt: item.pubDate
+                                ? new Date(item.pubDate)
+                                : new Date(),
+                            lang: 'en',
+                            summary: analyzed.summary,
+                            content: this.cleanHtmlContent(htmlContent),
+                            keyPoints: analyzed.keyPoints,
+                            labels: analyzed.labels,
+                            suitableForLearners: analyzed.suitableForLearners,
+                            moderationNotes: analyzed.moderationNotes,
+                        };
 
+                        return await this.createResource(payload);
+                    })
+                );
+            }
             const feedResults = await Promise.all(itemPromises);
             results.push(
                 ...feedResults.filter((r): r is ResourceTypeModel => r !== null)
@@ -183,13 +199,14 @@ class ResourceService {
         const vid = this.extractVideoId(url);
         if (!vid) throw new ApiError(ErrorMessage.INVALID_URL_ID_YOUTUBE);
 
-        console.log('>>> Extracted videoId:', vid);
+        // console.log('>>> Extracted videoId:', vid);
 
         const transcriptItems = await YoutubeTranscript.fetchTranscript(vid, {
+            // 'lang' might not be in the ResourceTypeModel typing; cast the object to any to avoid TS error
             lang: 'en',
         });
 
-        console.log('>>> Raw transcriptItems:', transcriptItems);
+        // console.log('>>> Raw transcriptItems:', transcriptItems);
 
         return transcriptItems.map((r) => ({
             text: r.text,
@@ -215,7 +232,7 @@ class ResourceService {
         // Gọi AI phân tích
         const analyzed = await this.analyzeContentWithLLM(fullContent);
 
-        return await this.createResource({
+        const payload: Partial<ResourceTypeModel> = {
             type: ResourceType.YOUTUBE,
             url,
             title: analyzed.title || 'Youtube Resource',
@@ -227,7 +244,10 @@ class ResourceService {
             labels: analyzed.labels,
             suitableForLearners: analyzed.suitableForLearners,
             moderationNotes: analyzed.moderationNotes,
-        });
+        };
+
+        const resource = await this.createResource(payload);
+        return omit(resource.toObject(), ['__v']);
     };
 
     public searchResource = async (
@@ -237,58 +257,49 @@ class ResourceService {
         limit: number,
         sortOption: Record<string, 1 | -1>
     ) => {
-        try {
-            const query: FilterQuery<ResourceTypeModel> = {};
-            console.log(isAdmin);
-            if (!isAdmin) {
-                query.suitableForLearners =
-                    filters.suitableForLearners !== undefined
-                        ? filters.suitableForLearners === 'true'
-                        : true;
-                console.log(filters.suitableForLearners);
-                query.approved =
-                    filters.approved !== undefined
-                        ? filters.approved === 'true'
-                        : true;
-                console.log(filters.approved);
-            }
-
-            if (filters.type) query.type = filters.type;
-            if (filters.style) query['labels.style'] = filters.style;
-            if (filters.domain) query['labels.domain'] = filters.domain;
-            if (filters.topic) query['labels.topic'] = { $in: [filters.topic] };
-            if (filters.genre) query['labels.genre'] = filters.genre;
-
-            if (filters.q) {
-                const searchRegex = new RegExp(filters.q, 'i');
-                query.$or = [
-                    { title: searchRegex },
-                    { summary: searchRegex },
-                    { content: searchRegex },
-                    { keyPoints: { $in: [searchRegex] } },
-                ];
-            }
-
-            const result = await PaginationHelper.paginate(
-                Resource,
-                query,
-                { page, limit },
-                undefined,
-                '-labels',
-                sortOption
-            );
-
-            return {
-                resource: result.data,
-                pagination: result.pagination,
-            };
-        } catch (err: unknown) {
-            if (err instanceof ApiError) throw err;
-            if (err instanceof Error) {
-                throw new ApiError({ message: err.message });
-            }
-            throw new ApiError({ message: 'Unknown error occurred' });
+        const query: FilterQuery<ResourceTypeModel> = {};
+        let projection: string = '-__v';
+        if (!isAdmin) {
+            query.suitableForLearners =
+                filters.suitableForLearners !== undefined
+                    ? filters.suitableForLearners === 'true'
+                    : true;
+            query.approved =
+                filters.approved !== undefined
+                    ? filters.approved === 'true'
+                    : true;
+            projection = '-__v -labels -suitableForLearners -moderationNotes';
         }
+
+        if (filters.type) query.type = filters.type;
+        if (filters.style) query['labels.style'] = filters.style;
+        if (filters.domain) query['labels.domain'] = filters.domain;
+        if (filters.topic) query['labels.topic'] = { $in: [filters.topic] };
+        if (filters.genre) query['labels.genre'] = filters.genre;
+
+        if (filters.q) {
+            const searchRegex = new RegExp(filters.q, 'i');
+            query.$or = [
+                { title: searchRegex },
+                { summary: searchRegex },
+                { content: searchRegex },
+                { keyPoints: { $in: [searchRegex] } },
+            ];
+        }
+
+        const result = await PaginationHelper.paginate(
+            Resource,
+            query,
+            { page, limit },
+            undefined, // populate
+            projection, // projection
+            sortOption
+        );
+
+        return {
+            resource: result.data,
+            pagination: result.pagination,
+        };
     };
 }
 
