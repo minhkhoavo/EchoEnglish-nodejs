@@ -55,7 +55,6 @@ class NotificationService {
         page: number,
         limit: number
     ) => {
-        console.log(userId);
         if (!userId) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
 
         const notifications = await PaginationHelper.paginate(
