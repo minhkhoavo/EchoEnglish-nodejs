@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "51496c32-402c-4314-aa8f-915dcb607862",
+		"_postman_id": "ad5f7a4d-517f-49a7-8beb-bf3b8c2e3c82",
 		"name": "Echo Englist Node API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "41332350"
@@ -870,6 +870,14 @@
 							"body": "{\n  \"message\": \"string\",\n  \"data\": {}\n}"
 						}
 					]
+				},
+				{
+					"name": "get all user",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -1302,7 +1310,8 @@
 									"}"
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1320,7 +1329,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"anhkhoaxn11@gmail.com\",\n  \"password\": \"12341234\"\n}",
+							"raw": "{\n  \"email\": \"vovantri204@gmail.com\",\n  \"password\": \"12341234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2246,13 +2255,22 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/flashcards/",
+							"raw": "{{baseUrl}}/flashcards?limit=3&page=1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"flashcards",
-								""
+								"flashcards"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -3437,7 +3455,7 @@
 					"response": []
 				},
 				{
-					"name": "get broadcase notification admin",
+					"name": "get unread message count of user",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -3449,23 +3467,13 @@
 							"raw": "{\r\n    \"title\": \"Thông báo chào mừng\",\r\n    \"body\": \"Chào mừng bạn đến với EchoEnglish\",\r\n    \"deep_link\": \"/home\",\r\n    \"userIds\": []\r\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/notifications/all?page=1&limit=5",
+							"raw": "{{baseUrl}}/notifications/unread-count",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"notifications",
-								"all"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "5"
-								}
+								"unread-count"
 							]
 						}
 					},
@@ -3474,21 +3482,17 @@
 				{
 					"name": "mark as read",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Thông báo chào mừng\",\r\n    \"body\": \"Chào mừng bạn đến với EchoEnglish\",\r\n    \"deep_link\": \"/home\",\r\n    \"userIds\": []\r\n}"
-						},
 						"url": {
-							"raw": "{{baseUrl}}/notifications/read/",
+							"raw": "{{baseUrl}}/notifications/read/68d8caa7c1281006f4592f14",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"notifications",
 								"read",
-								""
+								"68d8caa7c1281006f4592f14"
 							]
 						}
 					},
@@ -3497,12 +3501,8 @@
 				{
 					"name": "mark as read all",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Thông báo chào mừng\",\r\n    \"body\": \"Chào mừng bạn đến với EchoEnglish\",\r\n    \"deep_link\": \"/home\",\r\n    \"userIds\": []\r\n}"
-						},
 						"url": {
 							"raw": "{{baseUrl}}/notifications/read/all",
 							"host": [
@@ -3512,6 +3512,24 @@
 								"notifications",
 								"read",
 								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark as read all Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/notifications/68d8cc6d6d4c8bb96cc3b1fc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notifications",
+								"68d8cc6d6d4c8bb96cc3b1fc"
 							]
 						}
 					},
