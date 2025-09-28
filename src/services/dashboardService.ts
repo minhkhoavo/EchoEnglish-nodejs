@@ -138,62 +138,53 @@ class DashboardService {
 
     public async getPaymentStats(from: string, to: string, by: string) {
         const dateMatch = this.buildDateMatch(from, to);
-        const totalPayments = await Payment.countDocuments(dateMatch.$match);
 
-        // Tổng doanh thu & token chỉ tính giao dịch thành công
-        const totalRevenueAgg = await Payment.aggregate([
+        const overallStats = await Payment.aggregate([
+            dateMatch,
+            {
+                $group: {
+                    _id: null,
+                    totalPayments: { $sum: 1 },
+                    successfulPayments: {
+                        $sum: {
+                            $cond: [{ $eq: ['$status', 'SUCCEEDED'] }, 1, 0],
+                        },
+                    },
+                    totalCreditsSold: {
+                        $sum: {
+                            $cond: [
+                                { $eq: ['$status', 'SUCCEEDED'] },
+                                '$tokens',
+                                0,
+                            ],
+                        },
+                    },
+                },
+            },
+        ]);
+
+        const stats = overallStats[0] || {
+            totalPayments: 0,
+            successfulPayments: 0,
+            totalCreditsSold: 0,
+        };
+
+        const byGateway = await Payment.aggregate([
             dateMatch,
             { $match: { status: 'SUCCEEDED' } },
             {
                 $group: {
-                    _id: null,
-                    totalSuccessToken: { $sum: '$tokens' },
+                    _id: '$paymentGateway',
+                    count: { $sum: 1 },
+                    credits: { $sum: '$tokens' },
                 },
             },
-        ]);
-        const totalSuccessToken =
-            totalRevenueAgg.length > 0
-                ? totalRevenueAgg[0].totalSuccessToken
-                : 0;
-
-        // Tổng token giao dịch thất bại
-        const failedTokensAgg = await Payment.aggregate([
-            dateMatch,
-            { $match: { status: 'FAILED' } },
-            {
-                $group: {
-                    _id: null,
-                    totalFailedTokens: { $sum: '$tokens' },
-                },
-            },
-        ]);
-        const totalFailedTokens =
-            failedTokensAgg.length > 0
-                ? failedTokensAgg[0].totalFailedTokens
-                : 0;
-
-        // Thống kê theo trạng thái
-        const byStatus = await Payment.aggregate([
-            dateMatch,
-            { $group: { _id: '$status', count: { $sum: 1 } } },
-            {
-                $project: {
-                    _id: 0,
-                    status: '$_id',
-                    count: 1,
-                },
-            },
-        ]);
-
-        // Thống kê theo cổng thanh toán
-        const byGateway = await Payment.aggregate([
-            this.buildDateMatch(from, to),
-            { $group: { _id: '$paymentGateway', count: { $sum: 1 } } },
             {
                 $project: {
                     _id: 0,
                     gateway: '$_id',
                     count: 1,
+                    credits: 1,
                 },
             },
         ]);
@@ -212,63 +203,12 @@ class DashboardService {
 
         const timeline = await Payment.aggregate([
             dateMatch,
+            { $match: { status: 'SUCCEEDED' } },
             {
                 $group: {
                     _id: idExpr,
-                    succeededCredits: {
-                        $sum: {
-                            $cond: [
-                                { $eq: ['$status', 'SUCCEEDED'] },
-                                '$tokens',
-                                0,
-                            ],
-                        },
-                    },
-                    failedCredits: {
-                        $sum: {
-                            $cond: [
-                                { $eq: ['$status', 'FAILED'] },
-                                '$tokens',
-                                0,
-                            ],
-                        },
-                    },
-                    canceledCredits: {
-                        $sum: {
-                            $cond: [
-                                { $eq: ['$status', 'CANCELED'] },
-                                '$tokens',
-                                0,
-                            ],
-                        },
-                    },
-                    expiredCredits: {
-                        $sum: {
-                            $cond: [
-                                { $eq: ['$status', 'EXPIRED'] },
-                                '$tokens',
-                                0,
-                            ],
-                        },
-                    },
-                    pendingCredits: {
-                        $sum: {
-                            $cond: [
-                                { $eq: ['$status', 'PENDING'] },
-                                '$tokens',
-                                0,
-                            ],
-                        },
-                    },
-                    initiatedCredits: {
-                        $sum: {
-                            $cond: [
-                                { $eq: ['$status', 'INITIATED'] },
-                                '$tokens',
-                                0,
-                            ],
-                        },
-                    },
+                    creditsSold: { $sum: '$tokens' },
+                    successfulOrders: { $sum: 1 },
                 },
             },
             { $sort: { '_id.year': 1, '_id.month': 1, '_id.day': 1 } },
@@ -276,21 +216,16 @@ class DashboardService {
                 $project: {
                     _id: 0,
                     date: '$_id',
-                    succeededCredits: 1,
-                    failedCredits: 1,
-                    canceledCredits: 1,
-                    expiredCredits: 1,
-                    pendingCredits: 1,
-                    initiatedCredits: 1,
+                    creditsSold: 1,
+                    successfulOrders: 1,
                 },
             },
         ]);
 
         return {
-            totalPayments,
-            totalSuccessToken,
-            totalFailedTokens,
-            byStatus,
+            totalPayments: stats.totalPayments,
+            successfulPayments: stats.successfulPayments,
+            totalCreditsSold: stats.totalCreditsSold,
             byGateway,
             timeline,
         };
