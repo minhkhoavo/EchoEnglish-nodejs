@@ -11,7 +11,7 @@ const notificationSchema = new Schema(
         body: {
             type: String,
         },
-        deep_link: {
+        deepLink: {
             type: String,
         },
         type: {
@@ -37,9 +37,13 @@ const notificationSchema = new Schema(
                     type: Date,
                     default: Date.now,
                 },
+                isDeleted: {
+                    type: Boolean,
+                    default: false,
+                },
             },
         ],
-        createBy: {
+        createdBy: {
             type: Schema.Types.ObjectId,
             ref: 'User',
         },

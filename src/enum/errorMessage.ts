@@ -112,6 +112,7 @@ export const ErrorMessage = {
         status: 400,
     },
 
+    /* Notification */
     NOTIFICATION_ALREADY_MARK: {
         message: 'Notification already marked as read',
         status: 400,
@@ -119,6 +120,10 @@ export const ErrorMessage = {
     NOTIFICATION_ALREADY_MARK_ALL: {
         message: 'All notification already marked as read',
         status: 400,
+    },
+    NOTIFICATION_NOT_FOUND: {
+        message: 'Notification not found',
+        status: 404,
     },
 } as const;
 

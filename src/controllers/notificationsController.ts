@@ -55,26 +55,6 @@ class NotificationsController {
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
     };
 
-    // Hàm lấy thông báo admin
-    public getBroadcastNotification = async (req: Request, res: Response) => {
-        const { page, limit } = req.query;
-
-        const pageNum = parseInt(page as string);
-        const limitNum = parseInt(limit as string);
-
-        if (isNaN(pageNum) || isNaN(limitNum)) {
-            throw new ApiError(ErrorMessage.INVALID_PAGE_LIMIT);
-        }
-
-        const result = await notificationService.getBroadcastNotfications(
-            pageNum,
-            limitNum
-        );
-        return res
-            .status(200)
-            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
-    };
-
     // Hàm đánh dấu thông báo đã đọc
     public markAsRead = async (req: Request, res: Response) => {
         const userId = req.user?.id;
@@ -92,6 +72,30 @@ class NotificationsController {
         return res
             .status(200)
             .json(new ApiResponse(SuccessMessage.MARK_ALL_AS_READ_SUCCESS));
+    };
+
+    // Hàm đếm số thông báo chưa đọc
+    public getUnreadCount = async (req: Request, res: Response) => {
+        const userId = req.user?.id;
+        const result = await notificationService.getUnreadCount(
+            userId as string
+        );
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
+    };
+
+    // Hàm xóa mềm thông báo
+    public softDeleteNotification = async (req: Request, res: Response) => {
+        const userId = req.user?.id;
+        const notificationId = req.params.id;
+        await notificationService.softDeleteNotification(
+            userId as string,
+            notificationId
+        );
+        return res
+            .status(200)
+            .json(new ApiResponse('Notification deleted successfully'));
     };
 }
 

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserService from '~/services/userService.js';
-import { UserCreateRequest, UserResponse } from '~/types/user.types.js';
+import { UserCreateRequest } from '~/types/user.types.js';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
@@ -71,6 +71,26 @@ class UserController {
                 credits: user.credits,
             })
         );
+    };
+
+    public getAllUsers = async (req: Request, res: Response) => {
+        const { page, limit, fields } = req.query;
+
+        const pageNum = parseInt(page as string) || 1;
+        const limitNum = parseInt(limit as string) || 10;
+
+        if (pageNum < 1 || limitNum < 1) {
+            throw new ApiError(ErrorMessage.INVALID_PAGE_LIMIT);
+        }
+
+        const result = await this.userService.getAllUsers(
+            pageNum,
+            limitNum,
+            fields as string
+        );
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
     };
 }
 
