@@ -7,6 +7,7 @@ const userController = new UserController();
 
 router.put('/my-profile', userController.updateProfileUser);
 router.post('', hasAuthority(RoleName.ADMIN), userController.createUser);
+router.get('', hasAuthority(RoleName.ADMIN), userController.getAllUsers);
 router.get('/credits', userController.getCredit);
 router.get('/:id', userController.getUserById);
 router.delete(

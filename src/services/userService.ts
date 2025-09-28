@@ -14,6 +14,7 @@ import { Role } from '~/models/roleModel.js';
 import { RoleName } from '~/enum/role.js';
 import { ApiError } from '~/middleware/apiError.js';
 import CategoryFlashcardService from './categoryFlashcardService.js';
+import { PaginationHelper } from '~/utils/pagination.js';
 
 const otpEmailService = new OtpEmailService();
 const categoryService = new CategoryFlashcardService();
@@ -206,6 +207,71 @@ class UserService {
         }
         user.isDeleted = true;
         await user.save();
+    };
+
+    public getAllUsers = async (
+        page: number,
+        limit: number,
+        fields?: string
+    ) => {
+        // Allowed fields for selection
+        const allowedFields = [
+            '_id',
+            'fullName',
+            'email',
+            'gender',
+            'dob',
+            'phoneNumber',
+            'address',
+            'image',
+            'credits',
+            'createdAt',
+            'updatedAt',
+            'roles',
+        ];
+
+        let selectFields: string;
+        let shouldPopulateRoles = true;
+        let populateOptions: { path: string; select: string }[] = [];
+
+        if (fields) {
+            const requestedFields = fields.split(',').map((f) => f.trim());
+            const validFields = requestedFields.filter((f) =>
+                allowedFields.includes(f)
+            );
+
+            if (validFields.length > 0) {
+                selectFields = validFields.join(' ');
+                shouldPopulateRoles = validFields.includes('roles');
+            } else {
+                selectFields = '-password -isDeleted -__v';
+            }
+        } else {
+            selectFields = '-password -isDeleted -__v';
+        }
+
+        if (shouldPopulateRoles) {
+            populateOptions = [
+                {
+                    path: 'roles',
+                    select: '_id name description',
+                },
+            ];
+        }
+
+        const result = await PaginationHelper.paginate(
+            User,
+            { isDeleted: false },
+            { page, limit },
+            populateOptions,
+            selectFields,
+            { createdAt: -1 }
+        );
+
+        return {
+            users: result.data,
+            pagination: result.pagination,
+        };
     };
 }
 

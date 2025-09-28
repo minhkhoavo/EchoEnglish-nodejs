@@ -19,10 +19,10 @@ class NotificationService {
         const notification = await Notifications.create({
             title: payload.title,
             body: payload.body,
-            deep_link: payload.deep_link,
+            deepLink: payload.deepLink,
             type: payload.type,
             userIds: payload.userIds,
-            creatBy: id,
+            createdBy: id,
             readBy: [],
         });
 
@@ -30,9 +30,10 @@ class NotificationService {
             _id: notification._id.toString(),
             title: notification.title,
             body: notification.body,
-            deep_link: notification.deep_link,
+            deepLink: notification.deepLink,
             type: notification.type,
             createdAt: notification.createdAt,
+            createdBy: notification.createdBy,
             isRead: false,
         };
 
@@ -54,63 +55,120 @@ class NotificationService {
         page: number,
         limit: number
     ) => {
-        console.log(userId);
         if (!userId) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
 
         const notifications = await PaginationHelper.paginate(
             Notifications,
             { $or: [{ userIds: { $size: 0 } }, { userIds: userId }] },
-            { page, limit }
-        );
-
-        return {
-            notifications: notifications.data.map((n) => ({
-                _id: n._id,
-                title: n.title,
-                body: n.body,
-                deep_link: n.deep_link,
-                type: n.type,
-                createdAt: n.createdAt,
-                updatedAt: n.updatedAt,
-                isRead: Array.isArray(n.readBy)
-                    ? n.readBy.some(
-                          (r: { userId: string; readAt: Date }) =>
-                              r.userId.toString() === userId
-                      )
-                    : false,
-            })),
-            pagination: notifications.pagination,
-        };
-    };
-
-    // Hàm lấy thông báo admin
-    public getBroadcastNotfications = async (page: number, limit: number) => {
-        const query = {};
-
-        const result = await PaginationHelper.paginate(
-            Notifications,
-            query,
             { page, limit },
             undefined,
-            '-__v -readBy',
+            '-__v',
             { createdAt: -1 }
         );
 
         return {
-            notifications: result.data,
-            pagination: result.pagination,
+            notifications: notifications.data
+                .map((n) => {
+                    const readByEntry = Array.isArray(n.readBy)
+                        ? n.readBy.find(
+                              (r: {
+                                  userId: string;
+                                  readAt: Date;
+                                  isDeleted?: boolean;
+                              }) => r.userId.toString() === userId
+                          )
+                        : null;
+
+                    // Skip deleted notifications for this user
+                    if (readByEntry?.isDeleted) {
+                        return null;
+                    }
+
+                    return {
+                        _id: n._id,
+                        title: n.title,
+                        body: n.body,
+                        deepLink: n.deepLink,
+                        type: n.type,
+                        createdAt: n.createdAt,
+                        updatedAt: n.updatedAt,
+                        isRead: !!readByEntry,
+                    };
+                })
+                .filter(Boolean), // Remove null entries
+            pagination: notifications.pagination,
         };
+    };
+
+    // Hàm xóa mềm thông báo cho user
+    public softDeleteNotification = async (
+        userId: string,
+        notificationId: string
+    ) => {
+        const notification = await Notifications.findById(notificationId);
+        if (!notification) {
+            throw new ApiError(ErrorMessage.NOTIFICATION_NOT_FOUND);
+        }
+
+        const existingEntry = notification.readBy.find(
+            (r: {
+                userId: Types.ObjectId;
+                readAt: Date;
+                isDeleted?: boolean;
+            }) => r.userId.toString() === userId
+        );
+
+        if (existingEntry && existingEntry.isDeleted) {
+            // Nếu đã xóa rồi thì báo lỗi
+            throw new ApiError(ErrorMessage.NOTIFICATION_NOT_FOUND);
+        }
+
+        if (existingEntry) {
+            // Nếu chưa xóa thì update thành true
+            await Notifications.findOneAndUpdate(
+                { _id: notificationId, 'readBy.userId': userId },
+                { $set: { 'readBy.$.isDeleted': true } }
+            );
+        } else {
+            // Add new entry with deleted flag
+            await Notifications.findByIdAndUpdate(notificationId, {
+                $addToSet: {
+                    readBy: {
+                        userId,
+                        readAt: new Date(),
+                        isDeleted: true,
+                    },
+                },
+            });
+        }
+
+        socketService.emitToUser(userId, 'notification_deleted', {
+            message: 'Notification deleted successfully',
+            notificationId,
+        });
     };
 
     // Hàm đánh dấu đã đọc
     public markAsRead = async (userId: string, notificationId: string) => {
-        const alreadyRead = await Notifications.exists({
-            _id: notificationId,
-            'readBy.userId': userId,
-        });
+        // Lấy notification để kiểm tra trạng thái
+        const notification = await Notifications.findById(notificationId);
+        if (!notification)
+            throw new ApiError(ErrorMessage.NOTIFICATION_NOT_FOUND);
 
-        if (alreadyRead)
+        const readByEntry = notification.readBy.find(
+            (r: {
+                userId: Types.ObjectId;
+                readAt: Date;
+                isDeleted?: boolean;
+            }) => r.userId.toString() === userId
+        );
+
+        if (readByEntry) {
+            if (readByEntry.isDeleted) {
+                throw new ApiError(ErrorMessage.NOTIFICATION_NOT_FOUND);
+            }
             throw new ApiError(ErrorMessage.NOTIFICATION_ALREADY_MARK);
+        }
 
         const updated = await Notifications.findByIdAndUpdate(
             notificationId,
@@ -130,7 +188,7 @@ class NotificationService {
         const updateNotifications = await Notifications.updateMany(
             {
                 $or: [{ userIds: { $size: 0 } }, { userIds: userId }],
-                'readBy.userId': { $ne: userId },
+                readBy: { $not: { $elemMatch: { userId: userId } } },
             },
             { $push: { readBy: { userId: userId, readAt: new Date() } } }
         );
@@ -143,6 +201,15 @@ class NotificationService {
                 timestamp: new Date(),
             });
         }
+    };
+
+    // Hàm đếm số thông báo chưa đọc
+    public getUnreadCount = async (userId: string) => {
+        const count = await Notifications.countDocuments({
+            $or: [{ userIds: { $size: 0 } }, { userIds: userId }],
+            readBy: { $not: { $elemMatch: { userId: userId } } },
+        });
+        return count;
     };
 }
 

@@ -11,12 +11,9 @@ router.post(
     notificationsController.pushNotification
 );
 router.get('', notificationsController.getAllNotificationsForUser);
+router.get('/unread-count', notificationsController.getUnreadCount);
 router.put('/read/all', notificationsController.markAllAsRead);
 router.put('/read/:id', notificationsController.markAsRead);
-router.get(
-    '/all',
-    hasAuthority(RoleName.ADMIN),
-    notificationsController.getBroadcastNotification
-);
+router.delete('/:id', notificationsController.softDeleteNotification);
 
 export default router;
