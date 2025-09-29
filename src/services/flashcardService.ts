@@ -2,7 +2,6 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { CategoryFlashcard } from '~/models/categoryFlashcardModel.js';
 import { Flashcard, FlashcardType } from '~/models/flashcardModel.js';
-import { User } from '~/models/userModel.js';
 import { PaginationHelper } from '~/utils/pagination.js';
 import omit from 'lodash/omit.js';
 
@@ -151,6 +150,20 @@ class FlashCardService {
 
             return flashcards;
         }
+    };
+
+    public getAllFlashcardBySource = async (source: string, userId: string) => {
+        const query = {
+            createBy: userId,
+            source: source,
+        };
+
+        const flashcards = await Flashcard.find(query)
+            .populate('category', 'name description')
+            .select('-createBy -__v')
+            .sort({ createdAt: -1 });
+
+        return flashcards;
     };
 }
 

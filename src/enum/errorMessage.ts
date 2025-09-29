@@ -111,6 +111,7 @@ export const ErrorMessage = {
         message: 'RESOURCE ALREADY EXISTS',
         status: 400,
     },
+    SOURCE_REQUIRED: { message: 'Source is required', status: 400 },
 
     /* Notification */
     NOTIFICATION_ALREADY_MARK: {
@@ -124,6 +125,16 @@ export const ErrorMessage = {
     NOTIFICATION_NOT_FOUND: {
         message: 'Notification not found',
         status: 404,
+    },
+
+    /* Translate */
+    INVALID_INPUT: {
+        message: 'Invalid input data',
+        status: 400,
+    },
+    INPUT_MUST_BE_SINGLE_WORD: {
+        message: 'Input must be a single word',
+        status: 400,
     },
 } as const;
 

@@ -43,24 +43,14 @@ class ResourceService {
         }
     }
 
-    // async fetchArticleHtml(url: string): Promise<string> {
-    //      try {
-    //           const { data } = await axios.get(url, { timeout: 10000 });
-    //           return data;
-    //      } catch (err) {
-    //           console.error(`[fetchArticleHtml] Error: ${url}`, err);
-    //           return "";
-    //      }
-    // }
-
     public async updateResource(
         id: string,
         updateData: Partial<ResourceTypeModel>
     ) {
-        const { title, summary, approved } = updateData;
+        const { title, summary, suitableForLearners } = updateData;
         const resource = await Resource.findByIdAndUpdate(
             id,
-            { title, summary, approved },
+            { title, summary, suitableForLearners },
             { new: true }
         );
         if (!resource) throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
@@ -264,10 +254,6 @@ class ResourceService {
                 filters.suitableForLearners !== undefined
                     ? filters.suitableForLearners === 'true'
                     : true;
-            query.approved =
-                filters.approved !== undefined
-                    ? filters.approved === 'true'
-                    : true;
             projection = '-__v -labels -suitableForLearners -moderationNotes';
         }
 
@@ -297,7 +283,7 @@ class ResourceService {
         );
 
         return {
-            resource: result.data,
+            resources: result.data,
             pagination: result.pagination,
         };
     };

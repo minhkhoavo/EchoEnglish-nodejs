@@ -2410,6 +2410,33 @@
 					]
 				},
 				{
+					"name": "get all flashcard of user by source",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"source\": \"https://news.tuoitre.vn/vietnams-lai-ly-huynh-reaches-final-of-world-xiangqi-championship-103250926111120362.htm\" // https://news.tuoitre.vn/vietnams-lai-ly-huynh-reaches-final-of-world-xiangqi-championship-103250926111120362.htm\r\n}\r\n  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/flashcards/by-source",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"flashcards",
+								"by-source"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "update flashcard",
 					"request": {
 						"method": "PUT",
@@ -3255,7 +3282,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=hjjc_JEFzPA\"\r\n}",
+							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=RgKAFK5djSk\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3263,12 +3290,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/youtube-transcript/save",
+							"raw": "{{baseUrl}}/resources/save",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"youtube-transcript",
+								"resources",
 								"save"
 							]
 						}
@@ -3378,12 +3405,22 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrl}}/resources",
+							"raw": "{{baseUrl}}/resources?page=1&limit=10",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"resources"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -3530,6 +3567,111 @@
 							"path": [
 								"notifications",
 								"68d8cc6d6d4c8bb96cc3b1fc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Translation",
+			"item": [
+				{
+					"name": "translate with ai",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Hello, how are you?\",\r\n  \"targetLanguage\": \"vi\"  // \"vi\" cho tiếng Việt, \"en\" cho tiếng Anh\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url }}/resources/translate",
+							"host": [
+								"{{base_url }}"
+							],
+							"path": [
+								"resources",
+								"translate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "translate with ftapi",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sourceText\": \"Hello, how are you?, em fine, thanh u and u\",\r\n  \"destinationLanguage\": \"vi\"  // \"vi\" cho tiếng Việt, \"en\" cho tiếng Anh\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/translate/ftapi",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"translate",
+								"ftapi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dictionary with ftapi",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"word\": \"Hello\",\r\n  \"destinationLanguage\": \"vi\"  // \"vi\" cho tiếng Việt, \"en\" cho tiếng Anh\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/translate/ftapi/dictionary",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"translate",
+								"ftapi",
+								"dictionary"
 							]
 						}
 					},

@@ -6,11 +6,8 @@ import { RoleName } from '~/enum/role.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import resourceService from '~/services/transcription/resourceService.js';
-import UserService from '~/services/userService.js';
 
 class ResourceController {
-    private userService = new UserService();
-
     public updateResourceHandler = async (req: Request, res: Response) => {
         const { id } = req.params;
         const updateData = req.body;

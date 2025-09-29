@@ -94,6 +94,25 @@ class FlashcardController {
         );
         return res.status(200).json(new ApiResponse('Success', result));
     };
+
+    public getFlashcardBySource = async (req: Request, res: Response) => {
+        const userId = req.user?.id;
+        if (!userId) throw new ApiError(ErrorMessage.UNAUTHORIZED);
+
+        const { source } = req.body;
+        if (!source) {
+            throw new ApiError(ErrorMessage.SOURCE_REQUIRED);
+        }
+
+        const result = await FlashCardService.getAllFlashcardBySource(
+            source,
+            userId
+        );
+
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
+    };
 }
 
 export default new FlashcardController();
