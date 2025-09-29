@@ -1,4 +1,3 @@
-// routes/resourceRoutes.ts
 import { Router } from 'express';
 import { resourceController } from '~/controllers/resourceController.js';
 import { hasAuthority } from '~/middleware/authMiddleware.js';

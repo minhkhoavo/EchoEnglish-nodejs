@@ -46,7 +46,6 @@ const resourceSchema = new Schema(
             required: [true, 'SUITABLE_FOR_LEARNERS_REQUIRED'],
         },
         moderationNotes: { type: String }, //ghi chú kiểm duyệt
-        approved: { type: Boolean, default: false }, //đã duyệt chưa
     },
     {
         collection: 'resources',

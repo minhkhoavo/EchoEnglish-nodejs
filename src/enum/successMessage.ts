@@ -18,7 +18,7 @@ export enum SuccessMessage {
 
     /* global */
     GET_SUCCESS = 'Get successfully',
-    CREATE_SUCCESS = 'Ceate successfully',
+    CREATE_SUCCESS = 'Create successfully',
     DELETE_SUCCESS = 'Delete successfully',
     UPDATE_SUCCESS = 'Update successfully',
 
@@ -37,9 +37,12 @@ export enum SuccessMessage {
     GET_TEST_BY_ID_SUCCESS = 'Get test by ID successfully',
     GET_TEST_BY_PART_SUCCESS = 'Get test by part successfully',
 
-    // Notification
+    /* Notification */
     MARK_AS_READ_SUCCESS = 'Mark as read successfully',
     MARK_ALL_AS_READ_SUCCESS = 'Mark all as read successfully',
     PUSH_NOTIFICATION_SUCCESS = 'Push notification successfully',
     BROADCAST_NOTIFICATION_SUCCESS = 'Broadcast notification successfully',
+
+    /* Resource */
+    TRANSLATE_SUCCESS = 'Translate successfully',
 }

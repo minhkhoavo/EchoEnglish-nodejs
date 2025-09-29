@@ -1,13 +1,12 @@
 import { Router } from 'express';
 import FlashcardController from '~/controllers/flashcardController.js';
 import CategoryFlashcardController from '../controllers/categoryFlashcardController.js';
-import { Flashcard } from '~/models/flashcardModel.js';
-import { isOwn } from '../middleware/authMiddleware.js';
 
 const router = Router();
 
 router.get('/', FlashcardController.getAllFlashcard);
 router.get('/category/:cateId', FlashcardController.getFlashcardByCategory);
+router.post('/by-source', FlashcardController.getFlashcardBySource);
 router.post('/', FlashcardController.createFlashcard);
 router.put('/:id', FlashcardController.updateFlashcard);
 router.delete('/:id', FlashcardController.deleteFlashcard);
