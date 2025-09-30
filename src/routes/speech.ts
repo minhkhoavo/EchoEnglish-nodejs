@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import SpeechController from '~/controllers/speechController.js';
 import { uploadSingle } from '~/config/multerConfig.js';
 
@@ -14,6 +14,9 @@ router.get('/recordings/', (req, res) =>
 );
 router.get('/recordings/:id', (req, res) =>
     SpeechController.detailRecording(req, res)
+);
+router.put('/recordings/:id', (req, res) =>
+    SpeechController.updateRecording(req, res)
 );
 router.delete('/recordings/:id', (req, res) =>
     SpeechController.removeRecording(req, res)

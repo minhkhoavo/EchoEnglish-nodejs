@@ -71,7 +71,7 @@ export function makeAudioConfigFromPcm16kMonoWav(
             pushStream.close();
             return sdk.AudioConfig.fromStreamInput(pushStream);
         }
-    } catch (e) {
+    } catch {
         // fall through to native handler
     }
     return sdk.AudioConfig.fromWavFileInput(wavBuf);

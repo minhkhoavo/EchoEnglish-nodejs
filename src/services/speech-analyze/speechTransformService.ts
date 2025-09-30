@@ -248,7 +248,7 @@ class SpeechTransformService {
             segments,
             metadata: {
                 duration: totalDuration,
-                speakingTime,
+                speakingTime: speakingTime / 1000,
                 language: 'en-US',
                 assessmentType: 'pronunciation',
                 createdAt: new Date().toISOString(),
