@@ -11,7 +11,7 @@ import { flashcardTools } from '~/ai/tools/flashcardTools.js';
 import { categoryTools } from '~/ai/tools/categoryTools.js';
 import { paymentTools } from '~/ai/tools/paymentTools.js';
 import { retrieveMyFilesTool } from '~/ai/tools/ragRetrieveTool.js';
-import { SystemMessage } from '@langchain/core/messages';
+import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { promptManagerService } from '~/ai/service/PromptManagerService.js';
 
 import { RunnableWithMessageHistory } from '@langchain/core/runnables';
@@ -41,7 +41,7 @@ export class ChatbotAgent {
         Record<string, unknown>
     >;
     private client = new GoogleGenAIClient({
-        model: 'models/gemini-flash-lite-latest',
+        model: 'models/gemini-2.5-flash',
     });
     private systemPrompt?: string;
 
@@ -71,7 +71,7 @@ export class ChatbotAgent {
         const prompt = ChatPromptTemplate.fromMessages([
             new SystemMessage(this.systemPrompt || ''),
             new MessagesPlaceholder('chat_history'),
-            ['human', '{input}'],
+            new MessagesPlaceholder('human_input'), // Use placeholder for flexible input
             new MessagesPlaceholder('agent_scratchpad'),
         ]);
 
@@ -97,7 +97,7 @@ export class ChatbotAgent {
                 )?.sessionId as string;
                 return this.getHistory(sessionId);
             },
-            inputMessagesKey: 'input',
+            inputMessagesKey: 'human_input',
             historyMessagesKey: 'chat_history',
             outputMessagesKey: 'output',
         });
@@ -105,15 +105,40 @@ export class ChatbotAgent {
 
     public async run(
         input: string,
-        userId: string
+        userId: string,
+        image?: string
     ): Promise<Record<string, unknown>> {
         if (!this.executor || !this.withHistory) await this.init();
 
         type ExecutorResult = { output?: unknown } & Record<string, unknown>;
 
+        // Create human message - multimodal if image provided, text-only otherwise
+        let humanMessage;
+        if (image) {
+            humanMessage = new HumanMessage({
+                content: [
+                    {
+                        type: 'text',
+                        text: input,
+                    },
+                    {
+                        type: 'image_url',
+                        image_url: {
+                            url: image,
+                        },
+                    },
+                ],
+            });
+        } else {
+            humanMessage = new HumanMessage({
+                content: input,
+            });
+        }
+
+        // Pass human message directly to agent
         const result: ExecutorResult = await this.withHistory!.invoke(
             {
-                input,
+                human_input: [humanMessage], // Agent receives the message with potential image
             },
             {
                 configurable: {
@@ -125,7 +150,10 @@ export class ChatbotAgent {
 
         const raw = result.output ?? '';
         const text = typeof raw === 'string' ? raw : JSON.stringify(raw);
+        return this.parseAgentResponse(text);
+    }
 
+    private parseAgentResponse(text: string): Record<string, unknown> {
         const clean = text
             .replace(/^```json\s*/i, '')
             .replace(/^```\s*/i, '')
