@@ -2,6 +2,7 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { CategoryFlashcard } from '~/models/categoryFlashcardModel.js';
 import { Flashcard, FlashcardType } from '~/models/flashcardModel.js';
+import { Types } from 'mongoose';
 import { PaginationHelper } from '~/utils/pagination.js';
 import omit from 'lodash/omit.js';
 
@@ -167,6 +168,110 @@ class FlashCardService {
             .sort({ createdAt: -1 });
 
         return flashcards;
+    };
+
+    public bulkUpdateFlashcards = async (
+        updates: Array<{
+            id: string;
+            data: Partial<
+                FlashcardType & { category?: string | Types.ObjectId }
+            >;
+        }>,
+        userId: string
+    ) => {
+        const session = await Flashcard.startSession();
+        session.startTransaction();
+
+        try {
+            const results = [];
+
+            for (const update of updates) {
+                const flashcard = await Flashcard.findOneAndUpdate(
+                    { _id: update.id, createBy: userId },
+                    update.data,
+                    { new: true, session }
+                ).select('-__v -createBy');
+
+                if (!flashcard) {
+                    throw new ApiError({
+                        message: `Flashcard with ID ${update.id} not found`,
+                    });
+                }
+
+                results.push(flashcard);
+            }
+
+            await session.commitTransaction();
+            return results;
+        } catch (error) {
+            await session.abortTransaction();
+            throw error;
+        } finally {
+            session.endSession();
+        }
+    };
+
+    public bulkCreateFlashcards = async (
+        flashcards: Array<
+            Partial<FlashcardType & { category?: string | Types.ObjectId }>
+        >,
+        userId: string
+    ) => {
+        const session = await Flashcard.startSession();
+        session.startTransaction();
+
+        try {
+            // Get default category if needed
+            let defaultCategoryId: string | undefined;
+
+            const results = [];
+
+            for (const flashcardData of flashcards) {
+                let categoryId: string | Types.ObjectId | undefined =
+                    flashcardData.category;
+
+                if (!categoryId) {
+                    if (!defaultCategoryId) {
+                        const defaultCategory = await CategoryFlashcard.findOne(
+                            {
+                                createBy: userId,
+                                is_default: true,
+                            }
+                        ).session(session);
+
+                        if (!defaultCategory) {
+                            throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND);
+                        }
+                        defaultCategoryId = defaultCategory._id.toString();
+                    }
+                    categoryId = defaultCategoryId;
+                }
+
+                const newFlashcard = new Flashcard({
+                    front: flashcardData.front,
+                    back: flashcardData.back,
+                    category: categoryId,
+                    difficulty: flashcardData.difficulty,
+                    tags: flashcardData.tags || [],
+                    source: flashcardData.source || '',
+                    isAIGenerated: flashcardData.isAIGenerated ?? true,
+                    createBy: userId,
+                });
+
+                const savedFlashcard = await newFlashcard.save({ session });
+                results.push(
+                    omit(savedFlashcard.toObject(), ['__v', 'createBy'])
+                );
+            }
+
+            await session.commitTransaction();
+            return results;
+        } catch (error) {
+            await session.abortTransaction();
+            throw error;
+        } finally {
+            session.endSession();
+        }
     };
 }
 
