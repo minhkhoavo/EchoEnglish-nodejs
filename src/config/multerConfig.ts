@@ -62,6 +62,28 @@ const upload = multer({
     fileFilter,
 });
 
+const imageFileFilter = (
+    req: Request,
+    file: Express.Multer.File,
+    cb: multer.FileFilterCallback
+) => {
+    if (file.mimetype.startsWith('image/')) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
+const uploadImage = multer({
+    storage,
+    fileFilter: imageFileFilter,
+    limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB limit
+    },
+});
+
+export const uploadSingleImage = uploadImage.single('image');
+
 export const uploadSingle = upload.single('file');
 export const uploadAudioSingle = upload.single('audio');
 export default upload;

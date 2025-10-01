@@ -9,6 +9,8 @@ const router = Router();
 router.get('/', FlashcardController.getAllFlashcard);
 router.get('/category/:cateId', FlashcardController.getFlashcardByCategory);
 router.post('/', FlashcardController.createFlashcard);
+router.post('/bulk', FlashcardController.bulkCreateFlashcards);
+router.put('/bulk', FlashcardController.bulkUpdateFlashcards);
 router.put('/:id', FlashcardController.updateFlashcard);
 router.delete('/:id', FlashcardController.deleteFlashcard);
 

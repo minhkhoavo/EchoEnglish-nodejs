@@ -15,6 +15,8 @@ export enum SuccessMessage {
     CREATE_FLASHCARD_SUCCESS = 'Create flashcard successfully',
     UPDATE_FLASHCARD_SUCCESS = 'Update flashcard successfully',
     DELETE_FLASHCARD_SUCCESS = 'Delete flashcard successfully',
+    BULK_CREATE_FLASHCARD_SUCCESS = 'Bulk create flashcards successfully',
+    BULK_UPDATE_FLASHCARD_SUCCESS = 'Bulk update flashcards successfully',
 
     /* global */
     GET_SUCCESS = 'Get successfully',

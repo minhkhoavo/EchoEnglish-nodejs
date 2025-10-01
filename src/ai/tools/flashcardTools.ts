@@ -190,12 +190,120 @@ const searchFlashcardsTool = tool(
     }
 );
 
+const bulkCreateFlashcardsTool = tool(
+    async ({ flashcards }, config: RunnableConfig) => {
+        const userId = config?.configurable?.userId as string;
+        if (!userId) throw new Error('userId required');
+        if (!Array.isArray(flashcards) || flashcards.length === 0) {
+            throw new Error('flashcards array is required and cannot be empty');
+        }
+
+        const processedFlashcards = flashcards.map((fc) => ({
+            front: fc.front,
+            back: fc.back,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            category: fc.category as any,
+            difficulty: normalizeDifficulty(fc.difficulty || 'Easy'),
+            tags: fc.tags || [],
+            source: fc.source || 'AI Generated from Image',
+            isAIGenerated: true,
+        }));
+
+        const created = await flashcardService.bulkCreateFlashcards(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            processedFlashcards as any[],
+            userId
+        );
+
+        return `Successfully created ${created.length} flashcards. IDs: ${created
+            .map((fc) => fc._id)
+            .join(', ')}`;
+    },
+    {
+        name: 'bulk_create_flashcards',
+        description:
+            'Create multiple flashcards at once. Ideal for processing image content or batch operations. Always set isAIGenerated=true.',
+        schema: z.object({
+            flashcards: z
+                .array(
+                    z.object({
+                        front: z.string(),
+                        back: z.string(),
+                        category: z.string().optional(),
+                        difficulty: z.string().optional(),
+                        tags: z.array(z.string()).optional(),
+                        source: z.string().optional(),
+                    })
+                )
+                .min(1),
+        }),
+    }
+);
+
+const bulkUpdateFlashcardsTool = tool(
+    async ({ updates }, config: RunnableConfig) => {
+        const userId = config?.configurable?.userId as string;
+        if (!userId) throw new Error('userId required');
+        if (!Array.isArray(updates) || updates.length === 0) {
+            throw new Error('updates array is required and cannot be empty');
+        }
+
+        const processedUpdates = updates.map((update) => ({
+            id: update.id,
+            data: {
+                ...(update.front && { front: update.front }),
+                ...(update.back && { back: update.back }),
+                ...(update.category && { category: update.category }),
+                ...(update.difficulty && {
+                    difficulty: normalizeDifficulty(update.difficulty),
+                }),
+                ...(update.tags && { tags: update.tags }),
+                ...(update.source && { source: update.source }),
+                ...(update.isAIGenerated !== undefined && {
+                    isAIGenerated: update.isAIGenerated,
+                }),
+            },
+        }));
+
+        const updated = await flashcardService.bulkUpdateFlashcards(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            processedUpdates as any,
+            userId
+        );
+
+        return `Successfully updated ${updated.length} flashcards`;
+    },
+    {
+        name: 'bulk_update_flashcards',
+        description:
+            'Update multiple flashcards at once. Useful for auto-arranging or batch modifications.',
+        schema: z.object({
+            updates: z
+                .array(
+                    z.object({
+                        id: z.string(),
+                        front: z.string().optional(),
+                        back: z.string().optional(),
+                        category: z.string().optional(),
+                        difficulty: z.string().optional(),
+                        tags: z.array(z.string()).optional(),
+                        source: z.string().optional(),
+                        isAIGenerated: z.boolean().optional(),
+                    })
+                )
+                .min(1),
+        }),
+    }
+);
+
 export const flashcardTools = [
     createFlashcardTool,
     getFlashcardTool,
     updateFlashcardTool,
     deleteFlashcardTool,
     searchFlashcardsTool,
+    bulkCreateFlashcardsTool,
+    bulkUpdateFlashcardsTool,
 ];
 
 export type FlashcardTool = (typeof flashcardTools)[number];
