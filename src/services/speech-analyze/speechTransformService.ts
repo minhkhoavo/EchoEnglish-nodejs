@@ -247,8 +247,8 @@ class SpeechTransformService {
             audioUrl,
             segments,
             metadata: {
-                duration: totalDuration,
-                speakingTime,
+                duration: totalDuration / 1000,
+                speakingTime: speakingTime / 1000,
                 language: 'en-US',
                 assessmentType: 'pronunciation',
                 createdAt: new Date().toISOString(),

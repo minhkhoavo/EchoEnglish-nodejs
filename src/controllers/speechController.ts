@@ -232,17 +232,22 @@ class SpeechController {
         if (!req.file)
             throw new ApiError({ message: 'No file provided', status: 400 });
         const mimeType = req.file.mimetype || '';
-
         if (!mimeType.startsWith('audio/'))
             throw new ApiError({
                 message: 'Only audio files are allowed',
                 status: 400,
             });
 
-        const userId =
-            (req.user as { id?: string })?.id ||
-            (req as { userId?: string }).userId ||
-            '';
+        // Validate file size
+        const fileSize = req.file.size;
+        if (fileSize > 50 * 1024 * 1024) {
+            throw new ApiError({
+                message: 'Audio file must be under 50MB',
+                status: 400,
+            });
+        }
+
+        const userId = req.user?.id as string;
         const folder = userId || undefined;
 
         const result = await createRecordingAndStartAnalysisHelper({
@@ -278,6 +283,22 @@ class SpeechController {
         if (!rec)
             throw new ApiError({ message: 'Recording not found', status: 404 });
         res.status(200).json(new ApiResponse('Deleted', rec));
+    }
+
+    async updateRecording(req: Request, res: Response) {
+        const { name } = req.body;
+        if (!name || typeof name !== 'string' || name.trim() === '')
+            throw new ApiError({
+                message: 'Name is required and must be a non-empty string',
+                status: 400,
+            });
+
+        const rec = await RecordingService.update(req.params.id, {
+            name: name.trim(),
+        });
+        if (!rec)
+            throw new ApiError({ message: 'Recording not found', status: 404 });
+        res.status(200).json(new ApiResponse('Updated', rec));
     }
 }
 

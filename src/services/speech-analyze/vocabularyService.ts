@@ -44,6 +44,8 @@ export type VocabularyField = {
     paraphraseSuggestions: ParaphraseSuggestion[];
     topPerformances: TopPerformance[];
     suggestedWords: SuggestedWord[];
+    vocabularyUpgrades: SuggestedWord[];
+    stats: VocabularyAnalysis;
 };
 
 class VocabularyService {
@@ -100,7 +102,6 @@ class VocabularyService {
     async buildVocabularyField(transformed: unknown): Promise<VocabularyField> {
         const transcript = extractTranscript(transformed);
         const stats = this.analyzeVocabulary(transformed);
-
         const template = await promptManagerService.getTemplate(
             'vocabulary_analysis'
         );
@@ -117,7 +118,11 @@ class VocabularyService {
 
         try {
             const chain = model.pipe(parser);
-            return (await chain.invoke(formatted)) as VocabularyField;
+            const result = (await chain.invoke(formatted)) as Omit<
+                VocabularyField,
+                'stats'
+            >;
+            return { ...result, stats };
         } catch (err) {
             console.error(
                 '[VocabularyService] AI failed, using fallback:',
@@ -127,6 +132,8 @@ class VocabularyService {
                 paraphraseSuggestions: [],
                 topPerformances: [],
                 suggestedWords: [],
+                vocabularyUpgrades: [],
+                stats,
             };
         }
     }

@@ -103,8 +103,8 @@ class SpeechProsodyService {
                     string,
                     unknown
                 >
-            )?.duration as number) || 0 / 1000;
-
+            )?.duration as number) || 0;
+        totalSeconds = totalSeconds / 1000;
         const isWav = /wav|wave/i.test(mimeType);
         if (isWav) {
             try {
@@ -214,8 +214,6 @@ class SpeechProsodyService {
         // Derive variation and ranges
         const pitchVals = pitch_points.map((p) => p.value);
         const energyVals = energy_points.map((p) => p.value);
-        const pitchVar = pitchVals.length ? std(pitchVals) : 0;
-        const energyVar = energyVals.length ? std(energyVals) : 0;
 
         const prosody: ProsodyAnalysis = {
             pitch_range_max: pitchVals.length ? Math.max(...pitchVals) : 0,

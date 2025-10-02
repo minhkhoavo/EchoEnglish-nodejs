@@ -34,6 +34,14 @@ JSON schema:
       "level": "excellent" | "good" | "fair"
     }}
   ],
+  "vocabularyUpgrades": [
+    {{
+      "basic": "string",
+      "advanced": "string",
+      "context": "string",
+      "example": "string"
+    }}
+  ],
   "suggestedWords": [
     {{
       "word": string,
