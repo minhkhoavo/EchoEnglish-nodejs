@@ -55,14 +55,6 @@ class ResourceController {
     public searchResource = async (req: Request, res: Response) => {
         const { page, limit, ...filters } = req.query;
 
-        const userScope = req?.user?.scope;
-        if (!userScope) {
-            throw new ApiError(ErrorMessage.UNAUTHORIZED);
-        }
-        // Allow userScope to be a string or array, check if it contains ADMIN
-        const isAdmin = userScope.includes(RoleName.ADMIN);
-        console.log(userScope);
-
         let sortOption: Record<string, 1 | -1> = {};
         if (filters.sort === 'newest') sortOption = { publishedAt: -1 };
 
@@ -83,7 +75,6 @@ class ResourceController {
         });
 
         const result = await resourceService.searchResource(
-            isAdmin,
             filterRecord,
             pageNum,
             limitNum,
