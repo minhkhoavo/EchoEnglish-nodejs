@@ -207,9 +207,17 @@ class ResourceService {
     };
 
     public saveTranscriptAsResource = async (url: string) => {
+        const vid = this.extractVideoId(url);
+        if (!vid) {
+            throw new ApiError(ErrorMessage.INVALID_URL_ID_YOUTUBE);
+        }
+
+        // Tạo link embed
+        const embedUrl = `https://www.youtube.com/embed/${vid}`;
+
         // Check tồn tại trong DB
         const existing = await Resource.findOne({
-            url,
+            url: embedUrl,
             type: ResourceType.YOUTUBE,
         });
         if (existing) {
@@ -224,7 +232,7 @@ class ResourceService {
 
         const payload: Partial<ResourceTypeModel> = {
             type: ResourceType.YOUTUBE,
-            url,
+            url: embedUrl,
             title: analyzed.title || 'Youtube Resource',
             publishedAt: new Date(),
             lang: 'en',
@@ -241,36 +249,39 @@ class ResourceService {
     };
 
     public searchResource = async (
-        isAdmin: boolean,
         filters: Record<string, string>,
         page: number,
         limit: number,
         sortOption: Record<string, 1 | -1>
     ) => {
         const query: FilterQuery<ResourceTypeModel> = {};
-        let projection: string = '-__v';
-        if (!isAdmin) {
-            query.suitableForLearners =
-                filters.suitableForLearners !== undefined
-                    ? filters.suitableForLearners === 'true'
-                    : true;
-            projection = '-__v -labels -suitableForLearners -moderationNotes';
+
+        if (
+            filters.type !== undefined &&
+            filters.type !== null &&
+            filters.type.trim() !== ''
+        ) {
+            query.type = filters.type;
         }
 
-        if (filters.type) query.type = filters.type;
-        if (filters.style) query['labels.style'] = filters.style;
-        if (filters.domain) query['labels.domain'] = filters.domain;
-        if (filters.topic) query['labels.topic'] = { $in: [filters.topic] };
-        if (filters.genre) query['labels.genre'] = filters.genre;
+        if (
+            filters.suitableForLearners !== undefined &&
+            filters.suitableForLearners !== null &&
+            filters.suitableForLearners.trim() !== ''
+        ) {
+            if (filters.suitableForLearners === 'true') {
+                query.suitableForLearners = true;
+            } else {
+                query.suitableForLearners = false;
+            }
+        }
 
-        if (filters.q) {
-            const searchRegex = new RegExp(filters.q, 'i');
-            query.$or = [
-                { title: searchRegex },
-                { summary: searchRegex },
-                { content: searchRegex },
-                { keyPoints: { $in: [searchRegex] } },
-            ];
+        if (
+            filters.q !== undefined &&
+            filters.q !== null &&
+            filters.q.trim() !== ''
+        ) {
+            query.title = new RegExp(filters.q, 'i');
         }
 
         const result = await PaginationHelper.paginate(
@@ -278,7 +289,7 @@ class ResourceService {
             query,
             { page, limit },
             undefined, // populate
-            projection, // projection
+            undefined,
             sortOption
         );
 

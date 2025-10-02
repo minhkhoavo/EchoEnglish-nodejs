@@ -3282,7 +3282,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=RgKAFK5djSk\"\r\n}",
+							"raw": "{\r\n  \"url\": \"https://www.youtube.com/watch?v=rxUm-2x-2dM\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3578,40 +3578,7 @@
 			"name": "Translation",
 			"item": [
 				{
-					"name": "translate with ai",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"text\": \"Hello, how are you?\",\r\n  \"targetLanguage\": \"vi\"  // \"vi\" cho tiếng Việt, \"en\" cho tiếng Anh\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url }}/resources/translate",
-							"host": [
-								"{{base_url }}"
-							],
-							"path": [
-								"resources",
-								"translate"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "translate with ftapi",
+					"name": "translate",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3631,13 +3598,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/translate/ftapi",
+							"raw": "{{baseUrl}}/translate",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"translate",
-								"ftapi"
+								"translate"
 							]
 						}
 					},

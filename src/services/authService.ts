@@ -1,5 +1,3 @@
-// Định nghĩa type cho role đã populate
-type PopulatedRole = { name: string };
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { User, UserType } from '../models/userModel.js';
@@ -9,22 +7,39 @@ class AuthService {
     public SECRET_KEY = process.env.JWT_SECRETKEY!;
 
     public login = async (email: string, password: string) => {
-        // Lấy user và populate roles để có name
-        const user = await User.findOne({
-            email: email,
-            isDeleted: false,
-        }).populate({ path: 'roles', select: 'name' }); // _id không select vẫn có kèm theo name (trừ khi dùng -_id)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email === undefined || email === null || !emailRegex.test(email)) {
+            throw new ApiError(ErrorMessage.EMAIL_INVALID);
+        }
+        if (
+            password === undefined ||
+            password === null ||
+            password.length < 8
+        ) {
+            throw new ApiError(ErrorMessage.PASSWORD_MUST_BE_8_CHARACTERS);
+        }
+
+        // Find by email
+        const user = await User.findOne({ email: email }).populate({
+            path: 'roles',
+            select: 'name',
+        });
+
         if (!user) {
             throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        } else {
+            if (user.isDeleted === true) {
+                throw new ApiError(ErrorMessage.USER_HAS_BEEN_DELETED);
+            } else {
+                const match = await bcrypt.compare(password, user.password);
+                if (match === false) {
+                    throw new ApiError(ErrorMessage.PASSWORD_INCORECT);
+                } else {
+                    const token = await this.generateToken(user);
+                    return { token, authenticated: true };
+                }
+            }
         }
-
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) {
-            throw new ApiError(ErrorMessage.UNAUTHORIZED);
-        }
-
-        const token = await this.generateToken(user);
-        return { token, authenticated: true };
     };
 
     public generateToken = (user: UserType) => {

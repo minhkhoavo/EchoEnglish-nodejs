@@ -6,41 +6,38 @@ import { ApiError } from '~/middleware/apiError.js';
 import { translateService } from '~/ai/service/translateService.js';
 
 class TranslateController {
-    public translateWithAI = async (req: Request, res: Response) => {
+    public translate = async (req: Request, res: Response) => {
         const { sourceText, destinationLanguage = 'vi' } = req.body;
+        try {
+            const url = `https://ftapi.pythonanywhere.com/translate?dl=${encodeURIComponent(destinationLanguage)}&text=${encodeURIComponent(sourceText)}`;
+            const response = await fetch(url);
+            const result = await response.json();
 
-        const translation = await translateService.translateWithAI(
-            sourceText,
-            destinationLanguage
-        );
+            return res.status(200).json(
+                new ApiResponse(SuccessMessage.TRANSLATE_SUCCESS, {
+                    destinationText: result['destination-text'],
+                })
+            );
+        } catch {
+            console.error('Free API translation failed, falling back to AI');
 
-        return res.status(200).json(
-            new ApiResponse(SuccessMessage.TRANSLATE_SUCCESS, {
-                destinationText: translation,
-            })
-        );
+            const translation = await translateService.translateWithAI(
+                sourceText,
+                destinationLanguage
+            );
+            return res.status(200).json(
+                new ApiResponse(SuccessMessage.TRANSLATE_SUCCESS, {
+                    destinationText: translation,
+                    fallback: true,
+                })
+            );
+        }
     };
 
-    public translateWithFreeAPI = async (req: Request, res: Response) => {
-        const { sourceText, destinationLanguage = 'vi' } = req.body;
-        const url = `https://ftapi.pythonanywhere.com/translate?dl=${encodeURIComponent(destinationLanguage)}&text=${encodeURIComponent(sourceText)}`;
-        const response = await fetch(url);
-        const result = await response.json();
-
-        return res.status(200).json(
-            new ApiResponse(SuccessMessage.TRANSLATE_SUCCESS, {
-                sourceText: result['source-text'],
-                destinationText: result['destination-text'],
-                pronunciation: {
-                    sourceAudio: result['pronunciation']['source-text-audio'],
-                    destinationAudio:
-                        result['pronunciation']['destination-text-audio'],
-                },
-            })
-        );
-    };
-
-    public dictionaryWithFreeAPI = async (req: Request, res: Response) => {
+    public dictionaryWithFreeTranslateAPI = async (
+        req: Request,
+        res: Response
+    ) => {
         const { word, destinationLanguage = 'vi' } = req.body;
 
         // Kiểm tra chỉ nhập 1 từ

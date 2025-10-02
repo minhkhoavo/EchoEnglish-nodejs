@@ -6,6 +6,7 @@ export const ErrorMessage = {
     /* User eror */
     USER_EXISTED: { message: 'User already existed', status: 400 },
     USER_NOT_FOUND: { message: 'User not found', status: 404 },
+    USER_HAS_BEEN_DELETED: { message: 'User has been deleted', status: 400 },
     ROLE_NOT_FOUND: { message: 'Role not found', status: 404 },
     ONLY_UPDATE_YOUR_PROFILE: {
         message: 'You can only update your own profile',
@@ -19,6 +20,10 @@ export const ErrorMessage = {
     DOB_INVALID: { message: 'Date of birth is invalid', status: 400 },
     PASSWORD_REQUIRED: { message: 'Password is required', status: 400 },
     PASSWORD_INVALID: { message: 'Password is invalid', status: 400 },
+    PASSWORD_MUST_BE_8_CHARACTERS: {
+        message: 'Password must be at least 8 characters',
+        status: 400,
+    },
     PHONE_NUMBER_INVALID: { message: 'Phone number is invalid', status: 400 },
     TOKEN_INVALID: { message: 'Token is invalid', status: 400 },
     OTP_INVALID: { message: 'OTP is invalid', status: 400 },
@@ -93,6 +98,7 @@ export const ErrorMessage = {
         message: 'You are not authorized to view this page',
         status: 401,
     },
+    PASSWORD_INCORECT: { message: 'Password is incorrect', status: 400 },
     VALIDATION_ERROR: { message: 'Validation error', status: 400 },
     INVALID_ID: { message: 'Invalid ID format', status: 400 },
     NOTFOUND: { message: 'Date not found', status: 404 },
