@@ -6,6 +6,7 @@ import {
     TestResultSummaryResponse,
 } from '../dto/response/testResultResponse.js';
 import testService from './testService.js';
+import mongoose from 'mongoose';
 
 interface TestQuestion {
     correctAnswer?: string;
@@ -106,7 +107,7 @@ class TestResultService {
             // Create test result
             const testResult = new TestResult({
                 userId,
-                testId: requestData.testId,
+                testId: new mongoose.Types.ObjectId(requestData.testId),
                 testTitle: requestData.testTitle,
                 testType: requestData.testType,
                 duration: requestData.duration,
@@ -227,9 +228,10 @@ class TestResultService {
     ): Promise<{ results: TestHistoryResponse[]; total: number }> {
         try {
             const skip = (page - 1) * limit;
-            const query: { userId: string; testId?: string } = { userId };
+            const query: { userId: string; testId?: mongoose.Types.ObjectId } =
+                { userId };
             if (testId) {
-                query.testId = testId;
+                query.testId = new mongoose.Types.ObjectId(testId);
             }
 
             const [results, total] = await Promise.all([
@@ -284,7 +286,7 @@ class TestResultService {
 
             return {
                 id: result._id.toString(),
-                testId: result.testId,
+                testId: result.testId.toString(),
                 testTitle: result.testTitle,
                 testType: result.testType,
                 duration: result.duration,
