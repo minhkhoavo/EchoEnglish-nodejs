@@ -9,10 +9,14 @@ class SpeakingWritingController {
     public getAllTests = async (req: Request, res: Response) => {
         try {
             const tests = await SpeakingWritingService.getAllTests(req.query);
+            const responseData = Array.isArray(tests) ? tests : [];
             return res
                 .status(200)
                 .json(
-                    new ApiResponse(SuccessMessage.GET_ALL_TESTS_SUCCESS, tests)
+                    new ApiResponse(
+                        SuccessMessage.GET_ALL_TESTS_SUCCESS,
+                        responseData
+                    )
                 );
         } catch (error) {
             console.error('Error fetching all speaking-writing tests:', error);

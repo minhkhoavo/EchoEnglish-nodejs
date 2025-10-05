@@ -25,7 +25,7 @@ class AuthService {
             select: 'name',
         });
 
-        if (!user) {
+        if (user === null) {
             throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         } else {
             if (user.isDeleted === true) {

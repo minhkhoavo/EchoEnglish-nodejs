@@ -95,29 +95,19 @@ export default class SpeakingAttemptService {
     }: StartAttemptInput) {
         const db = await this.getDb();
 
-        // Resolve test by either ObjectId (_id) or numeric testId
-        // FIXME: Pending database standardization – no stable ID available yet.
-        let test: Test | null = null;
-        let tid: number | null = null;
+        // Resolve test by ObjectId (testId) - standardized to ObjectId
         if (
-            typeof toeicSpeakingTestId === 'string' &&
-            /^[a-f\d]{24}$/i.test(toeicSpeakingTestId)
+            typeof toeicSpeakingTestId !== 'string' ||
+            !mongoose.Types.ObjectId.isValid(toeicSpeakingTestId)
         ) {
-            // Looks like ObjectId
-            const oid = this.toObjectId(toeicSpeakingTestId);
-            test = await db.collection('sw_tests').findOne({ _id: oid });
-            if (test) tid = test.testId || null;
-        } else {
-            tid =
-                typeof toeicSpeakingTestId === 'string' &&
-                /\d+/.test(toeicSpeakingTestId)
-                    ? parseInt(toeicSpeakingTestId, 10)
-                    : (toeicSpeakingTestId as number);
-            test = await db.collection('sw_tests').findOne({ testId: tid });
+            throw new ApiError(ErrorMessage.INVALID_ID);
         }
+        const oid = this.toObjectId(toeicSpeakingTestId);
+        const test = await db.collection('sw_tests').findOne({ testId: oid });
         if (!test) {
             throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
         }
+        const tid = test.testId || 0;
 
         const parts: AttemptPart[] = [];
         let qCounter = 0;

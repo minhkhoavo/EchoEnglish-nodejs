@@ -18,48 +18,75 @@ class TestService {
                 {},
                 {
                     projection: {
-                        testId: 1,
+                        _id: 1,
                         testTitle: 1,
                         type: 1,
                         number_of_parts: 1,
                         number_of_questions: 1,
                         duration: 1,
-                        _id: 0,
                     },
                 }
             )
+            .sort({ testTitle: 1 }) // Sort by title ascending
             .toArray();
-        return tests;
+
+        return Array.isArray(tests) ? tests : [];
     }
 
     public async getTestById(testId: string) {
         const db = await this.getDb();
-        const test = await db.collection('tests').findOne({ testId: testId });
-        if (
-            test &&
-            (!test.parts ||
-                !Array.isArray(test.parts) ||
-                test.parts.length === 0)
-        ) {
-            console.warn(
-                '[getTestById] Test found but missing or empty parts:',
-                test
-            );
+        // Try to query by _id as ObjectId
+        const queries: Array<Record<string, unknown>> = [];
+        try {
+            if (mongoose.Types.ObjectId.isValid(testId)) {
+                queries.push({ _id: new mongoose.Types.ObjectId(testId) });
+            }
+        } catch {
+            // ignore invalid ObjectId creation errors
         }
-        return test;
+        if (/^\d+$/.test(testId)) {
+            queries.push({ _id: parseInt(testId, 10) });
+        }
+        queries.push({ _id: testId });
+
+        let found: Record<string, unknown> | null = null;
+        for (const q of queries) {
+            found = (await db.collection('tests').findOne(q)) as Record<
+                string,
+                unknown
+            > | null;
+            if (found) break;
+        }
+
+        return found;
     }
 
     public async getTestByPart(testId: string, partNumber: number) {
         const db = await this.getDb();
 
+        // Build $match conditions to handle different stored id types
+        const matchConditions: Array<Record<string, unknown>> = [];
+        try {
+            if (mongoose.Types.ObjectId.isValid(testId)) {
+                matchConditions.push({
+                    _id: new mongoose.Types.ObjectId(testId),
+                });
+            }
+        } catch {
+            // ignore invalid ObjectId creation errors
+        }
+        if (/^\d+$/.test(testId)) {
+            matchConditions.push({ _id: parseInt(testId, 10) });
+        }
+        matchConditions.push({ _id: testId });
+
         const result = await db
             .collection('tests')
             .aggregate([
-                { $match: { testId: testId } },
+                { $match: { $or: matchConditions } },
                 {
                     $project: {
                         _id: 1,
-                        testId: 1,
                         testTitle: 1,
                         type: 1,
                         parts: {

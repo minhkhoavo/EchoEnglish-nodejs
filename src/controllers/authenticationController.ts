@@ -30,7 +30,9 @@ class AuthenticationController {
     public loginUser = async (req: Request, res: Response) => {
         const { email, password } = req.body;
         const result = await authService.login(email, password);
-        return res.status(200).json(new ApiResponse('success', result));
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.LOGIN_SUCCESS, result));
     };
 
     public registerUser = async (req: Request, res: Response) => {
