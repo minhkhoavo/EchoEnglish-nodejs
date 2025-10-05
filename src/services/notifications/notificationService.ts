@@ -105,11 +105,13 @@ class NotificationService {
         userId: string,
         notificationId: string
     ) => {
+        if (!userId || !notificationId) {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
         const notification = await Notifications.findById(notificationId);
         if (!notification) {
             throw new ApiError(ErrorMessage.NOTIFICATION_NOT_FOUND);
         }
-
         const existingEntry = notification.readBy.find(
             (r: {
                 userId: Types.ObjectId;
@@ -117,20 +119,19 @@ class NotificationService {
                 isDeleted?: boolean;
             }) => r.userId.toString() === userId
         );
-
-        if (existingEntry && existingEntry.isDeleted) {
-            // Nếu đã xóa rồi thì báo lỗi
-            throw new ApiError(ErrorMessage.NOTIFICATION_NOT_FOUND);
-        }
-
         if (existingEntry) {
-            // Nếu chưa xóa thì update thành true
-            await Notifications.findOneAndUpdate(
-                { _id: notificationId, 'readBy.userId': userId },
-                { $set: { 'readBy.$.isDeleted': true } }
-            );
+            if (existingEntry.isDeleted) {
+                // Nếu đã xóa rồi thì báo lỗi
+                throw new ApiError(ErrorMessage.NOTIFICATION_NOT_FOUND);
+            } else {
+                // Nếu chưa xóa thì update thành true
+                await Notifications.findOneAndUpdate(
+                    { _id: notificationId, 'readBy.userId': userId },
+                    { $set: { 'readBy.$.isDeleted': true } }
+                );
+            }
         } else {
-            // Add new entry with deleted flag
+            // Nếu chưa có entry thì thêm mới
             await Notifications.findByIdAndUpdate(notificationId, {
                 $addToSet: {
                     readBy: {
@@ -141,7 +142,6 @@ class NotificationService {
                 },
             });
         }
-
         socketService.emitToUser(userId, 'notification_deleted', {
             message: 'Notification deleted successfully',
             notificationId,

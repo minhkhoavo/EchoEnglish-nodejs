@@ -172,50 +172,54 @@ class TestResultService {
     private extractCorrectAnswers(testData: TestData): Record<number, string> {
         const correctAnswers: Record<number, string> = {};
         let questionNumber = 1;
+        for (let partIdx = 0; partIdx < testData.parts.length; partIdx++) {
+            const part = testData.parts[partIdx];
 
-        testData.parts.forEach((part: TestPart, partIdx: number) => {
+            //(Part 1,2,5)
             if (part.questions) {
-                // For parts with direct questions (Part 1, 2, 5)
-                part.questions.forEach(
-                    (question: TestQuestion, qIdx: number) => {
+                // inner loop over part.questions
+                for (let qIdx = 0; qIdx < part.questions.length; qIdx++) {
+                    const question = part.questions[qIdx];
+
+                    // check: question has correctAnswer ?
+                    if (!('correctAnswer' in question)) {
+                        console.error(
+                            '[extractCorrectAnswers] Missing correctAnswer in question:',
+                            { partIdx, qIdx, question }
+                        );
+                    }
+
+                    correctAnswers[questionNumber] =
+                        question.correctAnswer || 'N/A';
+                    questionNumber++;
+                }
+                // (Part 3,4,6,7)
+            } else if (part.questionGroups) {
+                // loop over groups
+                for (let gIdx = 0; gIdx < part.questionGroups.length; gIdx++) {
+                    const group = part.questionGroups[gIdx];
+                    for (let qIdx = 0; qIdx < group.questions.length; qIdx++) {
+                        const question = group.questions[qIdx];
+                        // group question has correctAnswer ?
                         if (!('correctAnswer' in question)) {
                             console.error(
-                                '[extractCorrectAnswers] Missing correctAnswer in question:',
-                                { partIdx, qIdx, question }
+                                '[extractCorrectAnswers] Missing correctAnswer in group question:',
+                                { partIdx, gIdx, qIdx, question }
                             );
                         }
                         correctAnswers[questionNumber] =
                             question.correctAnswer || 'N/A';
-                        questionNumber++;
+                        questionNumber++; // increment
                     }
-                );
-            } else if (part.questionGroups) {
-                // For parts with question groups (Part 3, 4, 6, 7)
-                part.questionGroups.forEach(
-                    (group: TestQuestionGroup, gIdx: number) => {
-                        group.questions.forEach(
-                            (question: TestQuestion, qIdx: number) => {
-                                if (!('correctAnswer' in question)) {
-                                    console.error(
-                                        '[extractCorrectAnswers] Missing correctAnswer in group question:',
-                                        { partIdx, gIdx, qIdx, question }
-                                    );
-                                }
-                                correctAnswers[questionNumber] =
-                                    question.correctAnswer || 'N/A';
-                                questionNumber++;
-                            }
-                        );
-                    }
-                );
+                }
             } else {
+                // neither questions nor questionGroups -> log error
                 console.error(
                     '[extractCorrectAnswers] Part missing questions or questionGroups:',
                     { partIdx, part }
                 );
             }
-        });
-
+        }
         return correctAnswers;
     }
 
