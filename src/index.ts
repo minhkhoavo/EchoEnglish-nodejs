@@ -11,6 +11,7 @@ import resourceService from './services/transcription/resourceService.js';
 import paymentService from './services/payment/paymentService.js';
 import socketService from './services/notifications/socketService.js';
 import { createServer } from 'http';
+import morgan from 'morgan';
 
 dotenv.config();
 

@@ -10,7 +10,7 @@ interface IUserAnswer {
 
 interface ITestResult {
     userId: Schema.Types.ObjectId;
-    testId: string;
+    testId: Schema.Types.ObjectId;
     testTitle: string;
     testType: string; // 'listening-reading', 'speaking', 'writing'
     duration: number; // in milliseconds
@@ -49,7 +49,7 @@ const testResultSchema = new Schema<ITestResult>(
             required: true,
         },
         testId: {
-            type: String,
+            type: Schema.Types.ObjectId,
             required: true,
         },
         testTitle: {

@@ -31,22 +31,33 @@ class SpeakingWritingService {
 
     public async getTestById(testId: string) {
         const db = await this.getDb();
+        if (!mongoose.Types.ObjectId.isValid(testId)) {
+            return null;
+        }
         const test = await db
             .collection('sw_tests')
-            .findOne({ testId: parseInt(testId) });
+            .findOne({ testId: new mongoose.Types.ObjectId(testId) });
         return test;
     }
 
     public async getTestByPart(testId: number | string, partNumber: number) {
         const db = await this.getDb();
-        // Ensure testId is number
-        const testIdNum =
-            typeof testId === 'string' ? parseInt(testId) : testId;
+        if (
+            typeof testId === 'string' &&
+            !mongoose.Types.ObjectId.isValid(testId)
+        )
+            return null;
+        const matchCond = {
+            testId:
+                typeof testId === 'string'
+                    ? new mongoose.Types.ObjectId(testId)
+                    : testId,
+        };
         // Find the test and filter the part by offset
         const result = await db
             .collection('sw_tests')
             .aggregate([
-                { $match: { testId: testIdNum } },
+                { $match: matchCond },
                 {
                     $project: {
                         _id: 0,
