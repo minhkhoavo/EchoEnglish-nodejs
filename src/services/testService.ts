@@ -12,96 +12,42 @@ class TestService {
 
     public async getAllTests() {
         const db = await this.getDb();
-        console.log('[getAllTests] fetching tests collection');
-        const cursor = db.collection('tests').find(
-            {},
-            {
-                projection: {
-                    testId: 1,
-                    testTitle: 1,
-                    type: 1,
-                    number_of_parts: 1,
-                    number_of_questions: 1,
-                    duration: 1,
-                    _id: 0,
-                },
-            }
-        );
-
-        const tests = await cursor.toArray();
-
-        // Debug: log count and sample (safe stringify)
-        try {
-            console.log('[getAllTests] count:', tests.length);
-            if (tests.length > 0) {
-                console.log(
-                    '[getAllTests] first sample:',
-                    JSON.stringify(tests[0], (k, v) => {
-                        // Convert ObjectId to hex string for logging
-                        if (
-                            v &&
-                            typeof v === 'object' &&
-                            v._bsontype === 'ObjectID'
-                        ) {
-                            return v.toHexString();
-                        }
-                        return v;
-                    })
-                );
-            }
-        } catch (e) {
-            console.warn('[getAllTests] debug log failed', e);
-        }
-
-        // Normalize testId to string so API consumers receive consistent type
-        const normalized = tests.map((t: Record<string, unknown>) => {
-            const out: Record<string, unknown> = { ...t };
-            const maybeId = out.testId as unknown;
-            // Convert ObjectId-like objects to hex string for API consumers
-            if (maybeId && typeof maybeId === 'object') {
-                type OidLike = {
-                    _bsontype?: string;
-                    toHexString?: () => string;
-                };
-                const asOid = maybeId as OidLike;
-                if (
-                    asOid._bsontype === 'ObjectID' &&
-                    typeof asOid.toHexString === 'function'
-                ) {
-                    out.testId = asOid.toHexString();
-                } else if (
-                    maybeId !== undefined &&
-                    typeof maybeId !== 'string'
-                ) {
-                    out.testId = String(maybeId);
+        const tests = await db
+            .collection('tests')
+            .find(
+                {},
+                {
+                    projection: {
+                        _id: 1,
+                        testTitle: 1,
+                        type: 1,
+                        number_of_parts: 1,
+                        number_of_questions: 1,
+                        duration: 1,
+                    },
                 }
-            } else if (maybeId !== undefined && typeof maybeId !== 'string') {
-                out.testId = String(maybeId);
-            }
-            return out;
-        });
+            )
+            .sort({ testTitle: 1 }) // Sort by title ascending
+            .toArray();
 
-        return Array.isArray(normalized) ? normalized : [];
+        return Array.isArray(tests) ? tests : [];
     }
 
     public async getTestById(testId: string) {
         const db = await this.getDb();
-        // Try multiple query strategies to handle mixed storage types:
-        // 1) ObjectId (if the provided id looks like one)
-        // 2) numeric (if it's all digits)
-        // 3) raw string
+        // Try to query by _id as ObjectId
         const queries: Array<Record<string, unknown>> = [];
         try {
             if (mongoose.Types.ObjectId.isValid(testId)) {
-                queries.push({ testId: new mongoose.Types.ObjectId(testId) });
+                queries.push({ _id: new mongoose.Types.ObjectId(testId) });
             }
         } catch {
             // ignore invalid ObjectId creation errors
         }
         if (/^\d+$/.test(testId)) {
-            queries.push({ testId: parseInt(testId, 10) });
+            queries.push({ _id: parseInt(testId, 10) });
         }
-        queries.push({ testId: testId });
+        queries.push({ _id: testId });
 
         let found: Record<string, unknown> | null = null;
         for (const q of queries) {
@@ -112,17 +58,6 @@ class TestService {
             if (found) break;
         }
 
-        if (
-            found &&
-            (!found.parts ||
-                !Array.isArray(found.parts) ||
-                found.parts.length === 0)
-        ) {
-            console.warn(
-                '[getTestById] Test found but missing or empty parts:',
-                found
-            );
-        }
         return found;
     }
 
@@ -134,16 +69,16 @@ class TestService {
         try {
             if (mongoose.Types.ObjectId.isValid(testId)) {
                 matchConditions.push({
-                    testId: new mongoose.Types.ObjectId(testId),
+                    _id: new mongoose.Types.ObjectId(testId),
                 });
             }
         } catch {
             // ignore invalid ObjectId creation errors
         }
         if (/^\d+$/.test(testId)) {
-            matchConditions.push({ testId: parseInt(testId, 10) });
+            matchConditions.push({ _id: parseInt(testId, 10) });
         }
-        matchConditions.push({ testId: testId });
+        matchConditions.push({ _id: testId });
 
         const result = await db
             .collection('tests')
@@ -152,7 +87,6 @@ class TestService {
                 {
                     $project: {
                         _id: 1,
-                        testId: 1,
                         testTitle: 1,
                         type: 1,
                         parts: {
