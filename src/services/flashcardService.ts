@@ -119,7 +119,10 @@ class FlashCardService {
             const result = await PaginationHelper.paginate(
                 Flashcard,
                 { createBy: userId },
-                { page, limit }
+                { page, limit },
+                undefined,
+                undefined,
+                { createdAt: -1 }
             );
 
             return {

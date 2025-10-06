@@ -5,17 +5,13 @@ import { authenticateJWT } from '../middleware/authMiddleware.js';
 const router = Router();
 
 // Submit test result
-router.post('/submit', authenticateJWT, testResultController.submitTestResult);
+router.post('/submit', testResultController.submitTestResult);
 
 // Get test history for user
-router.get('/history', authenticateJWT, testResultController.getTestHistory);
+router.get('/history', testResultController.getTestHistory);
 
 // Get specific test result detail
-router.get(
-    '/detail/:resultId',
-    authenticateJWT,
-    testResultController.getTestResultDetail
-);
+router.get('/detail/:testId', testResultController.getTestResultDetail);
 
 // Analytics endpoints
 router.get(
@@ -28,11 +24,10 @@ router.get(
 );
 
 // Get user test stats
-router.get('/stats', authenticateJWT, testResultController.getUserStats);
+router.get('/stats', testResultController.getUserStats);
 router.get(
     '/listening-reading',
-    authenticateJWT,
-    testResultController.getListeningReading
+    testResultController.getAllListeningReadingResults
 );
 
 export default router;

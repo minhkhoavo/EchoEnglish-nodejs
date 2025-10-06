@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
+import { ObjectId } from 'mongodb';
 
 class TestService {
     private async getDb() {
@@ -33,57 +34,26 @@ class TestService {
         return Array.isArray(tests) ? tests : [];
     }
 
-    public async getTestById(testId: string) {
+    public async getTestById(testId: string, partNumbers?: number[]) {
         const db = await this.getDb();
-        // Try to query by _id as ObjectId
-        const queries: Array<Record<string, unknown>> = [];
-        try {
-            if (mongoose.Types.ObjectId.isValid(testId)) {
-                queries.push({ _id: new mongoose.Types.ObjectId(testId) });
+        const objectId = new ObjectId(testId);
+
+        // Nếu không truyền parts → trả về toàn bộ test
+        if (!partNumbers || partNumbers.length === 0) {
+            const test = await db
+                .collection('tests')
+                .findOne({ _id: objectId });
+            if (!test) {
+                throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
             }
-        } catch {
-            // ignore invalid ObjectId creation errors
-        }
-        if (/^\d+$/.test(testId)) {
-            queries.push({ _id: parseInt(testId, 10) });
-        }
-        queries.push({ _id: testId });
-
-        let found: Record<string, unknown> | null = null;
-        for (const q of queries) {
-            found = (await db.collection('tests').findOne(q)) as Record<
-                string,
-                unknown
-            > | null;
-            if (found) break;
+            return test;
         }
 
-        return found;
-    }
-
-    public async getTestByPart(testId: string, partNumber: number) {
-        const db = await this.getDb();
-
-        // Build $match conditions to handle different stored id types
-        const matchConditions: Array<Record<string, unknown>> = [];
-        try {
-            if (mongoose.Types.ObjectId.isValid(testId)) {
-                matchConditions.push({
-                    _id: new mongoose.Types.ObjectId(testId),
-                });
-            }
-        } catch {
-            // ignore invalid ObjectId creation errors
-        }
-        if (/^\d+$/.test(testId)) {
-            matchConditions.push({ _id: parseInt(testId, 10) });
-        }
-        matchConditions.push({ _id: testId });
-
-        const result = await db
+        // Nếu có parts → lọc trong mảng parts
+        const testArray = await db
             .collection('tests')
             .aggregate([
-                { $match: { $or: matchConditions } },
+                { $match: { _id: objectId } },
                 {
                     $project: {
                         _id: 1,
@@ -94,9 +64,9 @@ class TestService {
                                 input: '$parts',
                                 as: 'part',
                                 cond: {
-                                    $eq: [
+                                    $in: [
                                         '$$part.partName',
-                                        `Part ${partNumber}`,
+                                        partNumbers.map((n) => `Part ${n}`),
                                     ],
                                 },
                             },
@@ -104,15 +74,16 @@ class TestService {
                     },
                 },
             ])
+            .sort({ partName: 1 })
             .toArray();
 
-        if (result.length === 0) {
-            return null;
+        if (testArray.length === 0) {
+            throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
         }
 
-        const test = result[0];
-        if (test.parts.length === 0) {
-            return null; // Part not found
+        const test = testArray[0];
+        if (!test.parts || test.parts.length === 0) {
+            throw new ApiError(ErrorMessage.PART_NOT_FOUND);
         }
 
         return test;

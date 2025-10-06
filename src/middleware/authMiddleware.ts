@@ -40,7 +40,7 @@ function isPublicEndpoint(method: string, path: string): boolean {
 
 export function globalAuth(req: Request, res: Response, next: NextFunction) {
     if (isPublicEndpoint(req.method, req.path)) {
-        return next();
+        return next(); // Skip JWT check for public endpoints
     }
     return authenticateJWT(req, res, next);
 }
