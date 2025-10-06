@@ -17,6 +17,16 @@ router.get(
     testResultController.getTestResultDetail
 );
 
+// Analytics endpoints
+router.get(
+    '/time-result/:resultId',
+    testResultController.getTestResultAnalytics
+);
+router.get(
+    '/slowest-questions/:testId',
+    testResultController.getSlowestQuestions
+);
+
 // Get user test stats
 router.get('/stats', authenticateJWT, testResultController.getUserStats);
 router.get(

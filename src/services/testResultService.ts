@@ -7,6 +7,10 @@ import {
 } from '../dto/response/testResultResponse.js';
 import testService from './testService.js';
 import mongoose from 'mongoose';
+import {
+    metricsCalculatorService,
+    SubmittedAnswer,
+} from './lr-analyze/metricsCalculatorService.js';
 
 interface TestQuestion {
     correctAnswer?: string;
@@ -95,6 +99,40 @@ class TestResultService {
                 (answer) => answer.isCorrect
             ).length;
 
+            // === NEW: Calculate metrics from timing data ===
+            let metricsResult = null;
+            if (requestData.startedAt && normalizedParts.length > 0) {
+                try {
+                    // Prepare answers with timing data for metrics calculation
+                    const answersWithTiming: SubmittedAnswer[] =
+                        processedAnswers.map((answer, index) => {
+                            const originalAnswer =
+                                requestData.userAnswers[index];
+                            return {
+                                ...answer,
+                                answerTimeline:
+                                    originalAnswer?.answerTimeline || [],
+                            };
+                        });
+
+                    metricsResult = metricsCalculatorService.calculateMetrics(
+                        answersWithTiming,
+                        normalizedParts
+                    );
+
+                    console.log(
+                        '[submitTestResult] Metrics calculated:',
+                        metricsResult.overallMetrics
+                    );
+                } catch (error) {
+                    console.error(
+                        '[submitTestResult] Failed to calculate metrics:',
+                        error
+                    );
+                    // Continue without metrics if calculation fails
+                }
+            }
+
             // Tạo partKey: nếu đủ 7 part thì là 'full', còn lại thì sort và join '-'
             let partsKey = 'full';
             if (normalizedParts && normalizedParts.length > 0) {
@@ -113,10 +151,18 @@ class TestResultService {
                 duration: requestData.duration,
                 score,
                 totalQuestions, // Now based on selected parts, not answers submitted
-                userAnswers: processedAnswers,
+                userAnswers: metricsResult
+                    ? metricsResult.enrichedAnswers
+                    : processedAnswers,
                 parts: normalizedParts,
                 partsKey,
                 completedAt: new Date(),
+                // === NEW: Add timing data ===
+                startedAt: requestData.startedAt
+                    ? new Date(requestData.startedAt)
+                    : undefined,
+                partMetrics: metricsResult?.partMetrics,
+                overallMetrics: metricsResult?.overallMetrics,
             });
 
             await testResult.save();
@@ -300,8 +346,48 @@ class TestResultService {
                 percentage: Math.round(
                     (result.score / result.totalQuestions) * 100
                 ),
-                userAnswers: result.userAnswers,
+                userAnswers: result.userAnswers.map((answer) => ({
+                    questionNumber: answer.questionNumber,
+                    selectedAnswer: answer.selectedAnswer,
+                    isCorrect: answer.isCorrect,
+                    correctAnswer: answer.correctAnswer,
+                    // Include timing metrics if available
+                    timeToFirstAnswer: answer.timeToFirstAnswer,
+                    totalTimeSpent: answer.totalTimeSpent,
+                    duration: answer.totalTimeSpent,
+                    answerChanges: answer.answerChanges,
+                })),
                 parts: result.parts,
+                // === NEW: Include metrics if available ===
+                startedAt: result.startedAt?.toISOString(),
+                partMetrics: result.partMetrics?.map((pm) => ({
+                    partName: pm.partName,
+                    questionsCount: pm.questionsCount,
+                    totalTime: pm.totalTime,
+                    averageTimePerQuestion: pm.averageTimePerQuestion,
+                    answerChangeRate: pm.answerChangeRate,
+                    slowestQuestions: pm.slowestQuestions,
+                })),
+                overallMetrics: result.overallMetrics
+                    ? {
+                          totalActiveTime:
+                              result.overallMetrics.totalActiveTime,
+                          averageTimePerQuestion:
+                              result.overallMetrics.averageTimePerQuestion,
+                          totalAnswerChanges:
+                              result.overallMetrics.totalAnswerChanges,
+                          confidenceScore:
+                              result.overallMetrics.confidenceScore,
+                          timeDistribution:
+                              result.overallMetrics.timeDistribution instanceof
+                              Map
+                                  ? Object.fromEntries(
+                                        result.overallMetrics.timeDistribution
+                                    )
+                                  : result.overallMetrics.timeDistribution ||
+                                    {},
+                      }
+                    : undefined,
             };
         } catch (error: unknown) {
             const errorMessage =

@@ -13,8 +13,31 @@ export interface TestResultResponse {
         selectedAnswer: string;
         isCorrect: boolean;
         correctAnswer: string;
+        // Timing metrics
+        timeToFirstAnswer?: number;
+        totalTimeSpent?: number;
+        // Duration for the specific attempt/answer timeline entries (ms)
+        duration?: number;
+        answerChanges?: number;
     }>;
     parts: string[];
+    // === Timing & Metrics ===
+    startedAt?: string;
+    partMetrics?: Array<{
+        partName: string;
+        questionsCount: number;
+        totalTime: number;
+        averageTimePerQuestion: number;
+        answerChangeRate: number;
+        slowestQuestions: number[];
+    }>;
+    overallMetrics?: {
+        totalActiveTime: number;
+        averageTimePerQuestion: number;
+        totalAnswerChanges: number;
+        confidenceScore: number;
+        timeDistribution: Record<string, number>;
+    };
 }
 
 export interface TestHistoryResponse {
