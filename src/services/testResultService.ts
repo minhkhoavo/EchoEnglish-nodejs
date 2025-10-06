@@ -7,6 +7,8 @@ import {
 } from '../dto/response/testResultResponse.js';
 import testService from './testService.js';
 import mongoose from 'mongoose';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { ApiError } from '~/middleware/apiError.js';
 
 interface TestQuestion {
     correctAnswer?: string;
@@ -61,81 +63,74 @@ class TestResultService {
         userId: string,
         requestData: SubmitTestResultRequest
     ): Promise<TestResultSummaryResponse> {
-        try {
-            // Get test data to validate answers
-            const testDataResult = await testService.getTestById(
-                requestData.testId
-            );
-            if (!testDataResult) {
-                throw new Error('Test not found');
-            }
-            const testData = testDataResult as unknown as TestData;
-
-            // Normalize parts: nếu parts là 1 phần tử dạng "part1-part4-part3" thì tách ra thành mảng
-            let normalizedParts = requestData.parts;
-            if (
-                Array.isArray(requestData.parts) &&
-                requestData.parts.length === 1 &&
-                typeof requestData.parts[0] === 'string' &&
-                requestData.parts[0].includes('-')
-            ) {
-                normalizedParts = requestData.parts[0].split('-');
-            }
-
-            // Calculate total questions based on selected parts
-            const totalQuestions =
-                this.calculateTotalQuestions(normalizedParts);
-
-            // Calculate scores and validate answers
-            const processedAnswers = this.processUserAnswers(
-                requestData.userAnswers,
-                testData
-            );
-            const score = processedAnswers.filter(
-                (answer) => answer.isCorrect
-            ).length;
-
-            // Tạo partKey: nếu đủ 7 part thì là 'full', còn lại thì sort và join '-'
-            let partsKey = 'full';
-            if (normalizedParts && normalizedParts.length > 0) {
-                partsKey =
-                    normalizedParts.length === 7
-                        ? 'full'
-                        : [...normalizedParts].sort().join('-');
-            }
-
-            // Create test result
-            const testResult = new TestResult({
-                userId,
-                testId: new mongoose.Types.ObjectId(requestData.testId),
-                testTitle: requestData.testTitle,
-                testType: requestData.testType,
-                duration: requestData.duration,
-                score,
-                totalQuestions, // Now based on selected parts, not answers submitted
-                userAnswers: processedAnswers,
-                parts: normalizedParts,
-                partsKey,
-                completedAt: new Date(),
-            });
-
-            await testResult.save();
-
-            const percentage = Math.round((score / totalQuestions) * 100);
-
-            return {
-                score,
-                totalQuestions,
-                correctAnswers: score,
-                incorrectAnswers: totalQuestions - score,
-                percentage,
-                message: `Bạn đã làm đúng ${score}/${totalQuestions} câu (${percentage}%)`,
-            };
-        } catch (error: unknown) {
-            const errorMessage =
-                error instanceof Error ? error.message : 'Unknown error';
-            throw new Error(`Failed to submit test result: ${errorMessage}`);
+        // Get test data to validate answers
+        const testDataResult = await testService.getTestById(
+            requestData.testId
+        );
+        if (!testDataResult) {
+            throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
         }
+        const testData = testDataResult as unknown as TestData;
+
+        // Normalize parts: nếu parts là 1 phần tử dạng "part1-part4-part3" thì tách ra thành mảng
+        let normalizedParts = requestData.parts;
+        if (
+            Array.isArray(requestData.parts) &&
+            requestData.parts.length === 1 &&
+            typeof requestData.parts[0] === 'string' &&
+            requestData.parts[0].includes('-')
+        ) {
+            normalizedParts = requestData.parts[0].split('-');
+        }
+
+        // Calculate total questions based on selected parts
+        const totalQuestions = this.calculateTotalQuestions(normalizedParts);
+
+        // Calculate scores and validate answers
+        const processedAnswers = this.processUserAnswers(
+            requestData.userAnswers,
+            testData
+        );
+        const score = processedAnswers.filter(
+            (answer) => answer.isCorrect
+        ).length;
+
+        // Tạo partKey: nếu đủ 7 part thì là 'full', còn lại thì sort và join '-'
+        let partsKey = 'full';
+        if (normalizedParts && normalizedParts.length > 0) {
+            partsKey =
+                normalizedParts.length === 7
+                    ? 'full'
+                    : [...normalizedParts].sort().join('-');
+        }
+
+        // Create test result
+        const testResult = new TestResult({
+            userId,
+            testId: new mongoose.Types.ObjectId(requestData.testId),
+            testTitle: requestData.testTitle,
+            testType: requestData.testType,
+            duration: requestData.duration,
+            score,
+            totalQuestions, // Now based on selected parts, not answers submitted
+            userAnswers: processedAnswers,
+            parts: normalizedParts,
+            partsKey,
+            completedAt: new Date(),
+        });
+
+        await testResult.save();
+
+        const percentage = Math.round((score / totalQuestions) * 100);
+
+        return {
+            score,
+            totalQuestions,
+            correctAnswers: score,
+            incorrectAnswers: totalQuestions - score,
+            percentage,
+            message: `Bạn đã làm đúng ${score}/${totalQuestions} câu (${percentage}%)`,
+        };
     }
 
     private processUserAnswers(
@@ -226,86 +221,73 @@ class TestResultService {
         limit: number = 10,
         testId?: string
     ): Promise<{ results: TestHistoryResponse[]; total: number }> {
-        try {
-            const skip = (page - 1) * limit;
-            const query: { userId: string; testId?: mongoose.Types.ObjectId } =
-                { userId };
-            if (testId) {
-                query.testId = new mongoose.Types.ObjectId(testId);
-            }
-
-            const [results, total] = await Promise.all([
-                TestResult.find(query)
-                    .sort({ completedAt: -1 })
-                    .skip(skip)
-                    .limit(limit)
-                    .lean(),
-                TestResult.countDocuments(query),
-            ]);
-
-            const formattedResults: TestHistoryResponse[] = results.map(
-                (result) => ({
-                    id: result._id.toString(),
-                    testTitle: result.testTitle,
-                    testType: result.testType,
-                    completedAt: result.completedAt.toISOString(),
-                    score: result.score,
-                    totalQuestions: result.totalQuestions,
-                    duration: result.duration,
-                    percentage: Math.round(
-                        (result.score / result.totalQuestions) * 100
-                    ),
-                    partsKey: result.partsKey,
-                })
-            );
-
-            return {
-                results: formattedResults,
-                total,
-            };
-        } catch (error: unknown) {
-            const errorMessage =
-                error instanceof Error ? error.message : 'Unknown error';
-            throw new Error(`Failed to get test history: ${errorMessage}`);
+        const skip = (page - 1) * limit;
+        const query: { userId: string; testId?: mongoose.Types.ObjectId } = {
+            userId,
+        };
+        if (testId) {
+            query.testId = new mongoose.Types.ObjectId(testId);
         }
+
+        const [results, total] = await Promise.all([
+            TestResult.find(query)
+                .sort({ completedAt: -1 })
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            TestResult.countDocuments(query),
+        ]);
+
+        const formattedResults: TestHistoryResponse[] = results.map(
+            (result) => ({
+                id: result._id.toString(),
+                testTitle: result.testTitle,
+                testType: result.testType,
+                completedAt: result.completedAt.toISOString(),
+                score: result.score,
+                totalQuestions: result.totalQuestions,
+                duration: result.duration,
+                percentage: Math.round(
+                    (result.score / result.totalQuestions) * 100
+                ),
+                partsKey: result.partsKey,
+            })
+        );
+
+        return {
+            results: formattedResults,
+            total,
+        };
     }
 
     async getTestResultDetail(
         userId: string,
-        resultId: string
+        testId: string
     ): Promise<TestResultResponse> {
-        try {
-            const result = await TestResult.findOne({
-                _id: resultId,
-                userId,
-            }).lean();
+        const result = await TestResult.findOne({
+            _id: testId,
+            userId,
+        }).lean();
 
-            if (!result) {
-                throw new Error('Test result not found');
-            }
-
-            return {
-                id: result._id.toString(),
-                testId: result.testId.toString(),
-                testTitle: result.testTitle,
-                testType: result.testType,
-                duration: result.duration,
-                completedAt: result.completedAt.toISOString(),
-                score: result.score,
-                totalQuestions: result.totalQuestions,
-                percentage: Math.round(
-                    (result.score / result.totalQuestions) * 100
-                ),
-                userAnswers: result.userAnswers,
-                parts: result.parts,
-            };
-        } catch (error: unknown) {
-            const errorMessage =
-                error instanceof Error ? error.message : 'Unknown error';
-            throw new Error(
-                `Failed to get test result detail: ${errorMessage}`
-            );
+        if (!result) {
+            throw new Error('Test result not found');
         }
+
+        return {
+            id: result._id.toString(),
+            testId: result.testId.toString(),
+            testTitle: result.testTitle,
+            testType: result.testType,
+            duration: result.duration,
+            completedAt: result.completedAt.toISOString(),
+            score: result.score,
+            totalQuestions: result.totalQuestions,
+            percentage: Math.round(
+                (result.score / result.totalQuestions) * 100
+            ),
+            userAnswers: result.userAnswers,
+            parts: result.parts,
+        };
     }
 
     async getUserStats(userId: string): Promise<{
@@ -314,95 +296,55 @@ class TestResultService {
         highestScore: number;
         recentTests: TestHistoryResponse[];
     }> {
-        try {
-            const results = await TestResult.find({ userId }).lean();
+        const results = await TestResult.find({ userId }).lean();
 
-            if (results.length === 0) {
-                return {
-                    listeningReadingTests: 0,
-                    averageScore: 0,
-                    highestScore: 0,
-                    recentTests: [],
-                };
-            }
-
-            // Filter by test type
-            const listeningReadingTests = results.filter(
-                (result) => result.testType === 'listening-reading'
-            );
-
-            const fullModeResults = results.filter(
-                (result) => result.partsKey === 'full'
-            );
-
-            const averageScore =
-                fullModeResults.length > 0
-                    ? Math.round(
-                          fullModeResults.reduce(
-                              (sum, result) => sum + result.score * 5,
-                              0
-                          ) / fullModeResults.length
-                      )
-                    : 0;
-
-            // Calculate highest score (score * 5 for listening-reading tests)
-            const highestScore =
-                listeningReadingTests.length > 0
-                    ? Math.max(
-                          ...listeningReadingTests.map(
-                              (result) => result.score * 5
-                          )
-                      )
-                    : 0;
-
-            const recentTests = results
-                .sort(
-                    (a, b) =>
-                        new Date(b.completedAt).getTime() -
-                        new Date(a.completedAt).getTime()
-                )
-                .slice(0, 5)
-                .map((result) => ({
-                    id: result._id.toString(),
-                    testTitle: result.testTitle,
-                    testType: result.testType,
-                    completedAt: result.completedAt.toISOString(),
-                    score: result.score,
-                    totalQuestions: result.totalQuestions,
-                    duration: result.duration,
-                    percentage: Math.round(
-                        (result.score / result.totalQuestions) * 100
-                    ),
-                    partsKey: result.partsKey,
-                }));
-
+        if (results.length === 0) {
             return {
-                listeningReadingTests: listeningReadingTests.length,
-                averageScore,
-
-                highestScore,
-                recentTests,
+                listeningReadingTests: 0,
+                averageScore: 0,
+                highestScore: 0,
+                recentTests: [],
             };
-        } catch (error: unknown) {
-            const errorMessage =
-                error instanceof Error ? error.message : 'Unknown error';
-            throw new Error(`Failed to get user stats: ${errorMessage}`);
         }
-    }
 
-    // Return all listening-reading test results for a user (no pagination)
-    async getListeningReadingResults(userId: string) {
-        try {
-            const results = await TestResult.find({
-                userId,
-                testType: 'listening-reading',
-            })
-                .sort({ completedAt: -1 })
-                .lean();
+        // Filter by test type
+        const listeningReadingTests = results.filter(
+            (result) => result.testType === 'listening-reading'
+        );
 
-            return results.map((result) => ({
+        const fullModeResults = results.filter(
+            (result) => result.partsKey === 'full'
+        );
+
+        const averageScore =
+            fullModeResults.length > 0
+                ? Math.round(
+                      fullModeResults.reduce(
+                          (sum, result) => sum + result.score * 5,
+                          0
+                      ) / fullModeResults.length
+                  )
+                : 0;
+
+        // Calculate highest score (score * 5 for listening-reading tests)
+        const highestScore =
+            listeningReadingTests.length > 0
+                ? Math.max(
+                      ...listeningReadingTests.map((result) => result.score * 5)
+                  )
+                : 0;
+
+        const recentTests = results
+            .sort(
+                (a, b) =>
+                    new Date(b.completedAt).getTime() -
+                    new Date(a.completedAt).getTime()
+            )
+            .slice(0, 5)
+            .map((result) => ({
                 id: result._id.toString(),
                 testTitle: result.testTitle,
+                testType: result.testType,
                 completedAt: result.completedAt.toISOString(),
                 score: result.score,
                 totalQuestions: result.totalQuestions,
@@ -412,13 +354,37 @@ class TestResultService {
                 ),
                 partsKey: result.partsKey,
             }));
-        } catch (error: unknown) {
-            const errorMessage =
-                error instanceof Error ? error.message : 'Unknown error';
-            throw new Error(
-                `Failed to get listening-reading results: ${errorMessage}`
-            );
-        }
+
+        return {
+            listeningReadingTests: listeningReadingTests.length,
+            averageScore,
+
+            highestScore,
+            recentTests,
+        };
+    }
+
+    // Return all listening-reading test results for a user (no pagination)
+    async getAllListeningReadingResults(userId: string) {
+        const results = await TestResult.find({
+            userId,
+            testType: 'listening-reading',
+        })
+            .sort({ completedAt: -1 })
+            .lean();
+
+        return results.map((result) => ({
+            id: result._id.toString(),
+            testTitle: result.testTitle,
+            completedAt: result.completedAt.toISOString(),
+            score: result.score,
+            totalQuestions: result.totalQuestions,
+            duration: result.duration,
+            percentage: Math.round(
+                (result.score / result.totalQuestions) * 100
+            ),
+            partsKey: result.partsKey,
+        }));
     }
 }
 

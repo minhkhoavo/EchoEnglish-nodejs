@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
+import { ObjectId } from 'mongodb';
 
 class SpeakingWritingService {
     private async getDb() {
@@ -16,72 +17,65 @@ class SpeakingWritingService {
             .collection('sw_tests')
             .find(query, {
                 projection: {
-                    testId: 1,
+                    _id: 1,
                     testTitle: 1,
                     type: 1,
                     number_of_parts: 1,
                     number_of_questions: 1,
                     duration: 1,
-                    _id: 0,
                 },
             })
             .toArray();
         return tests;
     }
 
-    public async getTestById(testId: string) {
+    public async getTestById(testId: string, partNumbers?: number[]) {
         const db = await this.getDb();
-        if (!mongoose.Types.ObjectId.isValid(testId)) {
-            return null;
-        }
-        const test = await db
-            .collection('sw_tests')
-            .findOne({ testId: new mongoose.Types.ObjectId(testId) });
-        return test;
-    }
+        const objectId = new ObjectId(testId);
 
-    public async getTestByPart(testId: number | string, partNumber: number) {
-        const db = await this.getDb();
-        if (
-            typeof testId === 'string' &&
-            !mongoose.Types.ObjectId.isValid(testId)
-        )
-            return null;
-        const matchCond = {
-            testId:
-                typeof testId === 'string'
-                    ? new mongoose.Types.ObjectId(testId)
-                    : testId,
-        };
-        // Find the test and filter the part by offset
-        const result = await db
+        // Nếu không truyền parts → trả về toàn bộ test
+        if (!partNumbers || partNumbers.length === 0) {
+            const test = await db
+                .collection('sw_tests')
+                .findOne({ _id: objectId });
+            if (!test) {
+                throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
+            }
+            return test;
+        }
+
+        // Nếu có parts → lọc trong mảng parts
+        const testArray = await db
             .collection('sw_tests')
             .aggregate([
-                { $match: matchCond },
+                { $match: { _id: objectId } },
                 {
                     $project: {
-                        _id: 0,
-                        testId: 1,
+                        _id: 1,
                         testTitle: 1,
                         type: 1,
-                        part: {
+                        parts: {
                             $filter: {
                                 input: '$parts',
                                 as: 'part',
-                                cond: { $eq: ['$$part.offset', partNumber] },
+                                cond: {
+                                    $in: ['$$part.offset', partNumbers],
+                                },
                             },
                         },
                     },
                 },
             ])
+            .sort({ partName: 1 })
             .toArray();
 
-        if (result.length === 0) {
-            return null;
+        if (testArray.length === 0) {
+            throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
         }
-        const test = result[0];
-        if (!test.part || test.part.length === 0) {
-            return null; // Part not found
+
+        const test = testArray[0];
+        if (!test.parts || test.parts.length === 0) {
+            throw new ApiError(ErrorMessage.PART_NOT_FOUND);
         }
 
         return test;
