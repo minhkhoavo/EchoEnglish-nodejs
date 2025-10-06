@@ -7,6 +7,10 @@ import {
 } from '../dto/response/testResultResponse.js';
 import testService from './testService.js';
 import mongoose from 'mongoose';
+import {
+    metricsCalculatorService,
+    SubmittedAnswer,
+} from './lr-analyze/metricsCalculatorService.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 
@@ -95,6 +99,31 @@ class TestResultService {
             (answer) => answer.isCorrect
         ).length;
 
+        // === NEW: Calculate metrics from timing data ===
+        let metricsResult = null;
+        if (requestData.startedAt && normalizedParts.length > 0) {
+            // Prepare answers with timing data for metrics calculation
+            const answersWithTiming: SubmittedAnswer[] = processedAnswers.map(
+                (answer, index) => {
+                    const originalAnswer = requestData.userAnswers[index];
+                    return {
+                        ...answer,
+                        answerTimeline: originalAnswer?.answerTimeline || [],
+                    };
+                }
+            );
+
+            metricsResult = metricsCalculatorService.calculateMetrics(
+                answersWithTiming,
+                normalizedParts
+            );
+
+            console.log(
+                '[submitTestResult] Metrics calculated:',
+                metricsResult.overallMetrics
+            );
+        }
+
         // Tạo partKey: nếu đủ 7 part thì là 'full', còn lại thì sort và join '-'
         let partsKey = 'full';
         if (normalizedParts && normalizedParts.length > 0) {
@@ -113,10 +142,18 @@ class TestResultService {
             duration: requestData.duration,
             score,
             totalQuestions, // Now based on selected parts, not answers submitted
-            userAnswers: processedAnswers,
+            userAnswers: metricsResult
+                ? metricsResult.enrichedAnswers
+                : processedAnswers,
             parts: normalizedParts,
             partsKey,
             completedAt: new Date(),
+            // === NEW: Add timing data ===
+            startedAt: requestData.startedAt
+                ? new Date(requestData.startedAt)
+                : undefined,
+            partMetrics: metricsResult?.partMetrics,
+            overallMetrics: metricsResult?.overallMetrics,
         });
 
         await testResult.save();
@@ -168,50 +205,54 @@ class TestResultService {
     private extractCorrectAnswers(testData: TestData): Record<number, string> {
         const correctAnswers: Record<number, string> = {};
         let questionNumber = 1;
+        for (let partIdx = 0; partIdx < testData.parts.length; partIdx++) {
+            const part = testData.parts[partIdx];
 
-        testData.parts.forEach((part: TestPart, partIdx: number) => {
+            //(Part 1,2,5)
             if (part.questions) {
-                // For parts with direct questions (Part 1, 2, 5)
-                part.questions.forEach(
-                    (question: TestQuestion, qIdx: number) => {
+                // inner loop over part.questions
+                for (let qIdx = 0; qIdx < part.questions.length; qIdx++) {
+                    const question = part.questions[qIdx];
+
+                    // check: question has correctAnswer ?
+                    if (!('correctAnswer' in question)) {
+                        console.error(
+                            '[extractCorrectAnswers] Missing correctAnswer in question:',
+                            { partIdx, qIdx, question }
+                        );
+                    }
+
+                    correctAnswers[questionNumber] =
+                        question.correctAnswer || 'N/A';
+                    questionNumber++;
+                }
+                // (Part 3,4,6,7)
+            } else if (part.questionGroups) {
+                // loop over groups
+                for (let gIdx = 0; gIdx < part.questionGroups.length; gIdx++) {
+                    const group = part.questionGroups[gIdx];
+                    for (let qIdx = 0; qIdx < group.questions.length; qIdx++) {
+                        const question = group.questions[qIdx];
+                        // group question has correctAnswer ?
                         if (!('correctAnswer' in question)) {
                             console.error(
-                                '[extractCorrectAnswers] Missing correctAnswer in question:',
-                                { partIdx, qIdx, question }
+                                '[extractCorrectAnswers] Missing correctAnswer in group question:',
+                                { partIdx, gIdx, qIdx, question }
                             );
                         }
                         correctAnswers[questionNumber] =
                             question.correctAnswer || 'N/A';
-                        questionNumber++;
+                        questionNumber++; // increment
                     }
-                );
-            } else if (part.questionGroups) {
-                // For parts with question groups (Part 3, 4, 6, 7)
-                part.questionGroups.forEach(
-                    (group: TestQuestionGroup, gIdx: number) => {
-                        group.questions.forEach(
-                            (question: TestQuestion, qIdx: number) => {
-                                if (!('correctAnswer' in question)) {
-                                    console.error(
-                                        '[extractCorrectAnswers] Missing correctAnswer in group question:',
-                                        { partIdx, gIdx, qIdx, question }
-                                    );
-                                }
-                                correctAnswers[questionNumber] =
-                                    question.correctAnswer || 'N/A';
-                                questionNumber++;
-                            }
-                        );
-                    }
-                );
+                }
             } else {
+                // neither questions nor questionGroups -> log error
                 console.error(
                     '[extractCorrectAnswers] Part missing questions or questionGroups:',
                     { partIdx, part }
                 );
             }
-        });
-
+        }
         return correctAnswers;
     }
 
@@ -262,10 +303,10 @@ class TestResultService {
 
     async getTestResultDetail(
         userId: string,
-        testId: string
+        resultId: string
     ): Promise<TestResultResponse> {
         const result = await TestResult.findOne({
-            _id: testId,
+            _id: resultId,
             userId,
         }).lean();
 
@@ -285,8 +326,44 @@ class TestResultService {
             percentage: Math.round(
                 (result.score / result.totalQuestions) * 100
             ),
-            userAnswers: result.userAnswers,
+            userAnswers: result.userAnswers.map((answer) => ({
+                questionNumber: answer.questionNumber,
+                selectedAnswer: answer.selectedAnswer,
+                isCorrect: answer.isCorrect,
+                correctAnswer: answer.correctAnswer,
+                // Include timing metrics if available
+                timeToFirstAnswer: answer.timeToFirstAnswer,
+                totalTimeSpent: answer.totalTimeSpent,
+                duration: answer.totalTimeSpent,
+                answerChanges: answer.answerChanges,
+            })),
             parts: result.parts,
+            // === NEW: Include metrics if available ===
+            startedAt: result.startedAt?.toISOString(),
+            partMetrics: result.partMetrics?.map((pm) => ({
+                partName: pm.partName,
+                questionsCount: pm.questionsCount,
+                totalTime: pm.totalTime,
+                averageTimePerQuestion: pm.averageTimePerQuestion,
+                answerChangeRate: pm.answerChangeRate,
+                slowestQuestions: pm.slowestQuestions,
+            })),
+            overallMetrics: result.overallMetrics
+                ? {
+                      totalActiveTime: result.overallMetrics.totalActiveTime,
+                      averageTimePerQuestion:
+                          result.overallMetrics.averageTimePerQuestion,
+                      totalAnswerChanges:
+                          result.overallMetrics.totalAnswerChanges,
+                      confidenceScore: result.overallMetrics.confidenceScore,
+                      timeDistribution:
+                          result.overallMetrics.timeDistribution instanceof Map
+                              ? Object.fromEntries(
+                                    result.overallMetrics.timeDistribution
+                                )
+                              : result.overallMetrics.timeDistribution || {},
+                  }
+                : undefined,
         };
     }
 
@@ -365,7 +442,7 @@ class TestResultService {
     }
 
     // Return all listening-reading test results for a user (no pagination)
-    async getAllListeningReadingResults(userId: string) {
+    async getListeningReadingResults(userId: string) {
         const results = await TestResult.find({
             userId,
             testType: 'listening-reading',

@@ -13,6 +13,16 @@ router.get('/history', testResultController.getTestHistory);
 // Get specific test result detail
 router.get('/detail/:testId', testResultController.getTestResultDetail);
 
+// Analytics endpoints
+router.get(
+    '/time-result/:resultId',
+    testResultController.getTestResultAnalytics
+);
+router.get(
+    '/slowest-questions/:testId',
+    testResultController.getSlowestQuestions
+);
+
 // Get user test stats
 router.get('/stats', testResultController.getUserStats);
 router.get(
