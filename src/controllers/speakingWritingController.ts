@@ -7,7 +7,14 @@ import { SuccessMessage } from '~/enum/successMessage.js';
 
 class SpeakingWritingController {
     public getAllTests = async (req: Request, res: Response) => {
-        const tests = await SpeakingWritingService.getAllTests();
+        const { type } = req.query;
+        const query: Record<string, unknown> = {};
+
+        if (type && typeof type === 'string') {
+            query.type = type;
+        }
+
+        const tests = await SpeakingWritingService.getAllTests(query);
         const responseData = Array.isArray(tests) ? tests : [];
         return res
             .status(200)
