@@ -1,0 +1,55 @@
+Generate a personalized study guide with strategies to overcome this specific weakness.
+
+**Weakness Details:**
+- Category: {{weaknessCategory}}
+- Skill: {{skillKey}}
+- Title: {{weaknessTitle}}
+- Severity: {{severity}}
+- Affected Parts: {{affectedParts}}
+- Common Error Patterns: {{errorPatterns}}
+
+**User's Performance:**
+- Current Accuracy: {{userAccuracy}}%
+- Questions Attempted: {{questionsAttempted}}
+- Common Mistakes: {{commonMistakes}}
+
+Generate a comprehensive guide with:
+
+1. **Understanding the Problem:**
+   - What this skill involves
+   - Why learners struggle with it
+   - How it appears in TOEIC
+
+2. **Step-by-Step Strategies:** (3-5 concrete strategies)
+   - What to do before answering
+   - What to look for in the question/passage
+   - How to eliminate wrong answers
+   - Time management tips
+
+3. **Common Traps to Avoid:**
+   - Typical mistakes for this skill
+   - How to recognize trap answers
+   - Red flags to watch for
+
+4. **Practice Approach:**
+   - How to practice effectively
+   - What to focus on first
+   - How to review mistakes
+
+5. **Success Indicators:**
+   - Signs you're improving
+   - Target accuracy to aim for
+
+Format your response as JSON:
+{
+  "title": "Personal Guide: Mastering [Skill]",
+  "sections": [
+    {
+      "heading": "...",
+      "content": "..." // Use markdown for formatting
+    }
+  ],
+  "quickTips": ["tip1", "tip2", "tip3"]
+}
+
+Be specific, actionable, and encouraging. Use examples from TOEIC questions when relevant.

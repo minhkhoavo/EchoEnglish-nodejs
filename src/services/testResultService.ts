@@ -11,8 +11,7 @@ import {
     metricsCalculatorService,
     SubmittedAnswer,
 } from './lr-analyze/metricsCalculatorService.js';
-import { ErrorMessage } from '~/enum/errorMessage.js';
-import { ApiError } from '~/middleware/apiError.js';
+import computeToeicScores from '../utils/toeicScore.js';
 
 interface TestQuestion {
     correctAnswer?: string;
@@ -67,107 +66,149 @@ class TestResultService {
         userId: string,
         requestData: SubmitTestResultRequest
     ): Promise<TestResultSummaryResponse> {
-        // Get test data to validate answers
-        const testDataResult = await testService.getTestById(
-            requestData.testId
-        );
-        if (!testDataResult) {
-            throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
-        }
-        const testData = testDataResult as unknown as TestData;
+        try {
+            // Get test data to validate answers
+            const testDataResult = await testService.getTestById(
+                requestData.testId
+            );
+            if (!testDataResult) {
+                throw new Error('Test not found');
+            }
+            const testData = testDataResult as unknown as TestData;
 
-        // Normalize parts: nếu parts là 1 phần tử dạng "part1-part4-part3" thì tách ra thành mảng
-        let normalizedParts = requestData.parts;
-        if (
-            Array.isArray(requestData.parts) &&
-            requestData.parts.length === 1 &&
-            typeof requestData.parts[0] === 'string' &&
-            requestData.parts[0].includes('-')
-        ) {
-            normalizedParts = requestData.parts[0].split('-');
-        }
+            // Normalize parts: nếu parts là 1 phần tử dạng "part1-part4-part3" thì tách ra thành mảng
+            let normalizedParts = requestData.parts;
+            if (
+                Array.isArray(requestData.parts) &&
+                requestData.parts.length === 1 &&
+                typeof requestData.parts[0] === 'string' &&
+                requestData.parts[0].includes('-')
+            ) {
+                normalizedParts = requestData.parts[0].split('-');
+            }
 
-        // Calculate total questions based on selected parts
-        const totalQuestions = this.calculateTotalQuestions(normalizedParts);
+            // Calculate total questions based on selected parts
+            const totalQuestions =
+                this.calculateTotalQuestions(normalizedParts);
 
-        // Calculate scores and validate answers
-        const processedAnswers = this.processUserAnswers(
-            requestData.userAnswers,
-            testData
-        );
-        const score = processedAnswers.filter(
-            (answer) => answer.isCorrect
-        ).length;
-
-        // === NEW: Calculate metrics from timing data ===
-        let metricsResult = null;
-        if (requestData.startedAt && normalizedParts.length > 0) {
-            // Prepare answers with timing data for metrics calculation
-            const answersWithTiming: SubmittedAnswer[] = processedAnswers.map(
-                (answer, index) => {
-                    const originalAnswer = requestData.userAnswers[index];
-                    return {
-                        ...answer,
-                        answerTimeline: originalAnswer?.answerTimeline || [],
-                    };
+            // Calculate scores and validate answers
+            const processedAnswers = this.processUserAnswers(
+                requestData.userAnswers,
+                testData
+            );
+            const score = processedAnswers.filter(
+                (answer) => answer.isCorrect
+            ).length;
+            let listeningCorrect = 0;
+            let readingCorrect = 0;
+            for (const answer of processedAnswers) {
+                if (answer.isCorrect) {
+                    if (
+                        answer.questionNumber >= 1 &&
+                        answer.questionNumber <= 100
+                    ) {
+                        listeningCorrect++;
+                    } else if (
+                        answer.questionNumber >= 101 &&
+                        answer.questionNumber <= 200
+                    ) {
+                        readingCorrect++;
+                    }
                 }
-            );
+            }
 
-            metricsResult = metricsCalculatorService.calculateMetrics(
-                answersWithTiming,
-                normalizedParts
-            );
+            const toeic = computeToeicScores(listeningCorrect, readingCorrect);
 
-            console.log(
-                '[submitTestResult] Metrics calculated:',
-                metricsResult.overallMetrics
-            );
+            // === NEW: Calculate metrics from timing data ===
+            let metricsResult = null;
+            if (requestData.startedAt && normalizedParts.length > 0) {
+                try {
+                    // Prepare answers with timing data for metrics calculation
+                    const answersWithTiming: SubmittedAnswer[] =
+                        processedAnswers.map((answer, index) => {
+                            const originalAnswer =
+                                requestData.userAnswers[index];
+                            return {
+                                ...answer,
+                                answerTimeline:
+                                    originalAnswer?.answerTimeline || [],
+                            };
+                        });
+
+                    metricsResult = metricsCalculatorService.calculateMetrics(
+                        answersWithTiming,
+                        normalizedParts
+                    );
+                } catch (error) {
+                    console.error(
+                        '[submitTestResult] Failed to calculate metrics:',
+                        error
+                    );
+                    // Continue without metrics if calculation fails
+                }
+            }
+
+            // Tạo partKey: nếu đủ 7 part thì là 'full', còn lại thì sort và join '-'
+            let partsKey = 'full';
+            if (normalizedParts && normalizedParts.length > 0) {
+                partsKey =
+                    normalizedParts.length === 7
+                        ? 'full'
+                        : [...normalizedParts].sort().join('-');
+            }
+
+            // Create test result
+            const testResult = new TestResult({
+                userId,
+                testId: new mongoose.Types.ObjectId(requestData.testId),
+                testTitle: requestData.testTitle,
+                testType: requestData.testType,
+                duration: requestData.duration,
+                score,
+                listeningScore: toeic.listeningScore,
+                readingScore: toeic.readingScore,
+                totalScore: toeic.totalScore,
+                totalQuestions,
+                userAnswers: metricsResult
+                    ? metricsResult.enrichedAnswers
+                    : processedAnswers,
+                parts: normalizedParts,
+                partsKey,
+                completedAt: new Date(),
+                startedAt: requestData.startedAt
+                    ? new Date(requestData.startedAt)
+                    : undefined,
+                analysis: {
+                    timeAnalysis: metricsResult
+                        ? {
+                              partMetrics: metricsResult.partMetrics,
+                              overallMetrics: metricsResult.overallMetrics,
+                              hesitationAnalysis:
+                                  metricsResult.hesitationAnalysis,
+                              answerChangePatterns:
+                                  metricsResult.answerChangePatterns,
+                          }
+                        : undefined,
+                },
+            });
+
+            await testResult.save();
+
+            const percentage = Math.round((score / totalQuestions) * 100);
+
+            return {
+                score,
+                totalQuestions,
+                correctAnswers: score,
+                incorrectAnswers: totalQuestions - score,
+                percentage,
+                message: `You got ${score}/${totalQuestions} questions correct (${percentage}%)`,
+            };
+        } catch (error: unknown) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(`Failed to submit test result: ${errorMessage}`);
         }
-
-        // Tạo partKey: nếu đủ 7 part thì là 'full', còn lại thì sort và join '-'
-        let partsKey = 'full';
-        if (normalizedParts && normalizedParts.length > 0) {
-            partsKey =
-                normalizedParts.length === 7
-                    ? 'full'
-                    : [...normalizedParts].sort().join('-');
-        }
-
-        // Create test result
-        const testResult = new TestResult({
-            userId,
-            testId: new mongoose.Types.ObjectId(requestData.testId),
-            testTitle: requestData.testTitle,
-            testType: requestData.testType,
-            duration: requestData.duration,
-            score,
-            totalQuestions, // Now based on selected parts, not answers submitted
-            userAnswers: metricsResult
-                ? metricsResult.enrichedAnswers
-                : processedAnswers,
-            parts: normalizedParts,
-            partsKey,
-            completedAt: new Date(),
-            // === NEW: Add timing data ===
-            startedAt: requestData.startedAt
-                ? new Date(requestData.startedAt)
-                : undefined,
-            partMetrics: metricsResult?.partMetrics,
-            overallMetrics: metricsResult?.overallMetrics,
-        });
-
-        await testResult.save();
-
-        const percentage = Math.round((score / totalQuestions) * 100);
-
-        return {
-            score,
-            totalQuestions,
-            correctAnswers: score,
-            incorrectAnswers: totalQuestions - score,
-            percentage,
-            message: `Bạn đã làm đúng ${score}/${totalQuestions} câu (${percentage}%)`,
-        };
     }
 
     private processUserAnswers(
@@ -262,109 +303,133 @@ class TestResultService {
         limit: number = 10,
         testId?: string
     ): Promise<{ results: TestHistoryResponse[]; total: number }> {
-        const skip = (page - 1) * limit;
-        const query: { userId: string; testId?: mongoose.Types.ObjectId } = {
-            userId,
-        };
-        if (testId) {
-            query.testId = new mongoose.Types.ObjectId(testId);
+        try {
+            const skip = (page - 1) * limit;
+            const query: { userId: string; testId?: mongoose.Types.ObjectId } =
+                { userId };
+            if (testId) {
+                query.testId = new mongoose.Types.ObjectId(testId);
+            }
+
+            const [results, total] = await Promise.all([
+                TestResult.find(query)
+                    .sort({ completedAt: -1 })
+                    .skip(skip)
+                    .limit(limit)
+                    .lean(),
+                TestResult.countDocuments(query),
+            ]);
+
+            const formattedResults: TestHistoryResponse[] = results.map(
+                (result) => ({
+                    id: result._id.toString(),
+                    testTitle: result.testTitle,
+                    testType: result.testType,
+                    completedAt: result.completedAt.toISOString(),
+                    score: result.score,
+                    totalQuestions: result.totalQuestions,
+                    duration: result.duration,
+                    percentage: Math.round(
+                        (result.score / result.totalQuestions) * 100
+                    ),
+                    partsKey: result.partsKey,
+                })
+            );
+
+            return {
+                results: formattedResults,
+                total,
+            };
+        } catch (error: unknown) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(`Failed to get test history: ${errorMessage}`);
         }
-
-        const [results, total] = await Promise.all([
-            TestResult.find(query)
-                .sort({ completedAt: -1 })
-                .skip(skip)
-                .limit(limit)
-                .lean(),
-            TestResult.countDocuments(query),
-        ]);
-
-        const formattedResults: TestHistoryResponse[] = results.map(
-            (result) => ({
-                id: result._id.toString(),
-                testTitle: result.testTitle,
-                testType: result.testType,
-                completedAt: result.completedAt.toISOString(),
-                score: result.score,
-                totalQuestions: result.totalQuestions,
-                duration: result.duration,
-                percentage: Math.round(
-                    (result.score / result.totalQuestions) * 100
-                ),
-                partsKey: result.partsKey,
-            })
-        );
-
-        return {
-            results: formattedResults,
-            total,
-        };
     }
 
     async getTestResultDetail(
         userId: string,
         resultId: string
     ): Promise<TestResultResponse> {
-        const result = await TestResult.findOne({
-            _id: resultId,
-            userId,
-        }).lean();
+        try {
+            const result = await TestResult.findOne({
+                _id: resultId,
+                userId,
+            }).lean();
 
-        if (!result) {
-            throw new Error('Test result not found');
+            if (!result) {
+                throw new Error('Test result not found');
+            }
+
+            return {
+                id: result._id.toString(),
+                testId: result.testId.toString(),
+                testTitle: result.testTitle,
+                testType: result.testType,
+                duration: result.duration,
+                completedAt: result.completedAt.toISOString(),
+                score: result.score,
+                totalQuestions: result.totalQuestions,
+                percentage: Math.round(
+                    (result.score / result.totalQuestions) * 100
+                ),
+                userAnswers: result.userAnswers.map((answer) => ({
+                    questionNumber: answer.questionNumber,
+                    selectedAnswer: answer.selectedAnswer,
+                    isCorrect: answer.isCorrect,
+                    correctAnswer: answer.correctAnswer,
+                    // Include timing metrics if available
+                    timeToFirstAnswer: answer.timeToFirstAnswer,
+                    totalTimeSpent: answer.totalTimeSpent,
+                    duration: answer.totalTimeSpent,
+                    answerChanges: answer.answerChanges,
+                })),
+                parts: result.parts,
+                // === NEW: Include metrics if available ===
+                startedAt: result.startedAt?.toISOString(),
+                partMetrics: result.analysis?.timeAnalysis?.partMetrics?.map(
+                    (pm) => ({
+                        partName: pm.partName,
+                        questionsCount: pm.questionsCount,
+                        totalTime: pm.totalTime,
+                        averageTimePerQuestion: pm.averageTimePerQuestion,
+                        answerChangeRate: pm.answerChangeRate,
+                        slowestQuestions: pm.slowestQuestions,
+                    })
+                ),
+                overallMetrics: result.analysis?.timeAnalysis?.overallMetrics
+                    ? {
+                          totalActiveTime:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .totalActiveTime,
+                          averageTimePerQuestion:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .averageTimePerQuestion,
+                          totalAnswerChanges:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .totalAnswerChanges,
+                          confidenceScore:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .confidenceScore,
+                          timeDistribution:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .timeDistribution instanceof Map
+                                  ? Object.fromEntries(
+                                        result.analysis.timeAnalysis
+                                            .overallMetrics.timeDistribution
+                                    )
+                                  : result.analysis.timeAnalysis.overallMetrics
+                                        .timeDistribution || {},
+                      }
+                    : undefined,
+            };
+        } catch (error: unknown) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(
+                `Failed to get test result detail: ${errorMessage}`
+            );
         }
-
-        return {
-            id: result._id.toString(),
-            testId: result.testId.toString(),
-            testTitle: result.testTitle,
-            testType: result.testType,
-            duration: result.duration,
-            completedAt: result.completedAt.toISOString(),
-            score: result.score,
-            totalQuestions: result.totalQuestions,
-            percentage: Math.round(
-                (result.score / result.totalQuestions) * 100
-            ),
-            userAnswers: result.userAnswers.map((answer) => ({
-                questionNumber: answer.questionNumber,
-                selectedAnswer: answer.selectedAnswer,
-                isCorrect: answer.isCorrect,
-                correctAnswer: answer.correctAnswer,
-                // Include timing metrics if available
-                timeToFirstAnswer: answer.timeToFirstAnswer,
-                totalTimeSpent: answer.totalTimeSpent,
-                duration: answer.totalTimeSpent,
-                answerChanges: answer.answerChanges,
-            })),
-            parts: result.parts,
-            // === NEW: Include metrics if available ===
-            startedAt: result.startedAt?.toISOString(),
-            partMetrics: result.partMetrics?.map((pm) => ({
-                partName: pm.partName,
-                questionsCount: pm.questionsCount,
-                totalTime: pm.totalTime,
-                averageTimePerQuestion: pm.averageTimePerQuestion,
-                answerChangeRate: pm.answerChangeRate,
-                slowestQuestions: pm.slowestQuestions,
-            })),
-            overallMetrics: result.overallMetrics
-                ? {
-                      totalActiveTime: result.overallMetrics.totalActiveTime,
-                      averageTimePerQuestion:
-                          result.overallMetrics.averageTimePerQuestion,
-                      totalAnswerChanges:
-                          result.overallMetrics.totalAnswerChanges,
-                      confidenceScore: result.overallMetrics.confidenceScore,
-                      timeDistribution:
-                          result.overallMetrics.timeDistribution instanceof Map
-                              ? Object.fromEntries(
-                                    result.overallMetrics.timeDistribution
-                                )
-                              : result.overallMetrics.timeDistribution || {},
-                  }
-                : undefined,
-        };
     }
 
     async getUserStats(userId: string): Promise<{
@@ -373,57 +438,99 @@ class TestResultService {
         highestScore: number;
         recentTests: TestHistoryResponse[];
     }> {
-        const results = await TestResult.find({ userId }).lean();
+        try {
+            const results = await TestResult.find({ userId }).lean();
 
-        if (results.length === 0) {
+            if (results.length === 0) {
+                return {
+                    listeningReadingTests: 0,
+                    averageScore: 0,
+                    highestScore: 0,
+                    recentTests: [],
+                };
+            }
+
+            // Filter by test type
+            const listeningReadingTests = results.filter(
+                (result) => result.testType === 'listening-reading'
+            );
+
+            const fullModeResults = results.filter(
+                (result) => result.partsKey === 'full'
+            );
+
+            const averageScore =
+                fullModeResults.length > 0
+                    ? Math.round(
+                          fullModeResults.reduce(
+                              (sum, result) => sum + result.score * 5,
+                              0
+                          ) / fullModeResults.length
+                      )
+                    : 0;
+
+            // Calculate highest score (score * 5 for listening-reading tests)
+            const highestScore =
+                listeningReadingTests.length > 0
+                    ? Math.max(
+                          ...listeningReadingTests.map(
+                              (result) => result.score * 5
+                          )
+                      )
+                    : 0;
+
+            const recentTests = results
+                .sort(
+                    (a, b) =>
+                        new Date(b.completedAt).getTime() -
+                        new Date(a.completedAt).getTime()
+                )
+                .slice(0, 5)
+                .map((result) => ({
+                    id: result._id.toString(),
+                    testTitle: result.testTitle,
+                    testType: result.testType,
+                    completedAt: result.completedAt.toISOString(),
+                    score: result.score,
+                    totalQuestions: result.totalQuestions,
+                    duration: result.duration,
+                    percentage: Math.round(
+                        (result.score / result.totalQuestions) * 100
+                    ),
+                    partsKey: result.partsKey,
+                }));
+
             return {
-                listeningReadingTests: 0,
-                averageScore: 0,
-                highestScore: 0,
-                recentTests: [],
+                listeningReadingTests: listeningReadingTests.length,
+                averageScore,
+
+                highestScore,
+                recentTests,
             };
+        } catch (error: unknown) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(`Failed to get user stats: ${errorMessage}`);
         }
+    }
 
-        // Filter by test type
-        const listeningReadingTests = results.filter(
-            (result) => result.testType === 'listening-reading'
-        );
+    // Return all listening-reading test results for a user (no pagination)
+    async getListeningReadingResults(userId: string) {
+        try {
+            const results = await TestResult.find({
+                userId,
+                testType: 'listening-reading',
+            })
+                .sort({ completedAt: -1 })
+                .lean();
 
-        const fullModeResults = results.filter(
-            (result) => result.partsKey === 'full'
-        );
-
-        const averageScore =
-            fullModeResults.length > 0
-                ? Math.round(
-                      fullModeResults.reduce(
-                          (sum, result) => sum + result.score * 5,
-                          0
-                      ) / fullModeResults.length
-                  )
-                : 0;
-
-        // Calculate highest score (score * 5 for listening-reading tests)
-        const highestScore =
-            listeningReadingTests.length > 0
-                ? Math.max(
-                      ...listeningReadingTests.map((result) => result.score * 5)
-                  )
-                : 0;
-
-        const recentTests = results
-            .sort(
-                (a, b) =>
-                    new Date(b.completedAt).getTime() -
-                    new Date(a.completedAt).getTime()
-            )
-            .slice(0, 5)
-            .map((result) => ({
+            return results.map((result) => ({
                 id: result._id.toString(),
                 testTitle: result.testTitle,
-                testType: result.testType,
                 completedAt: result.completedAt.toISOString(),
-                score: result.score,
+                totalScore: result.totalScore,
+                listeningScore: result.listeningScore,
+                readingScore: result.readingScore,
                 totalQuestions: result.totalQuestions,
                 duration: result.duration,
                 percentage: Math.round(
@@ -431,37 +538,13 @@ class TestResultService {
                 ),
                 partsKey: result.partsKey,
             }));
-
-        return {
-            listeningReadingTests: listeningReadingTests.length,
-            averageScore,
-
-            highestScore,
-            recentTests,
-        };
-    }
-
-    // Return all listening-reading test results for a user (no pagination)
-    async getListeningReadingResults(userId: string) {
-        const results = await TestResult.find({
-            userId,
-            testType: 'listening-reading',
-        })
-            .sort({ completedAt: -1 })
-            .lean();
-
-        return results.map((result) => ({
-            id: result._id.toString(),
-            testTitle: result.testTitle,
-            completedAt: result.completedAt.toISOString(),
-            score: result.score,
-            totalQuestions: result.totalQuestions,
-            duration: result.duration,
-            percentage: Math.round(
-                (result.score / result.totalQuestions) * 100
-            ),
-            partsKey: result.partsKey,
-        }));
+        } catch (error: unknown) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(
+                `Failed to get listening-reading results: ${errorMessage}`
+            );
+        }
     }
 }
 

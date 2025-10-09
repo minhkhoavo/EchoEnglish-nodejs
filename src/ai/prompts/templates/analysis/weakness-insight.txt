@@ -1,0 +1,45 @@
+Analyze the following TOEIC performance data and generate a detailed weakness insight.
+
+**User Performance:**
+- Skill: {{skillName}} ({{skillKey}})
+- User Accuracy: {{userAccuracy}}%
+- Benchmark Accuracy: {{benchmarkAccuracy}}%
+- Gap: {{accuracyGap}}%
+- Affected Parts: {{affectedParts}}
+- Total Questions: {{totalQuestions}}
+- Questions Incorrect: {{incorrectCount}}
+
+**Context:**
+{{#if contextualData}}
+Performance by domain:
+{{#each contextualData.byDomain}}
+- {{domain}}: {{accuracy}}%
+{{/each}}
+
+Performance by difficulty:
+{{#each contextualData.byDifficulty}}
+- {{difficulty}}: {{accuracy}}%
+{{/each}}
+{{/if}}
+
+**Time Pattern:**
+{{#if timePattern}}
+Most common pattern: {{timePattern.pattern}}
+- {{timePattern.description}}
+{{/if}}
+
+Generate a weakness insight with:
+1. **Title:** A clear, specific title (max 80 characters)
+2. **Description:** A 2-3 sentence explanation that:
+   - Identifies the exact weakness
+   - Compares to benchmark
+   - Explains the impact
+   - Suggests root cause if evident from patterns
+
+Format your response as JSON:
+{
+  "title": "...",
+  "description": "..."
+}
+
+Be empathetic but direct. Focus on actionable insights.

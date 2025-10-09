@@ -1,0 +1,43 @@
+Generate a thematic vocabulary set to improve the learner's weakness in TOEIC.
+
+**Weakness Details:**
+- Category: {{weaknessCategory}}
+- Skill: {{skillKey}}
+- Title: {{weaknessTitle}}
+- Affected Parts: {{affectedParts}}
+
+**Context:**
+The learner struggles with {{weaknessTitle}}. Create a vocabulary set that directly addresses this weakness with words and phrases commonly used in TOEIC {{affectedParts}}.
+
+Generate:
+1. **Set Title:** Clear, specific title (e.g., "Business Meeting Vocabulary for Inference Questions")
+2. **Description:** Brief explanation of how this vocabulary helps
+3. **Words:** 15-20 essential words/phrases with:
+   - Word/Phrase
+   - Part of Speech
+   - Definition (TOEIC context)
+   - Example sentence (TOEIC-style)
+   - Common usage notes
+
+Focus on:
+- High-frequency TOEIC vocabulary
+- Context-specific terms
+- Words that appear in the affected parts
+- Collocations and phrases
+
+Format your response as JSON:
+{
+  "title": "...",
+  "description": "...",
+  "words": [
+    {
+      "word": "...",
+      "partOfSpeech": "...",
+      "definition": "...",
+      "example": "...",
+      "usageNote": "..."
+    }
+  ]
+}
+
+Be practical and TOEIC-focused.

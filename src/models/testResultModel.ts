@@ -37,7 +37,45 @@ interface IOverallMetrics {
     timeDistribution: Map<string, number>;
 }
 
+interface ISkillPerformance {
+    skillName: string;
+    skillKey: string;
+    total: number;
+    correct: number;
+    incorrect: number;
+    accuracy: number;
+    avgTime?: number;
+}
+
+interface IPartAnalysis {
+    partNumber: string;
+    totalQuestions: number;
+    correctAnswers: number;
+    accuracy: number;
+    avgTimePerQuestion?: number;
+    skillBreakdown: ISkillPerformance[];
+    contextualAnalysis?: string;
+}
+
+interface IDiagnosisInsight {
+    id: string;
+    severity: string;
+    skillKey: string;
+    skillName: string;
+    category: string;
+    title: string;
+    description: string;
+    affectedParts: string[];
+    userAccuracy: number;
+    benchmarkAccuracy?: number;
+    impactScore: number;
+    incorrectCount?: number;
+    totalCount?: number;
+    relatedPattern?: string;
+}
+
 interface ITestResult {
+    _id?: Schema.Types.ObjectId;
     userId: Schema.Types.ObjectId;
     testId: Schema.Types.ObjectId;
     testTitle: string;
@@ -45,14 +83,26 @@ interface ITestResult {
     duration: number; // ms
     completedAt: Date;
     score: number;
+    listeningScore?: number;
+    readingScore?: number;
     totalQuestions: number;
     userAnswers: IUserAnswer[];
     parts: string[];
     partsKey?: string;
-
     startedAt?: Date;
-    partMetrics?: IPartMetrics[];
-    overallMetrics?: IOverallMetrics;
+
+    analysis?: {
+        timeAnalysis?: {
+            partMetrics?: IPartMetrics[];
+            overallMetrics?: IOverallMetrics;
+        };
+        examAnalysis?: {
+            overallSkills?: Map<string, number>;
+            partAnalyses?: IPartAnalysis[];
+            weaknesses?: IDiagnosisInsight[];
+            strengths?: string[];
+        };
+    };
 }
 
 const answerTimelineSchema = new Schema<IAnswerTimeline>(
@@ -98,6 +148,48 @@ const overallMetricsSchema = new Schema<IOverallMetrics>(
     { _id: false }
 );
 
+const skillPerformanceSchema = new Schema<ISkillPerformance>(
+    {
+        skillName: { type: String, required: true },
+        skillKey: { type: String, required: true },
+        total: { type: Number, required: true },
+        correct: { type: Number, required: true },
+        incorrect: { type: Number, required: true },
+        accuracy: { type: Number, required: true },
+        avgTime: { type: Number },
+    },
+    { _id: false }
+);
+
+const partAnalysisSchema = new Schema<IPartAnalysis>(
+    {
+        partNumber: { type: String, required: true },
+        totalQuestions: { type: Number, required: true },
+        correctAnswers: { type: Number, required: true },
+        accuracy: { type: Number, required: true },
+        avgTimePerQuestion: { type: Number },
+        skillBreakdown: [skillPerformanceSchema],
+        contextualAnalysis: { type: String },
+    },
+    { _id: false }
+);
+
+const diagnosisInsightSchema = new Schema<IDiagnosisInsight>(
+    {
+        id: { type: String, required: true },
+        severity: { type: String, required: true },
+        category: { type: String, required: true },
+        title: { type: String, required: true },
+        description: { type: String, required: true },
+        affectedParts: [{ type: String }],
+        userAccuracy: { type: Number, required: true },
+        benchmarkAccuracy: { type: Number },
+        impactScore: { type: Number, required: true, min: 0, max: 100 },
+        relatedPattern: { type: String },
+    },
+    { _id: false }
+);
+
 const testResultSchema = new Schema<ITestResult>(
     {
         userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -111,13 +203,62 @@ const testResultSchema = new Schema<ITestResult>(
         duration: { type: Number, required: true },
         completedAt: { type: Date, required: true, default: Date.now },
         score: { type: Number, required: true },
+        listeningScore: { type: Number },
+        readingScore: { type: Number },
         totalQuestions: { type: Number, required: true },
         userAnswers: [userAnswerSchema],
         parts: [{ type: String, required: true }],
         partsKey: { type: String, required: false },
         startedAt: { type: Date, required: false },
-        partMetrics: { type: [partMetricsSchema], required: false },
-        overallMetrics: { type: overallMetricsSchema, required: false },
+        analysis: {
+            type: new Schema(
+                {
+                    timeAnalysis: {
+                        type: new Schema(
+                            {
+                                partMetrics: {
+                                    type: [partMetricsSchema],
+                                    required: false,
+                                },
+                                overallMetrics: {
+                                    type: overallMetricsSchema,
+                                    required: false,
+                                },
+                            },
+                            { _id: false }
+                        ),
+                        required: false,
+                    },
+                    examAnalysis: {
+                        type: new Schema(
+                            {
+                                overallSkills: {
+                                    type: Map,
+                                    of: Number,
+                                    required: false,
+                                },
+                                partAnalyses: {
+                                    type: [partAnalysisSchema],
+                                    required: false,
+                                },
+                                weaknesses: {
+                                    type: [diagnosisInsightSchema],
+                                    required: false,
+                                },
+                                strengths: {
+                                    type: [String],
+                                    required: false,
+                                },
+                            },
+                            { _id: false }
+                        ),
+                        required: false,
+                    },
+                },
+                { _id: false }
+            ),
+            required: false,
+        },
     },
     { collection: 'test_results' }
 );
@@ -135,4 +276,7 @@ export type {
     IAnswerTimeline,
     IPartMetrics,
     IOverallMetrics,
+    ISkillPerformance,
+    IPartAnalysis,
+    IDiagnosisInsight,
 };
