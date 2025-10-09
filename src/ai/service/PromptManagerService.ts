@@ -13,21 +13,36 @@ class PromptManagerService {
             return this.promptCache.get(templateName)!;
         }
 
-        const promptPath = path.join(
+        // Try speaking templates first
+        let promptPath = path.join(
             __dirname,
             '../prompts/templates/speaking',
             `${templateName}.txt`
         );
+
         try {
             const template = await fs.readFile(promptPath, 'utf-8');
             this.promptCache.set(templateName, template);
             return template;
-        } catch (error) {
-            console.error(
-                `Error reading prompt template: ${templateName}`,
-                error
+        } catch {
+            // Try writing templates
+            promptPath = path.join(
+                __dirname,
+                '../prompts/templates/writing',
+                `${templateName}.txt`
             );
-            throw new Error(`Prompt template ${templateName} not found.`);
+
+            try {
+                const template = await fs.readFile(promptPath, 'utf-8');
+                this.promptCache.set(templateName, template);
+                return template;
+            } catch (error2) {
+                console.error(
+                    `Error reading prompt template: ${templateName}`,
+                    error2
+                );
+                throw new Error(`Prompt template ${templateName} not found.`);
+            }
         }
     }
 

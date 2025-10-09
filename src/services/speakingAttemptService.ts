@@ -95,7 +95,7 @@ export default class SpeakingAttemptService {
     }: StartAttemptInput) {
         const db = await this.getDb();
 
-        // Resolve test by ObjectId (testId) - standardized to ObjectId
+        // Resolve test by ObjectId (_id) - standardized to ObjectId
         if (
             typeof toeicSpeakingTestId !== 'string' ||
             !mongoose.Types.ObjectId.isValid(toeicSpeakingTestId)
@@ -103,11 +103,11 @@ export default class SpeakingAttemptService {
             throw new ApiError(ErrorMessage.INVALID_ID);
         }
         const oid = this.toObjectId(toeicSpeakingTestId);
-        const test = await db.collection('sw_tests').findOne({ testId: oid });
+        const test = await db.collection('sw_tests').findOne({ _id: oid });
         if (!test) {
             throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
         }
-        const tid = test.testId || 0;
+        const tid = test._id || oid;
 
         const parts: AttemptPart[] = [];
         let qCounter = 0;
@@ -149,8 +149,8 @@ export default class SpeakingAttemptService {
         const now = new Date();
         const attemptDoc: AttemptDocument = {
             userId: this.toObjectId(userId),
-            toeicSpeakingTestId: test!._id!,
-            testIdNumeric: tid!,
+            toeicSpeakingTestId: oid,
+            testIdNumeric: 0, // Deprecated field, can be removed later
             submissionTimestamp: now,
             status: 'in_progress',
             totalScore: 0,

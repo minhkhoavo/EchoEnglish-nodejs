@@ -85,7 +85,7 @@ export class TestResultController {
         }
 
         const results =
-            await testResultService.getAllListeningReadingResults(userId);
+            await testResultService.getListeningReadingResults(userId);
 
         return res
             .status(200)

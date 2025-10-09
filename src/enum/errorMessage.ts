@@ -142,6 +142,22 @@ export const ErrorMessage = {
         message: 'Input must be a single word',
         status: 400,
     },
+
+    /* Writing */
+    WRITING_TEST_NOT_FOUND: { message: 'Writing test not found', status: 404 },
+    WRITING_TEST_ID_REQUIRED: {
+        message: 'Toeic writing test id is required',
+        status: 400,
+    },
+    QUESTION_NUMBER_ANSWER_REQUIRED: {
+        message: 'questionNumber and answer are required',
+        status: 400,
+    },
+    ANSWERS_OBJECT_REQUIRED: {
+        message: 'answers object is required',
+        status: 400,
+    },
+    RESULT_ID_REQUIRED: { message: 'Result id is required', status: 400 },
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;
