@@ -6,7 +6,7 @@ const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 router.post('/start', SpeakingAttemptController.start);
-router.get('/', SpeakingAttemptController.getAllSpeakingAttempts);
+router.get('', SpeakingAttemptController.getAllSpeakingAttempts);
 router.post(
     '/:testAttemptId/submit-question',
     upload.single('audio'),

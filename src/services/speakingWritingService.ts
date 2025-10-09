@@ -25,6 +25,7 @@ class SpeakingWritingService {
                     duration: 1,
                 },
             })
+            .sort({ testTitle: 1 })
             .toArray();
         return tests;
     }

@@ -45,4 +45,10 @@ export enum SuccessMessage {
 
     /* Resource */
     TRANSLATE_SUCCESS = 'Translate successfully',
+
+    /* Writing */
+    ATTEMPT_STARTED = 'Attempt started',
+    QUESTION_SUBMITTED = 'Question submitted',
+    ALL_ANSWERS_SUBMITTED = 'All answers submitted successfully',
+    ATTEMPT_FINISHED = 'Attempt finished successfully',
 }

@@ -4,7 +4,7 @@ import CategoryFlashcardController from '../controllers/categoryFlashcardControl
 
 const router = Router();
 
-router.get('/', FlashcardController.getAllFlashcard);
+router.get('', FlashcardController.getAllFlashcard);
 router.get('/category/:cateId', FlashcardController.getFlashcardByCategory);
 router.post('/by-source', FlashcardController.getFlashcardBySource);
 router.post('/', FlashcardController.createFlashcard);

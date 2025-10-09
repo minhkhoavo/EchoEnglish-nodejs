@@ -4,8 +4,8 @@ import { hasAuthority } from '~/middleware/authMiddleware.js';
 import { RoleName } from '~/enum/role.js';
 
 const router = Router();
-router.get('/', resourceController.searchResource);
-router.post('/', resourceController.getTranscriptHanlder);
+router.get('', resourceController.searchResource);
+router.post('', resourceController.getTranscriptHanlder);
 router.post('/save', resourceController.saveTranscriptHandler);
 router.put(
     '/:id',
