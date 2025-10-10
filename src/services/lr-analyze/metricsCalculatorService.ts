@@ -23,10 +23,34 @@ interface SubmittedAnswer {
     answerTimeline?: IAnswerTimeline[];
 }
 
+interface HesitationQuestion {
+    questionNumber: number;
+    answerChanges: number;
+    timeToFirstAnswer: number;
+    totalTimeSpent: number;
+    finalAnswer: string;
+    isCorrect: boolean;
+    changeHistory: string[];
+}
+
+interface HesitationAnalysis {
+    topHesitationQuestions: HesitationQuestion[];
+    averageChangesPerQuestion: number;
+    questionsWithMultipleChanges: number;
+}
+
+interface AnswerChangePatterns {
+    correctToIncorrect: number;
+    incorrectToCorrect: number;
+    incorrectToIncorrect: number;
+}
+
 interface MetricsResult {
     enrichedAnswers: IUserAnswer[];
     partMetrics: IPartMetrics[];
     overallMetrics: IOverallMetrics;
+    hesitationAnalysis: HesitationAnalysis;
+    answerChangePatterns: AnswerChangePatterns;
 }
 
 class MetricsCalculatorService {
@@ -49,7 +73,21 @@ class MetricsCalculatorService {
             partMetrics
         );
 
-        return { enrichedAnswers, partMetrics, overallMetrics };
+        // 4. Calculate hesitation analysis (top questions with most changes)
+        const hesitationAnalysis =
+            this.calculateHesitationAnalysis(enrichedAnswers);
+
+        // 5. Calculate answer change patterns (correct ↔ incorrect)
+        const answerChangePatterns =
+            this.calculateAnswerChangePatterns(enrichedAnswers);
+
+        return {
+            enrichedAnswers,
+            partMetrics,
+            overallMetrics,
+            hesitationAnalysis,
+            answerChangePatterns,
+        };
     }
 
     /**
@@ -239,6 +277,95 @@ class MetricsCalculatorService {
     }
 
     /**
+     * Calculate hesitation analysis: top questions with most answer changes
+     */
+    private calculateHesitationAnalysis(
+        answers: IUserAnswer[]
+    ): HesitationAnalysis {
+        // Find top 10 questions with most changes
+        const topHesitationQuestions = [...answers]
+            .filter((a) => (a.answerChanges || 0) > 0) // Only questions with changes
+            .sort((a, b) => (b.answerChanges || 0) - (a.answerChanges || 0))
+            .slice(0, 10)
+            .map((a) => {
+                // Extract change history from timeline
+                const changeHistory =
+                    a.answerTimeline?.map((t) => t.answer) || [];
+                return {
+                    questionNumber: a.questionNumber,
+                    answerChanges: a.answerChanges || 0,
+                    timeToFirstAnswer: a.timeToFirstAnswer || 0,
+                    totalTimeSpent: a.totalTimeSpent || 0,
+                    finalAnswer: a.selectedAnswer,
+                    isCorrect: a.isCorrect,
+                    changeHistory,
+                };
+            });
+
+        // Average changes per question
+        const totalChanges = answers.reduce(
+            (sum, a) => sum + (a.answerChanges || 0),
+            0
+        );
+        const averageChangesPerQuestion =
+            answers.length > 0
+                ? Math.round((totalChanges / answers.length) * 100) / 100
+                : 0;
+
+        // Count questions with multiple changes (>= 2 changes)
+        const questionsWithMultipleChanges = answers.filter(
+            (a) => (a.answerChanges || 0) >= 2
+        ).length;
+
+        return {
+            topHesitationQuestions,
+            averageChangesPerQuestion,
+            questionsWithMultipleChanges,
+        };
+    }
+
+    /**
+     * Calculate answer change patterns: correct ↔ incorrect transitions
+     */
+    private calculateAnswerChangePatterns(
+        answers: IUserAnswer[]
+    ): AnswerChangePatterns {
+        let correctToIncorrect = 0;
+        let incorrectToCorrect = 0;
+        let incorrectToIncorrect = 0;
+
+        answers.forEach((answer) => {
+            const timeline = answer.answerTimeline || [];
+            if (timeline.length < 2) return; // No changes
+
+            // Check each transition in the timeline
+            for (let i = 0; i < timeline.length - 1; i++) {
+                const currentAnswer = timeline[i].answer;
+                const nextAnswer = timeline[i + 1].answer;
+                const correctAnswer = answer.correctAnswer;
+
+                const currentCorrect = currentAnswer === correctAnswer;
+                const nextCorrect = nextAnswer === correctAnswer;
+
+                if (currentCorrect && !nextCorrect) {
+                    correctToIncorrect++;
+                } else if (!currentCorrect && nextCorrect) {
+                    incorrectToCorrect++;
+                } else if (!currentCorrect && !nextCorrect) {
+                    incorrectToIncorrect++;
+                }
+                // If both correct, no need to count (correct to correct)
+            }
+        });
+
+        return {
+            correctToIncorrect,
+            incorrectToCorrect,
+            incorrectToIncorrect,
+        };
+    }
+
+    /**
      * Validate that timeline data is reasonable
      */
     validateTimeline(timeline: IAnswerTimeline[]): boolean {
@@ -265,4 +392,10 @@ class MetricsCalculatorService {
 }
 
 export const metricsCalculatorService = new MetricsCalculatorService();
-export type { SubmittedAnswer, MetricsResult };
+export type {
+    SubmittedAnswer,
+    MetricsResult,
+    HesitationQuestion,
+    HesitationAnalysis,
+    AnswerChangePatterns,
+};

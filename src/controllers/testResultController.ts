@@ -406,7 +406,7 @@ export class TestResultController {
                 (studyPlanDoc as { planItems?: StudyPlanType['planItems'] })
                     ?.planItems ?? [];
 
-            if (!testResult || !testResult.analysis?.examAnalysis) {
+            if (!testResult || !testResult.analysis) {
                 return res.status(404).json({
                     success: false,
                     message: 'Analysis not found. Please run analysis first.',
@@ -423,7 +423,7 @@ export class TestResultController {
                     listeningScore: testResult.listeningScore || 0,
                     readingScore: testResult.readingScore || 0,
                     totalScore: testResult.score,
-                    analysis: testResult.analysis.examAnalysis,
+                    analysis: testResult.analysis,
                     studyPlan,
                 },
             });

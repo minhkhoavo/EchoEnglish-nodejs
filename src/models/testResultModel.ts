@@ -37,6 +37,28 @@ interface IOverallMetrics {
     timeDistribution: Map<string, number>;
 }
 
+interface IHesitationQuestion {
+    questionNumber: number;
+    answerChanges: number;
+    timeToFirstAnswer: number;
+    totalTimeSpent: number;
+    finalAnswer: string;
+    isCorrect: boolean;
+    changeHistory: string[];
+}
+
+interface IHesitationAnalysis {
+    topHesitationQuestions: IHesitationQuestion[];
+    averageChangesPerQuestion: number;
+    questionsWithMultipleChanges: number;
+}
+
+interface IAnswerChangePatterns {
+    correctToIncorrect: number;
+    incorrectToCorrect: number;
+    incorrectToIncorrect: number;
+}
+
 interface ISkillPerformance {
     skillName: string;
     skillKey: string;
@@ -95,6 +117,8 @@ interface ITestResult {
         timeAnalysis?: {
             partMetrics?: IPartMetrics[];
             overallMetrics?: IOverallMetrics;
+            hesitationAnalysis?: IHesitationAnalysis;
+            answerChangePatterns?: IAnswerChangePatterns;
         };
         examAnalysis?: {
             overallSkills?: Map<string, number>;
@@ -144,6 +168,40 @@ const overallMetricsSchema = new Schema<IOverallMetrics>(
         totalAnswerChanges: { type: Number, required: true },
         confidenceScore: { type: Number, required: true, min: 0, max: 100 },
         timeDistribution: { type: Map, of: Number, required: false },
+    },
+    { _id: false }
+);
+
+const hesitationQuestionSchema = new Schema<IHesitationQuestion>(
+    {
+        questionNumber: { type: Number, required: true },
+        answerChanges: { type: Number, required: true },
+        timeToFirstAnswer: { type: Number, required: true },
+        totalTimeSpent: { type: Number, required: true },
+        finalAnswer: { type: String, required: true },
+        isCorrect: { type: Boolean, required: true },
+        changeHistory: { type: [String], required: true },
+    },
+    { _id: false }
+);
+
+const hesitationAnalysisSchema = new Schema<IHesitationAnalysis>(
+    {
+        topHesitationQuestions: {
+            type: [hesitationQuestionSchema],
+            required: true,
+        },
+        averageChangesPerQuestion: { type: Number, required: true },
+        questionsWithMultipleChanges: { type: Number, required: true },
+    },
+    { _id: false }
+);
+
+const answerChangePatternsSchema = new Schema<IAnswerChangePatterns>(
+    {
+        correctToIncorrect: { type: Number, required: true },
+        incorrectToCorrect: { type: Number, required: true },
+        incorrectToIncorrect: { type: Number, required: true },
     },
     { _id: false }
 );
@@ -224,6 +282,14 @@ const testResultSchema = new Schema<ITestResult>(
                                     type: overallMetricsSchema,
                                     required: false,
                                 },
+                                hesitationAnalysis: {
+                                    type: hesitationAnalysisSchema,
+                                    required: false,
+                                },
+                                answerChangePatterns: {
+                                    type: answerChangePatternsSchema,
+                                    required: false,
+                                },
                             },
                             { _id: false }
                         ),
@@ -276,6 +342,9 @@ export type {
     IAnswerTimeline,
     IPartMetrics,
     IOverallMetrics,
+    IHesitationQuestion,
+    IHesitationAnalysis,
+    IAnswerChangePatterns,
     ISkillPerformance,
     IPartAnalysis,
     IDiagnosisInsight,
