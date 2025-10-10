@@ -422,7 +422,7 @@ export class TestResultController {
                     examDate: testResult.completedAt,
                     listeningScore: testResult.listeningScore || 0,
                     readingScore: testResult.readingScore || 0,
-                    totalScore: testResult.score,
+                    totalScore: testResult.totalScore || 0,
                     analysis: testResult.analysis,
                     studyPlan,
                 },

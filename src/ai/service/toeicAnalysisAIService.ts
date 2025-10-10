@@ -100,6 +100,84 @@ interface PersonalizedGuideOutput {
     quickTips: string[];
 }
 
+interface StrategicPlanOutput {
+    priority: number;
+    title: string;
+    targetWeaknesses: string[];
+    focusParts: string[];
+    estimatedWeeks: number;
+    rationale: string;
+    skillFocus: string;
+    totalQuestionsAffected: number;
+}
+
+interface ComprehensiveDiagnosisInput {
+    totalScore: number;
+    totalQuestions: number;
+    overallAccuracy: number;
+    userLevel: string;
+    partsList: string;
+    skillPerformanceData: Array<{
+        skillKey: string;
+        skillName: string;
+        userAccuracy: number;
+        benchmarkAccuracy: number;
+        accuracyGap: number;
+        correct: number;
+        total: number;
+        affectedParts: string[];
+    }>;
+    domainPerformanceData: Array<{
+        domain: string;
+        totalQuestions: number;
+        correctAnswers: number;
+        accuracy: number;
+        isWeak: boolean;
+    }>;
+    partAnalyses: Array<{
+        partNumber: string;
+        totalQuestions: number;
+        correctAnswers: number;
+        accuracy: number;
+        skillBreakdown: Array<{
+            skillName: string;
+            skillKey: string;
+            total: number;
+            correct: number;
+            accuracy: number;
+        }>;
+    }>;
+}
+
+interface ComprehensiveDiagnosisOutput {
+    summary: string;
+    topWeaknesses: Array<{
+        id: string;
+        severity: string;
+        skillKey: string;
+        skillName: string;
+        category: string;
+        title: string;
+        description: string;
+        affectedParts: string[];
+        userAccuracy: number;
+        benchmarkAccuracy: number;
+        impactScore: number;
+        incorrectCount: number;
+        totalCount: number;
+    }>;
+    domainPerformance: Array<{
+        domain: string;
+        totalQuestions: number;
+        correctAnswers: number;
+        accuracy: number;
+        isWeak: boolean;
+    }>;
+    weakDomains: string[];
+    keyInsights: string[];
+    generatedAt: Date;
+}
+
 class ToeicAnalysisAIService {
     private aiClient: GoogleGenAIClient;
 
@@ -110,56 +188,56 @@ class ToeicAnalysisAIService {
         });
     }
 
-    /**
-     * Generate detailed weakness insight using AI
-     */
-    async generateWeaknessInsight(
-        input: WeaknessInsightInput
-    ): Promise<WeaknessInsightOutput> {
-        try {
-            const parser = new JsonOutputParser();
-            const formatInstructions = parser.getFormatInstructions();
+    // /**
+    //  * Generate detailed weakness insight using AI
+    //  */
+    // async generateWeaknessInsight(
+    //     input: WeaknessInsightInput
+    // ): Promise<WeaknessInsightOutput> {
+    //     try {
+    //         const parser = new JsonOutputParser();
+    //         const formatInstructions = parser.getFormatInstructions();
 
-            // Get system prompt
-            const systemPrompt = await promptManagerService.getSystemPrompt(
-                'toeic-analysis-coach'
-            );
+    //         // Get system prompt
+    //         const systemPrompt = await promptManagerService.getSystemPrompt(
+    //             'toeic-analysis-coach'
+    //         );
 
-            // Build user prompt with data
-            const userPrompt = this.buildWeaknessInsightPrompt(input);
+    //         // Build user prompt with data
+    //         const userPrompt = this.buildWeaknessInsightPrompt(input);
 
-            // Combine prompts
-            const fullPrompt = `${systemPrompt}\n\n${userPrompt}\n\n${formatInstructions}`;
+    //         // Combine prompts
+    //         const fullPrompt = `${systemPrompt}\n\n${userPrompt}\n\n${formatInstructions}`;
 
-            // Generate with AI
-            const response = await this.aiClient.generate(fullPrompt);
+    //         // Generate with AI
+    //         const response = await this.aiClient.generate(fullPrompt);
 
-            // Parse JSON response
-            const parsed = await parser.parse(response);
+    //         // Parse JSON response
+    //         const parsed = await parser.parse(response);
 
-            return {
-                title:
-                    (parsed.title as string) ||
-                    this.generateFallbackTitle(
-                        input.skillName,
-                        input.userAccuracy
-                    ),
-                description:
-                    (parsed.description as string) ||
-                    this.generateFallbackDescription(input),
-            };
-        } catch (error) {
-            console.error('Error generating weakness insight:', error);
-            // Fallback to template-based insight
-            return {
-                title: this.generateFallbackTitle(
-                    input.skillName,
-                    input.userAccuracy
-                ),
-                description: this.generateFallbackDescription(input),
-            };
-        }
-    }
+    //         return {
+    //             title:
+    //                 (parsed.title as string) ||
+    //                 this.generateFallbackTitle(
+    //                     input.skillName,
+    //                     input.userAccuracy
+    //                 ),
+    //             description:
+    //                 (parsed.description as string) ||
+    //                 this.generateFallbackDescription(input),
+    //         };
+    //     } catch (error) {
+    //         console.error('Error generating weakness insight:', error);
+    //         // Fallback to template-based insight
+    //         return {
+    //             title: this.generateFallbackTitle(
+    //                 input.skillName,
+    //                 input.userAccuracy
+    //             ),
+    //             description: this.generateFallbackDescription(input),
+    //         };
+    //     }
+    // }
 
     /**
      * Generate study plan item using AI
@@ -310,66 +388,201 @@ class ToeicAnalysisAIService {
     }
 
     /**
-     * Build prompt for weakness insight
+     * Generate comprehensive diagnosis using single LLM call with all aggregated data
      */
-    private buildWeaknessInsightPrompt(input: WeaknessInsightInput): string {
-        let prompt = `Analyze the following TOEIC performance data and generate a detailed weakness insight.
+    async generateComprehensiveDiagnosis(
+        input: ComprehensiveDiagnosisInput
+    ): Promise<ComprehensiveDiagnosisOutput> {
+        try {
+            const parser = new JsonOutputParser();
+            const formatInstructions = parser.getFormatInstructions();
 
-**User Performance:**
-- Skill: ${input.skillName} (${input.skillKey})
-- User Accuracy: ${input.userAccuracy}%
-- Benchmark Accuracy: ${input.benchmarkAccuracy}%
-- Gap: ${input.accuracyGap}%
-- Affected Parts: ${input.affectedParts.join(', ')}
-- Total Questions: ${input.totalQuestions}
-- Questions Incorrect: ${input.incorrectCount}
+            const systemPrompt = await promptManagerService.getSystemPrompt(
+                'toeic-analysis-coach'
+            );
 
-`;
+            const userPrompt = await promptManagerService.loadTemplate(
+                'analysis/comprehensive-diagnosis',
+                {
+                    totalScore: input.totalScore.toString(),
+                    totalQuestions: input.totalQuestions.toString(),
+                    overallAccuracy: input.overallAccuracy.toFixed(1),
+                    userLevel: input.userLevel,
+                    partsList: input.partsList,
+                    skillPerformanceData: JSON.stringify(
+                        input.skillPerformanceData,
+                        null,
+                        2
+                    ),
+                    domainPerformanceData: JSON.stringify(
+                        input.domainPerformanceData,
+                        null,
+                        2
+                    ),
+                    partAnalyses: JSON.stringify(input.partAnalyses, null, 2),
+                }
+            );
 
-        // Add contextual data if available
-        if (input.contextualData) {
-            if (input.contextualData.byDomain) {
-                prompt += '\n**Performance by domain:**\n';
-                Object.entries(input.contextualData.byDomain).forEach(
-                    ([domain, data]) => {
-                        prompt += `- ${domain}: ${data.accuracy}%\n`;
+            const fullPrompt = `${systemPrompt}\n\n${userPrompt}\n\n${formatInstructions}`;
+            const response = await this.aiClient.generate(fullPrompt);
+            const parsed = await parser.parse(response);
+
+            // Extract weakDomains from topWeaknesses
+            const weakDomains: string[] = [];
+            if (Array.isArray(parsed.topWeaknesses)) {
+                parsed.topWeaknesses.forEach(
+                    (weakness: Record<string, unknown>) => {
+                        const desc = String(weakness.description || '');
+                        // Extract domain mentions from description
+                        const domainMatches = desc.match(
+                            /\b(business|travel|daily life|workplace|education|technology)\b/gi
+                        );
+                        if (domainMatches) {
+                            domainMatches.forEach((domain) => {
+                                const normalized = domain.toLowerCase();
+                                if (!weakDomains.includes(normalized)) {
+                                    weakDomains.push(normalized);
+                                }
+                            });
+                        }
                     }
                 );
             }
 
-            if (input.contextualData.byDifficulty) {
-                prompt += '\n**Performance by difficulty:**\n';
-                Object.entries(input.contextualData.byDifficulty).forEach(
-                    ([difficulty, data]) => {
-                        prompt += `- ${difficulty}: ${data.accuracy}%\n`;
-                    }
-                );
+            // Map topWeaknesses to proper structure
+            const topWeaknesses = Array.isArray(parsed.topWeaknesses)
+                ? parsed.topWeaknesses.map(
+                      (w: Record<string, unknown>, index: number) => {
+                          return {
+                              id: `weakness_${index + 1}_${Date.now()}`,
+                              severity: String(w.severity || 'MEDIUM'),
+                              skillKey: String(w.skillKey || ''),
+                              skillName: String(w.skillName || ''),
+                              category: String(w.category || w.skillKey || ''),
+                              title: String(w.title || ''),
+                              description: String(w.description || ''),
+                              affectedParts: Array.isArray(w.affectedParts)
+                                  ? w.affectedParts.map(String)
+                                  : [],
+                              userAccuracy: Number(w.userAccuracy || 0),
+                              benchmarkAccuracy: Number(
+                                  w.benchmarkAccuracy || 0
+                              ),
+                              impactScore: Number(w.impactScore || 0),
+                              incorrectCount: Number(w.incorrectCount || 0),
+                              totalCount: Number(w.totalCount || 0),
+                          };
+                      }
+                  )
+                : [];
+
+            return {
+                summary:
+                    (parsed.summary as string) ||
+                    'Performance analysis complete',
+                topWeaknesses,
+                domainPerformance: input.domainPerformanceData as Array<{
+                    domain: string;
+                    totalQuestions: number;
+                    correctAnswers: number;
+                    accuracy: number;
+                    isWeak: boolean;
+                }>,
+                weakDomains,
+                keyInsights: Array.isArray(parsed.keyInsights)
+                    ? parsed.keyInsights.map(String)
+                    : [],
+                generatedAt: new Date(),
+            };
+        } catch (error) {
+            console.error('Error generating comprehensive diagnosis:', error);
+            return {
+                summary: 'Unable to generate diagnosis',
+                topWeaknesses: [],
+                domainPerformance: input.domainPerformanceData as Array<{
+                    domain: string;
+                    totalQuestions: number;
+                    correctAnswers: number;
+                    accuracy: number;
+                    isWeak: boolean;
+                }>,
+                weakDomains: [],
+                keyInsights: [],
+                generatedAt: new Date(),
+            };
+        }
+    }
+
+    /**
+     * Generate strategic plan from comprehensive diagnosis
+     * Creates 3 high-level strategic items considering volume vs impact
+     */
+    async generateStrategicPlan(
+        diagnosis: ComprehensiveDiagnosisOutput | Record<string, unknown>
+    ): Promise<StrategicPlanOutput[]> {
+        try {
+            const parser = new JsonOutputParser();
+            const formatInstructions = parser.getFormatInstructions();
+
+            const systemPrompt = await promptManagerService.getSystemPrompt(
+                'toeic-analysis-coach'
+            );
+
+            // Build comprehensive diagnosis JSON for template
+            const comprehensiveDiagnosisJson = JSON.stringify(
+                diagnosis,
+                null,
+                2
+            );
+
+            const userPrompt = await promptManagerService.loadTemplate(
+                'studyplan/strategic-plan',
+                {
+                    comprehensiveDiagnosisJson,
+                }
+            );
+
+            const fullPrompt = `${systemPrompt}\n\n${userPrompt}\n\n${formatInstructions}`;
+            const response = await this.aiClient.generate(fullPrompt);
+            const parsed = await parser.parse(response);
+
+            // Handle both array format and object with strategicItems field
+            let items: Record<string, unknown>[] = [];
+            if (Array.isArray(parsed)) {
+                // LLM returned array directly: [{...}, {...}, {...}]
+                items = parsed;
+            } else if (Array.isArray(parsed.strategicItems)) {
+                // LLM returned object: { strategicItems: [{...}, {...}, {...}] }
+                items = parsed.strategicItems;
             }
+
+            console.log(
+                `Parsed ${items.length} strategic items from LLM response`
+            );
+
+            return items.map(
+                (item: Record<string, unknown>, index: number) => ({
+                    priority: (item.priority as number) || index + 1,
+                    title:
+                        (item.title as string) ||
+                        `Strategic Focus ${index + 1}`,
+                    targetWeaknesses: Array.isArray(item.targetWeaknesses)
+                        ? (item.targetWeaknesses as string[])
+                        : [],
+                    focusParts: Array.isArray(item.focusParts)
+                        ? (item.focusParts as string[])
+                        : [],
+                    estimatedWeeks: (item.estimatedWeeks as number) || 2,
+                    rationale: (item.rationale as string) || '',
+                    skillFocus: (item.skillFocus as string) || '',
+                    totalQuestionsAffected:
+                        (item.totalQuestionsAffected as number) || 0,
+                })
+            );
+        } catch (error) {
+            console.error('Error generating strategic plan:', error);
+            return [];
         }
-
-        // Add time pattern if available
-        if (input.timePattern) {
-            prompt += `\n**Time Pattern:**\nMost common pattern: ${input.timePattern.pattern}\n- ${input.timePattern.description}\n`;
-        }
-
-        prompt += `
-Generate a weakness insight with:
-1. **Title:** A clear, specific title (max 80 characters)
-2. **Description:** A 2-3 sentence explanation that:
-   - Identifies the exact weakness
-   - Compares to benchmark
-   - Explains the impact
-   - Suggests root cause if evident from patterns
-
-Format your response as JSON:
-{
-  "title": "...",
-  "description": "..."
-}
-
-Be empathetic but direct. Focus on actionable insights.`;
-
-        return prompt;
     }
 
     /**
@@ -534,4 +747,7 @@ export type {
     PersonalizedGuideOutput,
     VocabularyWord,
     GuideSection,
+    StrategicPlanOutput,
+    ComprehensiveDiagnosisInput,
+    ComprehensiveDiagnosisOutput,
 };

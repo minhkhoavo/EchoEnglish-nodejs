@@ -79,21 +79,30 @@ interface IPartAnalysis {
     contextualAnalysis?: string;
 }
 
-interface IDiagnosisInsight {
+// New comprehensive weakness structure
+interface IWeaknessInsight {
     id: string;
-    severity: string;
+    severity: string; // CRITICAL, HIGH, MEDIUM, LOW
     skillKey: string;
     skillName: string;
     category: string;
-    title: string;
-    description: string;
-    affectedParts: string[];
+    title: string; // AI-generated concise title
+    description: string; // AI-generated detailed explanation
+    affectedParts: string[]; // e.g., ["PART_3", "PART_4"]
     userAccuracy: number;
-    benchmarkAccuracy?: number;
-    impactScore: number;
-    incorrectCount?: number;
-    totalCount?: number;
-    relatedPattern?: string;
+    benchmarkAccuracy: number;
+    impactScore: number; // 0-100
+    incorrectCount: number;
+    totalCount: number;
+}
+
+// Domain performance data
+interface IDomainPerformance {
+    domain: string; // from Domain enum (e.g., 'business', 'finance')
+    totalQuestions: number;
+    correctAnswers: number;
+    accuracy: number;
+    isWeak: boolean; // accuracy < 60%
 }
 
 interface ITestResult {
@@ -105,8 +114,9 @@ interface ITestResult {
     duration: number; // ms
     completedAt: Date;
     score: number;
-    listeningScore?: number;
-    readingScore?: number;
+    listeningScore: number;
+    readingScore: number;
+    totalScore: number;
     totalQuestions: number;
     userAnswers: IUserAnswer[];
     parts: string[];
@@ -123,8 +133,13 @@ interface ITestResult {
         examAnalysis?: {
             overallSkills?: Map<string, number>;
             partAnalyses?: IPartAnalysis[];
-            weaknesses?: IDiagnosisInsight[];
             strengths?: string[];
+            summary: string; // AI-generated holistic overview
+            topWeaknesses: IWeaknessInsight[]; // Top 5 most impactful
+            domainPerformance: IDomainPerformance[]; // Sorted by accuracy
+            weakDomains: string[]; // Domains where accuracy < 60%
+            keyInsights: string[]; // 3-5 key takeaways from AI
+            generatedAt: Date;
         };
     };
 }
@@ -232,18 +247,32 @@ const partAnalysisSchema = new Schema<IPartAnalysis>(
     { _id: false }
 );
 
-const diagnosisInsightSchema = new Schema<IDiagnosisInsight>(
+const weaknessInsightSchema = new Schema<IWeaknessInsight>(
     {
         id: { type: String, required: true },
         severity: { type: String, required: true },
+        skillKey: { type: String, required: true },
+        skillName: { type: String, required: true },
         category: { type: String, required: true },
         title: { type: String, required: true },
         description: { type: String, required: true },
         affectedParts: [{ type: String }],
         userAccuracy: { type: Number, required: true },
-        benchmarkAccuracy: { type: Number },
-        impactScore: { type: Number, required: true, min: 0, max: 100 },
-        relatedPattern: { type: String },
+        benchmarkAccuracy: { type: Number, required: true },
+        impactScore: { type: Number, required: true },
+        incorrectCount: { type: Number, required: true },
+        totalCount: { type: Number, required: true },
+    },
+    { _id: false }
+);
+
+const domainPerformanceSchema = new Schema<IDomainPerformance>(
+    {
+        domain: { type: String, required: true },
+        totalQuestions: { type: Number, required: true },
+        correctAnswers: { type: Number, required: true },
+        accuracy: { type: Number, required: true },
+        isWeak: { type: Boolean, required: true },
     },
     { _id: false }
 );
@@ -261,8 +290,9 @@ const testResultSchema = new Schema<ITestResult>(
         duration: { type: Number, required: true },
         completedAt: { type: Date, required: true, default: Date.now },
         score: { type: Number, required: true },
-        listeningScore: { type: Number },
-        readingScore: { type: Number },
+        listeningScore: { type: Number, required: true },
+        readingScore: { type: Number, required: true },
+        totalScore: { type: Number, required: true },
         totalQuestions: { type: Number, required: true },
         userAnswers: [userAnswerSchema],
         parts: [{ type: String, required: true }],
@@ -307,13 +337,25 @@ const testResultSchema = new Schema<ITestResult>(
                                     type: [partAnalysisSchema],
                                     required: false,
                                 },
-                                weaknesses: {
-                                    type: [diagnosisInsightSchema],
-                                    required: false,
-                                },
                                 strengths: {
                                     type: [String],
                                     required: false,
+                                },
+                                summary: { type: String, required: true },
+                                topWeaknesses: {
+                                    type: [weaknessInsightSchema],
+                                    required: true,
+                                },
+                                domainPerformance: {
+                                    type: [domainPerformanceSchema],
+                                    required: true,
+                                },
+                                weakDomains: { type: [String], required: true },
+                                keyInsights: { type: [String], required: true },
+                                generatedAt: {
+                                    type: Date,
+                                    required: true,
+                                    default: Date.now,
                                 },
                             },
                             { _id: false }
@@ -347,5 +389,6 @@ export type {
     IAnswerChangePatterns,
     ISkillPerformance,
     IPartAnalysis,
-    IDiagnosisInsight,
+    IWeaknessInsight,
+    IDomainPerformance,
 };

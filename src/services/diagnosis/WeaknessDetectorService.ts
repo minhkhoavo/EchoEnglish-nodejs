@@ -2,14 +2,13 @@ import { Schema } from 'mongoose';
 import {
     TestResult,
     ITestResult,
-    IDiagnosisInsight,
+    IPartAnalysis,
 } from '../../models/testResultModel.js';
+import { QuestionMetadata } from '../../models/questionMetadataModel.js';
 import { toeicAnalysisAIService } from '../../ai/service/toeicAnalysisAIService.js';
-import { SeverityLevel } from '../../enum/severityLevel.js';
-import { PartNumber } from '../../enum/partNumber.js';
 import { SkillCategory } from '../../enum/skillCategory.js';
-import { PartAnalysis, SkillPerformance } from '../../types/analysisTypes.js';
 
+// Benchmark accuracy data for different proficiency levels
 const BENCHMARK_DATA: Record<string, Record<string, number>> = {
     // Part 3, 4, 7 skill categories
     [SkillCategory.GIST]: { beginner: 55, intermediate: 70, advanced: 85 },
@@ -100,6 +99,9 @@ const BENCHMARK_DATA: Record<string, Record<string, number>> = {
 };
 
 export class WeaknessDetectorService {
+    /**
+     * NEW: Detect weaknesses using comprehensive analysis (single LLM call)
+     */
     async detectWeaknesses(
         testResultId: Schema.Types.ObjectId | string
     ): Promise<ITestResult | null> {
@@ -116,230 +118,258 @@ export class WeaknessDetectorService {
             testResult.totalQuestions
         );
 
-        const weaknesses: IDiagnosisInsight[] = [];
-        const skillTotals = this.calculateSkillTotalsFromParts(
-            (examAnalysis.partAnalyses || []) as PartAnalysis[]
+        // Step 1: Aggregate all skill performance data
+        const skillPerformanceData = this.aggregateSkillPerformance(
+            examAnalysis,
+            userLevel
         );
 
-        if (examAnalysis.overallSkills) {
-            const overallSkillsMap =
-                examAnalysis.overallSkills instanceof Map
-                    ? examAnalysis.overallSkills
-                    : new Map(Object.entries(examAnalysis.overallSkills));
+        // Step 2: Aggregate domain performance from test questions
+        const domainPerformanceData =
+            await this.aggregateDomainPerformanceFromTest(testResult);
 
-            for (const [category, accuracy] of overallSkillsMap.entries()) {
-                const userAccuracy =
-                    typeof accuracy === 'number' ? accuracy : 0;
-                const benchmarkAccuracy = this.getBenchmarkAccuracy(
-                    category,
-                    userLevel
-                );
-                const accuracyGap = benchmarkAccuracy - userAccuracy;
-                const skillTotal = skillTotals.get(category) || {
-                    total: 0,
-                    correct: 0,
-                };
-                const questionCount = skillTotal.total;
+        // Step 4: Call LLM once with all aggregated data
+        const comprehensiveDiagnosis =
+            await toeicAnalysisAIService.generateComprehensiveDiagnosis({
+                totalScore: testResult.score,
+                totalQuestions: testResult.totalQuestions,
+                overallAccuracy:
+                    (testResult.score / testResult.totalQuestions) * 100,
+                userLevel,
+                partsList: testResult.parts.join(', '),
+                skillPerformanceData,
+                domainPerformanceData,
+                partAnalyses: examAnalysis.partAnalyses || [],
+            });
 
-                if (userAccuracy < 60) {
-                    const severity = this.calculateSeverity(
-                        userAccuracy,
-                        benchmarkAccuracy,
-                        questionCount
-                    );
-                    const affectedParts = this.getAffectedParts(
-                        (examAnalysis.partAnalyses || []) as PartAnalysis[],
-                        category
-                    );
-
-                    const insight =
-                        await toeicAnalysisAIService.generateWeaknessInsight({
-                            skillName: this.formatCategoryName(category),
-                            skillKey: category,
-                            userAccuracy,
-                            benchmarkAccuracy,
-                            accuracyGap,
-                            affectedParts: affectedParts as PartNumber[],
-                            totalQuestions: questionCount,
-                            incorrectCount: questionCount - skillTotal.correct,
-                        });
-
-                    const impactScore = this.calculateImpactScore(
-                        severity,
-                        questionCount,
-                        accuracyGap
-                    );
-
-                    weaknesses.push({
-                        id: `weakness_${category}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                        severity,
-                        skillKey: category,
-                        skillName: this.formatCategoryName(category),
-                        category,
-                        title: insight.title,
-                        description: insight.description,
-                        affectedParts: affectedParts as string[],
-                        userAccuracy,
-                        benchmarkAccuracy,
-                        impactScore,
-                        incorrectCount: questionCount - skillTotal.correct,
-                        totalCount: questionCount,
-                    });
-                }
-            }
-        }
-
-        for (const partAnalysis of examAnalysis.partAnalyses || []) {
-            for (const skill of partAnalysis.skillBreakdown) {
-                const userAccuracy = skill.accuracy;
-                const benchmarkAccuracy = this.getBenchmarkAccuracy(
-                    skill.skillKey,
-                    userLevel
-                );
-                const accuracyGap = benchmarkAccuracy - userAccuracy;
-
-                if (
-                    userAccuracy < 60 &&
-                    !weaknesses.some((w) => w.category === skill.skillKey)
-                ) {
-                    const severity = this.calculateSeverity(
-                        userAccuracy,
-                        benchmarkAccuracy,
-                        skill.total
-                    );
-
-                    const insight =
-                        await toeicAnalysisAIService.generateWeaknessInsight({
-                            skillName: skill.skillName,
-                            skillKey: skill.skillKey,
-                            userAccuracy,
-                            benchmarkAccuracy,
-                            accuracyGap,
-                            affectedParts: [
-                                partAnalysis.partNumber as PartNumber,
-                            ],
-                            totalQuestions: skill.total,
-                            incorrectCount: skill.total - skill.correct,
-                        });
-
-                    const impactScore = this.calculateImpactScore(
-                        severity,
-                        skill.total,
-                        accuracyGap
-                    );
-
-                    weaknesses.push({
-                        id: `weakness_${skill.skillKey}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                        severity,
-                        skillKey: skill.skillKey,
-                        skillName: skill.skillName,
-                        category: skill.skillKey,
-                        title: insight.title,
-                        description: insight.description,
-                        affectedParts: [partAnalysis.partNumber] as string[],
-                        userAccuracy,
-                        benchmarkAccuracy,
-                        impactScore,
-                        incorrectCount: skill.total - skill.correct,
-                        totalCount: skill.total,
-                    });
-                }
-            }
-        }
-
-        weaknesses.sort((a, b) => b.impactScore - a.impactScore);
-
+        // Step 5: Save comprehensive diagnosis (flattened structure)
         await TestResult.findByIdAndUpdate(testResultId, {
-            'analysis.examAnalysis.weaknesses': weaknesses,
+            'analysis.examAnalysis.summary': comprehensiveDiagnosis.summary,
+            'analysis.examAnalysis.topWeaknesses':
+                comprehensiveDiagnosis.topWeaknesses,
+            'analysis.examAnalysis.domainPerformance':
+                comprehensiveDiagnosis.domainPerformance,
+            'analysis.examAnalysis.weakDomains':
+                comprehensiveDiagnosis.weakDomains,
+            'analysis.examAnalysis.keyInsights':
+                comprehensiveDiagnosis.keyInsights,
+            'analysis.examAnalysis.generatedAt':
+                comprehensiveDiagnosis.generatedAt,
         });
 
         return await TestResult.findById(testResultId);
     }
 
-    private calculateSkillTotalsFromParts(partAnalyses: PartAnalysis[]) {
-        const skillTotals = new Map<
+    /**
+     * Aggregate skill performance across all parts
+     */
+    private aggregateSkillPerformance(
+        examAnalysis: {
+            partAnalyses?: IPartAnalysis[];
+            overallSkills?: Map<string, number>;
+        },
+        userLevel: string
+    ): Array<{
+        skillKey: string;
+        skillName: string;
+        userAccuracy: number;
+        benchmarkAccuracy: number;
+        accuracyGap: number;
+        correct: number;
+        total: number;
+        affectedParts: string[];
+    }> {
+        const skillMap = new Map<
             string,
-            { total: number; correct: number }
+            {
+                skillName: string;
+                total: number;
+                correct: number;
+                parts: Set<string>;
+            }
         >();
 
-        for (const part of partAnalyses) {
-            for (const skill of part.skillBreakdown || []) {
-                const existing = skillTotals.get(skill.skillKey) || {
+        // Aggregate from part analyses
+        for (const partAnalysis of (examAnalysis.partAnalyses ||
+            []) as IPartAnalysis[]) {
+            for (const skill of partAnalysis.skillBreakdown || []) {
+                const existing = skillMap.get(skill.skillKey) || {
+                    skillName: skill.skillName,
                     total: 0,
                     correct: 0,
+                    parts: new Set<string>(),
                 };
-                skillTotals.set(skill.skillKey, {
-                    total: existing.total + skill.total,
-                    correct: existing.correct + skill.correct,
-                });
+                existing.total += skill.total;
+                existing.correct += skill.correct;
+                existing.parts.add(partAnalysis.partNumber);
+                skillMap.set(skill.skillKey, existing);
             }
         }
 
-        return skillTotals;
+        const result = [];
+        for (const [skillKey, data] of skillMap.entries()) {
+            const userAccuracy = (data.correct / data.total) * 100;
+            const benchmarkAccuracy = this.getBenchmarkAccuracy(
+                skillKey,
+                userLevel
+            );
+            const accuracyGap = benchmarkAccuracy - userAccuracy;
+
+            result.push({
+                skillKey,
+                skillName: data.skillName,
+                userAccuracy,
+                benchmarkAccuracy,
+                accuracyGap,
+                correct: data.correct,
+                total: data.total,
+                affectedParts: Array.from(data.parts),
+            });
+        }
+        return result.sort((a, b) => b.accuracyGap - a.accuracyGap);
     }
 
     private determineUserLevel(score: number, totalQuestions: number): string {
-        const percentage = (score / totalQuestions) * 100;
-        if (percentage >= 75) return 'advanced';
-        if (percentage >= 50) return 'intermediate';
+        const accuracy = (score / totalQuestions) * 100;
+        if (accuracy >= 85) return 'advanced';
+        if (accuracy >= 70) return 'intermediate';
         return 'beginner';
+    }
+
+    private async aggregateDomainPerformanceFromTest(
+        testResult: ITestResult
+    ): Promise<
+        Array<{
+            domain: string;
+            totalQuestions: number;
+            correctAnswers: number;
+            accuracy: number;
+            isWeak: boolean;
+        }>
+    > {
+        try {
+            const db = QuestionMetadata.db;
+            if (!db) {
+                console.warn(
+                    '[aggregateDomainPerformance] No database connection'
+                );
+                return [];
+            }
+
+            const testsCollection = db.collection('tests');
+            const test = await testsCollection.findOne({
+                _id: testResult.testId,
+            });
+
+            if (!test || !test.parts) {
+                console.warn(
+                    '[aggregateDomainPerformance] Test not found or has no parts'
+                );
+                return [];
+            }
+
+            // Build question map: questionNumber -> domains[]
+            const questionDomainMap = new Map<number, string[]>();
+            let questionCounter = 1;
+
+            for (const part of test.parts) {
+                const questions = part.questions || [];
+                const questionGroups = part.questionGroups || [];
+
+                // Process direct questions
+                for (const q of questions) {
+                    if (q.contentTags?.domain) {
+                        questionDomainMap.set(
+                            questionCounter,
+                            q.contentTags.domain
+                        );
+                    }
+                    questionCounter++;
+                }
+
+                // Process question groups
+                for (const group of questionGroups) {
+                    for (const q of group.questions || []) {
+                        if (q.contentTags?.domain) {
+                            questionDomainMap.set(
+                                questionCounter,
+                                q.contentTags.domain
+                            );
+                        }
+                        questionCounter++;
+                    }
+                }
+            }
+
+            // Aggregate domain performance
+            const domainMap = new Map<
+                string,
+                { total: number; correct: number }
+            >();
+
+            for (const userAnswer of testResult.userAnswers) {
+                const domains = questionDomainMap.get(
+                    userAnswer.questionNumber
+                );
+                if (domains && domains.length > 0) {
+                    for (const domain of domains) {
+                        const existing = domainMap.get(domain) || {
+                            total: 0,
+                            correct: 0,
+                        };
+                        existing.total += 1;
+                        if (userAnswer.isCorrect) {
+                            existing.correct += 1;
+                        }
+                        domainMap.set(domain, existing);
+                    }
+                }
+            }
+
+            console.log('[DEBUG] Domain aggregation result:', {
+                totalDomains: domainMap.size,
+                domains: Array.from(domainMap.entries()).map(
+                    ([domain, data]) => ({
+                        domain,
+                        total: data.total,
+                        correct: data.correct,
+                        accuracy: ((data.correct / data.total) * 100).toFixed(
+                            1
+                        ),
+                    })
+                ),
+            });
+
+            // Convert to array and sort by accuracy
+            const result = [];
+            for (const [domain, data] of domainMap.entries()) {
+                const accuracy = (data.correct / data.total) * 100;
+                result.push({
+                    domain,
+                    totalQuestions: data.total,
+                    correctAnswers: data.correct,
+                    accuracy,
+                    isWeak: accuracy < 60,
+                });
+            }
+
+            return result.sort((a, b) => a.accuracy - b.accuracy);
+        } catch (error) {
+            console.error('[aggregateDomainPerformance] Error:', error);
+            return [];
+        }
     }
 
     private getBenchmarkAccuracy(skillKey: string, userLevel: string): number {
         return BENCHMARK_DATA[skillKey]?.[userLevel] || 60;
     }
 
-    private calculateSeverity(
-        userAccuracy: number,
-        benchmarkAccuracy: number,
-        questionCount: number
-    ): SeverityLevel {
-        const gap = benchmarkAccuracy - userAccuracy;
-        if (gap > 30 || userAccuracy < 40) return SeverityLevel.CRITICAL;
-        if (gap > 20 || userAccuracy < 50) return SeverityLevel.HIGH;
-        if (gap > 10 || userAccuracy < 60) return SeverityLevel.MEDIUM;
-        return SeverityLevel.LOW;
-    }
-
-    private calculateImpactScore(
-        severity: SeverityLevel,
-        questionCount: number,
-        accuracyGap: number
-    ): number {
-        const severityWeight = {
-            [SeverityLevel.CRITICAL]: 100,
-            [SeverityLevel.HIGH]: 75,
-            [SeverityLevel.MEDIUM]: 50,
-            [SeverityLevel.LOW]: 25,
-        };
-        const weight = severityWeight[severity] || 50;
-        const volumeScore = Math.min(questionCount / 20, 1) * 30;
-        const gapScore = Math.min(accuracyGap / 50, 1) * 20;
-        return Math.round(weight + volumeScore + gapScore);
-    }
-
-    private getAffectedParts(
-        partAnalyses: PartAnalysis[],
-        skillKey: string
-    ): string[] {
-        const parts: string[] = [];
-        for (const part of partAnalyses) {
-            if (
-                part.skillBreakdown?.some(
-                    (s: SkillPerformance) => s.skillKey === skillKey
-                )
-            ) {
-                parts.push(part.partNumber);
-            }
-        }
-        return parts;
-    }
-
     private formatCategoryName(category: string): string {
+        if (!category) return 'General';
         return category
-            .split('_')
-            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(' ');
+            .replace(/([A-Z])/g, ' $1')
+            .replace(/^./, (str) => str.toUpperCase())
+            .trim();
     }
 }
 

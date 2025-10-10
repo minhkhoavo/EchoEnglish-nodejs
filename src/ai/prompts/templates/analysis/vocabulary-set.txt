@@ -6,24 +6,28 @@ Generate a thematic vocabulary set to improve the learner's weakness in TOEIC.
 - Title: {{weaknessTitle}}
 - Affected Parts: {{affectedParts}}
 
+**Domain Context:**
+{{domainContext}}
+- Weak Domains: {{weakDomains}}
+
 **Context:**
-The learner struggles with {{weaknessTitle}}. Create a vocabulary set that directly addresses this weakness with words and phrases commonly used in TOEIC {{affectedParts}}.
+The learner struggles with {{weaknessTitle}}. Create a vocabulary set that directly addresses this weakness with words and phrases commonly used in TOEIC {{affectedParts}}, with special emphasis on vocabulary from the weak domain areas.
 
 Generate:
 1. **Set Title:** Clear, specific title (e.g., "Business Meeting Vocabulary for Inference Questions")
-2. **Description:** Brief explanation of how this vocabulary helps
+2. **Description:** Brief explanation of how this vocabulary helps, mentioning the domain focus
 3. **Words:** 15-20 essential words/phrases with:
    - Word/Phrase
    - Part of Speech
    - Definition (TOEIC context)
-   - Example sentence (TOEIC-style)
+   - Example sentence (TOEIC-style, preferably from weak domains)
    - Common usage notes
 
 Focus on:
-- High-frequency TOEIC vocabulary
-- Context-specific terms
+- High-frequency TOEIC vocabulary from weak domains
+- Context-specific terms related to {{weakDomains}}
 - Words that appear in the affected parts
-- Collocations and phrases
+- Collocations and phrases common in the weak domains
 
 Format your response as JSON:
 {
@@ -40,4 +44,4 @@ Format your response as JSON:
   ]
 }
 
-Be practical and TOEIC-focused.
+Be practical and TOEIC-focused, with domain-specific vocabulary.

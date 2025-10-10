@@ -47,7 +47,7 @@ export class StudyPlanGeneratorService {
         testResultId: Schema.Types.ObjectId | string,
         userId: Schema.Types.ObjectId | string
     ): Promise<typeof StudyPlan.prototype | null> {
-        // 1. Get test result with weaknesses from analysis
+        // 1. Get test result with comprehensive diagnosis
         const testResult = await TestResult.findById(testResultId);
         if (!testResult || !testResult.analysis?.examAnalysis) {
             throw new Error(
@@ -56,48 +56,90 @@ export class StudyPlanGeneratorService {
         }
 
         const examAnalysis = testResult.analysis.examAnalysis;
-        if (!examAnalysis.weaknesses || examAnalysis.weaknesses.length === 0) {
+
+        // Check if diagnosis data exists
+        if (!examAnalysis.summary || !examAnalysis.topWeaknesses) {
             throw new Error(
-                'No weaknesses detected. Run weakness detection first.'
+                'No comprehensive diagnosis found. Run weakness detection first.'
             );
         }
 
-        // 2. Get top 3 weaknesses by impact
-        const topWeaknesses = examAnalysis.weaknesses
-            .map((w) => ({
-                severity: w.severity as SeverityLevel,
-                skillKey: w.skillKey,
-                skillName: w.skillName,
-                category: w.category,
-                impactScore: w.impactScore,
-                affectedParts: w.affectedParts,
-                incorrectCount: w.incorrectCount,
-                totalCount: w.totalCount,
-            }))
-            .sort((a, b) => b.impactScore - a.impactScore)
-            .slice(0, 3);
+        // STEP 1: Generate strategic plan (considers volume vs impact)
+        // console.log('Generating strategic plan...');
+        const strategicItems =
+            await toeicAnalysisAIService.generateStrategicPlan(
+                examAnalysis as unknown as Record<string, unknown>
+            );
+        // console.log('Strategic items:', strategicItems);
+        if (!strategicItems || strategicItems.length === 0) {
+            throw new Error('Failed to generate strategic plan');
+        }
 
-        console.log('Top weaknesses:', topWeaknesses);
+        // console.log(`Generated ${strategicItems.length} strategic items`);
+        // console.log('Strategic plan:', JSON.stringify(strategicItems, null, 2));
 
-        // 3. Generate study plan items for each weakness
+        const weakDomains = examAnalysis.weakDomains || [];
+
+        // 3. Generate detailed study plan items from strategic plan
         const planItems = [];
 
-        for (let i = 0; i < topWeaknesses.length; i++) {
-            const weakness = topWeaknesses[i];
-            console.log(`\n=== Processing Priority ${i + 1} Weakness ===`);
-            console.log('Weakness:', weakness);
+        for (let i = 0; i < strategicItems.length; i++) {
+            const strategicItem = strategicItems[i];
+            console.log(`\n=== Processing Strategic Item ${i + 1} ===`);
+            console.log('Strategic item:', strategicItem);
 
-            // Generate plan item with AI
+            // Find corresponding weakness from diagnosis by ID
+            const targetWeakness = examAnalysis.topWeaknesses.find(
+                (w: { id: string; skillKey: string; skillName?: string }) =>
+                    strategicItem.targetWeaknesses.includes(w.id) ||
+                    strategicItem.targetWeaknesses.includes(w.skillKey) ||
+                    (w.skillName &&
+                        strategicItem.targetWeaknesses.includes(w.skillName))
+            );
+
+            if (!targetWeakness) {
+                console.warn(
+                    `No weakness found for strategic item: ${strategicItem.title}`
+                );
+                console.warn(
+                    `Looking for IDs: ${strategicItem.targetWeaknesses.join(', ')}`
+                );
+                console.warn(
+                    `Available weakness IDs:`,
+                    examAnalysis.topWeaknesses.map((w: { id: string }) => w.id)
+                );
+                continue;
+            }
+
+            // console.log(`Found matching weakness: ${targetWeakness.skillName || targetWeakness.skillKey}`);
+
+            const weakness = {
+                severity: targetWeakness.severity as SeverityLevel,
+                skillKey: targetWeakness.skillKey,
+                skillName: targetWeakness.skillName || strategicItem.skillFocus,
+                category: targetWeakness.category,
+                impactScore: targetWeakness.impactScore,
+                affectedParts: strategicItem.focusParts,
+                incorrectCount: targetWeakness.incorrectCount,
+                totalCount: targetWeakness.totalCount,
+            };
+
+            // Generate detailed plan item
             const planItem = await this.generatePlanItemForWeakness(
                 weakness,
-                i + 1
+                strategicItem.priority,
+                weakDomains
             );
+
+            // Override AI-generated values with strategic plan
+            planItem.title = strategicItem.title;
+            planItem.estimatedWeeks = strategicItem.estimatedWeeks;
 
             planItems.push(planItem);
         }
 
-        // console.log('\n=== Generated Study Plan Items ===');
-        // console.log(JSON.stringify(studyPlan, null, 2));
+        console.log('\n=== Generated Study Plan Items ===');
+        console.log(`Total items: ${planItems.length}`);
 
         // 4. Create study plan
         const studyPlan = await StudyPlan.create({
@@ -127,7 +169,8 @@ export class StudyPlanGeneratorService {
             incorrectCount?: number;
             totalCount?: number;
         },
-        priority: number
+        priority: number,
+        weakDomains: string[]
     ) {
         const userAccuracy =
             weakness.totalCount && weakness.totalCount > 0
@@ -139,6 +182,7 @@ export class StudyPlanGeneratorService {
         console.log(
             `User accuracy for ${weakness.skillName}: ${userAccuracy}%`
         );
+        // console.log(`Weak domains for context: ${weakDomains.join(', ')}`);
 
         // 1. Generate title and description with AI
         const aiPlanItem = await toeicAnalysisAIService.generateStudyPlanItem({
@@ -152,12 +196,13 @@ export class StudyPlanGeneratorService {
             drills: [], // Will be filled below
         });
 
-        console.log('AI-generated plan item:', aiPlanItem);
+        // console.log('AI-generated plan item:', aiPlanItem);
 
-        // 2. Generate learning resources
+        // 2. Generate learning resources (with domain context)
         const resources = await this.generateLearningResources(
             weakness,
-            userAccuracy
+            userAccuracy,
+            weakDomains
         );
         console.log(`Generated ${resources.length} learning resources`);
 
@@ -222,17 +267,24 @@ export class StudyPlanGeneratorService {
             skillName: string;
             affectedParts: string[];
         },
-        userAccuracy: number
+        userAccuracy: number,
+        weakDomains: string[]
     ): Promise<LearningResource[]> {
         const resources: LearningResource[] = [];
 
         // 1. Find DB resources (videos, articles) - Always useful for any weakness
-        const dbResources = await this.findDatabaseResources(weakness);
+        const dbResources = await this.findDatabaseResources(
+            weakness,
+            weakDomains
+        );
         resources.push(...dbResources);
 
         // 2. Generate AI vocabulary set - Only for vocabulary/word-related weaknesses
         if (this.shouldGenerateVocabularySet(weakness)) {
-            const vocabSet = await this.generateVocabularySet(weakness);
+            const vocabSet = await this.generateVocabularySet(
+                weakness,
+                weakDomains
+            );
             if (vocabSet) {
                 resources.push(vocabSet);
             }
@@ -367,18 +419,27 @@ export class StudyPlanGeneratorService {
     /**
      * Find videos and articles from database
      */
-    private async findDatabaseResources(weakness: {
-        skillKey: string;
-        category: string;
-        affectedParts: string[];
-    }): Promise<LearningResource[]> {
-        console.log('Finding database resources for:', weakness.category);
+    private async findDatabaseResources(
+        weakness: {
+            skillKey: string;
+            category: string;
+            affectedParts: string[];
+        },
+        weakDomains: string[]
+    ): Promise<LearningResource[]> {
         const resources: LearningResource[] = [];
 
         // Build search criteria
         const searchCriteria: Record<string, unknown> = {
             suitableForLearners: true,
         };
+
+        // Prioritize resources from weak domains if available
+        if (weakDomains.length > 0) {
+            searchCriteria['labels.domain'] = {
+                $in: weakDomains.map((d) => d.toUpperCase()),
+            };
+        }
 
         // Map skill categories to resource topics
         const topicKeywords = this.getTopicKeywords(
@@ -413,9 +474,14 @@ export class StudyPlanGeneratorService {
                 category.includes('COHESION')
             ) {
                 console.log('Using general TOEIC resources as fallback');
+                const fallbackDomain =
+                    weakDomains.length > 0
+                        ? weakDomains[0].toUpperCase()
+                        : 'BUSINESS';
+
                 foundResources = await Resource.find({
                     suitableForLearners: true,
-                    'labels.domain': 'BUSINESS',
+                    'labels.domain': fallbackDomain,
                 }).limit(2);
             } else {
                 console.log(
@@ -445,14 +511,16 @@ export class StudyPlanGeneratorService {
     /**
      * Generate AI-powered vocabulary set
      */
-    private async generateVocabularySet(weakness: {
-        category: string;
-        skillKey: string;
-        skillName: string;
-        affectedParts: string[];
-    }): Promise<LearningResource | null> {
+    private async generateVocabularySet(
+        weakness: {
+            category: string;
+            skillKey: string;
+            skillName: string;
+            affectedParts: string[];
+        },
+        weakDomains: string[]
+    ): Promise<LearningResource | null> {
         try {
-            console.log('Generating vocabulary set with AI...');
             const vocabSet = await toeicAnalysisAIService.generateVocabularySet(
                 {
                     weaknessCategory: weakness.category,
@@ -474,6 +542,7 @@ export class StudyPlanGeneratorService {
                 estimatedTime: 20,
                 generatedContent: {
                     words: vocabSet.words,
+                    focusDomains: weakDomains, // Include domain context
                 },
                 completed: false,
             };
