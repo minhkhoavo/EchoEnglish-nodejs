@@ -4,7 +4,7 @@
       "_postman_id": "ad5f7a4d-517f-49a7-8beb-bf3b8c2e3c82",
       "name": "Echo Englist Node API",
       "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-      "updatedAt": "2025-10-09T15:57:47.000Z",
+      "updatedAt": "2025-10-11T16:46:36.000Z",
       "createdAt": "2025-09-27T04:30:23.000Z",
       "lastUpdatedBy": "41332350",
       "uid": "41332350-ad5f7a4d-517f-49a7-8beb-bf3b8c2e3c82"
@@ -4355,7 +4355,7 @@
                       ],
                       "body": {
                         "mode": "raw",
-                        "raw": "{\n    \"toeicWritingTestId\": \"68de69510d59e9c5e7b0bd8f\",\n    \"answers\": {\n        \"1\": \"A person is planting seeds in the garden.\",\n        \"2\": \"Workers are constructing a building near the park.\",\n        \"3\": \"The man is reading a newspaper on the bench.\",\n        \"4\": \"Although the foundation is already laid, postponing the project was unavoidable\",\n        \"5\": \"The park was crowded because a big picnic event was taking place.\",\n        \"6\": \"Dear Sir/Madam,\\n\\nThank you for your email regarding the upcoming workshop. I am very interested in participating.\\n\\nI would like to know more details about the schedule and registration process. Could you please provide information about the workshop topics and the speakers?\\n\\nI look forward to hearing from you soon.\\n\\nBest regards,\\nJohn Doe\",\n        \"7\": \"Dear Ms. Johnson,\\n\\nI am writing to request information about the company's internship program.\\n\\nI am currently a third-year student majoring in Business Administration. Could you please tell me about the application deadline and the required documents?\\n\\nThank you for your time and consideration.\\n\\nSincerely,\\nSarah Smith\",\n        \"8\": {\n            \"introduction\": \"In today's modern society, technology has become an integral part of our daily lives. This essay will discuss whether the advantages of technology outweigh its disadvantages.\",\n            \"body_1\": \"One of the main advantages of technology is that it has made communication much easier and faster. People can now connect with others around the world instantly through various platforms such as email, social media, and video calls. This has greatly improved both personal relationships and business operations.\",\n            \"body_2\": \"However, technology also has some significant drawbacks. Many people have become overly dependent on their devices, leading to decreased face-to-face interactions and potential health issues such as eye strain and poor posture. Additionally, the constant use of technology can be distracting and reduce productivity.\",\n            \"conclusion\": \"In conclusion, while technology offers numerous benefits in terms of communication and convenience, it is important to use it in moderation. By finding a balance between digital and real-world interactions, we can maximize the advantages of technology while minimizing its negative effects.\"\n        }\n    }\n}"
+                        "raw": "{\n    \"toeicWritingTestId\": \"68de69510d59e9c5e7b0bd8f\",\n    \"answers\": {\n        \"1\": \"A person is planting seeds in the garden.\",\n        \"2\": \"Workers are constructing a building near the park.\",\n        \"3\": \"The man is reading a newspaper on the bench.\",\n        \"4\": \"Although the foundation is already laid, postponing the project was unavoidable\",\n        \"5\": \"The park was crowded because a big picnic event was taking place.\",\n        \"6\": \"Dear Sir/Madam,\\n\\nThank you for your email regarding the upcoming workshop. I am very interested in participating.\\n\\nI would like to know more details about the schedule and registration process. Could you please provide information about the workshop topics and the speakers?\\n\\nI look forward to hearing from you soon.\\n\\nBest regards,\\nJohn Doe\",\n        \"7\": \"Dear Ms. Johnson,\\n\\nI am writing to request information about the company's internship program.\\n\\nI am currently a third-year student majoring in Business Administration. Could you please tell me about the application deadline and the required documents?\\n\\nThank you for your time and consideration.\\n\\nSincerely,\\nSarah Smith\",\n        \"8\":  \n            \"In today's modern society, technology has become an integral part of our daily lives. This essay will discuss whether the advantages of technology outweigh its disadvantages.\\n\\nOne of the main advantages of technology is that it has made communication much easier and faster. People can now connect with others around the world instantly through various platforms such as email, social media, and video calls. This has greatly improved both personal relationships and business operations.\\n\\nHowever, technology also has some significant drawbacks. Many people have become overly dependent on their devices, leading to decreased face-to-face interactions and potential health issues such as eye strain and poor posture. Additionally, the constant use of technology can be distracting and reduce productivity.\\n\\nIn conclusion, while technology offers numerous benefits in terms of communication and convenience, it is important to use it in moderation. By finding a balance between digital and real-world interactions, we can maximize the advantages of technology while minimizing its negative effects.\" \n    }\n}"
                       },
                       "url": {
                         "raw": "{{baseUrl}}/writing-attempts/submit-and-score",
@@ -4419,13 +4419,13 @@
                       "method": "GET",
                       "header": [],
                       "url": {
-                        "raw": "{{baseUrl}}/writing-results/68e77d27eec314b2977c1833",
+                        "raw": "{{baseUrl}}/writing-results/68ea8060f8956d1387ec168b",
                         "host": [
                           "{{baseUrl}}"
                         ],
                         "path": [
                           "writing-results",
-                          "68e77d27eec314b2977c1833"
+                          "68ea8060f8956d1387ec168b"
                         ]
                       },
                       "description": "Get detailed writing result including AI scoring feedback.\n\n**Response:**\n- Full attempt document with parts, questions, and AI results\n- Status: 'completed', 'scored', 'partially_scored', or 'scoring_failed'\n- totalScore: 0-200\n- Each question includes:\n  - userAnswer\n  - AI result with scores, feedback, improved sentences, etc."
@@ -4504,13 +4504,13 @@
                     }
                   ],
                   "url": {
-                    "raw": "{{baseUrl}}/sw-tests/68c65c1bf9085398a866448c",
+                    "raw": "{{baseUrl}}/sw-tests/68de69510d59e9c5e7b0bd99",
                     "host": [
                       "{{baseUrl}}"
                     ],
                     "path": [
                       "sw-tests",
-                      "68c65c1bf9085398a866448c"
+                      "68de69510d59e9c5e7b0bd99"
                     ]
                   }
                 },
