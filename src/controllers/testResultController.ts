@@ -4,6 +4,10 @@ import { TestResult } from '../models/testResultModel.js';
 import { SubmitTestResultRequest } from '../dto/request/testResultRequest.js';
 import { SuccessMessage } from '../enum/successMessage.js';
 import { ErrorMessage } from '../enum/errorMessage.js';
+import { analysisEngineService } from '../services/analysis/AnalysisEngineService.js';
+import { weaknessDetectorService } from '../services/diagnosis/WeaknessDetectorService.js';
+import { studyPlanGeneratorService } from '../services/recommendation/StudyPlanGeneratorService.js';
+import { StudyPlan, StudyPlanType } from '../models/studyPlanModel.js';
 import { ApiError } from '~/middleware/apiError.js';
 import ApiResponse from '../dto/response/apiResponse.js';
 
@@ -92,7 +96,7 @@ export class TestResultController {
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, results));
     }
 
-    async getTestResultAnalytics(req: Request, res: Response) {
+    async getTestResultMetrics(req: Request, res: Response) {
         try {
             const userId = req.user?.id;
             const { resultId } = req.params;
@@ -109,8 +113,8 @@ export class TestResultController {
                 });
             }
 
-            // Extract analytics data
-            const analytics = {
+            // Extract comprehensive metrics data from new system
+            const metrics = {
                 testInfo: {
                     id: result._id.toString(),
                     testTitle: result.testTitle,
@@ -121,18 +125,40 @@ export class TestResultController {
                         (result.score / result.totalQuestions) * 100
                     ),
                 },
-                partMetrics: result.partMetrics || [],
-                overallMetrics: result.overallMetrics
+                // New partMetrics from the timing analysis system
+                partMetrics:
+                    result.analysis?.timeAnalysis?.partMetrics?.map((pm) => ({
+                        partName: pm.partName,
+                        questionsCount: pm.questionsCount,
+                        totalTime: pm.totalTime,
+                        averageTimePerQuestion: pm.averageTimePerQuestion,
+                        answerChangeRate: pm.answerChangeRate,
+                        slowestQuestions: pm.slowestQuestions || [],
+                    })) || [],
+                // New overallMetrics from the timing analysis system
+                overallMetrics: result.analysis?.timeAnalysis?.overallMetrics
                     ? {
-                          ...result.overallMetrics,
+                          totalActiveTime:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .totalActiveTime,
+                          averageTimePerQuestion:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .averageTimePerQuestion,
+                          totalAnswerChanges:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .totalAnswerChanges,
+                          confidenceScore:
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .confidenceScore,
                           timeDistribution:
-                              result.overallMetrics.timeDistribution instanceof
-                              Map
+                              result.analysis.timeAnalysis.overallMetrics
+                                  .timeDistribution instanceof Map
                                   ? Object.fromEntries(
-                                        result.overallMetrics.timeDistribution
+                                        result.analysis.timeAnalysis
+                                            .overallMetrics.timeDistribution
                                     )
-                                  : result.overallMetrics.timeDistribution ||
-                                    {},
+                                  : result.analysis.timeAnalysis.overallMetrics
+                                        .timeDistribution || {},
                       }
                     : null,
             };
@@ -140,10 +166,10 @@ export class TestResultController {
             res.status(200).json({
                 success: true,
                 message: SuccessMessage.GET_SUCCESS,
-                data: analytics,
+                data: metrics,
             });
         } catch (error: unknown) {
-            console.error('[getTestResultAnalytics] ERROR:', error);
+            console.error('[getTestResultMetrics] ERROR:', error);
             res.status(500).json({
                 success: false,
                 message:
@@ -200,8 +226,11 @@ export class TestResultController {
             };
 
             const partsToAnalyze =
-                result.partMetrics && result.partMetrics.length > 0
-                    ? result.partMetrics.map((pm) => pm.partName)
+                result.analysis?.timeAnalysis?.partMetrics &&
+                result.analysis.timeAnalysis.partMetrics.length > 0
+                    ? result.analysis.timeAnalysis.partMetrics.map(
+                          (pm) => pm.partName
+                      )
                     : Object.keys(PART_QUESTION_RANGES).filter((p) =>
                           result.userAnswers.some(
                               (a) =>
@@ -213,9 +242,10 @@ export class TestResultController {
 
             const byPart = partsToAnalyze
                 .map((partName) => {
-                    const partMetric = result.partMetrics?.find(
-                        (pm) => pm.partName === partName
-                    );
+                    const partMetric =
+                        result.analysis?.timeAnalysis?.partMetrics?.find(
+                            (pm) => pm.partName === partName
+                        );
 
                     if (partMetric) {
                         return {
@@ -299,6 +329,207 @@ export class TestResultController {
                     error && (error as Error).message
                         ? (error as Error).message
                         : ErrorMessage.INTERNAL_ERROR.message,
+            });
+        }
+    }
+
+    /**
+     * POST /api/test-results/:id/analyze
+     * Trigger deep analysis for a test result
+     */
+    async analyzeTestResult(req: Request, res: Response) {
+        try {
+            const userId = req.user?.id as string;
+            const testResultId = req.params.id;
+
+            // Run analysis pipeline
+            // 1. Core analysis - now updates testResult directly
+            const testResult =
+                await analysisEngineService.analyzeTestResult(testResultId);
+
+            if (!testResult) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Test result not found',
+                });
+            }
+
+            console.log('PASS1 >>>>>>> Analysis complete::::::::');
+
+            // 2. Weakness detection with AI - now uses testResultId
+            await weaknessDetectorService.detectWeaknesses(testResultId);
+            console.log('PASS 2 >>>>>>> weakness detection complete::::::::');
+
+            // // 3. Generate study plan - now uses testResultId
+            const studyPlan = await studyPlanGeneratorService.generateStudyPlan(
+                testResultId,
+                userId
+            );
+            console.log(
+                'PASS 3 >>>>>>> study plan generation complete::::::::'
+            );
+
+            res.status(200).json({
+                success: true,
+                message: 'Analysis completed successfully',
+                data: {
+                    testResultId: testResult._id,
+                    studyPlanId: studyPlan._id,
+                },
+            });
+        } catch (error: unknown) {
+            console.error('Analysis error:', error);
+            res.status(500).json({
+                success: false,
+                message:
+                    (error as Error).message ||
+                    ErrorMessage.INTERNAL_ERROR.message,
+            });
+        }
+    }
+
+    /**
+     * GET /api/test-results/:id/analysis
+     * Get analysis result for a test
+     */
+    async getAnalysisResult(req: Request, res: Response) {
+        try {
+            const testResultId = req.params.id;
+
+            const testResult =
+                await analysisEngineService.getAnalysisResult(testResultId);
+            const studyPlanDoc =
+                (await StudyPlan.findOne({ testResultId })
+                    .select('planItems')
+                    .lean()) ?? [];
+            const studyPlan =
+                (studyPlanDoc as { planItems?: StudyPlanType['planItems'] })
+                    ?.planItems ?? [];
+
+            if (!testResult || !testResult.analysis) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Analysis not found. Please run analysis first.',
+                });
+            }
+
+            res.status(200).json({
+                success: true,
+                data: {
+                    testResultId: testResult._id,
+                    userId: testResult.userId,
+                    testId: testResult.testId,
+                    examDate: testResult.completedAt,
+                    listeningScore: testResult.listeningScore || 0,
+                    readingScore: testResult.readingScore || 0,
+                    totalScore: testResult.totalScore || 0,
+                    analysis: testResult.analysis,
+                    studyPlan,
+                },
+            });
+        } catch (error: unknown) {
+            console.error('Get analysis error:', error);
+            res.status(500).json({
+                success: false,
+                message:
+                    (error as Error).message ||
+                    ErrorMessage.INTERNAL_ERROR.message,
+            });
+        }
+    }
+
+    /**
+     * GET /api/test-results/:id/study-plan
+     * Get study plan for a test result
+     */
+    async getStudyPlan(req: Request, res: Response) {
+        try {
+            const userId = req.user?.id;
+            if (!userId) {
+                return res.status(401).json({
+                    success: false,
+                    message: ErrorMessage.UNAUTHORIZED.message,
+                });
+            }
+
+            // Get active study plan for user
+            const studyPlan =
+                await studyPlanGeneratorService.getActiveStudyPlan(userId);
+
+            if (!studyPlan) {
+                return res.status(404).json({
+                    success: false,
+                    message:
+                        'No active study plan found. Please complete an analysis first.',
+                });
+            }
+
+            res.status(200).json({
+                success: true,
+                data: studyPlan,
+            });
+        } catch (error: unknown) {
+            console.error('Get study plan error:', error);
+            res.status(500).json({
+                success: false,
+                message:
+                    (error as Error).message ||
+                    ErrorMessage.INTERNAL_ERROR.message,
+            });
+        }
+    }
+
+    /**
+     * PATCH /api/study-plans/:id/items/:priority/progress
+     * Update study plan item progress
+     */
+    async updateStudyPlanProgress(req: Request, res: Response) {
+        try {
+            const userId = req.user?.id;
+            if (!userId) {
+                return res.status(401).json({
+                    success: false,
+                    message: ErrorMessage.UNAUTHORIZED.message,
+                });
+            }
+
+            const { id: studyPlanId, priority } = req.params;
+            const { progress } = req.body;
+
+            if (progress === undefined || progress < 0 || progress > 100) {
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        'Invalid progress value. Must be between 0 and 100.',
+                });
+            }
+
+            const updatedPlan =
+                await studyPlanGeneratorService.updateItemProgress(
+                    studyPlanId,
+                    parseInt(priority),
+                    progress
+                );
+
+            if (!updatedPlan) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Study plan not found.',
+                });
+            }
+
+            res.status(200).json({
+                success: true,
+                message: 'Progress updated successfully',
+                data: updatedPlan,
+            });
+        } catch (error: unknown) {
+            console.error('Update progress error:', error);
+            res.status(500).json({
+                success: false,
+                message:
+                    (error as Error).message ||
+                    ErrorMessage.INTERNAL_ERROR.message,
             });
         }
     }
