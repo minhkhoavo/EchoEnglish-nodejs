@@ -8,7 +8,7 @@ type MongoDb = mongoose.mongo.Db;
 export interface SubmitAndScoreInput {
     userId: string;
     toeicWritingTestId: string;
-    answers: Record<number, string | Record<string, string>>;
+    answers: Record<number, string>;
 }
 
 interface TestQuestion {
@@ -50,15 +50,7 @@ interface AttemptQuestion {
     questionNumber: number;
     promptText: string;
     promptImage: string | null;
-    userAnswer:
-        | string
-        | {
-              introduction?: string;
-              body_1?: string;
-              body_2?: string;
-              conclusion?: string;
-          }
-        | null;
+    userAnswer: string | null; // ✅ Always a string (essays are sent as plain text)
     questionMetadata: {
         keywords?: string;
         directions?: string[];
@@ -181,8 +173,21 @@ export default class WritingAttemptService {
             for (const q of rawQuestions) {
                 questionCounter += 1;
 
-                // Get user answer from answers param
-                const userAnswer = answers[questionCounter] || null;
+                // ✅ Get user answer - now only accepts strings
+                const rawAnswer = answers[questionCounter] || null;
+                let userAnswer: string | null = null;
+
+                if (rawAnswer) {
+                    if (typeof rawAnswer === 'string') {
+                        userAnswer = rawAnswer;
+                    } else {
+                        // Reject non-string answers
+                        console.warn(
+                            `[WritingAttempt] Invalid answer type for question ${questionCounter}: expected string, got ${typeof rawAnswer}`
+                        );
+                        userAnswer = null;
+                    }
+                }
 
                 questions.push({
                     questionNumber: questionCounter,
@@ -201,7 +206,6 @@ export default class WritingAttemptService {
                     result: null,
                 });
             }
-
             parts.push({
                 partIndex: i + 1,
                 partTitle: part.partTitle || part.partName || `Part ${i + 1}`,
@@ -273,7 +277,7 @@ export default class WritingAttemptService {
                         outline: string;
                     }>;
                 }>;
-                userAnswer: string | Record<string, string>;
+                userAnswer: string; // ✅ Always a string
             };
         }> = [];
 
@@ -283,6 +287,10 @@ export default class WritingAttemptService {
                 totalQuestionsWithAnswers += 1;
 
                 const partType = part.partIndex as 1 | 2 | 3;
+
+                // ✅ userAnswer is always a string now
+                const userAnswerText = question.userAnswer;
+
                 const context = {
                     partType,
                     questionPrompt: question.promptText,
@@ -290,7 +298,7 @@ export default class WritingAttemptService {
                     keywords: question.questionMetadata.keywords,
                     directions: question.questionMetadata.directions,
                     suggestions: question.questionMetadata.suggestions,
-                    userAnswer: question.userAnswer,
+                    userAnswer: userAnswerText,
                 };
 
                 scoringTasks.push({ question, context });
@@ -342,6 +350,19 @@ export default class WritingAttemptService {
                 const { question, aiResult, success } = result.value;
 
                 if (success && aiResult) {
+                    // Process upgraded_text: convert \n to <br> for HTML rendering
+                    const processedResult = { ...aiResult };
+                    if (
+                        processedResult.upgraded_text &&
+                        typeof processedResult.upgraded_text === 'string'
+                    ) {
+                        // Replace literal \n characters and actual newlines with <br>
+                        processedResult.upgraded_text =
+                            processedResult.upgraded_text
+                                .replace(/\\n/g, '<br>')
+                                .replace(/\n/g, '<br>');
+                    }
+
                     // Save successful result
                     await db.collection('toeic_writing_results').updateOne(
                         {
@@ -354,7 +375,7 @@ export default class WritingAttemptService {
                                 'parts.$[part].questions.$[question].result': {
                                     provider: 'toeicWritingScoringService',
                                     scoredAt: new Date(),
-                                    ...aiResult,
+                                    ...processedResult,
                                 },
                             },
                         },
@@ -455,7 +476,7 @@ export default class WritingAttemptService {
             { _id: attemptObjectId },
             {
                 $set: {
-                    totalScore: boundedScore,
+                    totalScore: Math.round(boundedScore / 5) * 5,
                     status: finalStatus,
                     updatedAt: new Date(),
                 },

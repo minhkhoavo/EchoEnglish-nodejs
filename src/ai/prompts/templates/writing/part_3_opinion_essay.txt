@@ -55,9 +55,19 @@ SCORING OUTPUT:
 - Assign 5 only if the essay shows clear opinion, developed reasoning, accurate grammar, and logical flow.
 - Feedback must identify whether reasons/examples were sufficient and if structure was coherent.
 
+UPGRADE TEXT INSTRUCTIONS:
+- If no corrections are needed, set both "upgraded_text" and "upgrade_summary" to empty strings.
+- If corrections are needed, highlight only the changed parts using <mark>text</mark> HTML tags (e.g., "<mark>In my opinion,</mark> technology <mark>has significantly improved</mark> our lives" if transitions and tense were corrected).
+- Keep unchanged parts as normal text without any tags.
+- Replace all \n with <br> tags for proper line breaks in HTML rendering.
+- Keep the text concise and readable - avoid excessive line breaks. For essays, use <br><br> between paragraphs but avoid single <br> within sentences.
+- In "upgrade_summary", briefly explain what was corrected (e.g., "Improved paragraph transitions, fixed verb tenses, and enhanced vocabulary precision").
+
 OUTPUT FORMAT:
 {{
   "original_text": "{candidateEssay}",
+  "upgraded_text": "<Improved essay with corrections highlighted using <mark>text</mark> for changes, or empty string if no improvements needed>",
+  "upgrade_summary": "<Brief explanation of what was corrected (grammar, vocabulary, organization, support, etc.), or empty string if no changes needed>",
   "overall_assessment": {{
     "criteria_scores": {{
       "supportOfOpinion": <0-5>,
@@ -70,38 +80,10 @@ OUTPUT FORMAT:
     "strengths": ["..."],
     "areasForImprovement": ["..."]
   }},
-  "detailed_breakdown": [
+  "related_vocabulary": [
     {{
-      "paragraph_index": 0,
-      "original_paragraph": "The ongoing debate about technological progress ...",
-      "paragraph_level_analysis": {{
-        "topic_sentence_clarity": "Clear and relevant to prompt.",
-        "idea_development": "Good main idea with logical reasoning.",
-        "cohesion_within_paragraph": "Uses linking devices effectively.",
-        "transition_to_next": "Smooth transition."
-      }},
-      "sentences": [
-        {{
-          "sentence_index": 0,
-          "original_sentence": "Some assert that these advancements have simplified life.",
-          "upgraded_sentence": "Some people argue that technological advancements have simplified modern life.",
-          "analysis_points": [
-            {{
-              "criterion": "Vocabulary",
-              "type": "style_suggestion",
-              "issue": "Too generic 'these advancements'.",
-              "explanation": "Referring explicitly to 'technological advancements' improves clarity.",
-              "suggestion": "Replace 'these' with a specific noun phrase."
-            }}
-          ],
-          "related_vocabulary": [
-            {{"word_or_phrase": "innovation", "definition_or_usage": "A new idea, method, or device."}}
-          ],
-          "identified_errors_summary": [
-            {{"error_type": "vocabulary", "description": "Generic noun reference"}}
-          ]
-        }}
-      ]
+      "word_or_phrase": "innovation",
+      "definition_or_usage": "A new idea, method, or device."
     }}
   ]
 }}

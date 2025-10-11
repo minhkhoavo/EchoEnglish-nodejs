@@ -20,7 +20,7 @@ interface WritingContext {
             outline: string;
         }>;
     }>;
-    userAnswer: string | Record<string, string>;
+    userAnswer: string;
 }
 
 class ToeicWritingScoringService {
@@ -95,28 +95,13 @@ Evaluate and return JSON with:
         // Part-specific fields
         if (context.partType === 1) {
             inputData.keywords = context.keywords || '';
-            inputData.candidateSentence =
-                typeof context.userAnswer === 'string'
-                    ? context.userAnswer
-                    : '';
+            inputData.candidateSentence = context.userAnswer;
         } else if (context.partType === 2) {
             inputData.emailPrompt = context.questionPrompt || '';
-            inputData.candidateResponse =
-                typeof context.userAnswer === 'string'
-                    ? context.userAnswer
-                    : '';
+            inputData.candidateResponse = context.userAnswer;
         } else if (context.partType === 3) {
             inputData.essayPrompt = context.questionPrompt || '';
-            // Combine all parts of essay
-            const essay = context.userAnswer as Record<string, string>;
-            inputData.candidateEssay = [
-                essay.introduction,
-                essay.body_1,
-                essay.body_2,
-                essay.conclusion,
-            ]
-                .filter(Boolean)
-                .join('\n\n');
+            inputData.candidateEssay = context.userAnswer;
         }
 
         // Format prompt

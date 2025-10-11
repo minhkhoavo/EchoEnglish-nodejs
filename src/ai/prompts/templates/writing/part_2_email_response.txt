@@ -45,9 +45,19 @@ SCORING OUTPUT:
 - Assign 4 only if all three criteria demonstrate strong control and the response fully addresses the written request.
 - Provide concise feedback on clarity, tone, completeness, and accuracy.
 
+UPGRADE TEXT INSTRUCTIONS:
+- If no corrections are needed, set both "upgraded_text" and "upgrade_summary" to empty strings.
+- If corrections are needed, highlight only the changed parts using <mark>text</mark> HTML tags (e.g., "Thank you for <mark>your email</mark> regarding the meeting" if "you email" was corrected).
+- Keep unchanged parts as normal text without any tags.
+- Replace all \n with <br> tags for proper line breaks in HTML rendering.
+- Keep the text concise and readable - avoid excessive line breaks.
+- In "upgrade_summary", briefly explain what was corrected (e.g., "Fixed grammar errors and improved professional tone").
+
 OUTPUT FORMAT:
 {{
   "original_text": "{candidateResponse}",
+  "upgraded_text": "<Improved email with corrections highlighted using <mark>text</mark> for changes, or empty string if no improvements needed>",
+  "upgrade_summary": "<Brief explanation of what was corrected (grammar, tone, organization, etc.), or empty string if no changes needed>",
   "overall_assessment": {{
     "criteria_scores": {{
       "grammar": <0-4>,
@@ -59,32 +69,10 @@ OUTPUT FORMAT:
     "strengths": ["..."],
     "areasForImprovement": ["..."]
   }},
-  "detailed_breakdown": [
+  "related_vocabulary": [
     {{
-      "sentence_index": 0,
-      "original_sentence": "Dear Lakeside Welcome Team,",
-      "upgraded_sentence": "Dear Lakeside Welcome Team,",
-      "analysis_points": [],
-      "related_vocabulary": [],
-      "identified_errors_summary": []
-    }},
-    {{
-      "sentence_index": 1,
-      "original_sentence": "I want to express my appreciation for the warm welcome!",
-      "upgraded_sentence": "I would like to express my appreciation for your warm welcome.",
-      "analysis_points": [
-        {{
-          "criterion": "Grammar",
-          "type": "style_suggestion",
-          "issue": "Informal verb choice 'want to'",
-          "explanation": "'Would like to' is more polite and formal for written responses.",
-          "suggestion": "Replace 'want to' with 'would like to'."
-        }}
-      ],
-      "related_vocabulary": [
-        {{"word_or_phrase": "appreciation", "definition_or_usage": "Recognition or gratitude for kindness received."}}
-      ],
-      "identified_errors_summary": [{{"error_type": "style", "description": "Informal phrasing"}}]
+      "word_or_phrase": "appreciation",
+      "definition_or_usage": "Recognition or gratitude for kindness received."
     }}
   ]
 }}
