@@ -79,6 +79,10 @@ export const ErrorMessage = {
         message: 'PROMO USAGE LIMIT REACHED',
         status: 400,
     },
+    MIN_ORDER_VALUE_NOT_MET: {
+        message: 'Order value does not meet minimum requirement for this promo',
+        status: 400,
+    },
     INVALID_DISCOUNT: { message: 'INVALID DISCOUNT', status: 400 },
     INVALID_USAGE_LIMIT: { message: 'INVALID USAGE LIMIT', status: 400 },
     INVALID_ACTIVE: { message: 'INVALID ACTIVE', status: 400 },

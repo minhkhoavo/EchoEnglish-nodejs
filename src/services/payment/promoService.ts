@@ -11,6 +11,9 @@ interface PromoInput {
     discount: number;
     expiration?: Date;
     usageLimit?: number;
+    maxUsesPerUser?: number;
+    minOrderValue?: number;
+    maxDiscountAmount?: number;
 }
 
 class PromoService {
@@ -67,6 +70,9 @@ class PromoService {
         discount,
         expiration,
         usageLimit,
+        maxUsesPerUser,
+        minOrderValue,
+        maxDiscountAmount,
     }: PromoInput) => {
         if (!code || !discount) {
             throw new ApiError(ErrorMessage.INVALID_PROMO_DATA);
@@ -82,12 +88,19 @@ class PromoService {
             discount,
             expiration,
             usageLimit,
+            maxUsesPerUser,
+            minOrderValue,
+            maxDiscountAmount,
         });
 
         return promo;
     };
 
-    validatePromoCode = async (code: string) => {
+    validatePromoCode = async (
+        code: string,
+        userId: string,
+        orderValue: number
+    ) => {
         if (!code) {
             throw new ApiError(ErrorMessage.PROMO_CODE_REQUIRED);
         }
@@ -108,13 +121,52 @@ class PromoService {
             throw new ApiError(ErrorMessage.PROMO_USAGE_LIMIT_REACHED);
         }
 
+        // Check min order value
+        if (orderValue < promo.minOrderValue) {
+            throw new ApiError(ErrorMessage.MIN_ORDER_VALUE_NOT_MET);
+        }
+
+        // Check max uses per user
+        let userUsage = 0;
+        promo.userUsages.forEach((usage: number, uid: string) => {
+            if (uid === userId) {
+                userUsage = usage;
+                if (promo.maxUsesPerUser && userUsage >= promo.maxUsesPerUser) {
+                    throw new ApiError(ErrorMessage.PROMO_USAGE_LIMIT_REACHED);
+                }
+            }
+        });
+
+        // Calculate effective discount
+        let finalDiscount = (promo.discount * orderValue) / 100;
+        if (
+            promo.maxDiscountAmount &&
+            finalDiscount > promo.maxDiscountAmount
+        ) {
+            finalDiscount = promo.maxDiscountAmount;
+        }
+
         return {
             code: promo.code,
-            discount: promo.discount,
-            expiration: promo.expiration,
-            remaining: promo.usageLimit - promo.usedCount,
-            active: promo.active,
+            discount: finalDiscount,
         };
+    };
+
+    applyPromoCode = async (code: string, userId: string) => {
+        const promo = await PromoCode.findOne({ code: code.toUpperCase() });
+        if (!promo) {
+            throw new ApiError(ErrorMessage.PROMO_NOT_FOUND);
+        }
+
+        // Update usedCount
+        promo.usedCount += 1;
+
+        // Update userUsages
+        const currentUsage = promo.userUsages.get(userId) || 0;
+        promo.userUsages.set(userId, currentUsage + 1);
+
+        await promo.save();
+        return promo;
     };
 }
 
