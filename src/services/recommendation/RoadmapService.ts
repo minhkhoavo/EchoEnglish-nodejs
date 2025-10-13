@@ -1,7 +1,6 @@
 import { Schema } from 'mongoose';
 import { Roadmap, RoadmapType } from '../../models/roadmapModel.js';
 import { TestResult } from '../../models/testResultModel.js';
-import { learningPlanAIService } from '../../ai/service/learningPlanAIService.js';
 
 interface WeaknessData {
     skillKey: string;

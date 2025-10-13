@@ -260,7 +260,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate all types of learning resources for a weakness
      */
-    private async generateLearningResources(
+    public async generateLearningResources(
         weakness: {
             category: string;
             skillKey: string;
@@ -318,7 +318,7 @@ export class StudyPlanGeneratorService {
     /**
      * Determine if vocabulary set is needed for this weakness
      */
-    private shouldGenerateVocabularySet(weakness: {
+    public shouldGenerateVocabularySet(weakness: {
         category: string;
         skillKey: string;
         skillName: string;
@@ -375,7 +375,7 @@ export class StudyPlanGeneratorService {
     /**
      * Determine if personalized guide is needed for this weakness
      */
-    private shouldGeneratePersonalizedGuide(weakness: {
+    public shouldGeneratePersonalizedGuide(weakness: {
         category: string;
         skillKey: string;
     }): boolean {
@@ -419,7 +419,7 @@ export class StudyPlanGeneratorService {
     /**
      * Find videos and articles from database
      */
-    private async findDatabaseResources(
+    public async findDatabaseResources(
         weakness: {
             skillKey: string;
             category: string;
@@ -511,7 +511,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate AI-powered vocabulary set
      */
-    private async generateVocabularySet(
+    public async generateVocabularySet(
         weakness: {
             category: string;
             skillKey: string;
@@ -555,7 +555,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate personalized study guide with AI
      */
-    private async generatePersonalizedGuide(
+    public async generatePersonalizedGuide(
         weakness: {
             category: string;
             skillKey: string;
@@ -860,7 +860,7 @@ export class StudyPlanGeneratorService {
     /**
      * Map skill key/category to resource topics
      */
-    private getTopicKeywords(skillKey: string, category: string): string[] {
+    public getTopicKeywords(skillKey: string, category: string): string[] {
         const keywords: string[] = [];
 
         // Handle undefined skillKey
