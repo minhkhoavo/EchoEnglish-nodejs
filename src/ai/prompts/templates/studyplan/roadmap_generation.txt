@@ -1,0 +1,103 @@
+# TOEIC Learning Roadmap Generation Prompt
+
+You are an AI that generates a personalized TOEIC learning roadmap. Read the INPUT and return ONE valid JSON object that follows the OUTPUT CONTRACT exactly. Do not add any extra text, comments, or explanations. Return JSON only.
+
+## INPUT
+
+User Context:
+- User ID: {{userId}}
+- User Prompt: "{{userPrompt}}"
+- Current Score: {{currentScore}}
+- Target Score: {{targetScore}}
+- Study Time: {{studyTimePerDay}} minutes/day, {{studyDaysPerWeek}} days/week
+
+{{testAnalysisBlock}}
+{{providedWeaknessesBlock}}
+
+## RULES (MANDATORY)
+- Always answer in English
+- totalWeeks must be <= 52 (max one year).
+- Daily Focus is generated ONLY for Week 1 and Week 2.
+- For Week 1 and Week 2, dailyFocuses.length must equal studyDaysPerWeek.
+- dayNumber = 1..studyDaysPerWeek.
+- dayOfWeek = ((dayNumber - 1) mod 7) + 1, where 1=Monday .. 7=Sunday.
+- estimatedMinutes = studyTimePerDay.
+- status = "pending".
+- scheduledDate = null.
+- Later weeks (Week 3+) must NOT include dailyFocuses (omit the field or set empty array).
+- Prioritize weaknesses from testAnalysis and/or providedWeaknesses when choosing focusSkills and targetWeaknesses.
+- severity values MUST be lowercase: "critical", "high", "medium", "low" (not uppercase).
+
+### Foundation vs Domain
+
+- Each week must have foundationWeight (0..100).
+- Each dailyFocus should have foundationWeight (default 50 if not otherwise needed).
+- Use recommendedDomains/suggestedDomains as simple string arrays (e.g., ["business","office","finance"]).
+
+### Be Concise
+
+- title short; summary is 2–3 sentences.
+- daily focus is a short line (<= 80 chars) describing the main task.
+
+### Overall Fields
+
+- currentLevel inferred from currentScore (Beginner | Intermediate | Advanced).
+- learningStrategy is an object with foundationFocus (0-100) and domainFocus (0-100), where foundationFocus + domainFocus = 100.
+- expectedProgress is cumulative % per week, increasing over time.
+- JSON must be valid and match the contract. No extra fields outside the contract. No markdown.
+
+## OUTPUT CONTRACT (JSON)
+
+```json
+{
+  "currentLevel": "Beginner | Intermediate | Advanced",
+  "learningStrategy": {
+    "foundationFocus": 70,
+    "domainFocus": 30
+  },
+  "totalWeeks": 1,
+  "weeklyFocuses": [
+    {
+      "weekNumber": 1,
+      "title": "string",
+      "summary": "string (2–3 sentences)",
+      "focusSkills": ["string"],
+      "targetWeaknesses": [
+        {
+          "skillKey": "string",
+          "skillName": "string",
+          "severity": "critical | high | medium | low",
+          "category": "string",
+          "userAccuracy": 0
+        }
+      ],
+      "recommendedDomains": ["string"],
+      "foundationWeight": 50,
+      "expectedProgress": 0,
+      "dailyFocuses": [
+        {
+          "dayNumber": 1,
+          "dayOfWeek": 1,
+          "focus": "short text",
+          "targetSkills": ["string"],
+          "suggestedDomains": ["string"],
+          "foundationWeight": 50,
+          "estimatedMinutes": 60,
+          "status": "pending",
+          "scheduledDate": null
+        }
+      ]
+    }
+  ]
+}
+```
+
+## CHECKS BEFORE RESPONDING
+
+- totalWeeks <= 52
+- Only Week 1 and Week 2 have dailyFocuses with count = studyDaysPerWeek
+- estimatedMinutes equals studyTimePerDay
+- scheduledDate is null and status is "pending"
+- dayOfWeek rule is satisfied
+- expectedProgress increases by week
+- Valid JSON only, nothing else

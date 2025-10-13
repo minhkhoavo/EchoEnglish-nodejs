@@ -18,6 +18,7 @@ import notificationRouter from './notifications.js';
 import translateRouter from './translate.js';
 import writingAttemptsRouter from './writingAttempts.js';
 import writingResults from './writingResults.js';
+import learningPlanRouter from './learningPlan.js';
 
 const apiRouter = Router();
 
@@ -41,5 +42,6 @@ apiRouter.use('/chat', chatbotRouter);
 apiRouter.use('/notifications', notificationRouter);
 apiRouter.use('/writing-attempts', writingAttemptsRouter);
 apiRouter.use('/writing-results', writingResults);
+apiRouter.use('/learning-plans', learningPlanRouter);
 
 export default apiRouter;
