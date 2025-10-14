@@ -1,6 +1,7 @@
 import { Schema } from 'mongoose';
 import { Roadmap, RoadmapType } from '../../models/roadmapModel.js';
 import { TestResult } from '../../models/testResultModel.js';
+import { learningPlanAIService } from '~/ai/service/learningPlanAIService.js';
 
 interface WeaknessData {
     skillKey: string;
@@ -79,6 +80,7 @@ export class RoadmapService {
             studyTimePerDay: input.studyTimePerDay,
             studyDaysPerWeek: input.studyDaysPerWeek,
             learningStrategy: llmResponse.learningStrategy,
+            phaseSummary: llmResponse.phaseSummary || [],
             weeklyFocuses: llmResponse.weeklyFocuses,
             totalSessions: llmResponse.totalWeeks * input.studyDaysPerWeek,
             status: 'active',

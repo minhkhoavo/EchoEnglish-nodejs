@@ -119,6 +119,49 @@ const userSchema = new Schema(
                     readingScore: Number,
                 },
             ],
+
+            aiInsights: [
+                {
+                    title: { type: String, required: true },
+                    description: { type: String, required: true },
+                    actionText: { type: String },
+                    priority: {
+                        type: String,
+                        enum: ['high', 'medium', 'low'],
+                        default: 'medium',
+                    },
+                    createdAt: { type: Date, default: Date.now },
+                },
+            ],
+
+            // TOEIC Score Prediction
+            scorePrediction: {
+                overallScore: { type: Number, min: 10, max: 990 },
+                targetScore: { type: Number, min: 10, max: 990 },
+                cefrLevel: {
+                    type: String,
+                    enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'],
+                },
+                listeningScore: { type: Number, min: 5, max: 495 },
+                readingScore: { type: Number, min: 5, max: 495 },
+                summary: { type: String },
+                lastUpdated: { type: Date, default: Date.now },
+            },
+
+            // 360° Skills Map
+            skillsMap: [
+                {
+                    skillName: { type: String, required: true },
+                    percentage: {
+                        type: Number,
+                        min: 0,
+                        max: 100,
+                        required: true,
+                    },
+                    lastUpdated: { type: Date, default: Date.now },
+                },
+            ],
+
             lastUpdated: { type: Date, default: Date.now },
         },
     },

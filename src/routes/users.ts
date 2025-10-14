@@ -37,4 +37,9 @@ router.get(
     competencyProfileController.getWeakSkills
 );
 
+router.get(
+    '/competency-profile/insights',
+    competencyProfileController.getDailyInsights
+);
+
 export default router;

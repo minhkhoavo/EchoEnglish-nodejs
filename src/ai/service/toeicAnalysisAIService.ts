@@ -1,8 +1,3 @@
-/**
- * TOEIC Analysis AI Service
- * Uses LLM to generate intelligent insights, weakness descriptions, and study plans
- */
-
 import { GoogleGenAIClient } from '../provider/googleGenAIClient.js';
 import { promptManagerService } from './PromptManagerService.js';
 import { JsonOutputParser } from '@langchain/core/output_parsers';
@@ -61,6 +56,8 @@ interface VocabularySetInput {
     skillKey: string;
     weaknessTitle: string;
     affectedParts: string[];
+    domainContext?: string[];
+    weakDomains?: string[];
 }
 
 interface VocabularyWord {
@@ -301,6 +298,8 @@ class ToeicAnalysisAIService {
                     skillKey: input.skillKey,
                     weaknessTitle: input.weaknessTitle,
                     affectedParts: input.affectedParts.join(', '),
+                    domainContext: input.domainContext?.join(', ') || 'N/A',
+                    weakContext: input.weakDomains?.join(', ') || 'N/A',
                 }
             );
 

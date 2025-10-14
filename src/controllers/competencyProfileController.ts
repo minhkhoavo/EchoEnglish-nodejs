@@ -3,6 +3,7 @@ import { competencyProfileService } from '../services/recommendation/CompetencyP
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
+import { User } from '~/models/userModel.js';
 
 export class CompetencyProfileController {
     async updateFromTestResult(req: Request, res: Response) {
@@ -87,6 +88,52 @@ export class CompetencyProfileController {
             );
         } catch (error) {
             if (error instanceof ApiError) throw error;
+            throw new ApiError(ErrorMessage.INTERNAL_ERROR);
+        }
+    }
+
+    async getDailyInsights(req: Request, res: Response) {
+        try {
+            const userId = req.user?.id as string;
+
+            const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).json(new ApiResponse('User not found'));
+            }
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const lastUpdated = user.competencyProfile?.lastUpdated;
+            const needsUpdate = !lastUpdated || new Date(lastUpdated) < today;
+
+            if (needsUpdate) {
+                await competencyProfileService.generateDailyInsights(userId);
+                const updatedUser = await User.findById(userId);
+                return res.json(
+                    new ApiResponse('Daily insights updated', {
+                        aiInsights:
+                            updatedUser?.competencyProfile?.aiInsights || [],
+                        scorePrediction:
+                            updatedUser?.competencyProfile?.scorePrediction,
+                        skillsMap:
+                            updatedUser?.competencyProfile?.skillsMap || [],
+                        lastUpdated:
+                            updatedUser?.competencyProfile?.lastUpdated,
+                    })
+                );
+            }
+
+            return res.json(
+                new ApiResponse('Daily insights retrieved', {
+                    aiInsights: user.competencyProfile?.aiInsights || [],
+                    scorePrediction: user.competencyProfile?.scorePrediction,
+                    skillsMap: user.competencyProfile?.skillsMap || [],
+                    lastUpdated: user.competencyProfile?.lastUpdated,
+                })
+            );
+        } catch (error) {
+            console.error('Error getting daily insights:', error);
             throw new ApiError(ErrorMessage.INTERNAL_ERROR);
         }
     }

@@ -527,6 +527,8 @@ export class StudyPlanGeneratorService {
                     skillKey: weakness.skillKey,
                     weaknessTitle: weakness.skillName,
                     affectedParts: weakness.affectedParts,
+                    domainContext: weakDomains,
+                    weakDomains: weakDomains,
                 }
             );
 

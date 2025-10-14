@@ -34,6 +34,14 @@ User Context:
 - Each dailyFocus should have foundationWeight (default 50 if not otherwise needed).
 - Use recommendedDomains/suggestedDomains as simple string arrays (e.g., ["business","office","finance"]).
 
+### Phase Summary
+
+- Create logical phases that group weeks together (e.g., "Week 1-3", "Week 4-6").
+- Each phase should have a clear title and description.
+- targetScore should show progression towards the final target.
+- keyFocusAreas should list 3-4 main learning objectives for that phase.
+- First phase status should be "upcoming", others "upcoming" initially.
+
 ### Be Concise
 
 - title short; summary is 2–3 sentences.
@@ -56,6 +64,16 @@ User Context:
     "domainFocus": 30
   },
   "totalWeeks": 1,
+  "phaseSummary": [
+    {
+      "weekRange": "Week 1-3",
+      "phaseTitle": "Foundation Building",
+      "targetScore": 650,
+      "description": "Master the basics",
+      "keyFocusAreas": ["Grammar fundamentals", "Core vocabulary 500+", "Part 1-2 mastery"],
+      "status": "upcoming"
+    }
+  ],
   "weeklyFocuses": [
     {
       "weekNumber": 1,
@@ -100,4 +118,5 @@ User Context:
 - scheduledDate is null and status is "pending"
 - dayOfWeek rule is satisfied
 - expectedProgress increases by week
+- phaseSummary groups weeks logically with appropriate titles and target scores
 - Valid JSON only, nothing else

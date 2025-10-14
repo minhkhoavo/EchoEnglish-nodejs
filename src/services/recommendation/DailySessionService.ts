@@ -196,15 +196,19 @@ export class DailySessionService {
             // Generate vocabulary set if AI decided
             if (activity.generateVocabularySet) {
                 console.log('Generating vocabulary set as per AI decision...');
+                const weakness = {
+                    category: '',
+                    skillKey: '',
+                    skillName: '',
+                    affectedParts: [] as string[],
+                };
+
+                const weakDomains = dailyFocus?.suggestedDomains ?? [];
+
                 const vocabSet =
                     await studyPlanGeneratorService.generateVocabularySet(
-                        {
-                            category: activity.targetWeakness.skillName,
-                            skillKey: activity.targetWeakness.skillKey,
-                            skillName: activity.targetWeakness.skillName,
-                            affectedParts: [],
-                        },
-                        dailyFocus.suggestedDomains || []
+                        weakness,
+                        weakDomains
                     );
                 if (vocabSet) {
                     resources.push(vocabSet);

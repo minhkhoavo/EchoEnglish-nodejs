@@ -108,6 +108,21 @@ export const roadmapSchema = new Schema(
             domainFocus: { type: Number, min: 0, max: 100 },
         },
 
+        phaseSummary: [
+            {
+                weekRange: { type: String, required: true },
+                phaseTitle: { type: String, required: true },
+                targetScore: { type: Number },
+                description: { type: String, required: true },
+                keyFocusAreas: [{ type: String }],
+                status: {
+                    type: String,
+                    enum: ['upcoming', 'in-progress', 'completed'],
+                    default: 'upcoming',
+                },
+            },
+        ],
+
         weeklyFocuses: [weeklyFocusSchema],
 
         currentWeek: { type: Number, default: 1 },

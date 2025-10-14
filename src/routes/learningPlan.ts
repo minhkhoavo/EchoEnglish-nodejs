@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { authenticateJWT } from '../middleware/authMiddleware.js';
 import { roadmapService } from '../services/recommendation/RoadmapService.js';
 import { dailySessionService } from '../services/recommendation/DailySessionService.js';
+import ApiResponse from '~/dto/response/apiResponse.js';
 
 const learningPlanRouter = Router();
 
@@ -47,9 +48,8 @@ learningPlanRouter.post(
             }
 
             // Note: Daily sessions will be created lazily when user accesses each day
-            res.json({
-                message: 'Generated learning roadmap',
-                data: {
+            res.json(
+                new ApiResponse('Generated learning roadmap', {
                     roadmap: {
                         id: roadmap._id,
                         roadmapId: roadmap.roadmapId,
@@ -65,8 +65,8 @@ learningPlanRouter.post(
                         weeklyFocuses: roadmap.weeklyFocuses,
                         overallProgress: roadmap.overallProgress || 0,
                     },
-                },
-            });
+                })
+            );
         } catch (error) {
             console.error('Error generating roadmap:', error);
             res.status(500).json({
@@ -86,18 +86,15 @@ learningPlanRouter.get('/today', async (req: Request, res: Response) => {
         const session = await dailySessionService.getTodaySession(userId);
 
         if (!session) {
-            return res.json({
-                success: true,
-                message:
+            return res.json(
+                new ApiResponse(
                     'No active learning plan found. Please generate a plan first.',
-                data: null,
-            });
+                    null
+                )
+            );
         }
 
-        res.json({
-            success: true,
-            data: session,
-        });
+        res.json(new ApiResponse('Today session retrieved', session));
     } catch (error) {
         console.error('Error fetching today session:', error);
         res.status(500).json({
@@ -117,18 +114,17 @@ learningPlanRouter.post(
                 await dailySessionService.regenerateTodaySession(userId);
 
             if (!session) {
-                return res.json({
-                    success: true,
-                    message: 'No active learning plan found.',
-                    data: null,
-                });
+                return res.json(
+                    new ApiResponse('No active learning plan found.', null)
+                );
             }
 
-            res.json({
-                success: true,
-                message: "Today's session regenerated successfully",
-                data: session,
-            });
+            res.json(
+                new ApiResponse(
+                    "Today's session regenerated successfully",
+                    session
+                )
+            );
         } catch (error) {
             console.error('Error regenerating today session:', error);
             res.status(500).json({
