@@ -44,6 +44,39 @@ class TestController {
                 )
             );
     };
+
+    public getQuestionsByIds = async (req: Request, res: Response) => {
+        const { questionIds } = req.body;
+
+        // Validate input
+        if (!Array.isArray(questionIds) || questionIds.length === 0) {
+            return res
+                .status(400)
+                .json(
+                    new ApiResponse(
+                        'Question IDs array is required and cannot be empty',
+                        null
+                    )
+                );
+        }
+
+        // Validate that all elements are strings
+        if (!questionIds.every((id) => typeof id === 'string')) {
+            return res
+                .status(400)
+                .json(
+                    new ApiResponse('All question IDs must be strings', null)
+                );
+        }
+
+        const result = await TestService.getQuestionsByIds(questionIds);
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(SuccessMessage.GET_TEST_BY_ID_SUCCESS, result)
+            );
+    };
 }
 
 export default new TestController();

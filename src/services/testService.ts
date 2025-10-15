@@ -88,6 +88,148 @@ class TestService {
 
         return test;
     }
+
+    public async getQuestionsByIds(questionIds: string[]) {
+        const db = await this.getDb();
+
+        // Convert string IDs to ObjectIds
+        const objectIds = questionIds.map((id) => {
+            try {
+                return new ObjectId(id);
+            } catch {
+                throw new ApiError(ErrorMessage.INVALID_ID);
+            }
+        });
+
+        if (objectIds.length === 0) {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+
+        // Step 1: Find all tests that contain any of the requested question IDs
+        const testsWithQuestions = await db
+            .collection('tests')
+            .find({
+                $or: [
+                    { 'parts.questions._id': { $in: objectIds } },
+                    {
+                        'parts.questionGroups.questions._id': {
+                            $in: objectIds,
+                        },
+                    },
+                ],
+            })
+            .toArray();
+
+        if (testsWithQuestions.length === 0) {
+            throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
+        }
+
+        // Step 2: Process each test to extract relevant parts and questions
+        const foundParts = new Map<
+            string,
+            {
+                partName: string;
+                questions: unknown[];
+                questionGroups: unknown[];
+            }
+        >();
+
+        testsWithQuestions.forEach((test) => {
+            test.parts?.forEach(
+                (part: {
+                    partName: string;
+                    questions?: Array<{ _id: ObjectId }>;
+                    questionGroups?: Array<{
+                        questions: Array<{ _id: ObjectId }>;
+                        groupContext?: Record<string, unknown>;
+                    }>;
+                }) => {
+                    let hasMatchingQuestions = false;
+                    const partData = {
+                        partName: part.partName,
+                        questions: [] as unknown[],
+                        questionGroups: [] as unknown[],
+                    };
+
+                    // Check individual questions (Parts 1, 2, 5)
+                    if (part.questions) {
+                        const matchingQuestions = part.questions.filter((q) =>
+                            objectIds.some((id) => id.equals(q._id))
+                        );
+                        if (matchingQuestions.length > 0) {
+                            partData.questions = matchingQuestions;
+                            hasMatchingQuestions = true;
+                        }
+                    }
+
+                    // Check question groups (Parts 3, 4, 6, 7)
+                    if (part.questionGroups) {
+                        part.questionGroups.forEach((group) => {
+                            const hasMatchingQuestion = group.questions?.some(
+                                (q) => objectIds.some((id) => id.equals(q._id))
+                            );
+                            if (hasMatchingQuestion) {
+                                // Include the entire group if any question in it matches
+                                partData.questionGroups.push({
+                                    groupContext: group.groupContext || {},
+                                    questions: group.questions || [],
+                                });
+                                hasMatchingQuestions = true;
+                            }
+                        });
+                    }
+
+                    if (hasMatchingQuestions) {
+                        foundParts.set(part.partName, partData);
+                    }
+                }
+            );
+        });
+
+        if (foundParts.size === 0) {
+            throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
+        }
+
+        // Step 3: Build response structure
+        interface PartResponse {
+            partName: string;
+            questions?: unknown[];
+            questionGroups?: Array<{
+                groupContext: Record<string, unknown>;
+                questions: unknown[];
+            }>;
+        }
+
+        const response = {
+            title: 'Practice Test',
+            parts: Array.from(foundParts.values())
+                .map((part) => {
+                    const partData: PartResponse = {
+                        partName: part.partName,
+                    };
+
+                    // Determine structure based on content
+                    const hasIndividualQuestions = part.questions.length > 0;
+                    const hasQuestionGroups = part.questionGroups.length > 0;
+
+                    if (hasIndividualQuestions && !hasQuestionGroups) {
+                        // Parts 1, 2, 5 - individual questions
+                        partData.questions = part.questions;
+                    } else if (hasQuestionGroups) {
+                        // Parts 3, 4, 6, 7 - question groups
+                        partData.questionGroups = part.questionGroups as Array<{
+                            groupContext: Record<string, unknown>;
+                            questions: unknown[];
+                        }>;
+                    }
+
+                    return partData;
+                })
+                .sort((a, b) => a.partName.localeCompare(b.partName)),
+        };
+
+        return response;
+    }
 }
 
 export default new TestService();
