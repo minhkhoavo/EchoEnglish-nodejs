@@ -6,6 +6,42 @@ import { dailyPlanAIService } from '../../ai/service/dailyPlanAIService.js';
 import { studyPlanGeneratorService } from './StudyPlanGeneratorService.js';
 import { Resource } from '../../models/resource.js';
 
+interface WeeklyFocus {
+    weekNumber: number;
+    title: string;
+    summary: string;
+    focusSkills: string[];
+    targetWeaknesses: Array<{
+        skillKey: string;
+        skillName: string;
+        severity: string;
+        category: string;
+        userAccuracy?: number;
+    }>;
+    recommendedDomains: string[];
+    sessionsCompleted: number;
+    totalSessions: number;
+    dailyFocuses?: Array<{ dayOfWeek: number }>;
+}
+interface Roadmap {
+    _id: unknown;
+    __v: number;
+    roadmapId?: string;
+    startDate?: string;
+    totalWeeks?: number;
+    weeklyFocuses?: WeeklyFocus[];
+    currentLevel?: string;
+    userId?: string;
+    testResultId?: string;
+}
+interface DailyFocus {
+    dayOfWeek: number;
+    focus: string;
+    targetSkills: string[];
+    suggestedDomains: string[];
+    estimatedMinutes: number;
+}
+
 export class DailySessionService {
     async getTodaySession(userId: Schema.Types.ObjectId | string) {
         const today = new Date();
@@ -25,46 +61,44 @@ export class DailySessionService {
         }
 
         // Get active roadmap
-        const roadmap = await roadmapService.getActiveRoadmap(userId);
+        let roadmap = await roadmapService.getActiveRoadmap(userId);
+
+        // Ensure singleRoadmap is initialized and accessible
+        let singleRoadmap: Roadmap | undefined;
+        if (Array.isArray(roadmap)) {
+            singleRoadmap = roadmap[0] as Roadmap;
+        } else {
+            singleRoadmap = roadmap as Roadmap;
+        }
+
         if (!roadmap) {
             console.log('No active roadmap found');
             return null;
         }
 
+        // Refine startDate handling
+        const startDate =
+            singleRoadmap.startDate &&
+            typeof singleRoadmap.startDate === 'string'
+                ? new Date(singleRoadmap.startDate)
+                : new Date();
+
         // Calculate current day
         const daysSinceStart = Math.floor(
-            (today.getTime() - new Date(roadmap.startDate).getTime()) /
-                (1000 * 60 * 60 * 24)
+            (today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
         );
 
         // For demo: use day 1 if outside range
         const dayNumber =
             daysSinceStart >= 0 &&
-            daysSinceStart < (roadmap.totalWeeks || 0) * 7
+            daysSinceStart < (singleRoadmap.totalWeeks || 0) * 7
                 ? daysSinceStart + 1
                 : 1;
         const weekNumber = Math.ceil(dayNumber / 7);
 
         // Get week and day focus
-        type WeeklyFocus = {
-            weekNumber: number;
-            title: string;
-            summary: string;
-            focusSkills: string[];
-            targetWeaknesses: Array<{
-                skillKey: string;
-                skillName: string;
-                severity: string;
-                category: string;
-                userAccuracy?: number;
-            }>;
-            recommendedDomains: string[];
-            sessionsCompleted: number;
-            totalSessions: number;
-            dailyFocuses?: Array<{ dayOfWeek: number }>;
-        };
-        const weekFocus = roadmap.weeklyFocuses?.find(
-            (w: WeeklyFocus) => w.weekNumber === weekNumber
+        const weekFocus = singleRoadmap.weeklyFocuses?.find(
+            (w) => w.weekNumber === weekNumber
         );
         if (!weekFocus) {
             console.log('No weekly focus found for week', weekNumber);
@@ -72,16 +106,10 @@ export class DailySessionService {
         }
 
         const dayInWeek = ((dayNumber - 1) % 7) + 1;
-        type DailyFocus = {
-            dayOfWeek: number;
-            focus: string;
-            targetSkills: string[];
-            suggestedDomains: string[];
-            estimatedMinutes: number;
-        };
-        const dailyFocus = weekFocus.dailyFocuses?.find(
-            (d: DailyFocus) => d.dayOfWeek === dayInWeek
-        );
+        // Refine dailyFocus handling
+        const dailyFocus = weekFocus?.dailyFocuses?.find((d) => {
+            return (d as DailyFocus).dayOfWeek === dayInWeek;
+        }) as DailyFocus | undefined;
         if (!dailyFocus) {
             console.log('No daily focus found for day', dayInWeek);
             return null;
@@ -133,7 +161,7 @@ export class DailySessionService {
             competencyProfile: {
                 currentLevel:
                     user?.competencyProfile?.currentCEFRLevel ||
-                    roadmap.currentLevel ||
+                    singleRoadmap.currentLevel ||
                     'B1',
                 lowestSkills: lowestSkills?.map((s) => ({
                     skill: s.skill,
@@ -257,9 +285,9 @@ export class DailySessionService {
 
         // Create new study plan
         const newSession = await StudyPlan.create({
-            userId: roadmap.userId,
-            roadmapRef: roadmap._id,
-            testResultId: roadmap.testResultId,
+            userId: singleRoadmap.userId,
+            roadmapRef: singleRoadmap._id,
+            testResultId: singleRoadmap.testResultId,
             dayNumber,
             weekNumber,
             scheduledDate: today,
@@ -337,65 +365,6 @@ export class DailySessionService {
         }));
     }
 
-    async completeActivity(
-        sessionId: Schema.Types.ObjectId,
-        activityId: string,
-        result?: unknown
-    ) {
-        const session = await StudyPlan.findById(sessionId);
-        if (!session) {
-            throw new Error('Session not found');
-        }
-
-        // Find by _id (activityId is the planItem _id)
-        const planItem = session.planItems?.find(
-            (item: { _id: { toString: () => string } }) =>
-                item._id.toString() === activityId
-        );
-        if (!planItem) {
-            throw new Error('Activity not found');
-        }
-
-        planItem.status = 'completed';
-        planItem.completedAt = new Date();
-        if (result) {
-            planItem.result = result;
-        }
-        planItem.progress = 100;
-
-        // Update session progress
-        const completedCount =
-            session.planItems?.filter(
-                (item: { status: string }) => item.status === 'completed'
-            ).length || 0;
-        const totalCount = session.planItems?.length || 1;
-        session.progress = Math.round((completedCount / totalCount) * 100);
-
-        if (completedCount >= totalCount) {
-            session.status = 'completed';
-            session.completedAt = new Date();
-
-            // Update roadmap progress
-            if (session.roadmapRef) {
-                const roadmap = await roadmapService.getActiveRoadmap(
-                    session.userId
-                );
-                if (roadmap) {
-                    await roadmapService.updateProgress(
-                        roadmap.roadmapId,
-                        true
-                    );
-                }
-            }
-        }
-
-        await session.save();
-        return session;
-    }
-
-    /**
-     * Regenerate today's session
-     */
     async regenerateTodaySession(userId: Schema.Types.ObjectId | string) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);

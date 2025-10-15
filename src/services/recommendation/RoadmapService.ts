@@ -92,7 +92,7 @@ export class RoadmapService {
     }
 
     async getActiveRoadmap(userId: Schema.Types.ObjectId | string) {
-        return await Roadmap.findOne({ userId, status: 'active' });
+        return Roadmap.findOne({ userId, status: 'active' }).lean().exec();
     }
 
     async updateProgress(roadmapId: string, sessionCompleted: boolean) {

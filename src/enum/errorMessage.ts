@@ -7,6 +7,10 @@ export const ErrorMessage = {
     USER_EXISTED: { message: 'User already existed', status: 400 },
     USER_NOT_FOUND: { message: 'User not found', status: 404 },
     USER_HAS_BEEN_DELETED: { message: 'User has been deleted', status: 400 },
+    USER_PREFERENCE_NOT_FOUND: {
+        message: 'User preference not found',
+        status: 404,
+    },
     ROLE_NOT_FOUND: { message: 'Role not found', status: 404 },
     ONLY_UPDATE_YOUR_PROFILE: {
         message: 'You can only update your own profile',

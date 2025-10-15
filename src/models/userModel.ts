@@ -2,6 +2,7 @@ import './roleModel';
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 import { addBaseFields, setBaseOptions } from './baseEntity.js';
 import { Gender } from '~/enum/gender.js';
+import { Domain } from '~/enum/domain.js';
 import { validateDob } from '~/utils/validation/validate.js';
 
 const userSchema = new Schema(
@@ -58,15 +59,58 @@ const userSchema = new Schema(
             min: [0, 'TOKEN_INVALID'],
         },
         preferences: {
-            targetScore: { type: Number, min: 10, max: 990 },
-            currentScore: { type: Number, min: 10, max: 990 },
-            studyTimePerDay: { type: Number, default: 30 },
+            primaryGoal: {
+                type: String,
+                enum: [
+                    'toeic_preparation',
+                    'career_advancement',
+                    'business_english',
+                    'academic_excellence',
+                ],
+                default: 'toeic_preparation',
+            },
+
+            targetScore: { type: Number, min: 100, max: 990 },
+            targetDate: { type: Date },
+
+            studyTimePerDay: {
+                type: Number,
+                enum: [15, 30, 60, 120],
+                default: 30,
+            }, // phút
+            weeklyStudyDays: { type: Number, default: 5, min: 1, max: 7 },
+            studyDaysOfWeek: [
+                {
+                    type: Number,
+                    enum: [1, 2, 3, 4, 5, 6, 7], // 1=Monday, 2=Tuesday, ..., 7=Sunday
+                    min: 1,
+                    max: 7,
+                    default: [1, 2, 3, 4, 5, 6, 7],
+                },
+            ],
             preferredStudyTime: {
                 type: String,
                 enum: ['morning', 'afternoon', 'evening', 'night'],
             },
-            targetDate: Date,
-            weeklyStudyDays: { type: Number, default: 5, min: 1, max: 7 }, // Số ngày học/tuần
+
+            contentInterests: [
+                {
+                    type: String,
+                    enum: Object.values(Domain),
+                },
+            ],
+
+            currentLevel: {
+                type: String,
+                enum: [
+                    'beginner',
+                    'intermediate',
+                    'upper_intermediate',
+                    'advanced',
+                ],
+            },
+
+            lastUpdated: { type: Date, default: Date.now },
         },
         // User Competency Profile (Dynamic Learning State)
         competencyProfile: {

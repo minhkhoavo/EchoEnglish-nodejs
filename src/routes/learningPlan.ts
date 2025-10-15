@@ -3,8 +3,34 @@ import { authenticateJWT } from '../middleware/authMiddleware.js';
 import { roadmapService } from '../services/recommendation/RoadmapService.js';
 import { dailySessionService } from '../services/recommendation/DailySessionService.js';
 import ApiResponse from '~/dto/response/apiResponse.js';
+import { ApiError } from '~/middleware/apiError.js';
 
 const learningPlanRouter = Router();
+
+learningPlanRouter.get('/active', async (req: Request, res: Response) => {
+    try {
+        const userId = req.user?.id as string;
+
+        const roadmap = await roadmapService.getActiveRoadmap(userId);
+        console.log('Active roadmap:', roadmap);
+        if (!roadmap) {
+            return res
+                .status(404)
+                .json(new ApiResponse('No active learning plan found', null));
+        }
+        return res.status(200).json(new ApiResponse('Success', roadmap));
+    } catch (error) {
+        console.error('Error fetching active roadmap:', error);
+        return res
+            .status(400)
+            .json(
+                new ApiError({
+                    message: 'Error fetching active roadmap',
+                    status: 400,
+                })
+            );
+    }
+});
 
 learningPlanRouter.post(
     '/generate',
