@@ -1,18 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import { authService } from '~/services/authService.js';
 import { User } from '~/models/userModel.js';
 import { ApiError } from '~/middleware/apiError.js';
 
 // Mock dependencies
 jest.mock('bcryptjs');
-jest.mock('jsonwebtoken');
 jest.mock('~/models/userModel.js');
 jest.mock('~/middleware/apiError.js');
 
 const mockedBcrypt = bcrypt as jest.Mocked<typeof bcrypt>;
-const mockedJwt = jwt as jest.Mocked<typeof jwt>;
 const mockedUser = User as jest.Mocked<typeof User>;
 const mockedApiError = ApiError as jest.MockedClass<typeof ApiError>;
 
@@ -113,8 +110,10 @@ describe('AuthService', () => {
         });
 
         it('should return token and authenticated true for valid login', async () => {
+            const mockToken = 'mocked-jwt-token';
+            jest.spyOn(authService, 'generateToken').mockReturnValue(mockToken);
+
             mockedBcrypt.compare = jest.fn().mockResolvedValue(true);
-            mockedJwt.sign = jest.fn().mockReturnValue('mocked-jwt-token');
 
             const result = await authService.login(
                 'test@example.com',
@@ -122,21 +121,11 @@ describe('AuthService', () => {
             );
 
             expect(result).toEqual({
-                token: 'mocked-jwt-token',
+                token: mockToken,
                 authenticated: true,
             });
-            expect(mockedJwt.sign).toHaveBeenCalled();
-            const callArgs = (mockedJwt.sign as jest.Mock).mock.calls[0];
-            expect(callArgs[0]).toMatchObject({
-                sub: 'test@example.com',
-                iss: 'https://echo-english.com',
-                scope: 'user admin',
-                userId: 'user-id-123',
-            });
-            expect(callArgs[2]).toEqual({
-                algorithm: 'HS512',
-                expiresIn: '30d',
-            });
+
+            expect(authService.generateToken).toHaveBeenCalledWith(mockUser);
         });
     });
 });

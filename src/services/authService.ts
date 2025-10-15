@@ -42,7 +42,7 @@ class AuthService {
         }
     };
 
-    public generateToken = (user: UserType) => {
+    public generateToken = (user: UserType): string => {
         let scopes: string[] = [];
         if (user.roles && user.roles.length) {
             scopes = user.roles.map(
