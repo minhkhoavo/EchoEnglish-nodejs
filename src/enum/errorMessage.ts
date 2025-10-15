@@ -162,6 +162,9 @@ export const ErrorMessage = {
         status: 400,
     },
     RESULT_ID_REQUIRED: { message: 'Result id is required', status: 400 },
+
+    /* Roadmap */
+    ROADMAP_NOT_FOUND: { message: 'Roadmap not found', status: 404 },
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;

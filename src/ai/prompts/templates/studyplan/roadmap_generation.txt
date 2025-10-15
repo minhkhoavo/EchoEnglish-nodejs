@@ -20,10 +20,12 @@ User Context:
 - Daily Focus is generated ONLY for Week 1 and Week 2.
 - For Week 1 and Week 2, dailyFocuses.length must equal studyDaysPerWeek.
 - dayNumber = 1..studyDaysPerWeek.
-- dayOfWeek = ((dayNumber - 1) mod 7) + 1, where 1=Monday .. 7=Sunday.
+- dayOfWeek should correspond to user's studyDaysOfWeek preferences.
 - estimatedMinutes = studyTimePerDay.
 - status = "pending".
 - scheduledDate = null.
+- isCritical = false by default, set to true for critical learning milestones.
+- dailySessionCompleted = false by default.
 - Later weeks (Week 3+) must NOT include dailyFocuses (omit the field or set empty array).
 - Prioritize weaknesses from testAnalysis and/or providedWeaknesses when choosing focusSkills and targetWeaknesses.
 - severity values MUST be lowercase: "critical", "high", "medium", "low" (not uppercase).
@@ -102,7 +104,9 @@ User Context:
           "foundationWeight": 50,
           "estimatedMinutes": 60,
           "status": "pending",
-          "scheduledDate": null
+          "scheduledDate": null,
+          "isCritical": false,
+          "dailySessionCompleted": false
         }
       ]
     }

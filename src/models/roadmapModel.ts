@@ -4,7 +4,7 @@ import { setBaseOptions } from './baseEntity.js';
 const dailyFocusSchema = new Schema(
     {
         dayNumber: { type: Number, required: true, min: 1 },
-        dayOfWeek: { type: Number, required: true, min: 1, max: 7 },
+        dayOfWeek: { type: Number, required: true, min: 0, max: 7 }, // 0 = null
 
         focus: { type: String, required: true },
 
@@ -29,6 +29,9 @@ const dailyFocusSchema = new Schema(
         },
 
         scheduledDate: { type: Date },
+
+        isCritical: { type: Boolean, default: false },
+        dailySessionCompleted: { type: Boolean, default: false },
     },
     { _id: true }
 );
@@ -161,7 +164,76 @@ roadmapSchema.virtual('activeWeek').get(function () {
     return this.weeklyFocuses.find((w) => w.weekNumber === this.currentWeek);
 });
 
+// Virtual để check xem có daily focus nào đang bị block không
+roadmapSchema.virtual('isBlocked').get(function () {
+    const activeWeek = this.weeklyFocuses.find(
+        (w) => w.weekNumber === this.currentWeek
+    );
+    if (!activeWeek || !activeWeek.dailyFocuses) return false;
+
+    return activeWeek.dailyFocuses.some(
+        (daily) => daily.isCritical && !daily.dailySessionCompleted
+    );
+});
+
+// Virtual để lấy daily focus hiện tại đang bị block
+roadmapSchema.virtual('blockedDailyFocus').get(function () {
+    const activeWeek = this.weeklyFocuses.find(
+        (w) => w.weekNumber === this.currentWeek
+    );
+    if (!activeWeek || !activeWeek.dailyFocuses) return null;
+
+    return activeWeek.dailyFocuses.find(
+        (daily) => daily.isCritical && !daily.dailySessionCompleted
+    );
+});
+
+// Method để cập nhật dayOfWeek dựa trên studyDaysOfWeek của user
+roadmapSchema.methods.updateDayOfWeekFromUserPreferences = function (
+    userStudyDaysOfWeek: number[]
+) {
+    this.weeklyFocuses.forEach((week: WeeklyFocusType) => {
+        if (week.dailyFocuses && week.dailyFocuses.length > 0) {
+            week.dailyFocuses.forEach(
+                (daily: DailyFocusType, index: number) => {
+                    if (index < userStudyDaysOfWeek.length) {
+                        daily.dayOfWeek = userStudyDaysOfWeek[index];
+                    } else daily.dayOfWeek = 0;
+                }
+            );
+        }
+    });
+};
+
+// Method để hoàn thành daily session và mở khóa lộ trình
+roadmapSchema.methods.completeDailySession = function (
+    weekNumber: number,
+    dayNumber: number
+) {
+    const week = this.weeklyFocuses.find(
+        (w: WeeklyFocusType) => w.weekNumber === weekNumber
+    );
+    if (week && week.dailyFocuses) {
+        const daily = week.dailyFocuses.find(
+            (d: DailyFocusType) => d.dayNumber === dayNumber
+        );
+        if (daily) {
+            daily.dailySessionCompleted = true;
+            daily.status = 'completed';
+        }
+    }
+};
+
 setBaseOptions(roadmapSchema);
+
+// Define types first
+export type DailyFocusType = InferSchemaType<typeof dailyFocusSchema> & {
+    _id: Types.ObjectId;
+};
+
+export type WeeklyFocusType = InferSchemaType<typeof weeklyFocusSchema> & {
+    _id: Types.ObjectId;
+};
 
 export type RoadmapType = InferSchemaType<typeof roadmapSchema> & {
     _id: Types.ObjectId;

@@ -135,7 +135,7 @@ export const studyPlanSchema = new Schema(
         testResultId: {
             type: Schema.Types.ObjectId,
             ref: 'TestResult',
-            required: true,
+            required: false,
             index: true,
         },
 

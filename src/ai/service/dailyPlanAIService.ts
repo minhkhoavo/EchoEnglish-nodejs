@@ -98,7 +98,7 @@ export class DailyPlanAIService {
         try {
             const result = await chain.invoke(prompt);
             console.log('LLM generated daily plan');
-            console.log('Reasoning:', result.reasoning);
+            // console.log('Reasoning:', result.reasoning);
             return result as DailyPlanOutput;
         } catch (error) {
             console.error('Error generating daily plan:', error);

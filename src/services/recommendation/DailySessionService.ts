@@ -46,10 +46,11 @@ export class DailySessionService {
     async getTodaySession(userId: Schema.Types.ObjectId | string) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
+        today.setDate(today.getDate() + 4);
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
 
-        // Check if session already exists
+        // Check if session already exists for today
         let session = (await StudyPlan.findOne({
             userId,
             scheduledDate: { $gte: today, $lt: tomorrow },
@@ -71,49 +72,111 @@ export class DailySessionService {
             singleRoadmap = roadmap as Roadmap;
         }
 
-        if (!roadmap) {
+        if (!roadmap || !singleRoadmap?.roadmapId) {
             console.log('No active roadmap found');
             return null;
         }
 
-        // Refine startDate handling
-        const startDate =
-            singleRoadmap.startDate &&
-            typeof singleRoadmap.startDate === 'string'
-                ? new Date(singleRoadmap.startDate)
-                : new Date();
-
-        // Calculate current day
-        const daysSinceStart = Math.floor(
-            (today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+        // Check if roadmap is blocked by critical daily focus
+        const roadmapStatus = await roadmapService.checkRoadmapBlocked(
+            singleRoadmap.roadmapId
         );
 
-        // For demo: use day 1 if outside range
-        const dayNumber =
-            daysSinceStart >= 0 &&
-            daysSinceStart < (singleRoadmap.totalWeeks || 0) * 7
-                ? daysSinceStart + 1
-                : 1;
-        const weekNumber = Math.ceil(dayNumber / 7);
+        let targetDayNumber: number;
+        let targetWeekNumber: number;
+        let targetDailyFocus: DailyFocus | undefined;
 
-        // Get week and day focus
+        if (roadmapStatus.isBlocked && roadmapStatus.blockedDailyFocus) {
+            // If blocked, generate session for the blocked daily focus
+            console.log(
+                'Roadmap is blocked, generating session for blocked daily focus'
+            );
+
+            // Find the week containing the blocked daily focus
+            const blockedWeek = singleRoadmap.weeklyFocuses?.find((w) =>
+                w.dailyFocuses?.some(
+                    (d) =>
+                        (d as DailyFocus).dayOfWeek ===
+                            roadmapStatus.blockedDailyFocus?.dayOfWeek &&
+                        w.weekNumber === roadmapStatus.currentWeek
+                )
+            );
+
+            if (!blockedWeek) {
+                console.log('Could not find blocked week');
+                return null;
+            }
+
+            targetWeekNumber = blockedWeek.weekNumber;
+            targetDailyFocus = blockedWeek.dailyFocuses?.find(
+                (d) =>
+                    (d as DailyFocus).dayOfWeek ===
+                    roadmapStatus.blockedDailyFocus?.dayOfWeek
+            ) as DailyFocus | undefined;
+
+            if (!targetDailyFocus) {
+                console.log('Could not find blocked daily focus');
+                return null;
+            }
+
+            // find the day number within the roadmap
+            targetDayNumber =
+                (targetWeekNumber - 1) * 7 + targetDailyFocus.dayOfWeek;
+        } else {
+            console.log('Roadmap is not blocked, generating session for today');
+            const startDate =
+                singleRoadmap.startDate &&
+                typeof singleRoadmap.startDate === 'string'
+                    ? new Date(singleRoadmap.startDate)
+                    : new Date();
+
+            const daysSinceStart = Math.floor(
+                (today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+            );
+
+            targetDayNumber =
+                daysSinceStart >= 0 &&
+                daysSinceStart < (singleRoadmap.totalWeeks || 0) * 7
+                    ? daysSinceStart + 1
+                    : 1;
+            targetWeekNumber = Math.ceil(targetDayNumber / 7);
+
+            // Get week and day focus
+            const weekFocus = singleRoadmap.weeklyFocuses?.find(
+                (w) => w.weekNumber === targetWeekNumber
+            );
+
+            if (!weekFocus) {
+                console.log('No weekly focus found for week', targetWeekNumber);
+                return null;
+            }
+
+            const dayInWeek = ((targetDayNumber - 1) % 7) + 1;
+            targetDailyFocus = weekFocus?.dailyFocuses?.find((d) => {
+                return (d as DailyFocus).dayOfWeek === dayInWeek;
+            }) as DailyFocus | undefined;
+
+            if (!targetDailyFocus) {
+                console.log('No daily focus found for day', dayInWeek);
+                return null;
+            }
+        }
+
+        // Get weekly focus for context
         const weekFocus = singleRoadmap.weeklyFocuses?.find(
-            (w) => w.weekNumber === weekNumber
+            (w) => w.weekNumber === targetWeekNumber
         );
-        if (!weekFocus) {
-            console.log('No weekly focus found for week', weekNumber);
-            return null;
-        }
 
-        const dayInWeek = ((dayNumber - 1) % 7) + 1;
-        // Refine dailyFocus handling
-        const dailyFocus = weekFocus?.dailyFocuses?.find((d) => {
-            return (d as DailyFocus).dayOfWeek === dayInWeek;
-        }) as DailyFocus | undefined;
-        if (!dailyFocus) {
-            console.log('No daily focus found for day', dayInWeek);
+        if (!weekFocus) {
+            console.log(
+                'No weekly focus found for target week',
+                targetWeekNumber
+            );
             return null;
         }
+        console.log(
+            `Generating session for day ${targetDayNumber}, week ${targetWeekNumber}${roadmapStatus.isBlocked ? ' (BLOCKED)' : ''}`
+        );
 
         // Get user competency profile for context
         const user = (await User.findById(userId)
@@ -137,18 +200,18 @@ export class DailySessionService {
 
         // Find available DB resources matching domains and skills
         const availableResources = await this.findAvailableResources(
-            dailyFocus.suggestedDomains || [],
-            dailyFocus.targetSkills || []
+            targetDailyFocus.suggestedDomains || [],
+            targetDailyFocus.targetSkills || []
         );
 
         // Generate activities using AI with smart resource allocation
         console.log('Generating daily plan with AI decision-making...');
         const aiPlan = await dailyPlanAIService.generateDailyPlan({
             dailyFocus: {
-                focus: dailyFocus.focus,
-                targetSkills: dailyFocus.targetSkills || [],
-                suggestedDomains: dailyFocus.suggestedDomains || [],
-                estimatedMinutes: dailyFocus.estimatedMinutes,
+                focus: targetDailyFocus.focus,
+                targetSkills: targetDailyFocus.targetSkills || [],
+                suggestedDomains: targetDailyFocus.suggestedDomains || [],
+                estimatedMinutes: targetDailyFocus.estimatedMinutes,
             },
             weekFocus: {
                 weekNumber: weekFocus.weekNumber,
@@ -231,7 +294,7 @@ export class DailySessionService {
                     affectedParts: [] as string[],
                 };
 
-                const weakDomains = dailyFocus?.suggestedDomains ?? [];
+                const weakDomains = targetDailyFocus?.suggestedDomains ?? [];
 
                 const vocabSet =
                     await studyPlanGeneratorService.generateVocabularySet(
@@ -284,24 +347,32 @@ export class DailySessionService {
         }
 
         // Create new study plan
+        const sessionTitle = roadmapStatus.isBlocked
+            ? `CRITICAL: ${targetDailyFocus.focus}`
+            : `Day ${targetDayNumber}: ${targetDailyFocus.focus}`;
+
         const newSession = await StudyPlan.create({
             userId: singleRoadmap.userId,
             roadmapRef: singleRoadmap._id,
             testResultId: singleRoadmap.testResultId,
-            dayNumber,
-            weekNumber,
+            dayNumber: targetDayNumber,
+            weekNumber: targetWeekNumber,
             scheduledDate: today,
-            title: `Ngày ${dayNumber}: ${dailyFocus.focus}`,
-            description: weekFocus.summary,
-            targetSkills: dailyFocus.targetSkills,
-            targetDomains: dailyFocus.suggestedDomains,
+            title: sessionTitle,
+            description: roadmapStatus.isBlocked
+                ? `You need to complete this critical learning day before continuing the roadmap. ${weekFocus.summary}`
+                : weekFocus.summary,
+            targetSkills: targetDailyFocus.targetSkills,
+            targetDomains: targetDailyFocus.suggestedDomains,
             targetWeaknesses: weekFocus.targetWeaknesses,
             planItems,
-            totalEstimatedTime: dailyFocus.estimatedMinutes,
+            totalEstimatedTime: targetDailyFocus.estimatedMinutes,
             status: 'upcoming',
         });
 
-        console.log('Created new session for day', dayNumber);
+        console.log(
+            `Created new session for day ${targetDayNumber}${roadmapStatus.isBlocked ? ' (CRITICAL BLOCKED)' : ''}`
+        );
         return newSession;
     }
 
@@ -377,6 +448,58 @@ export class DailySessionService {
         });
 
         return await this.getTodaySession(userId);
+    }
+
+    async completeDailySession(
+        userId: Schema.Types.ObjectId | string,
+        sessionId: string
+    ): Promise<{
+        success: boolean;
+        unblocked: boolean;
+        message: string;
+        canProceed: boolean;
+    }> {
+        const session = await StudyPlan.findById(sessionId);
+        if (!session) {
+            throw new Error('Session not found');
+        }
+
+        session.status = 'completed';
+        session.progress = 100;
+        await session.save();
+
+        const roadmap = await roadmapService.getActiveRoadmap(userId);
+
+        let singleRoadmap: Roadmap | undefined;
+        if (Array.isArray(roadmap)) {
+            singleRoadmap = roadmap[0] as Roadmap;
+        } else {
+            singleRoadmap = roadmap as Roadmap;
+        }
+
+        if (!singleRoadmap?.roadmapId) {
+            return {
+                success: true,
+                unblocked: false,
+                message: 'Session completed but no active roadmap found',
+                canProceed: true,
+            };
+        }
+
+        const result = await roadmapService.completeDailySession(
+            singleRoadmap.roadmapId,
+            session.weekNumber || 1,
+            session.dayNumber || 1
+        );
+
+        return {
+            success: true,
+            unblocked: result.canProceed,
+            message: result.canProceed
+                ? 'Session completed and roadmap unblocked, you can proceed.'
+                : 'Session completed but there are still critical days that need to be completed.',
+            canProceed: result.canProceed,
+        };
     }
 }
 

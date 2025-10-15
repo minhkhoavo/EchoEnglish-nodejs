@@ -1,7 +1,14 @@
-import { Schema } from 'mongoose';
-import { Roadmap, RoadmapType } from '../../models/roadmapModel.js';
+import { Schema, Types } from 'mongoose';
+import {
+    DailyFocusType,
+    Roadmap,
+    RoadmapType,
+} from '../../models/roadmapModel.js';
 import { TestResult } from '../../models/testResultModel.js';
 import { learningPlanAIService } from '~/ai/service/learningPlanAIService.js';
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { User } from '~/models/userModel.js';
 
 interface WeaknessData {
     skillKey: string;
@@ -110,6 +117,78 @@ export class RoadmapService {
 
         await roadmap.save();
         return roadmap;
+    }
+
+    async updateRoadmapScheduleFromUserPreferences(
+        userId: Types.ObjectId
+    ): Promise<void> {
+        const user = await User.findById(userId).select(
+            'preferences.studyDaysOfWeek'
+        );
+        if (!user?.preferences?.studyDaysOfWeek) {
+            throw new Error('User study days preferences not found');
+        }
+
+        const activeRoadmaps = await Roadmap.find({
+            userId,
+            status: { $in: ['active', 'draft'] },
+        });
+
+        for (const roadmap of activeRoadmaps) {
+            roadmap.updateDayOfWeekFromUserPreferences(
+                user.preferences.studyDaysOfWeek
+            );
+            await roadmap.save();
+        }
+    }
+
+    async checkRoadmapBlocked(roadmapId: string): Promise<{
+        isBlocked: boolean;
+        blockedDailyFocus?: DailyFocusType;
+        currentWeek?: number;
+    }> {
+        const roadmap = await Roadmap.findOne({ roadmapId });
+        if (!roadmap) {
+            throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
+        }
+
+        const isBlocked = roadmap.isBlocked;
+        const blockedDailyFocus = roadmap.blockedDailyFocus;
+
+        return {
+            isBlocked,
+            blockedDailyFocus,
+            currentWeek: roadmap.currentWeek,
+        };
+    }
+
+    async completeDailySession(
+        roadmapId: string,
+        weekNumber: number,
+        dayNumber: number
+    ): Promise<{
+        success: boolean;
+        canProceed: boolean;
+        message: string;
+    }> {
+        const roadmap = await Roadmap.findOne({ roadmapId });
+        if (!roadmap) {
+            throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
+        }
+
+        roadmap.completeDailySession(weekNumber, dayNumber);
+        roadmap.sessionsCompleted += 1;
+        const stillBlocked = roadmap.isBlocked;
+
+        await roadmap.save();
+
+        return {
+            success: true,
+            canProceed: !stillBlocked,
+            message: stillBlocked
+                ? 'Daily session completed but roadmap is still blocked by other critical sessions'
+                : 'Daily session completed. Roadmap is now unblocked',
+        };
     }
 }
 

@@ -4,6 +4,7 @@ import { roadmapService } from '../services/recommendation/RoadmapService.js';
 import { dailySessionService } from '../services/recommendation/DailySessionService.js';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { ApiError } from '~/middleware/apiError.js';
+import { Types } from 'mongoose';
 
 const learningPlanRouter = Router();
 
@@ -21,14 +22,12 @@ learningPlanRouter.get('/active', async (req: Request, res: Response) => {
         return res.status(200).json(new ApiResponse('Success', roadmap));
     } catch (error) {
         console.error('Error fetching active roadmap:', error);
-        return res
-            .status(400)
-            .json(
-                new ApiError({
-                    message: 'Error fetching active roadmap',
-                    status: 400,
-                })
-            );
+        return res.status(400).json(
+            new ApiError({
+                message: 'Error fetching active roadmap',
+                status: 400,
+            })
+        );
     }
 });
 
@@ -159,6 +158,22 @@ learningPlanRouter.post(
                     error instanceof Error ? error.message : 'Unknown error',
             });
         }
+    }
+);
+
+learningPlanRouter.get(
+    '/user-schedule',
+    async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+
+        await roadmapService.updateRoadmapScheduleFromUserPreferences(
+            new Types.ObjectId(userId)
+        );
+
+        res.status(200).json({
+            success: true,
+            message: 'Roadmap schedule updated successfully',
+        });
     }
 );
 
