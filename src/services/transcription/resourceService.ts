@@ -78,11 +78,12 @@ class ResourceService {
         for (const feedUrl of this.rssFeeds) {
             const parser = new Parser();
             const feed = await parser.parseURL(feedUrl);
-            // Lấy tối đa 3 bài hợp lệ (không trùng) mỗi feed url
+
             let validCount = 0;
             const itemPromises: Promise<ResourceTypeModel | null>[] = [];
             for (const item of feed.items) {
-                if (validCount >= 1) break;
+                // Lấy tối đa 3 bài hợp lệ (không trùng) mỗi feed url
+                if (validCount >= 3) break;
 
                 const exist = await Resource.findOne({ url: item.link });
                 if (exist) {
