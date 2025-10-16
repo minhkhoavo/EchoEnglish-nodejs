@@ -7,6 +7,9 @@ import ApiResponse from '../dto/response/apiResponse.js';
 import { ApiError } from '../middleware/apiError.js';
 import { ErrorMessage } from '../enum/errorMessage.js';
 import { SuccessMessage } from '../enum/successMessage.js';
+import { testResultService } from '../services/testResultService.js';
+import { weaknessDetectorService } from '../services/diagnosis/WeaknessDetectorService.js';
+import { analysisEngineService } from '~/services/analysis/AnalysisEngineService.js';
 
 export class LearningPlanController {
     async getActiveRoadmap(req: Request, res: Response) {
@@ -26,23 +29,22 @@ export class LearningPlanController {
             throw new ApiError(ErrorMessage.UNAUTHORIZED);
         }
 
-        const {
+        let {
             testResultId,
             targetScore,
-            currentScore = 0,
             studyTimePerDay = 30,
             studyDaysPerWeek = 5,
             userPrompt,
         } = req.body;
 
-        if (!targetScore) {
-            throw new ApiError(ErrorMessage.TARGET_SCORE_REQUIRED);
-        }
+        if (!targetScore)
+            if (!targetScore) {
+                throw new ApiError(ErrorMessage.TARGET_SCORE_REQUIRED);
+            }
 
         const roadmap = await roadmapService.generateRoadmap(userId, {
             testResultId,
             targetScore,
-            currentScore,
             studyTimePerDay,
             studyDaysPerWeek,
             userPrompt,
@@ -61,7 +63,6 @@ export class LearningPlanController {
                     id: roadmap._id,
                     roadmapId: roadmap.roadmapId,
                     currentLevel: roadmap.currentLevel,
-                    currentScore: roadmap.currentScore,
                     targetScore: roadmap.targetScore,
                     startDate: roadmap.startDate,
                     endDate: roadmap.endDate,
@@ -192,6 +193,45 @@ export class LearningPlanController {
         return res
             .status(200)
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, session));
+    }
+
+    async getFirstTestInfoAndAnalyze(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const testInfo = await testResultService.getFirstTestInfo(userId);
+
+        if (
+            testInfo.hasTest &&
+            testInfo.firstTest &&
+            !testInfo.firstTest.isAnalyzed
+        ) {
+            console.log(
+                `First test not analyzed, triggering analysis for test: ${testInfo.firstTest.id}`
+            );
+
+            // 1. Analyze test result
+            await analysisEngineService.analyzeTestResult(
+                testInfo.firstTest.id
+            );
+            // 2. Weakness detection with AI
+            await weaknessDetectorService.detectWeaknesses(
+                testInfo.firstTest.id
+            );
+            console.log('First test analysis completed');
+
+            // Update isAnalyzed flag
+            testInfo.firstTest.isAnalyzed = true;
+        }
+
+        return res.status(200).json(
+            new ApiResponse(SuccessMessage.GET_SUCCESS, {
+                ...testInfo,
+                message: testInfo.hasTest
+                    ? testInfo.firstTest?.isAnalyzed
+                        ? 'First test found and analyzed'
+                        : 'First test found, analysis in progress'
+                    : 'No listening-reading test found. Please complete a test first.',
+            })
+        );
     }
 }
 

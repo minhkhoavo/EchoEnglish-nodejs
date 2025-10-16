@@ -51,6 +51,7 @@ interface DailyFocus {
     targetSkills: string[];
     suggestedDomains: string[];
     estimatedMinutes: number;
+    status?: string;
 }
 
 export class DailySessionService {
@@ -189,9 +190,25 @@ export class DailySessionService {
             `Generating session for day ${targetDayNumber}, week ${targetWeekNumber}${roadmapStatus.isBlocked ? ' (BLOCKED)' : ''}`
         );
 
+        // Update daily focus status to in-progress if not completed or skipped
+        if (
+            targetDailyFocus.status !== 'completed' &&
+            targetDailyFocus.status !== 'skipped'
+        ) {
+            await roadmapService.updateDailyFocusStatus(
+                singleRoadmap.roadmapId,
+                targetWeekNumber,
+                targetDayNumber,
+                'in-progress'
+            );
+            console.log(
+                `Updated daily focus status to in-progress for day ${targetDayNumber}, week ${targetWeekNumber}`
+            );
+        }
+
         // Get user competency profile for context
         const user = (await User.findById(userId)
-            .select('competencyProfile')
+            .select('competencyProfile preferences')
             .lean()) as {
             competencyProfile?: {
                 currentCEFRLevel?: string;
@@ -200,6 +217,10 @@ export class DailySessionService {
                     currentAccuracy: number;
                     proficiency: string;
                 }>;
+            };
+            preferences?: {
+                preferredStudyTime?: string;
+                contentInterests?: string[];
             };
         } | null;
 
@@ -245,6 +266,10 @@ export class DailySessionService {
                     currentAccuracy: s.currentAccuracy,
                     proficiency: s.proficiency,
                 })),
+            },
+            userPreferences: {
+                preferredStudyTime: user?.preferences?.preferredStudyTime,
+                contentInterests: user?.preferences?.contentInterests,
             },
             mistakesToReview: mistakesToPractice.map((mistake) => ({
                 questionId: mistake.questionId.toString(),

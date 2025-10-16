@@ -5,10 +5,15 @@ import { promptManagerService } from './PromptManagerService.js';
 interface GenerateRoadmapInput {
     userId: string;
     userPrompt: string;
-    currentScore: number;
     targetScore: number;
     studyTimePerDay: number;
     studyDaysPerWeek: number;
+    userPreferences?: {
+        primaryGoal?: string;
+        currentLevel?: string;
+        preferredStudyTime?: string;
+        contentInterests?: string[];
+    };
     testAnalysis?: {
         score: number;
         weaknesses: unknown[];
@@ -130,10 +135,16 @@ export class LearningPlanAIService {
         const variables = {
             userId: input.userId,
             userPrompt: input.userPrompt,
-            currentScore: input.currentScore.toString(),
             targetScore: input.targetScore.toString(),
             studyTimePerDay: input.studyTimePerDay.toString(),
             studyDaysPerWeek: input.studyDaysPerWeek.toString(),
+            primaryGoal:
+                input.userPreferences?.primaryGoal || 'toeic_preparation',
+            currentLevel: input.userPreferences?.currentLevel || 'intermediate',
+            preferredStudyTime:
+                input.userPreferences?.preferredStudyTime || 'N/A',
+            contentInterests:
+                input.userPreferences?.contentInterests?.join(', ') || 'N/A',
             testAnalysisBlock,
             providedWeaknessesBlock,
         };

@@ -546,6 +546,152 @@ class TestResultService {
             );
         }
     }
+
+    // Get first listening-reading test info for learning plan initialization
+    async getFirstTestInfo(userId: string): Promise<{
+        hasTest: boolean;
+        firstTest: {
+            id: string;
+            testTitle: string;
+            completedAt: string;
+            totalScore: number;
+            listeningScore: number;
+            readingScore: number;
+            isAnalyzed: boolean;
+        } | null;
+        totalTests: number;
+    }> {
+        try {
+            const results = await TestResult.find({
+                userId,
+                testType: 'listening-reading',
+            })
+                .sort({ completedAt: 1 }) // Oldest first
+                .lean();
+
+            if (results.length === 0) {
+                return {
+                    hasTest: false,
+                    firstTest: null,
+                    totalTests: 0,
+                };
+            }
+
+            const firstTest = results[0];
+            const isAnalyzed = !!(
+                firstTest.analysis?.examAnalysis?.summary &&
+                firstTest.analysis?.examAnalysis?.topWeaknesses
+            );
+
+            return {
+                hasTest: true,
+                firstTest: {
+                    id: firstTest._id.toString(),
+                    testTitle: firstTest.testTitle,
+                    completedAt: firstTest.completedAt.toISOString(),
+                    totalScore: firstTest.totalScore,
+                    listeningScore: firstTest.listeningScore,
+                    readingScore: firstTest.readingScore,
+                    isAnalyzed,
+                },
+                totalTests: results.length,
+            };
+        } catch (error: unknown) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(`Failed to get first test info: ${errorMessage}`);
+        }
+    }
+
+    // Get statistics data for charting listening-reading test results
+    async getListeningReadingChartData(userId: string): Promise<{
+        timeline: Array<{
+            date: string;
+            totalScore: number;
+            listeningScore: number;
+            readingScore: number;
+            testTitle: string;
+        }>;
+        summary: {
+            averageTotal: number;
+            averageListening: number;
+            averageReading: number;
+            highestTotal: number;
+            lowestTotal: number;
+            totalTests: number;
+        };
+    }> {
+        try {
+            const results = await TestResult.find({
+                userId,
+                testType: 'listening-reading',
+            })
+                .sort({ completedAt: 1 }) // Sort by date ascending for timeline
+                .lean();
+
+            if (results.length === 0) {
+                return {
+                    timeline: [],
+                    summary: {
+                        averageTotal: 0,
+                        averageListening: 0,
+                        averageReading: 0,
+                        highestTotal: 0,
+                        lowestTotal: 0,
+                        totalTests: 0,
+                    },
+                };
+            }
+
+            // Prepare timeline data
+            const timeline = results.map((result) => ({
+                date: result.completedAt.toISOString().split('T')[0], // YYYY-MM-DD format
+                totalScore: result.totalScore,
+                listeningScore: result.listeningScore,
+                readingScore: result.readingScore,
+                testTitle: result.testTitle,
+            }));
+
+            // Calculate summary statistics
+            const totalScores = results.map((r) => r.totalScore);
+            const listeningScores = results.map((r) => r.listeningScore);
+            const readingScores = results.map((r) => r.readingScore);
+
+            const averageTotal = Math.round(
+                totalScores.reduce((sum, score) => sum + score, 0) /
+                    totalScores.length
+            );
+            const averageListening = Math.round(
+                listeningScores.reduce((sum, score) => sum + score, 0) /
+                    listeningScores.length
+            );
+            const averageReading = Math.round(
+                readingScores.reduce((sum, score) => sum + score, 0) /
+                    readingScores.length
+            );
+
+            const highestTotal = Math.max(...totalScores);
+            const lowestTotal = Math.min(...totalScores);
+
+            return {
+                timeline,
+                summary: {
+                    averageTotal,
+                    averageListening,
+                    averageReading,
+                    highestTotal,
+                    lowestTotal,
+                    totalTests: results.length,
+                },
+            };
+        } catch (error: unknown) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(
+                `Failed to get listening-reading chart data: ${errorMessage}`
+            );
+        }
+    }
 }
 
 export const testResultService = new TestResultService();

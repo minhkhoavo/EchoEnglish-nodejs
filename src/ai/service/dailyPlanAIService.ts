@@ -37,6 +37,12 @@ interface DailyPlanContext {
         }>;
     };
 
+    // User Preferences (Supplementary hints - not priority)
+    userPreferences?: {
+        preferredStudyTime?: string;
+        contentInterests?: string[];
+    };
+
     // Mistakes to Practice (for practice drills)
     mistakesToReview?: Array<{
         questionId: string;
@@ -178,6 +184,10 @@ ${context.mistakesToReview
                 )
                 .join('; '),
             recommendedDomains: context.weekFocus.recommendedDomains.join(', '),
+            preferredStudyTime:
+                context.userPreferences?.preferredStudyTime || 'N/A',
+            contentInterests:
+                context.userPreferences?.contentInterests?.join(', ') || 'N/A',
             competencyProfileBlock,
             mistakesToReviewBlock,
             availableResourcesList: availableResourcesList || 'None available',

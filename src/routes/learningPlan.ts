@@ -1,11 +1,17 @@
 import { Router } from 'express';
-import { authenticateJWT } from '../middleware/authMiddleware.js';
 import { learningPlanController } from '../controllers/learningPlanController.js';
 import { roadmapMistakeController } from '../controllers/roadmapMistakeController.js';
 
 const learningPlanRouter = Router();
 
 // ==================== ROADMAP MANAGEMENT ====================
+learningPlanRouter.get(
+    '/first-test',
+    learningPlanController.getFirstTestInfoAndAnalyze.bind(
+        learningPlanController
+    )
+);
+
 learningPlanRouter.get(
     '/active',
     learningPlanController.getActiveRoadmap.bind(learningPlanController)

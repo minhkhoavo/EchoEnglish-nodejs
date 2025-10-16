@@ -23,7 +23,6 @@ export class RoadmapService {
         userId: Schema.Types.ObjectId | string,
         input: {
             userPrompt?: string;
-            currentScore?: number;
             targetScore: number;
             studyTimePerDay: number;
             studyDaysPerWeek: number;
@@ -32,6 +31,18 @@ export class RoadmapService {
         }
     ): Promise<RoadmapType> {
         console.log('Generating roadmap using LLM for user:', userId);
+
+        // Fetch user preferences
+        const user = await User.findById(userId).select('preferences').lean();
+        const userPreferences =
+            user && !Array.isArray(user) && user.preferences
+                ? {
+                      primaryGoal: user.preferences.primaryGoal,
+                      currentLevel: user.preferences.currentLevel,
+                      preferredStudyTime: user.preferences.preferredStudyTime,
+                      contentInterests: user.preferences.contentInterests,
+                  }
+                : undefined;
 
         let testAnalysis = null;
         if (input.testResultId) {
@@ -54,10 +65,10 @@ export class RoadmapService {
         const context = {
             userId: userId.toString(),
             userPrompt: input.userPrompt || 'I want to improve my TOEIC score',
-            currentScore: input.currentScore || 0,
             targetScore: input.targetScore,
             studyTimePerDay: input.studyTimePerDay,
             studyDaysPerWeek: input.studyDaysPerWeek,
+            userPreferences,
             testAnalysis,
             providedWeaknesses: input.weaknesses,
         };
@@ -79,7 +90,6 @@ export class RoadmapService {
             roadmapId,
             userPrompt: input.userPrompt,
             currentLevel: llmResponse.currentLevel,
-            currentScore: input.currentScore,
             targetScore: input.targetScore,
             startDate,
             endDate,
@@ -189,6 +199,36 @@ export class RoadmapService {
                 ? 'Daily session completed but roadmap is still blocked by other critical sessions'
                 : 'Daily session completed. Roadmap is now unblocked',
         };
+    }
+
+    async updateDailyFocusStatus(
+        roadmapId: string,
+        weekNumber: number,
+        dayNumber: number,
+        status: 'pending' | 'upcoming' | 'in-progress' | 'completed' | 'skipped'
+    ): Promise<void> {
+        const roadmap = await Roadmap.findOneAndUpdate(
+            {
+                roadmapId,
+                'weeklyFocuses.weekNumber': weekNumber,
+                'weeklyFocuses.dailyFocuses.dayNumber': dayNumber,
+            },
+            {
+                $set: {
+                    'weeklyFocuses.$[week].dailyFocuses.$[day].status': status,
+                },
+            },
+            {
+                arrayFilters: [
+                    { 'week.weekNumber': weekNumber },
+                    { 'day.dayNumber': dayNumber },
+                ],
+            }
+        );
+
+        if (!roadmap) {
+            throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
+        }
     }
 }
 

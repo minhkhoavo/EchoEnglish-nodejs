@@ -112,7 +112,6 @@ export const roadmapSchema = new Schema(
 
         userPrompt: { type: String },
         currentLevel: { type: String },
-        currentScore: { type: Number },
         targetScore: { type: Number },
 
         startDate: { type: Date, required: true },
