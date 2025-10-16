@@ -140,9 +140,8 @@ export class RoadmapMistakeService {
         if (!roadmap) return { success: false, mistakes: [], weekNumber: 0 };
 
         const targetWeek = weekNumber || roadmap.currentWeek || 1;
-        // @ts-expect-error Mongoose array type
         const week = roadmap.weeklyFocuses.find(
-            (w) => w.weekNumber === targetWeek
+            (w: WeeklyFocusType) => w.weekNumber === targetWeek
         );
         const mistakes = week?.mistakes?.slice(0, limit) || [];
 

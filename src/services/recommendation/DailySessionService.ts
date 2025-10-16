@@ -5,6 +5,7 @@ import { roadmapService } from './RoadmapService.js';
 import { dailyPlanAIService } from '../../ai/service/dailyPlanAIService.js';
 import { studyPlanGeneratorService } from './StudyPlanGeneratorService.js';
 import { Resource } from '../../models/resource.js';
+import { progressTrackingService } from './ProgressTrackingService.js';
 
 interface WeeklyFocus {
     weekNumber: number;
@@ -515,129 +516,25 @@ export class DailySessionService {
         message: string;
         canProceed: boolean;
     }> {
-        const session = await StudyPlan.findById(sessionId);
-        if (!session) {
-            throw new Error('Session not found');
-        }
-
-        session.status = 'completed';
-        session.progress = 100;
-        await session.save();
-
-        const roadmap = await roadmapService.getActiveRoadmap(userId);
-
-        let singleRoadmap: Roadmap | undefined;
-        if (Array.isArray(roadmap)) {
-            singleRoadmap = roadmap[0] as Roadmap;
-        } else {
-            singleRoadmap = roadmap as Roadmap;
-        }
-
-        if (!singleRoadmap?.roadmapId) {
-            return {
-                success: true,
-                unblocked: false,
-                message: 'Session completed but no active roadmap found',
-                canProceed: true,
-            };
-        }
-
-        const result = await roadmapService.completeDailySession(
-            singleRoadmap.roadmapId,
-            session.weekNumber || 1,
-            session.dayNumber || 1
-        );
-
-        return {
-            success: true,
-            unblocked: result.canProceed,
-            message: result.canProceed
-                ? 'Session completed and roadmap unblocked, you can proceed.'
-                : 'Session completed but there are still critical days that need to be completed.',
-            canProceed: result.canProceed,
-        };
+        return progressTrackingService.completeDailySession(userId, sessionId);
     }
 
-    /**
-     * Complete practice drill - remove correct answers from stack
-     */
-    async completePracticeDrill(
-        userId: Schema.Types.ObjectId | string,
+    async trackResourceView(
         sessionId: string,
-        drillResults: Array<{
-            questionId: string;
-            isCorrect: boolean;
-            timeSpent?: number;
-        }>
-    ): Promise<{
-        success: boolean;
-        message: string;
-        mistakesRemoved: number;
-    }> {
-        try {
-            const session = await StudyPlan.findById(sessionId);
-            if (!session) {
-                throw new Error('Session not found');
-            }
+        itemId: string,
+        resourceId: string,
+        timeSpent: number
+    ): Promise<StudyPlanType> {
+        return progressTrackingService.trackResourceView(
+            sessionId,
+            itemId,
+            resourceId,
+            timeSpent
+        );
+    }
 
-            // Update practice drill progress
-            for (const planItem of session.planItems) {
-                if (
-                    planItem.resourceType === 'practice_drill' &&
-                    planItem.practiceDrills?.length > 0
-                ) {
-                    const drill = planItem.practiceDrills[0];
-                    const correctAnswers = drillResults.filter(
-                        (r) => r.isCorrect
-                    ).length;
-
-                    drill.correctAnswers = correctAnswers;
-                    drill.completed =
-                        correctAnswers >= (drill.minCorrectAnswers || 2);
-
-                    if (drill.completed) {
-                        planItem.progress = 100;
-                        planItem.status = 'completed';
-                    }
-                }
-            }
-
-            await session.save();
-
-            // Remove correct answers from mistake stack
-            const { roadmapMistakeService } = await import(
-                './RoadmapMistakeService.js'
-            );
-
-            let mistakesRemoved = 0;
-            for (const result of drillResults) {
-                if (result.isCorrect) {
-                    const removeResult =
-                        await roadmapMistakeService.removeMistake(
-                            userId,
-                            result.questionId,
-                            session.weekNumber
-                        );
-
-                    if (removeResult.success) {
-                        mistakesRemoved++;
-                    }
-                }
-            }
-
-            return {
-                success: true,
-                message: `Practice drill completed: ${drillResults.filter((r) => r.isCorrect).length}/${drillResults.length} correct, ${mistakesRemoved} mistakes removed from stack`,
-                mistakesRemoved,
-            };
-        } catch (error) {
-            console.error('Error completing practice drill:', error);
-            return {
-                success: false,
-                message: 'Failed to complete practice drill',
-                mistakesRemoved: 0,
-            };
-        }
+    async completePracticeDrill(sessionId: string): Promise<StudyPlanType> {
+        return progressTrackingService.completePracticeDrill(sessionId);
     }
 }
 

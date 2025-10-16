@@ -20,7 +20,7 @@ const dailyFocusSchema = new Schema(
             type: String,
             enum: [
                 'pending',
-                'generated',
+                'upcoming',
                 'in-progress',
                 'completed',
                 'skipped',

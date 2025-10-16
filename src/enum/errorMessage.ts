@@ -165,6 +165,20 @@ export const ErrorMessage = {
 
     /* Roadmap */
     ROADMAP_NOT_FOUND: { message: 'Roadmap not found', status: 404 },
+
+    /* Learning Plan / Session */
+    SESSION_NOT_FOUND: { message: 'Session not found', status: 404 },
+    PLAN_ITEM_NOT_FOUND: { message: 'Plan item not found', status: 404 },
+    RESOURCE_IN_ITEM_NOT_FOUND: {
+        message: 'Resource not found in plan item',
+        status: 404,
+    },
+    DRILL_NOT_FOUND: { message: 'Practice drill not found', status: 404 },
+    INVALID_DRILL_RESULTS: {
+        message: 'Invalid drill results format',
+        status: 400,
+    },
+    TARGET_SCORE_REQUIRED: { message: 'Target score is required', status: 400 },
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;
