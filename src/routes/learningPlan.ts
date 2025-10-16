@@ -5,6 +5,7 @@ import { dailySessionService } from '../services/recommendation/DailySessionServ
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { Types } from 'mongoose';
+import { roadmapMistakeController } from '~/controllers/roadmapMistakeController.js';
 
 const learningPlanRouter = Router();
 
@@ -175,6 +176,70 @@ learningPlanRouter.get(
             message: 'Roadmap schedule updated successfully',
         });
     }
+);
+
+// Complete practice drill
+learningPlanRouter.post(
+    '/sessions/:sessionId/practice-drill/complete',
+    async (req: Request, res: Response) => {
+        try {
+            const userId = req.user?.id as string;
+            const { sessionId } = req.params;
+            const { drillResults } = req.body;
+
+            if (!drillResults || !Array.isArray(drillResults)) {
+                return res.status(400).json({
+                    error: 'Invalid drill results format',
+                });
+            }
+
+            // Validate drill results
+            for (const result of drillResults) {
+                if (
+                    !result.questionId ||
+                    typeof result.isCorrect !== 'boolean'
+                ) {
+                    return res.status(400).json({
+                        error: 'Each drill result must have questionId and isCorrect',
+                    });
+                }
+            }
+
+            const result = await dailySessionService.completePracticeDrill(
+                userId,
+                sessionId,
+                drillResults
+            );
+
+            if (result.success) {
+                res.status(200).json({
+                    success: true,
+                    message: result.message,
+                    mistakesRemoved: result.mistakesRemoved,
+                });
+            } else {
+                res.status(400).json({
+                    error: result.message,
+                });
+            }
+        } catch (error) {
+            console.error('Error completing practice drill:', error);
+            res.status(500).json({
+                error: 'Failed to complete practice drill',
+                message:
+                    error instanceof Error ? error.message : 'Unknown error',
+            });
+        }
+    }
+);
+
+learningPlanRouter.post(
+    '/mistakes/batch',
+    roadmapMistakeController.addMultipleMistakes.bind(roadmapMistakeController)
+);
+learningPlanRouter.delete(
+    '/mistakes/remove',
+    roadmapMistakeController.removeMistake.bind(roadmapMistakeController)
 );
 
 export default learningPlanRouter;

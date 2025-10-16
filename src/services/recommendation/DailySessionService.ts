@@ -19,6 +19,16 @@ interface WeeklyFocus {
         userAccuracy?: number;
     }>;
     recommendedDomains: string[];
+    mistakes?: Array<{
+        questionId: Schema.Types.ObjectId;
+        questionText: string;
+        contentTags?: string[];
+        skillTag?: string;
+        partNumber?: number;
+        difficulty?: string;
+        mistakeCount: number;
+        addedDate: Date;
+    }>;
     sessionsCompleted: number;
     totalSessions: number;
     dailyFocuses?: Array<{ dayOfWeek: number }>;
@@ -46,7 +56,7 @@ export class DailySessionService {
     async getTodaySession(userId: Schema.Types.ObjectId | string) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        today.setDate(today.getDate() + 4);
+        today.setDate(today.getDate());
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
 
@@ -204,6 +214,9 @@ export class DailySessionService {
             targetDailyFocus.targetSkills || []
         );
 
+        // Get mistakes that need practice from current week (top N from stack)
+        const mistakesToPractice = weekFocus.mistakes?.slice(0, 40) || [];
+
         // Generate activities using AI with smart resource allocation
         console.log('Generating daily plan with AI decision-making...');
         const aiPlan = await dailyPlanAIService.generateDailyPlan({
@@ -232,6 +245,15 @@ export class DailySessionService {
                     proficiency: s.proficiency,
                 })),
             },
+            mistakesToReview: mistakesToPractice.map((mistake) => ({
+                questionId: mistake.questionId.toString(),
+                questionText: mistake.questionText,
+                contentTags: mistake.contentTags || [],
+                skillTag: mistake.skillTag,
+                partNumber: mistake.partNumber,
+                difficulty: mistake.difficulty,
+                mistakeCount: mistake.mistakeCount,
+            })),
             availableResources: availableResources.map((r) => ({
                 type: r.type,
                 title: r.title,
@@ -242,7 +264,7 @@ export class DailySessionService {
             })),
         });
 
-        console.log('AI Plan reasoning:', aiPlan.reasoning);
+        // console.log('AI Plan reasoning:', aiPlan.reasoning);
 
         // Build plan items from AI decisions
         const planItems = [];
@@ -327,6 +349,36 @@ export class DailySessionService {
                 }
             }
 
+            // Generate practice drill if AI decided
+            let aiPracticeDrill = [];
+            if (
+                activity.generatePracticeDrill &&
+                activity.practiceQuestionIds
+            ) {
+                aiPracticeDrill.push({
+                    title: activity.title || 'Mistake Review Drill',
+                    practiceQuestionIds: activity.practiceQuestionIds,
+                    minCorrectAnswers:
+                        activity.minCorrectAnswers ||
+                        Math.floor(activity.practiceQuestionIds.length / 2),
+                    description:
+                        activity.drillInstructions ||
+                        `Practice drill focusing on ${activity.skillsToImprove?.[0] || 'general skills'}`,
+                    totalQuestions: activity.practiceQuestionIds?.length || 5,
+                    estimatedTime: Math.min(activity.estimatedTime || 15, 20),
+                    skillTags: {
+                        skillCategory:
+                            activity.skillsToImprove?.[0] || 'OTHERS',
+                        specificSkills: activity.skillsToImprove || [],
+                    },
+                    partNumbers: [],
+                    difficulty: 'intermediate',
+                    completed: false,
+                    score: 0,
+                    attempts: 0,
+                });
+            }
+
             planItems.push({
                 priority: activity.priority,
                 title: activity.title,
@@ -334,13 +386,17 @@ export class DailySessionService {
                 targetWeakness: activity.targetWeakness,
                 skillsToImprove: activity.skillsToImprove,
                 resources,
-                practiceDrills: [],
+                practiceDrills: activity.generatePracticeDrill
+                    ? aiPracticeDrill
+                    : [],
                 progress: 0,
                 estimatedWeeks: 0,
-                activityType: activityType, // Use validated activityType
+                activityType: activityType,
                 resourceType: activity.useDBResource
                     ? 'db_resource'
-                    : 'generated',
+                    : activity.generatePracticeDrill
+                      ? 'practice_drill'
+                      : 'generated',
                 order: activity.priority,
                 status: 'pending' as const,
             });
@@ -500,6 +556,88 @@ export class DailySessionService {
                 : 'Session completed but there are still critical days that need to be completed.',
             canProceed: result.canProceed,
         };
+    }
+
+    /**
+     * Complete practice drill - remove correct answers from stack
+     */
+    async completePracticeDrill(
+        userId: Schema.Types.ObjectId | string,
+        sessionId: string,
+        drillResults: Array<{
+            questionId: string;
+            isCorrect: boolean;
+            timeSpent?: number;
+        }>
+    ): Promise<{
+        success: boolean;
+        message: string;
+        mistakesRemoved: number;
+    }> {
+        try {
+            const session = await StudyPlan.findById(sessionId);
+            if (!session) {
+                throw new Error('Session not found');
+            }
+
+            // Update practice drill progress
+            for (const planItem of session.planItems) {
+                if (
+                    planItem.resourceType === 'practice_drill' &&
+                    planItem.practiceDrills?.length > 0
+                ) {
+                    const drill = planItem.practiceDrills[0];
+                    const correctAnswers = drillResults.filter(
+                        (r) => r.isCorrect
+                    ).length;
+
+                    drill.correctAnswers = correctAnswers;
+                    drill.completed =
+                        correctAnswers >= (drill.minCorrectAnswers || 2);
+
+                    if (drill.completed) {
+                        planItem.progress = 100;
+                        planItem.status = 'completed';
+                    }
+                }
+            }
+
+            await session.save();
+
+            // Remove correct answers from mistake stack
+            const { roadmapMistakeService } = await import(
+                './RoadmapMistakeService.js'
+            );
+
+            let mistakesRemoved = 0;
+            for (const result of drillResults) {
+                if (result.isCorrect) {
+                    const removeResult =
+                        await roadmapMistakeService.removeMistake(
+                            userId,
+                            result.questionId,
+                            session.weekNumber
+                        );
+
+                    if (removeResult.success) {
+                        mistakesRemoved++;
+                    }
+                }
+            }
+
+            return {
+                success: true,
+                message: `Practice drill completed: ${drillResults.filter((r) => r.isCorrect).length}/${drillResults.length} correct, ${mistakesRemoved} mistakes removed from stack`,
+                mistakesRemoved,
+            };
+        } catch (error) {
+            console.error('Error completing practice drill:', error);
+            return {
+                success: false,
+                message: 'Failed to complete practice drill',
+                mistakesRemoved: 0,
+            };
+        }
     }
 }
 

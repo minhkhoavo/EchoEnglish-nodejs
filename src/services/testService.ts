@@ -120,10 +120,6 @@ class TestService {
             })
             .toArray();
 
-        if (testsWithQuestions.length === 0) {
-            throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
-        }
-
         // Step 2: Process each test to extract relevant parts and questions
         const foundParts = new Map<
             string,
@@ -185,10 +181,6 @@ class TestService {
                 }
             );
         });
-
-        if (foundParts.size === 0) {
-            throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
-        }
 
         // Step 3: Build response structure
         interface PartResponse {

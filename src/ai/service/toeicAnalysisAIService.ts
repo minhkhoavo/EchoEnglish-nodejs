@@ -90,13 +90,11 @@ interface GuideSection {
     heading: string;
     content: string;
 }
-
 interface PersonalizedGuideOutput {
     title: string;
     sections: GuideSection[];
     quickTips: string[];
 }
-
 interface StrategicPlanOutput {
     priority: number;
     title: string;
@@ -185,60 +183,6 @@ class ToeicAnalysisAIService {
         });
     }
 
-    // /**
-    //  * Generate detailed weakness insight using AI
-    //  */
-    // async generateWeaknessInsight(
-    //     input: WeaknessInsightInput
-    // ): Promise<WeaknessInsightOutput> {
-    //     try {
-    //         const parser = new JsonOutputParser();
-    //         const formatInstructions = parser.getFormatInstructions();
-
-    //         // Get system prompt
-    //         const systemPrompt = await promptManagerService.getSystemPrompt(
-    //             'toeic-analysis-coach'
-    //         );
-
-    //         // Build user prompt with data
-    //         const userPrompt = this.buildWeaknessInsightPrompt(input);
-
-    //         // Combine prompts
-    //         const fullPrompt = `${systemPrompt}\n\n${userPrompt}\n\n${formatInstructions}`;
-
-    //         // Generate with AI
-    //         const response = await this.aiClient.generate(fullPrompt);
-
-    //         // Parse JSON response
-    //         const parsed = await parser.parse(response);
-
-    //         return {
-    //             title:
-    //                 (parsed.title as string) ||
-    //                 this.generateFallbackTitle(
-    //                     input.skillName,
-    //                     input.userAccuracy
-    //                 ),
-    //             description:
-    //                 (parsed.description as string) ||
-    //                 this.generateFallbackDescription(input),
-    //         };
-    //     } catch (error) {
-    //         console.error('Error generating weakness insight:', error);
-    //         // Fallback to template-based insight
-    //         return {
-    //             title: this.generateFallbackTitle(
-    //                 input.skillName,
-    //                 input.userAccuracy
-    //             ),
-    //             description: this.generateFallbackDescription(input),
-    //         };
-    //     }
-    // }
-
-    /**
-     * Generate study plan item using AI
-     */
     async generateStudyPlanItem(
         input: StudyPlanItemInput
     ): Promise<StudyPlanItemOutput> {
@@ -634,62 +578,6 @@ Format your response as JSON:
 Be encouraging and specific.`;
 
         return prompt;
-    }
-
-    /**
-     * Parse JSON response from AI (handle markdown code blocks)
-     */
-    private parseJSONResponse(response: string): Record<string, unknown> {
-        try {
-            // Remove markdown code blocks if present
-            let cleaned = response.trim();
-            if (cleaned.startsWith('```json')) {
-                cleaned = cleaned
-                    .replace(/^```json\n/, '')
-                    .replace(/\n```$/, '');
-            } else if (cleaned.startsWith('```')) {
-                cleaned = cleaned.replace(/^```\n/, '').replace(/\n```$/, '');
-            }
-
-            // Remove trailing commas before closing braces/brackets
-            cleaned = cleaned.replace(/,(\s*[}\]])/g, '$1');
-
-            return JSON.parse(cleaned);
-        } catch (error) {
-            console.error('Failed to parse AI response as JSON:', error);
-            console.error('Response was:', response);
-            return {};
-        }
-    }
-
-    /**
-     * Fallback title generator
-     */
-    private generateFallbackTitle(skillName: string, accuracy: number): string {
-        if (accuracy < 40) {
-            return `Critical Weakness in ${skillName}`;
-        } else if (accuracy < 50) {
-            return `Significant Challenge with ${skillName}`;
-        } else if (accuracy < 60) {
-            return `Room for Improvement in ${skillName}`;
-        } else {
-            return `Refine Your ${skillName} Skills`;
-        }
-    }
-
-    /**
-     * Fallback description generator
-     */
-    private generateFallbackDescription(input: WeaknessInsightInput): string {
-        const gap = input.accuracyGap;
-        const comparison =
-            gap > 30
-                ? 'significantly below'
-                : gap > 20
-                  ? 'below'
-                  : 'slightly below';
-
-        return `Your accuracy in ${input.skillName} is ${input.userAccuracy}%, which is ${comparison} the average of ${input.benchmarkAccuracy}% for learners at your level. This skill was tested in ${input.totalQuestions} questions across Parts ${input.affectedParts.join(', ')}, and you got ${input.incorrectCount} incorrect. Improving this skill could significantly boost your overall TOEIC score.`;
     }
 
     /**

@@ -12,6 +12,7 @@ const learningResourceSchema = new Schema(
                 'vocabulary_set',
                 'personalized_guide',
                 'flashcard',
+                'practice_drill',
             ],
             required: true,
         },
@@ -66,7 +67,8 @@ const practiceDrillSchema = new Schema(
             type: String,
             enum: ['beginner', 'intermediate', 'advanced'],
         },
-
+        practiceQuestionIds: { type: [String], required: false, default: [] },
+        minCorrectAnswers: { type: Number, required: false, default: 0 },
         completed: { type: Boolean, default: false },
         completedAt: { type: Date },
         score: { type: Number },
@@ -128,7 +130,7 @@ export const studyPlanSchema = new Schema(
         roadmapRef: {
             type: Schema.Types.ObjectId,
             ref: 'Roadmap',
-            required: true,
+            required: false,
             index: true,
         },
 

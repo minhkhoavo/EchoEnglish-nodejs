@@ -36,6 +36,20 @@ const dailyFocusSchema = new Schema(
     { _id: true }
 );
 
+const mistakeQuestionSchema = new Schema(
+    {
+        questionId: { type: Schema.Types.ObjectId, required: true },
+        questionText: { type: String, required: true },
+        contentTags: [{ type: String }],
+        skillTag: { type: String },
+        partNumber: { type: Number },
+        difficulty: { type: String },
+        mistakeCount: { type: Number, default: 1 },
+        addedDate: { type: Date, default: Date.now },
+    },
+    { _id: true }
+);
+
 const weeklyFocusSchema = new Schema(
     {
         weekNumber: { type: Number, required: true, min: 1 },
@@ -58,6 +72,8 @@ const weeklyFocusSchema = new Schema(
                 userAccuracy: { type: Number },
             },
         ],
+
+        mistakes: [mistakeQuestionSchema],
 
         recommendedDomains: [{ type: String }],
 
@@ -227,6 +243,12 @@ roadmapSchema.methods.completeDailySession = function (
 setBaseOptions(roadmapSchema);
 
 // Define types first
+export type MistakeQuestionType = InferSchemaType<
+    typeof mistakeQuestionSchema
+> & {
+    _id: Types.ObjectId;
+};
+
 export type DailyFocusType = InferSchemaType<typeof dailyFocusSchema> & {
     _id: Types.ObjectId;
 };

@@ -68,7 +68,6 @@ class TestController {
                     new ApiResponse('All question IDs must be strings', null)
                 );
         }
-
         const result = await TestService.getQuestionsByIds(questionIds);
 
         return res

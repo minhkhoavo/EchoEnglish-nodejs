@@ -37,6 +37,17 @@ interface DailyPlanContext {
         }>;
     };
 
+    // Mistakes to Practice (for practice drills)
+    mistakesToReview?: Array<{
+        questionId: string;
+        questionText: string;
+        contentTags?: string[];
+        skillTag?: string;
+        partNumber?: number;
+        difficulty?: string;
+        mistakeCount: number;
+    }>;
+
     // Available DB Resources (for LLM to choose)
     availableResources?: Array<{
         type: string;
@@ -62,6 +73,12 @@ interface DailyPlanOutput {
         // Or generate new resource
         generateVocabularySet: boolean;
         generatePersonalizedGuide: boolean;
+
+        // Or generate practice drill
+        generatePracticeDrill: boolean;
+        practiceQuestionIds?: string[]; // IDs of questions to practice
+        minCorrectAnswers?: number; // Minimum correct answers to complete
+        drillInstructions?: string; // Instructions for the practice drill
 
         // Metadata
         targetWeakness: {
@@ -91,7 +108,7 @@ export class DailyPlanAIService {
         console.log('Generating daily plan with LLM decision-making...');
 
         const prompt = await this.buildDailyPlanPrompt(context);
-
+        // console.log('Prompt built, invoking LLM...::::::::', prompt);
         const parser = new JsonOutputParser<DailyPlanOutput>();
         const chain = this.llmClient.getModel().pipe(parser);
 
@@ -126,6 +143,25 @@ export class DailyPlanAIService {
 - Lowest Skills: ${context.competencyProfile.lowestSkills?.map((s) => `${s.skill} (${s.currentAccuracy}%)`).join(', ') || 'N/A'}`
             : '';
 
+        const mistakesToReviewBlock =
+            context.mistakesToReview && context.mistakesToReview.length > 0
+                ? `### Mistakes to Practice (${context.mistakesToReview.length} questions from stack):
+${context.mistakesToReview
+    .map(
+        (mistake, idx) => `
+  [${idx}] Question ID: ${mistake.questionId}
+      Text: "${mistake.questionText.substring(0, 100)}..."
+      Skill: ${mistake.skillTag || 'N/A'}
+      Part: ${mistake.partNumber || 'N/A'}
+      Difficulty: ${mistake.difficulty || 'N/A'}
+      Mistake Count: ${mistake.mistakeCount}
+      Tags: ${mistake.contentTags?.join(', ') || 'N/A'}`
+    )
+    .join('\n')}
+
+**Suggestion**: These are the top mistakes from the stack. If daily focus aligns, create a practice drill with 3-5 questions.`
+                : '### Mistakes to Practice:\nNo mistakes in stack for this week.';
+
         const variables = {
             dailyFocus: context.dailyFocus.focus,
             targetSkills: context.dailyFocus.targetSkills.join(', '),
@@ -143,6 +179,7 @@ export class DailyPlanAIService {
                 .join('; '),
             recommendedDomains: context.weekFocus.recommendedDomains.join(', '),
             competencyProfileBlock,
+            mistakesToReviewBlock,
             availableResourcesList: availableResourcesList || 'None available',
         };
 

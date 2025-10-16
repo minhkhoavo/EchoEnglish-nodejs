@@ -4,7 +4,7 @@ You are an expert TOEIC learning consultant. Generate today's study plan for a s
 1. **Daily Focus** (Primary): Today's specific learning goal
 2. **Week Focus** (Context): This week's broader objective
 3. **Competency Profile** (Supporting): Overall skill weaknesses
-
+4. MUST generate at least one practice drill based on the mistake; generate a practice drill for the resource learning type if necessary
 ## TODAY'S CONTEXT:
 
 ### Daily Focus (TOP PRIORITY):
@@ -21,6 +21,9 @@ You are an expert TOEIC learning consultant. Generate today's study plan for a s
 - Recommended Domains: {{recommendedDomains}}
 
 {{competencyProfileBlock}}
+
+## MISTAKES TO PRACTICE:
+{{mistakesToReviewBlock}}
 
 ## AVAILABLE DATABASE RESOURCES:
 {{availableResourcesList}}
@@ -55,10 +58,27 @@ For each activity, you must decide:
   * Daily focus is on skill improvement (inference, gist, etc.)
   * Need strategic guidance, not just content
 
+**Option D: Generate Practice Drill**
+- Set `generatePracticeDrill: true`
+- Set `practiceQuestionIds: [array of question IDs]` from MISTAKES TO PRACTICE block, min 10 questions
+- Set `minCorrectAnswers: number` (set based on totalQuestion)
+- Set `drillInstructions: string` with clear guidance
+- Use when:
+  * There are mistakes from the "Mistakes to Practice" section
+  * Student needs to practice specific questions they got wrong
+  * Want to reinforce learning through targeted review
+  * **Simple Logic**: Correct answers will be REMOVED from mistake stack, wrong answers stay
+- With total study time = {{estimatedMinutes}} minutes:
+  - If ≤ 15 minutes ⇒ choose 3–5 questionIds.
+  - If 20–25 minutes ⇒ choose 6–10 questionIds.
+  - If 30–40 minutes ⇒ choose 12–20 questionIds.
+- Set `minCorrectAnswers` = ceil(0.6 × number_of_questions_in_drill).
+
 **Important**: 
 - Prioritize DB resources when they match well (saves generation time)
 - Always ensure at least ONE vocabulary component per day
 - Can use multiple resource types in one plan
+- If there are mistakes to review, consider including a practice drill activity
 - Total time should NOT exceed {{estimatedMinutes}} minutes
 
 ## OUTPUT FORMAT (JSON):
@@ -75,6 +95,11 @@ For each activity, you must decide:
       
       "generateVocabularySet": true/false,
       "generatePersonalizedGuide": true/false,
+      
+      "generatePracticeDrill": true/false,
+      "practiceQuestionIds": ["questionId1", "questionId2"], // if generatePracticeDrill = true
+      "minCorrectAnswers": 2, // if generatePracticeDrill = true (1-3)
+      "drillInstructions": "Clear instructions for the practice drill", // if generatePracticeDrill = true
       
       "targetWeakness": {
         "skillKey": "main_skill_key",
@@ -93,8 +118,11 @@ For each activity, you must decide:
 - Each activity MUST have valid targetWeakness
 - Total estimated time ≤ {{estimatedMinutes}} minutes
 - At least ONE activity must address vocabulary (use DB domain resource or generate vocab set)
+- If there are mistakes to practice, strongly consider including a practice drill
+- For practice drills: Depending on the learner’s skill level and weakness to decide number of question, maximum 30 question, set reasonable minCorrectAnswers based on total question
 - Prioritize daily focus skills over everything else
 - **IMPORTANT**: activityType must be ONLY: "learn", "practice", "review", or "drill" - NO OTHER VALUES!
+- Practice drill activities should use activityType: "drill"
 - Vocabulary activities should use activityType: "learn"
 - Practice activities should use activityType: "practice"
 - Explain your reasoning clearly
