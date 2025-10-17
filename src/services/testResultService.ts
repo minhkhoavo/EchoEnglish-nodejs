@@ -612,85 +612,32 @@ class TestResultService {
             readingScore: number;
             testTitle: string;
         }>;
-        summary: {
-            averageTotal: number;
-            averageListening: number;
-            averageReading: number;
-            highestTotal: number;
-            lowestTotal: number;
-            totalTests: number;
-        };
     }> {
-        try {
-            const results = await TestResult.find({
-                userId,
-                testType: 'listening-reading',
-            })
-                .sort({ completedAt: 1 }) // Sort by date ascending for timeline
-                .lean();
+        const results = await TestResult.find({
+            userId,
+            testType: 'listening-reading',
+        })
+            .sort({ completedAt: 1 })
+            .lean();
 
-            if (results.length === 0) {
-                return {
-                    timeline: [],
-                    summary: {
-                        averageTotal: 0,
-                        averageListening: 0,
-                        averageReading: 0,
-                        highestTotal: 0,
-                        lowestTotal: 0,
-                        totalTests: 0,
-                    },
-                };
-            }
-
-            // Prepare timeline data
-            const timeline = results.map((result) => ({
-                date: result.completedAt.toISOString().split('T')[0], // YYYY-MM-DD format
-                totalScore: result.totalScore,
-                listeningScore: result.listeningScore,
-                readingScore: result.readingScore,
-                testTitle: result.testTitle,
-            }));
-
-            // Calculate summary statistics
-            const totalScores = results.map((r) => r.totalScore);
-            const listeningScores = results.map((r) => r.listeningScore);
-            const readingScores = results.map((r) => r.readingScore);
-
-            const averageTotal = Math.round(
-                totalScores.reduce((sum, score) => sum + score, 0) /
-                    totalScores.length
-            );
-            const averageListening = Math.round(
-                listeningScores.reduce((sum, score) => sum + score, 0) /
-                    listeningScores.length
-            );
-            const averageReading = Math.round(
-                readingScores.reduce((sum, score) => sum + score, 0) /
-                    readingScores.length
-            );
-
-            const highestTotal = Math.max(...totalScores);
-            const lowestTotal = Math.min(...totalScores);
-
+        if (results.length === 0) {
             return {
-                timeline,
-                summary: {
-                    averageTotal,
-                    averageListening,
-                    averageReading,
-                    highestTotal,
-                    lowestTotal,
-                    totalTests: results.length,
-                },
+                timeline: [],
             };
-        } catch (error: unknown) {
-            const errorMessage =
-                error instanceof Error ? error.message : 'Unknown error';
-            throw new Error(
-                `Failed to get listening-reading chart data: ${errorMessage}`
-            );
         }
+
+        // Prepare timeline data
+        const timeline = results.map((result) => ({
+            date: result.completedAt.toISOString().split('T')[0], // YYYY-MM-DD format
+            totalScore: result.totalScore,
+            listeningScore: result.listeningScore,
+            readingScore: result.readingScore,
+            testTitle: result.testTitle,
+        }));
+
+        return {
+            timeline,
+        };
     }
 }
 

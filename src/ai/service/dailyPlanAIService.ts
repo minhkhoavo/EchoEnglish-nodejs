@@ -111,7 +111,7 @@ export class DailyPlanAIService {
     async generateDailyPlan(
         context: DailyPlanContext
     ): Promise<DailyPlanOutput> {
-        console.log('Generating daily plan with LLM decision-making...');
+        // console.log('Generating daily plan with LLM decision-making...');
 
         const prompt = await this.buildDailyPlanPrompt(context);
         // console.log('Prompt built, invoking LLM...::::::::', prompt);
@@ -120,7 +120,6 @@ export class DailyPlanAIService {
 
         try {
             const result = await chain.invoke(prompt);
-            console.log('LLM generated daily plan');
             // console.log('Reasoning:', result.reasoning);
             return result as DailyPlanOutput;
         } catch (error) {

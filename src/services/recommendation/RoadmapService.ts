@@ -30,8 +30,6 @@ export class RoadmapService {
             weaknesses?: WeaknessData[];
         }
     ): Promise<RoadmapType> {
-        console.log('Generating roadmap using LLM for user:', userId);
-
         // Fetch user preferences
         const user = await User.findById(userId).select('preferences').lean();
         const userPreferences =
@@ -103,8 +101,6 @@ export class RoadmapService {
             status: 'active',
             testResultId: input.testResultId,
         });
-
-        console.log('Roadmap saved');
         return roadmap;
     }
 

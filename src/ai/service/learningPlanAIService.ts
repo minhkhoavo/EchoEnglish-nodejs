@@ -73,8 +73,6 @@ export class LearningPlanAIService {
     async generateLearningRoadmap(
         input: GenerateRoadmapInput
     ): Promise<GenerateRoadmapOutput> {
-        console.log('Generating learning roadmap with LLM...');
-
         const prompt = await this.buildRoadmapPrompt(input);
 
         const parser = new JsonOutputParser<GenerateRoadmapOutput>();
@@ -82,7 +80,6 @@ export class LearningPlanAIService {
 
         try {
             const result = await chain.invoke(prompt);
-            console.log('LLM generated roadmap structure');
             return result as GenerateRoadmapOutput;
         } catch (error) {
             console.error('Error generating roadmap:', error);

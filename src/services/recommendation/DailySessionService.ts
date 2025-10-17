@@ -58,7 +58,8 @@ export class DailySessionService {
     async getTodaySession(userId: Schema.Types.ObjectId | string) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        today.setDate(today.getDate());
+        // today.setDate(today.getDate() + 15);
+        // today.setDate(new Date("2025-11-07").getDate());
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
 
@@ -69,7 +70,6 @@ export class DailySessionService {
         }).lean()) as Partial<StudyPlanType> | null;
 
         if (session) {
-            console.log('Found existing session for today');
             return session;
         }
 
@@ -145,7 +145,6 @@ export class DailySessionService {
             const daysSinceStart = Math.floor(
                 (today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
             );
-
             targetDayNumber =
                 daysSinceStart >= 0 &&
                 daysSinceStart < (singleRoadmap.totalWeeks || 0) * 7
@@ -162,7 +161,6 @@ export class DailySessionService {
                 console.log('No weekly focus found for week', targetWeekNumber);
                 return null;
             }
-
             const dayInWeek = ((targetDayNumber - 1) % 7) + 1;
             targetDailyFocus = weekFocus?.dailyFocuses?.find((d) => {
                 return (d as DailyFocus).dayOfWeek === dayInWeek;
@@ -186,10 +184,6 @@ export class DailySessionService {
             );
             return null;
         }
-        console.log(
-            `Generating session for day ${targetDayNumber}, week ${targetWeekNumber}${roadmapStatus.isBlocked ? ' (BLOCKED)' : ''}`
-        );
-
         // Update daily focus status to in-progress if not completed or skipped
         if (
             targetDailyFocus.status !== 'completed' &&
@@ -201,11 +195,10 @@ export class DailySessionService {
                 targetDayNumber,
                 'in-progress'
             );
-            console.log(
-                `Updated daily focus status to in-progress for day ${targetDayNumber}, week ${targetWeekNumber}`
-            );
+            // console.log(
+            //     `Updated daily focus status to in-progress for day ${targetDayNumber}, week ${targetWeekNumber}`
+            // );
         }
-
         // Get user competency profile for context
         const user = (await User.findById(userId)
             .select('competencyProfile preferences')
@@ -240,7 +233,6 @@ export class DailySessionService {
         const mistakesToPractice = weekFocus.mistakes?.slice(0, 40) || [];
 
         // Generate activities using AI with smart resource allocation
-        console.log('Generating daily plan with AI decision-making...');
         const aiPlan = await dailyPlanAIService.generateDailyPlan({
             dailyFocus: {
                 focus: targetDailyFocus.focus,
@@ -334,7 +326,7 @@ export class DailySessionService {
 
             // Generate vocabulary set if AI decided
             if (activity.generateVocabularySet) {
-                console.log('Generating vocabulary set as per AI decision...');
+                // console.log('Generating vocabulary set as per AI decision...');
                 const weakness = {
                     category: '',
                     skillKey: '',
@@ -356,9 +348,6 @@ export class DailySessionService {
 
             // Generate personalized guide if AI decided
             if (activity.generatePersonalizedGuide) {
-                console.log(
-                    'Generating personalized guide as per AI decision...'
-                );
                 const guide =
                     await studyPlanGeneratorService.generatePersonalizedGuide(
                         {
@@ -451,10 +440,6 @@ export class DailySessionService {
             totalEstimatedTime: targetDailyFocus.estimatedMinutes,
             status: 'upcoming',
         });
-
-        console.log(
-            `Created new session for day ${targetDayNumber}${roadmapStatus.isBlocked ? ' (CRITICAL BLOCKED)' : ''}`
-        );
         return newSession;
     }
 

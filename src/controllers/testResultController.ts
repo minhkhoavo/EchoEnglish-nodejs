@@ -96,6 +96,16 @@ export class TestResultController {
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, results));
     }
 
+    async getListeningReadingChartData(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const chartData =
+            await testResultService.getListeningReadingChartData(userId);
+
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, chartData));
+    }
+
     async getTestResultMetrics(req: Request, res: Response) {
         try {
             const userId = req.user?.id;

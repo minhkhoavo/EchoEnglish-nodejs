@@ -296,9 +296,9 @@ export class StudyPlanGeneratorService {
 
         // 3. Generate personalized guide - Only for skill-based weaknesses (not grammar/vocabulary)
         if (this.shouldGeneratePersonalizedGuide(weakness)) {
-            console.log(
-                'Generating personalized guide (relevant for this weakness)...'
-            );
+            // console.log(
+            //     'Generating personalized guide (relevant for this weakness)...'
+            // );
             const personalizedGuide = await this.generatePersonalizedGuide(
                 weakness,
                 userAccuracy
@@ -570,7 +570,7 @@ export class StudyPlanGeneratorService {
         userAccuracy: number
     ): Promise<LearningResource | null> {
         try {
-            console.log('Generating personalized guide with AI...');
+            // console.log('Generating personalized guide with AI...');
             const guide =
                 await toeicAnalysisAIService.generatePersonalizedGuide({
                     weaknessCategory: weakness.category,
@@ -975,7 +975,7 @@ export class StudyPlanGeneratorService {
             keywords.push('next steps', 'problem solving', 'request handling');
         }
 
-        console.log(`Mapped ${category}/${skillKey} to keywords:`, keywords);
+        // console.log(`Mapped ${category}/${skillKey} to keywords:`, keywords);
         return keywords;
     }
 

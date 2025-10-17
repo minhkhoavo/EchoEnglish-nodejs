@@ -5,6 +5,8 @@ import ApiResponse from '~/dto/response/apiResponse.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
+import { roadmapService } from '~/services/recommendation/RoadmapService.js';
+import { Types } from 'mongoose';
 
 class UserController {
     public userService = new UserService();
@@ -113,6 +115,9 @@ class UserController {
         const preferences = await this.userService.setUserPreferences(
             userId,
             preferencesData
+        );
+        await roadmapService.updateRoadmapScheduleFromUserPreferences(
+            new Types.ObjectId(userId)
         );
         return res
             .status(200)
