@@ -7,6 +7,10 @@ export const ErrorMessage = {
     USER_EXISTED: { message: 'User already existed', status: 400 },
     USER_NOT_FOUND: { message: 'User not found', status: 404 },
     USER_HAS_BEEN_DELETED: { message: 'User has been deleted', status: 400 },
+    USER_PREFERENCE_NOT_FOUND: {
+        message: 'User preference not found',
+        status: 404,
+    },
     ROLE_NOT_FOUND: { message: 'Role not found', status: 404 },
     ONLY_UPDATE_YOUR_PROFILE: {
         message: 'You can only update your own profile',
@@ -162,6 +166,23 @@ export const ErrorMessage = {
         status: 400,
     },
     RESULT_ID_REQUIRED: { message: 'Result id is required', status: 400 },
+
+    /* Roadmap */
+    ROADMAP_NOT_FOUND: { message: 'Roadmap not found', status: 404 },
+
+    /* Learning Plan / Session */
+    SESSION_NOT_FOUND: { message: 'Session not found', status: 404 },
+    PLAN_ITEM_NOT_FOUND: { message: 'Plan item not found', status: 404 },
+    RESOURCE_IN_ITEM_NOT_FOUND: {
+        message: 'Resource not found in plan item',
+        status: 404,
+    },
+    DRILL_NOT_FOUND: { message: 'Practice drill not found', status: 404 },
+    INVALID_DRILL_RESULTS: {
+        message: 'Invalid drill results format',
+        status: 400,
+    },
+    TARGET_SCORE_REQUIRED: { message: 'Target score is required', status: 400 },
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;

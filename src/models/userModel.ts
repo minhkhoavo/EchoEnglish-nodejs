@@ -2,6 +2,7 @@ import './roleModel';
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 import { addBaseFields, setBaseOptions } from './baseEntity.js';
 import { Gender } from '~/enum/gender.js';
+import { Domain } from '~/enum/domain.js';
 import { validateDob } from '~/utils/validation/validate.js';
 
 const userSchema = new Schema(
@@ -56,6 +57,156 @@ const userSchema = new Schema(
             type: Number,
             default: 0,
             min: [0, 'TOKEN_INVALID'],
+        },
+        preferences: {
+            primaryGoal: {
+                type: String,
+                enum: [
+                    'toeic_preparation',
+                    'career_advancement',
+                    'business_english',
+                    'academic_excellence',
+                ],
+                default: 'toeic_preparation',
+            },
+
+            targetScore: { type: Number, min: 100, max: 990 },
+            targetDate: { type: Date },
+
+            studyTimePerDay: {
+                type: Number,
+                enum: [15, 30, 60, 120],
+                default: 30,
+            }, // phút
+            weeklyStudyDays: { type: Number, default: 5, min: 1, max: 7 },
+            studyDaysOfWeek: [
+                {
+                    type: Number,
+                    enum: [1, 2, 3, 4, 5, 6, 7], // 1=Monday, 2=Tuesday, ..., 7=Sunday
+                    min: 1,
+                    max: 7,
+                    default: [1, 2, 3, 4, 5, 6, 7],
+                },
+            ],
+            preferredStudyTime: {
+                type: String,
+                enum: ['morning', 'afternoon', 'evening', 'night'],
+            },
+
+            contentInterests: [
+                {
+                    type: String,
+                    enum: Object.values(Domain),
+                },
+            ],
+
+            currentLevel: {
+                type: String,
+                enum: [
+                    'beginner',
+                    'intermediate',
+                    'upper_intermediate',
+                    'advanced',
+                ],
+            },
+
+            lastUpdated: { type: Date, default: Date.now },
+        },
+        // User Competency Profile (Dynamic Learning State)
+        competencyProfile: {
+            currentCEFRLevel: {
+                type: String,
+                enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'],
+            },
+            // Skill Matrix - Tracks proficiency per skill
+            skillMatrix: [
+                {
+                    skill: { type: String, required: true }, // e.g., "inference", "word_form"
+                    accuracyHistory: [
+                        {
+                            value: { type: Number, min: 0, max: 100 },
+                            testResultId: Schema.Types.ObjectId,
+                            date: { type: Date, default: Date.now },
+                        },
+                    ],
+                    currentAccuracy: { type: Number, min: 0, max: 100 }, // Latest accuracy
+                    lastPracticed: Date,
+                    proficiency: {
+                        type: String,
+                        enum: ['weak', 'developing', 'proficient', 'mastered'],
+                        default: 'weak',
+                    },
+                    totalQuestions: { type: Number, default: 0 },
+                    correctAnswers: { type: Number, default: 0 },
+                },
+            ],
+            // Domain Proficiency
+            domainProficiency: [
+                {
+                    domain: { type: String, required: true }, // e.g., "finance", "business"
+                    accuracy: { type: Number, min: 0, max: 100 },
+                    totalQuestions: { type: Number, default: 0 },
+                    correctAnswers: { type: Number, default: 0 },
+                    lastPracticed: Date,
+                },
+            ],
+            // Score History
+            scoreHistory: [
+                {
+                    testResultId: {
+                        type: Schema.Types.ObjectId,
+                        ref: 'TestResult',
+                    },
+                    date: Date,
+                    totalScore: Number,
+                    listeningScore: Number,
+                    readingScore: Number,
+                },
+            ],
+
+            aiInsights: [
+                {
+                    title: { type: String, required: true },
+                    description: { type: String, required: true },
+                    actionText: { type: String },
+                    priority: {
+                        type: String,
+                        enum: ['high', 'medium', 'low'],
+                        default: 'medium',
+                    },
+                    createdAt: { type: Date, default: Date.now },
+                },
+            ],
+
+            // TOEIC Score Prediction
+            scorePrediction: {
+                overallScore: { type: Number, min: 10, max: 990 },
+                targetScore: { type: Number, min: 10, max: 990 },
+                cefrLevel: {
+                    type: String,
+                    enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'],
+                },
+                listeningScore: { type: Number, min: 5, max: 495 },
+                readingScore: { type: Number, min: 5, max: 495 },
+                summary: { type: String },
+                lastUpdated: { type: Date, default: Date.now },
+            },
+
+            // 360° Skills Map
+            skillsMap: [
+                {
+                    skillName: { type: String, required: true },
+                    percentage: {
+                        type: Number,
+                        min: 0,
+                        max: 100,
+                        required: true,
+                    },
+                    lastUpdated: { type: Date, default: Date.now },
+                },
+            ],
+
+            lastUpdated: { type: Date, default: Date.now },
         },
     },
     {

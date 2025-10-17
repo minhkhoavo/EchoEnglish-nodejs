@@ -3,6 +3,8 @@ import {
     UserProfileResponse,
     UserCreateRequest,
     UserUpdateRequest,
+    UserPreferences,
+    SetUserPreferencesRequest,
 } from '~/types/user.types.js';
 import omit from 'lodash/omit.js';
 import { User, UserType } from '../models/userModel.js';
@@ -281,6 +283,49 @@ class UserService {
             users: result.data,
             pagination: result.pagination,
         };
+    };
+
+    public getUserPreference = async (
+        userId: string
+    ): Promise<UserPreferences> => {
+        const user = await User.findOne({
+            _id: userId,
+            isDeleted: false,
+        }).select('preferences');
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        if (!user.preferences) {
+            throw new ApiError(ErrorMessage.USER_PREFERENCE_NOT_FOUND);
+        }
+        return user.preferences;
+    };
+
+    public setUserPreferences = async (
+        userId: string,
+        preferencesData: SetUserPreferencesRequest
+    ): Promise<UserPreferences> => {
+        const user = await User.findOne({ _id: userId, isDeleted: false });
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        const updatedPreferences = {
+            ...user.preferences,
+            ...preferencesData,
+            lastUpdated: new Date(),
+        };
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { preferences: updatedPreferences },
+            { new: true, runValidators: true }
+        ).select('preferences');
+
+        if (!updatedUser || !updatedUser.preferences) {
+            throw new ApiError(ErrorMessage.UPDATE_USER_FAIL);
+        }
+
+        return updatedUser.preferences;
     };
 }
 

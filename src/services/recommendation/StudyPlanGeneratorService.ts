@@ -260,7 +260,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate all types of learning resources for a weakness
      */
-    private async generateLearningResources(
+    public async generateLearningResources(
         weakness: {
             category: string;
             skillKey: string;
@@ -296,9 +296,9 @@ export class StudyPlanGeneratorService {
 
         // 3. Generate personalized guide - Only for skill-based weaknesses (not grammar/vocabulary)
         if (this.shouldGeneratePersonalizedGuide(weakness)) {
-            console.log(
-                'Generating personalized guide (relevant for this weakness)...'
-            );
+            // console.log(
+            //     'Generating personalized guide (relevant for this weakness)...'
+            // );
             const personalizedGuide = await this.generatePersonalizedGuide(
                 weakness,
                 userAccuracy
@@ -318,7 +318,7 @@ export class StudyPlanGeneratorService {
     /**
      * Determine if vocabulary set is needed for this weakness
      */
-    private shouldGenerateVocabularySet(weakness: {
+    public shouldGenerateVocabularySet(weakness: {
         category: string;
         skillKey: string;
         skillName: string;
@@ -375,7 +375,7 @@ export class StudyPlanGeneratorService {
     /**
      * Determine if personalized guide is needed for this weakness
      */
-    private shouldGeneratePersonalizedGuide(weakness: {
+    public shouldGeneratePersonalizedGuide(weakness: {
         category: string;
         skillKey: string;
     }): boolean {
@@ -419,7 +419,7 @@ export class StudyPlanGeneratorService {
     /**
      * Find videos and articles from database
      */
-    private async findDatabaseResources(
+    public async findDatabaseResources(
         weakness: {
             skillKey: string;
             category: string;
@@ -511,7 +511,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate AI-powered vocabulary set
      */
-    private async generateVocabularySet(
+    public async generateVocabularySet(
         weakness: {
             category: string;
             skillKey: string;
@@ -527,6 +527,8 @@ export class StudyPlanGeneratorService {
                     skillKey: weakness.skillKey,
                     weaknessTitle: weakness.skillName,
                     affectedParts: weakness.affectedParts,
+                    domainContext: weakDomains,
+                    weakDomains: weakDomains,
                 }
             );
 
@@ -555,7 +557,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate personalized study guide with AI
      */
-    private async generatePersonalizedGuide(
+    public async generatePersonalizedGuide(
         weakness: {
             category: string;
             skillKey: string;
@@ -568,7 +570,7 @@ export class StudyPlanGeneratorService {
         userAccuracy: number
     ): Promise<LearningResource | null> {
         try {
-            console.log('Generating personalized guide with AI...');
+            // console.log('Generating personalized guide with AI...');
             const guide =
                 await toeicAnalysisAIService.generatePersonalizedGuide({
                     weaknessCategory: weakness.category,
@@ -860,7 +862,7 @@ export class StudyPlanGeneratorService {
     /**
      * Map skill key/category to resource topics
      */
-    private getTopicKeywords(skillKey: string, category: string): string[] {
+    public getTopicKeywords(skillKey: string, category: string): string[] {
         const keywords: string[] = [];
 
         // Handle undefined skillKey
@@ -973,7 +975,7 @@ export class StudyPlanGeneratorService {
             keywords.push('next steps', 'problem solving', 'request handling');
         }
 
-        console.log(`Mapped ${category}/${skillKey} to keywords:`, keywords);
+        // console.log(`Mapped ${category}/${skillKey} to keywords:`, keywords);
         return keywords;
     }
 

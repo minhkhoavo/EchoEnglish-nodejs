@@ -5,6 +5,8 @@ import ApiResponse from '~/dto/response/apiResponse.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
+import { roadmapService } from '~/services/recommendation/RoadmapService.js';
+import { Types } from 'mongoose';
 
 class UserController {
     public userService = new UserService();
@@ -91,6 +93,37 @@ class UserController {
         return res
             .status(200)
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
+    };
+
+    public getUserPreference = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const preferences = await this.userService.getUserPreference(userId);
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, preferences));
+    };
+
+    public setUserPreferences = async (req: Request, res: Response) => {
+        if (!req.user || !req.user.id) {
+            return res
+                .status(401)
+                .json(new ApiError(ErrorMessage.UNAUTHORIZED));
+        }
+        const userId = req.user.id;
+        const preferencesData = req.body;
+
+        const preferences = await this.userService.setUserPreferences(
+            userId,
+            preferencesData
+        );
+        await roadmapService.updateRoadmapScheduleFromUserPreferences(
+            new Types.ObjectId(userId)
+        );
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, preferences)
+            );
     };
 }
 

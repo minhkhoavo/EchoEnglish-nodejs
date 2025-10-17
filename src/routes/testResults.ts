@@ -31,6 +31,10 @@ router.get(
     '/listening-reading',
     testResultController.getAllListeningReadingResults
 );
+router.get(
+    '/listening-reading/chart-data',
+    testResultController.getListeningReadingChartData
+);
 
 // ===== TOEIC Analysis Endpoints =====
 // Trigger deep analysis for a test result

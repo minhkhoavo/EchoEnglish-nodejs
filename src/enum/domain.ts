@@ -22,4 +22,13 @@ export enum Domain {
     POLITICS = 'politics',
     ENVIRONMENT = 'environment',
     SCIENCE = 'science',
+    MEDIA = 'media',
+    LEGAL = 'legal',
+    OUTDOOR_RECREATION = 'outdoor_recreation',
+    COOKING = 'cooking',
+    HOUSE = 'house',
+    GENERAL = 'general',
+    TECHNICAL = 'technical',
+    DAILY_LIFE = 'daily_life',
+    HEALTH = 'health',
 }

@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, Types } from 'mongoose';
 import {
     TestResult,
     ITestResult,
@@ -6,9 +6,11 @@ import {
 } from '../../models/testResultModel.js';
 import testService from '../../services/testService.js';
 import { SkillCategory } from '../../enum/skillCategory.js';
+import { roadmapMistakeService } from '../recommendation/RoadmapMistakeService.js';
 
 export type QuestionMeta = {
     questionNumber: number;
+    questionId: Types.ObjectId | string;
     part?: string;
     skillTags?: { [key: string]: unknown };
     contentTags?: { [key: string]: unknown };
@@ -69,6 +71,7 @@ export class AnalysisEngineService {
                         if (answeredQuestionNumbers.has(q.questionNumber)) {
                             metadata.push({
                                 questionNumber: q.questionNumber,
+                                questionId: q._id,
                                 part:
                                     q.skillTags?.part ||
                                     partIdentifier ||
@@ -92,6 +95,7 @@ export class AnalysisEngineService {
                                 ) {
                                     metadata.push({
                                         questionNumber: q.questionNumber,
+                                        questionId: q._id,
                                         part:
                                             q.skillTags?.part ||
                                             partIdentifier ||
@@ -166,6 +170,9 @@ export class AnalysisEngineService {
             },
             { new: true }
         );
+
+        // Extract và add mistakes vào roadmap (sau khi analysis xong)
+        await this.extractAndAddMistakes(testResult, metadata);
 
         console.log('ANALYSIS COMPLETE for testResultId:', testResultId);
         return updatedResult;
@@ -461,6 +468,151 @@ export class AnalysisEngineService {
             { new: true }
         );
         return !!result;
+    }
+
+    /**
+     * Extract mistakes từ test result và add vào roadmap
+     */
+    private async extractAndAddMistakes(
+        testResult: ITestResult,
+        metadata: QuestionMeta[]
+    ): Promise<void> {
+        try {
+            // Tìm roadmap active của user
+            const { Roadmap } = await import('../../models/roadmapModel.js');
+            const roadmap = await Roadmap.findOne({
+                userId: testResult.userId,
+                status: 'active',
+            });
+
+            if (!roadmap) {
+                console.log(
+                    'No active roadmap found for user, skipping mistake extraction'
+                );
+                return;
+            }
+
+            // Lọc ra các câu trả lời sai
+            const wrongAnswers = testResult.userAnswers.filter(
+                (answer) => !answer.isCorrect
+            );
+
+            if (wrongAnswers.length === 0) {
+                console.log(
+                    'No wrong answers found, skipping mistake extraction'
+                );
+                return;
+            }
+
+            const currentWeek = roadmap.currentWeek || 1;
+            const mistakes = [];
+
+            // Extract mistakes từ wrong answers
+            for (const wrongAnswer of wrongAnswers) {
+                const questionMeta = metadata.find(
+                    (m) => m.questionNumber === wrongAnswer.questionNumber
+                );
+
+                if (questionMeta) {
+                    const mistakeData = {
+                        questionId: questionMeta.questionId,
+                        questionText:
+                            this.extractQuestionText(questionMeta) ||
+                            `Question ${wrongAnswer.questionNumber}`,
+                        contentTags:
+                            this.extractContentTagsFromMeta(questionMeta),
+                        skillTag: this.extractSkillTagFromMeta(questionMeta),
+                        partNumber:
+                            this.extractPartNumberFromMeta(questionMeta),
+                        difficulty:
+                            this.extractDifficultyFromMeta(questionMeta),
+                    };
+
+                    mistakes.push(mistakeData);
+                }
+            }
+
+            if (mistakes.length > 0) {
+                const result = await roadmapMistakeService.addMultipleMistakes(
+                    testResult.userId,
+                    mistakes
+                );
+                console.log(
+                    `Added ${result.addedCount} mistakes to week ${currentWeek} roadmap`
+                );
+            }
+        } catch (error) {
+            console.error('Error extracting mistakes from test result:', error);
+            // Không throw error để không làm fail analysis process
+        }
+    }
+
+    private extractQuestionText(meta: QuestionMeta): string | undefined {
+        const questionText =
+            meta.raw?.questionText || meta.raw?.passage || meta.raw?.text;
+
+        return typeof questionText === 'string' ? questionText : undefined;
+    }
+
+    private extractContentTagsFromMeta(meta: QuestionMeta): string[] {
+        const tags: string[] = [];
+
+        if (meta.contentTags) {
+            if (Array.isArray(meta.contentTags)) {
+                tags.push(
+                    ...meta.contentTags.filter((tag) => typeof tag === 'string')
+                );
+            } else if (typeof meta.contentTags === 'object') {
+                Object.values(meta.contentTags).forEach((tag: unknown) => {
+                    if (typeof tag === 'string') tags.push(tag);
+                });
+            }
+        }
+
+        return [...new Set(tags)];
+    }
+
+    private extractSkillTagFromMeta(meta: QuestionMeta): string | undefined {
+        const skillTags = meta.skillTags;
+
+        if (!skillTags || typeof skillTags !== 'object') return undefined;
+
+        // Ưu tiên skillCategory trước
+        if (skillTags.skillCategory) return String(skillTags.skillCategory);
+        if (skillTags.skillDetail) return String(skillTags.skillDetail);
+
+        // Fallback to other skill properties
+        return skillTags.questionFunction
+            ? String(skillTags.questionFunction)
+            : skillTags.grammarPoint
+              ? String(skillTags.grammarPoint)
+              : skillTags.vocabPoint
+                ? String(skillTags.vocabPoint)
+                : undefined;
+    }
+
+    private extractPartNumberFromMeta(meta: QuestionMeta): number {
+        if (meta.part) {
+            const match = String(meta.part).match(/part\s*(\d+)/i);
+            if (match) return parseInt(match[1]);
+        }
+
+        // Fallback dựa trên questionNumber
+        const qNum = meta.questionNumber;
+        if (qNum >= 1 && qNum <= 6) return 1;
+        if (qNum >= 7 && qNum <= 31) return 2;
+        if (qNum >= 32 && qNum <= 70) return 3;
+        if (qNum >= 71 && qNum <= 100) return 4;
+        if (qNum >= 101 && qNum <= 130) return 5;
+        if (qNum >= 131 && qNum <= 146) return 6;
+        if (qNum >= 147 && qNum <= 200) return 7;
+
+        return 0;
+    }
+
+    private extractDifficultyFromMeta(meta: QuestionMeta): string {
+        const difficulty = meta.raw?.difficulty;
+        return typeof difficulty === 'string' ? difficulty : 'medium';
     }
 }
 
