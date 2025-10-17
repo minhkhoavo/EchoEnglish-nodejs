@@ -1,6 +1,43 @@
 import { Server as HttpServer } from 'http';
 import { Server, Socket } from 'socket.io';
 
+// ADMIN EVENTS (Nestjs) - Start
+// Define interfaces for socket events
+interface AdminEmitToUserData {
+    userId: string;
+    event: string;
+    payload: NotificationPayload;
+}
+
+interface AdminEmitToUsersData {
+    userIds: string[];
+    event: string;
+    payload: NotificationPayload;
+}
+
+interface AdminEmitToAllData {
+    event: string;
+    payload: NotificationPayload;
+}
+
+// Generic notification payload interface
+interface NotificationPayload {
+    _id?: string;
+    title?: string;
+    body?: string;
+    deepLink?: string;
+    type?: string;
+    createdAt?: Date;
+    createdBy?: string;
+    isRead?: boolean;
+    notificationId?: string;
+    readAt?: Date;
+    deletedAt?: Date;
+    [key: string]: string | number | boolean | Date | undefined; // Allow additional properties with specific types
+}
+
+// ADMIN EVENTS (Nestjs) - End
+
 class SocketService {
     private io?: Server;
     public initSocket = async (httpServer: HttpServer) => {
@@ -34,6 +71,39 @@ class SocketService {
                     // );
                 }
             });
+
+            // ADMIN EVENTS (Nestjs) - Start
+
+            socket.on('admin_emit_to_user', (data: AdminEmitToUserData) => {
+                if (data.userId && data.event && this.io) {
+                    this.io.to(data.userId).emit(data.event, data.payload);
+                    console.log(
+                        `[ADMIN] Emitted ${data.event} to user ${data.userId}`
+                    );
+                }
+            });
+
+            socket.on('admin_emit_to_users', (data: AdminEmitToUsersData) => {
+                if (data.userIds && data.event && this.io) {
+                    for (const userId of data.userIds) {
+                        this.io.to(userId).emit(data.event, data.payload);
+                    }
+                    console.log(
+                        `[ADMIN] Emitted ${data.event} to ${data.userIds.length} users`
+                    );
+                }
+            });
+
+            socket.on('admin_emit_to_all', (data: AdminEmitToAllData) => {
+                if (data.event && this.io) {
+                    this.io.emit(data.event, data.payload);
+                    console.log(
+                        `[ADMIN] Broadcasted ${data.event} to all clients`
+                    );
+                }
+            });
+
+            // ADMIN EVENTS (Nestjs) - End
 
             socket.on('disconnect', () => {
                 // console.log(

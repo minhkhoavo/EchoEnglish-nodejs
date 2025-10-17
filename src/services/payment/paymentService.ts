@@ -5,11 +5,13 @@ import { TransactionType } from '~/enum/transactionType.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { Payment, PaymentType } from '~/models/payment.js';
 import { PromoCode, PromoCodeType } from '~/models/promoCode.js';
+import PromoService from './promoService.js';
 import vnpayService from './vnpayService.js';
 import { User, UserType } from '../../models/userModel.js';
 import stripeService from './stripeService.js';
 
 class PaymentService {
+    private promoService = new PromoService();
     public async getTransactionById(id: string): Promise<PaymentType | null> {
         const payment = await Payment.findById(id).lean<PaymentType>().exec();
         if (!payment) {
@@ -179,9 +181,16 @@ class PaymentService {
             throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
         let amount = request.tokens! * 1000;
+        let discount = 0;
         if (request.promoCode) {
-            const promo = await PromoCode.findOne({ code: request.promoCode });
-            amount = amount * (1 - promo.discount / 100);
+            const validation = await this.promoService.validatePromoCode(
+                request.promoCode,
+                userId,
+                amount
+            );
+            discount = validation.discount;
+            amount -= discount;
+            this.promoService.applyPromoCode(request.promoCode, userId);
         }
 
         if (amount < 0) throw new ApiError(ErrorMessage.AMOUNT_INVALID);

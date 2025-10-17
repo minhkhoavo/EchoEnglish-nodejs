@@ -55,7 +55,7 @@ class ResourceController {
     public searchResource = async (req: Request, res: Response) => {
         const { page, limit, ...filters } = req.query;
 
-        let sortOption: Record<string, 1 | -1> = {};
+        let sortOption: Record<string, 1 | -1> = { createdAt: -1 };
         if (filters.sort === 'newest') sortOption = { publishedAt: -1 };
 
         const pageNum = parseInt(page as string);

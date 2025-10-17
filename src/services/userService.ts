@@ -42,6 +42,15 @@ class UserService {
     public registerUser = async (
         userDto: UserCreateRequest
     ): Promise<UserResponse> => {
+        if (
+            userDto.email == null ||
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userDto.email)
+        ) {
+            throw new ApiError(ErrorMessage.EMAIL_INVALID);
+        }
+        if (userDto.password == null || userDto.password.length < 8) {
+            throw new ApiError(ErrorMessage.PASSWORD_MUST_BE_8_CHARACTERS);
+        }
         const existUser = await User.findOne({ email: userDto.email });
         const hashPassword = await this.hashPassword(userDto.password);
 

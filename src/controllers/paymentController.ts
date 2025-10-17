@@ -88,7 +88,7 @@ class PaymentController {
         const userId = req.user?.id;
         if (!userId) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
 
-        const { credits, paymentGateway, description } = req.body;
+        const { credits, paymentGateway, description, promoCode } = req.body;
 
         if (credits === undefined || credits === null)
             throw new ApiError(ErrorMessage.TOKENS_REQUIRED);
@@ -101,6 +101,7 @@ class PaymentController {
             tokens: credits,
             paymentGateway,
             description,
+            promoCode,
         });
 
         return res

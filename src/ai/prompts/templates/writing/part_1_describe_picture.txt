@@ -29,9 +29,19 @@ SCORING OUTPUT:
 - Assign a score of 3 only when both Grammar and Relevance demonstrate strong accuracy and task fulfillment.
 - Feedback must note whether both required words were correctly used and if the sentence structure was natural.
 
+UPGRADE TEXT INSTRUCTIONS:
+- If no corrections are needed, set both "upgraded_text" and "upgrade_summary" to empty strings.
+- If corrections are needed, highlight only the changed parts using <mark>text</mark> HTML tags (e.g., "The man <mark>is walking</mark> in the park" if "walk" was corrected to "is walking").
+- Keep unchanged parts as normal text without any tags.
+- Replace all \n with <br> tags for proper line breaks in HTML rendering.
+- Keep the text concise and readable - avoid excessive line breaks.
+- In "upgrade_summary", briefly explain what was corrected (e.g., "Fixed verb tense and article usage").
+
 OUTPUT FORMAT:
 {{
   "original_text": "{candidateSentence}",
+  "upgraded_text": "<Improved sentence with corrections highlighted using <mark>text</mark> for changes, or empty string if no improvements needed>",
+  "upgrade_summary": "<Brief explanation of what was corrected (grammar, word choice, etc.), or empty string if no changes needed>",
   "overall_assessment": {{
     "criteria_scores": {{
       "grammar": <0-3>,
@@ -42,29 +52,10 @@ OUTPUT FORMAT:
     "strengths": ["..."],
     "areasForImprovement": ["..."]
   }},
-  "detailed_breakdown": [
+  "related_vocabulary": [
     {{
-      "sentence_index": 0,
-      "original_sentence": "{candidateSentence}",
-      "upgraded_sentence": "<Corrected, natural version>",
-      "analysis_points": [
-        {{
-          "criterion": "Grammar",
-          "type": "grammar_error",
-          "issue": "Example: Missing article before noun",
-          "explanation": "The noun 'flower' should be preceded by an article in this context.",
-          "suggestion": "Add 'a' before 'flower'."
-        }}
-      ],
-      "related_vocabulary": [
-        {{
-          "word_or_phrase": "gardening",
-          "definition_or_usage": "The activity of working in a garden to grow plants."
-        }}
-      ],
-      "identified_errors_summary": [
-        {{ "error_type": "grammar", "description": "Missing article" }}
-      ]
+      "word_or_phrase": "gardening",
+      "definition_or_usage": "The activity of working in a garden to grow plants."
     }}
   ]
 }}

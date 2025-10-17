@@ -9,7 +9,16 @@ class PromoController {
     public promoService = new PromoService();
 
     updatePromo = async (req: Request, res: Response) => {
-        const { code, discount, expiration, usageLimit, active } = req.body;
+        const {
+            code,
+            discount,
+            expiration,
+            usageLimit,
+            active,
+            maxUsesPerUser,
+            minOrderValue,
+            maxDiscountAmount,
+        } = req.body;
 
         if (code != null && typeof code !== 'string') {
             throw new ApiError(ErrorMessage.INVALID_ID);
@@ -33,12 +42,36 @@ class PromoController {
             throw new ApiError(ErrorMessage.INVALID_ACTIVE);
         }
 
+        if (
+            maxUsesPerUser != null &&
+            (typeof maxUsesPerUser !== 'number' || maxUsesPerUser < 1)
+        ) {
+            throw new ApiError(ErrorMessage.INVALID_PROMO_DATA);
+        }
+
+        if (
+            minOrderValue != null &&
+            (typeof minOrderValue !== 'number' || minOrderValue < 0)
+        ) {
+            throw new ApiError(ErrorMessage.INVALID_PROMO_DATA);
+        }
+
+        if (
+            maxDiscountAmount != null &&
+            (typeof maxDiscountAmount !== 'number' || maxDiscountAmount < 0)
+        ) {
+            throw new ApiError(ErrorMessage.INVALID_PROMO_DATA);
+        }
+
         const promo = await this.promoService.updatePromo(req.params.id, {
             code,
             discount,
             expiration,
             usageLimit,
             active,
+            maxUsesPerUser,
+            minOrderValue,
+            maxDiscountAmount,
         });
         res.status(200).json(
             new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, promo)
@@ -81,13 +114,24 @@ class PromoController {
         res: Response,
         next: NextFunction
     ) => {
-        const { code, discount, expiration, usageLimit } = req.body;
+        const {
+            code,
+            discount,
+            expiration,
+            usageLimit,
+            maxUsesPerUser,
+            minOrderValue,
+            maxDiscountAmount,
+        } = req.body;
 
         const promo = await this.promoService.createPromoCode({
             code,
             discount,
             expiration,
             usageLimit,
+            maxUsesPerUser,
+            minOrderValue,
+            maxDiscountAmount,
         });
 
         res.status(201).json(
@@ -96,10 +140,13 @@ class PromoController {
     };
 
     validatePromoCode = async (req: Request, res: Response) => {
-        const { code } = req.query;
+        const { code, orderValue } = req.body;
+        const userId = req.user?.id as string;
 
         const result = await this.promoService.validatePromoCode(
-            code as string
+            code as string,
+            userId,
+            orderValue || 0
         );
         res.status(200).json(new ApiResponse('SUCCESS', result));
     };
