@@ -6,6 +6,8 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import moment from 'moment-timezone';
 import QueryString from 'qs';
+import notificationService from '~/services/notifications/notificationService.js';
+import { NotificationType } from '~/enum/notificationType.js';
 class VnPayService {
     private VNP_TMNCODE = process.env.VNP_TMNCODE!;
     private VNP_HASHSECRET = process.env.VNP_HASH_SECRET!;
@@ -132,6 +134,14 @@ class VnPayService {
                     $inc: { credits: payment.tokens },
                 });
             }
+
+            // Send notification to user
+            await notificationService.pushNotification(user._id.toString(), {
+                title: 'Payment Successful',
+                body: `You have successfully purchased ${payment.tokens} credits for ${payment.amount} VND`,
+                type: NotificationType.PAYMENT,
+                userIds: [user._id],
+            });
             const txnRef = payment._id
                 ? payment._id.toString()
                 : params.vnp_TxnRef;

@@ -2,6 +2,8 @@ import Stripe from 'stripe';
 import { Payment, PaymentType } from '~/models/payment.js';
 import { PaymentStatus } from '~/enum/paymentStatus.js';
 import { User } from '~/models/userModel.js';
+import notificationService from '~/services/notifications/notificationService.js';
+import { NotificationType } from '~/enum/notificationType.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
 
@@ -65,6 +67,20 @@ class StripeService {
                     await User.findByIdAndUpdate(payment.user, {
                         $inc: { credits: payment.tokens },
                     });
+
+                    // Send notification to user
+                    const user = await User.findById(payment.user);
+                    if (user) {
+                        await notificationService.pushNotification(
+                            user._id.toString(),
+                            {
+                                title: 'Payment Successful',
+                                body: `You have successfully purchased ${payment.tokens} credits for $${(payment.amount / 100).toFixed(2)}`,
+                                type: NotificationType.PAYMENT,
+                                userIds: [user._id],
+                            }
+                        );
+                    }
                 }
 
                 return { handled: true };

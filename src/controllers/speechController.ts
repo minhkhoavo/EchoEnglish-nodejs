@@ -10,6 +10,9 @@ import SpeechProsodyService from '~/services/speech-analyze/speechProsodyService
 import PronunciationSummaryService from '~/services/speech-analyze/pronunciationSummaryService.js';
 import VocabularyService from '~/services/speech-analyze/vocabularyService.js';
 import creditsService from '~/services/payment/creditsService.js';
+import notificationService from '~/services/notifications/notificationService.js';
+import { NotificationType } from '~/enum/notificationType.js';
+import { User } from '~/models/userModel.js';
 // Helper orchestrator functions for recording + analysis
 export async function createRecordingAndStartAnalysisHelper(
     params: {
@@ -160,6 +163,16 @@ export async function createRecordingAndStartAnalysisHelper(
                     analysisStatus: 'done',
                     analysis: finalPayload,
                 });
+
+                const user = await User.findById(userId);
+                if (user) {
+                    await notificationService.pushNotification(userId, {
+                        title: 'Speech Assessment Complete',
+                        body: `Your speech assessment has been completed! Review your pronunciation, fluency, and prosody analysis in the recording details.`,
+                        type: NotificationType.INFO,
+                        userIds: [user._id],
+                    });
+                }
 
                 if (typeof onComplete === 'function') {
                     try {

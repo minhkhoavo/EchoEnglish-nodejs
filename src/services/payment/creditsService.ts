@@ -9,6 +9,8 @@ import {
     FEATURE_PRICING_MAP,
     FEATURE_DESCRIPTION_MAP,
 } from '~/enum/featurePricing.js';
+import notificationService from '~/services/notifications/notificationService.js';
+import { NotificationType } from '~/enum/notificationType.js';
 
 class CreditsService {
     public getFeaturePrice(featureType: string): number {
@@ -113,6 +115,14 @@ class CreditsService {
             description: `${description} (${featureType})`,
             amount: 0,
             status: PaymentStatus.SUCCEEDED,
+        });
+
+        // Send notification to user
+        await notificationService.pushNotification(user._id.toString(), {
+            title: 'Credits Deducted',
+            body: `${credits} credits have been deducted for ${description}. Remaining credits: ${userUpdated?.credits || 0}`,
+            type: NotificationType.PAYMENT,
+            userIds: [user._id],
         });
 
         return {

@@ -96,6 +96,16 @@ class UserService {
             path: 'roles',
             populate: { path: 'permissions' },
         });
+
+        await categoryService.createCategory(
+            {
+                name: 'Uncategorized',
+                description: 'Default category for uncategorized flashcards',
+                is_default: true,
+            },
+            savedUser._id.toString()
+        );
+
         return omit(populatedUser.toObject(), [
             'password',
             'isDeleted',
