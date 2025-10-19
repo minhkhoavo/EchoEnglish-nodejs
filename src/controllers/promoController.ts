@@ -140,13 +140,13 @@ class PromoController {
     };
 
     validatePromoCode = async (req: Request, res: Response) => {
-        const { code, orderValue } = req.body;
+        const { code, credits } = req.body;
         const userId = req.user?.id as string;
-
+        const orderValue = credits * 1000;
         const result = await this.promoService.validatePromoCode(
             code as string,
             userId,
-            orderValue || 0
+            orderValue
         );
         res.status(200).json(new ApiResponse('SUCCESS', result));
     };

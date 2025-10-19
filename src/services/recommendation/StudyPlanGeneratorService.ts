@@ -85,9 +85,6 @@ export class StudyPlanGeneratorService {
 
         for (let i = 0; i < strategicItems.length; i++) {
             const strategicItem = strategicItems[i];
-            console.log(`\n=== Processing Strategic Item ${i + 1} ===`);
-            console.log('Strategic item:', strategicItem);
-
             // Find corresponding weakness from diagnosis by ID
             const targetWeakness = examAnalysis.topWeaknesses.find(
                 (w: { id: string; skillKey: string; skillName?: string }) =>
@@ -210,12 +207,6 @@ export class StudyPlanGeneratorService {
         const practiceDrills = await this.generatePracticeDrills(weakness);
         console.log(`Generated ${practiceDrills.length} practice drills`);
 
-        // 4. Extract skills to improve with validation
-        console.log('Extracting skills from weakness:', {
-            skillKey: weakness.skillKey,
-            skillName: weakness.skillName,
-            category: weakness.category,
-        });
         const skillsToImprove = this.extractSkillsToImprove(weakness);
         console.log('Skills to improve:', skillsToImprove);
 

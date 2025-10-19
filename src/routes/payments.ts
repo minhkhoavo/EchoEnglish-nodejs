@@ -10,6 +10,9 @@ router.post('/use-token', paymentController.useToken);
 router.post('/create', paymentController.createPayment);
 router.get('/vnpay/return', paymentController.vnPayReturn);
 router.get('/vnpay/ipn', paymentController.vnPayIpn);
+// Stripe return
+router.get('/stripe/return', paymentController.stripeReturn);
+router.post('/stripe/webhook', paymentController.stripeWebhook);
 
 // Xem chi tiết giao dịch
 router.get('/:id', paymentController.getTransactionById);

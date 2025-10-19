@@ -7,6 +7,8 @@ import paymentService from '~/services/payment/paymentService.js';
 import vnpayService from '~/services/payment/vnpayService.js';
 import stripeService from '../services/payment/stripeService.js';
 import { User, UserType } from '~/models/userModel.js';
+import { Payment, PaymentType } from '~/models/payment.js';
+import { PaymentStatus } from '~/enum/paymentStatus.js';
 class PaymentController {
     public stripeWebhook = async (req: Request, res: Response) => {
         const stripeSig = req.headers['stripe-signature'] as string | undefined;
@@ -31,6 +33,19 @@ class PaymentController {
             // delegate handling to stripeService
             const result = await stripeService.handleEvent(event);
 
+            // Webhook is server-to-server. Do not redirect the caller (Stripe).
+            // If the event is a checkout session completion we simply log it;
+            // the handler (stripeService.handleEvent) already updates DB and credits tokens.
+            if (event.type === 'checkout.session.completed') {
+                const session = event.data.object as unknown as {
+                    metadata?: { paymentId?: string };
+                };
+                const paymentId = session?.metadata?.paymentId;
+                console.log(
+                    `Received webhook checkout.session.completed for paymentId=${paymentId}`
+                );
+            }
+
             if (result && result.handled) {
                 return res.status(200).json({ received: true });
             } else {
@@ -43,6 +58,54 @@ class PaymentController {
                 err instanceof Error ? err.message : String(err);
             console.error('Stripe webhook error:', err);
             return res.status(400).send(`Webhook Error: ${errorMessage}`);
+        }
+    };
+
+    public stripeReturn = async (req: Request, res: Response) => {
+        const sessionId = (req.query.session_id ?? req.query.sessionId) as
+            | string
+            | undefined;
+        if (!sessionId) throw new ApiError(ErrorMessage.PAYMENT_FAILED);
+
+        try {
+            const { default: Stripe } = await import('stripe');
+            const secret = (process.env.STRIPE_SECRET_KEY || '').trim();
+            const stripe = new Stripe(secret);
+
+            const session = await stripe.checkout.sessions.retrieve(sessionId);
+            const paymentId = session?.metadata?.paymentId as
+                | string
+                | undefined;
+            const paid = session?.payment_status === 'paid';
+
+            let status: PaymentStatus = PaymentStatus.FAILED;
+
+            if (paymentId) {
+                const payment = await Payment.findById(
+                    paymentId
+                ).lean<PaymentType | null>();
+                if (payment?.status === PaymentStatus.SUCCEEDED || paid) {
+                    status = PaymentStatus.SUCCEEDED;
+                }
+            } else if (paid) {
+                status = PaymentStatus.SUCCEEDED;
+            }
+
+            const frontend = (process.env.FRONTEND_URL || '').trim();
+            if (!frontend) {
+                return res
+                    .status(200)
+                    .json({ sessionId, paymentId: paymentId ?? null, status });
+            }
+
+            const redirectUrl = new URL('/payment/callback', frontend);
+            redirectUrl.searchParams.set('paymentId', paymentId ?? '');
+            redirectUrl.searchParams.set('status', String(status));
+
+            return res.redirect(302, redirectUrl.toString());
+        } catch (err) {
+            console.error('Stripe return error:', err);
+            throw new ApiError(ErrorMessage.PAYMENT_FAILED);
         }
     };
 
@@ -83,7 +146,6 @@ class PaymentController {
             new ApiResponse(SuccessMessage.USE_TOKEN_SUCCESS, result)
         );
     };
-
     public createPayment = async (req: Request, res: Response) => {
         const userId = req.user?.id;
         if (!userId) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
@@ -123,18 +185,49 @@ class PaymentController {
             }
         });
 
-        const result = await vnpayService.handleVnPayReturn(paramRecord);
+        type VnPaySuccess = {
+            success: true;
+            redirectUrl: string;
+            paymentId: string;
+            status: string | number;
+        };
+
+        type VnPayFail = {
+            success: false | boolean;
+            message?: string;
+            paymentId?: string;
+            status?: string | number;
+        };
+
+        type VnPayResult = VnPaySuccess | VnPayFail;
+
+        const result = (await vnpayService.handleVnPayReturn(
+            paramRecord
+        )) as VnPayResult;
         if (!result) throw new ApiError(ErrorMessage.PAYMENT_FAILED);
 
-        if (!result.success) {
-            throw new ApiError({ message: result.message.toString() });
+        // Expect the service to return a redirectUrl on success
+        if (
+            'redirectUrl' in result &&
+            typeof result.redirectUrl === 'string' &&
+            result.redirectUrl
+        ) {
+            return res.redirect(302, result.redirectUrl);
+        } else {
+            // Failure: redirect to frontend callback with status=failed
+            const FRONTEND_URL = (process.env.FRONTEND_URL || '').trim();
+            if (!FRONTEND_URL) {
+                // If frontend URL is not set, throw an error so monitoring/logging will catch it
+                const fail = result as VnPayFail;
+                const msg = fail.message
+                    ? fail.message.toString()
+                    : ErrorMessage.PAYMENT_FAILED.message;
+                throw new ApiError({ message: msg });
+            }
+
+            const callbackUrl = `${FRONTEND_URL.replace(/\/$/, '')}/payment/callback?status=failed`;
+            return res.redirect(302, callbackUrl);
         }
-        return res.status(200).json(
-            new ApiResponse(result.message.toString(), {
-                paymentId: result.paymentId,
-                status: result.status,
-            })
-        );
     };
 
     public vnPayIpn = async (req: Request, res: Response) => {

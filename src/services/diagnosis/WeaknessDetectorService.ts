@@ -326,20 +326,6 @@ export class WeaknessDetectorService {
                 }
             }
 
-            console.log('[DEBUG] Domain aggregation result:', {
-                totalDomains: domainMap.size,
-                domains: Array.from(domainMap.entries()).map(
-                    ([domain, data]) => ({
-                        domain,
-                        total: data.total,
-                        correct: data.correct,
-                        accuracy: ((data.correct / data.total) * 100).toFixed(
-                            1
-                        ),
-                    })
-                ),
-            });
-
             // Convert to array and sort by accuracy
             const result = [];
             for (const [domain, data] of domainMap.entries()) {

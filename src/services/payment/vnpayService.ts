@@ -3,7 +3,6 @@ import crypto from 'crypto';
 import { PaymentStatus } from '~/enum/paymentStatus.js';
 import { User } from '~/models/userModel.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
-import { SuccessMessage } from '~/enum/successMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import moment from 'moment-timezone';
 import QueryString from 'qs';
@@ -85,7 +84,6 @@ class VnPayService {
     // Hàm xử lý phản hồi từ VNPay sau khi thanh toán
     public handleVnPayReturn = async (params: Record<string, string>) => {
         if (!params) throw new ApiError(ErrorMessage.PAYMENT_FAILED);
-
         let secureHash = params.vnp_SecureHash;
 
         if (!secureHash) throw new ApiError(ErrorMessage.SIGNATURE_INVALID);
@@ -126,13 +124,32 @@ class VnPayService {
             : PaymentStatus.FAILED;
         await payment.save();
 
+        const FRONTEND_URL = (process.env.FRONTEND_URL || '').trim();
+        if (isSuccess) {
+            const user = await User.findById(payment.user);
+            if (user) {
+                await User.findByIdAndUpdate(payment.user, {
+                    $inc: { credits: payment.tokens },
+                });
+            }
+            const txnRef = payment._id
+                ? payment._id.toString()
+                : params.vnp_TxnRef;
+            const status = payment.status;
+            const redirectUrl = `${FRONTEND_URL}/payment/callback?paymentId=${encodeURIComponent(txnRef)}&status=${encodeURIComponent(String(status))}`;
+            return {
+                success: true,
+                redirectUrl,
+                paymentId: payment._id.toString(),
+                status: payment.status,
+            };
+        }
+        const redirectUrl = `${FRONTEND_URL}/payment/callback?paymentId=${payment._id}&status=${PaymentStatus.FAILED}`;
         return {
-            success: isSuccess,
-            message: isSuccess
-                ? SuccessMessage.PAYMENT_STATUS_SUCCESS
-                : ErrorMessage.PAYMENT_FAILED,
+            success: true,
+            redirectUrl,
             paymentId: payment._id.toString(),
-            status: payment.status,
+            status: PaymentStatus.FAILED,
         };
     };
 

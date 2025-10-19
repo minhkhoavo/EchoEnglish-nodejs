@@ -1,7 +1,3 @@
-import { TransactionType } from '~/enum/transactionType.js';
-import { PaymentStatus } from '~/enum/paymentStatus.js';
-import { Payment } from '~/models/payment.js';
-import { PaymentGateway } from '~/enum/paymentGateway.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { PromoCode, PromoCodeType } from '../../models/promoCode.js';
@@ -122,6 +118,12 @@ class PromoService {
         }
 
         // Check min order value
+        console.log(
+            'Order Value:',
+            orderValue,
+            'Min Order Value:',
+            promo.minOrderValue
+        );
         if (orderValue < promo.minOrderValue) {
             throw new ApiError(ErrorMessage.MIN_ORDER_VALUE_NOT_MET);
         }

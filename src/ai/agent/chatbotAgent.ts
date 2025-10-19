@@ -11,7 +11,7 @@ import { flashcardTools } from '~/ai/tools/flashcardTools.js';
 import { categoryTools } from '~/ai/tools/categoryTools.js';
 import { paymentTools } from '~/ai/tools/paymentTools.js';
 import { retrieveMyFilesTool } from '~/ai/tools/ragRetrieveTool.js';
-import { SystemMessage } from 'node_modules/@langchain/core/dist/messages/index.js';
+import { SystemMessage } from '@langchain/core/messages';
 import { promptManagerService } from '~/ai/service/PromptManagerService.js';
 
 export class ChatbotAgent {

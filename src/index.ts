@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import connectDB from './config/db/configDb.js';
+import './models/index.js';
 import apiRouter from '~/routes/index.js';
 import { globalAuth } from './middleware/authMiddleware.js';
 import cors from 'cors';
@@ -22,12 +23,13 @@ const httpServer = createServer(app);
 connectDB();
 
 app.use(cors());
-app.use(express.json());
 app.post(
     '/payments/stripe/webhook',
     express.raw({ type: 'application/json' }),
     paymentController.stripeWebhook
 );
+
+app.use(express.json());
 
 cron.schedule('0 0 * * 0', async () => {
     console.log('[CRON] Trigger RSS fetching...');

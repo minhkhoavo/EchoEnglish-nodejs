@@ -1,5 +1,4 @@
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
-import './permissionModel';
 import { setBaseOptions } from './baseEntity.js';
 const roleSchema = new Schema(
     {

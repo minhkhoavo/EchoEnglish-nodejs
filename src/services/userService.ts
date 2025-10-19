@@ -144,7 +144,6 @@ class UserService {
         const savedUser = await user.save();
 
         // Tạo category mặc định cho user
-
         await categoryService.createCategory(
             {
                 name: 'Uncategorized',

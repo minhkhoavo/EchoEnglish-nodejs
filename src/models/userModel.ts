@@ -1,4 +1,3 @@
-import './roleModel';
 import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 import { addBaseFields, setBaseOptions } from './baseEntity.js';
 import { Gender } from '~/enum/gender.js';
