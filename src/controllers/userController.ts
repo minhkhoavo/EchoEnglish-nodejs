@@ -7,6 +7,7 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { roadmapService } from '~/services/recommendation/RoadmapService.js';
 import { Types } from 'mongoose';
+import creditsService from '~/services/payment/creditsService.js';
 
 class UserController {
     public userService = new UserService();
@@ -123,6 +124,33 @@ class UserController {
             .status(200)
             .json(
                 new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, preferences)
+            );
+    };
+
+    public checkCanAffordFeature = async (req: Request, res: Response) => {
+        if (!req.user || !req.user.id) {
+            throw new ApiError(ErrorMessage.UNAUTHORIZED);
+        }
+
+        const userId = req.user.id;
+        const { featureType } = req.query;
+
+        if (!featureType || typeof featureType !== 'string') {
+            throw new ApiError(ErrorMessage.CATEGORY_REQUIRED);
+        }
+
+        const result = await creditsService.checkCanAffordFeature(
+            userId,
+            featureType
+        );
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    'Feature affordability check successful',
+                    result
+                )
             );
     };
 }

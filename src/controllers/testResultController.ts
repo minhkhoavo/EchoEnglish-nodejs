@@ -10,6 +10,7 @@ import { studyPlanGeneratorService } from '../services/recommendation/StudyPlanG
 import { StudyPlan, StudyPlanType } from '../models/studyPlanModel.js';
 import { ApiError } from '~/middleware/apiError.js';
 import ApiResponse from '../dto/response/apiResponse.js';
+import creditsService from '../services/payment/creditsService.js';
 
 export class TestResultController {
     async submitTestResult(req: Request, res: Response) {
@@ -351,6 +352,11 @@ export class TestResultController {
         try {
             const userId = req.user?.id as string;
             const testResultId = req.params.id;
+            const creditResult = await creditsService.deductCreditsForFeature(
+                userId,
+                'test_analysis_lr'
+            );
+            let creditsDeducted = creditResult.creditsDeducted;
 
             // Run analysis pipeline
             // 1. Core analysis - now updates testResult directly
@@ -385,6 +391,7 @@ export class TestResultController {
                 data: {
                     testResultId: testResult._id,
                     studyPlanId: studyPlan._id,
+                    creditsDeducted,
                 },
             });
         } catch (error: unknown) {

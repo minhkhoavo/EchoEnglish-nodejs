@@ -34,6 +34,7 @@ router.get('/preferences', userController.getUserPreference);
 router.put('/preferences', userController.setUserPreferences);
 router.put('/my-profile', userController.updateProfileUser);
 router.get('/credits', userController.getCredit);
+router.get('/check-afford-feature', userController.checkCanAffordFeature);
 router.get('/:id', userController.getUserById);
 router.delete(
     '/:id',

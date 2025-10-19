@@ -9,6 +9,7 @@ import RecordingService from '~/services/recordingService.js';
 import SpeechProsodyService from '~/services/speech-analyze/speechProsodyService.js';
 import PronunciationSummaryService from '~/services/speech-analyze/pronunciationSummaryService.js';
 import VocabularyService from '~/services/speech-analyze/vocabularyService.js';
+import creditsService from '~/services/payment/creditsService.js';
 // Helper orchestrator functions for recording + analysis
 export async function createRecordingAndStartAnalysisHelper(
     params: {
@@ -25,6 +26,7 @@ export async function createRecordingAndStartAnalysisHelper(
             url: string;
             analysisStatus: string;
             analysis?: Record<string, unknown>;
+            creditsDeducted?: number;
         }
     ) => void
 ) {
@@ -249,6 +251,11 @@ class SpeechController {
 
         const userId = req.user?.id as string;
         const folder = userId || undefined;
+
+        await creditsService.deductCreditsForFeature(
+            userId,
+            'speech_assessment'
+        );
 
         const result = await createRecordingAndStartAnalysisHelper({
             userId,
