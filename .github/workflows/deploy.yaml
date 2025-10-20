@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/integrate-cicd
+      - feat/integrate-cicd
       - main
   workflow_dispatch: {}
 
