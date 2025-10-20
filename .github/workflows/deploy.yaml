@@ -1,0 +1,62 @@
+name: CI/CD Pipeline for NodeJS
+
+on:
+  push:
+    branches:
+      - feature/integrate-cicd
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2) Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3) Login Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      # 4) Build & Push image
+      - name: Build and push Docker image
+        run: |
+          IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/echo-english:latest
+          docker build -t "$IMAGE_NAME" .
+          docker push "$IMAGE_NAME"
+
+      # 5) Deploy on VPS via SSH
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          port: 22
+          script: |
+            set -e
+            IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/echo-english:latest
+            echo "Pull latest image..."
+            docker pull "$IMAGE_NAME"
+
+            echo "Stop & remove old container if exists..."
+            docker stop echo-english || true
+            docker rm echo-english || true
+
+            echo "Run new container with --env-file ..."
+            docker run -d --name echo-english \
+              --restart unless-stopped \
+              --env-file ~/home/apps/EchoEnglish/.env \
+              -p 4000:4000 \
+              "$IMAGE_NAME"
+
+            docker image prune -f

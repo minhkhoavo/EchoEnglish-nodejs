@@ -148,3 +148,4 @@ pnpm-lock.yaml
 out/
 gen/
 package-lock.json
+prod.env
