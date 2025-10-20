@@ -28,12 +28,15 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      # 4) Build & Push image
+      # 4) Build & Push image với cache
       - name: Build and push Docker image
-        run: |
-          IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/echo-english:latest
-          docker build -t "$IMAGE_NAME" .
-          docker push "$IMAGE_NAME"
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/echo-english:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/echo-english:cache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/echo-english:cache,mode=max
 
       # 5) Deploy on VPS via SSH
       - name: Deploy to VPS
@@ -56,7 +59,7 @@ jobs:
             echo "Run new container with --env-file ..."
             docker run -d --name echo-english \
               --restart unless-stopped \
-              --env-file ~/home/apps/EchoEnglish/.env \
+              --env-file /home/apps/EchoEnglish/.env \
               -p 4000:4000 \
               "$IMAGE_NAME"
 
