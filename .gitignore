@@ -146,5 +146,4 @@ vite.config.ts.timestamp-*
 *.iml
 out/
 gen/
-package-lock.json
 prod.env
