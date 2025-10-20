@@ -1,132 +1,187 @@
-# EchoEnglish Node.js
+# 🎓 EchoEnglish - AI-Powered English Learning Platform
 
-EchoEnglish là backend service được xây dựng bằng **Node.js + Express + TypeScript + MongoDB** để quản lý hệ thống học tiếng Anh.
+> A comprehensive backend service for intelligent English language learning with AI-driven features, real-time feedback, and personalized learning paths.
 
----
+<div align="center">
 
-## Danh sách thành viên thực hiện
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-13AA52?style=flat-square&logo=mongodb&logoColor=white)
+![License](https://img.shields.io/badge/License-ISC-blue?style=flat-square)
 
-- Lê Đình Lộc - 22110369
-- Võ Minh Khoa - 22110355
-- Võ Văn Trí - 22110444
-- Nguyễn Hoàng Anh Khoa - 22110352
+[Features](#-features) • [Quick Start](#-quick-start) • [Tech Stack](#-tech-stack) • • [Contact](#-contact)
 
----
-
-## 🚀 Yêu cầu hệ thống
-
-- **Node.js** >= 18
-- **npm** >= 9 hoặc **yarn**
-- **MongoDB** >= 6
+</div>
 
 ---
 
-## 📂 Cấu trúc thư mục
+## ✨ Features
 
-```bash
-echoenglish-nodejs/
-├── src/                # Source code TypeScript
-│   ├── index.ts        # Entry point
-│   ├── config/         # Cấu hình database và third-party
-│   ├── controllers/    # Xử lý request/response
-│   ├── dto/           # Data Transfer Objects
-│   ├── enum/          # Định nghĩa enum
-│   ├── middlewares/   # Xử lý trung gian
-│   ├── services/       # Business logic
-│   ├── routes/         # Định tuyến API
-│   ├── models/         # Mongoose models
-│   └── utils/          # Helper functions
-├── dist/               # Compiled JavaScript code
-├── .env                # Environment variables
-├── nodemon.json        # Nodemon configuration
-├── package.json
-└── tsconfig.json
+- **🤖 AI-Powered Chatbot** - Real-time English learning assistant with intelligent responses
+- **🎤 Speech Recognition & Analysis** - Pronunciation assessment and speaking proficiency evaluation
+- **✍️ Writing Evaluation** - AI-driven writing assessment with detailed feedback
+- **📚 Adaptive Learning Paths** - Personalized study plans based on user proficiency
+- **🔤 Flashcard System** - Interactive flashcard management with spaced repetition
+- **🎯 Competency Profiling** - Real-time skill tracking and progress monitoring
+- **📊 Smart Dashboard** - Comprehensive learning analytics and performance insights
+- **💳 Payment Integration** - VNPay & Stripe for premium features
+- **📧 Email Notifications** - Real-time alerts and learning reminders
+- **🌍 RSS Feed Integration** - Curated English content aggregation
+- **🔐 JWT Authentication** - Secure user authentication and authorization
+- **⚡ Real-time Communication** - WebSocket support for instant notifications
+
+---
+
+## � Screenshots
+
+**Dashboard**
+<p align="center">
+  <img src="docs/dashboard_overview.png" width="320" alt="dashboard_overview" />
+  <img src="docs/dashboard_roadmap.png" width="320" alt="dashboard_roadmap" />
+  <img src="docs/dashboard_today.png" width="320" alt="dashboard_today" />
+</p>
+<p align="center">
+  <img src="docs/dashboard_today_personalGuide.PNG" width="320" alt="dashboard_today_personalGuide" />
+  <img src="docs/dashboard_today_vocabularySet.PNG" width="320" alt="dashboard_today_vocabularySet" />
+</p>
+
+**Learning Route**
+<p align="center">
+  <img src="docs/lranalyze_overview.png" width="320" alt="lranalyze_overview" />
+  <img src="docs/lr_diagnosis.png" width="320" alt="lr_diagnosis" />
+  <img src="docs/lr_partAnalyze.png" width="320" alt="lr_partAnalyze" />
+  <img src="docs/lr_studyplan.png" width="320" alt="lr_studyplan" />
+  <img src="docs/lr_time.png" width="320" alt="lr_time" />
+</p>
+
+**Speech Analyzer**
+<p align="center">
+  <img src="docs/speech_analyzer_vocabulary.png" width="320" alt="speech_analyzer_vocabulary" />
+  <img src="docs/speech_analyzer_pronunciation.png" width="320" alt="speech_analyzer_pronunciation" />
+  <img src="docs/speech_analyzer_intonation.png" width="320" alt="speech_analyzer_intonation" />
+  <img src="docs/speech_analyzer_fluency.png" width="320" alt="speech_analyzer_fluency" />
+  <img src="docs/speech_analyzer_list.png" width="320" alt="speech_analyzer_list" />
+</p>
+
+**Resources & Flashcard**
+<p align="center">
+  <img src="docs/resources_list.png" width="320" alt="resources_list" />
+  <img src="docs/resource_article.PNG" width="320" alt="resource_article" />
+  <img src="docs/resource_video.png" width="320" alt="resource_video" />
+  <img src="docs/flashcard.PNG" width="320" alt="flashcard" />
+</p>
+
+**Tests**
+<p align="center">
+  <img src="docs/tests_list.png" width="320" alt="tests_list" />
+  <img src="docs/tests_lr_answer.PNG" width="320" alt="tests_lr_answer" />
+  <img src="docs/tests_result.PNG" width="320" alt="tests_result" />
+  <img src="docs/test_lr.PNG" width="320" alt="test_lr" />
+</p>
+
+---
+
+## �🚀 Quick Start
+
+### Prerequisites
 
 ```
+Node.js ≥ 18
+MongoDB ≥ 6
+npm ≥ 9 or pnpm
+```
 
----
-
-## ⚙️ Cầu hình file .env
-
-- Tạo file .env ở thư mục gốc và cấu hình như sau:
-
-## Sửa cấu hình SMTP để gửi email
-
-#### Tham số cấu hình mail
-
-- SMTP_HOST=smtp.gmail.com
-- SMTP_PORT=587
-- SMTP_USER=your_email@gmail.com
-- SMTP_PASS=your_email_password
-- FROM_EMAIL=your_email@gmail.com
-
-#### Tham số JWT token
-
-- JWT_SECRETKEY=your_jwt_token
-
-#### Tham số cấu hình VNPay
-
-- VNP_URL=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
-- VNP_TMNCODE=your_tmn_code
-- VNP_HASH_SECRET=your_hash_secret
-- VNP_RETURN_URL=http://localhost:8099/payments/vnpay/return
-
-#### Lưu ý: Cách lấy VNP_TMNCODE và VNP_HASH_SECRET
-
-- Bước 1: Truy cập https://sandbox.vnpayment.vn/devreg/
-- Bước 2: Tạo tài khoản với email chính xác.
-- Bước 3: Xác thực tài khoản qua mail.
-- Bước 4: Sau khi xác thực sẽ nhận được mail chứa VNP_TMNCODE và VNP_HASH_SECRET
-
-#### Stripe
-
-- Bước 1: Truy cập https://dashboard.stripe.com/test/dashboard -> Login with google -> copy Secret key (sk*test*...) thay vào file .env biến STRIPE_SECRET_KEY
-- Bước 2: Truy cập https://dashboard.stripe.com/test/dashboard
-  -> Chọn develop -> Webhooks -> Chọn Test with a local listener -> Chọn Download the Stripe CLI -> Chọn Install the Stripe CLI -> Chọn Window và làm theo hướng dẫn
-  -> mở cmd chạy : stripe login -> tiếp theo chạy cmd: stripe listen --forward-to localhost:8099/payments/stripe/webhook -> lấy được STRIPE*WEBHOOK_SECRET (whsec*...) copy và dán vào .env
-
-## 📦 Cài đặt
+### Installation
 
 ```bash
+# Clone the repository
 git clone https://github.com/minhkhoavo/EchoEnglish-nodejs.git
 cd EchoEnglish-nodejs
-npm install
+
+# Install dependencies
+pnpm install
 ```
 
-## ▶️ Chạy dự án
+### Environment Setup
 
-## Development (hot reload với Nodemon + TSX)
+Copy the `.env.example` file to `.env` and fill in your configuration values:
 
 ```bash
-npm run dev
+cp .env.example .env
 ```
 
-or
+### Development
 
 ```bash
 pnpm dev
 ```
 
-## Build TypeScript sang JavaScript
+### Production
 
 ```bash
-npm run build
+pnpm prod
 ```
 
-or
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Runtime** | Node.js |
+| **Language** | TypeScript |
+| **Framework** | Express.js |
+| **Database** | MongoDB + Mongoose |
+| **Real-time** | Socket.io |
+| **Authentication** | JWT + bcrypt |
+| **Storage** | AWS S3 |
+| **Payments** | Stripe, VNPay |
+| **Code Quality** | ESLint, Prettier, Husky |
+
+---
+
+## 🐳 Docker Support
 
 ```bash
-pnpm build
+# Build Docker image
+docker build -t echoenglish-api .
+
+# Run with docker-compose
+docker-compose up -d
 ```
 
-## Run sau khi build
+---
 
-```bash
-npm run start
-```
 
-or
+## 🤝 Contributors
 
-```bash
-pnpm start
-```
+| Name | ID |
+|------|-----|
+| Võ Minh Khoa | 22110355 |
+| Nguyễn Hoàng Anh Khoa | 22110352 |
+| Lê Đình Lộc | 22110369 |
+| Võ Văn Trí | 22110444 |
+
+---
+
+---
+
+## 📧 Contact
+
+For inquiries, support, or collaboration:
+
+- **GitHub**: [@minhkhoavo](https://github.com/minhkhoavo)
+- **Email**: v.minhkhoa123456@gmail.com
+- **Issues**: [GitHub Issues](https://github.com/minhkhoavo/EchoEnglish-nodejs/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/minhkhoavo/EchoEnglish-nodejs/discussions)
+
+---
+
+<div align="center">
+
+**[⬆ Back to Top](#-echenglish---ai-powered-english-learning-platform)**
+
+Made with ❤️ by the EchoEnglish Team
+
+</div>
