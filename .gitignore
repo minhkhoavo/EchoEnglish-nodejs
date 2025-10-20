@@ -139,13 +139,11 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-package-lock.json
-pnpm-lock.yaml
+
 
 # IntelliJ IDEA
 .idea/
 *.iml
 out/
 gen/
-package-lock.json
 prod.env

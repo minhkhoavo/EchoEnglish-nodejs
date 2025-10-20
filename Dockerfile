@@ -1,23 +1,19 @@
-# ---------- Builder ----------
-FROM node:20-alpine AS builder
+# syntax=docker/dockerfile:1.7
+FROM node:20-alpine AS build
 WORKDIR /app
-
-RUN apk add --no-cache python3 make g++ git && npm i -g pnpm
-
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
-
+RUN --mount=type=cache,target=/var/cache/apk apk add --no-cache python3 make g++
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm npm install --no-audit --no-fund
 COPY . .
-RUN pnpm run build
-RUN pnpm prune --prod
+RUN npm run build
+RUN npm prune --omit=dev
 
-# ---------- Runner ----------
 FROM node:20-alpine AS runner
 WORKDIR /app
-
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
+ENV NODE_ENV=production
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/node_modules ./node_modules
+USER node
 EXPOSE 4000
 CMD ["node", "dist/index.js"]
