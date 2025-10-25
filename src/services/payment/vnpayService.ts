@@ -126,7 +126,9 @@ class VnPayService {
             : PaymentStatus.FAILED;
         await payment.save();
 
-        const FRONTEND_URL = (process.env.FRONTEND_URL || '').trim();
+        const FRONTEND_URL = (
+            process.env.FRONTEND_URL || 'http://localhost:5173'
+        ).trim();
         if (isSuccess) {
             const user = await User.findById(payment.user);
             if (user) {
