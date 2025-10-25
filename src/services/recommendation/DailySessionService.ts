@@ -6,6 +6,7 @@ import { dailyPlanAIService } from '../../ai/service/dailyPlanAIService.js';
 import { studyPlanGeneratorService } from './StudyPlanGeneratorService.js';
 import { Resource } from '../../models/resource.js';
 import { progressTrackingService } from './ProgressTrackingService.js';
+import { roadmapCalibrationService } from './RoadmapCalibrationService.js';
 
 interface WeeklyFocus {
     weekNumber: number;
@@ -94,12 +95,12 @@ export class DailySessionService {
             singleRoadmap.roadmapId
         );
 
-        let targetDayNumber: number;
         let targetWeekNumber: number;
         let targetDailyFocus: DailyFocus | undefined;
+        let shouldUpdateStatus = false;
 
         if (roadmapStatus.isBlocked && roadmapStatus.blockedDailyFocus) {
-            // If blocked, generate session for the blocked daily focus
+            // If blocked, generate session for the blocked daily focus (isCritical mode)
             console.log(
                 'Roadmap is blocked, generating session for blocked daily focus'
             );
@@ -131,28 +132,15 @@ export class DailySessionService {
                 return null;
             }
 
-            // find the day number within the roadmap
-            targetDayNumber =
-                (targetWeekNumber - 1) * 7 + targetDailyFocus.dayOfWeek;
+            shouldUpdateStatus = true; // Cập nhật status cho isCritical
         } else {
             console.log('Roadmap is not blocked, generating session for today');
-            const startDate =
-                singleRoadmap.startDate &&
-                typeof singleRoadmap.startDate === 'string'
-                    ? new Date(singleRoadmap.startDate)
-                    : new Date();
+            const todayDayOfWeek = today.getDay();
 
-            const daysSinceStart = Math.floor(
-                (today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
-            );
-            targetDayNumber =
-                daysSinceStart >= 0 &&
-                daysSinceStart < (singleRoadmap.totalWeeks || 0) * 7
-                    ? daysSinceStart + 1
-                    : 1;
-            targetWeekNumber = Math.ceil(targetDayNumber / 7);
+            // Use activeWeekNumber
+            targetWeekNumber = singleRoadmap.activeWeekNumber || 1;
 
-            // Get week and day focus
+            // Find weekFocus for the current week
             const weekFocus = singleRoadmap.weeklyFocuses?.find(
                 (w) => w.weekNumber === targetWeekNumber
             );
@@ -161,14 +149,29 @@ export class DailySessionService {
                 console.log('No weekly focus found for week', targetWeekNumber);
                 return null;
             }
-            const dayInWeek = ((targetDayNumber - 1) % 7) + 1;
+
+            // Find dailyFocus with matching dayOfWeek for today
             targetDailyFocus = weekFocus?.dailyFocuses?.find((d) => {
-                return (d as DailyFocus).dayOfWeek === dayInWeek;
+                const daily = d as DailyFocus;
+                return daily.dayOfWeek === todayDayOfWeek;
             }) as DailyFocus | undefined;
 
-            if (!targetDailyFocus) {
-                console.log('No daily focus found for day', dayInWeek);
-                return null;
+            if (targetDailyFocus) {
+                // Find dailyFocus for today → only update status if not completed/skipped
+                if (
+                    targetDailyFocus.status !== 'completed' &&
+                    targetDailyFocus.status !== 'skipped'
+                ) {
+                    shouldUpdateStatus = true;
+                }
+                console.log(
+                    `Found daily focus for dayOfWeek ${todayDayOfWeek}`
+                );
+            } else {
+                console.log(
+                    `No daily focus scheduled for dayOfWeek ${todayDayOfWeek}, will generate random session`
+                );
+                shouldUpdateStatus = false;
             }
         }
 
@@ -184,20 +187,18 @@ export class DailySessionService {
             );
             return null;
         }
-        // Update daily focus status to in-progress if not completed or skipped
-        if (
-            targetDailyFocus.status !== 'completed' &&
-            targetDailyFocus.status !== 'skipped'
-        ) {
+
+        // Chỉ update status nếu shouldUpdateStatus = true
+        if (shouldUpdateStatus && targetDailyFocus) {
             await roadmapService.updateDailyFocusStatus(
                 singleRoadmap.roadmapId,
                 targetWeekNumber,
-                targetDayNumber,
+                targetDailyFocus.dayOfWeek,
                 'in-progress'
             );
-            // console.log(
-            //     `Updated daily focus status to in-progress for day ${targetDayNumber}, week ${targetWeekNumber}`
-            // );
+            console.log(
+                `Updated daily focus status to in-progress for dayOfWeek ${targetDailyFocus.dayOfWeek}, week ${targetWeekNumber}`
+            );
         }
         // Get user competency profile for context
         const user = (await User.findById(userId)
@@ -224,22 +225,36 @@ export class DailySessionService {
             .slice(0, 3);
 
         // Find available DB resources matching domains and skills
+        // Nếu không có targetDailyFocus, dùng thông tin từ weekFocus
         const availableResources = await this.findAvailableResources(
-            targetDailyFocus.suggestedDomains || [],
-            targetDailyFocus.targetSkills || []
+            targetDailyFocus?.suggestedDomains ||
+                weekFocus.recommendedDomains ||
+                [],
+            targetDailyFocus?.targetSkills || weekFocus.focusSkills || []
         );
 
         // Get mistakes that need practice from current week (top N from stack)
         const mistakesToPractice = weekFocus.mistakes?.slice(0, 40) || [];
+        const skippedContent =
+            await roadmapCalibrationService.getSkippedSessionsContent(userId);
 
         // Generate activities using AI with smart resource allocation
+        const dailyFocusContext = targetDailyFocus
+            ? {
+                  focus: targetDailyFocus.focus,
+                  targetSkills: targetDailyFocus.targetSkills || [],
+                  suggestedDomains: targetDailyFocus.suggestedDomains || [],
+                  estimatedMinutes: targetDailyFocus.estimatedMinutes,
+              }
+            : {
+                  focus: `General practice for ${weekFocus.title}`,
+                  targetSkills: weekFocus.focusSkills || [],
+                  suggestedDomains: weekFocus.recommendedDomains || [],
+                  estimatedMinutes: singleRoadmap.studyTimePerDay || 30,
+              };
+
         const aiPlan = await dailyPlanAIService.generateDailyPlan({
-            dailyFocus: {
-                focus: targetDailyFocus.focus,
-                targetSkills: targetDailyFocus.targetSkills || [],
-                suggestedDomains: targetDailyFocus.suggestedDomains || [],
-                estimatedMinutes: targetDailyFocus.estimatedMinutes,
-            },
+            dailyFocus: dailyFocusContext,
             weekFocus: {
                 weekNumber: weekFocus.weekNumber,
                 title: weekFocus.title,
@@ -280,6 +295,9 @@ export class DailySessionService {
                 domain: r.labels?.domain,
                 topics: r.labels?.topic,
             })),
+            missedSessions: skippedContent.hasSkippedSessions
+                ? skippedContent.skippedContent
+                : undefined,
         });
 
         // console.log('AI Plan reasoning:', aiPlan.reasoning);
@@ -418,26 +436,44 @@ export class DailySessionService {
         }
 
         // Create new study plan
-        const sessionTitle = roadmapStatus.isBlocked
-            ? `CRITICAL: ${targetDailyFocus.focus}`
-            : `Day ${targetDayNumber}: ${targetDailyFocus.focus}`;
+        let sessionTitle: string;
+        let sessionDescription: string;
+
+        if (roadmapStatus.isBlocked && targetDailyFocus) {
+            sessionTitle = `CRITICAL: ${targetDailyFocus.focus}`;
+            sessionDescription = `You need to complete this critical learning day before continuing the roadmap. ${weekFocus.summary}`;
+        } else if (targetDailyFocus) {
+            // Have scheduled session today
+            sessionTitle = skippedContent.hasSkippedSessions
+                ? `${targetDailyFocus.focus} + Catch-up Review`
+                : targetDailyFocus.focus;
+            sessionDescription = skippedContent.hasSkippedSessions
+                ? `Today's session includes catch-up content from ${skippedContent.skippedContent.length} skipped session(s). ${weekFocus.summary}`
+                : weekFocus.summary;
+        } else {
+            // No scheduled session today
+            sessionTitle = skippedContent.hasSkippedSessions
+                ? `${weekFocus.title} Practice + Catch-up Review`
+                : `${weekFocus.title} Practice`;
+            sessionDescription = skippedContent.hasSkippedSessions
+                ? `No scheduled session today. General practice session with catch-up content from ${skippedContent.skippedContent.length} skipped session(s). ${weekFocus.summary}`
+                : `No scheduled session today. General practice session for this week's focus. ${weekFocus.summary}`;
+        }
 
         const newSession = await StudyPlan.create({
             userId: singleRoadmap.userId,
             roadmapRef: singleRoadmap._id,
             testResultId: singleRoadmap.testResultId,
-            dayNumber: targetDayNumber,
+            dayNumber: targetDailyFocus?.dayOfWeek || 1,
             weekNumber: targetWeekNumber,
             scheduledDate: today,
             title: sessionTitle,
-            description: roadmapStatus.isBlocked
-                ? `You need to complete this critical learning day before continuing the roadmap. ${weekFocus.summary}`
-                : weekFocus.summary,
-            targetSkills: targetDailyFocus.targetSkills,
-            targetDomains: targetDailyFocus.suggestedDomains,
+            description: sessionDescription,
+            targetSkills: targetDailyFocus?.targetSkills || [],
+            targetDomains: targetDailyFocus?.suggestedDomains || [],
             targetWeaknesses: weekFocus.targetWeaknesses,
             planItems,
-            totalEstimatedTime: targetDailyFocus.estimatedMinutes,
+            totalEstimatedTime: targetDailyFocus?.estimatedMinutes || 0,
             status: 'upcoming',
         });
         return newSession;

@@ -144,6 +144,8 @@ export const roadmapSchema = new Schema(
         weeklyFocuses: [weeklyFocusSchema],
 
         currentWeek: { type: Number, default: 1 },
+        activeWeekNumber: { type: Number, default: 1 },
+        lastActiveDate: { type: Date },
         overallProgress: { type: Number, default: 0, min: 0, max: 100 },
         sessionsCompleted: { type: Number, default: 0 },
         totalSessions: { type: Number },
@@ -176,13 +178,15 @@ roadmapSchema.index({ roadmapId: 1 }, { unique: true });
 roadmapSchema.index({ userId: 1, currentWeek: 1 });
 
 roadmapSchema.virtual('activeWeek').get(function () {
-    return this.weeklyFocuses.find((w) => w.weekNumber === this.currentWeek);
+    return this.weeklyFocuses.find(
+        (w) => w.weekNumber === this.activeWeekNumber
+    );
 });
 
 // Virtual để check xem có daily focus nào đang bị block không
 roadmapSchema.virtual('isBlocked').get(function () {
     const activeWeek = this.weeklyFocuses.find(
-        (w) => w.weekNumber === this.currentWeek
+        (w) => w.weekNumber === this.activeWeekNumber
     );
     if (!activeWeek || !activeWeek.dailyFocuses) return false;
 
@@ -194,7 +198,7 @@ roadmapSchema.virtual('isBlocked').get(function () {
 // Virtual để lấy daily focus hiện tại đang bị block
 roadmapSchema.virtual('blockedDailyFocus').get(function () {
     const activeWeek = this.weeklyFocuses.find(
-        (w) => w.weekNumber === this.currentWeek
+        (w) => w.weekNumber === this.activeWeekNumber
     );
     if (!activeWeek || !activeWeek.dailyFocuses) return null;
 
@@ -237,6 +241,41 @@ roadmapSchema.methods.completeDailySession = function (
             daily.status = 'completed';
         }
     }
+};
+
+// Method to check and update activeWeekNumber when all dailyFocus are completed
+roadmapSchema.methods.checkAndUpdateActiveWeek = function () {
+    const activeWeek = this.weeklyFocuses.find(
+        (w: WeeklyFocusType) => w.weekNumber === this.activeWeekNumber
+    );
+
+    if (!activeWeek || !activeWeek.dailyFocuses) return false;
+
+    const allCompleted = activeWeek.dailyFocuses.every(
+        (d: DailyFocusType) =>
+            d.status === 'completed' || d.status === 'skipped'
+    );
+
+    if (allCompleted && this.activeWeekNumber < this.totalWeeks) {
+        this.activeWeekNumber += 1;
+        this.lastActiveDate = new Date();
+        activeWeek.status = 'completed';
+        return true;
+    }
+
+    return false;
+};
+
+// Method to calculate days of inactivity
+roadmapSchema.methods.getDaysInactive = function (): number {
+    if (!this.lastActiveDate) return 0;
+
+    const now = new Date();
+    const lastActive = new Date(this.lastActiveDate);
+    const diffTime = Math.abs(now.getTime() - lastActive.getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    return diffDays;
 };
 
 setBaseOptions(roadmapSchema);

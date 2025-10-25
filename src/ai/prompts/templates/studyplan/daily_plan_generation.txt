@@ -30,16 +30,21 @@ If neither can be determined, create a resource type Personalized Guide in Optio
 ## MISTAKES TO PRACTICE:
 {{mistakesToReviewBlock}}
 
+## MISSED SESSIONS (CATCH-UP CONTENT):
+{{missedSessionsBlock}}
+
 ## AVAILABLE DATABASE RESOURCES:
 {{availableResourcesList}}
 
 ## YOUR TASK:
-Generate 2-3 learning activities for today that:
+Generate 2-5 learning activities for today that:
 
 1. **FOCUS ON DAILY GOAL FIRST**: Align primarily with today's focus ("{{dailyFocus}}")
 2. **Support weekly objective**: Consider the week's theme ("{{weekTitle}}")
 3. **Address critical weaknesses**: If any skill is severely weak (accuracy < 50%), prioritize it
 4. **Ensure vocabulary component**: Every day should have vocabulary learning (either from DB resource with domain or generated vocabulary set)
+5. **CATCH UP MISSED SESSIONS**: If there are missed sessions listed above, you MUST create additional review activities that cover the missed focus areas, target skills, and suggested domains from those sessions. 
+Integrate this catch-up content seamlessly into today's plan while keeping total time within {{estimatedMinutes}} minutes, focus on guide/instructions instead of practice drill
 
 ## RESOURCE ALLOCATION STRATEGY:
 For each activity, you must decide:
@@ -124,10 +129,12 @@ For each activity, you must decide:
 - Total estimated time ≤ {{estimatedMinutes}} minutes
 - At least ONE activity must address vocabulary (use DB domain resource or generate vocab set)
 - If there are mistakes to practice, strongly consider including a practice drill
-- For practice drills: Depending on the learner’s skill level and weakness to decide number of question, maximum 30 question, set reasonable minCorrectAnswers based on total question
+- **MISSED SESSIONS INTEGRATION**: If missed sessions are present, create additional activities that review those missed focus areas, covering their target skills and domains. Balance today's focus with catch-up content within the time budget.
+- For practice drills: Depending on the learner's skill level and weakness to decide number of question, maximum 30 question, set reasonable minCorrectAnswers based on total question
 - Prioritize daily focus skills over everything else
 - **IMPORTANT**: activityType must be ONLY: "learn", "practice", "review", or "drill" - NO OTHER VALUES!
 - Practice drill activities should use activityType: "drill"
 - Vocabulary activities should use activityType: "learn"
 - Practice activities should use activityType: "practice"
-- Explain your reasoning clearly
+- Catch-up/review activities for missed sessions should use activityType: "review"
+- Explain your reasoning clearly, especially how you integrated missed sessions into the plan

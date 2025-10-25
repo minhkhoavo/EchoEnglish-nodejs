@@ -9,6 +9,7 @@ import { learningPlanAIService } from '~/ai/service/learningPlanAIService.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { User } from '~/models/userModel.js';
+import { roadmapCalibrationService } from './RoadmapCalibrationService.js';
 
 interface WeaknessData {
     skillKey: string;
@@ -100,12 +101,17 @@ export class RoadmapService {
             totalSessions: llmResponse.totalWeeks * input.studyDaysPerWeek,
             status: 'active',
             testResultId: input.testResultId,
+            activeWeekNumber: 1,
+            lastActiveDate: new Date(),
         });
         return roadmap;
     }
 
     async getActiveRoadmap(userId: Schema.Types.ObjectId | string) {
-        return Roadmap.findOne({ userId, status: 'active' }).lean().exec();
+        const roadmap = await Roadmap.findOne({ userId, status: 'active' })
+            .lean()
+            .exec();
+        return roadmap;
     }
 
     async updateProgress(roadmapId: string, sessionCompleted: boolean) {
@@ -119,6 +125,9 @@ export class RoadmapService {
             roadmap.overallProgress = Math.round(
                 (roadmap.sessionsCompleted / (roadmap.totalSessions || 1)) * 100
             );
+
+            roadmap.lastActiveDate = new Date();
+            await roadmapCalibrationService.checkAndProgressWeek(roadmapId);
         }
 
         await roadmap.save();
@@ -200,14 +209,17 @@ export class RoadmapService {
     async updateDailyFocusStatus(
         roadmapId: string,
         weekNumber: number,
-        dayNumber: number,
+        dayOfWeek: number,
         status: 'pending' | 'upcoming' | 'in-progress' | 'completed' | 'skipped'
     ): Promise<void> {
+        console.log(
+            `Updating daily focus status for roadmap ${roadmapId}, week ${weekNumber}, day ${dayOfWeek} to ${status}`
+        );
         const roadmap = await Roadmap.findOneAndUpdate(
             {
                 roadmapId,
                 'weeklyFocuses.weekNumber': weekNumber,
-                'weeklyFocuses.dailyFocuses.dayNumber': dayNumber,
+                'weeklyFocuses.dailyFocuses.dayOfWeek': dayOfWeek,
             },
             {
                 $set: {
@@ -217,11 +229,11 @@ export class RoadmapService {
             {
                 arrayFilters: [
                     { 'week.weekNumber': weekNumber },
-                    { 'day.dayNumber': dayNumber },
+                    { 'day.dayOfWeek': dayOfWeek },
                 ],
             }
         );
-
+        console.log('Roadmap not found in here');
         if (!roadmap) {
             throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
         }
