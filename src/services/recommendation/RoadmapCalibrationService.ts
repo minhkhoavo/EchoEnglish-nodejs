@@ -3,6 +3,9 @@ import { Roadmap, RoadmapType } from '~/models/roadmapModel.js';
 import { User } from '~/models/userModel.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
+import { GoogleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
+import { JsonOutputParser } from '@langchain/core/output_parsers';
+import { promptManagerService } from '~/ai/service/PromptManagerService.js';
 
 interface MissedSession {
     weekNumber: number;
@@ -54,7 +57,6 @@ export class RoadmapCalibrationService {
             roadmap,
             studyDaysOfWeek
         );
-
         if (missedSessions.length === 0) {
             return {
                 hasMissedSessions: false,
@@ -72,7 +74,7 @@ export class RoadmapCalibrationService {
             return {
                 hasMissedSessions: true,
                 missedCount: missedSessions.length,
-                message: `You missed ${missedSessions.length} session(s). They will be reviewed in your next study session.`,
+                message: `You missed ${missedSessions.length} session(s) as skipped. They will be included in your next study session.`,
                 action: 'mark_skipped',
                 missedSessions: missedSessions.map((s) => ({
                     weekNumber: s.weekNumber,
@@ -80,23 +82,26 @@ export class RoadmapCalibrationService {
                     focus: s.focus,
                 })),
             };
+        } else {
+            // If missed sessions > 2: regenerate content for the entire week
+            await this.regenerateWeekContent(
+                roadmap,
+                roadmap.activeWeekNumber,
+                userId
+            );
+
+            return {
+                hasMissedSessions: true,
+                missedCount: missedSessions.length,
+                message: `Successfully regenerated your week plan with ${missedSessions.length} missed sessions.`,
+                action: 'regenerate_week',
+                missedSessions: missedSessions.map((s) => ({
+                    weekNumber: s.weekNumber,
+                    dayNumber: s.dayNumber,
+                    focus: s.focus,
+                })),
+            };
         }
-
-        // If missed sessions > 2: regenerate content for the entire week
-        // TODO: Implement regenerateWeekContent() - call LLM to recreate dailyFocuses
-        await this.regenerateWeekContent(roadmap, roadmap.activeWeekNumber);
-
-        return {
-            hasMissedSessions: true,
-            missedCount: missedSessions.length,
-            message: `You missed ${missedSessions.length} sessions. Your week plan has been regenerated to fit your current schedule.`,
-            action: 'regenerate_week',
-            missedSessions: missedSessions.map((s) => ({
-                weekNumber: s.weekNumber,
-                dayNumber: s.dayNumber,
-                focus: s.focus,
-            })),
-        };
     }
 
     // Identify missed study sessions based on studyDaysOfWeek
@@ -106,7 +111,8 @@ export class RoadmapCalibrationService {
     ): Promise<MissedSession[]> {
         const missedSessions: MissedSession[] = [];
         const activeWeek = roadmap.weeklyFocuses.find(
-            (w) => w.weekNumber === roadmap.activeWeekNumber
+            (w: { weekNumber: number }) =>
+                w.weekNumber === roadmap.activeWeekNumber
         );
 
         if (!activeWeek || !activeWeek.dailyFocuses) {
@@ -115,11 +121,31 @@ export class RoadmapCalibrationService {
 
         const today = new Date();
         const currentDayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ...
+        // const currentDayOfWeek = 2; // 0 = Sunday, 1 = Monday, ...
+
+        const hasCompletedSessions = activeWeek.dailyFocuses.some(
+            (daily: { status: string }) => daily.status === 'completed'
+        );
+        const allRemainingSessionsAreAfterToday = activeWeek.dailyFocuses
+            .filter(
+                (d: { status: string }) =>
+                    d.status !== 'completed' && d.status !== 'skipped'
+            )
+            .every((daily) => daily.dayOfWeek > currentDayOfWeek);
+
+        // Mark last week complete if today.getDayOfWeek() is earlier than every remaining weekly dailyFocus
+        // and at least one dailyFocus is completed
+        if (hasCompletedSessions && allRemainingSessionsAreAfterToday) {
+            console.log(
+                'Week appears to be completed, checking if should progress to next week'
+            );
+            return missedSessions;
+        }
 
         // Find dailyFocuses that have dayOfWeek in studyDaysOfWeek and are not completed
         for (const daily of activeWeek.dailyFocuses) {
-            // Skip if completed or skipped
-            if (daily.status === 'completed' || daily.status === 'skipped') {
+            // Skip if completed
+            if (daily.status === 'completed') {
                 continue;
             }
             // Check if it's a study day
@@ -198,7 +224,8 @@ export class RoadmapCalibrationService {
         }
 
         const activeWeek = roadmap.weeklyFocuses.find(
-            (w) => w.weekNumber === roadmap.activeWeekNumber
+            (w: { weekNumber: number }) =>
+                w.weekNumber === roadmap.activeWeekNumber
         );
 
         if (!activeWeek || !activeWeek.dailyFocuses) {
@@ -210,7 +237,7 @@ export class RoadmapCalibrationService {
 
         // Find all dailyFocuses with status = 'skipped'
         const skippedSessions = activeWeek.dailyFocuses.filter(
-            (daily) => daily.status === 'skipped'
+            (daily: { status: string }) => daily.status === 'skipped'
         );
 
         if (skippedSessions.length === 0) {
@@ -222,11 +249,17 @@ export class RoadmapCalibrationService {
 
         return {
             hasSkippedSessions: true,
-            skippedContent: skippedSessions.map((session) => ({
-                focus: session.focus,
-                targetSkills: session.targetSkills || [],
-                suggestedDomains: session.suggestedDomains || [],
-            })),
+            skippedContent: skippedSessions.map(
+                (session: {
+                    focus: string;
+                    targetSkills?: string[];
+                    suggestedDomains?: string[];
+                }) => ({
+                    focus: session.focus,
+                    targetSkills: session.targetSkills || [],
+                    suggestedDomains: session.suggestedDomains || [],
+                })
+            ),
         };
     }
 
@@ -242,7 +275,8 @@ export class RoadmapCalibrationService {
         }
 
         const activeWeek = roadmap.weeklyFocuses.find(
-            (w) => w.weekNumber === roadmap.activeWeekNumber
+            (w: { weekNumber: number }) =>
+                w.weekNumber === roadmap.activeWeekNumber
         );
 
         if (!activeWeek || !activeWeek.dailyFocuses) {
@@ -254,13 +288,14 @@ export class RoadmapCalibrationService {
 
         // Kiểm tra xem tất cả dailyFocus đã hoàn thành chưa
         const allCompleted = activeWeek.dailyFocuses.every(
-            (daily) =>
+            (daily: { status: string }) =>
                 daily.status === 'completed' || daily.status === 'skipped'
         );
 
         if (!allCompleted) {
             const remaining = activeWeek.dailyFocuses.filter(
-                (d) => d.status !== 'completed' && d.status !== 'skipped'
+                (d: { status: string }) =>
+                    d.status !== 'completed' && d.status !== 'skipped'
             ).length;
 
             return {
@@ -275,7 +310,8 @@ export class RoadmapCalibrationService {
         if (progressed) {
             // Check if the next week has dailyFocuses
             const nextWeek = roadmap.weeklyFocuses.find(
-                (w) => w.weekNumber === roadmap.activeWeekNumber
+                (w: { weekNumber: number }) =>
+                    w.weekNumber === roadmap.activeWeekNumber
             );
 
             if (
@@ -355,7 +391,7 @@ export class RoadmapCalibrationService {
             });
         }
 
-        week.dailyFocuses = dailyFocuses;
+        week.dailyFocuses.push(...dailyFocuses);
         week.totalSessions = dailyFocuses.length;
         week.status = 'in-progress';
 
@@ -371,25 +407,168 @@ export class RoadmapCalibrationService {
 
     private async regenerateWeekContent(
         roadmap: RoadmapType & { save: () => Promise<unknown> },
-        weekNumber: number
+        weekNumber: number,
+        userId: Schema.Types.ObjectId | string
     ): Promise<void> {
-        // TODO: Implement this method
         console.log(
-            `TODO: Regenerate week ${weekNumber} content for roadmap ${roadmap.roadmapId}`
+            `Regenerating week ${weekNumber} content for roadmap ${roadmap.roadmapId}`
         );
 
-        // Placeholder: Đánh dấu các session chưa complete thành skipped
         const activeWeek = roadmap.weeklyFocuses.find(
             (w) => w.weekNumber === weekNumber
         );
 
-        if (activeWeek && activeWeek.dailyFocuses) {
-            for (const daily of activeWeek.dailyFocuses) {
-                if (daily.status !== 'completed') {
-                    daily.status = 'skipped';
-                }
-            }
+        if (!activeWeek) {
+            throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
+        }
+
+        const user = await User.findById(userId)
+            .select('preferences competencyProfile')
+            .lean();
+
+        if (!user || Array.isArray(user)) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        const today = new Date();
+        const todayDayOfWeek = today.getDay();
+        // const todayDayOfWeek = 2;
+        const dayNames = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+        ];
+
+        // Calculate remaining study days (from today onwards)
+        const studyDaysOfWeek = user.preferences?.studyDaysOfWeek || [
+            1, 2, 3, 4, 5,
+        ];
+        const remainingStudyDays = studyDaysOfWeek.filter(
+            (day: number) => day >= todayDayOfWeek
+        );
+
+        const completedSessions = (
+            activeWeek.dailyFocuses?.filter(
+                (d: { status: string }) => d.status === 'completed'
+            ) || []
+        ).map((session) => ({ ...session }));
+
+        // Build competency profile block
+        const competencyProfileBlock =
+            user.competencyProfile?.skillMatrix
+                ?.map(
+                    (s: {
+                        skill: string;
+                        currentAccuracy: number;
+                        proficiency: string;
+                    }) => `${s.skill}: ${s.currentAccuracy}% (${s.proficiency})`
+                )
+                .join('\n') || 'No competency data available';
+
+        // Build completed sessions block
+        const completedSessionsBlock =
+            completedSessions.length > 0
+                ? completedSessions
+                      .map(
+                          (s, idx) =>
+                              `[${idx + 1}] ${dayNames[s.dayOfWeek]}: "${s.focus}"\n    Skills: ${s.targetSkills?.join(', ') || 'N/A'}\n    Status: ${s.status}`
+                      )
+                      .join('\n')
+                : 'No sessions completed yet this week';
+
+        // Build prompt variables
+        const variables = {
+            weekNumber: weekNumber.toString(),
+            weekTitle: activeWeek.title,
+            weekSummary: activeWeek.summary,
+            weekFocusSkills: activeWeek.focusSkills.join(', '),
+            targetWeaknesses: activeWeek.targetWeaknesses
+                .map(
+                    (w) =>
+                        `${w.skillName} (${w.severity}, accuracy: ${w.userAccuracy || 'N/A'}%)`
+                )
+                .join('; '),
+            recommendedDomains: activeWeek.recommendedDomains.join(', '),
+            todayDayName: dayNames[todayDayOfWeek],
+            todayDayOfWeek: todayDayOfWeek.toString(),
+            daysRemainingCount: remainingStudyDays.length.toString(),
+            remainingStudyDays: remainingStudyDays
+                .map((d: number) => dayNames[d])
+                .join(', '),
+            studyTimePerDay: roadmap.studyTimePerDay?.toString() || '30',
+            originalSessionsCount: (
+                activeWeek.dailyFocuses?.length || 0
+            ).toString(),
+            completedSessionsCount: completedSessions.length.toString(),
+            completedSessionsBlock,
+            currentLevel:
+                roadmap.currentLevel || user.preferences?.currentLevel || 'B1',
+            targetScore: roadmap.targetScore?.toString() || '600',
+            studyDaysOfWeek: studyDaysOfWeek.join(', '),
+            preferredStudyTime: user.preferences?.preferredStudyTime || 'N/A',
+            contentInterests:
+                user.preferences?.contentInterests?.join(', ') || 'N/A',
+            competencyProfileBlock,
+        };
+
+        const prompt = await promptManagerService.loadTemplate(
+            'studyplan/regenerate_week',
+            variables
+        );
+
+        const llmClient = new GoogleGenAIClient({
+            model: 'models/gemini-flash-lite-latest',
+        });
+
+        interface RegenerateWeekOutput {
+            dailyFocuses: Array<{
+                dayOfWeek: number;
+                focus: string;
+                targetSkills: string[];
+                suggestedDomains: string[];
+                estimatedMinutes: number;
+                foundationWeight: number;
+            }>;
+            reasoning: string;
+        }
+
+        const parser = new JsonOutputParser<RegenerateWeekOutput>();
+        const chain = llmClient.getModel().pipe(parser);
+
+        try {
+            const result = await chain.invoke(prompt);
+            console.log('LLM Regenerate Week Reasoning:', result.reasoning);
+
+            const newDailyFocuses = result.dailyFocuses.map((df, idx) => ({
+                dayNumber: idx + 1,
+                dayOfWeek: df.dayOfWeek,
+                focus: df.focus,
+                targetSkills: df.targetSkills,
+                suggestedDomains: df.suggestedDomains,
+                foundationWeight: df.foundationWeight,
+                estimatedMinutes: df.estimatedMinutes,
+                status: 'pending' as const,
+                isCritical: false,
+                dailySessionCompleted: false,
+            }));
+            // Overwrite old schedule
+            activeWeek.dailyFocuses = newDailyFocuses;
+            roadmap.markModified('weeklyFocuses');
+            activeWeek.totalSessions = activeWeek.dailyFocuses.length;
+            activeWeek.status = 'in-progress';
+
             await roadmap.save();
+
+            console.log(
+                `Successfully regenerated week ${weekNumber}: ` +
+                    `${completedSessions.length} completed + ${newDailyFocuses.length} new pending days`
+            );
+        } catch (error) {
+            console.error('Error regenerating week content:', error);
+            throw new Error('Failed to regenerate week content');
         }
     }
 }

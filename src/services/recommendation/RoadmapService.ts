@@ -114,26 +114,6 @@ export class RoadmapService {
         return roadmap;
     }
 
-    async updateProgress(roadmapId: string, sessionCompleted: boolean) {
-        const roadmap = await Roadmap.findOne({ roadmapId });
-        if (!roadmap) {
-            throw new Error(`Roadmap not found: ${roadmapId}`);
-        }
-
-        if (sessionCompleted) {
-            roadmap.sessionsCompleted = (roadmap.sessionsCompleted || 0) + 1;
-            roadmap.overallProgress = Math.round(
-                (roadmap.sessionsCompleted / (roadmap.totalSessions || 1)) * 100
-            );
-
-            roadmap.lastActiveDate = new Date();
-            await roadmapCalibrationService.checkAndProgressWeek(roadmapId);
-        }
-
-        await roadmap.save();
-        return roadmap;
-    }
-
     async updateRoadmapScheduleFromUserPreferences(
         userId: Types.ObjectId
     ): Promise<void> {
@@ -192,9 +172,14 @@ export class RoadmapService {
         }
 
         roadmap.completeDailySession(weekNumber, dayNumber);
-        roadmap.sessionsCompleted += 1;
         const stillBlocked = roadmap.isBlocked;
+        roadmap.sessionsCompleted = (roadmap.sessionsCompleted || 0) + 1;
+        roadmap.overallProgress = Math.round(
+            (roadmap.sessionsCompleted / (roadmap.totalSessions || 1)) * 100
+        );
 
+        roadmap.lastActiveDate = new Date();
+        await roadmapCalibrationService.checkAndProgressWeek(roadmapId);
         await roadmap.save();
 
         return {
