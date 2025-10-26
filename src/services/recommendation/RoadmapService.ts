@@ -10,6 +10,7 @@ import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { User } from '~/models/userModel.js';
 import { roadmapCalibrationService } from './RoadmapCalibrationService.js';
+import { determineToeicLevel } from '~/utils/toeicScore.js';
 
 interface WeaknessData {
     skillKey: string;
@@ -40,10 +41,11 @@ export class RoadmapService {
                       currentLevel: user.preferences.currentLevel,
                       preferredStudyTime: user.preferences.preferredStudyTime,
                       contentInterests: user.preferences.contentInterests,
+                      studyDaysOfWeek: user.preferences.studyDaysOfWeek,
                   }
                 : undefined;
-
         let testAnalysis = null;
+        let detectedCurrentLevel = null;
         if (input.testResultId) {
             const testResult = await TestResult.findById(input.testResultId);
             if (testResult) {
@@ -58,8 +60,16 @@ export class RoadmapService {
                         [],
                     summary: testResult.analysis?.examAnalysis?.summary || '',
                 };
+                console.log('Test score', testResult.totalScore);
+                detectedCurrentLevel = determineToeicLevel(
+                    testResult.totalScore
+                );
             }
         }
+        console.log('Detected current level:', detectedCurrentLevel);
+        const today = new Date();
+        const todayDayOfWeek = today.getDay();
+        // const todayDayOfWeek = 4;
 
         const context = {
             userId: userId.toString(),
@@ -70,6 +80,7 @@ export class RoadmapService {
             userPreferences,
             testAnalysis,
             providedWeaknesses: input.weaknesses,
+            todayDayOfWeek,
         };
 
         const llmResponse = await learningPlanAIService.generateLearningRoadmap(
@@ -83,12 +94,14 @@ export class RoadmapService {
         const startDate = new Date();
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + llmResponse.totalWeeks * 7);
+        const finalCurrentLevel =
+            detectedCurrentLevel || llmResponse.currentLevel;
 
         const roadmap = await Roadmap.create({
             userId,
             roadmapId,
             userPrompt: input.userPrompt,
-            currentLevel: llmResponse.currentLevel,
+            currentLevel: finalCurrentLevel,
             targetScore: input.targetScore,
             startDate,
             endDate,

@@ -42,6 +42,12 @@ export class LearningPlanController {
                 throw new ApiError(ErrorMessage.TARGET_SCORE_REQUIRED);
             }
 
+        let testInfo = await testResultService.getFirstTestInfo(
+            userId.toString()
+        );
+        if (!testResultId && testInfo.hasTest && testInfo.firstTest) {
+            testResultId = testInfo.firstTest.id;
+        }
         const roadmap = await roadmapService.generateRoadmap(userId, {
             testResultId,
             targetScore,

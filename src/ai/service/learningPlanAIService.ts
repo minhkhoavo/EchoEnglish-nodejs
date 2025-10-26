@@ -13,6 +13,7 @@ interface GenerateRoadmapInput {
         currentLevel?: string;
         preferredStudyTime?: string;
         contentInterests?: string[];
+        studyDaysOfWeek?: number[];
     };
     testAnalysis?: {
         score: number;
@@ -22,6 +23,7 @@ interface GenerateRoadmapInput {
         domainsPerformance?: unknown[];
     };
     providedWeaknesses?: unknown[];
+    todayDayOfWeek?: number;
 }
 
 interface GenerateRoadmapOutput {
@@ -142,6 +144,12 @@ export class LearningPlanAIService {
                 input.userPreferences?.preferredStudyTime || 'N/A',
             contentInterests:
                 input.userPreferences?.contentInterests?.join(', ') || 'N/A',
+            studyDaysOfWeek:
+                input.userPreferences?.studyDaysOfWeek?.join(', ') ||
+                '1, 2, 3, 4, 5',
+            todayDayOfWeek: (
+                input.todayDayOfWeek ?? new Date().getDay()
+            ).toString(),
             testAnalysisBlock,
             providedWeaknessesBlock,
         };
