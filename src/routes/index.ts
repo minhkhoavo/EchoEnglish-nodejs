@@ -19,7 +19,6 @@ import translateRouter from './translate.js';
 import writingAttemptsRouter from './writingAttempts.js';
 import writingResults from './writingResults.js';
 import learningPlanRouter from './learningPlan.js';
-import roadmapCalibrationRouter from './roadmapCalibration.js';
 
 const apiRouter = Router();
 
@@ -44,6 +43,5 @@ apiRouter.use('/notifications', notificationRouter);
 apiRouter.use('/writing-attempts', writingAttemptsRouter);
 apiRouter.use('/writing-results', writingResults);
 apiRouter.use('/learning-plans', learningPlanRouter);
-apiRouter.use('/roadmap-calibration', roadmapCalibrationRouter);
 
 export default apiRouter;

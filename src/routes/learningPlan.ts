@@ -23,6 +23,11 @@ learningPlanRouter.post(
     learningPlanController.generateRoadmap.bind(learningPlanController)
 );
 
+learningPlanRouter.get(
+    '/check-missed',
+    learningPlanController.checkMissedSessions.bind(learningPlanController)
+);
+
 // ==================== DAILY SESSION ====================
 learningPlanRouter.get(
     '/today',

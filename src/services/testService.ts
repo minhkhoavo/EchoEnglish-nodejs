@@ -38,7 +38,7 @@ class TestService {
         const db = await this.getDb();
         const objectId = new ObjectId(testId);
 
-        // Nếu không truyền parts → trả về toàn bộ test
+        // If no parts are passed → return the entire test
         if (!partNumbers || partNumbers.length === 0) {
             const test = await db
                 .collection('tests')
@@ -49,7 +49,7 @@ class TestService {
             return test;
         }
 
-        // Nếu có parts → lọc trong mảng parts
+        // If parts are provided → filter within the parts array
         const testArray = await db
             .collection('tests')
             .aggregate([
@@ -134,18 +134,25 @@ class TestService {
             test.parts?.forEach(
                 (part: {
                     partName: string;
-                    questions?: Array<{ _id: ObjectId }>;
+                    questions?: Array<{
+                        _id: ObjectId;
+                        [key: string]: unknown;
+                    }>;
                     questionGroups?: Array<{
-                        questions: Array<{ _id: ObjectId }>;
+                        questions: Array<{
+                            _id: ObjectId;
+                            [key: string]: unknown;
+                        }>;
                         groupContext?: Record<string, unknown>;
                     }>;
                 }) => {
-                    let hasMatchingQuestions = false;
-                    const partData = {
+                    const existingPartData = foundParts.get(part.partName) || {
                         partName: part.partName,
-                        questions: [] as unknown[],
-                        questionGroups: [] as unknown[],
+                        questions: [],
+                        questionGroups: [],
                     };
+
+                    let hasMatchingQuestionsInCurrentPart = false;
 
                     // Check individual questions (Parts 1, 2, 5)
                     if (part.questions) {
@@ -153,30 +160,35 @@ class TestService {
                             objectIds.some((id) => id.equals(q._id))
                         );
                         if (matchingQuestions.length > 0) {
-                            partData.questions = matchingQuestions;
-                            hasMatchingQuestions = true;
+                            // Add the found questions to the questions array of existingPartData
+                            existingPartData.questions.push(
+                                ...matchingQuestions
+                            );
+                            hasMatchingQuestionsInCurrentPart = true;
                         }
                     }
 
                     // Check question groups (Parts 3, 4, 6, 7)
                     if (part.questionGroups) {
                         part.questionGroups.forEach((group) => {
-                            const hasMatchingQuestion = group.questions?.some(
-                                (q) => objectIds.some((id) => id.equals(q._id))
-                            );
-                            if (hasMatchingQuestion) {
-                                // Include the entire group if any question in it matches
-                                partData.questionGroups.push({
+                            const hasMatchingQuestionInGroup =
+                                group.questions?.some((q) =>
+                                    objectIds.some((id) => id.equals(q._id))
+                                );
+                            if (hasMatchingQuestionInGroup) {
+                                // Add the entire group to the questionGroups array of existingPartData
+                                existingPartData.questionGroups.push({
                                     groupContext: group.groupContext || {},
                                     questions: group.questions || [],
                                 });
-                                hasMatchingQuestions = true;
+                                hasMatchingQuestionsInCurrentPart = true;
                             }
                         });
                     }
 
-                    if (hasMatchingQuestions) {
-                        foundParts.set(part.partName, partData);
+                    // If this part (from the current test) contains matching questions, update the Map with the merged data.
+                    if (hasMatchingQuestionsInCurrentPart) {
+                        foundParts.set(part.partName, existingPartData);
                     }
                 }
             );
@@ -221,6 +233,84 @@ class TestService {
         };
 
         return response;
+    }
+
+    /**
+     * Search and return an array of random question IDs based on skill or domain.
+     * @param criteria - Search criteria
+     * @param criteria.skills - Array of skills to search for
+     * @param criteria.domains - Array of domains to search for
+     * @param limit - Maximum number of question IDs to return
+     * @returns An array of ObjectIds of questions
+     */
+    public async findRandomQuestionIds(
+        criteria: { skills?: string[]; domains?: string[] },
+        limit: number = 10
+    ): Promise<string[]> {
+        const { skills = [], domains = [] } = criteria;
+
+        if (skills.length === 0 && domains.length === 0) {
+            console.log('No search criteria provided. Returning empty array.');
+            return [];
+        }
+
+        try {
+            const db = await this.getDb();
+            const collection = db.collection('tests');
+
+            const orConditions: Record<string, unknown>[] = [];
+            if (skills.length > 0) {
+                const skillsQuery = { $in: skills };
+                orConditions.push(
+                    { 'skillTags.skills': skillsQuery },
+                    { 'skillTags.questionForm': skillsQuery },
+                    { 'skillTags.questionFunction': skillsQuery },
+                    { 'skillTags.skillCategory': skillsQuery },
+                    { 'skillTags.skillDetail': skillsQuery },
+                    { 'skillTags.grammarPoint': skillsQuery },
+                    { 'skillTags.vocabPoint': skillsQuery },
+                    { 'skillTags.tagType': skillsQuery }
+                );
+            }
+            if (domains.length > 0) {
+                orConditions.push({ 'contentTags.domain': { $in: domains } });
+            }
+
+            if (orConditions.length === 0) {
+                return [];
+            }
+            const pipeline = [
+                { $unwind: '$parts' },
+                {
+                    $project: {
+                        questionsList: {
+                            $ifNull: [
+                                '$parts.questions',
+                                '$parts.questionGroups.questions',
+                            ],
+                        },
+                    },
+                },
+                { $unwind: '$questionsList' },
+                {
+                    $unwind: {
+                        path: '$questionsList',
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+                { $replaceRoot: { newRoot: '$questionsList' } },
+                { $match: { _id: { $exists: true } } },
+                { $match: { $or: orConditions } },
+                { $sample: { size: limit } },
+                { $project: { _id: 1 } },
+            ];
+
+            const results = await collection.aggregate(pipeline).toArray();
+            return results.map((doc) => doc._id.toString());
+        } catch (error) {
+            console.error('Error finding random question IDs:', error);
+            return [];
+        }
     }
 }
 

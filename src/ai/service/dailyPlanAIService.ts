@@ -89,7 +89,9 @@ interface DailyPlanOutput {
 
         // Or generate practice drill
         generatePracticeDrill: boolean;
-        practiceQuestionIds?: string[]; // IDs of questions to practice
+        practiceQuestionIds?: string[]; // IDs of questions to practice (for mistake review)
+        targetPracticeSkills?: string[]; // Skills to practice (for skill-based drills)
+        targetPracticeDomains?: string[]; // Domains to practice (for domain-based drills)
         minCorrectAnswers?: number; // Minimum correct answers to complete
         drillInstructions?: string; // Instructions for the practice drill
 

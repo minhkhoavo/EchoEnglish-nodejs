@@ -7,6 +7,7 @@ import { studyPlanGeneratorService } from './StudyPlanGeneratorService.js';
 import { Resource } from '../../models/resource.js';
 import { progressTrackingService } from './ProgressTrackingService.js';
 import { roadmapCalibrationService } from './RoadmapCalibrationService.js';
+import testService from '../../services/testService.js';
 
 interface WeeklyFocus {
     weekNumber: number;
@@ -45,6 +46,8 @@ interface Roadmap {
     currentLevel?: string;
     userId?: string;
     testResultId?: string;
+    activeWeekNumber?: number;
+    studyTimePerDay?: number;
 }
 interface DailyFocus {
     dayOfWeek: number;
@@ -384,32 +387,118 @@ export class DailySessionService {
 
             // Generate practice drill if AI decided
             let aiPracticeDrill = [];
-            if (
-                activity.generatePracticeDrill &&
-                activity.practiceQuestionIds
-            ) {
-                aiPracticeDrill.push({
-                    title: activity.title || 'Mistake Review Drill',
-                    practiceQuestionIds: activity.practiceQuestionIds,
-                    minCorrectAnswers:
-                        activity.minCorrectAnswers ||
-                        Math.floor(activity.practiceQuestionIds.length / 2),
-                    description:
-                        activity.drillInstructions ||
-                        `Practice drill focusing on ${activity.skillsToImprove?.[0] || 'general skills'}`,
-                    totalQuestions: activity.practiceQuestionIds?.length || 5,
-                    estimatedTime: Math.min(activity.estimatedTime || 15, 20),
-                    skillTags: {
-                        skillCategory:
-                            activity.skillsToImprove?.[0] || 'OTHERS',
-                        specificSkills: activity.skillsToImprove || [],
-                    },
-                    partNumbers: [],
-                    difficulty: 'intermediate',
-                    completed: false,
-                    score: 0,
-                    attempts: 0,
-                });
+            if (activity.generatePracticeDrill) {
+                let questionIds = activity.practiceQuestionIds || [];
+
+                // If no specific question IDs provided, search by skills/domains from AI
+                if (questionIds.length === 0) {
+                    console.log(
+                        'No specific question IDs, searching by skills/domains from AI decision...'
+                    );
+                    const criteria: { skills?: string[]; domains?: string[] } =
+                        {};
+
+                    // Use AI-provided targetPracticeSkills and targetPracticeDomains
+                    if (
+                        activity.targetPracticeSkills &&
+                        activity.targetPracticeSkills.length > 0
+                    ) {
+                        criteria.skills = activity.targetPracticeSkills;
+                        console.log('Target practice skills:', criteria.skills);
+                    }
+
+                    if (
+                        activity.targetPracticeDomains &&
+                        activity.targetPracticeDomains.length > 0
+                    ) {
+                        criteria.domains = activity.targetPracticeDomains;
+                        console.log(
+                            'Target practice domains:',
+                            criteria.domains
+                        );
+                    }
+
+                    // Ensure at least one criteria is provided
+                    if (!criteria.skills?.length && !criteria.domains?.length) {
+                        console.warn(
+                            'No practice criteria provided by AI, skipping drill generation'
+                        );
+                    } else {
+                        // Find random questions based on criteria
+                        const limit = Math.min(
+                            activity.estimatedTime
+                                ? activity.estimatedTime
+                                : 15,
+                            30
+                        );
+                        questionIds = await testService.findRandomQuestionIds(
+                            criteria,
+                            limit
+                        );
+                        console.log(
+                            `Found ${questionIds.length} questions for practice drill`
+                        );
+                    }
+                }
+
+                if (questionIds.length > 0) {
+                    // Add a brief instructional resource for practice drill
+                    const drillGuide = {
+                        type: 'personalized_guide' as const,
+                        title: `How to approach ${activity.title}`,
+                        description:
+                            activity.drillInstructions ||
+                            `Tips and strategies for ${activity.skillsToImprove?.join(', ') || 'this practice'}`,
+                        estimatedTime: 3,
+                        generatedContent: {
+                            sections: [
+                                {
+                                    title: 'Practice Instructions',
+                                    content:
+                                        activity.drillInstructions ||
+                                        'Focus on understanding the question thoroughly before selecting your answer.',
+                                },
+                                {
+                                    title: 'Key Focus Areas',
+                                    content: activity.skillsToImprove
+                                        ? `This drill focuses on: ${activity.skillsToImprove.join(', ')}`
+                                        : 'Practice these questions carefully.',
+                                },
+                            ],
+                            quickTips: [
+                                'Read each question carefully',
+                                'Take your time - accuracy over speed',
+                                `Target: ${activity.minCorrectAnswers || Math.floor(questionIds.length * 0.6)} correct out of ${questionIds.length}`,
+                            ],
+                        },
+                        completed: false,
+                    };
+                    resources.push(drillGuide);
+
+                    aiPracticeDrill.push({
+                        title: activity.title || 'Practice Drill',
+                        practiceQuestionIds: questionIds,
+                        minCorrectAnswers: 0,
+                        description:
+                            activity.drillInstructions ||
+                            `Practice drill focusing on ${activity.skillsToImprove?.[0] || 'general skills'}`,
+                        totalQuestions: questionIds.length,
+                        estimatedTime: Math.min(
+                            activity.estimatedTime || 15,
+                            20
+                        ),
+                        skillTags: {
+                            skillCategory:
+                                activity.skillsToImprove?.[0] || 'OTHERS',
+                            specificSkills: activity.skillsToImprove || [],
+                        },
+                        partNumbers: [],
+                        difficulty: 'intermediate',
+                        completed: false,
+                        score: 0,
+                        attempts: 0,
+                    });
+                }
             }
 
             planItems.push({

@@ -555,7 +555,9 @@ export class RoadmapCalibrationService {
                 dailySessionCompleted: false,
             }));
             // Overwrite old schedule
+            // @ts-expect-error mongoose type issue
             activeWeek.dailyFocuses = newDailyFocuses;
+            // @ts-expect-error mongoose method
             roadmap.markModified('weeklyFocuses');
             activeWeek.totalSessions = activeWeek.dailyFocuses.length;
             activeWeek.status = 'in-progress';

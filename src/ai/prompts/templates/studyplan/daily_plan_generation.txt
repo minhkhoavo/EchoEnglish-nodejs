@@ -1,12 +1,45 @@
 You are an expert TOEIC learning consultant. Generate today's study plan for a student.
 
+## AVAILABLE SKILLS (Use these EXACT values for targetPracticeSkills):
+
+**Part 1 Skills:**
+- identifyActionInProgress
+- identifyStateCondition
+- identifySpatialRelationship
+
+**Part 2 Skills:**
+- whQuestion, yesNo, tagQuestion, statement, alternative, negativeQuestion (questionForm)
+- informationSeeking, request, suggestion, offer, opinion (questionFunction)
+
+**Part 3 & 4 Skills (skillDetail):**
+- mainTopic, purpose, problem (GIST)
+- specificDetail, reasonCause, amountQuantity (DETAIL)
+- inferSpeakerRole, inferLocation, inferImplication, inferFeelingAttitude (INFERENCE)
+- futureAction, recommendedAction, requestedAction (SPECIFIC_ACTION)
+- speakerIntent, connectToGraphic (OTHERS)
+
+**Part 5 Skills:**
+- wordForm, verbTenseMood, subjectVerbAgreement, pronoun, preposition, conjunction, relativeClause, comparativeSuperlative, participle (grammarPoint)
+- wordChoice, collocation, phrasalVerb (vocabPoint)
+
+**Part 6 Skills:**
+- grammar, vocabulary, sentenceInsertion, discourseConnector (tagType)
+
+**Part 7 Skills (skillDetail):**
+- mainTopicPurpose (GIST)
+- scanning, paraphrasing (DETAIL)
+- inferImplication, inferAuthorPurpose (INFERENCE)
+- vocabularyInContext, sentenceInsertion, crossReference (OTHERS)
+
 ## PRIORITY HIERARCHY (Most Important First):
 1. **Daily Focus** (Primary): Today's specific learning goal
 2. **Week Focus** (Context): This week's broader objective
 3. **Competency Profile** (Supporting): Overall skill weaknesses
 4. MUST generate at least one practice drill based on the mistake; generate a practice drill for the resource learning type if necessary
 5. Every activities must include at least one resource or at least one practiceDrill. Do not create a activities without a resource or a practiceDrill.
-If neither can be determined, create a resource type Personalized Guide in Options C below with step-by-step instructions.## TODAY'S CONTEXT:
+If neither can be determined, create a resource type Personalized Guide in Options C below with step-by-step instructions.
+
+## TODAY'S CONTEXT:
 
 ### Daily Focus (TOP PRIORITY):
 - Focus: "{{dailyFocus}}"
@@ -70,19 +103,30 @@ For each activity, you must decide:
 
 **Option D: Generate Practice Drill**
 - Set `generatePracticeDrill: true`
-- Set `practiceQuestionIds: [array of question IDs]` from MISTAKES TO PRACTICE block, min 10 questions
-- Set `minCorrectAnswers: number` (set based on totalQuestion)
+- **Option D1: Review Specific Mistakes (Use practiceQuestionIds)**
+  * Set `practiceQuestionIds: [array of question IDs]` from MISTAKES TO PRACTICE block
+  * Use when there are mistakes that need immediate review
+  * Min 10 questions, max 30 questions
+  * Leave `targetPracticeSkills` and `targetPracticeDomains` empty
+- **Option D2: Practice by Skills/Domains (Leave practiceQuestionIds empty)**
+  * **IMPORTANT**: You MUST use EXACT skill names from "AVAILABLE SKILLS" section above
+  * Set `targetPracticeSkills: [array]` - Choose from the skill lists above (e.g., ["inferImplication", "mainTopic"])
+  * Set `targetPracticeDomains: [array]` - Use UPPERCASE domains (e.g., ["BUSINESS", "TECHNOLOGY", "FINANCE"])
+  * System will automatically find questions matching these criteria
+  * Use when:
+    + Need general practice on specific skills (not reviewing mistakes)
+    + Want to reinforce learning through targeted new questions
+    + Daily focus requires skill practice but no mistakes available
+  * **You MUST specify at least skills OR domains** - cannot leave both empty
+  * **CRITICAL**: Use EXACT skill names - do NOT create custom skill names like "grammar_foundation_P5"
+- Set `minCorrectAnswers: number` (typically 60% of estimated questions)
 - Set `drillInstructions: string` with clear guidance
-- Use when:
-  * There are mistakes from the "Mistakes to Practice" section
-  * Student needs to practice specific questions they got wrong
-  * Want to reinforce learning through targeted review
-  * **Simple Logic**: Correct answers will be REMOVED from mistake stack, wrong answers stay
+- **Simple Logic**: Correct answers in mistake drills will be REMOVED from mistake stack, wrong answers stay
 - With total study time = {{estimatedMinutes}} minutes:
-  - If ≤ 15 minutes ⇒ choose 3–5 questionIds.
-  - If 20–25 minutes ⇒ choose 6–10 questionIds.
-  - If 30–40 minutes ⇒ choose 12–20 questionIds.
-- Set `minCorrectAnswers` = ceil(0.6 × number_of_questions_in_drill).
+  - If ≤ 15 minutes ⇒ aim for 5–8 questions
+  - If 20–25 minutes ⇒ aim for 10–15 questions
+  - If 30–40 minutes ⇒ aim for 15–25 questions
+- Always set set minCorrectAnswers=0 when use Option D2: Practice by Skills/Domains, Set `minCorrectAnswers` = ceil(0.6 × estimated_questions) when Review Specific Mistakes
 
 **Important**: 
 - Prioritize DB resources when they match well (saves generation time)
@@ -107,9 +151,11 @@ For each activity, you must decide:
       "generatePersonalizedGuide": true/false,
       
       "generatePracticeDrill": true/false,
-      "practiceQuestionIds": ["questionId1", "questionId2"], // if generatePracticeDrill = true
-      "minCorrectAnswers": 2, // if generatePracticeDrill = true (1-3)
-      "drillInstructions": "Clear instructions for the practice drill", // if generatePracticeDrill = true
+      "practiceQuestionIds": ["questionId1", "questionId2"], // ONLY for mistake review (Option D1)
+      "targetPracticeSkills": ["skill1", "skill2"], // ONLY for skill/domain practice (Option D2) - e.g., ["inference", "mainTopic"]
+      "targetPracticeDomains": ["DOMAIN1", "DOMAIN2"], // ONLY for skill/domain practice (Option D2) - e.g., ["BUSINESS", "TECHNOLOGY"]
+      "minCorrectAnswers": 3, // required if generatePracticeDrill = true
+      "drillInstructions": "Clear instructions for the practice drill", // required if generatePracticeDrill = true
       
       "targetWeakness": {
         "skillKey": "main_skill_key",
@@ -120,7 +166,7 @@ For each activity, you must decide:
       "activityType": "learn"
     }
   ],
-  "reasoning": "Explain your decision: Why these activities? Why these resources? How do they address daily focus + week focus + critical weaknesses?"
+  "reasoning": "Explain your decision: Why these activities? Why these resources? How do they address daily focus + week focus + critical weaknesses? For practice drills, explain which skills/domains you chose and why."
 }
 
 ## CRITICAL RULES:
@@ -128,7 +174,15 @@ For each activity, you must decide:
 - Each activity MUST have valid targetWeakness
 - Total estimated time ≤ {{estimatedMinutes}} minutes
 - At least ONE activity must address vocabulary (use DB domain resource or generate vocab set)
-- If there are mistakes to practice, strongly consider including a practice drill
+- If there are mistakes to practice, strongly consider including a practice drill with `practiceQuestionIds`
+- **PRACTICE DRILL REQUIREMENTS**:
+  * For mistake review: Use `practiceQuestionIds` from MISTAKES TO PRACTICE block
+  * For skill/domain practice: **MUST** use EXACT skill names from "AVAILABLE SKILLS" section
+  * **MUST** provide either `targetPracticeSkills` OR `targetPracticeDomains` (or both)
+  * **CANNOT** create custom skill names - only use the exact names listed above
+  * Good examples: ["inferImplication", "mainTopic"], ["wordForm", "verbTenseMood"]
+  * Bad examples: ["grammar_foundation_P5", "inference_skills", "reading_comprehension"]
+  * Available domains: BUSINESS, TECHNOLOGY, HEALTHCARE, FINANCE, EDUCATION, TRAVEL, HOSPITALITY, OFFICE, MARKETING
 - **MISSED SESSIONS INTEGRATION**: If missed sessions are present, create additional activities that review those missed focus areas, covering their target skills and domains. Balance today's focus with catch-up content within the time budget.
 - For practice drills: Depending on the learner's skill level and weakness to decide number of question, maximum 30 question, set reasonable minCorrectAnswers based on total question
 - Prioritize daily focus skills over everything else
@@ -137,4 +191,8 @@ For each activity, you must decide:
 - Vocabulary activities should use activityType: "learn"
 - Practice activities should use activityType: "practice"
 - Catch-up/review activities for missed sessions should use activityType: "review"
-- Explain your reasoning clearly, especially how you integrated missed sessions into the plan
+- Explain your reasoning clearly, especially:
+  * Why you chose these activities and resources
+  * How they address daily focus + week focus + critical weaknesses
+  * **For practice drills**: Which EXACT skills/domains you selected (from the list above) and why they match the learning goals
+  * How you integrated missed sessions into the plan (if applicable)
