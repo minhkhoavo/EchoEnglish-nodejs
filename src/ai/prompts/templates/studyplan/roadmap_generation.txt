@@ -10,11 +10,13 @@ User Context:
 - Target Score: {{targetScore}}
 - Study Time: {{studyTimePerDay}} minutes/day, {{studyDaysPerWeek}} days/week
 - Current Level: {{currentLevel}} (beginner (toeic score 0 - 400) | intermediate (toeic score 400 - 700) | upper_intermediate (toeic score 700 - 850) | advanced (toeic score 850 - 990))
+- Today's Day of Week: {{todayDayOfWeek}} (0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday)
 
 User Preferences (Context for Strategy):
 - Primary Goal: {{primaryGoal}} (toeic_preparation | career_advancement | business_english | academic_excellence)
 - Preferred Study Time: {{preferredStudyTime}} (morning | afternoon | evening | night) - Use this as a hint for intensity
 - Content Interests: {{contentInterests}} - Suggest incorporating these domains when appropriate
+- Study Days of Week: {{studyDaysOfWeek}} - User's preferred days to study
 
 {{testAnalysisBlock}}
 {{providedWeaknessesBlock}}
@@ -26,18 +28,37 @@ User Preferences (Context for Strategy):
 - Consider user's primaryGoal and userPrompt when designing the roadmap strategy (e.g., business_english → prioritize business domains, career_advancement → focus on practical skills)
 - Use contentInterests as supplementary domain suggestions in recommendedDomains when they align with learning objectives
 - Adjust learning intensity based on preferredStudyTime: morning learners may prefer more intensive foundational work, evening learners may prefer lighter review-based activities
+- **CRITICAL: The `weeklyFocuses` array MUST contain an object for EVERY week, from week 1 up to the calculated `totalWeeks`. Weeks 3 and later simply will not have the `dailyFocuses` field.**
+
+### Daily Focus Generation Rules:
 - Daily Focus is generated ONLY for Week 1 and Week 2.
-- For Week 1 and Week 2, dailyFocuses.length must equal studyDaysPerWeek.
-- dayNumber = 1..studyDaysPerWeek.
-- dayOfWeek should correspond to user's studyDaysOfWeek preferences.
-- estimatedMinutes = studyTimePerDay.
-- status = "pending".
-- scheduledDate = null.
-- isCritical = false by default, set to true for critical learning milestones.
-- dailySessionCompleted = false by default.
+
+**CRITICAL RULES FOR WEEK 1:**
+1. **ONLY generate dailyFocuses from TODAY onwards** - Do NOT create any daily focus for past days (dayOfWeek < {{todayDayOfWeek}})
+2. **ALWAYS include TODAY as the FIRST daily focus** (dayNumber: 1, dayOfWeek: {{todayDayOfWeek}}), even if {{todayDayOfWeek}} is not in studyDaysOfWeek
+3. After today, generate daily focuses for remaining days of the current week based on studyDaysOfWeek that are AFTER today
+4. Example: If today is Wednesday (3) and studyDaysOfWeek is [1,2,3,4,5], then Week 1 should have dailyFocuses for: [3 (Wed-today), 4 (Thu), 5 (Fri)]
+5. Example: If today is Friday (5) and studyDaysOfWeek is [1,2,3,4,5], then Week 1 should have dailyFocuses for: [5 (Fri-today)] only
+6. Example: If today is Sunday (0) and studyDaysOfWeek is [1,2,3,4,5], then Week 1 should have dailyFocuses for: [0 (Sun-today), 1 (Mon), 2 (Tue), 3 (Wed), 4 (Thu), 5 (Fri)]
+
+**RULES FOR WEEK 2:**
+- Generate dailyFocuses.length = studyDaysPerWeek
+- Follow studyDaysOfWeek preferences exactly
+- Start from the beginning of the week
+
+**General Daily Focus Rules:**
+- dayNumber = sequential numbering starting from 1 (1, 2, 3, ...)
+- dayOfWeek = actual day of week (0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday)
+- estimatedMinutes = studyTimePerDay
+- status = "pending"
+- scheduledDate = null
+- isCritical = false by default, set to true for critical learning milestones
+- dailySessionCompleted = false by default
+
 - Later weeks (Week 3+) must NOT include dailyFocuses (omit the field or set empty array).
 - Prioritize weaknesses from testAnalysis and/or providedWeaknesses when choosing focusSkills and targetWeaknesses.
 - severity values MUST be lowercase: "critical", "high", "medium", "low" (not uppercase).
+- **If testAnalysis is provided, ALWAYS use the score to determine currentLevel**: 0-400=beginner, 400-700=intermediate, 700-850=upper_intermediate, 850-990=advanced. Override any other currentLevel value.
 
 ### Foundation vs Domain
 
@@ -66,6 +87,41 @@ User Preferences (Context for Strategy):
 
 ## OUTPUT CONTRACT (JSON)
 
+**IMPORTANT EXAMPLES FOR WEEK 1 DAILY FOCUSES:**
+
+Example 1: Today is Wednesday (dayOfWeek=3), studyDaysOfWeek=[1,2,3,4,5]
+```json
+"weekNumber": 1,
+"dailyFocuses": [
+  {"dayNumber": 1, "dayOfWeek": 3, "focus": "..."},  // Wednesday (today) - MUST include
+  {"dayNumber": 2, "dayOfWeek": 4, "focus": "..."},  // Thursday
+  {"dayNumber": 3, "dayOfWeek": 5, "focus": "..."}   // Friday
+]
+```
+
+Example 2: Today is Friday (dayOfWeek=5), studyDaysOfWeek=[1,2,3,4,5]
+```json
+"weekNumber": 1,
+"dailyFocuses": [
+  {"dayNumber": 1, "dayOfWeek": 5, "focus": "..."}  // Friday (today) - only day left in week
+]
+```
+
+Example 3: Today is Sunday (dayOfWeek=0), studyDaysOfWeek=[1,2,3,4,5]
+```json
+"weekNumber": 1,
+"dailyFocuses": [
+  {"dayNumber": 1, "dayOfWeek": 0, "focus": "..."},  // Sunday (today) - MUST include even not in studyDaysOfWeek
+  {"dayNumber": 2, "dayOfWeek": 1, "focus": "..."},  // Monday
+  {"dayNumber": 3, "dayOfWeek": 2, "focus": "..."},  // Tuesday
+  {"dayNumber": 4, "dayOfWeek": 3, "focus": "..."},  // Wednesday
+  {"dayNumber": 5, "dayOfWeek": 4, "focus": "..."},  // Thursday
+  {"dayNumber": 6, "dayOfWeek": 5, "focus": "..."}   // Friday
+]
+```
+
+**FULL OUTPUT STRUCTURE:**
+
 ```json
 {
   "currentLevel": "Beginner | Intermediate | Advanced",
@@ -81,7 +137,7 @@ User Preferences (Context for Strategy):
       "targetScore": 650,
       "description": "Master the basics",
       "keyFocusAreas": ["Grammar fundamentals", "Core vocabulary 500+", "Part 1-2 mastery"],
-      "status": "upcoming"
+      "status": ["upcoming', 'in-progress', 'completed"]
     }
   ],
   "weeklyFocuses": [
