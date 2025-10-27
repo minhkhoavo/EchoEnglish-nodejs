@@ -8,6 +8,19 @@ import { ApiError } from '~/middleware/apiError.js';
 import resourceService from '~/services/transcription/resourceService.js';
 
 class ResourceController {
+    public getResourceById = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const resource = await resourceService.getResourceById(id);
+
+        if (!resource) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
+
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, resource));
+    };
+
     public updateResourceHandler = async (req: Request, res: Response) => {
         const { id } = req.params;
         const updateData = req.body;

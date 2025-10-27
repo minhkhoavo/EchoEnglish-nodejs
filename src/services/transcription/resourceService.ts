@@ -17,6 +17,14 @@ import pLimit from 'p-limit';
 import omit from 'lodash/omit.js';
 
 class ResourceService {
+    public async getResourceById(id: string) {
+        const resource = await Resource.findById(id);
+        if (!resource) {
+            return null;
+        }
+        return omit(resource.toObject(), ['__v']);
+    }
+
     public cleanHtmlContent(html: string): string {
         if (!html) return '';
         let cleaned = html

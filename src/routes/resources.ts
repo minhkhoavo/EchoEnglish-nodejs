@@ -5,6 +5,7 @@ import { RoleName } from '~/enum/role.js';
 
 const router = Router();
 router.get('', resourceController.searchResource);
+router.get('/:id', resourceController.getResourceById);
 router.post('', resourceController.getTranscriptHanlder);
 router.post('/save', resourceController.saveTranscriptHandler);
 router.put(
