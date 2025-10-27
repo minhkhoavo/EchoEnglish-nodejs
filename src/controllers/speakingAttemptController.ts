@@ -8,6 +8,7 @@ class SpeakingAttemptController {
     async start(req: Request, res: Response, next: NextFunction) {
         try {
             const userId = (req.user as Record<string, unknown>)?.id as string;
+            const { examMode } = req.body;
             if (!userId) throw new ApiError(ErrorMessage.UNAUTHORIZED);
 
             const { toeicSpeakingTestId } = req.body || {};
@@ -21,6 +22,7 @@ class SpeakingAttemptController {
             const result = await speakingAttemptService.startAttempt({
                 userId,
                 toeicSpeakingTestId,
+                examMode,
             });
             res.status(201).json(new ApiResponse('Attempt started', result));
         } catch (err) {

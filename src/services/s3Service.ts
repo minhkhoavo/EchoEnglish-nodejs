@@ -111,6 +111,47 @@ class S3Service {
             });
         }
     }
+
+    async downloadFile(url: string): Promise<Buffer | null> {
+        try {
+            // Extract key from S3 URL
+            // URL format: https://bucket.s3.region.amazonaws.com/key
+            const urlObj = new URL(url);
+            const key = urlObj.pathname.substring(1); // Remove leading slash
+
+            const command = new GetObjectCommand({
+                Bucket: this.bucketName,
+                Key: key,
+            });
+
+            const response = await this.s3Client.send(command);
+
+            // Convert stream to buffer
+            if (!response.Body) {
+                return null;
+            }
+
+            const chunks: Buffer[] = [];
+            const stream = response.Body as NodeJS.ReadableStream;
+
+            return new Promise((resolve, reject) => {
+                stream.on('data', (chunk) => {
+                    chunks.push(
+                        Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+                    );
+                });
+                stream.on('error', (err) => {
+                    reject(err);
+                });
+                stream.on('end', () => {
+                    resolve(Buffer.concat(chunks));
+                });
+            });
+        } catch (error) {
+            console.error('ApiError downloading file from S3:', error);
+            return null;
+        }
+    }
 }
 
 export default new S3Service();
