@@ -204,8 +204,8 @@ export class StudyPlanGeneratorService {
         console.log(`Generated ${resources.length} learning resources`);
 
         // 3. Generate practice drills
-        const practiceDrills = await this.generatePracticeDrills(weakness);
-        console.log(`Generated ${practiceDrills.length} practice drills`);
+        // const practiceDrills = await this.generatePracticeDrills(weakness);
+        // console.log(`Generated ${practiceDrills.length} practice drills`);
 
         const skillsToImprove = this.extractSkillsToImprove(weakness);
         console.log('Skills to improve:', skillsToImprove);
@@ -239,7 +239,7 @@ export class StudyPlanGeneratorService {
             },
             skillsToImprove: validatedSkillsToImprove,
             resources,
-            practiceDrills,
+            practiceDrills: [],
             progress: 0,
             estimatedWeeks: aiPlanItem.estimatedWeeks || 2,
         };

@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import TestService from '../services/testService.js';
 import ApiResponse from '~/dto/response/apiResponse.js';
-
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 
 class TestController {
@@ -74,6 +75,33 @@ class TestController {
             .status(200)
             .json(
                 new ApiResponse(SuccessMessage.GET_TEST_BY_ID_SUCCESS, result)
+            );
+    };
+
+    public findRandomQuestionIds = async (req: Request, res: Response) => {
+        const { skills, domains, limit } = req.body;
+
+        // Validate input
+        if (!skills && !domains) {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+
+        if (limit !== undefined && (typeof limit !== 'number' || limit <= 0)) {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+
+        const questionIds = await TestService.findRandomQuestionIds(
+            { skills, domains },
+            limit || 10 // Default limit to 10 if not provided
+        );
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    SuccessMessage.GET_RANDOM_QUESTIONS_SUCCESS,
+                    questionIds
+                )
             );
     };
 }

@@ -36,6 +36,7 @@ export enum SuccessMessage {
     GET_ALL_TESTS_SUCCESS = 'Get all tests successfully',
     GET_TEST_BY_ID_SUCCESS = 'Get test by ID successfully',
     GET_TEST_BY_PART_SUCCESS = 'Get test by part successfully',
+    GET_RANDOM_QUESTIONS_SUCCESS = 'Get random questions successfully',
 
     /* Notification */
     MARK_AS_READ_SUCCESS = 'Mark as read successfully',

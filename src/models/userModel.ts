@@ -81,10 +81,10 @@ const userSchema = new Schema(
             studyDaysOfWeek: [
                 {
                     type: Number,
-                    enum: [1, 2, 3, 4, 5, 6, 7], // 1=Monday, 2=Tuesday, ..., 7=Sunday
-                    min: 1,
-                    max: 7,
-                    default: [1, 2, 3, 4, 5, 6, 7],
+                    enum: [1, 2, 3, 4, 5, 6, 0], // 1=Monday, 2=Tuesday, ..., 0=Sunday
+                    min: 0,
+                    max: 6,
+                    default: [1, 2, 3, 4, 5, 6, 0],
                 },
             ],
             preferredStudyTime: {

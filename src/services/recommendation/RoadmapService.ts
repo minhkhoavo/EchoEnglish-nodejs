@@ -9,6 +9,8 @@ import { learningPlanAIService } from '~/ai/service/learningPlanAIService.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { User } from '~/models/userModel.js';
+import { roadmapCalibrationService } from './RoadmapCalibrationService.js';
+import { determineToeicLevel } from '~/utils/toeicScore.js';
 
 interface WeaknessData {
     skillKey: string;
@@ -39,10 +41,11 @@ export class RoadmapService {
                       currentLevel: user.preferences.currentLevel,
                       preferredStudyTime: user.preferences.preferredStudyTime,
                       contentInterests: user.preferences.contentInterests,
+                      studyDaysOfWeek: user.preferences.studyDaysOfWeek,
                   }
                 : undefined;
-
         let testAnalysis = null;
+        let detectedCurrentLevel = null;
         if (input.testResultId) {
             const testResult = await TestResult.findById(input.testResultId);
             if (testResult) {
@@ -57,8 +60,16 @@ export class RoadmapService {
                         [],
                     summary: testResult.analysis?.examAnalysis?.summary || '',
                 };
+                console.log('Test score', testResult.totalScore);
+                detectedCurrentLevel = determineToeicLevel(
+                    testResult.totalScore
+                );
             }
         }
+        console.log('Detected current level:', detectedCurrentLevel);
+        const today = new Date();
+        const todayDayOfWeek = today.getDay();
+        // const todayDayOfWeek = 4;
 
         const context = {
             userId: userId.toString(),
@@ -69,6 +80,7 @@ export class RoadmapService {
             userPreferences,
             testAnalysis,
             providedWeaknesses: input.weaknesses,
+            todayDayOfWeek,
         };
 
         const llmResponse = await learningPlanAIService.generateLearningRoadmap(
@@ -82,12 +94,14 @@ export class RoadmapService {
         const startDate = new Date();
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + llmResponse.totalWeeks * 7);
+        const finalCurrentLevel =
+            detectedCurrentLevel || llmResponse.currentLevel;
 
         const roadmap = await Roadmap.create({
             userId,
             roadmapId,
             userPrompt: input.userPrompt,
-            currentLevel: llmResponse.currentLevel,
+            currentLevel: finalCurrentLevel,
             targetScore: input.targetScore,
             startDate,
             endDate,
@@ -100,28 +114,16 @@ export class RoadmapService {
             totalSessions: llmResponse.totalWeeks * input.studyDaysPerWeek,
             status: 'active',
             testResultId: input.testResultId,
+            activeWeekNumber: 1,
+            lastActiveDate: new Date(),
         });
         return roadmap;
     }
 
     async getActiveRoadmap(userId: Schema.Types.ObjectId | string) {
-        return Roadmap.findOne({ userId, status: 'active' }).lean().exec();
-    }
-
-    async updateProgress(roadmapId: string, sessionCompleted: boolean) {
-        const roadmap = await Roadmap.findOne({ roadmapId });
-        if (!roadmap) {
-            throw new Error(`Roadmap not found: ${roadmapId}`);
-        }
-
-        if (sessionCompleted) {
-            roadmap.sessionsCompleted = (roadmap.sessionsCompleted || 0) + 1;
-            roadmap.overallProgress = Math.round(
-                (roadmap.sessionsCompleted / (roadmap.totalSessions || 1)) * 100
-            );
-        }
-
-        await roadmap.save();
+        const roadmap = await Roadmap.findOne({ userId, status: 'active' })
+            .lean()
+            .exec();
         return roadmap;
     }
 
@@ -183,9 +185,14 @@ export class RoadmapService {
         }
 
         roadmap.completeDailySession(weekNumber, dayNumber);
-        roadmap.sessionsCompleted += 1;
         const stillBlocked = roadmap.isBlocked;
+        roadmap.sessionsCompleted = (roadmap.sessionsCompleted || 0) + 1;
+        roadmap.overallProgress = Math.round(
+            (roadmap.sessionsCompleted / (roadmap.totalSessions || 1)) * 100
+        );
 
+        roadmap.lastActiveDate = new Date();
+        await roadmapCalibrationService.checkAndProgressWeek(roadmapId);
         await roadmap.save();
 
         return {
@@ -200,14 +207,17 @@ export class RoadmapService {
     async updateDailyFocusStatus(
         roadmapId: string,
         weekNumber: number,
-        dayNumber: number,
+        dayOfWeek: number,
         status: 'pending' | 'upcoming' | 'in-progress' | 'completed' | 'skipped'
     ): Promise<void> {
+        console.log(
+            `Updating daily focus status for roadmap ${roadmapId}, week ${weekNumber}, day ${dayOfWeek} to ${status}`
+        );
         const roadmap = await Roadmap.findOneAndUpdate(
             {
                 roadmapId,
                 'weeklyFocuses.weekNumber': weekNumber,
-                'weeklyFocuses.dailyFocuses.dayNumber': dayNumber,
+                'weeklyFocuses.dailyFocuses.dayOfWeek': dayOfWeek,
             },
             {
                 $set: {
@@ -217,11 +227,11 @@ export class RoadmapService {
             {
                 arrayFilters: [
                     { 'week.weekNumber': weekNumber },
-                    { 'day.dayNumber': dayNumber },
+                    { 'day.dayOfWeek': dayOfWeek },
                 ],
             }
         );
-
+        console.log('Roadmap not found in here');
         if (!roadmap) {
             throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
         }

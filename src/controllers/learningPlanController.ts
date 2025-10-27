@@ -10,6 +10,7 @@ import { SuccessMessage } from '../enum/successMessage.js';
 import { testResultService } from '../services/testResultService.js';
 import { weaknessDetectorService } from '../services/diagnosis/WeaknessDetectorService.js';
 import { analysisEngineService } from '~/services/analysis/AnalysisEngineService.js';
+import { roadmapCalibrationService } from '~/services/recommendation/RoadmapCalibrationService.js';
 
 export class LearningPlanController {
     async getActiveRoadmap(req: Request, res: Response) {
@@ -42,6 +43,12 @@ export class LearningPlanController {
                 throw new ApiError(ErrorMessage.TARGET_SCORE_REQUIRED);
             }
 
+        let testInfo = await testResultService.getFirstTestInfo(
+            userId.toString()
+        );
+        if (!testResultId && testInfo.hasTest && testInfo.firstTest) {
+            testResultId = testInfo.firstTest.id;
+        }
         const roadmap = await roadmapService.generateRoadmap(userId, {
             testResultId,
             targetScore,
@@ -232,6 +239,17 @@ export class LearningPlanController {
                     : 'No listening-reading test found. Please complete a test first.',
             })
         );
+    }
+
+    async checkMissedSessions(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const result =
+            await roadmapCalibrationService.checkMissedSessions(userId);
+
+        return res.status(200).json({
+            message: SuccessMessage.GET_SUCCESS,
+            data: result,
+        });
     }
 }
 

@@ -63,6 +63,13 @@ interface DailyPlanContext {
         domain?: string;
         topics?: string[];
     }>;
+
+    // Missed Sessions (to integrate into today's plan)
+    missedSessions?: Array<{
+        focus: string;
+        targetSkills: string[];
+        suggestedDomains: string[];
+    }>;
 }
 
 interface DailyPlanOutput {
@@ -82,7 +89,9 @@ interface DailyPlanOutput {
 
         // Or generate practice drill
         generatePracticeDrill: boolean;
-        practiceQuestionIds?: string[]; // IDs of questions to practice
+        practiceQuestionIds?: string[]; // IDs of questions to practice (for mistake review)
+        targetPracticeSkills?: string[]; // Skills to practice (for skill-based drills)
+        targetPracticeDomains?: string[]; // Domains to practice (for domain-based drills)
         minCorrectAnswers?: number; // Minimum correct answers to complete
         drillInstructions?: string; // Instructions for the practice drill
 
@@ -167,6 +176,22 @@ ${context.mistakesToReview
 **Suggestion**: These are the top mistakes from the stack. If daily focus aligns, create a practice drill with 3-5 questions.`
                 : '### Mistakes to Practice:\nNo mistakes in stack for this week.';
 
+        const missedSessionsBlock =
+            context.missedSessions && context.missedSessions.length > 0
+                ? `### Missed Sessions to Catch Up (${context.missedSessions.length} sessions):
+${context.missedSessions
+    .map(
+        (session, idx) => `
+  [${idx}] Missed Focus: "${session.focus}"
+      Skills: ${session.targetSkills.join(', ')}
+      Domains: ${session.suggestedDomains.join(', ')}`
+    )
+    .join('\n')}
+
+**IMPORTANT**: User missed these sessions. You MUST integrate review content from these missed sessions into today's plan.
+Create additional review activities that cover the missed skills and topics, but keep total time within budget.`
+                : '';
+
         const variables = {
             dailyFocus: context.dailyFocus.focus,
             targetSkills: context.dailyFocus.targetSkills.join(', '),
@@ -189,6 +214,7 @@ ${context.mistakesToReview
                 context.userPreferences?.contentInterests?.join(', ') || 'N/A',
             competencyProfileBlock,
             mistakesToReviewBlock,
+            missedSessionsBlock,
             availableResourcesList: availableResourcesList || 'None available',
         };
 
