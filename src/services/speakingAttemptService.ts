@@ -342,7 +342,7 @@ export default class SpeakingAttemptService {
                         questionPrompt: foundQuestion?.questionText || '',
                         providedInfo:
                             attemptDoc?.parts?.[foundPartIndex]?.partScenario ||
-                            '',
+                            'This part has no additional context.',
                     };
                     try {
                         const scoreResult =

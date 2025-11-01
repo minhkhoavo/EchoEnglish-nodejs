@@ -25,11 +25,12 @@ export class GoogleGenAIClient {
     private model: ChatGoogleGenerativeAI;
 
     constructor(opts?: GenerateOptions) {
-        const modelName = opts?.model ?? 'gemini-2.0-flash-exp';
+        const modelName = opts?.model ?? 'gemini-2.5-flash-lite';
         this.model = new ChatGoogleGenerativeAI({
             model: modelName,
             temperature: opts?.temperature ?? 0.2,
             apiKey,
+            maxRetries: 4,
         });
     }
 
