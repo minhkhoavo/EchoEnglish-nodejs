@@ -38,7 +38,7 @@ class VnPayService {
 
     // Hàm định dạng ngày tháng theo chuẩn của VNPay
     private formatDate(date: Date): string {
-        return moment(date).format('YYYYMMDDHHmmss');
+        return moment(date).tz('Asia/Ho_Chi_Minh').format('YYYYMMDDHHmmss');
     }
 
     // Hàm tạo chữ ký bảo mật
@@ -57,7 +57,7 @@ class VnPayService {
         ipAddress: string
     ) => {
         console.log(payment._id);
-        const nowDate = new Date();
+        const now = moment().tz('Asia/Ho_Chi_Minh');
         let params: Record<string, string | number> = {
             vnp_Version: '2.1.0',
             vnp_Command: 'pay',
@@ -69,11 +69,12 @@ class VnPayService {
             vnp_OrderType: 'other',
             vnp_Amount: payment.amount! * 100,
             vnp_ReturnUrl: this.VNP_RETURNURL.trim(),
-            vnp_ExpireDate: this.formatDate(
-                new Date(nowDate.getTime() + 15 * 60 * 1000)
-            ),
+            vnp_ExpireDate: now
+                .clone()
+                .add(15, 'minutes')
+                .format('YYYYMMDDHHmmss'),
             vnp_IpAddr: ipAddress,
-            vnp_CreateDate: this.formatDate(nowDate),
+            vnp_CreateDate: now.format('YYYYMMDDHHmmss'),
         };
 
         const signedParams = {

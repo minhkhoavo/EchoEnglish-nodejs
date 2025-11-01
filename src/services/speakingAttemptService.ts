@@ -17,6 +17,7 @@ export interface StartAttemptInput {
 interface TestQuestion {
     title?: string;
     image?: string;
+    questionText?: string;
 }
 
 interface TestPart {
@@ -32,7 +33,7 @@ interface TestPart {
 }
 interface AttemptQuestion {
     questionNumber: number;
-    promptText?: string;
+    questionText?: string;
     promptImage?: string;
     s3AudioUrl: string | null;
     recordingId: string | null;
@@ -167,7 +168,7 @@ export default class SpeakingAttemptService {
                 qCounter += 1;
                 questions.push({
                     questionNumber: qCounter,
-                    promptText: q.title || undefined,
+                    questionText: q.questionText || q.title || undefined,
                     promptImage: q.image || undefined,
                     s3AudioUrl: null,
                     recordingId: null,
@@ -336,9 +337,9 @@ export default class SpeakingAttemptService {
                             | 'speaking_part4'
                             | 'speaking_part5'
                             | 'speaking_part6',
-                        referenceText: foundQuestion?.promptText,
+                        referenceText: foundQuestion?.questionText,
                         imageUrl: foundQuestion?.promptImage,
-                        questionPrompt: foundQuestion?.promptText || '',
+                        questionPrompt: foundQuestion?.questionText || '',
                         providedInfo:
                             attemptDoc?.parts?.[foundPartIndex]?.partScenario ||
                             '',

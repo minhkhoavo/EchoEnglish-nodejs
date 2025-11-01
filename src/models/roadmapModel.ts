@@ -157,10 +157,6 @@ export const roadmapSchema = new Schema(
             index: true,
         },
 
-        needsRecalibration: { type: Boolean, default: false },
-        lastRecalibrated: { type: Date },
-        recalibrationCount: { type: Number, default: 0 },
-
         testResultId: {
             type: Schema.Types.ObjectId,
             ref: 'TestResult',
@@ -177,13 +173,6 @@ roadmapSchema.index({ userId: 1, status: 1 });
 roadmapSchema.index({ roadmapId: 1 }, { unique: true });
 roadmapSchema.index({ userId: 1, currentWeek: 1 });
 
-roadmapSchema.virtual('activeWeek').get(function () {
-    return this.weeklyFocuses.find(
-        (w) => w.weekNumber === this.activeWeekNumber
-    );
-});
-
-// Virtual để check xem có daily focus nào đang bị block không
 roadmapSchema.virtual('isBlocked').get(function () {
     const activeWeek = this.weeklyFocuses.find(
         (w) => w.weekNumber === this.activeWeekNumber
@@ -264,18 +253,6 @@ roadmapSchema.methods.checkAndUpdateActiveWeek = function () {
     }
 
     return false;
-};
-
-// Method to calculate days of inactivity
-roadmapSchema.methods.getDaysInactive = function (): number {
-    if (!this.lastActiveDate) return 0;
-
-    const now = new Date();
-    const lastActive = new Date(this.lastActiveDate);
-    const diffTime = Math.abs(now.getTime() - lastActive.getTime());
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-    return diffDays;
 };
 
 setBaseOptions(roadmapSchema);

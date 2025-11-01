@@ -118,14 +118,14 @@ class PaymentController {
 
     public getTransactions = async (req: Request, res: Response) => {
         const userId = req.user?.id;
-        const { status, type, gateway, page, limit } = req.query;
+        const { status, type, paymentGateway, page, limit } = req.query;
 
         const result = await paymentService.getTransactions({
             userId: userId as string,
             status: status as string,
             type: type as string,
-            gateway: gateway as string,
-            page: page ? parseInt(page as string, 1) : 1,
+            gateway: paymentGateway as string,
+            page: page ? parseInt(page as string, 10) : 1,
             limit: limit ? parseInt(limit as string, 10) : 10,
         });
         res.status(200).json(
