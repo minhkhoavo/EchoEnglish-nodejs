@@ -32,3 +32,7 @@ export enum Domain {
     DAILY_LIFE = 'daily_life',
     HEALTH = 'health',
 }
+
+export const AVAILABLE_DOMAINS = Object.values(
+    Domain
+) satisfies readonly Domain[];

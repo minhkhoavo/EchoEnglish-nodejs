@@ -111,7 +111,7 @@ For each activity, you must decide:
 - **Option D2: Practice by Skills/Domains (Leave practiceQuestionIds empty)**
   * **IMPORTANT**: You MUST use EXACT skill names from "AVAILABLE SKILLS" section above
   * Set `targetPracticeSkills: [array]` - Choose from the skill lists above (e.g., ["inferImplication", "mainTopic"])
-  * Set `targetPracticeDomains: [array]` - Use UPPERCASE domains (e.g., ["BUSINESS", "TECHNOLOGY", "FINANCE"])
+  * Set `targetPracticeDomains: [array]` - Use lowercase domains (e.g., ["business", "technology", "finance"])
   * System will automatically find questions matching these criteria
   * Use when:
     + Need general practice on specific skills (not reviewing mistakes)

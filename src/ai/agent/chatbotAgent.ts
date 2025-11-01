@@ -11,6 +11,7 @@ import { flashcardTools } from '~/ai/tools/flashcardTools.js';
 import { categoryTools } from '~/ai/tools/categoryTools.js';
 import { paymentTools } from '~/ai/tools/paymentTools.js';
 import { retrieveMyFilesTool } from '~/ai/tools/ragRetrieveTool.js';
+import { learningResourceTools } from '~/ai/tools/learningResourceTools.js';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { promptManagerService } from '~/ai/service/PromptManagerService.js';
 
@@ -51,6 +52,7 @@ export class ChatbotAgent {
         ...(flashcardTools as unknown as ToolInterface[]),
         ...(categoryTools as unknown as ToolInterface[]),
         ...(paymentTools as unknown as ToolInterface[]),
+        ...(learningResourceTools as unknown as ToolInterface[]),
         retrieveMyFilesTool as unknown as ToolInterface,
     ];
 
