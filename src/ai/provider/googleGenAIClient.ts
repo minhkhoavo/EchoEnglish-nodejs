@@ -31,6 +31,7 @@ export class GoogleGenAIClient {
             model: modelName,
             temperature: opts?.temperature ?? 0.2,
             apiKey,
+            maxRetries: 4,
         });
     }
 
