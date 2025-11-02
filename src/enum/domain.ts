@@ -27,10 +27,12 @@ export enum Domain {
     OUTDOOR_RECREATION = 'outdoor_recreation',
     COOKING = 'cooking',
     HOUSE = 'house',
-    GENERAL = 'general',
+
     TECHNICAL = 'technical',
     DAILY_LIFE = 'daily_life',
     HEALTH = 'health',
+    SOCIETY = 'society',
+    GENERAL = 'general',
 }
 
 export const AVAILABLE_DOMAINS = Object.values(

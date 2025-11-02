@@ -4,6 +4,7 @@ import { googleGenAIClient } from '../../ai/provider/googleGenAIClient.js';
 import { promptManagerService } from '../../ai//service/PromptManagerService.js';
 import { Resource, ResourceTypeModel } from '~/models/resource.js';
 import { ResourceType } from '~/enum/resourceType.js';
+import { Domain, AVAILABLE_DOMAINS } from '~/enum/domain.js';
 import Parser from 'rss-parser';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
@@ -75,7 +76,7 @@ class ResourceService {
     private readonly rssFeeds: readonly string[] = [
         'https://e.vnexpress.net/rss/travel.rss',
         'https://e.vnexpress.net/rss/world.rss',
-        'https://tuoitrenews.vn/rss',
+        // 'https://tuoitrenews.vn/rss',
     ];
 
     // Crawl RSS feed, phân tích bằng LLM rồi lưu vào DB
@@ -91,7 +92,7 @@ class ResourceService {
             const itemPromises: Promise<ResourceTypeModel | null>[] = [];
             for (const item of feed.items) {
                 // Lấy tối đa 3 bài hợp lệ (không trùng) mỗi feed url
-                if (validCount >= 3) break;
+                if (validCount >= 1) break;
 
                 const exist = await Resource.findOne({ url: item.link });
                 if (exist) {
@@ -109,6 +110,24 @@ class ResourceService {
                         const analyzed = await this.analyzeContentWithLLM(
                             item.title + '\n' + htmlContent
                         );
+
+                        // Validate domain - fallback to GENERAL if not in enum
+                        if (
+                            analyzed.labels?.domain &&
+                            !AVAILABLE_DOMAINS.includes(
+                                analyzed.labels.domain as Domain
+                            )
+                        ) {
+                            console.warn(
+                                `[RSS] Invalid domain "${analyzed.labels.domain}" for ${item.link}, fallback to GENERAL`
+                            );
+                            analyzed.labels.domain = Domain.GENERAL;
+                        } else if (!analyzed.labels?.domain) {
+                            analyzed.labels = {
+                                ...analyzed.labels,
+                                domain: Domain.GENERAL,
+                            };
+                        }
 
                         const payload: Partial<ResourceTypeModel> = {
                             type: ResourceType.WEB_RSS,
