@@ -61,6 +61,14 @@ class UserController {
             .json(new ApiResponse(SuccessMessage.DELETE_USER_SUCCESS));
     };
 
+    public restoreUser = async (req: Request, res: Response) => {
+        const userId = req.params.id;
+        const user = await this.userService.restoreUser(userId);
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, user));
+    };
+
     public getCredit = async (req: Request, res: Response) => {
         const userId = req.user?.id as string;
         const user = await this.userService.getUserById(userId);
@@ -77,7 +85,8 @@ class UserController {
     };
 
     public getAllUsers = async (req: Request, res: Response) => {
-        const { page, limit, fields } = req.query;
+        const { page, limit, fields, search, gender, includeDeleted, sortBy } =
+            req.query;
 
         const pageNum = parseInt(page as string) || 1;
         const limitNum = parseInt(limit as string) || 10;
@@ -89,7 +98,11 @@ class UserController {
         const result = await this.userService.getAllUsers(
             pageNum,
             limitNum,
-            fields as string
+            fields as string,
+            search as string,
+            gender as string,
+            includeDeleted as string,
+            sortBy as string
         );
         return res
             .status(200)

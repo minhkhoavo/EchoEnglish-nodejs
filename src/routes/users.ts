@@ -41,6 +41,11 @@ router.delete(
     hasAuthority(RoleName.ADMIN),
     userController.softDeleteUser
 );
+router.patch(
+    '/:id/restore',
+    hasAuthority(RoleName.ADMIN),
+    userController.restoreUser
+);
 router.put('/:id', hasAuthority(RoleName.ADMIN), userController.updateUser);
 
 router.post('', hasAuthority(RoleName.ADMIN), userController.createUser);

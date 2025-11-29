@@ -31,9 +31,12 @@ class UserService {
     };
 
     public getProfile = async (email: string): Promise<UserProfileResponse> => {
-        const user = await User.findOne({ email }).select(
-            '-password -isDeleted -roles -__v'
-        );
+        const user = await User.findOne({ email })
+            .select('-password -isDeleted -__v')
+            .populate({
+                path: 'roles',
+                populate: { path: 'permissions' },
+            });
         if (!user) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
 
         return user;
@@ -232,7 +235,11 @@ class UserService {
     public getAllUsers = async (
         page: number,
         limit: number,
-        fields?: string
+        fields?: string,
+        search?: string,
+        gender?: string,
+        includeDeleted?: string,
+        sortBy?: string
     ) => {
         // Allowed fields for selection
         const allowedFields = [
@@ -248,6 +255,7 @@ class UserService {
             'createdAt',
             'updatedAt',
             'roles',
+            'isDeleted',
         ];
 
         let selectFields: string;
@@ -264,10 +272,10 @@ class UserService {
                 selectFields = validFields.join(' ');
                 shouldPopulateRoles = validFields.includes('roles');
             } else {
-                selectFields = '-password -isDeleted -__v';
+                selectFields = '-password -__v';
             }
         } else {
-            selectFields = '-password -isDeleted -__v';
+            selectFields = '-password -__v';
         }
 
         if (shouldPopulateRoles) {
@@ -279,13 +287,71 @@ class UserService {
             ];
         }
 
+        // Build filter query
+        const filter: Record<string, unknown> = {};
+
+        // Handle deleted filter
+        if (includeDeleted === 'true') {
+            // Only show deleted users
+            filter.isDeleted = true;
+        } else {
+            // Default: only show active users (not deleted)
+            filter.isDeleted = false;
+        }
+
+        // Handle search
+        if (search && search.trim()) {
+            filter.$or = [
+                { fullName: { $regex: search.trim(), $options: 'i' } },
+                { email: { $regex: search.trim(), $options: 'i' } },
+                { phoneNumber: { $regex: search.trim(), $options: 'i' } },
+            ];
+        }
+
+        // Handle gender filter
+        if (gender && gender !== 'all') {
+            filter.gender = gender;
+        }
+
+        // Handle sorting
+        let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
+        if (sortBy) {
+            switch (sortBy) {
+                case 'name_asc':
+                    sortOptions = { fullName: 1 };
+                    break;
+                case 'name_desc':
+                    sortOptions = { fullName: -1 };
+                    break;
+                case 'email_asc':
+                    sortOptions = { email: 1 };
+                    break;
+                case 'email_desc':
+                    sortOptions = { email: -1 };
+                    break;
+                case 'credits_asc':
+                    sortOptions = { credits: 1 };
+                    break;
+                case 'credits_desc':
+                    sortOptions = { credits: -1 };
+                    break;
+                case 'date_asc':
+                    sortOptions = { createdAt: 1 };
+                    break;
+                case 'date_desc':
+                default:
+                    sortOptions = { createdAt: -1 };
+                    break;
+            }
+        }
+
         const result = await PaginationHelper.paginate(
             User,
-            { isDeleted: false },
+            filter,
             { page, limit },
             populateOptions,
             selectFields,
-            { createdAt: -1 }
+            sortOptions
         );
 
         return {
@@ -335,6 +401,20 @@ class UserService {
         }
 
         return updatedUser.preferences;
+    };
+
+    public restoreUser = async (id: string): Promise<UserResponse> => {
+        const user = await User.findById(id);
+        if (!user || !user.isDeleted) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        user.isDeleted = false;
+        await user.save();
+        return omit(user.toObject(), [
+            'password',
+            'isDeleted',
+            '__v',
+        ]) as UserResponse;
     };
 }
 
