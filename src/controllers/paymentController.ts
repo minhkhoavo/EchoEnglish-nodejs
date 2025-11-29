@@ -116,6 +116,35 @@ class PaymentController {
         );
     };
 
+    public getAllTransactions = async (req: Request, res: Response) => {
+        const {
+            status,
+            type,
+            gateway,
+            email,
+            fromDate,
+            toDate,
+            page,
+            limit,
+            sort,
+        } = req.query;
+
+        const result = await paymentService.getAllTransactions({
+            status: status as string,
+            type: type as string,
+            gateway: gateway as string,
+            email: email as string,
+            fromDate: fromDate as string,
+            toDate: toDate as string,
+            page: page ? parseInt(page as string, 10) : 1,
+            limit: limit ? parseInt(limit as string, 10) : 10,
+            sort: (sort as 'asc' | 'desc') || 'desc',
+        });
+        res.status(200).json(
+            new ApiResponse(SuccessMessage.GET_SUCCESS, result)
+        );
+    };
+
     public getTransactions = async (req: Request, res: Response) => {
         const userId = req.user?.id;
         const { status, type, paymentGateway, page, limit } = req.query;

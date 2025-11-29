@@ -93,27 +93,45 @@ class PromoController {
     };
 
     getAllPromos = async (req: Request, res: Response) => {
-        const { search, page = 1, limit = 10 } = req.query;
+        const {
+            search,
+            page = 1,
+            limit = 10,
+            active,
+            minDiscount,
+            maxDiscount,
+            status,
+            availability,
+            sort,
+        } = req.query;
+
         const pageNum = Number(page);
         const limitNum = Number(limit);
+
         if (isNaN(pageNum) || isNaN(limitNum) || pageNum < 1 || limitNum < 1) {
             throw new ApiError(ErrorMessage.INVALID_PROMO_DATA);
         }
+
         const result = await this.promoService.getAllPromos(
             search as string,
             pageNum,
-            limitNum
+            limitNum,
+            {
+                active: active as string,
+                minDiscount: minDiscount as string,
+                maxDiscount: maxDiscount as string,
+                status: status as string,
+                availability: availability as string,
+                sort: sort as string,
+            }
         );
+
         res.status(200).json(
             new ApiResponse(SuccessMessage.GET_SUCCESS, result)
         );
     };
 
-    createPromoCode = async (
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ) => {
+    createPromoCode = async (req: Request, res: Response) => {
         const {
             code,
             discount,

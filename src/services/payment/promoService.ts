@@ -33,20 +33,71 @@ class PromoService {
         return promo;
     }
 
-    /* Search promos */
+    /* Search promos with filters */
     public async getAllPromos(
         search: string = '',
         page: number = 1,
-        limit: number = 10
+        limit: number = 10,
+        filters?: {
+            active?: string;
+            minDiscount?: string;
+            maxDiscount?: string;
+            status?: string;
+            availability?: string;
+            sort?: string;
+        }
     ) {
         const query: Record<string, unknown> = {};
+
+        // Search by code
         if (search) {
             query.code = { $regex: search, $options: 'i' };
         }
 
+        // Filter by active status
+        if (filters?.active) {
+            query.active = filters.active === 'true';
+        }
+
+        // Filter by discount range
+        if (filters?.minDiscount || filters?.maxDiscount) {
+            query.discount = {};
+            if (filters.minDiscount) {
+                (query.discount as Record<string, unknown>).$gte = Number(
+                    filters.minDiscount
+                );
+            }
+            if (filters.maxDiscount) {
+                (query.discount as Record<string, unknown>).$lte = Number(
+                    filters.maxDiscount
+                );
+            }
+        }
+
+        // Filter by status (valid/expired)
+        if (filters?.status === 'valid') {
+            query.$or = [
+                { expiration: { $gt: new Date() } },
+                { expiration: null },
+            ];
+        } else if (filters?.status === 'expired') {
+            query.expiration = { $lte: new Date() };
+        }
+
+        // Filter by availability (based on usage limit)
+        if (filters?.availability === 'available') {
+            query.$expr = { $lt: ['$usedCount', '$usageLimit'] };
+        } else if (filters?.availability === 'out') {
+            query.$expr = { $gte: ['$usedCount', '$usageLimit'] };
+        }
+
         const total = await PromoCode.countDocuments(query);
+
+        // Sort order
+        const sortOrder = filters?.sort === 'asc' ? 1 : -1;
+
         const promos = await PromoCode.find(query)
-            .sort({ creatAt: -1 })
+            .sort({ createdAt: sortOrder })
             .skip((page - 1) * limit)
             .limit(limit);
 
@@ -57,6 +108,8 @@ class PromoService {
                 page,
                 limit,
                 totalPages: Math.ceil(total / limit),
+                hasPrev: page > 1,
+                hasNext: page < Math.ceil(total / limit),
             },
         };
     }

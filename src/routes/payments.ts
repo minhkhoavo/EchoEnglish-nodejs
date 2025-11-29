@@ -2,6 +2,7 @@ import { Router } from 'express';
 import paymentController from '~/controllers/paymentController.js';
 const router = Router();
 
+router.get('/admin/all', paymentController.getAllTransactions);
 router.get('', paymentController.getTransactions);
 router.get('/me/credits', paymentController.getCredit);
 router.post('/use-token', paymentController.useToken);

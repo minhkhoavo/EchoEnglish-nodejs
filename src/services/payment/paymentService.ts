@@ -20,6 +20,113 @@ class PaymentService {
         return payment;
     }
 
+    /* Lay danh sach payment cho admin (all users) */
+    getAllTransactions = async ({
+        status,
+        type,
+        gateway,
+        email,
+        fromDate,
+        toDate,
+        page,
+        limit,
+        sort = 'desc',
+    }: AdminTransactionFilter) => {
+        const query: Record<string, unknown> = {};
+
+        if (email) {
+            // Find user by email first
+            const user = await User.findOne({ email }).lean<UserType>();
+            if (user) {
+                query.user = user._id;
+            } else {
+                // If no user found with this email, return empty result
+                return {
+                    data: [],
+                    pagination: {
+                        page,
+                        limit,
+                        total: 0,
+                        totalPages: 0,
+                        hasNext: false,
+                        hasPrev: false,
+                    },
+                };
+            }
+        }
+
+        if (fromDate || toDate) {
+            query.createdAt = {};
+            if (fromDate) {
+                (query.createdAt as Record<string, unknown>).$gte = new Date(
+                    fromDate
+                );
+            }
+            if (toDate) {
+                const endDate = new Date(toDate);
+                endDate.setHours(23, 59, 59, 999);
+                (query.createdAt as Record<string, unknown>).$lte = endDate;
+            }
+        }
+
+        if (status != null) {
+            if (
+                Object.values(PaymentStatus).includes(status as PaymentStatus)
+            ) {
+                query.status = status;
+            } else {
+                throw new ApiError(ErrorMessage.PAYMENT_STATUS_NOT_FOUND);
+            }
+        }
+
+        if (type != null) {
+            if (
+                Object.values(TransactionType).includes(type as TransactionType)
+            ) {
+                query.type = type;
+            } else {
+                throw new ApiError(ErrorMessage.TRANSACTION_TYPE_NOT_FOUND);
+            }
+        }
+
+        if (gateway != null) {
+            if (
+                gateway &&
+                Object.values(PaymentGateway).includes(
+                    gateway as PaymentGateway
+                )
+            ) {
+                query.paymentGateway = gateway;
+            } else {
+                throw new ApiError(ErrorMessage.PAYMENT_GATEWAY_NOT_FOUND);
+            }
+        }
+
+        const skip = (page - 1) * limit;
+        const sortOrder = sort === 'asc' ? 1 : -1;
+        const [data, total] = await Promise.all([
+            Payment.find(query)
+                .populate('user', 'fullName email')
+                .sort({ createdAt: sortOrder })
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            Payment.countDocuments(query),
+        ]);
+
+        return {
+            data,
+            pagination: {
+                page,
+                limit,
+                total,
+                totalPages: Math.ceil(total / limit),
+                hasNext: page < Math.ceil(total / limit),
+                hasPrev: page > 1,
+            },
+        };
+    };
+
     /* Lay danh sach payment */
     getTransactions = async ({
         userId,
@@ -272,6 +379,18 @@ interface TransactionFilter {
     gateway?: string;
     page: number;
     limit: number;
+}
+
+interface AdminTransactionFilter {
+    status?: string;
+    type?: string;
+    gateway?: string;
+    email?: string;
+    fromDate?: string;
+    toDate?: string;
+    page: number;
+    limit: number;
+    sort?: 'asc' | 'desc';
 }
 
 export default new PaymentService();
