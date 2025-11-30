@@ -1,0 +1,756 @@
+{
+    "categories": [
+        {
+            "id": "personal_life",
+            "name": "Personal Life",
+            "description": "Topics about yourself, family, and daily life",
+            "icon": "user",
+            "topicIds": ["introduce_yourself", "daily_routine", "hobbies_interests", "describe_family"]
+        },
+        {
+            "id": "travel_leisure",
+            "name": "Travel & Leisure",
+            "description": "Topics about travel, vacation, and entertainment",
+            "icon": "plane",
+            "topicIds": ["travel_vacation", "hotel_checkin", "at_the_airport"]
+        },
+        {
+            "id": "food_dining",
+            "name": "Food & Dining",
+            "description": "Topics about ordering food and dining experiences",
+            "icon": "utensils",
+            "topicIds": ["ordering_food", "cafe_conversation"]
+        },
+        {
+            "id": "shopping_services",
+            "name": "Shopping & Services",
+            "description": "Topics about shopping and using various services",
+            "icon": "shopping-cart",
+            "topicIds": ["shopping", "making_appointment", "at_the_bank"]
+        },
+        {
+            "id": "navigation",
+            "name": "Navigation & Transportation",
+            "description": "Topics about getting around and transportation",
+            "icon": "map",
+            "topicIds": ["asking_directions", "taking_taxi"]
+        },
+        {
+            "id": "professional",
+            "name": "Professional & Business",
+            "description": "Topics related to work and business settings",
+            "icon": "briefcase",
+            "topicIds": ["job_interview", "business_meeting", "phone_call"]
+        },
+        {
+            "id": "social",
+            "name": "Social Interactions",
+            "description": "Topics about meeting people and social situations",
+            "icon": "users",
+            "topicIds": ["making_friends", "party_conversation"]
+        },
+        {
+            "id": "emergency",
+            "name": "Emergency & Health",
+            "description": "Topics about health issues and emergencies",
+            "icon": "heart",
+            "topicIds": ["at_the_doctor", "pharmacy_visit"]
+        }
+    ],
+    "topics": [
+        {
+            "id": "introduce_yourself",
+            "title": "Introduce Yourself",
+            "description": "Practice introducing yourself in English, covering basic personal information.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 5,
+            "tasks": [
+                {
+                    "id": "name",
+                    "description": "Tell your name",
+                    "examplePhrases": ["My name is...", "I'm...", "You can call me..."]
+                },
+                {
+                    "id": "age",
+                    "description": "Tell your age",
+                    "examplePhrases": ["I'm ... years old", "I am ... years old", "I'm in my twenties/thirties"]
+                },
+                {
+                    "id": "occupation",
+                    "description": "Tell your occupation or job",
+                    "examplePhrases": ["I work as a...", "I'm a...", "I'm currently working at...", "I'm a student at..."]
+                },
+                {
+                    "id": "hometown",
+                    "description": "Tell where you're from",
+                    "examplePhrases": ["I'm from...", "I come from...", "I was born in..."]
+                }
+            ]
+        },
+        {
+            "id": "daily_routine",
+            "title": "Daily Routine",
+            "description": "Discuss your daily activities and schedule.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 7,
+            "tasks": [
+                {
+                    "id": "wake_up",
+                    "description": "Tell what time you wake up",
+                    "examplePhrases": ["I wake up at...", "I usually get up around...", "My alarm goes off at..."]
+                },
+                {
+                    "id": "morning_activities",
+                    "description": "Describe your morning activities",
+                    "examplePhrases": ["In the morning, I...", "After waking up, I...", "I start my day by..."]
+                },
+                {
+                    "id": "work_study",
+                    "description": "Talk about your work or study routine",
+                    "examplePhrases": ["I go to work at...", "I study from...to...", "My working hours are..."]
+                },
+                {
+                    "id": "evening_activities",
+                    "description": "Describe your evening activities",
+                    "examplePhrases": ["In the evening, I...", "After work, I usually...", "I spend my evenings..."]
+                },
+                {
+                    "id": "bedtime",
+                    "description": "Tell what time you go to bed",
+                    "examplePhrases": ["I go to bed at...", "I usually sleep around...", "I try to get to bed by..."]
+                }
+            ]
+        },
+        {
+            "id": "hobbies_interests",
+            "title": "Hobbies and Interests",
+            "description": "Share your hobbies and things you enjoy doing in your free time.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 6,
+            "tasks": [
+                {
+                    "id": "main_hobby",
+                    "description": "Tell your main hobby",
+                    "examplePhrases": ["My main hobby is...", "I really enjoy...", "I'm passionate about..."]
+                },
+                {
+                    "id": "frequency",
+                    "description": "Tell how often you do your hobby",
+                    "examplePhrases": ["I do it every day", "I practice ... times a week", "Whenever I have free time"]
+                },
+                {
+                    "id": "reason",
+                    "description": "Explain why you like this hobby",
+                    "examplePhrases": ["I like it because...", "It helps me...", "It makes me feel..."]
+                },
+                {
+                    "id": "other_interests",
+                    "description": "Mention other interests",
+                    "examplePhrases": ["I'm also interested in...", "Besides that, I enjoy...", "Another thing I like is..."]
+                }
+            ]
+        },
+        {
+            "id": "ordering_food",
+            "title": "Ordering Food at a Restaurant",
+            "description": "Practice ordering food and drinks at a restaurant.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 8,
+            "tasks": [
+                {
+                    "id": "greeting",
+                    "description": "Greet the waiter/waitress",
+                    "examplePhrases": ["Hello!", "Good evening!", "Hi, could we get a table for...?"]
+                },
+                {
+                    "id": "ask_menu",
+                    "description": "Ask for the menu or recommendations",
+                    "examplePhrases": ["Could I see the menu?", "What do you recommend?", "What's the special today?"]
+                },
+                {
+                    "id": "order_food",
+                    "description": "Order your food",
+                    "examplePhrases": ["I'd like to have...", "I'll have the...", "Can I get...?"]
+                },
+                {
+                    "id": "order_drink",
+                    "description": "Order a drink",
+                    "examplePhrases": ["For drinks, I'll have...", "Can I get a... to drink?", "I'd like some water, please"]
+                },
+                {
+                    "id": "special_request",
+                    "description": "Make a special request or ask about ingredients",
+                    "examplePhrases": ["Is this dish spicy?", "Could you make it without...?", "I'm allergic to..."]
+                },
+                {
+                    "id": "thank_waiter",
+                    "description": "Thank the waiter",
+                    "examplePhrases": ["Thank you very much!", "Thanks!", "That'll be all, thank you."]
+                }
+            ]
+        },
+        {
+            "id": "asking_directions",
+            "title": "Asking for Directions",
+            "description": "Practice asking and understanding directions.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 6,
+            "tasks": [
+                {
+                    "id": "polite_start",
+                    "description": "Start politely to ask for help",
+                    "examplePhrases": ["Excuse me, could you help me?", "I'm sorry to bother you, but...", "Pardon me, do you know...?"]
+                },
+                {
+                    "id": "ask_location",
+                    "description": "Ask about a specific location",
+                    "examplePhrases": ["How do I get to...?", "Where is the nearest...?", "I'm looking for..."]
+                },
+                {
+                    "id": "clarify",
+                    "description": "Ask for clarification if needed",
+                    "examplePhrases": ["Could you repeat that?", "Did you say turn left?", "How far is it from here?"]
+                },
+                {
+                    "id": "confirm_understand",
+                    "description": "Confirm you understand the directions",
+                    "examplePhrases": ["So I go straight and then turn right?", "Let me repeat: I should...", "Got it! Thank you!"]
+                },
+                {
+                    "id": "thank_goodbye",
+                    "description": "Thank the person and say goodbye",
+                    "examplePhrases": ["Thank you so much for your help!", "Thanks, I really appreciate it!", "Have a nice day!"]
+                }
+            ]
+        },
+        {
+            "id": "job_interview",
+            "title": "Job Interview",
+            "description": "Practice answering common job interview questions.",
+            "difficulty": "advanced",
+            "estimatedMinutes": 10,
+            "tasks": [
+                {
+                    "id": "introduce",
+                    "description": "Introduce yourself professionally",
+                    "examplePhrases": ["Good morning, I'm...", "Thank you for having me. My name is...", "It's a pleasure to meet you. I'm..."]
+                },
+                {
+                    "id": "experience",
+                    "description": "Talk about your experience",
+                    "examplePhrases": ["I have ... years of experience in...", "Previously, I worked at...", "In my last role, I was responsible for..."]
+                },
+                {
+                    "id": "strengths",
+                    "description": "Describe your strengths",
+                    "examplePhrases": ["My main strength is...", "I'm particularly good at...", "I consider myself to be..."]
+                },
+                {
+                    "id": "why_company",
+                    "description": "Explain why you want to work for this company",
+                    "examplePhrases": ["I'm excited about this opportunity because...", "I've always admired your company for...", "What attracted me to this position is..."]
+                },
+                {
+                    "id": "career_goals",
+                    "description": "Share your career goals",
+                    "examplePhrases": ["In five years, I see myself...", "My long-term goal is to...", "I'm looking to grow in..."]
+                },
+                {
+                    "id": "questions",
+                    "description": "Ask questions about the role",
+                    "examplePhrases": ["Could you tell me more about...?", "What does a typical day look like?", "What are the opportunities for growth?"]
+                }
+            ]
+        },
+        {
+            "id": "travel_vacation",
+            "title": "Travel and Vacation",
+            "description": "Discuss travel experiences and vacation plans.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 8,
+            "tasks": [
+                {
+                    "id": "destination",
+                    "description": "Talk about a destination you visited or want to visit",
+                    "examplePhrases": ["I recently visited...", "I've always wanted to go to...", "My dream destination is..."]
+                },
+                {
+                    "id": "duration",
+                    "description": "Tell how long the trip was/will be",
+                    "examplePhrases": ["I stayed there for... days", "I'm planning a ...-week trip", "It was a long weekend getaway"]
+                },
+                {
+                    "id": "activities",
+                    "description": "Describe activities you did or plan to do",
+                    "examplePhrases": ["We went sightseeing...", "I tried local food like...", "I'm looking forward to visiting..."]
+                },
+                {
+                    "id": "highlights",
+                    "description": "Share the highlights of the trip",
+                    "examplePhrases": ["The best part was...", "What I loved most was...", "The most memorable moment was..."]
+                },
+                {
+                    "id": "recommendation",
+                    "description": "Give recommendations to others",
+                    "examplePhrases": ["I highly recommend...", "You should definitely try...", "Don't miss out on..."]
+                }
+            ]
+        },
+        {
+            "id": "making_appointment",
+            "title": "Making an Appointment",
+            "description": "Practice making appointments for various purposes like doctor visits, meetings, etc.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 6,
+            "tasks": [
+                {
+                    "id": "purpose",
+                    "description": "State the purpose of the appointment",
+                    "examplePhrases": ["I'd like to make an appointment for...", "I need to schedule a...", "I'm calling to book a..."]
+                },
+                {
+                    "id": "preferred_time",
+                    "description": "Suggest preferred date and time",
+                    "examplePhrases": ["Is ... available?", "I'm free on...", "Would ... work for you?"]
+                },
+                {
+                    "id": "confirm_details",
+                    "description": "Confirm the appointment details",
+                    "examplePhrases": ["So that's ... at ...?", "Could you confirm the date and time?", "Let me make sure I have this right..."]
+                },
+                {
+                    "id": "provide_info",
+                    "description": "Provide necessary personal information",
+                    "examplePhrases": ["My name is...", "My phone number is...", "You can reach me at..."]
+                },
+                {
+                    "id": "thank_confirm",
+                    "description": "Thank and confirm understanding",
+                    "examplePhrases": ["Thank you, I'll see you on...", "Great, thank you for your help!", "I'll be there on time. Thanks!"]
+                }
+            ]
+        },
+        {
+            "id": "shopping",
+            "title": "Shopping for Clothes",
+            "description": "Practice shopping conversations including asking about sizes, prices, and making purchases.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 7,
+            "tasks": [
+                {
+                    "id": "looking_for",
+                    "description": "Tell what you're looking for",
+                    "examplePhrases": ["I'm looking for...", "Do you have any...?", "I need a new..."]
+                },
+                {
+                    "id": "ask_size",
+                    "description": "Ask about sizes",
+                    "examplePhrases": ["Do you have this in size...?", "What sizes do you have?", "Is this available in medium?"]
+                },
+                {
+                    "id": "ask_price",
+                    "description": "Ask about the price",
+                    "examplePhrases": ["How much is this?", "What's the price of...?", "Is there a discount?"]
+                },
+                {
+                    "id": "try_on",
+                    "description": "Ask to try on clothes",
+                    "examplePhrases": ["Can I try this on?", "Where is the fitting room?", "May I try this in a different size?"]
+                },
+                {
+                    "id": "decide_buy",
+                    "description": "Make a decision to buy or not",
+                    "examplePhrases": ["I'll take this one.", "This fits perfectly, I'll buy it.", "I think I'll pass this time."]
+                },
+                {
+                    "id": "payment",
+                    "description": "Ask about payment options",
+                    "examplePhrases": ["Do you accept credit cards?", "Can I pay with...?", "Where do I pay?"]
+                }
+            ]
+        },
+        {
+            "id": "describe_family",
+            "title": "Describing Your Family",
+            "description": "Talk about your family members and relationships.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 6,
+            "tasks": [
+                {
+                    "id": "family_size",
+                    "description": "Tell how many people are in your family",
+                    "examplePhrases": ["There are ... people in my family.", "I have a family of...", "My family consists of..."]
+                },
+                {
+                    "id": "parents",
+                    "description": "Talk about your parents",
+                    "examplePhrases": ["My father works as...", "My mother is...", "My parents are both..."]
+                },
+                {
+                    "id": "siblings",
+                    "description": "Talk about siblings (if any)",
+                    "examplePhrases": ["I have ... brothers/sisters.", "I'm the oldest/youngest.", "I'm an only child."]
+                },
+                {
+                    "id": "relationship",
+                    "description": "Describe your relationship with family",
+                    "examplePhrases": ["We're very close.", "We often... together.", "I get along well with..."]
+                },
+                {
+                    "id": "family_activities",
+                    "description": "Talk about activities you do together",
+                    "examplePhrases": ["We usually... on weekends.", "We love to... together.", "Every Sunday, we..."]
+                }
+            ]
+        },
+        {
+            "id": "hotel_checkin",
+            "title": "Hotel Check-in",
+            "description": "Practice checking into a hotel and asking about amenities.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 7,
+            "tasks": [
+                {
+                    "id": "greeting",
+                    "description": "Greet the receptionist",
+                    "examplePhrases": ["Hello, I have a reservation under...", "Good evening, I'd like to check in.", "Hi, I booked a room online."]
+                },
+                {
+                    "id": "confirm_booking",
+                    "description": "Confirm your booking details",
+                    "examplePhrases": ["The reservation is for two nights.", "I booked a double room.", "My confirmation number is..."]
+                },
+                {
+                    "id": "ask_amenities",
+                    "description": "Ask about hotel amenities",
+                    "examplePhrases": ["Is breakfast included?", "What time does the pool close?", "Do you have a gym?"]
+                },
+                {
+                    "id": "ask_wifi",
+                    "description": "Ask about WiFi and facilities",
+                    "examplePhrases": ["What's the WiFi password?", "Is there free WiFi?", "Where can I find the restaurant?"]
+                },
+                {
+                    "id": "special_request",
+                    "description": "Make a special request",
+                    "examplePhrases": ["Could I have a room with a view?", "Is it possible to get a late checkout?", "Can I request extra towels?"]
+                }
+            ]
+        },
+        {
+            "id": "at_the_airport",
+            "title": "At the Airport",
+            "description": "Navigate through airport procedures and conversations.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 8,
+            "tasks": [
+                {
+                    "id": "checkin_counter",
+                    "description": "Check in at the airline counter",
+                    "examplePhrases": ["I'd like to check in for my flight.", "Here's my passport and booking confirmation.", "Can I have a window seat, please?"]
+                },
+                {
+                    "id": "luggage",
+                    "description": "Handle luggage matters",
+                    "examplePhrases": ["I have one bag to check.", "This is my carry-on.", "How much is the baggage fee?"]
+                },
+                {
+                    "id": "security",
+                    "description": "Go through security",
+                    "examplePhrases": ["Do I need to take off my shoes?", "Is this laptop allowed?", "Where do I put my liquids?"]
+                },
+                {
+                    "id": "find_gate",
+                    "description": "Find your gate",
+                    "examplePhrases": ["Where is gate B12?", "How long does it take to get to the gate?", "Is this the way to Terminal 2?"]
+                },
+                {
+                    "id": "boarding",
+                    "description": "Board the plane",
+                    "examplePhrases": ["Is this seat 14A?", "Can I put my bag in the overhead bin?", "Excuse me, I think that's my seat."]
+                }
+            ]
+        },
+        {
+            "id": "cafe_conversation",
+            "title": "At the Cafe",
+            "description": "Order coffee and have casual conversations at a cafe.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 5,
+            "tasks": [
+                {
+                    "id": "order_drink",
+                    "description": "Order your drink",
+                    "examplePhrases": ["I'd like a latte, please.", "Can I get an iced coffee?", "One cappuccino, please."]
+                },
+                {
+                    "id": "customize",
+                    "description": "Customize your order",
+                    "examplePhrases": ["With oat milk, please.", "No sugar for me.", "Can I have it extra hot?"]
+                },
+                {
+                    "id": "ask_food",
+                    "description": "Ask about food options",
+                    "examplePhrases": ["Do you have any pastries?", "What sandwiches do you have?", "Is this gluten-free?"]
+                },
+                {
+                    "id": "pay",
+                    "description": "Pay for your order",
+                    "examplePhrases": ["Can I pay by card?", "Here you go.", "Keep the change."]
+                }
+            ]
+        },
+        {
+            "id": "at_the_bank",
+            "title": "At the Bank",
+            "description": "Handle banking transactions and inquiries.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 7,
+            "tasks": [
+                {
+                    "id": "purpose",
+                    "description": "State your purpose",
+                    "examplePhrases": ["I'd like to open an account.", "I need to exchange some money.", "I want to transfer funds."]
+                },
+                {
+                    "id": "provide_id",
+                    "description": "Provide identification",
+                    "examplePhrases": ["Here's my passport.", "I have my ID card here.", "Do you need any other documents?"]
+                },
+                {
+                    "id": "ask_fees",
+                    "description": "Ask about fees and rates",
+                    "examplePhrases": ["What's the exchange rate today?", "Are there any fees?", "What's the interest rate?"]
+                },
+                {
+                    "id": "confirm_transaction",
+                    "description": "Confirm the transaction",
+                    "examplePhrases": ["Can I confirm the amount?", "Is this the correct total?", "Could I have a receipt, please?"]
+                }
+            ]
+        },
+        {
+            "id": "taking_taxi",
+            "title": "Taking a Taxi",
+            "description": "Communicate with taxi drivers and navigate transportation.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 5,
+            "tasks": [
+                {
+                    "id": "destination",
+                    "description": "Tell the driver your destination",
+                    "examplePhrases": ["Can you take me to...?", "I need to go to...", "Please take me to the airport."]
+                },
+                {
+                    "id": "route",
+                    "description": "Ask about the route or time",
+                    "examplePhrases": ["How long will it take?", "Is there a faster route?", "Can you avoid the highway?"]
+                },
+                {
+                    "id": "stop",
+                    "description": "Request stops or changes",
+                    "examplePhrases": ["Can you stop here, please?", "Actually, can you drop me off there?", "Could you wait here for a minute?"]
+                },
+                {
+                    "id": "pay_fare",
+                    "description": "Pay the fare",
+                    "examplePhrases": ["How much is it?", "Do you accept credit cards?", "Keep the change."]
+                }
+            ]
+        },
+        {
+            "id": "business_meeting",
+            "title": "Business Meeting",
+            "description": "Participate in professional business meetings.",
+            "difficulty": "advanced",
+            "estimatedMinutes": 10,
+            "tasks": [
+                {
+                    "id": "greet_colleagues",
+                    "description": "Greet colleagues professionally",
+                    "examplePhrases": ["Good morning everyone.", "Thank you all for joining.", "It's good to see everyone."]
+                },
+                {
+                    "id": "present_idea",
+                    "description": "Present an idea or update",
+                    "examplePhrases": ["I'd like to share...", "Let me walk you through...", "The main point is..."]
+                },
+                {
+                    "id": "ask_opinion",
+                    "description": "Ask for opinions",
+                    "examplePhrases": ["What do you think about...?", "I'd love to hear your thoughts.", "Does anyone have questions?"]
+                },
+                {
+                    "id": "give_feedback",
+                    "description": "Give constructive feedback",
+                    "examplePhrases": ["That's a great point.", "I think we should consider...", "Building on that idea..."]
+                },
+                {
+                    "id": "summarize",
+                    "description": "Summarize and conclude",
+                    "examplePhrases": ["To sum up...", "Our next steps are...", "Let's follow up on this next week."]
+                }
+            ]
+        },
+        {
+            "id": "phone_call",
+            "title": "Making a Phone Call",
+            "description": "Handle professional and casual phone conversations.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 6,
+            "tasks": [
+                {
+                    "id": "greeting",
+                    "description": "Greet and introduce yourself",
+                    "examplePhrases": ["Hello, this is...", "Hi, my name is... calling from...", "Good afternoon, may I speak with...?"]
+                },
+                {
+                    "id": "state_purpose",
+                    "description": "State the purpose of your call",
+                    "examplePhrases": ["I'm calling about...", "The reason for my call is...", "I wanted to ask about..."]
+                },
+                {
+                    "id": "request_info",
+                    "description": "Request information",
+                    "examplePhrases": ["Could you tell me...?", "I'd like to know...", "Can you confirm...?"]
+                },
+                {
+                    "id": "handle_issues",
+                    "description": "Handle connection issues",
+                    "examplePhrases": ["Sorry, could you repeat that?", "I didn't catch that.", "You're breaking up."]
+                },
+                {
+                    "id": "end_call",
+                    "description": "End the call politely",
+                    "examplePhrases": ["Thank you for your help.", "I'll let you go now.", "Take care, goodbye!"]
+                }
+            ]
+        },
+        {
+            "id": "making_friends",
+            "title": "Making Friends",
+            "description": "Start conversations and make new friends.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 6,
+            "tasks": [
+                {
+                    "id": "introduce",
+                    "description": "Introduce yourself casually",
+                    "examplePhrases": ["Hey, I'm...", "Hi there! My name is...", "Nice to meet you, I'm..."]
+                },
+                {
+                    "id": "find_common",
+                    "description": "Find common interests",
+                    "examplePhrases": ["Do you like...?", "What kind of music do you listen to?", "Have you seen...?"]
+                },
+                {
+                    "id": "share_interests",
+                    "description": "Share your interests",
+                    "examplePhrases": ["I really enjoy...", "I'm a big fan of...", "I've been into... lately."]
+                },
+                {
+                    "id": "exchange_contact",
+                    "description": "Exchange contact information",
+                    "examplePhrases": ["Let's exchange numbers.", "Are you on Instagram?", "We should hang out sometime!"]
+                }
+            ]
+        },
+        {
+            "id": "party_conversation",
+            "title": "Party Conversation",
+            "description": "Socialize and have casual conversations at parties.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 7,
+            "tasks": [
+                {
+                    "id": "greet_host",
+                    "description": "Greet the host",
+                    "examplePhrases": ["Thank you for inviting me!", "Great party!", "Your place looks amazing!"]
+                },
+                {
+                    "id": "start_conversation",
+                    "description": "Start a conversation with someone",
+                    "examplePhrases": ["How do you know the host?", "Have you tried the food?", "What do you do?"]
+                },
+                {
+                    "id": "share_stories",
+                    "description": "Share a story or experience",
+                    "examplePhrases": ["Something funny happened to me...", "I recently went to...", "You won't believe what..."]
+                },
+                {
+                    "id": "give_compliment",
+                    "description": "Give a compliment",
+                    "examplePhrases": ["I love your outfit!", "That's a great idea!", "You're so funny!"]
+                },
+                {
+                    "id": "say_goodbye",
+                    "description": "Say goodbye and leave",
+                    "examplePhrases": ["It was great meeting you!", "I had a wonderful time.", "Let's do this again!"]
+                }
+            ]
+        },
+        {
+            "id": "at_the_doctor",
+            "title": "At the Doctor's Office",
+            "description": "Describe symptoms and understand medical advice.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 8,
+            "tasks": [
+                {
+                    "id": "describe_symptoms",
+                    "description": "Describe your symptoms",
+                    "examplePhrases": ["I've been having...", "I feel...", "I've had a headache for..."]
+                },
+                {
+                    "id": "medical_history",
+                    "description": "Answer questions about medical history",
+                    "examplePhrases": ["I'm allergic to...", "I take... medication.", "I had surgery for... in..."]
+                },
+                {
+                    "id": "ask_questions",
+                    "description": "Ask questions about your condition",
+                    "examplePhrases": ["What do you think it is?", "Is it serious?", "How long will it take to recover?"]
+                },
+                {
+                    "id": "understand_treatment",
+                    "description": "Understand the treatment plan",
+                    "examplePhrases": ["How often should I take this?", "Are there any side effects?", "When should I come back?"]
+                },
+                {
+                    "id": "thank_doctor",
+                    "description": "Thank the doctor",
+                    "examplePhrases": ["Thank you, doctor.", "I appreciate your help.", "I'll follow your advice."]
+                }
+            ]
+        },
+        {
+            "id": "pharmacy_visit",
+            "title": "At the Pharmacy",
+            "description": "Buy medicine and ask for advice at a pharmacy.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 5,
+            "tasks": [
+                {
+                    "id": "ask_medicine",
+                    "description": "Ask for medicine",
+                    "examplePhrases": ["Do you have anything for...?", "I need something for a cold.", "I'm looking for pain relievers."]
+                },
+                {
+                    "id": "show_prescription",
+                    "description": "Show your prescription",
+                    "examplePhrases": ["I have a prescription from my doctor.", "Here's my prescription.", "Can you fill this prescription?"]
+                },
+                {
+                    "id": "ask_dosage",
+                    "description": "Ask about dosage",
+                    "examplePhrases": ["How often should I take this?", "Should I take it with food?", "Can I take this before bed?"]
+                },
+                {
+                    "id": "pay",
+                    "description": "Pay for the medicine",
+                    "examplePhrases": ["How much is it?", "Do you accept insurance?", "Can I pay by card?"]
+                }
+            ]
+        }
+    ]
+}

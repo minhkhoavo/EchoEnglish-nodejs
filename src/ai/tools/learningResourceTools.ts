@@ -83,8 +83,6 @@ const AVAILABLE_SKILLS = {
     ],
 } as const;
 
-console.log('AVAILABLE_DOMAINS::::::::', AVAILABLE_DOMAINS);
-
 /**
  * Tool to find learning resources based on domains
  * Maps to the findAvailableResources function from DailySessionService
