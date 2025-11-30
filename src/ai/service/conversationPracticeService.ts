@@ -172,16 +172,16 @@ Generate tasks that are:
 4. Focused on practical English speaking skills
 
 OUTPUT FORMAT (JSON only, no markdown):
-{
+{{
     "tasks": [
-        {
+        {{
             "id": "task_1",
             "description": "Clear description of what the user should express",
             "examplePhrases": ["Example phrase 1", "Example phrase 2"]
-        }
+        }}
     ],
     "starterMessage": "A friendly opening message to start the conversation that relates to the custom request"
-}`;
+}}`;
 
         const prompt = ChatPromptTemplate.fromMessages([
             ['system', systemPrompt],
@@ -289,7 +289,7 @@ OUTPUT FORMAT (JSON only, no markdown):
             } else {
                 // Create a generic topic for custom prompt
                 topic = {
-                    id: 'custom',
+                    id: 'custom_topic',
                     title: 'Custom Conversation Practice',
                     description:
                         'Personalized conversation practice based on your request',
@@ -346,13 +346,14 @@ OUTPUT FORMAT (JSON only, no markdown):
         request: ConversationPracticeMessageRequest
     ): Promise<ConversationPracticeResponse> {
         const topic = this.getTopicById(request.topicId);
-
-        if (!topic) {
-            throw new Error(`Topic not found: ${request.topicId}`);
-        }
-
         // Use tasks from topic
-        const tasks = topic.tasks;
+        const tasks =
+            topic?.tasks ||
+            request.checklist.map((item) => ({
+                id: item.taskId,
+                description: '',
+                examplePhrases: [],
+            }));
 
         // Build task descriptions for the prompt
         const taskDescriptions = tasks
@@ -361,8 +362,8 @@ OUTPUT FORMAT (JSON only, no markdown):
                     (c: TaskChecklistItem) => c.taskId === task.id
                 );
                 const status = checklistItem?.isCompleted
-                    ? '✅ COMPLETED'
-                    : '❌ NOT YET';
+                    ? 'COMPLETED'
+                    : 'NOT YET';
                 return `${index + 1}. [${status}] ${task.id}: ${task.description} (Example phrases: ${task.examplePhrases.join(', ')})`;
             })
             .join('\n');
@@ -377,14 +378,14 @@ OUTPUT FORMAT (JSON only, no markdown):
 
         const systemPrompt = `You are an English conversation practice partner helping users improve their speaking skills through interactive dialogue.
 
-TOPIC: ${topic.title}
-DESCRIPTION: ${topic.description}
+TOPIC: ${topic?.title}
+DESCRIPTION: ${topic?.description}
 
 TASKS TO COMPLETE:
 ${taskDescriptions}
 
 INSTRUCTIONS:
-1. You are having a natural conversation with the user about "${topic.title}".
+1. You are having a natural conversation with the user about "${topic?.title}".
 2. Your role is to engage the user in conversation and help them complete all the tasks naturally.
 3. After analyzing the user's latest message and the conversation history, determine which tasks have been completed.
 4. Continue the conversation naturally - ask follow-up questions to encourage the user to complete remaining tasks.
