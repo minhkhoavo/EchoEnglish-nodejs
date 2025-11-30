@@ -14,5 +14,6 @@ import './roadmapModel.js';
 import './roleModel.js';
 import './studyPlanModel.js';
 import './testResultModel.js';
+import './testModel.js';
 import './userModel.js';
 import './weaknessDrillModel.js';
