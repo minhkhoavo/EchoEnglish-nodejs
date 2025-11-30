@@ -1,6 +1,7 @@
 import userRouter from './users.js';
 import authRouter from './auth.js';
 import testRouter from './tests.js';
+import adminTestRouter from './adminTests.js';
 import flashcardRouter from './flashcard.js';
 import filesRouter from './files.js';
 import { Router } from 'express';
@@ -26,6 +27,7 @@ const apiRouter = Router();
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/users', userRouter);
 apiRouter.use('/tests', testRouter);
+apiRouter.use('/admin/tests', adminTestRouter);
 apiRouter.use('/flashcards', flashcardRouter);
 apiRouter.use('/files', filesRouter);
 apiRouter.use('/speech', speechRouter);

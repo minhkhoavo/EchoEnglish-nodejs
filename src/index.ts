@@ -29,7 +29,8 @@ app.post(
     paymentController.stripeWebhook
 );
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 cron.schedule('0 0 * * 0', async () => {
     console.log('[CRON] Trigger RSS fetching...');
