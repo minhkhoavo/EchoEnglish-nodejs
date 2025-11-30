@@ -84,6 +84,7 @@ interface PersonalizedGuideInput {
     questionsAttempted: number;
     errorPatterns?: string;
     commonMistakes?: string;
+    knowledgeContext?: string | null;
 }
 
 interface GuideSection {
@@ -284,6 +285,11 @@ class ToeicAnalysisAIService {
                 'toeic-analysis-coach'
             );
 
+            // Thêm knowledge context vào prompt nếu có
+            const knowledgeSection = input.knowledgeContext
+                ? `\n\n--- REFERENCE KNOWLEDGE FROM KNOWLEDGE BASE ---\n${input.knowledgeContext}\n--- END REFERENCE KNOWLEDGE ---\n\nUse the above reference knowledge to enrich your guide with accurate examples and explanations.\n`
+                : '';
+
             const userPrompt = await promptManagerService.loadTemplate(
                 'analysis/personalized-guide',
                 {
@@ -300,7 +306,7 @@ class ToeicAnalysisAIService {
                 }
             );
 
-            const fullPrompt = `${systemPrompt}\n\n${userPrompt}\n\n${formatInstructions}`;
+            const fullPrompt = `${systemPrompt}\n\n${userPrompt}${knowledgeSection}\n\n${formatInstructions}`;
             const response = await this.aiClient.generate(fullPrompt);
             const parsed = await parser.parse(response);
 

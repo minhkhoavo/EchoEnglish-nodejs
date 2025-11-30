@@ -161,9 +161,12 @@ class FileIntelligenceService {
                 );
             }
         }
-        const aiUsage = composeUsage(response as GeminiUsageResponse);
-        if (aiUsage) {
-            metadata.aiCost = aiUsage;
+        let aiUsage: ReturnType<typeof composeUsage> | undefined;
+        if (response) {
+            aiUsage = composeUsage(response as GeminiUsageResponse);
+            if (aiUsage) {
+                metadata.aiCost = aiUsage;
+            }
         }
 
         await metadata.save();
@@ -187,20 +190,6 @@ class FileIntelligenceService {
             topK: options.topK ?? 4,
         });
 
-        // Log search results
-        console.log('[RAG] Search query:', options.question);
-        console.log('[RAG] Search results:', {
-            documentsCount: search.documents.length,
-            metadatas: search.metadatas.map((meta, idx) => ({
-                fileName: meta.fileName,
-                chunkIndex: meta.chunkIndex,
-                distance: search.distances[idx],
-                language: meta.language,
-                difficulty: meta.difficulty,
-                domain: meta.domain,
-            })),
-        });
-
         if (!search.documents.length) {
             return {
                 answer: 'No matching content found in your uploaded files yet. Try uploading richer documents or ask a more specific question.',
@@ -217,17 +206,6 @@ class FileIntelligenceService {
 
         const context = contextBlocks.join('\n\n');
 
-        // Log retrieved context for debugging
-        console.log(
-            '[RAG] Retrieved documents count:',
-            search.documents.length
-        );
-        console.log('[RAG] Context length:', context.length);
-        console.log(
-            '[RAG] Context preview:',
-            context.substring(0, 500) + (context.length > 500 ? '...' : '')
-        );
-
         const detectedLanguage = (
             search.metadatas[0] as DocumentChunkMetadata | undefined
         )?.language;
@@ -238,23 +216,12 @@ class FileIntelligenceService {
             question: options.question,
         });
 
-        // Log formatted prompt
-        console.log('[RAG] Formatted prompt length:', formattedPrompt.length);
-        console.log('[RAG] Language used:', language);
-
         const model = googleGenAIClient.getModel();
         const responseFromModel = await model.invoke([
             { role: 'user', content: formattedPrompt },
         ]);
         const answer = extractTextFromMessage(responseFromModel);
         const aiUsage = composeUsage(responseFromModel as GeminiUsageResponse);
-
-        // Log final answer
-        console.log('[RAG] Generated answer length:', answer.length);
-        console.log(
-            '[RAG] Generated answer preview:',
-            answer.substring(0, 200) + (answer.length > 200 ? '...' : '')
-        );
 
         const references: ChatReference[] = search.documents.map((doc, idx) => {
             const meta = search.metadatas[idx] as DocumentChunkMetadata;
