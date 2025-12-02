@@ -1,0 +1,2121 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47e709a4e8dd8355a20cf",
+                "word": "health",
+                "explanation": {
+                    "en": "The state of being free from illness or injury. A person's physical and mental condition.",
+                    "vi": "Tình trạng không bị bệnh tật hoặc thương tích. Tình trạng thể chất và tinh thần của một người.",
+                    "th": "สภาวะที่ปราศจากความเจ็บป่วยหรือการบาดเจ็บ. สภาพร่างกายและจิตใจของบุคคล.",
+                    "id": "Keadaan bebas dari penyakit atau cedera. Kondisi fisik dan mental seseorang.",
+                    "ar": "حالة خالية من المرض أو الإصابة. الحالة البدنية والعقلية للشخص."
+                },
+                "translation": {
+                    "vi": "sức khỏe",
+                    "th": "สุขภาพ",
+                    "id": "kesehatan",
+                    "ar": "الصحة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/helθ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/health-uk-1760856891238.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/helθ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/health-us-1760856891598.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Regular exercise is good for your health.",
+                    "vi": "Tập thể dục thường xuyên rất tốt cho sức khỏe của bạn.",
+                    "th": "การออกกำลังกายเป็นประจำดีต่อสุขภาพของคุณ.",
+                    "id": "Olahraga teratur baik untuk kesehatan Anda.",
+                    "ar": "ممارسة الرياضة بانتظام مفيدة لصحتك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e709a4e8dd8355a20cf_1760870160736.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e709a4e8dd8355a20d2",
+                "word": "healthy",
+                "explanation": {
+                    "en": "In a good physical or mental condition. Contributing to a good physical condition.",
+                    "vi": "Trong tình trạng thể chất hoặc tinh thần tốt. Góp phần vào một tình trạng thể chất tốt.",
+                    "th": "อยู่ในสภาพร่างกายหรือจิตใจที่ดี. มีส่วนช่วยให้มีสภาพร่างกายที่ดี.",
+                    "id": "Dalam kondisi fisik atau mental yang baik. Berkontribusi pada kondisi fisik yang baik.",
+                    "ar": "في حالة بدنية أو عقلية جيدة. يساهم في حالة بدنية جيدة."
+                },
+                "translation": {
+                    "vi": "khỏe mạnh",
+                    "th": "แข็งแรง",
+                    "id": "sehat",
+                    "ar": "بصحة جيدة"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈhelθi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/healthy-uk-1760856892873.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhelθi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/healthy-us-1760856893260.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She eats healthy food every day.",
+                    "vi": "Cô ấy ăn thức ăn lành mạnh mỗi ngày.",
+                    "th": "เธอกินอาหารเพื่อสุขภาพทุกวัน.",
+                    "id": "Dia makan makanan sehat setiap hari.",
+                    "ar": "هي تأكل طعامًا صحيًا كل يوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e709a4e8dd8355a20d2_1760870169122.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e709a4e8dd8355a20d5",
+                "word": "sick",
+                "explanation": {
+                    "en": "Suffering from an illness or disease. Feeling unwell.",
+                    "vi": "Mắc bệnh hoặc ốm yếu. Cảm thấy không khỏe.",
+                    "th": "ป่วยเป็นโรคหรือความเจ็บป่วย. รู้สึกไม่สบาย.",
+                    "id": "Menderita penyakit atau sakit. Merasa tidak enak badan.",
+                    "ar": "يعاني من مرض أو علة. يشعر بتوعك."
+                },
+                "translation": {
+                    "vi": "bị ốm",
+                    "th": "ป่วย",
+                    "id": "sakit",
+                    "ar": "مريض"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/sɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sick-uk-1760856894533.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/sɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sick-us-1760856894907.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I feel sick; I think I have a cold.",
+                    "vi": "Tôi cảm thấy ốm; tôi nghĩ mình bị cảm lạnh.",
+                    "th": "ฉันรู้สึกไม่สบาย; ฉันคิดว่าฉันเป็นหวัด.",
+                    "id": "Saya merasa sakit; saya kira saya pilek.",
+                    "ar": "أشعر بالمرض؛ أعتقد أنني مصاب بالبرد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e709a4e8dd8355a20d5_1760870175617.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e709a4e8dd8355a20d8",
+                "word": "ill",
+                "explanation": {
+                    "en": "Suffering from a disease or ailment. Not in good health.",
+                    "vi": "Mắc bệnh hoặc ốm yếu. Không có sức khỏe tốt.",
+                    "th": "ป่วยเป็นโรคหรือความเจ็บป่วย. สุขภาพไม่ดี.",
+                    "id": "Menderita penyakit atau gangguan. Tidak dalam kesehatan yang baik.",
+                    "ar": "يعاني من مرض أو علة. ليس بصحة جيدة."
+                },
+                "translation": {
+                    "vi": "bị bệnh",
+                    "th": "ป่วย",
+                    "id": "sakit",
+                    "ar": "مريض"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ill-uk-1760856896174.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ill-us-1760856896462.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He was too ill to go to work today.",
+                    "vi": "Anh ấy quá ốm để đi làm hôm nay.",
+                    "th": "เขาป่วยเกินกว่าจะไปทำงานในวันนี้.",
+                    "id": "Dia terlalu sakit untuk pergi bekerja hari ini.",
+                    "ar": "كان مريضًا جدًا لدرجة أنه لم يتمكن من الذهاب إلى العمل اليوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e709a4e8dd8355a20d8_1760870182409.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e709a4e8dd8355a20db",
+                "word": "patient",
+                "explanation": {
+                    "en": "A person receiving medical care or treatment. Someone under the care of a doctor.",
+                    "vi": "Một người đang nhận được sự chăm sóc hoặc điều trị y tế. Một người dưới sự chăm sóc của bác sĩ.",
+                    "th": "บุคคลที่ได้รับการดูแลหรือรักษาทางการแพทย์. ผู้ที่อยู่ภายใต้การดูแลของแพทย์.",
+                    "id": "Seseorang yang menerima perawatan atau pengobatan medis. Seseorang di bawah perawatan dokter.",
+                    "ar": "شخص يتلقى رعاية أو علاجًا طبيًا. شخص تحت رعاية طبيب."
+                },
+                "translation": {
+                    "vi": "bệnh nhân",
+                    "th": "ผู้ป่วย",
+                    "id": "pasien",
+                    "ar": "مريض"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpeɪʃnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/patient-uk-1760856897741.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpeɪʃnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/patient-us-1760856898098.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The doctor asked the patient to sit down.",
+                    "vi": "Bác sĩ yêu cầu bệnh nhân ngồi xuống.",
+                    "th": "หมอขอให้คนไข้นั่งลง.",
+                    "id": "Dokter meminta pasien untuk duduk.",
+                    "ar": "طلب الطبيب من المريض الجلوس."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e709a4e8dd8355a20db_1760870188712.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e709a4e8dd8355a20de",
+                "word": "doctor",
+                "explanation": {
+                    "en": "A person qualified to practice medicine. Someone who diagnoses and treats illnesses.",
+                    "vi": "Một người có trình độ hành nghề y. Một người chẩn đoán và điều trị bệnh tật.",
+                    "th": "บุคคลที่มีคุณสมบัติในการประกอบวิชาชีพเวชกรรม. ผู้ที่วินิจฉัยและรักษาโรค.",
+                    "id": "Seseorang yang memenuhi syarat untuk praktik kedokteran. Seseorang yang mendiagnosis dan mengobati penyakit.",
+                    "ar": "شخص مؤهل لممارسة الطب. شخص يقوم بتشخيص الأمراض وعلاجها."
+                },
+                "translation": {
+                    "vi": "bác sĩ",
+                    "th": "หมอ",
+                    "id": "dokter",
+                    "ar": "طبيب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɒktə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/doctor-uk-1760856899373.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdɑːktər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/doctor-us-1760856899708.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need to see a doctor about my cough.",
+                    "vi": "Tôi cần gặp bác sĩ về cơn ho của mình.",
+                    "th": "ฉันต้องไปหาหมอเรื่องอาการไอของฉัน.",
+                    "id": "Saya perlu menemui dokter tentang batuk saya.",
+                    "ar": "أحتاج إلى رؤية طبيب بشأن سعالي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e709a4e8dd8355a20de_1760870195817.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e709a4e8dd8355a20e1",
+                "word": "nurse",
+                "explanation": {
+                    "en": "A person trained to care for the sick or infirm. Someone who assists doctors and cares for patients.",
+                    "vi": "Một người được đào tạo để chăm sóc người bệnh hoặc người ốm yếu. Một người hỗ trợ bác sĩ và chăm sóc bệnh nhân.",
+                    "th": "บุคคลที่ได้รับการฝึกฝนให้ดูแลผู้ป่วยหรือผู้ทุพพลภาพ. ผู้ที่ช่วยเหลือแพทย์และดูแลผู้ป่วย.",
+                    "id": "Seseorang yang terlatih untuk merawat orang sakit atau lemah. Seseorang yang membantu dokter dan merawat pasien.",
+                    "ar": "شخص مدرب على رعاية المرضى أو العجزة. شخص يساعد الأطباء ويعتني بالمرضى."
+                },
+                "translation": {
+                    "vi": "y tá",
+                    "th": "พยาบาล",
+                    "id": "perawat",
+                    "ar": "ممرضة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/nɜːs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nurse-uk-1760856900959.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/nɜːrs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nurse-us-1760856901300.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The nurse gave me a blanket.",
+                    "vi": "Y tá đưa cho tôi một cái chăn.",
+                    "th": "พยาบาลให้ผ้าห่มแก่ฉัน.",
+                    "id": "Perawat memberi saya selimut.",
+                    "ar": "أعطتني الممرضة بطانية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e709a4e8dd8355a20e1_1760870204557.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e719a4e8dd8355a20e4",
+                "word": "hospital",
+                "explanation": {
+                    "en": "An institution providing medical and surgical treatment. A place where the ill and injured are treated.",
+                    "vi": "Một cơ sở cung cấp điều trị y tế và phẫu thuật. Một nơi mà người bệnh và người bị thương được điều trị.",
+                    "th": "สถาบันที่ให้บริการรักษาพยาบาลและการผ่าตัด. สถานที่ที่ผู้ป่วยและผู้บาดเจ็บได้รับการรักษา.",
+                    "id": "Sebuah institusi yang menyediakan perawatan medis dan bedah. Tempat di mana orang sakit dan terluka dirawat.",
+                    "ar": "مؤسسة تقدم العلاج الطبي والجراحي. مكان يتم فيه علاج المرضى والمصابين."
+                },
+                "translation": {
+                    "vi": "bệnh viện",
+                    "th": "โรงพยาบาล",
+                    "id": "rumah sakit",
+                    "ar": "مستشفى"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhɒspɪtl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hospital-uk-1760856902575.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhɑːspɪtl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hospital-us-1760856902941.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She went to the hospital for an operation.",
+                    "vi": "Cô ấy đã đến bệnh viện để phẫu thuật.",
+                    "th": "เธอไปโรงพยาบาลเพื่อผ่าตัด.",
+                    "id": "Dia pergi ke rumah sakit untuk operasi.",
+                    "ar": "ذهبت إلى المستشفى لإجراء عملية جراحية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e719a4e8dd8355a20e4_1760870211662.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e719a4e8dd8355a20e7",
+                "word": "clinic",
+                "explanation": {
+                    "en": "An establishment or session where medical advice or treatment is given. A place for outpatient care.",
+                    "vi": "Một cơ sở hoặc buổi làm việc nơi cung cấp lời khuyên hoặc điều trị y tế. Một nơi để chăm sóc bệnh nhân ngoại trú.",
+                    "th": "สถานประกอบการหรือช่วงเวลาที่ให้คำแนะนำหรือการรักษาทางการแพทย์. สถานที่สำหรับการดูแลผู้ป่วยนอก.",
+                    "id": "Sebuah tempat atau sesi di mana nasihat atau perawatan medis diberikan. Tempat untuk perawatan pasien rawat jalan.",
+                    "ar": "مؤسسة أو جلسة يتم فيها تقديم المشورة أو العلاج الطبي. مكان للرعاية الخارجية للمرضى."
+                },
+                "translation": {
+                    "vi": "phòng khám",
+                    "th": "คลินิก",
+                    "id": "klinik",
+                    "ar": "عيادة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈklɪnɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/clinic-uk-1760856904231.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈklɪnɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/clinic-us-1760856904562.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The new dental clinic opened last week.",
+                    "vi": "Phòng khám nha khoa mới đã mở cửa vào tuần trước.",
+                    "th": "คลินิกทันตกรรมแห่งใหม่เปิดเมื่อสัปดาห์ที่แล้ว.",
+                    "id": "Klinik gigi baru dibuka minggu lalu.",
+                    "ar": "افتتحت عيادة الأسنان الجديدة الأسبوع الماضي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e719a4e8dd8355a20e7_1760870219519.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e719a4e8dd8355a20ea",
+                "word": "pharmacy",
+                "explanation": {
+                    "en": "A shop where medicinal drugs are dispensed and sold. A drugstore or chemist's shop.",
+                    "vi": "Một cửa hàng nơi thuốc được phân phát và bán. Một hiệu thuốc hoặc cửa hàng hóa chất.",
+                    "th": "ร้านค้าที่จ่ายและขายยา. ร้านขายยาหรือร้านเคมีภัณฑ์.",
+                    "id": "Sebuah toko tempat obat-obatan disalurkan dan dijual. Sebuah toko obat atau toko kimia.",
+                    "ar": "متجر يتم فيه صرف وبيع الأدوية. صيدلية أو متجر كيميائي."
+                },
+                "translation": {
+                    "vi": "nhà thuốc",
+                    "th": "ร้านขายยา",
+                    "id": "apotek",
+                    "ar": "صيدلية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfɑːməsi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pharmacy-uk-1760856905869.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfɑːrməsi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pharmacy-us-1760856906206.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I picked up my medicine from the pharmacy.",
+                    "vi": "Tôi đã lấy thuốc của mình từ nhà thuốc.",
+                    "th": "ฉันไปรับยาที่ร้านขายยา.",
+                    "id": "Saya mengambil obat saya dari apotek.",
+                    "ar": "لقد التقطت دوائي من الصيدلية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e719a4e8dd8355a20ea_1760870227439.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e719a4e8dd8355a20ed",
+                "word": "medicine",
+                "explanation": {
+                    "en": "A drug or other preparation for the treatment of disease. A substance used to alleviate illness.",
+                    "vi": "Thuốc hoặc chế phẩm khác dùng để điều trị bệnh. Một chất được sử dụng để làm giảm bệnh tật.",
+                    "th": "ยาหรือสารเตรียมอื่น ๆ สำหรับการรักษาโรค สารที่ใช้บรรเทาอาการเจ็บป่วย",
+                    "id": "Obat atau sediaan lain untuk pengobatan penyakit. Zat yang digunakan untuk meredakan penyakit.",
+                    "ar": "دواء أو مستحضر آخر لعلاج المرض. مادة تستخدم لتخفيف المرض."
+                },
+                "translation": {
+                    "vi": "thuốc",
+                    "th": "ยา",
+                    "id": "obat",
+                    "ar": "دواء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmedsn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/medicine-uk-1760856907485.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmedɪsn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/medicine-us-1760856907827.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need to take my medicine after dinner.",
+                    "vi": "Tôi cần uống thuốc sau bữa tối.",
+                    "th": "ฉันต้องกินยาหลังอาหารเย็น",
+                    "id": "Saya perlu minum obat setelah makan malam.",
+                    "ar": "أحتاج لتناول دوائي بعد العشاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e719a4e8dd8355a20ed_1760870234275.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e719a4e8dd8355a20f0",
+                "word": "pill",
+                "explanation": {
+                    "en": "A small round mass of medicinal substance for swallowing. A small, usually circular, form of oral medication.",
+                    "vi": "Một khối nhỏ hình tròn chứa chất thuốc để nuốt. Một dạng thuốc uống nhỏ, thường hình tròn.",
+                    "th": "ยาเม็ดกลมเล็กสำหรับกลืน ยาเม็ดเล็ก ๆ ที่มักมีลักษณะกลมสำหรับรับประทานทางปาก",
+                    "id": "Massa kecil berbentuk bulat dari zat obat untuk ditelan. Bentuk obat oral yang kecil, biasanya melingkar.",
+                    "ar": "كتلة صغيرة مستديرة من مادة طبية للبلع. شكل صغير، عادة دائري، من الأدوية الفموية."
+                },
+                "translation": {
+                    "vi": "viên thuốc",
+                    "th": "ยาเม็ด",
+                    "id": "pil",
+                    "ar": "حبة دواء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/pɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pill-uk-1760856909108.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/pɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pill-us-1760856909387.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Take one pill with water every morning.",
+                    "vi": "Uống một viên thuốc với nước mỗi sáng.",
+                    "th": "กินยาหนึ่งเม็ดกับน้ำทุกเช้า",
+                    "id": "Minumlah satu pil dengan air setiap pagi.",
+                    "ar": "تناول حبة واحدة مع الماء كل صباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e719a4e8dd8355a20f0_1760870240592.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e719a4e8dd8355a20f3",
+                "word": "tablet",
+                "explanation": {
+                    "en": "A small, solid dose of a drug. A flattened disc of compacted medicinal powder.",
+                    "vi": "Một liều thuốc nhỏ, rắn. Một đĩa dẹt chứa bột thuốc được nén chặt.",
+                    "th": "ยาเม็ดแข็งขนาดเล็ก ยาเม็ดแบนที่อัดแน่นด้วยผงยา",
+                    "id": "Dosis obat padat kecil. Cakram pipih dari bubuk obat yang dipadatkan.",
+                    "ar": "جرعة صغيرة صلبة من الدواء. قرص مسطح من مسحوق طبي مضغوط."
+                },
+                "translation": {
+                    "vi": "thuốc viên",
+                    "th": "ยาเม็ด",
+                    "id": "tablet",
+                    "ar": "قرص"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtæblət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tablet-uk-1760856910649.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtæblət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tablet-us-1760856910978.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The doctor prescribed a new tablet for my allergy.",
+                    "vi": "Bác sĩ đã kê một loại thuốc viên mới cho bệnh dị ứng của tôi.",
+                    "th": "หมอสั่งยาเม็ดใหม่สำหรับอาการแพ้ของฉัน",
+                    "id": "Dokter meresepkan tablet baru untuk alergi saya.",
+                    "ar": "وصف الطبيب قرصًا جديدًا لحساسيتي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e719a4e8dd8355a20f3_1760870247657.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e719a4e8dd8355a20f6",
+                "word": "prescription",
+                "explanation": {
+                    "en": "An instruction written by a medical practitioner that authorizes a drug. A doctor's order for medication.",
+                    "vi": "Một chỉ dẫn được viết bởi một bác sĩ cho phép sử dụng một loại thuốc. Đơn thuốc của bác sĩ.",
+                    "th": "คำสั่งที่เขียนโดยแพทย์ที่อนุญาตให้ใช้ยา คำสั่งยาจากแพทย์",
+                    "id": "Instruksi tertulis oleh praktisi medis yang mengizinkan penggunaan obat. Resep dokter untuk pengobatan.",
+                    "ar": "تعليمات مكتوبة من قبل ممارس طبي تسمح بصرف دواء. أمر طبيب للدواء."
+                },
+                "translation": {
+                    "vi": "đơn thuốc",
+                    "th": "ใบสั่งยา",
+                    "id": "resep",
+                    "ar": "وصفة طبية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/prɪˈskrɪpʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/prescription-uk-1760856912240.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/prɪˈskrɪpʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/prescription-us-1760856912563.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I picked up my prescription from the pharmacy.",
+                    "vi": "Tôi đã lấy đơn thuốc của mình từ nhà thuốc.",
+                    "th": "ฉันไปรับใบสั่งยาจากร้านขายยา",
+                    "id": "Saya mengambil resep saya dari apotek.",
+                    "ar": "لقد استلمت وصفتي الطبية من الصيدلية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e719a4e8dd8355a20f6_1760870254986.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e729a4e8dd8355a20f9",
+                "word": "fever",
+                "explanation": {
+                    "en": "An abnormally high body temperature. A common symptom of illness or infection.",
+                    "vi": "Nhiệt độ cơ thể cao bất thường. Một triệu chứng phổ biến của bệnh tật hoặc nhiễm trùng.",
+                    "th": "อุณหภูมิร่างกายสูงผิดปกติ อาการทั่วไปของการเจ็บป่วยหรือการติดเชื้อ",
+                    "id": "Suhu tubuh yang sangat tinggi. Gejala umum penyakit atau infeksi.",
+                    "ar": "ارتفاع غير طبيعي في درجة حرارة الجسم. عرض شائع للمرض أو العدوى."
+                },
+                "translation": {
+                    "vi": "sốt",
+                    "th": "ไข้",
+                    "id": "demam",
+                    "ar": "حمى"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfiːvə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fever-uk-1760856913836.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfiːvər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fever-us-1760856914166.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The child had a high fever all night.",
+                    "vi": "Đứa trẻ bị sốt cao suốt đêm.",
+                    "th": "เด็กมีไข้สูงตลอดทั้งคืน",
+                    "id": "Anak itu demam tinggi sepanjang malam.",
+                    "ar": "كان الطفل يعاني من حمى شديدة طوال الليل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e729a4e8dd8355a20f9_1760870261570.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e729a4e8dd8355a20fc",
+                "word": "headache",
+                "explanation": {
+                    "en": "A continuous pain in the head. A common, unpleasant sensation in the skull area.",
+                    "vi": "Cơn đau liên tục ở đầu. Một cảm giác khó chịu phổ biến ở vùng sọ.",
+                    "th": "อาการปวดศีรษะต่อเนื่อง ความรู้สึกไม่พึงประสงค์ทั่วไปในบริเวณกะโหลกศีรษะ",
+                    "id": "Nyeri terus-menerus di kepala. Sensasi tidak menyenangkan yang umum di area tengkorak.",
+                    "ar": "ألم مستمر في الرأس. إحساس شائع وغير سار في منطقة الجمجمة."
+                },
+                "translation": {
+                    "vi": "đau đầu",
+                    "th": "ปวดหัว",
+                    "id": "sakit kepala",
+                    "ar": "صداع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhedeɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/headache-uk-1760856915433.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhedeɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/headache-us-1760856915777.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I have a terrible headache; I need some aspirin.",
+                    "vi": "Tôi bị đau đầu kinh khủng; tôi cần một ít aspirin.",
+                    "th": "ฉันปวดหัวมาก ฉันต้องการแอสไพริน",
+                    "id": "Saya sakit kepala parah; saya butuh aspirin.",
+                    "ar": "أعاني من صداع فظيع؛ أحتاج إلى بعض الأسبرين."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e729a4e8dd8355a20fc_1760870269996.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e729a4e8dd8355a20ff",
+                "word": "stomachache",
+                "explanation": {
+                    "en": "Pain in a person's stomach or abdomen. Abdominal discomfort.",
+                    "vi": "Đau ở dạ dày hoặc bụng của một người. Khó chịu ở bụng.",
+                    "th": "อาการปวดท้องหรือช่องท้องของบุคคล ความรู้สึกไม่สบายในช่องท้อง",
+                    "id": "Nyeri di perut atau abdomen seseorang. Ketidaknyamanan perut.",
+                    "ar": "ألم في معدة الشخص أو بطنه. عدم ارتياح في البطن."
+                },
+                "translation": {
+                    "vi": "đau bụng",
+                    "th": "ปวดท้อง",
+                    "id": "sakit perut",
+                    "ar": "ألم في البطن"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈstʌməkeɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/stomachache-uk-ai-1760858305407.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈstʌməkeɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/stomachache-us-ai-1760858306086.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Eating too much candy gave me a stomachache.",
+                    "vi": "Ăn quá nhiều kẹo khiến tôi bị đau bụng.",
+                    "th": "การกินลูกอมมากเกินไปทำให้ฉันปวดท้อง",
+                    "id": "Makan terlalu banyak permen membuat saya sakit perut.",
+                    "ar": "أكل الكثير من الحلوى أصابني بألم في المعدة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e729a4e8dd8355a20ff_1760870277692.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e729a4e8dd8355a2102",
+                "word": "sore throat",
+                "explanation": {
+                    "en": "A condition in which the throat is painful. A common symptom of a cold or flu.",
+                    "vi": "Tình trạng cổ họng bị đau. Một triệu chứng phổ biến của cảm lạnh hoặc cúm.",
+                    "th": "อาการที่คอเจ็บ อาการทั่วไปของไข้หวัดหรือไข้หวัดใหญ่",
+                    "id": "Kondisi di mana tenggorokan terasa sakit. Gejala umum pilek atau flu.",
+                    "ar": "حالة يكون فيها الحلق مؤلمًا. عرض شائع للبرد أو الأنفلونزا."
+                },
+                "translation": {
+                    "vi": "đau họng",
+                    "th": "เจ็บคอ",
+                    "id": "sakit tenggorokan",
+                    "ar": "التهاب الحلق"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/sɔː θrəʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sore-throat-uk-ai-1760858311231.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/sɔːr θroʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sore-throat-us-ai-1760858311873.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She has a sore throat and can barely speak.",
+                    "vi": "Cô ấy bị đau họng và hầu như không thể nói được.",
+                    "th": "เธอเจ็บคอและแทบจะพูดไม่ได้",
+                    "id": "Dia sakit tenggorokan dan hampir tidak bisa bicara.",
+                    "ar": "لديها التهاب في الحلق وبالكاد تستطيع التحدث."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e729a4e8dd8355a2102_1760870285326.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e729a4e8dd8355a2105",
+                "word": "cough",
+                "explanation": {
+                    "en": "A sudden, noisy expulsion of air from the lungs. A common reflex to clear the throat or airways.",
+                    "vi": "Sự tống xuất không khí đột ngột, ồn ào từ phổi. Một phản xạ phổ biến để làm sạch cổ họng hoặc đường thở.",
+                    "th": "การขับอากาศออกจากปอดอย่างกะทันหันและมีเสียงดัง ปฏิกิริยาตอบสนองทั่วไปเพื่อล้างลำคอหรือทางเดินหายใจ",
+                    "id": "Pengeluaran udara yang tiba-tiba dan berisik dari paru-paru. Refleks umum untuk membersihkan tenggorokan atau saluran napas.",
+                    "ar": "طرد مفاجئ وصاخب للهواء من الرئتين. رد فعل شائع لتنظيف الحلق أو مجاري الهواء."
+                },
+                "translation": {
+                    "vi": "ho",
+                    "th": "ไอ",
+                    "id": "batuk",
+                    "ar": "سعال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kɒf/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cough-uk-1760856918773.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kɔːf/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cough-us-1760856919102.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "His persistent cough kept everyone awake.",
+                    "vi": "Cơn ho dai dẳng của anh ấy khiến mọi người thức giấc.",
+                    "th": "อาการไอเรื้อรังของเขาทำให้ทุกคนตื่น",
+                    "id": "Batuknya yang terus-menerus membuat semua orang terjaga.",
+                    "ar": "سعاله المستمر أبقى الجميع مستيقظين."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e729a4e8dd8355a2105_1760870292765.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e739a4e8dd8355a2108",
+                "word": "cold",
+                "explanation": {
+                    "en": "A common viral infectious disease causing symptoms like a runny nose. A mild, short-term respiratory illness.",
+                    "vi": "Một bệnh truyền nhiễm do virus phổ biến gây ra các triệu chứng như sổ mũi. Một bệnh hô hấp nhẹ, ngắn hạn.",
+                    "th": "โรคติดเชื้อไวรัสทั่วไปที่ทำให้เกิดอาการเช่นน้ำมูกไหล โรคทางเดินหายใจที่ไม่รุนแรงและเป็นระยะสั้น",
+                    "id": "Penyakit menular virus umum yang menyebabkan gejala seperti pilek. Penyakit pernapasan ringan, berjangka pendek.",
+                    "ar": "مرض فيروسي معدٍ شائع يسبب أعراضًا مثل سيلان الأنف. مرض تنفسي خفيف وقصير الأمد."
+                },
+                "translation": {
+                    "vi": "cảm lạnh",
+                    "th": "หวัด",
+                    "id": "selesma",
+                    "ar": "نزلة برد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kəʊld/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cold-uk-1760856920323.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kəʊld/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cold-us-1760856920667.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I caught a cold and feel very tired.",
+                    "vi": "Tôi bị cảm lạnh và cảm thấy rất mệt.",
+                    "th": "ฉันเป็นหวัดและรู้สึกเหนื่อยมาก",
+                    "id": "Saya pilek dan merasa sangat lelah.",
+                    "ar": "أصبت بنزلة برد وأشعر بتعب شديد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e739a4e8dd8355a2108_1760870299352.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e739a4e8dd8355a210b",
+                "word": "flu",
+                "explanation": {
+                    "en": "A common viral infection that can be more severe than a cold. Influenza, characterized by fever and body aches.",
+                    "vi": "Một bệnh nhiễm virus phổ biến có thể nghiêm trọng hơn cảm lạnh. Bệnh cúm, đặc trưng bởi sốt và đau nhức cơ thể.",
+                    "th": "การติดเชื้อไวรัสทั่วไปที่อาจรุนแรงกว่าไข้หวัดใหญ่ ไข้หวัดใหญ่ ซึ่งมีลักษณะเฉพาะคือมีไข้และปวดเมื่อยตามร่างกาย",
+                    "id": "Infeksi virus umum yang bisa lebih parah dari pilek. Influenza, ditandai dengan demam dan nyeri tubuh.",
+                    "ar": "عدوى فيروسية شائعة يمكن أن تكون أكثر شدة من البرد. الأنفلونزا، وتتميز بالحمى وآلام الجسم."
+                },
+                "translation": {
+                    "vi": "cúm",
+                    "th": "ไข้หวัดใหญ่",
+                    "id": "flu",
+                    "ar": "إنفلونزا"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/fluː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flu-uk-1760856921957.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fluː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flu-us-1760856922297.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Many people get the flu during winter.",
+                    "vi": "Nhiều người bị cúm vào mùa đông.",
+                    "th": "หลายคนเป็นไข้หวัดใหญ่ในช่วงฤดูหนาว",
+                    "id": "Banyak orang terkena flu selama musim dingin.",
+                    "ar": "يصاب الكثير من الناس بالأنفلونزا خلال الشتاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e739a4e8dd8355a210b_1760870307495.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e739a4e8dd8355a210e",
+                "word": "pain",
+                "explanation": {
+                    "en": "Highly unpleasant physical sensation caused by illness or injury. Physical suffering.",
+                    "vi": "Cảm giác thể chất cực kỳ khó chịu do bệnh tật hoặc chấn thương. Sự đau đớn về thể chất.",
+                    "th": "ความรู้สึกทางกายที่รุนแรงและไม่พึงประสงค์ซึ่งเกิดจากความเจ็บป่วยหรือการบาดเจ็บ ความทุกข์ทรมานทางกาย",
+                    "id": "Sensasi fisik yang sangat tidak menyenangkan yang disebabkan oleh penyakit atau cedera. Penderitaan fisik.",
+                    "ar": "إحساس جسدي غير سار للغاية ناجم عن مرض أو إصابة. معاناة جسدية."
+                },
+                "translation": {
+                    "vi": "cơn đau",
+                    "th": "อาการปวด",
+                    "id": "nyeri",
+                    "ar": "ألم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/peɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pain-uk-1760856923593.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/peɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pain-us-1760856923939.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I felt a sharp pain in my knee.",
+                    "vi": "Tôi cảm thấy một cơn đau nhói ở đầu gối.",
+                    "th": "ฉันรู้สึกเจ็บแปลบที่เข่า",
+                    "id": "Saya merasakan nyeri tajam di lutut saya.",
+                    "ar": "شعرت بألم حاد في ركبتي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e739a4e8dd8355a210e_1760870316035.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e739a4e8dd8355a2111",
+                "word": "symptom",
+                "explanation": {
+                    "en": "A physical or mental feature indicating a disease. A sign of an illness observed by the patient.",
+                    "vi": "Một đặc điểm thể chất hoặc tinh thần cho thấy một căn bệnh. Một dấu hiệu của bệnh được bệnh nhân quan sát.",
+                    "th": "ลักษณะทางกายภาพหรือจิตใจที่บ่งบอกถึงโรค สัญญาณของอาการป่วยที่ผู้ป่วยสังเกตเห็น",
+                    "id": "Ciri fisik atau mental yang menunjukkan suatu penyakit. Tanda penyakit yang diamati oleh pasien.",
+                    "ar": "سمة جسدية أو عقلية تشير إلى مرض. علامة مرض يلاحظها المريض."
+                },
+                "translation": {
+                    "vi": "triệu chứng",
+                    "th": "อาการ",
+                    "id": "gejala",
+                    "ar": "عرض"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsɪmptəm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/symptom-uk-1760856925202.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsɪmptəm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/symptom-us-1760856925569.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A runny nose is a common symptom of a cold.",
+                    "vi": "Sổ mũi là một triệu chứng phổ biến của cảm lạnh.",
+                    "th": "น้ำมูกไหลเป็นอาการทั่วไปของไข้หวัด",
+                    "id": "Hidung meler adalah gejala umum pilek.",
+                    "ar": "سيلان الأنف هو عرض شائع للبرد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e739a4e8dd8355a2111_1760870323385.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e739a4e8dd8355a2114",
+                "word": "infection",
+                "explanation": {
+                    "en": "The process of being infected with a disease-causing organism. The invasion of a host organism's bodily tissues.",
+                    "vi": "Quá trình bị nhiễm bởi một sinh vật gây bệnh. Sự xâm nhập của các mô cơ thể của sinh vật chủ.",
+                    "th": "กระบวนการติดเชื้อจากสิ่งมีชีวิตที่ก่อให้เกิดโรค การบุกรุกเนื้อเยื่อร่างกายของสิ่งมีชีวิตที่เป็นโฮสต์",
+                    "id": "Proses terinfeksi oleh organisme penyebab penyakit. Invasi jaringan tubuh organisme inang.",
+                    "ar": "عملية الإصابة بكائن حي مسبب للمرض. غزو أنسجة جسم الكائن الحي المضيف."
+                },
+                "translation": {
+                    "vi": "nhiễm trùng",
+                    "th": "การติดเชื้อ",
+                    "id": "infeksi",
+                    "ar": "عدوى"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪnˈfekʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/infection-uk-1760856926839.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪnˈfekʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/infection-us-1760856927172.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The cut became red due to an infection.",
+                    "vi": "Vết cắt bị đỏ do nhiễm trùng.",
+                    "th": "แผลกลายเป็นสีแดงเนื่องจากการติดเชื้อ",
+                    "id": "Luka itu menjadi merah karena infeksi.",
+                    "ar": "أصبح الجرح أحمر بسبب العدوى."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e739a4e8dd8355a2114_1760870330117.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e749a4e8dd8355a2117",
+                "word": "virus",
+                "explanation": {
+                    "en": "An infectious agent that reproduces inside living cells. A microscopic organism that can cause disease.",
+                    "vi": "Một tác nhân truyền nhiễm tái tạo bên trong các tế bào sống. Một vi sinh vật có thể gây bệnh.",
+                    "th": "ตัวแทนติดเชื้อที่สืบพันธุ์ภายในเซลล์สิ่งมีชีวิต จุลินทรีย์ขนาดเล็กที่สามารถก่อให้เกิดโรคได้",
+                    "id": "Agen infeksi yang bereproduksi di dalam sel hidup. Organisme mikroskopis yang dapat menyebabkan penyakit.",
+                    "ar": "عامل معدي يتكاثر داخل الخلايا الحية. كائن حي مجهري يمكن أن يسبب المرض."
+                },
+                "translation": {
+                    "vi": "vi-rút",
+                    "th": "ไวรัส",
+                    "id": "virus",
+                    "ar": "فيروس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈvaɪrəs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/virus-uk-1760856928436.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈvaɪrəs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/virus-us-1760856928787.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The new virus spread quickly around the world.",
+                    "vi": "Virus mới lây lan nhanh chóng trên toàn thế giới.",
+                    "th": "ไวรัสตัวใหม่แพร่กระจายอย่างรวดเร็วทั่วโลก",
+                    "id": "Virus baru menyebar dengan cepat di seluruh dunia.",
+                    "ar": "انتشر الفيروس الجديد بسرعة حول العالم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e749a4e8dd8355a2117_1760870337501.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e749a4e8dd8355a211a",
+                "word": "wound",
+                "explanation": {
+                    "en": "An injury to living tissue caused by an external force. A cut, tear, or puncture in the skin.",
+                    "vi": "Một tổn thương đối với mô sống do một lực bên ngoài gây ra. Một vết cắt, vết rách hoặc vết thủng trên da.",
+                    "th": "การบาดเจ็บต่อเนื้อเยื่อที่มีชีวิตซึ่งเกิดจากแรงภายนอก การถูกบาด ฉีกขาด หรือถูกเจาะที่ผิวหนัง",
+                    "id": "Cedera pada jaringan hidup yang disebabkan oleh kekuatan eksternal. Luka potong, robek, atau tusukan pada kulit.",
+                    "ar": "إصابة في الأنسجة الحية ناجمة عن قوة خارجية. قطع أو تمزق أو ثقب في الجلد."
+                },
+                "translation": {
+                    "vi": "vết thương",
+                    "th": "บาดแผล",
+                    "id": "luka",
+                    "ar": "جرح"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/wuːnd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wound-uk-1760856930060.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/wuːnd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wound-us-1760856930416.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The nurse cleaned the wound carefully.",
+                    "vi": "Y tá đã làm sạch vết thương một cách cẩn thận.",
+                    "th": "พยาบาลทำความสะอาดบาดแผลอย่างระมัดระวัง",
+                    "id": "Perawat membersihkan luka dengan hati-hati.",
+                    "ar": "نظفت الممرضة الجرح بعناية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e749a4e8dd8355a211a_1760870344999.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e749a4e8dd8355a211d",
+                "word": "cut",
+                "explanation": {
+                    "en": "An incision or gash made by a sharp object. A small, narrow wound.",
+                    "vi": "Một vết rạch hoặc vết cắt sâu do vật sắc nhọn gây ra. Một vết thương nhỏ, hẹp.",
+                    "th": "รอยกรีดหรือรอยบาดที่เกิดจากวัตถุมีคม บาดแผลขนาดเล็กและแคบ",
+                    "id": "Sayatan atau goresan yang dibuat oleh benda tajam. Luka kecil dan sempit.",
+                    "ar": "شق أو جرح عميق يحدثه جسم حاد. جرح صغير وضيق."
+                },
+                "translation": {
+                    "vi": "vết cắt",
+                    "th": "รอยบาด",
+                    "id": "sayatan",
+                    "ar": "قطع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kʌt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cut-uk-1760856931686.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kʌt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cut-us-1760856932065.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Be careful not to cut your finger with that knife.",
+                    "vi": "Hãy cẩn thận đừng để con dao đó cắt vào ngón tay bạn.",
+                    "th": "ระวังอย่าให้มีดบาดนิ้วของคุณ",
+                    "id": "Hati-hati jangan sampai memotong jari Anda dengan pisau itu.",
+                    "ar": "احذر ألا تجرح إصبعك بتلك السكين."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e749a4e8dd8355a211d_1760870354931.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e749a4e8dd8355a2120",
+                "word": "injury",
+                "explanation": {
+                    "en": "Physical harm or damage to a body part. Damage resulting from an accident or violence.",
+                    "vi": "Tổn hại hoặc hư hỏng vật lý đối với một bộ phận cơ thể. Thiệt hại do tai nạn hoặc bạo lực.",
+                    "th": "อันตรายทางกายภาพหรือความเสียหายต่อส่วนใดส่วนหนึ่งของร่างกาย ความเสียหายที่เกิดจากอุบัติเหตุหรือความรุนแรง",
+                    "id": "Kerugian fisik atau kerusakan pada bagian tubuh. Kerusakan akibat kecelakaan atau kekerasan.",
+                    "ar": "ضرر جسدي أو تلف في جزء من الجسم. ضرر ناتج عن حادث أو عنف."
+                },
+                "translation": {
+                    "vi": "chấn thương",
+                    "th": "อาการบาดเจ็บ",
+                    "id": "cedera",
+                    "ar": "إصابة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɪndʒəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/injury-uk-1760856933365.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɪndʒəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/injury-us-1760856933714.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He sustained a minor injury during the game.",
+                    "vi": "Anh ấy bị một chấn thương nhẹ trong trận đấu.",
+                    "th": "เขาได้รับบาดเจ็บเล็กน้อยระหว่างการแข่งขัน",
+                    "id": "Dia mengalami cedera ringan selama pertandingan.",
+                    "ar": "أصيب بإصابة طفيفة خلال المباراة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e749a4e8dd8355a2120_1760870361804.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e759a4e8dd8355a2123",
+                "word": "heal",
+                "explanation": {
+                    "en": "To become sound or healthy again. To mend or restore to health.",
+                    "vi": "Để trở nên lành lặn hoặc khỏe mạnh trở lại. Để chữa lành hoặc phục hồi sức khỏe.",
+                    "th": "เพื่อให้กลับมาสมบูรณ์หรือมีสุขภาพดีอีกครั้ง เพื่อรักษาหรือฟื้นฟูสุขภาพ",
+                    "id": "Untuk menjadi sehat atau pulih kembali. Untuk menyembuhkan atau memulihkan kesehatan.",
+                    "ar": "أن يصبح سليماً أو معافى مرة أخرى. أن يلتئم أو يستعيد صحته."
+                },
+                "translation": {
+                    "vi": "lành lại, hồi phục",
+                    "th": "รักษาให้หายดี, ฟื้นตัว",
+                    "id": "sembuh, pulih",
+                    "ar": "يشفى, يتعافى"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/hiːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/heal-uk-1760856935013.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/hiːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/heal-us-1760856935343.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "It will take time for your broken arm to heal.",
+                    "vi": "Sẽ mất thời gian để cánh tay bị gãy của bạn lành lại.",
+                    "th": "ต้องใช้เวลาเพื่อให้แขนที่หักของคุณหายดี",
+                    "id": "Akan butuh waktu agar lengan Anda yang patah sembuh.",
+                    "ar": "سيستغرق الأمر وقتًا حتى يلتئم ذراعك المكسور."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e759a4e8dd8355a2123_1760870372828.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e759a4e8dd8355a2126",
+                "word": "recover",
+                "explanation": {
+                    "en": "To return to a normal state of health. To get well after an illness.",
+                    "vi": "Để trở lại trạng thái sức khỏe bình thường. Để bình phục sau một căn bệnh.",
+                    "th": "เพื่อกลับสู่สภาวะสุขภาพปกติ เพื่อหายจากอาการป่วย",
+                    "id": "Untuk kembali ke kondisi kesehatan normal. Untuk sembuh setelah sakit.",
+                    "ar": "للعودة إلى حالة صحية طبيعية. للتعافي بعد مرض."
+                },
+                "translation": {
+                    "vi": "hồi phục",
+                    "th": "ฟื้นตัว",
+                    "id": "pulih",
+                    "ar": "يتعافى"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈkʌvə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/recover-uk-1760856936587.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈkʌvər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/recover-us-1760856936917.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She needs to rest to recover from her illness.",
+                    "vi": "Cô ấy cần nghỉ ngơi để hồi phục sau cơn bệnh.",
+                    "th": "เธอต้องการพักผ่อนเพื่อฟื้นตัวจากอาการป่วย",
+                    "id": "Dia perlu istirahat untuk pulih dari sakitnya.",
+                    "ar": "إنها بحاجة إلى الراحة للتعافي من مرضها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e759a4e8dd8355a2126_1760870380801.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e759a4e8dd8355a2129",
+                "word": "rest",
+                "explanation": {
+                    "en": "To cease work or movement to recover strength. To take time off to regain energy.",
+                    "vi": "Ngừng làm việc hoặc di chuyển để phục hồi sức lực. Dành thời gian nghỉ ngơi để lấy lại năng lượng.",
+                    "th": "หยุดทำงานหรือเคลื่อนไหวเพื่อฟื้นฟูพละกำลัง ใช้เวลาพักผ่อนเพื่อฟื้นฟูพลังงาน",
+                    "id": "Untuk berhenti bekerja atau bergerak untuk memulihkan kekuatan. Untuk mengambil waktu istirahat untuk mendapatkan kembali energi.",
+                    "ar": "التوقف عن العمل أو الحركة لاستعادة القوة. أخذ قسط من الراحة لاستعادة الطاقة."
+                },
+                "translation": {
+                    "vi": "nghỉ ngơi",
+                    "th": "พักผ่อน",
+                    "id": "istirahat",
+                    "ar": "يستريح"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/rest/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rest-uk-1760856938198.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rest/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rest-us-1760856938540.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "You should rest if you feel unwell.",
+                    "vi": "Bạn nên nghỉ ngơi nếu cảm thấy không khỏe.",
+                    "th": "คุณควรพักผ่อนถ้าคุณรู้สึกไม่สบาย",
+                    "id": "Anda harus istirahat jika merasa tidak enak badan.",
+                    "ar": "يجب أن تستريح إذا شعرت بتوعك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e759a4e8dd8355a2129_1760870388003.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e759a4e8dd8355a212c",
+                "word": "sleep",
+                "explanation": {
+                    "en": "A natural state of rest for the body and mind. The period when a person is unconscious at night.",
+                    "vi": "Một trạng thái nghỉ ngơi tự nhiên cho cơ thể và tâm trí. Khoảng thời gian một người bất tỉnh vào ban đêm.",
+                    "th": "สภาวะการพักผ่อนตามธรรมชาติสำหรับร่างกายและจิตใจ ช่วงเวลาที่บุคคลหมดสติในเวลากลางคืน",
+                    "id": "Keadaan istirahat alami bagi tubuh dan pikiran. Periode ketika seseorang tidak sadarkan diri di malam hari.",
+                    "ar": "حالة طبيعية من الراحة للجسد والعقل. الفترة التي يكون فيها الشخص فاقدًا للوعي ليلاً."
+                },
+                "translation": {
+                    "vi": "giấc ngủ",
+                    "th": "การนอนหลับ",
+                    "id": "tidur",
+                    "ar": "النوم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/sliːp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sleep-uk-1760856939812.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/sliːp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sleep-us-1760856940162.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need more sleep to feel energetic.",
+                    "vi": "Tôi cần ngủ nhiều hơn để cảm thấy tràn đầy năng lượng.",
+                    "th": "ฉันต้องการนอนหลับมากขึ้นเพื่อให้รู้สึกมีพลังงาน",
+                    "id": "Saya butuh lebih banyak tidur agar merasa berenergi.",
+                    "ar": "أحتاج إلى المزيد من النوم لأشعر بالنشاط."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e759a4e8dd8355a212c_1760870394037.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e759a4e8dd8355a212f",
+                "word": "exercise",
+                "explanation": {
+                    "en": "Activity requiring physical effort, carried out to sustain health. Physical training or movement.",
+                    "vi": "Hoạt động đòi hỏi nỗ lực thể chất, được thực hiện để duy trì sức khỏe. Tập luyện hoặc vận động thể chất.",
+                    "th": "กิจกรรมที่ต้องใช้ความพยายามทางกายภาพ เพื่อรักษาสุขภาพ การฝึกฝนหรือการเคลื่อนไหวทางกายภาพ",
+                    "id": "Aktivitas yang membutuhkan usaha fisik, dilakukan untuk menjaga kesehatan. Latihan fisik atau gerakan.",
+                    "ar": "نشاط يتطلب مجهودًا بدنيًا، يتم القيام به للحفاظ على الصحة. تدريب أو حركة بدنية."
+                },
+                "translation": {
+                    "vi": "tập thể dục",
+                    "th": "ออกกำลังกาย",
+                    "id": "berolahraga",
+                    "ar": "ممارسة الرياضة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈeksəsaɪz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/exercise-uk-1760856941419.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈeksərsaɪz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/exercise-us-1760856941768.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Regular exercise is good for your health.",
+                    "vi": "Tập thể dục thường xuyên rất tốt cho sức khỏe của bạn.",
+                    "th": "การออกกำลังกายเป็นประจำดีต่อสุขภาพของคุณ",
+                    "id": "Olahraga teratur baik untuk kesehatan Anda.",
+                    "ar": "ممارسة الرياضة بانتظام مفيدة لصحتك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e759a4e8dd8355a212f_1760870400261.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e759a4e8dd8355a2132",
+                "word": "workout",
+                "explanation": {
+                    "en": "A session of vigorous physical exercise or training. A period of intense physical effort.",
+                    "vi": "Một buổi tập thể dục hoặc rèn luyện thể chất mạnh mẽ. Một khoảng thời gian nỗ lực thể chất cường độ cao.",
+                    "th": "การออกกำลังกายหรือการฝึกซ้อมทางกายภาพอย่างเข้มข้น ช่วงเวลาของการใช้ความพยายามทางกายภาพอย่างหนัก",
+                    "id": "Sesi latihan fisik atau pelatihan yang giat. Periode usaha fisik yang intens.",
+                    "ar": "جلسة تمرين بدني أو تدريب مكثف. فترة من الجهد البدني الشديد."
+                },
+                "translation": {
+                    "vi": "buổi tập luyện",
+                    "th": "การออกกำลังกาย",
+                    "id": "sesi latihan",
+                    "ar": "حصة تدريب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɜːkaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/workout-uk-1760856943045.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɜːrkaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/workout-us-1760856943413.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My morning workout makes me feel strong.",
+                    "vi": "Buổi tập luyện buổi sáng của tôi khiến tôi cảm thấy mạnh mẽ.",
+                    "th": "การออกกำลังกายตอนเช้าทำให้ฉันรู้สึกแข็งแรง",
+                    "id": "Latihan pagi saya membuat saya merasa kuat.",
+                    "ar": "تماريني الصباحية تجعلني أشعر بالقوة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e759a4e8dd8355a2132_1760870408506.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e759a4e8dd8355a2135",
+                "word": "diet",
+                "explanation": {
+                    "en": "The kinds of food that a person habitually eats. A specific, restricted selection of food for health reasons.",
+                    "vi": "Các loại thực phẩm mà một người thường xuyên ăn. Một lựa chọn thực phẩm cụ thể, hạn chế vì lý do sức khỏe.",
+                    "th": "ชนิดของอาหารที่บุคคลรับประทานเป็นประจำ การเลือกอาหารที่จำกัดและเฉพาะเจาะจงด้วยเหตุผลด้านสุขภาพ",
+                    "id": "Jenis makanan yang biasa dimakan seseorang. Pilihan makanan tertentu yang dibatasi karena alasan kesehatan.",
+                    "ar": "أنواع الطعام التي يتناولها الشخص عادة. اختيار محدد ومقيد من الطعام لأسباب صحية."
+                },
+                "translation": {
+                    "vi": "chế độ ăn",
+                    "th": "อาหาร, การควบคุมอาหาร",
+                    "id": "diet, pola makan",
+                    "ar": "نظام غذائي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdaɪət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/diet-uk-1760856944707.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdaɪət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/diet-us-1760856945107.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Eating a balanced diet is important for health.",
+                    "vi": "Ăn một chế độ ăn uống cân bằng rất quan trọng đối với sức khỏe.",
+                    "th": "การรับประทานอาหารที่สมดุลเป็นสิ่งสำคัญต่อสุขภาพ",
+                    "id": "Makan diet seimbang penting untuk kesehatan.",
+                    "ar": "تناول نظام غذائي متوازن مهم للصحة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e759a4e8dd8355a2135_1760870415394.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e769a4e8dd8355a2138",
+                "word": "nutrition",
+                "explanation": {
+                    "en": "The process of providing or obtaining the food necessary for health. The science of how food affects the body.",
+                    "vi": "Quá trình cung cấp hoặc thu nhận thực phẩm cần thiết cho sức khỏe. Khoa học về cách thực phẩm ảnh hưởng đến cơ thể.",
+                    "th": "กระบวนการจัดหาหรือได้รับอาหารที่จำเป็นต่อสุขภาพ วิทยาศาสตร์ที่ศึกษาว่าอาหารมีผลต่อร่างกายอย่างไร",
+                    "id": "Proses penyediaan atau perolehan makanan yang diperlukan untuk kesehatan. Ilmu tentang bagaimana makanan memengaruhi tubuh.",
+                    "ar": "عملية توفير أو الحصول على الغذاء الضروري للصحة. علم كيفية تأثير الطعام على الجسم."
+                },
+                "translation": {
+                    "vi": "dinh dưỡng",
+                    "th": "โภชนาการ",
+                    "id": "nutrisi",
+                    "ar": "تغذية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/njuˈtrɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nutrition-uk-1760856946425.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/nuˈtrɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nutrition-us-1760856946770.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Good nutrition helps children grow strong bones.",
+                    "vi": "Dinh dưỡng tốt giúp trẻ em phát triển xương chắc khỏe.",
+                    "th": "โภชนาการที่ดีช่วยให้เด็กมีกระดูกที่แข็งแรง",
+                    "id": "Nutrisi yang baik membantu anak-anak tumbuh tulang yang kuat.",
+                    "ar": "التغذية الجيدة تساعد الأطفال على بناء عظام قوية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e769a4e8dd8355a2138_1760870422388.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e769a4e8dd8355a213b",
+                "word": "calories",
+                "explanation": {
+                    "en": "Units of energy obtained from food. Measures of the energy content of food.",
+                    "vi": "Đơn vị năng lượng thu được từ thực phẩm. Các phép đo hàm lượng năng lượng của thực phẩm.",
+                    "th": "หน่วยพลังงานที่ได้รับจากอาหาร การวัดปริมาณพลังงานของอาหาร",
+                    "id": "Unit energi yang diperoleh dari makanan. Ukuran kandungan energi makanan.",
+                    "ar": "وحدات الطاقة التي يتم الحصول عليها من الطعام. مقاييس محتوى الطاقة في الطعام."
+                },
+                "translation": {
+                    "vi": "calo",
+                    "th": "แคลอรี่",
+                    "id": "kalori",
+                    "ar": "سعرات حرارية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkæləri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/calories-uk-1760856948038.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkæləri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/calories-us-1760856948388.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Foods high in sugar often contain many calories.",
+                    "vi": "Thực phẩm nhiều đường thường chứa nhiều calo.",
+                    "th": "อาหารที่มีน้ำตาลสูงมักมีแคลอรี่มาก",
+                    "id": "Makanan tinggi gula sering mengandung banyak kalori.",
+                    "ar": "الأطعمة الغنية بالسكر غالبًا ما تحتوي على العديد من السعرات الحرارية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e769a4e8dd8355a213b_1760870428695.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e769a4e8dd8355a213e",
+                "word": "weight",
+                "explanation": {
+                    "en": "The heaviness of a person or object. A measure of the force of gravity on a mass.",
+                    "vi": "Độ nặng của một người hoặc vật thể. Một thước đo lực hấp dẫn tác dụng lên một khối lượng.",
+                    "th": "น้ำหนักของบุคคลหรือวัตถุ การวัดแรงโน้มถ่วงที่กระทำต่อมวล",
+                    "id": "Berat seseorang atau benda. Ukuran gaya gravitasi pada suatu massa.",
+                    "ar": "ثقل شخص أو شيء. مقياس لقوة الجاذبية على كتلة."
+                },
+                "translation": {
+                    "vi": "cân nặng",
+                    "th": "น้ำหนัก",
+                    "id": "berat badan",
+                    "ar": "وزن"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/weɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/weight-uk-1760856949643.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/weɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/weight-us-1760856949974.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I am trying to lose some weight.",
+                    "vi": "Tôi đang cố gắng giảm một ít cân.",
+                    "th": "ฉันกำลังพยายามลดน้ำหนัก",
+                    "id": "Saya sedang mencoba menurunkan berat badan.",
+                    "ar": "أحاول أن أفقد بعض الوزن."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e769a4e8dd8355a213e_1760870436696.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e769a4e8dd8355a2141",
+                "word": "blood pressure",
+                "explanation": {
+                    "en": "The force of blood against the walls of arteries. A vital sign measured by health professionals.",
+                    "vi": "Lực của máu tác động lên thành động mạch. Một dấu hiệu sinh tồn được đo bởi các chuyên gia y tế.",
+                    "th": "แรงดันของเลือดที่กระทำต่อผนังหลอดเลือดแดง สัญญาณชีพที่วัดโดยผู้เชี่ยวชาญด้านสุขภาพ",
+                    "id": "Tekanan darah terhadap dinding arteri. Tanda vital yang diukur oleh profesional kesehatan.",
+                    "ar": "قوة الدم ضد جدران الشرايين. علامة حيوية يقيسها المتخصصون في الرعاية الصحية."
+                },
+                "translation": {
+                    "vi": "huyết áp",
+                    "th": "ความดันโลหิต",
+                    "id": "tekanan darah",
+                    "ar": "ضغط الدم"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/blʌd preʃə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/blood-pressure-uk-ai-1760858316855.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/blʌd preʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/blood-pressure-us-ai-1760858317502.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The doctor checked my blood pressure.",
+                    "vi": "Bác sĩ đã kiểm tra huyết áp của tôi.",
+                    "th": "หมอตรวจความดันโลหิตของฉัน",
+                    "id": "Dokter memeriksa tekanan darah saya.",
+                    "ar": "فحص الطبيب ضغط دمي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e769a4e8dd8355a2141_1760870443663.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e769a4e8dd8355a2144",
+                "word": "heartbeat",
+                "explanation": {
+                    "en": "The pulsation of the heart. The rhythm and rate of the heart's contractions.",
+                    "vi": "Sự đập của tim. Nhịp điệu và tốc độ co bóp của tim.",
+                    "th": "การเต้นของหัวใจ จังหวะและความเร็วของการหดตัวของหัวใจ",
+                    "id": "Denyutan jantung. Ritme dan laju kontraksi jantung.",
+                    "ar": "نبض القلب. إيقاع ومعدل انقباضات القلب."
+                },
+                "translation": {
+                    "vi": "nhịp tim",
+                    "th": "การเต้นของหัวใจ",
+                    "id": "detak jantung",
+                    "ar": "نبض القلب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhɑːtbiːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/heartbeat-uk-1760856952111.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhɑːrtbiːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/heartbeat-us-1760856952452.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Her heartbeat was fast after running.",
+                    "vi": "Nhịp tim của cô ấy nhanh sau khi chạy.",
+                    "th": "หัวใจของเธอเต้นเร็วหลังจากวิ่ง",
+                    "id": "Detak jantungnya cepat setelah berlari.",
+                    "ar": "كان نبض قلبها سريعًا بعد الجري."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e769a4e8dd8355a2144_1760870452043.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e769a4e8dd8355a2147",
+                "word": "temperature",
+                "explanation": {
+                    "en": "The degree of heat present in the body. A key indicator of health status.",
+                    "vi": "Mức độ nhiệt hiện diện trong cơ thể. Một chỉ số quan trọng về tình trạng sức khỏe.",
+                    "th": "ระดับความร้อนที่มีอยู่ในร่างกาย เป็นตัวบ่งชี้สำคัญของสถานะสุขภาพ",
+                    "id": "Tingkat panas yang ada di dalam tubuh. Indikator utama status kesehatan.",
+                    "ar": "درجة الحرارة الموجودة في الجسم. مؤشر رئيسي للحالة الصحية."
+                },
+                "translation": {
+                    "vi": "nhiệt độ cơ thể",
+                    "th": "อุณหภูมิร่างกาย",
+                    "id": "suhu tubuh",
+                    "ar": "درجة حرارة الجسم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtemprətʃə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/temperature-uk-1760856953721.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtemprətʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/temperature-us-1760856954055.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The room temperature is perfect today.",
+                    "vi": "Nhiệt độ phòng hôm nay thật hoàn hảo.",
+                    "th": "อุณหภูมิห้องวันนี้กำลังดีเลย.",
+                    "id": "Suhu ruangan sempurna hari ini.",
+                    "ar": "درجة حرارة الغرفة مثالية اليوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e769a4e8dd8355a2147_1760870458401.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e769a4e8dd8355a214a",
+                "word": "vaccine",
+                "explanation": {
+                    "en": "A substance used to stimulate the production of antibodies. An injection that provides immunity against a disease.",
+                    "vi": "Một chất được sử dụng để kích thích sản xuất kháng thể. Một mũi tiêm cung cấp khả năng miễn dịch chống lại bệnh tật.",
+                    "th": "สารที่ใช้กระตุ้นการผลิตแอนติบอดี การฉีดที่ให้ภูมิคุ้มกันต่อโรค.",
+                    "id": "Zat yang digunakan untuk merangsang produksi antibodi. Suntikan yang memberikan kekebalan terhadap suatu penyakit.",
+                    "ar": "مادة تستخدم لتحفيز إنتاج الأجسام المضادة. حقنة توفر مناعة ضد مرض."
+                },
+                "translation": {
+                    "vi": "vắc-xin",
+                    "th": "วัคซีน",
+                    "id": "vaksin",
+                    "ar": "لقاح"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈvæksiːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/vaccine-uk-1760856955321.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/vækˈsiːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/vaccine-us-1760856955670.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I got my flu vaccine last week.",
+                    "vi": "Tôi đã tiêm vắc-xin cúm vào tuần trước.",
+                    "th": "ฉันฉีดวัคซีนไข้หวัดใหญ่เมื่อสัปดาห์ที่แล้ว.",
+                    "id": "Saya sudah divaksin flu minggu lalu.",
+                    "ar": "لقد تلقيت لقاح الإنفلونزا الأسبوع الماضي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e769a4e8dd8355a214a_1760870465203.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e779a4e8dd8355a214d",
+                "word": "appointment",
+                "explanation": {
+                    "en": "A formal arrangement to meet or visit a place at a fixed time. A scheduled time with a healthcare provider.",
+                    "vi": "Một sự sắp xếp chính thức để gặp gỡ hoặc thăm một địa điểm vào một thời điểm cố định. Một thời gian đã lên lịch với nhà cung cấp dịch vụ chăm sóc sức khỏe.",
+                    "th": "การนัดหมายอย่างเป็นทางการเพื่อพบปะหรือเยี่ยมชมสถานที่ในเวลาที่กำหนด เวลาที่กำหนดไว้กับผู้ให้บริการด้านสุขภาพ.",
+                    "id": "Pengaturan formal untuk bertemu atau mengunjungi suatu tempat pada waktu yang tetap. Waktu yang dijadwalkan dengan penyedia layanan kesehatan.",
+                    "ar": "ترتيب رسمي للقاء أو زيارة مكان في وقت محدد. موعد محدد مع مقدم الرعاية الصحية."
+                },
+                "translation": {
+                    "vi": "cuộc hẹn",
+                    "th": "การนัดหมาย",
+                    "id": "janji temu",
+                    "ar": "موعد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/əˈpɔɪntmənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/appointment-uk-1760856956944.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈpɔɪntmənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/appointment-us-1760856957279.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I have a doctor's appointment tomorrow morning.",
+                    "vi": "Tôi có một cuộc hẹn với bác sĩ vào sáng mai.",
+                    "th": "ฉันมีนัดกับหมอพรุ่งนี้เช้า.",
+                    "id": "Saya ada janji dengan dokter besok pagi.",
+                    "ar": "لدي موعد مع الطبيب صباح الغد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e779a4e8dd8355a214d_1760870471110.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e779a4e8dd8355a2150",
+                "word": "check-up",
+                "explanation": {
+                    "en": "A physical examination to determine a person's state of health. A routine visit to the doctor.",
+                    "vi": "Một cuộc kiểm tra thể chất để xác định tình trạng sức khỏe của một người. Một chuyến thăm bác sĩ định kỳ.",
+                    "th": "การตรวจร่างกายเพื่อประเมินสถานะสุขภาพของบุคคล การไปพบแพทย์ตามปกติ.",
+                    "id": "Pemeriksaan fisik untuk menentukan kondisi kesehatan seseorang. Kunjungan rutin ke dokter.",
+                    "ar": "فحص بدني لتحديد حالة صحة الشخص. زيارة روتينية للطبيب."
+                },
+                "translation": {
+                    "vi": "khám sức khỏe định kỳ",
+                    "th": "การตรวจสุขภาพตามกำหนด",
+                    "id": "pemeriksaan kesehatan rutin",
+                    "ar": "فحص طبي دوري"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃek.ʌp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/check-up-uk-ai-1760858322694.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃek.ʌp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/check-up-us-ai-1760858323314.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "It's time for my annual dental check-up.",
+                    "vi": "Đã đến lúc tôi phải đi kiểm tra răng miệng hàng năm.",
+                    "th": "ถึงเวลาตรวจสุขภาพฟันประจำปีแล้ว.",
+                    "id": "Sudah waktunya untuk pemeriksaan gigi tahunan saya.",
+                    "ar": "حان وقت فحص أسناني السنوي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e779a4e8dd8355a2150_1760870478271.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e779a4e8dd8355a2153",
+                "word": "emergency",
+                "explanation": {
+                    "en": "A serious, unexpected, and often dangerous situation. A critical moment requiring immediate action.",
+                    "vi": "Một tình huống nghiêm trọng, bất ngờ và thường nguy hiểm. Một khoảnh khắc nguy cấp đòi hỏi hành động ngay lập tức.",
+                    "th": "สถานการณ์ที่ร้ายแรง ไม่คาดคิด และมักเป็นอันตราย ช่วงเวลาวิกฤตที่ต้องดำเนินการทันที.",
+                    "id": "Situasi serius, tak terduga, dan seringkali berbahaya. Momen kritis yang membutuhkan tindakan segera.",
+                    "ar": "موقف خطير وغير متوقع وغالبًا ما يكون خطيرًا. لحظة حرجة تتطلب اتخاذ إجراء فوري."
+                },
+                "translation": {
+                    "vi": "tình huống khẩn cấp",
+                    "th": "สถานการณ์ฉุกเฉิน",
+                    "id": "situasi darurat",
+                    "ar": "حالة طوارئ"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪˈmɜːdʒənsi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/emergency-uk-1760856959425.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪˈmɜːrdʒənsi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/emergency-us-1760856959763.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Call 911 in case of an emergency.",
+                    "vi": "Hãy gọi 911 trong trường hợp khẩn cấp.",
+                    "th": "โทร 911 ในกรณีฉุกเฉิน.",
+                    "id": "Hubungi 911 jika ada keadaan darurat.",
+                    "ar": "اتصل بالرقم 911 في حالة الطوارئ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e779a4e8dd8355a2153_1760870484867.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e779a4e8dd8355a2156",
+                "word": "ambulance",
+                "explanation": {
+                    "en": "A vehicle equipped for taking sick or injured people to the hospital. A vehicle for emergency medical transport.",
+                    "vi": "Một phương tiện được trang bị để đưa người bệnh hoặc bị thương đến bệnh viện. Một phương tiện vận chuyển y tế khẩn cấp.",
+                    "th": "ยานพาหนะที่ติดตั้งอุปกรณ์สำหรับนำผู้ป่วยหรือผู้บาดเจ็บไปโรงพยาบาล ยานพาหนะสำหรับการขนส่งทางการแพทย์ฉุกเฉิน.",
+                    "id": "Kendaraan yang dilengkapi untuk membawa orang sakit atau terluka ke rumah sakit. Kendaraan untuk transportasi medis darurat.",
+                    "ar": "مركبة مجهزة لنقل المرضى أو المصابين إلى المستشفى. مركبة للنقل الطبي الطارئ."
+                },
+                "translation": {
+                    "vi": "xe cấp cứu",
+                    "th": "รถพยาบาล",
+                    "id": "ambulans",
+                    "ar": "سيارة إسعاف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈæmbjələns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ambulance-uk-1760856961027.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈæmbjələns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ambulance-us-1760856961365.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The ambulance took him to the hospital quickly.",
+                    "vi": "Xe cứu thương đã đưa anh ấy đến bệnh viện nhanh chóng.",
+                    "th": "รถพยาบาลพาเขาไปโรงพยาบาลอย่างรวดเร็ว.",
+                    "id": "Ambulans membawanya ke rumah sakit dengan cepat.",
+                    "ar": "نقلته سيارة الإسعاف إلى المستشفى بسرعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e779a4e8dd8355a2156_1760870492147.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e779a4e8dd8355a2159",
+                "word": "surgery",
+                "explanation": {
+                    "en": "The treatment of injuries or disorders by incision or manipulation. A medical operation.",
+                    "vi": "Việc điều trị chấn thương hoặc rối loạn bằng cách rạch hoặc thao tác. Một ca phẫu thuật y tế.",
+                    "th": "การรักษาอาการบาดเจ็บหรือความผิดปกติโดยการผ่าตัดหรือการจัดการ การผ่าตัดทางการแพทย์.",
+                    "id": "Pengobatan cedera atau gangguan dengan sayatan atau manipulasi. Sebuah operasi medis.",
+                    "ar": "علاج الإصابات أو الاضطرابات عن طريق الشق أو التلاعب. عملية جراحية طبية."
+                },
+                "translation": {
+                    "vi": "phẫu thuật",
+                    "th": "การผ่าตัด",
+                    "id": "operasi",
+                    "ar": "جراحة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsɜːdʒəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/surgery-uk-1760856962663.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsɜːrdʒəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/surgery-us-1760856963008.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She needed surgery on her knee.",
+                    "vi": "Cô ấy cần phẫu thuật đầu gối.",
+                    "th": "เธอต้องเข้ารับการผ่าตัดที่หัวเข่า.",
+                    "id": "Dia membutuhkan operasi pada lututnya.",
+                    "ar": "كانت بحاجة لعملية جراحية في ركبتها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e779a4e8dd8355a2159_1760870498808.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e779a4e8dd8355a215c",
+                "word": "doctor's office",
+                "explanation": {
+                    "en": "A room or building where a physician practices medicine. The professional space of a doctor.",
+                    "vi": "Một căn phòng hoặc tòa nhà nơi bác sĩ hành nghề y. Không gian chuyên nghiệp của một bác sĩ.",
+                    "th": "ห้องหรืออาคารที่แพทย์ประกอบวิชาชีพเวชกรรม พื้นที่ทำงานของแพทย์.",
+                    "id": "Sebuah ruangan atau bangunan tempat seorang dokter praktik kedokteran. Ruang profesional seorang dokter.",
+                    "ar": "غرفة أو مبنى يمارس فيه الطبيب الطب. المساحة المهنية للطبيب."
+                },
+                "translation": {
+                    "vi": "phòng khám bác sĩ",
+                    "th": "คลินิกหมอ",
+                    "id": "praktik dokter",
+                    "ar": "عيادة الطبيب"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɒktəz ˈɒfɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/doctor-s-office-uk-ai-1760858332900.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdɑːktərz ˈɑːfɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/doctor-s-office-us-ai-1760858333537.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I waited in the doctor's office for an hour.",
+                    "vi": "Tôi đã đợi trong phòng khám bác sĩ một giờ.",
+                    "th": "ฉันรออยู่ในห้องทำงานของหมอเป็นเวลาหนึ่งชั่วโมง.",
+                    "id": "Saya menunggu di kantor dokter selama satu jam.",
+                    "ar": "انتظرت في عيادة الطبيب لمدة ساعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e779a4e8dd8355a215c_1760870505235.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df1e",
+                "group_name": "Health",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 48
+    }
+}

@@ -1,0 +1,2209 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47dba9a4e8dd8355a1e3c",
+                "word": "teacher",
+                "explanation": {
+                    "en": "A person who educates pupils, especially in a school. Someone who instructs others in a particular subject.",
+                    "vi": "Người giáo dục học sinh, đặc biệt là ở trường học. Người hướng dẫn người khác về một môn học cụ thể.",
+                    "th": "บุคคลที่ให้การศึกษาแก่นักเรียน โดยเฉพาะในโรงเรียน ผู้ที่สอนผู้อื่นในวิชาเฉพาะ",
+                    "id": "Seseorang yang mendidik murid, terutama di sekolah. Seseorang yang menginstruksikan orang lain dalam mata pelajaran tertentu.",
+                    "ar": "شخص يقوم بتعليم الطلاب، خاصة في المدرسة. شخص يقوم بتدريس الآخرين في موضوع معين."
+                },
+                "translation": {
+                    "vi": "giáo viên",
+                    "th": "ครู",
+                    "id": "guru",
+                    "ar": "معلم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtiːtʃə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/teacher-uk-1760856581559.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtiːtʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/teacher-us-1760856581897.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My favorite teacher made learning fun.",
+                    "vi": "Giáo viên yêu thích của tôi đã làm cho việc học trở nên thú vị.",
+                    "th": "ครูคนโปรดของฉันทำให้การเรียนสนุก",
+                    "id": "Guru favorit saya membuat belajar menjadi menyenangkan.",
+                    "ar": "معلمي المفضل جعل التعلم ممتعاً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dba9a4e8dd8355a1e3c_1760868697116.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dba9a4e8dd8355a1e3f",
+                "word": "doctor",
+                "explanation": {
+                    "en": "A person qualified to practice medicine. Someone who treats the sick or injured.",
+                    "vi": "Người có trình độ hành nghề y. Người điều trị người bệnh hoặc người bị thương.",
+                    "th": "บุคคลผู้มีคุณสมบัติในการประกอบวิชาชีพเวชกรรม ผู้ที่รักษาผู้ป่วยหรือผู้บาดเจ็บ",
+                    "id": "Seseorang yang memenuhi syarat untuk praktik kedokteran. Seseorang yang merawat orang sakit atau terluka.",
+                    "ar": "شخص مؤهل لممارسة الطب. شخص يعالج المرضى أو المصابين."
+                },
+                "translation": {
+                    "vi": "bác sĩ",
+                    "th": "แพทย์",
+                    "id": "dokter",
+                    "ar": "طبيب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɒktə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/doctor-uk-1760856583193.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdɑːktər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/doctor-us-1760856583533.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I went to the doctor for my cough.",
+                    "vi": "Tôi đã đi khám bác sĩ vì bị ho.",
+                    "th": "ฉันไปหาหมอเพราะอาการไอของฉัน",
+                    "id": "Saya pergi ke dokter karena batuk saya.",
+                    "ar": "ذهبت إلى الطبيب بسبب سعالي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dba9a4e8dd8355a1e3f_1760868706650.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dba9a4e8dd8355a1e42",
+                "word": "nurse",
+                "explanation": {
+                    "en": "A person trained to care for the sick or infirm. Someone who assists physicians in patient care.",
+                    "vi": "Người được đào tạo để chăm sóc người bệnh hoặc người ốm yếu. Người hỗ trợ bác sĩ trong việc chăm sóc bệnh nhân.",
+                    "th": "บุคคลที่ได้รับการฝึกฝนให้ดูแลผู้ป่วยหรือผู้ทุพพลภาพ ผู้ที่ช่วยเหลือแพทย์ในการดูแลผู้ป่วย",
+                    "id": "Seseorang yang terlatih untuk merawat orang sakit atau lemah. Seseorang yang membantu dokter dalam perawatan pasien.",
+                    "ar": "شخص مدرب على رعاية المرضى أو العجزة. شخص يساعد الأطباء في رعاية المرضى."
+                },
+                "translation": {
+                    "vi": "y tá",
+                    "th": "พยาบาล",
+                    "id": "perawat",
+                    "ar": "ممرض"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/nɜːs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nurse-uk-1760856584804.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/nɜːrs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nurse-us-1760856585150.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The nurse gave me my medicine.",
+                    "vi": "Y tá đã đưa thuốc cho tôi.",
+                    "th": "พยาบาลให้ยาฉัน",
+                    "id": "Perawat memberi saya obat saya.",
+                    "ar": "أعطتني الممرضة دوائي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dba9a4e8dd8355a1e42_1760868713440.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbb9a4e8dd8355a1e45",
+                "word": "engineer",
+                "explanation": {
+                    "en": "A person who designs, builds, or maintains engines or structures. Someone who applies science to technical design.",
+                    "vi": "Người thiết kế, xây dựng hoặc bảo trì động cơ hoặc cấu trúc. Người áp dụng khoa học vào thiết kế kỹ thuật.",
+                    "th": "บุคคลที่ออกแบบ สร้าง หรือบำรุงรักษาเครื่องยนต์หรือโครงสร้าง ผู้ที่ประยุกต์ใช้วิทยาศาสตร์กับการออกแบบทางเทคนิค",
+                    "id": "Seseorang yang merancang, membangun, atau memelihara mesin atau struktur. Seseorang yang menerapkan ilmu pengetahuan pada desain teknis.",
+                    "ar": "شخص يصمم أو يبني أو يصون المحركات أو الهياكل. شخص يطبق العلم على التصميم الفني."
+                },
+                "translation": {
+                    "vi": "kỹ sư",
+                    "th": "วิศวกร",
+                    "id": "insinyur",
+                    "ar": "مهندس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌendʒɪˈnɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/engineer-uk-1760856586485.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌendʒɪˈnɪr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/engineer-us-1760856586819.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My sister is an engineer; she builds bridges.",
+                    "vi": "Chị tôi là một kỹ sư; chị ấy xây cầu.",
+                    "th": "พี่สาวของฉันเป็นวิศวกร เธอสร้างสะพาน",
+                    "id": "Kakak saya seorang insinyur; dia membangun jembatan.",
+                    "ar": "أختي مهندسة؛ هي تبني الجسور."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbb9a4e8dd8355a1e45_1760868721137.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbb9a4e8dd8355a1e48",
+                "word": "pilot",
+                "explanation": {
+                    "en": "A person who operates the flying controls of an aircraft. Someone who safely navigates planes or helicopters.",
+                    "vi": "Người điều khiển các bộ phận bay của máy bay. Người điều hướng máy bay hoặc trực thăng một cách an toàn.",
+                    "th": "บุคคลที่ควบคุมการบินของเครื่องบิน ผู้ที่นำทางเครื่องบินหรือเฮลิคอปเตอร์ได้อย่างปลอดภัย",
+                    "id": "Seseorang yang mengoperasikan kontrol terbang pesawat. Seseorang yang dengan aman menavigasi pesawat atau helikopter.",
+                    "ar": "شخص يدير أدوات التحكم في الطيران للطائرة. شخص يقود الطائرات أو المروحيات بأمان."
+                },
+                "translation": {
+                    "vi": "phi công",
+                    "th": "นักบิน",
+                    "id": "pilot",
+                    "ar": "طيار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpaɪlət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pilot-uk-1760856588045.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpaɪlət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pilot-us-1760856588422.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The pilot announced our arrival.",
+                    "vi": "Phi công đã thông báo về việc chúng tôi đến.",
+                    "th": "นักบินประกาศการมาถึงของเรา",
+                    "id": "Pilot mengumumkan kedatangan kami.",
+                    "ar": "أعلن الطيار عن وصولنا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbb9a4e8dd8355a1e48_1760868728128.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbb9a4e8dd8355a1e4b",
+                "word": "police officer",
+                "explanation": {
+                    "en": "A sworn member of a police force. Someone who maintains law and order.",
+                    "vi": "Một thành viên đã tuyên thệ của lực lượng cảnh sát. Người duy trì luật pháp và trật tự.",
+                    "th": "สมาชิกที่สาบานตนของกองกำลังตำรวจ ผู้ที่รักษากฎหมายและความสงบเรียบร้อย",
+                    "id": "Anggota kepolisian yang disumpah. Seseorang yang menjaga hukum dan ketertiban.",
+                    "ar": "عضو محلف في قوة الشرطة. شخص يحافظ على القانون والنظام."
+                },
+                "translation": {
+                    "vi": "cảnh sát",
+                    "th": "ตำรวจ",
+                    "id": "polisi",
+                    "ar": "شرطي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/pəˈliːs ˈɒfɪsə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/police-officer-uk-ai-1760858163326.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/pəˈliːs ˈɑːfɪsər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/police-officer-us-ai-1760858163898.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A police officer directed traffic after the accident.",
+                    "vi": "Một sĩ quan cảnh sát đã điều tiết giao thông sau vụ tai nạn.",
+                    "th": "เจ้าหน้าที่ตำรวจอำนวยความสะดวกการจราจรหลังเกิดอุบัติเหตุ",
+                    "id": "Seorang petugas polisi mengarahkan lalu lintas setelah kecelakaan.",
+                    "ar": "وجه ضابط شرطة حركة المرور بعد الحادث."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbb9a4e8dd8355a1e4b_1760868735845.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbb9a4e8dd8355a1e4e",
+                "word": "firefighter",
+                "explanation": {
+                    "en": "A person who extinguishes fires. Someone trained to rescue people from dangerous situations.",
+                    "vi": "Người dập tắt đám cháy. Người được đào tạo để giải cứu người khỏi các tình huống nguy hiểm.",
+                    "th": "บุคคลที่ดับเพลิง ผู้ที่ได้รับการฝึกฝนให้ช่วยเหลือผู้คนจากสถานการณ์อันตราย",
+                    "id": "Seseorang yang memadamkan api. Seseorang yang terlatih untuk menyelamatkan orang dari situasi berbahaya.",
+                    "ar": "شخص يطفئ الحرائق. شخص مدرب على إنقاذ الناس من المواقف الخطرة."
+                },
+                "translation": {
+                    "vi": "lính cứu hỏa",
+                    "th": "นักดับเพลิง",
+                    "id": "pemadam kebakaran",
+                    "ar": "رجل إطفاء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfaɪəˌfaɪtə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/firefighter-uk-ai-1760858169576.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfaɪərˌfaɪtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/firefighter-us-ai-1760858170243.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The brave firefighter saved the cat from the tree.",
+                    "vi": "Người lính cứu hỏa dũng cảm đã cứu con mèo khỏi cái cây.",
+                    "th": "นักดับเพลิงผู้กล้าหาญช่วยแมวลงมาจากต้นไม้",
+                    "id": "Petugas pemadam kebakaran yang berani menyelamatkan kucing dari pohon.",
+                    "ar": "أنقذ رجل الإطفاء الشجاع القطة من الشجرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbb9a4e8dd8355a1e4e_1760868741999.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbb9a4e8dd8355a1e51",
+                "word": "lawyer",
+                "explanation": {
+                    "en": "A person qualified to practice law. Someone who advises clients on legal matters.",
+                    "vi": "Người có trình độ hành nghề luật. Người tư vấn cho khách hàng về các vấn đề pháp lý.",
+                    "th": "บุคคลผู้มีคุณสมบัติในการประกอบวิชาชีพกฎหมาย ผู้ที่ให้คำแนะนำแก่ลูกความเกี่ยวกับเรื่องกฎหมาย",
+                    "id": "Seseorang yang memenuhi syarat untuk praktik hukum. Seseorang yang menasihati klien tentang masalah hukum.",
+                    "ar": "شخص مؤهل لممارسة القانون. شخص يقدم المشورة للعملاء بشأن المسائل القانونية."
+                },
+                "translation": {
+                    "vi": "luật sư",
+                    "th": "ทนายความ",
+                    "id": "pengacara",
+                    "ar": "محامي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈlɔɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lawyer-uk-1760856591425.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈlɔɪər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lawyer-us-1760856591747.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My lawyer helped me understand the contract.",
+                    "vi": "Luật sư của tôi đã giúp tôi hiểu hợp đồng.",
+                    "th": "ทนายความของฉันช่วยให้ฉันเข้าใจสัญญา",
+                    "id": "Pengacara saya membantu saya memahami kontrak.",
+                    "ar": "ساعدني محاميي في فهم العقد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbb9a4e8dd8355a1e51_1760868749422.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbb9a4e8dd8355a1e54",
+                "word": "dentist",
+                "explanation": {
+                    "en": "A person qualified to treat the diseases and conditions of the teeth. Someone who cares for oral health.",
+                    "vi": "Người có trình độ điều trị các bệnh và tình trạng của răng. Người chăm sóc sức khỏe răng miệng.",
+                    "th": "บุคคลผู้มีคุณสมบัติในการรักษาโรคและภาวะของฟัน ผู้ที่ดูแลสุขภาพช่องปาก",
+                    "id": "Seseorang yang memenuhi syarat untuk mengobati penyakit dan kondisi gigi. Seseorang yang merawat kesehatan mulut.",
+                    "ar": "شخص مؤهل لعلاج أمراض وحالات الأسنان. شخص يهتم بصحة الفم."
+                },
+                "translation": {
+                    "vi": "nha sĩ",
+                    "th": "ทันตแพทย์",
+                    "id": "dokter gigi",
+                    "ar": "طبيب أسنان"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdentɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/dentist-uk-1760856593009.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdentɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/dentist-us-1760856593333.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I have an appointment with the dentist tomorrow.",
+                    "vi": "Tôi có hẹn với nha sĩ vào ngày mai.",
+                    "th": "ฉันมีนัดกับทันตแพทย์พรุ่งนี้",
+                    "id": "Saya ada janji dengan dokter gigi besok.",
+                    "ar": "لدي موعد مع طبيب الأسنان غداً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbb9a4e8dd8355a1e54_1760868756158.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbb9a4e8dd8355a1e57",
+                "word": "chef",
+                "explanation": {
+                    "en": "A professional cook, typically in a restaurant. Someone who manages a kitchen and prepares meals.",
+                    "vi": "Đầu bếp chuyên nghiệp, thường là trong nhà hàng. Người quản lý bếp và chuẩn bị bữa ăn.",
+                    "th": "พ่อครัวมืออาชีพ โดยทั่วไปแล้วจะอยู่ในร้านอาหาร ผู้ที่บริหารจัดการครัวและเตรียมอาหาร",
+                    "id": "Seorang juru masak profesional, biasanya di restoran. Seseorang yang mengelola dapur dan menyiapkan makanan.",
+                    "ar": "طباخ محترف، عادة في مطعم. شخص يدير مطبخاً ويعد وجبات الطعام."
+                },
+                "translation": {
+                    "vi": "đầu bếp",
+                    "th": "เชฟ",
+                    "id": "koki",
+                    "ar": "شيف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ʃef/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chef-uk-1760856594589.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ʃef/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chef-us-1760856594930.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The chef prepared a delicious meal for us.",
+                    "vi": "Đầu bếp đã chuẩn bị một bữa ăn ngon cho chúng tôi.",
+                    "th": "เชฟเตรียมอาหารอร่อยให้เรา",
+                    "id": "Koki menyiapkan makanan lezat untuk kami.",
+                    "ar": "أعد الشيف وجبة لذيذة لنا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbb9a4e8dd8355a1e57_1760868762810.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbc9a4e8dd8355a1e5a",
+                "word": "cook",
+                "explanation": {
+                    "en": "A person who prepares food for eating. Someone whose activity is preparing meals.",
+                    "vi": "Người chuẩn bị thức ăn để ăn. Người có hoạt động là chuẩn bị bữa ăn.",
+                    "th": "บุคคลที่เตรียมอาหารสำหรับรับประทาน ผู้ที่มีกิจกรรมคือการเตรียมอาหาร",
+                    "id": "Seseorang yang menyiapkan makanan untuk dimakan. Seseorang yang kegiatannya adalah menyiapkan makanan.",
+                    "ar": "شخص يعد الطعام للأكل. شخص نشاطه هو إعداد الوجبات."
+                },
+                "translation": {
+                    "vi": "người nấu ăn",
+                    "th": "คนทำอาหาร",
+                    "id": "juru masak",
+                    "ar": "طباخ"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kʊk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cook-uk-1760856596195.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kʊk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cook-us-1760856596528.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My mom is a great cook; her pasta is the best.",
+                    "vi": "Mẹ tôi là một đầu bếp tuyệt vời; món mì ống của bà ấy là ngon nhất.",
+                    "th": "แม่ของฉันเป็นคนทำอาหารเก่ง พาสต้าของเธออร่อยที่สุด",
+                    "id": "Ibu saya adalah juru masak yang hebat; pastanya adalah yang terbaik.",
+                    "ar": "أمي طباخة رائعة؛ معكرونتها هي الأفضل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbc9a4e8dd8355a1e5a_1760868769924.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbc9a4e8dd8355a1e5d",
+                "word": "waiter",
+                "explanation": {
+                    "en": "A man who serves customers at tables in a restaurant. Someone who takes orders and delivers food.",
+                    "vi": "Người đàn ông phục vụ khách hàng tại bàn trong nhà hàng. Người nhận đơn đặt hàng và giao thức ăn.",
+                    "th": "ผู้ชายที่ให้บริการลูกค้าที่โต๊ะในร้านอาหาร ผู้ที่รับออเดอร์และส่งอาหาร",
+                    "id": "Seorang pria yang melayani pelanggan di meja di restoran. Seseorang yang menerima pesanan dan mengantarkan makanan.",
+                    "ar": "رجل يخدم الزبائن على الطاولات في مطعم. شخص يأخذ الطلبات ويسلم الطعام."
+                },
+                "translation": {
+                    "vi": "bồi bàn (nam)",
+                    "th": "บริกรชาย",
+                    "id": "pelayan (pria)",
+                    "ar": "نادل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈweɪtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/waiter-uk-1760856597807.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈweɪtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/waiter-us-1760856598169.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The waiter brought our drinks quickly.",
+                    "vi": "Người phục vụ đã mang đồ uống của chúng tôi rất nhanh.",
+                    "th": "บริกรนำเครื่องดื่มของเรามาอย่างรวดเร็ว",
+                    "id": "Pelayan membawakan minuman kami dengan cepat.",
+                    "ar": "أحضر النادل مشروباتنا بسرعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbc9a4e8dd8355a1e5d_1760868779347.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbc9a4e8dd8355a1e60",
+                "word": "waitress",
+                "explanation": {
+                    "en": "A woman who serves customers at tables in a restaurant. Someone who takes orders and delivers food.",
+                    "vi": "Người phụ nữ phục vụ khách hàng tại bàn trong nhà hàng. Người nhận đơn đặt hàng và giao thức ăn.",
+                    "th": "ผู้หญิงที่ให้บริการลูกค้าที่โต๊ะในร้านอาหาร ผู้ที่รับออเดอร์และส่งอาหาร",
+                    "id": "Seorang wanita yang melayani pelanggan di meja di restoran. Seseorang yang menerima pesanan dan mengantarkan makanan.",
+                    "ar": "امرأة تخدم الزبائن على الطاولات في مطعم. شخص يأخذ الطلبات ويسلم الطعام."
+                },
+                "translation": {
+                    "vi": "bồi bàn (nữ)",
+                    "th": "บริกรหญิง",
+                    "id": "pelayan (wanita)",
+                    "ar": "نادلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈweɪtrəs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/waitress-uk-1760856599444.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈweɪtrəs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/waitress-us-1760856599778.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The waitress smiled and took our order.",
+                    "vi": "Cô phục vụ mỉm cười và nhận đơn đặt hàng của chúng tôi.",
+                    "th": "พนักงานเสิร์ฟยิ้มและรับออเดอร์ของเรา",
+                    "id": "Pelayan tersenyum dan menerima pesanan kami.",
+                    "ar": "ابتسمت النادلة وأخذت طلبنا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbc9a4e8dd8355a1e60_1760868785722.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbc9a4e8dd8355a1e63",
+                "word": "artist",
+                "explanation": {
+                    "en": "A person who creates paintings or sculptures. Someone who practices any of the creative arts.",
+                    "vi": "Người tạo ra các bức tranh hoặc tác phẩm điêu khắc. Người thực hành bất kỳ loại hình nghệ thuật sáng tạo nào.",
+                    "th": "บุคคลที่สร้างสรรค์ภาพวาดหรือประติมากรรม ผู้ที่ฝึกฝนศิลปะสร้างสรรค์ใดๆ",
+                    "id": "Seseorang yang menciptakan lukisan atau patung. Seseorang yang mempraktikkan salah satu seni kreatif.",
+                    "ar": "شخص يخلق لوحات أو منحوتات. شخص يمارس أي من الفنون الإبداعية."
+                },
+                "translation": {
+                    "vi": "họa sĩ, nghệ sĩ",
+                    "th": "ศิลปิน",
+                    "id": "seniman",
+                    "ar": "فنان"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɑːtɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/artist-uk-1760856601027.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɑːrtɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/artist-us-1760856601366.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She is a talented artist; her paintings are beautiful.",
+                    "vi": "Cô ấy là một nghệ sĩ tài năng; những bức tranh của cô ấy rất đẹp.",
+                    "th": "เธอเป็นศิลปินที่มีพรสวรรค์ ภาพวาดของเธอสวยงามมาก",
+                    "id": "Dia adalah seniman yang berbakat; lukisannya indah.",
+                    "ar": "هي فنانة موهوبة؛ لوحاتها جميلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbc9a4e8dd8355a1e63_1760868792551.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbc9a4e8dd8355a1e66",
+                "word": "singer",
+                "explanation": {
+                    "en": "A person who sings, especially professionally. Someone who performs songs in public.",
+                    "vi": "Người hát, đặc biệt là chuyên nghiệp. Người biểu diễn các bài hát trước công chúng.",
+                    "th": "บุคคลที่ร้องเพลง โดยเฉพาะอย่างยิ่งในอาชีพ ผู้ที่แสดงเพลงต่อสาธารณะ",
+                    "id": "Seseorang yang bernyanyi, terutama secara profesional. Seseorang yang menampilkan lagu di depan umum.",
+                    "ar": "شخص يغني، خاصة بشكل احترافي. شخص يؤدي الأغاني علناً."
+                },
+                "translation": {
+                    "vi": "ca sĩ",
+                    "th": "นักร้อง",
+                    "id": "penyanyi",
+                    "ar": "مغني"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsɪŋə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/singer-uk-1760856602641.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsɪŋər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/singer-us-1760856603012.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The singer performed her new song live.",
+                    "vi": "Ca sĩ đã biểu diễn bài hát mới của cô ấy trực tiếp.",
+                    "th": "นักร้องแสดงเพลงใหม่ของเธอสดๆ",
+                    "id": "Penyanyi itu menampilkan lagu barunya secara langsung.",
+                    "ar": "أدت المغنية أغنيتها الجديدة مباشرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbc9a4e8dd8355a1e66_1760868802223.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbc9a4e8dd8355a1e69",
+                "word": "actor",
+                "explanation": {
+                    "en": "A man whose profession is acting in plays or films. Someone who plays a role in a performance.",
+                    "vi": "Người đàn ông có nghề nghiệp là diễn xuất trong các vở kịch hoặc phim. Người đóng vai trong một buổi biểu diễn.",
+                    "th": "ผู้ชายที่มีอาชีพการแสดงในละครหรือภาพยนตร์ ผู้ที่แสดงบทบาทในการแสดง",
+                    "id": "Seorang pria yang profesinya adalah berakting dalam drama atau film. Seseorang yang memainkan peran dalam sebuah pertunjukan.",
+                    "ar": "رجل مهنته التمثيل في المسرحيات أو الأفلام. شخص يلعب دوراً في عرض."
+                },
+                "translation": {
+                    "vi": "diễn viên (nam)",
+                    "th": "นักแสดงชาย",
+                    "id": "aktor",
+                    "ar": "ممثل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈæktə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/actor-uk-1760856604282.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈæktər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/actor-us-1760856604624.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He is a famous actor in many action films.",
+                    "vi": "Anh ấy là một diễn viên nổi tiếng trong nhiều bộ phim hành động.",
+                    "th": "เขาเป็นนักแสดงชื่อดังในภาพยนตร์แอคชั่นหลายเรื่อง",
+                    "id": "Dia adalah aktor terkenal di banyak film aksi.",
+                    "ar": "إنه ممثل مشهور في العديد من أفلام الحركة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbc9a4e8dd8355a1e69_1760868809913.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbd9a4e8dd8355a1e6c",
+                "word": "actress",
+                "explanation": {
+                    "en": "A woman whose profession is acting in plays or films. Someone who plays a role in a performance.",
+                    "vi": "Một người phụ nữ có nghề nghiệp là diễn xuất trong các vở kịch hoặc phim. Người đóng một vai trò trong một buổi biểu diễn.",
+                    "th": "ผู้หญิงที่มีอาชีพแสดงในละครหรือภาพยนตร์ ผู้ที่รับบทบาทในการแสดง",
+                    "id": "Seorang wanita yang profesinya adalah berakting dalam drama atau film. Seseorang yang memainkan peran dalam sebuah pertunjukan.",
+                    "ar": "امرأة مهنتها التمثيل في المسرحيات أو الأفلام. شخص يؤدي دورًا في عرض."
+                },
+                "translation": {
+                    "vi": "diễn viên (nữ)",
+                    "th": "นักแสดงหญิง",
+                    "id": "aktris",
+                    "ar": "ممثلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈæktrəs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/actress-uk-1760856605906.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈæktrəs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/actress-us-1760856606294.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The actress won an award for her role.",
+                    "vi": "Nữ diễn viên đã giành giải thưởng cho vai diễn của mình.",
+                    "th": "นักแสดงหญิงได้รับรางวัลสำหรับบทบาทของเธอ",
+                    "id": "Aktris itu memenangkan penghargaan untuk perannya.",
+                    "ar": "فازت الممثلة بجائزة عن دورها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbd9a4e8dd8355a1e6c_1760868816550.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbd9a4e8dd8355a1e6f",
+                "word": "dancer",
+                "explanation": {
+                    "en": "A person who dances, especially professionally. Someone trained in the art of movement.",
+                    "vi": "Một người nhảy múa, đặc biệt là chuyên nghiệp. Người được đào tạo về nghệ thuật chuyển động.",
+                    "th": "ผู้ที่เต้นรำ โดยเฉพาะอย่างยิ่งมืออาชีพ ผู้ที่ได้รับการฝึกฝนในศิลปะการเคลื่อนไหว",
+                    "id": "Seseorang yang menari, terutama secara profesional. Seseorang yang terlatih dalam seni gerak.",
+                    "ar": "شخص يرقص، خاصة بشكل احترافي. شخص مدرب على فن الحركة."
+                },
+                "translation": {
+                    "vi": "vũ công",
+                    "th": "นักเต้น",
+                    "id": "penari",
+                    "ar": "راقص"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɑːnsə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/dancer-uk-1760856607578.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdænsər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/dancer-us-1760856607921.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The dancer moved gracefully across the stage.",
+                    "vi": "Vũ công di chuyển duyên dáng trên sân khấu.",
+                    "th": "นักเต้นเคลื่อนไหวอย่างสง่างามทั่วเวที",
+                    "id": "Penari itu bergerak anggun melintasi panggung.",
+                    "ar": "تحرك الراقص برشاقة عبر المسرح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbd9a4e8dd8355a1e6f_1760868823525.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbd9a4e8dd8355a1e72",
+                "word": "driver",
+                "explanation": {
+                    "en": "A person who drives a vehicle. Someone whose occupation is transporting people or goods.",
+                    "vi": "Một người lái xe. Người có nghề nghiệp là vận chuyển người hoặc hàng hóa.",
+                    "th": "ผู้ที่ขับขี่ยานพาหนะ ผู้ที่มีอาชีพขนส่งผู้คนหรือสินค้า",
+                    "id": "Seseorang yang mengendarai kendaraan. Seseorang yang pekerjaannya adalah mengangkut orang atau barang.",
+                    "ar": "شخص يقود مركبة. شخص مهنته نقل الأشخاص أو البضائع."
+                },
+                "translation": {
+                    "vi": "tài xế",
+                    "th": "คนขับรถ",
+                    "id": "sopir",
+                    "ar": "سائق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdraɪvə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/driver-uk-1760856609214.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdraɪvər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/driver-us-1760856609553.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The bus driver stopped at every station.",
+                    "vi": "Tài xế xe buýt dừng ở mọi trạm.",
+                    "th": "คนขับรถบัสจอดที่ทุกสถานี",
+                    "id": "Sopir bus berhenti di setiap halte.",
+                    "ar": "توقف سائق الحافلة في كل محطة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbd9a4e8dd8355a1e72_1760868831292.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbd9a4e8dd8355a1e75",
+                "word": "farmer",
+                "explanation": {
+                    "en": "A person who owns or manages a farm. Someone who grows crops or raises animals.",
+                    "vi": "Một người sở hữu hoặc quản lý một trang trại. Người trồng trọt hoặc chăn nuôi động vật.",
+                    "th": "ผู้ที่เป็นเจ้าของหรือจัดการฟาร์ม ผู้ที่ปลูกพืชหรือเลี้ยงสัตว์",
+                    "id": "Seseorang yang memiliki atau mengelola pertanian. Seseorang yang menanam tanaman atau memelihara hewan.",
+                    "ar": "شخص يمتلك أو يدير مزرعة. شخص يزرع المحاصيل أو يربي الحيوانات."
+                },
+                "translation": {
+                    "vi": "nông dân",
+                    "th": "เกษตรกร",
+                    "id": "petani",
+                    "ar": "مزارع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfɑːmə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/farmer-uk-1760856610810.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfɑːrmər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/farmer-us-1760856611147.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The farmer grows corn and raises chickens.",
+                    "vi": "Người nông dân trồng ngô và nuôi gà.",
+                    "th": "ชาวนาปลูกข้าวโพดและเลี้ยงไก่",
+                    "id": "Petani itu menanam jagung dan memelihara ayam.",
+                    "ar": "يزرع الفلاح الذرة ويربي الدجاج."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbd9a4e8dd8355a1e75_1760868839118.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbd9a4e8dd8355a1e78",
+                "word": "fisherman",
+                "explanation": {
+                    "en": "A person who catches fish for a living. Someone whose activity is catching sea creatures.",
+                    "vi": "Một người đánh bắt cá để kiếm sống. Người có hoạt động là đánh bắt các sinh vật biển.",
+                    "th": "ผู้ที่จับปลาเพื่อเลี้ยงชีพ ผู้ที่มีกิจกรรมคือการจับสัตว์ทะเล",
+                    "id": "Seseorang yang menangkap ikan untuk mencari nafkah. Seseorang yang aktivitasnya adalah menangkap makhluk laut.",
+                    "ar": "شخص يصطاد السمك لكسب العيش. شخص نشاطه صيد الكائنات البحرية."
+                },
+                "translation": {
+                    "vi": "ngư dân",
+                    "th": "ชาวประมง",
+                    "id": "nelayan",
+                    "ar": "صياد سمك"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfɪʃəmən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fisherman-uk-1760856612418.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfɪʃərmən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fisherman-us-1760856612781.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The fisherman caught a big fish this morning.",
+                    "vi": "Người đánh cá đã bắt được một con cá lớn sáng nay.",
+                    "th": "ชาวประมงจับปลาตัวใหญ่ได้เมื่อเช้านี้",
+                    "id": "Nelayan itu menangkap ikan besar pagi ini.",
+                    "ar": "اصطاد الصياد سمكة كبيرة هذا الصباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbd9a4e8dd8355a1e78_1760868847064.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbd9a4e8dd8355a1e7b",
+                "word": "soldier",
+                "explanation": {
+                    "en": "A person who serves in an army. Someone trained to fight in a military force.",
+                    "vi": "Một người phục vụ trong quân đội. Người được huấn luyện để chiến đấu trong lực lượng quân sự.",
+                    "th": "ผู้ที่รับราชการในกองทัพ ผู้ที่ได้รับการฝึกฝนให้ต่อสู้ในกองกำลังทหาร",
+                    "id": "Seseorang yang bertugas di angkatan darat. Seseorang yang dilatih untuk bertempur dalam kekuatan militer.",
+                    "ar": "شخص يخدم في الجيش. شخص مدرب على القتال في قوة عسكرية."
+                },
+                "translation": {
+                    "vi": "lính",
+                    "th": "ทหาร",
+                    "id": "tentara",
+                    "ar": "جندي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsəʊldʒə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/soldier-uk-1760856614069.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsəʊldʒər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/soldier-us-1760856614406.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My uncle was a brave soldier in the war.",
+                    "vi": "Chú tôi là một người lính dũng cảm trong chiến tranh.",
+                    "th": "ลุงของฉันเป็นทหารผู้กล้าหาญในสงคราม",
+                    "id": "Paman saya adalah seorang prajurit pemberani dalam perang.",
+                    "ar": "كان عمي جنديًا شجاعًا في الحرب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbd9a4e8dd8355a1e7b_1760868853446.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbd9a4e8dd8355a1e7e",
+                "word": "manager",
+                "explanation": {
+                    "en": "A person responsible for controlling or administering a group. Someone who directs staff and operations.",
+                    "vi": "Một người chịu trách nhiệm kiểm soát hoặc quản lý một nhóm. Người điều hành nhân viên và hoạt động.",
+                    "th": "ผู้ที่รับผิดชอบในการควบคุมหรือบริหารกลุ่ม ผู้ที่กำกับดูแลพนักงานและการดำเนินงาน",
+                    "id": "Seseorang yang bertanggung jawab untuk mengendalikan atau mengelola suatu kelompok. Seseorang yang mengarahkan staf dan operasi.",
+                    "ar": "شخص مسؤول عن التحكم أو إدارة مجموعة. شخص يدير الموظفين والعمليات."
+                },
+                "translation": {
+                    "vi": "quản lý",
+                    "th": "ผู้จัดการ",
+                    "id": "manajer",
+                    "ar": "مدير"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmænɪdʒə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/manager-uk-1760856615688.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmænɪdʒər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/manager-us-1760856616010.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The store manager helped me with my refund.",
+                    "vi": "Quản lý cửa hàng đã giúp tôi hoàn tiền.",
+                    "th": "ผู้จัดการร้านช่วยฉันเรื่องการคืนเงิน",
+                    "id": "Manajer toko membantu saya dengan pengembalian dana saya.",
+                    "ar": "ساعدني مدير المتجر في استرداد أموالي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbd9a4e8dd8355a1e7e_1760868861330.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbe9a4e8dd8355a1e81",
+                "word": "receptionist",
+                "explanation": {
+                    "en": "A person employed in a business to answer the telephone and greet visitors. Someone who manages the front desk of an office.",
+                    "vi": "Một người được tuyển dụng trong một doanh nghiệp để trả lời điện thoại và chào đón khách. Người quản lý quầy lễ tân của một văn phòng.",
+                    "th": "ผู้ที่ทำงานในธุรกิจเพื่อรับโทรศัพท์และทักทายผู้มาเยือน ผู้ที่ดูแลแผนกต้อนรับของสำนักงาน",
+                    "id": "Seseorang yang dipekerjakan dalam bisnis untuk menjawab telepon dan menyambut pengunjung. Seseorang yang mengelola meja depan kantor.",
+                    "ar": "شخص يعمل في عمل تجاري للرد على الهاتف واستقبال الزوار. شخص يدير مكتب الاستقبال في مكتب."
+                },
+                "translation": {
+                    "vi": "lễ tân",
+                    "th": "พนักงานต้อนรับ",
+                    "id": "resepsionis",
+                    "ar": "موظف استقبال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈsepʃənɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/receptionist-uk-1760856617269.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈsepʃənɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/receptionist-us-1760856617628.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The friendly receptionist answered the phone.",
+                    "vi": "Cô lễ tân thân thiện đã trả lời điện thoại.",
+                    "th": "พนักงานต้อนรับที่เป็นมิตรรับโทรศัพท์",
+                    "id": "Resepsionis yang ramah itu menjawab telepon.",
+                    "ar": "أجابت موظفة الاستقبال الودودة على الهاتف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbe9a4e8dd8355a1e81_1760868867843.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbe9a4e8dd8355a1e84",
+                "word": "accountant",
+                "explanation": {
+                    "en": "A person whose profession is keeping financial accounts. Someone who audits and manages a company's finances.",
+                    "vi": "Một người có nghề nghiệp là giữ sổ sách tài chính. Người kiểm toán và quản lý tài chính của một công ty.",
+                    "th": "ผู้ที่มีอาชีพในการทำบัญชีการเงิน ผู้ที่ตรวจสอบและจัดการการเงินของบริษัท",
+                    "id": "Seseorang yang profesinya adalah menyimpan catatan keuangan. Seseorang yang mengaudit dan mengelola keuangan perusahaan.",
+                    "ar": "شخص مهنته حفظ الحسابات المالية. شخص يقوم بمراجعة وإدارة الشؤون المالية للشركة."
+                },
+                "translation": {
+                    "vi": "kế toán",
+                    "th": "นักบัญชี",
+                    "id": "akuntan",
+                    "ar": "محاسب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/əˈkaʊntənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/accountant-uk-1760856618910.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈkaʊntənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/accountant-us-1760856619273.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My accountant helps me with my taxes every year.",
+                    "vi": "Kế toán của tôi giúp tôi làm thuế hàng năm.",
+                    "th": "นักบัญชีของฉันช่วยฉันเรื่องภาษีทุกปี",
+                    "id": "Akuntan saya membantu saya dengan pajak saya setiap tahun.",
+                    "ar": "يساعدني المحاسب الخاص بي في ضرائبي كل عام."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbe9a4e8dd8355a1e84_1760868874618.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbe9a4e8dd8355a1e87",
+                "word": "cashier",
+                "explanation": {
+                    "en": "A person handling payments and receipts in a store or bank. Someone responsible for transactions with customers.",
+                    "vi": "Một người xử lý thanh toán và biên lai trong cửa hàng hoặc ngân hàng. Người chịu trách nhiệm về các giao dịch với khách hàng.",
+                    "th": "ผู้ที่จัดการการชำระเงินและใบเสร็จรับเงินในร้านค้าหรือธนาคาร ผู้ที่รับผิดชอบการทำธุรกรรมกับลูกค้า",
+                    "id": "Seseorang yang menangani pembayaran dan tanda terima di toko atau bank. Seseorang yang bertanggung jawab atas transaksi dengan pelanggan.",
+                    "ar": "شخص يتعامل مع المدفوعات والإيصالات في متجر أو بنك. شخص مسؤول عن المعاملات مع العملاء."
+                },
+                "translation": {
+                    "vi": "thu ngân",
+                    "th": "แคชเชียร์",
+                    "id": "kasir",
+                    "ar": "أمين الصندوق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kæˈʃɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cashier-uk-1760856620536.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kæˈʃɪr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cashier-us-1760856621008.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The cashier scanned my groceries quickly.",
+                    "vi": "Người thu ngân đã quét hàng tạp hóa của tôi một cách nhanh chóng.",
+                    "th": "พนักงานเก็บเงินสแกนของชำของฉันอย่างรวดเร็ว",
+                    "id": "Kasir itu memindai belanjaan saya dengan cepat.",
+                    "ar": "قامت أمينة الصندوق بمسح مشترياتي بسرعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbe9a4e8dd8355a1e87_1760868881592.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbe9a4e8dd8355a1e8a",
+                "word": "cleaner",
+                "explanation": {
+                    "en": "A person whose activity is removing dirt from things. Someone whose profession is maintaining cleanliness.",
+                    "vi": "Một người có hoạt động là loại bỏ bụi bẩn khỏi mọi thứ. Người có nghề nghiệp là duy trì sự sạch sẽ.",
+                    "th": "ผู้ที่มีกิจกรรมคือการขจัดสิ่งสกปรกออกจากสิ่งของ ผู้ที่มีอาชีพในการรักษาความสะอาด",
+                    "id": "Seseorang yang aktivitasnya adalah menghilangkan kotoran dari benda-benda. Seseorang yang profesinya adalah menjaga kebersihan.",
+                    "ar": "شخص نشاطه إزالة الأوساخ من الأشياء. شخص مهنته الحفاظ على النظافة."
+                },
+                "translation": {
+                    "vi": "nhân viên vệ sinh",
+                    "th": "พนักงานทำความสะอาด",
+                    "id": "petugas kebersihan",
+                    "ar": "عامل نظافة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkliːnə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cleaner-uk-1760856622267.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkliːnər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cleaner-us-1760856622634.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The cleaner made sure the office was spotless.",
+                    "vi": "Người dọn dẹp đã đảm bảo văn phòng sạch sẽ không tì vết.",
+                    "th": "พนักงานทำความสะอาดทำให้แน่ใจว่าสำนักงานสะอาดเอี่ยม",
+                    "id": "Petugas kebersihan memastikan kantor bersih tanpa noda.",
+                    "ar": "تأكد عامل النظافة من أن المكتب كان نظيفًا تمامًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbe9a4e8dd8355a1e8a_1760868888853.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbe9a4e8dd8355a1e8d",
+                "word": "janitor",
+                "explanation": {
+                    "en": "A person employed to look after a building. Someone who maintains a building and performs minor repairs.",
+                    "vi": "Một người được thuê để trông coi một tòa nhà. Người bảo trì một tòa nhà và thực hiện các sửa chữa nhỏ.",
+                    "th": "ผู้ที่ได้รับการว่าจ้างให้ดูแลอาคาร ผู้ที่บำรุงรักษาอาคารและทำการซ่อมแซมเล็กน้อย",
+                    "id": "Seseorang yang dipekerjakan untuk merawat sebuah gedung. Seseorang yang memelihara gedung dan melakukan perbaikan kecil.",
+                    "ar": "شخص يعمل للعناية بمبنى. شخص يقوم بصيانة مبنى ويجري إصلاحات بسيطة."
+                },
+                "translation": {
+                    "vi": "bảo vệ, lao công",
+                    "th": "ภารโรง",
+                    "id": "penjaga gedung",
+                    "ar": "بواب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdʒænɪtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/janitor-uk-1760856623952.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdʒænɪtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/janitor-us-1760856624288.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The janitor fixed the broken light in the hallway.",
+                    "vi": "Người lao công đã sửa bóng đèn bị hỏng trong hành lang.",
+                    "th": "ภารโรงซ่อมไฟที่เสียในโถงทางเดิน",
+                    "id": "Penjaga gedung memperbaiki lampu yang rusak di lorong.",
+                    "ar": "أصلح عامل النظافة الضوء المكسور في الردهة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbe9a4e8dd8355a1e8d_1760868899540.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbe9a4e8dd8355a1e90",
+                "word": "builder",
+                "explanation": {
+                    "en": "A person who constructs houses and other structures. Someone whose activity is erecting buildings.",
+                    "vi": "Một người xây dựng nhà cửa và các công trình khác. Người có hoạt động là dựng các tòa nhà.",
+                    "th": "ผู้ที่สร้างบ้านและโครงสร้างอื่น ๆ ผู้ที่มีกิจกรรมคือการก่อสร้างอาคาร",
+                    "id": "Seseorang yang membangun rumah dan struktur lainnya. Seseorang yang aktivitasnya adalah mendirikan bangunan.",
+                    "ar": "شخص يبني المنازل والهياكل الأخرى. شخص نشاطه هو تشييد المباني."
+                },
+                "translation": {
+                    "vi": "thợ xây",
+                    "th": "ช่างก่อสร้าง",
+                    "id": "tukang bangunan",
+                    "ar": "بناء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbɪldə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/builder-uk-1760856625574.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbɪldər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/builder-us-1760856625899.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The builder finished the new house on time.",
+                    "vi": "Người thợ xây đã hoàn thành ngôi nhà mới đúng thời hạn.",
+                    "th": "ผู้สร้างสร้างบ้านใหม่เสร็จตรงเวลา",
+                    "id": "Pembangun itu menyelesaikan rumah baru tepat waktu.",
+                    "ar": "أنهى البناء المنزل الجديد في الوقت المحدد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbe9a4e8dd8355a1e90_1760868910318.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbe9a4e8dd8355a1e93",
+                "word": "carpenter",
+                "explanation": {
+                    "en": "A person who makes and repairs wooden objects. Someone skilled in construction using timber.",
+                    "vi": "Một người làm và sửa chữa các vật dụng bằng gỗ. Người có kỹ năng xây dựng bằng gỗ.",
+                    "th": "ผู้ที่ทำและซ่อมแซมวัตถุไม้ ผู้ที่มีทักษะในการก่อสร้างโดยใช้ไม้",
+                    "id": "Seseorang yang membuat dan memperbaiki benda-benda kayu. Seseorang yang terampil dalam konstruksi menggunakan kayu.",
+                    "ar": "شخص يصنع ويصلح الأشياء الخشبية. شخص ماهر في البناء باستخدام الأخشاب."
+                },
+                "translation": {
+                    "vi": "thợ mộc",
+                    "th": "ช่างไม้",
+                    "id": "tukang kayu",
+                    "ar": "نجار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkɑːpəntə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/carpenter-uk-1760856627189.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkɑːrpəntər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/carpenter-us-1760856627537.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The carpenter built a beautiful wooden table.",
+                    "vi": "Người thợ mộc đã đóng một chiếc bàn gỗ đẹp.",
+                    "th": "ช่างไม้สร้างโต๊ะไม้ที่สวยงาม",
+                    "id": "Tukang kayu itu membuat meja kayu yang indah.",
+                    "ar": "صنع النجار طاولة خشبية جميلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbe9a4e8dd8355a1e93_1760868917454.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbf9a4e8dd8355a1e96",
+                "word": "mechanic",
+                "explanation": {
+                    "en": "A skilled worker who repairs machines, especially car engines. Someone who maintains and services vehicles.",
+                    "vi": "Một thợ lành nghề sửa chữa máy móc, đặc biệt là động cơ ô tô. Người bảo trì và bảo dưỡng xe cộ.",
+                    "th": "ช่างฝีมือที่ซ่อมเครื่องจักร โดยเฉพาะเครื่องยนต์รถยนต์ ผู้ที่บำรุงรักษาและบริการยานพาหนะ",
+                    "id": "Seorang pekerja terampil yang memperbaiki mesin, terutama mesin mobil. Seseorang yang memelihara dan melayani kendaraan.",
+                    "ar": "عامل ماهر يقوم بإصلاح الآلات، خاصة محركات السيارات. شخص يقوم بصيانة وخدمة المركبات."
+                },
+                "translation": {
+                    "vi": "thợ máy",
+                    "th": "ช่างยนต์",
+                    "id": "montir",
+                    "ar": "ميكانيكي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/məˈkænɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mechanic-uk-1760856628819.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/məˈkænɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mechanic-us-1760856629166.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I took my car to the mechanic for repairs.",
+                    "vi": "Tôi đã mang xe của mình đến thợ sửa chữa để sửa chữa.",
+                    "th": "ฉันนำรถไปให้ช่างซ่อม",
+                    "id": "Saya membawa mobil saya ke bengkel untuk diperbaiki.",
+                    "ar": "أخذت سيارتي إلى الميكانيكي لإصلاحها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbf9a4e8dd8355a1e96_1760868924705.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbf9a4e8dd8355a1e99",
+                "word": "plumber",
+                "explanation": {
+                    "en": "A person who installs and repairs pipes and fittings. Someone who fixes water and drainage systems.",
+                    "vi": "Người lắp đặt và sửa chữa đường ống và phụ kiện. Người sửa chữa hệ thống nước và thoát nước.",
+                    "th": "ผู้ที่ติดตั้งและซ่อมแซมท่อและอุปกรณ์ ผู้ที่ซ่อมแซมระบบน้ำและระบายน้ำ",
+                    "id": "Seseorang yang memasang dan memperbaiki pipa serta perlengkapannya. Seseorang yang memperbaiki sistem air dan drainase.",
+                    "ar": "شخص يقوم بتركيب وإصلاح الأنابيب والتجهيزات. شخص يقوم بإصلاح أنظمة المياه والصرف الصحي."
+                },
+                "translation": {
+                    "vi": "thợ sửa ống nước",
+                    "th": "ช่างประปา",
+                    "id": "tukang pipa",
+                    "ar": "سباك"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈplʌmə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/plumber-uk-1760856630426.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈplʌmər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/plumber-us-1760856630764.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The plumber fixed our leaky sink today.",
+                    "vi": "Người thợ sửa ống nước đã sửa bồn rửa bị rò rỉ của chúng tôi hôm nay.",
+                    "th": "ช่างประปาซ่อมก๊อกน้ำรั่วของเราวันนี้",
+                    "id": "Tukang ledeng memperbaiki wastafel kami yang bocor hari ini.",
+                    "ar": "قام السباك بإصلاح حوضنا المتسرب اليوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbf9a4e8dd8355a1e99_1760868933421.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbf9a4e8dd8355a1e9c",
+                "word": "scientist",
+                "explanation": {
+                    "en": "A person engaged in systematic activity to acquire knowledge. Someone who studies the physical or natural world.",
+                    "vi": "Người tham gia vào hoạt động có hệ thống để thu thập kiến thức. Người nghiên cứu thế giới vật lý hoặc tự nhiên.",
+                    "th": "ผู้ที่ทำงานอย่างเป็นระบบเพื่อแสวงหาความรู้ ผู้ที่ศึกษาโลกทางกายภาพหรือธรรมชาติ",
+                    "id": "Seseorang yang terlibat dalam aktivitas sistematis untuk memperoleh pengetahuan. Seseorang yang mempelajari dunia fisik atau alam.",
+                    "ar": "شخص يشارك في نشاط منهجي لاكتساب المعرفة. شخص يدرس العالم المادي أو الطبيعي."
+                },
+                "translation": {
+                    "vi": "nhà khoa học",
+                    "th": "นักวิทยาศาสตร์",
+                    "id": "ilmuwan",
+                    "ar": "عالم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsaɪəntɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/scientist-uk-1760856632023.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsaɪəntɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/scientist-us-1760856632361.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A scientist works in a laboratory.",
+                    "vi": "Một nhà khoa học làm việc trong phòng thí nghiệm.",
+                    "th": "นักวิทยาศาสตร์ทำงานในห้องปฏิบัติการ",
+                    "id": "Seorang ilmuwan bekerja di laboratorium.",
+                    "ar": "يعمل العالم في مختبر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbf9a4e8dd8355a1e9c_1760868940104.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbf9a4e8dd8355a1e9f",
+                "word": "researcher",
+                "explanation": {
+                    "en": "A person who conducts scholarly or scientific investigation. Someone who systematically looks for facts and information.",
+                    "vi": "Người tiến hành điều tra học thuật hoặc khoa học. Người tìm kiếm sự thật và thông tin một cách có hệ thống.",
+                    "th": "ผู้ที่ทำการสอบสวนทางวิชาการหรือวิทยาศาสตร์ ผู้ที่ค้นหาข้อเท็จจริงและข้อมูลอย่างเป็นระบบ",
+                    "id": "Seseorang yang melakukan penyelidikan ilmiah atau akademis. Seseorang yang secara sistematis mencari fakta dan informasi.",
+                    "ar": "شخص يجري تحقيقًا علميًا أو أكاديميًا. شخص يبحث بشكل منهجي عن الحقائق والمعلومات."
+                },
+                "translation": {
+                    "vi": "nhà nghiên cứu",
+                    "th": "นักวิจัย",
+                    "id": "peneliti",
+                    "ar": "باحث"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈsɜːtʃə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/researcher-uk-1760856633634.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈriːsɜːrtʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/researcher-us-1760856633982.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The researcher collected data for the study.",
+                    "vi": "Nhà nghiên cứu đã thu thập dữ liệu cho nghiên cứu.",
+                    "th": "นักวิจัยรวบรวมข้อมูลสำหรับการศึกษา",
+                    "id": "Peneliti mengumpulkan data untuk penelitian tersebut.",
+                    "ar": "جمع الباحث البيانات للدراسة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbf9a4e8dd8355a1e9f_1760868947254.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbf9a4e8dd8355a1ea2",
+                "word": "programmer",
+                "explanation": {
+                    "en": "A person who creates codified instructions for computers. Someone who designs and writes software applications.",
+                    "vi": "Người tạo ra các hướng dẫn được mã hóa cho máy tính. Người thiết kế và viết các ứng dụng phần mềm.",
+                    "th": "ผู้ที่สร้างคำสั่งที่เข้ารหัสสำหรับคอมพิวเตอร์ ผู้ที่ออกแบบและเขียนแอปพลิเคชันซอฟต์แวร์",
+                    "id": "Seseorang yang membuat instruksi terkode untuk komputer. Seseorang yang merancang dan menulis aplikasi perangkat lunak.",
+                    "ar": "شخص يقوم بإنشاء تعليمات مشفرة لأجهزة الكمبيوتر. شخص يقوم بتصميم وكتابة تطبيقات البرمجيات."
+                },
+                "translation": {
+                    "vi": "lập trình viên",
+                    "th": "โปรแกรมเมอร์",
+                    "id": "pemrogram",
+                    "ar": "مبرمج"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈprəʊɡræmə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/programmer-uk-1760856635250.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈprəʊɡræmər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/programmer-us-1760856635600.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My friend is a skilled programmer.",
+                    "vi": "Bạn tôi là một lập trình viên lành nghề.",
+                    "th": "เพื่อนของฉันเป็นโปรแกรมเมอร์ที่มีทักษะ",
+                    "id": "Teman saya adalah seorang programmer yang terampil.",
+                    "ar": "صديقي مبرمج ماهر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbf9a4e8dd8355a1ea2_1760868954414.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbf9a4e8dd8355a1ea5",
+                "word": "designer",
+                "explanation": {
+                    "en": "A person who plans the form or structure of something. Someone who creates visual concepts for products or media.",
+                    "vi": "Người lập kế hoạch hình thức hoặc cấu trúc của một cái gì đó. Người tạo ra các khái niệm hình ảnh cho sản phẩm hoặc phương tiện truyền thông.",
+                    "th": "ผู้ที่วางแผนรูปแบบหรือโครงสร้างของบางสิ่ง ผู้ที่สร้างแนวคิดภาพสำหรับผลิตภัณฑ์หรือสื่อ",
+                    "id": "Seseorang yang merencanakan bentuk atau struktur sesuatu. Seseorang yang menciptakan konsep visual untuk produk atau media.",
+                    "ar": "شخص يخطط لشكل أو هيكل شيء ما. شخص يقوم بإنشاء مفاهيم بصرية للمنتجات أو الوسائط."
+                },
+                "translation": {
+                    "vi": "nhà thiết kế",
+                    "th": "นักออกแบบ",
+                    "id": "desainer",
+                    "ar": "مصمم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dɪˈzaɪnə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/designer-uk-1760856636874.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dɪˈzaɪnər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/designer-us-1760856637207.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She hired a designer to decorate her apartment.",
+                    "vi": "Cô ấy đã thuê một nhà thiết kế để trang trí căn hộ của mình.",
+                    "th": "เธอจ้างนักออกแบบมาตกแต่งอพาร์ตเมนต์ของเธอ",
+                    "id": "Dia menyewa seorang desainer untuk mendekorasi apartemennya.",
+                    "ar": "استأجرت مصممًا لتزيين شقتها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbf9a4e8dd8355a1ea5_1760868960995.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dbf9a4e8dd8355a1ea8",
+                "word": "photographer",
+                "explanation": {
+                    "en": "A person who takes pictures, especially as a profession. Someone who uses a camera to capture images.",
+                    "vi": "Người chụp ảnh, đặc biệt là theo nghề nghiệp. Người sử dụng máy ảnh để chụp ảnh.",
+                    "th": "ผู้ที่ถ่ายภาพ โดยเฉพาะอย่างยิ่งเป็นอาชีพ ผู้ที่ใช้กล้องถ่ายภาพ",
+                    "id": "Seseorang yang mengambil gambar, terutama sebagai profesi. Seseorang yang menggunakan kamera untuk menangkap gambar.",
+                    "ar": "شخص يلتقط الصور، خاصة كمهنة. شخص يستخدم الكاميرا لالتقاط الصور."
+                },
+                "translation": {
+                    "vi": "nhiếp ảnh gia",
+                    "th": "ช่างภาพ",
+                    "id": "fotografer",
+                    "ar": "مصور"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/fəˈtɒɡrəfə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/photographer-uk-1760856638495.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fəˈtɑːɡrəfər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/photographer-us-1760856638840.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The photographer took many beautiful pictures.",
+                    "vi": "Nhiếp ảnh gia đã chụp nhiều bức ảnh đẹp.",
+                    "th": "ช่างภาพถ่ายภาพสวยๆ มากมาย",
+                    "id": "Fotografer itu mengambil banyak gambar yang indah.",
+                    "ar": "التقط المصور العديد من الصور الجميلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dbf9a4e8dd8355a1ea8_1760868969589.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc09a4e8dd8355a1eab",
+                "word": "journalist",
+                "explanation": {
+                    "en": "A person who writes for newspapers or magazines. Someone who investigates and reports news stories.",
+                    "vi": "Người viết bài cho báo hoặc tạp chí. Người điều tra và đưa tin tức.",
+                    "th": "ผู้ที่เขียนบทความสำหรับหนังสือพิมพ์หรือนิตยสาร ผู้ที่สืบสวนและรายงานข่าว",
+                    "id": "Seseorang yang menulis untuk surat kabar atau majalah. Seseorang yang menyelidiki dan melaporkan berita.",
+                    "ar": "شخص يكتب للصحف أو المجلات. شخص يحقق في القصص الإخبارية ويبلغ عنها."
+                },
+                "translation": {
+                    "vi": "nhà báo",
+                    "th": "นักข่าว",
+                    "id": "jurnalis",
+                    "ar": "صحفي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdʒɜːnəlɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/journalist-uk-1760856640090.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdʒɜːrnəlɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/journalist-us-1760856640420.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A journalist reports on current events.",
+                    "vi": "Một nhà báo đưa tin về các sự kiện hiện tại.",
+                    "th": "นักข่าวรายงานข่าวเหตุการณ์ปัจจุบัน",
+                    "id": "Seorang jurnalis melaporkan peristiwa terkini.",
+                    "ar": "يبلغ الصحفي عن الأحداث الجارية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc09a4e8dd8355a1eab_1760868976250.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc09a4e8dd8355a1eae",
+                "word": "reporter",
+                "explanation": {
+                    "en": "A person who reports news from a specific location. Someone who gathers and presents information for media.",
+                    "vi": "Người đưa tin từ một địa điểm cụ thể. Người thu thập và trình bày thông tin cho phương tiện truyền thông.",
+                    "th": "ผู้ที่รายงานข่าวจากสถานที่เฉพาะ ผู้ที่รวบรวมและนำเสนอข้อมูลสำหรับสื่อ",
+                    "id": "Seseorang yang melaporkan berita dari lokasi tertentu. Seseorang yang mengumpulkan dan menyajikan informasi untuk media.",
+                    "ar": "شخص يبلغ عن الأخبار من موقع معين. شخص يجمع ويقدم المعلومات لوسائل الإعلام."
+                },
+                "translation": {
+                    "vi": "phóng viên",
+                    "th": "ผู้สื่อข่าว",
+                    "id": "reporter",
+                    "ar": "مراسل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈpɔːtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/reporter-uk-1760856641685.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈpɔːrtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/reporter-us-1760856642018.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The TV reporter covered the local election.",
+                    "vi": "Phóng viên truyền hình đã đưa tin về cuộc bầu cử địa phương.",
+                    "th": "ผู้สื่อข่าวโทรทัศน์รายงานข่าวการเลือกตั้งท้องถิ่น",
+                    "id": "Reporter TV meliput pemilihan lokal.",
+                    "ar": "غطى مراسل التلفزيون الانتخابات المحلية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc09a4e8dd8355a1eae_1760868983043.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc09a4e8dd8355a1eb1",
+                "word": "translator",
+                "explanation": {
+                    "en": "A person who converts text or speech from one language to another. Someone who bridges linguistic communication gaps.",
+                    "vi": "Người chuyển đổi văn bản hoặc lời nói từ ngôn ngữ này sang ngôn ngữ khác. Người bắc cầu khoảng cách giao tiếp ngôn ngữ.",
+                    "th": "ผู้ที่แปลงข้อความหรือคำพูดจากภาษาหนึ่งไปอีกภาษาหนึ่ง ผู้ที่เชื่อมช่องว่างการสื่อสารทางภาษา",
+                    "id": "Seseorang yang mengubah teks atau ucapan dari satu bahasa ke bahasa lain. Seseorang yang menjembatani kesenjangan komunikasi linguistik.",
+                    "ar": "شخص يقوم بتحويل النصوص أو الكلام من لغة إلى أخرى. شخص يسد فجوات التواصل اللغوي."
+                },
+                "translation": {
+                    "vi": "phiên dịch viên",
+                    "th": "นักแปล",
+                    "id": "penerjemah",
+                    "ar": "مترجم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/trænzˈleɪtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/translator-uk-1760856643284.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/trænzˈleɪtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/translator-us-1760856643639.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He works as a translator for international companies.",
+                    "vi": "Anh ấy làm phiên dịch cho các công ty quốc tế.",
+                    "th": "เขาทำงานเป็นนักแปลให้กับบริษัทต่างชาติ",
+                    "id": "Dia bekerja sebagai penerjemah untuk perusahaan internasional.",
+                    "ar": "يعمل كمترجم لشركات عالمية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc09a4e8dd8355a1eb1_1760868990358.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc09a4e8dd8355a1eb4",
+                "word": "tour guide",
+                "explanation": {
+                    "en": "A person who conducts tours and provides information to visitors. Someone who leads groups through historical or interesting sites.",
+                    "vi": "Người hướng dẫn các chuyến tham quan và cung cấp thông tin cho du khách. Người dẫn dắt các nhóm qua các địa điểm lịch sử hoặc thú vị.",
+                    "th": "ผู้ที่นำเที่ยวและให้ข้อมูลแก่นักท่องเที่ยว ผู้ที่นำกลุ่มเยี่ยมชมสถานที่ทางประวัติศาสตร์หรือสถานที่ที่น่าสนใจ",
+                    "id": "Seseorang yang memandu tur dan memberikan informasi kepada pengunjung. Seseorang yang memimpin kelompok melalui situs bersejarah atau menarik.",
+                    "ar": "شخص يقوم بتنظيم الجولات وتقديم المعلومات للزوار. شخص يقود المجموعات عبر المواقع التاريخية أو المثيرة للاهتمام."
+                },
+                "translation": {
+                    "vi": "hướng dẫn viên du lịch",
+                    "th": "มัคคุเทศก์",
+                    "id": "pemandu wisata",
+                    "ar": "مرشد سياحي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tʊə ɡaɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tour-guide-uk-ai-1760858176675.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʊər ɡaɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tour-guide-us-ai-1760858177381.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our tour guide showed us famous landmarks.",
+                    "vi": "Hướng dẫn viên du lịch của chúng tôi đã chỉ cho chúng tôi những địa danh nổi tiếng.",
+                    "th": "มัคคุเทศก์ของเราพาเราชมสถานที่สำคัญที่มีชื่อเสียง",
+                    "id": "Pemandu wisata kami menunjukkan kepada kami landmark terkenal.",
+                    "ar": "أظهر لنا مرشدنا السياحي المعالم الشهيرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc09a4e8dd8355a1eb4_1760868998547.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc09a4e8dd8355a1eb7",
+                "word": "flight attendant",
+                "explanation": {
+                    "en": "A person who assists passengers on an aircraft. Someone responsible for safety and comfort during flights.",
+                    "vi": "Người hỗ trợ hành khách trên máy bay. Người chịu trách nhiệm về an toàn và sự thoải mái trong các chuyến bay.",
+                    "th": "ผู้ที่ช่วยเหลือผู้โดยสารบนเครื่องบิน ผู้ที่รับผิดชอบความปลอดภัยและความสะดวกสบายระหว่างการบิน",
+                    "id": "Seseorang yang membantu penumpang di pesawat. Seseorang yang bertanggung jawab atas keselamatan dan kenyamanan selama penerbangan.",
+                    "ar": "شخص يساعد الركاب على متن الطائرة. شخص مسؤول عن السلامة والراحة أثناء الرحلات الجوية."
+                },
+                "translation": {
+                    "vi": "tiếp viên hàng không",
+                    "th": "พนักงานต้อนรับบนเครื่องบิน",
+                    "id": "awak kabin",
+                    "ar": "مضيف طيران"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/flaɪt əˈtendənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flight-attendant-uk-ai-1760858186350.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/flaɪt əˈtendənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flight-attendant-us-ai-1760858186994.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The flight attendant offered us a warm blanket.",
+                    "vi": "Tiếp viên hàng không đã đưa cho chúng tôi một chiếc chăn ấm.",
+                    "th": "พนักงานต้อนรับบนเครื่องบินเสนอผ้าห่มอุ่นๆ ให้เรา",
+                    "id": "Pramugari menawarkan selimut hangat kepada kami.",
+                    "ar": "قدمت لنا مضيفة الطيران بطانية دافئة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc09a4e8dd8355a1eb7_1760869007162.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc09a4e8dd8355a1eba",
+                "word": "librarian",
+                "explanation": {
+                    "en": "A person in charge of or assisting in a library. Someone who organizes and manages collections of books.",
+                    "vi": "Người phụ trách hoặc hỗ trợ trong thư viện. Người tổ chức và quản lý các bộ sưu tập sách.",
+                    "th": "ผู้ที่รับผิดชอบหรือช่วยเหลือในห้องสมุด ผู้ที่จัดระเบียบและจัดการคอลเลกชันหนังสือ",
+                    "id": "Seseorang yang bertanggung jawab atau membantu di perpustakaan. Seseorang yang mengatur dan mengelola koleksi buku.",
+                    "ar": "شخص مسؤول عن أو يساعد في مكتبة. شخص يقوم بتنظيم وإدارة مجموعات الكتب."
+                },
+                "translation": {
+                    "vi": "thủ thư",
+                    "th": "บรรณารักษ์",
+                    "id": "pustakawan",
+                    "ar": "أمين مكتبة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/laɪˈbreəriən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/librarian-uk-1760856646671.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/laɪˈbreriən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/librarian-us-1760856646989.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The librarian helped me find a book.",
+                    "vi": "Thủ thư đã giúp tôi tìm một cuốn sách.",
+                    "th": "บรรณารักษ์ช่วยฉันหาหนังสือ",
+                    "id": "Pustakawan membantu saya menemukan buku.",
+                    "ar": "ساعدني أمين المكتبة في العثور على كتاب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc09a4e8dd8355a1eba_1760869014366.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc09a4e8dd8355a1ebd",
+                "word": "student",
+                "explanation": {
+                    "en": "A person who is studying at a school or college. Someone formally engaged in learning.",
+                    "vi": "Người đang học tại trường học hoặc cao đẳng. Người tham gia học tập một cách chính thức.",
+                    "th": "ผู้ที่กำลังศึกษาอยู่ในโรงเรียนหรือวิทยาลัย ผู้ที่เข้าร่วมการเรียนรู้อย่างเป็นทางการ",
+                    "id": "Seseorang yang sedang belajar di sekolah atau perguruan tinggi. Seseorang yang secara formal terlibat dalam pembelajaran.",
+                    "ar": "شخص يدرس في مدرسة أو كلية. شخص يشارك رسميًا في التعلم."
+                },
+                "translation": {
+                    "vi": "học sinh/sinh viên",
+                    "th": "นักเรียน/นักศึกษา",
+                    "id": "siswa/mahasiswa",
+                    "ar": "طالب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈstjuːdnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/student-uk-1760856648257.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈstuːdnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/student-us-1760856648597.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My brother is a university student.",
+                    "vi": "Anh trai tôi là sinh viên đại học.",
+                    "th": "น้องชายของฉันเป็นนักศึกษามหาวิทยาลัย",
+                    "id": "Kakak saya adalah seorang mahasiswa universitas.",
+                    "ar": "أخي طالب جامعي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc09a4e8dd8355a1ebd_1760869022410.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc19a4e8dd8355a1ec0",
+                "word": "babysitter",
+                "explanation": {
+                    "en": "A person who looks after children while their parents are out. Someone employed temporarily to care for minors.",
+                    "vi": "Người trông trẻ khi cha mẹ chúng vắng nhà. Người được thuê tạm thời để chăm sóc trẻ vị thành niên.",
+                    "th": "ผู้ที่ดูแลเด็กในขณะที่พ่อแม่ไม่อยู่ ผู้ที่ได้รับการว่าจ้างชั่วคราวเพื่อดูแลผู้เยาว์",
+                    "id": "Seseorang yang menjaga anak-anak saat orang tua mereka pergi. Seseorang yang dipekerjakan sementara untuk merawat anak di bawah umur.",
+                    "ar": "شخص يعتني بالأطفال بينما يكون والديهم خارج المنزل. شخص يتم توظيفه مؤقتًا لرعاية القصر."
+                },
+                "translation": {
+                    "vi": "người giữ trẻ",
+                    "th": "พี่เลี้ยงเด็ก",
+                    "id": "pengasuh anak",
+                    "ar": "جليسة أطفال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbeɪbisɪtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/babysitter-uk-1760856649847.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbeɪbisɪtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/babysitter-us-1760856650172.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We hired a babysitter for Saturday night.",
+                    "vi": "Chúng tôi đã thuê một người trông trẻ cho tối thứ Bảy.",
+                    "th": "เราจ้างพี่เลี้ยงเด็กสำหรับคืนวันเสาร์",
+                    "id": "Kami menyewa pengasuh untuk malam Minggu.",
+                    "ar": "استأجرنا جليسة أطفال ليلة السبت."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc19a4e8dd8355a1ec0_1760869031845.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc19a4e8dd8355a1ec3",
+                "word": "businessman",
+                "explanation": {
+                    "en": "A man engaged in commercial or industrial activities. Someone who runs an enterprise for profit.",
+                    "vi": "Một người đàn ông tham gia vào các hoạt động thương mại hoặc công nghiệp. Người điều hành một doanh nghiệp vì lợi nhuận.",
+                    "th": "ผู้ชายที่เกี่ยวข้องกับกิจกรรมเชิงพาณิชย์หรืออุตสาหกรรม ผู้ที่ดำเนินกิจการเพื่อผลกำไร",
+                    "id": "Seorang pria yang terlibat dalam kegiatan komersial atau industri. Seseorang yang menjalankan perusahaan untuk keuntungan.",
+                    "ar": "رجل يشارك في الأنشطة التجارية أو الصناعية. شخص يدير مشروعًا لتحقيق الربح."
+                },
+                "translation": {
+                    "vi": "doanh nhân (nam)",
+                    "th": "นักธุรกิจชาย",
+                    "id": "pengusaha pria",
+                    "ar": "رجل أعمال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbɪznəsmæn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/businessman-uk-1760856651430.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbɪznəsmæn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/businessman-us-1760856651796.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He is a successful businessman in the city.",
+                    "vi": "Anh ấy là một doanh nhân thành đạt trong thành phố.",
+                    "th": "เขาเป็นนักธุรกิจที่ประสบความสำเร็จในเมือง",
+                    "id": "Dia adalah seorang pengusaha sukses di kota.",
+                    "ar": "إنه رجل أعمال ناجح في المدينة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc19a4e8dd8355a1ec3_1760869042022.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc19a4e8dd8355a1ec6",
+                "word": "businesswoman",
+                "explanation": {
+                    "en": "A woman engaged in commercial or industrial activities. Someone who runs an enterprise for profit.",
+                    "vi": "Một phụ nữ tham gia vào các hoạt động thương mại hoặc công nghiệp. Người điều hành một doanh nghiệp vì lợi nhuận.",
+                    "th": "ผู้หญิงที่ดำเนินกิจกรรมเชิงพาณิชย์หรืออุตสาหกรรม ผู้ที่บริหารกิจการเพื่อผลกำไร",
+                    "id": "Seorang wanita yang terlibat dalam kegiatan komersial atau industri. Seseorang yang menjalankan usaha untuk mendapatkan keuntungan.",
+                    "ar": "امرأة تعمل في الأنشطة التجارية أو الصناعية. شخص يدير مشروعًا لتحقيق الربح."
+                },
+                "translation": {
+                    "vi": "doanh nhân (nữ)",
+                    "th": "นักธุรกิจหญิง",
+                    "id": "pengusaha wanita",
+                    "ar": "سيدة أعمال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbɪznəswʊmən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/businesswoman-uk-1760856653068.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbɪznəswʊmən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/businesswoman-us-1760856653391.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She became a powerful businesswoman.",
+                    "vi": "Cô ấy đã trở thành một nữ doanh nhân quyền lực.",
+                    "th": "เธอได้กลายเป็นนักธุรกิจหญิงผู้ทรงอิทธิพล",
+                    "id": "Dia menjadi seorang pengusaha wanita yang kuat.",
+                    "ar": "أصبحت سيدة أعمال قوية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc19a4e8dd8355a1ec6_1760869049139.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc19a4e8dd8355a1ec9",
+                "word": "entrepreneur",
+                "explanation": {
+                    "en": "A person who organizes and operates a business, taking on financial risks. Someone who starts a new venture.",
+                    "vi": "Một người tổ chức và điều hành một doanh nghiệp, chấp nhận rủi ro tài chính. Người khởi nghiệp một dự án mới.",
+                    "th": "บุคคลที่จัดตั้งและดำเนินธุรกิจโดยแบกรับความเสี่ยงทางการเงิน ผู้ที่เริ่มต้นกิจการใหม่",
+                    "id": "Seseorang yang mengorganisir dan mengoperasikan bisnis, mengambil risiko finansial. Seseorang yang memulai usaha baru.",
+                    "ar": "شخص ينظم ويدير عملًا تجاريًا، ويتحمل المخاطر المالية. شخص يبدأ مشروعًا جديدًا."
+                },
+                "translation": {
+                    "vi": "doanh nhân khởi nghiệp",
+                    "th": "ผู้ประกอบการ",
+                    "id": "wiraswasta",
+                    "ar": "رائد أعمال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌɒntrəprəˈnɜː(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/entrepreneur-uk-1760856654649.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌɑːntrəprəˈnɜːr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/entrepreneur-us-1760856654978.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The young entrepreneur launched a new tech startup.",
+                    "vi": "Doanh nhân trẻ đã ra mắt một startup công nghệ mới.",
+                    "th": "ผู้ประกอบการหนุ่มได้เปิดตัวสตาร์ทอัพเทคโนโลยีใหม่",
+                    "id": "Pengusaha muda itu meluncurkan startup teknologi baru.",
+                    "ar": "أطلق رائد الأعمال الشاب شركة ناشئة تقنية جديدة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc19a4e8dd8355a1ec9_1760869056599.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc19a4e8dd8355a1ecc",
+                "word": "volunteer",
+                "explanation": {
+                    "en": "A person who freely offers to take part in an enterprise. Someone who performs services without payment.",
+                    "vi": "Một người tự nguyện tham gia vào một hoạt động. Người thực hiện các dịch vụ mà không nhận thù lao.",
+                    "th": "บุคคลที่เสนอตัวเข้าร่วมกิจกรรมโดยสมัครใจ ผู้ที่ให้บริการโดยไม่ได้รับค่าจ้าง",
+                    "id": "Seseorang yang dengan sukarela menawarkan diri untuk ikut serta dalam suatu kegiatan. Seseorang yang melakukan layanan tanpa bayaran.",
+                    "ar": "شخص يعرض المشاركة في عمل ما بحرية. شخص يؤدي خدمات بدون مقابل."
+                },
+                "translation": {
+                    "vi": "tình nguyện viên",
+                    "th": "อาสาสมัคร",
+                    "id": "relawan",
+                    "ar": "متطوع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌvɒlənˈtɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/volunteer-uk-1760856656242.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌvɑːlənˈtɪr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/volunteer-us-1760856656767.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She works as a volunteer at the animal shelter.",
+                    "vi": "Cô ấy làm tình nguyện viên tại trại cứu trợ động vật.",
+                    "th": "เธอทำงานเป็นอาสาสมัครที่ศูนย์พักพิงสัตว์",
+                    "id": "Dia bekerja sebagai sukarelawan di penampungan hewan.",
+                    "ar": "تعمل كمتطوعة في ملجأ الحيوانات."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc19a4e8dd8355a1ecc_1760869063217.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dc19a4e8dd8355a1ecf",
+                "word": "delivery person",
+                "explanation": {
+                    "en": "A person who transports goods from one place to another. Someone whose activity is delivering packages to customers.",
+                    "vi": "Một người vận chuyển hàng hóa từ nơi này đến nơi khác. Người có hoạt động là giao các gói hàng cho khách hàng.",
+                    "th": "บุคคลที่ขนส่งสินค้าจากที่หนึ่งไปยังอีกที่หนึ่ง ผู้ที่มีหน้าที่ส่งพัสดุให้กับลูกค้า",
+                    "id": "Seseorang yang mengangkut barang dari satu tempat ke tempat lain. Seseorang yang kegiatannya adalah mengantarkan paket kepada pelanggan.",
+                    "ar": "شخص ينقل البضائع من مكان إلى آخر. شخص يقوم بتوصيل الطرود للعملاء."
+                },
+                "translation": {
+                    "vi": "người giao hàng",
+                    "th": "พนักงานส่งของ",
+                    "id": "kurir",
+                    "ar": "عامل توصيل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dɪˈlɪvəri ˈpɜːsn̩/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/delivery-person-uk-ai-1760858194751.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dɪˈlɪvəri ˈpɝːsn̩/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/delivery-person-us-ai-1760858195414.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The delivery person brought our pizza quickly.",
+                    "vi": "Người giao hàng đã mang pizza của chúng tôi đến nhanh chóng.",
+                    "th": "พนักงานส่งของนำพิซซ่าของเรามาส่งอย่างรวดเร็ว",
+                    "id": "Petugas pengantar membawa pizza kami dengan cepat.",
+                    "ar": "أحضر عامل التوصيل البيتزا الخاصة بنا بسرعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dc19a4e8dd8355a1ecf_1760869069768.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dec6",
+                "group_name": "Jobs",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 50
+    }
+}

@@ -21,6 +21,8 @@ import writingAttemptsRouter from './writingAttempts.js';
 import writingResults from './writingResults.js';
 import learningPlanRouter from './learningPlan.js';
 import conversationPracticeRouter from './conversationPractice.js';
+import vocabularyRouter from './vocabulary.js';
+import reviewRouter from './review.js';
 
 const apiRouter = Router();
 
@@ -47,5 +49,7 @@ apiRouter.use('/writing-attempts', writingAttemptsRouter);
 apiRouter.use('/writing-results', writingResults);
 apiRouter.use('/learning-plans', learningPlanRouter);
 apiRouter.use('/conversation-practice', conversationPracticeRouter);
+apiRouter.use('/vocabulary', vocabularyRouter);
+apiRouter.use('/reviews', reviewRouter);
 
 export default apiRouter;

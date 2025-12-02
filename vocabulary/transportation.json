@@ -1,0 +1,2165 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47ec99a4e8dd8355a220e",
+                "word": "transportation",
+                "explanation": {
+                    "en": "The movement of people or goods from one place to another. A system or means of conveying passengers or freight.",
+                    "vi": "Sự di chuyển của người hoặc hàng hóa từ nơi này đến nơi khác. Một hệ thống hoặc phương tiện để vận chuyển hành khách hoặc hàng hóa.",
+                    "th": "การเคลื่อนย้ายผู้คนหรือสินค้าจากที่หนึ่งไปยังอีกที่หนึ่ง ระบบหรือวิธีการขนส่งผู้โดยสารหรือสินค้า",
+                    "id": "Pergerakan orang atau barang dari satu tempat ke tempat lain. Sistem atau sarana untuk mengangkut penumpang atau barang.",
+                    "ar": "حركة الأشخاص أو البضائع من مكان إلى آخر. نظام أو وسيلة لنقل الركاب أو البضائع."
+                },
+                "translation": {
+                    "vi": "giao thông, phương tiện đi lại",
+                    "th": "การขนส่ง",
+                    "id": "transportasi",
+                    "ar": "نقل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌtrænspɔːˈteɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/transportation-uk-1760857044863.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌtrænspərˈteɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/transportation-us-1760857045211.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Public transportation is good for the environment.",
+                    "vi": "Giao thông công cộng tốt cho môi trường.",
+                    "th": "การขนส่งสาธารณะดีต่อสิ่งแวดล้อม",
+                    "id": "Transportasi umum baik untuk lingkungan.",
+                    "ar": "وسائل النقل العام جيدة للبيئة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ec99a4e8dd8355a220e_1760870870346.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ec99a4e8dd8355a2211",
+                "word": "traffic",
+                "explanation": {
+                    "en": "Vehicles moving on a public highway or street. The flow of cars and other vehicles.",
+                    "vi": "Các phương tiện di chuyển trên đường cao tốc hoặc đường phố công cộng. Dòng chảy của ô tô và các phương tiện khác.",
+                    "th": "ยานพาหนะที่เคลื่อนที่บนทางหลวงสาธารณะหรือถนน การจราจรของรถยนต์และยานพาหนะอื่นๆ",
+                    "id": "Kendaraan yang bergerak di jalan raya umum atau jalan. Arus mobil dan kendaraan lain.",
+                    "ar": "المركبات التي تتحرك على طريق عام أو شارع. تدفق السيارات والمركبات الأخرى."
+                },
+                "translation": {
+                    "vi": "giao thông, lưu lượng xe",
+                    "th": "การจราจร",
+                    "id": "lalu lintas",
+                    "ar": "حركة المرور"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtræfɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/traffic-uk-1760857046466.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtræfɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/traffic-us-1760857046803.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We were stuck in heavy traffic for an hour.",
+                    "vi": "Chúng tôi bị kẹt xe nặng trong một giờ.",
+                    "th": "เราติดอยู่ในสภาพการจราจรที่ติดขัดเป็นเวลาหนึ่งชั่วโมง",
+                    "id": "Kami terjebak macet parah selama satu jam.",
+                    "ar": "علقنا في زحمة سير خانقة لمدة ساعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ec99a4e8dd8355a2211_1760870878234.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47eca9a4e8dd8355a2214",
+                "word": "road",
+                "explanation": {
+                    "en": "A wide way leading from one place to another. A route for vehicular travel.",
+                    "vi": "Một con đường rộng dẫn từ nơi này đến nơi khác. Một tuyến đường dành cho phương tiện giao thông.",
+                    "th": "ทางกว้างที่นำจากที่หนึ่งไปยังอีกที่หนึ่ง เส้นทางสำหรับการเดินทางด้วยยานพาหนะ",
+                    "id": "Jalan lebar yang mengarah dari satu tempat ke tempat lain. Rute untuk perjalanan kendaraan.",
+                    "ar": "طريق واسع يؤدي من مكان إلى آخر. مسار لسفر المركبات."
+                },
+                "translation": {
+                    "vi": "con đường",
+                    "th": "ถนน",
+                    "id": "jalan",
+                    "ar": "طريق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rəʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/road-uk-1760857048068.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rəʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/road-us-1760857048428.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The new road makes travel much faster.",
+                    "vi": "Con đường mới giúp việc đi lại nhanh hơn nhiều.",
+                    "th": "ถนนใหม่ทำให้การเดินทางเร็วขึ้นมาก",
+                    "id": "Jalan baru membuat perjalanan jauh lebih cepat.",
+                    "ar": "الطريق الجديد يجعل السفر أسرع بكثير."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47eca9a4e8dd8355a2214_1760870885361.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47eca9a4e8dd8355a2217",
+                "word": "street",
+                "explanation": {
+                    "en": "A public road in a city or town, typically with houses and buildings. A thoroughfare for urban traffic and pedestrians.",
+                    "vi": "Một con đường công cộng trong thành phố hoặc thị trấn, thường có nhà cửa và các tòa nhà. Một tuyến đường chính cho giao thông đô thị và người đi bộ.",
+                    "th": "ถนนสาธารณะในเมืองหรือในเขตชุมชน โดยทั่วไปมีบ้านเรือนและอาคารต่างๆ เป็นเส้นทางหลักสำหรับการจราจรในเมืองและคนเดินเท้า",
+                    "id": "Jalan umum di kota atau kota kecil, biasanya dengan rumah dan bangunan. Sebuah jalur utama untuk lalu lintas perkotaan dan pejalan kaki.",
+                    "ar": "طريق عام في مدينة أو بلدة، عادة ما يكون محاطًا بالمنازل والمباني. ممر رئيسي لحركة المرور الحضرية والمشاة."
+                },
+                "translation": {
+                    "vi": "đường phố",
+                    "th": "ถนน",
+                    "id": "jalan",
+                    "ar": "شارع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/striːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/street-uk-1760857049702.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/striːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/street-us-1760857050037.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The children played happily in the street.",
+                    "vi": "Những đứa trẻ chơi đùa vui vẻ trên đường phố.",
+                    "th": "เด็กๆ เล่นกันอย่างมีความสุขบนถนน",
+                    "id": "Anak-anak bermain dengan gembira di jalan.",
+                    "ar": "لعب الأطفال بسعادة في الشارع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47eca9a4e8dd8355a2217_1760870893837.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47eca9a4e8dd8355a221a",
+                "word": "highway",
+                "explanation": {
+                    "en": "A main road, especially one connecting major towns or cities. A multi-lane road designed for fast travel.",
+                    "vi": "Một con đường chính, đặc biệt là đường nối các thị trấn hoặc thành phố lớn. Một con đường nhiều làn được thiết kế để di chuyển nhanh.",
+                    "th": "ถนนสายหลัก โดยเฉพาะอย่างยิ่งที่เชื่อมต่อเมืองใหญ่ๆ เป็นถนนหลายเลนที่ออกแบบมาสำหรับการเดินทางด้วยความเร็วสูง",
+                    "id": "Jalan utama, terutama yang menghubungkan kota-kota besar. Jalan multi-jalur yang dirancang untuk perjalanan cepat.",
+                    "ar": "طريق رئيسي، خاصة الذي يربط بين المدن أو البلدات الكبرى. طريق متعدد المسارات مصمم للسفر السريع."
+                },
+                "translation": {
+                    "vi": "đường cao tốc",
+                    "th": "ทางด่วน",
+                    "id": "jalan tol",
+                    "ar": "طريق سريع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhaɪweɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/highway-uk-1760857051310.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhaɪweɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/highway-us-1760857051670.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We drove fast on the open highway.",
+                    "vi": "Chúng tôi lái xe nhanh trên đường cao tốc rộng mở.",
+                    "th": "เราขับรถเร็วบนทางหลวงที่โล่ง",
+                    "id": "Kami berkendara cepat di jalan raya yang lengang.",
+                    "ar": "قدنا بسرعة على الطريق السريع المفتوح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47eca9a4e8dd8355a221a_1760870900957.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47eca9a4e8dd8355a221d",
+                "word": "intersection",
+                "explanation": {
+                    "en": "A point where two or more roads cross. The junction of roads.",
+                    "vi": "Một điểm nơi hai hoặc nhiều con đường giao nhau. Nút giao của các con đường.",
+                    "th": "จุดที่ถนนสองสายหรือมากกว่าตัดกัน จุดเชื่อมต่อของถนน",
+                    "id": "Titik di mana dua atau lebih jalan bersilangan. Persimpangan jalan.",
+                    "ar": "نقطة تتقاطع فيها طريقان أو أكثر. ملتقى الطرق."
+                },
+                "translation": {
+                    "vi": "ngã tư",
+                    "th": "ทางแยก",
+                    "id": "persimpangan",
+                    "ar": "تقاطع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɪntəsekʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/intersection-uk-1760857052937.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɪntərsekʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/intersection-us-1760857053279.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Turn left at the next intersection.",
+                    "vi": "Rẽ trái ở ngã tư tiếp theo.",
+                    "th": "เลี้ยวซ้ายที่สี่แยกถัดไป",
+                    "id": "Belok kiri di persimpangan berikutnya.",
+                    "ar": "انعطف يسارًا عند التقاطع التالي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47eca9a4e8dd8355a221d_1760870907721.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47eca9a4e8dd8355a2220",
+                "word": "roundabout",
+                "explanation": {
+                    "en": "A road junction at which traffic moves in one direction around a central island. A circular junction.",
+                    "vi": "Một nút giao thông nơi các phương tiện di chuyển theo một hướng quanh một đảo trung tâm. Một nút giao thông hình tròn.",
+                    "th": "ทางแยกที่การจราจรเคลื่อนที่ไปในทิศทางเดียวรอบวงเวียนกลาง ทางแยกวงกลม",
+                    "id": "Persimpangan jalan di mana lalu lintas bergerak dalam satu arah mengelilingi pulau tengah. Persimpangan melingkar.",
+                    "ar": "تقاطع طرق تتحرك فيه حركة المرور في اتجاه واحد حول جزيرة مركزية. تقاطع دائري."
+                },
+                "translation": {
+                    "vi": "bùng binh",
+                    "th": "วงเวียน",
+                    "id": "bundaran",
+                    "ar": "دوار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈraʊndəbaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/roundabout-uk-1760857054529.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈraʊndəbaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/roundabout-us-1760857054885.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Go straight through the roundabout.",
+                    "vi": "Đi thẳng qua bùng binh.",
+                    "th": "ตรงไปผ่านวงเวียน",
+                    "id": "Lurus saja melewati bundaran.",
+                    "ar": "اذهب مباشرة عبر الدوار."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47eca9a4e8dd8355a2220_1760870915092.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47eca9a4e8dd8355a2223",
+                "word": "crosswalk",
+                "explanation": {
+                    "en": "A marked path across a road where pedestrians may cross. A designated area for walkers to traverse a street.",
+                    "vi": "Một lối đi được đánh dấu ngang qua đường nơi người đi bộ có thể băng qua. Một khu vực được chỉ định cho người đi bộ băng qua đường.",
+                    "th": "ทางเดินที่ทำเครื่องหมายไว้สำหรับคนเดินเท้าข้ามถนน พื้นที่ที่กำหนดไว้สำหรับคนเดินเท้าข้ามถนน",
+                    "id": "Jalur yang ditandai melintasi jalan tempat pejalan kaki dapat menyeberang. Area yang ditentukan bagi pejalan kaki untuk melintasi jalan.",
+                    "ar": "مسار محدد عبر الطريق حيث يمكن للمشاة العبور. منطقة مخصصة للمشاة لعبور الشارع."
+                },
+                "translation": {
+                    "vi": "vạch sang đường",
+                    "th": "ทางม้าลาย",
+                    "id": "penyeberangan pejalan kaki",
+                    "ar": "معبر مشاة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkrɒswɔːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/crosswalk-uk-ai-1760858341338.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkrɔːswɔːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/crosswalk-us-ai-1760858342012.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Always use the crosswalk to cross the road.",
+                    "vi": "Luôn sử dụng vạch kẻ đường để băng qua đường.",
+                    "th": "ใช้ทางม้าลายเสมอเมื่อข้ามถนน",
+                    "id": "Selalu gunakan penyeberangan untuk menyeberang jalan.",
+                    "ar": "استخدم دائمًا معبر المشاة لعبور الطريق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47eca9a4e8dd8355a2223_1760870922574.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecb9a4e8dd8355a2226",
+                "word": "sidewalk",
+                "explanation": {
+                    "en": "A paved path for pedestrians at the side of a road. The footpath next to a street.",
+                    "vi": "Một lối đi lát gạch dành cho người đi bộ ở bên cạnh đường. Vỉa hè bên cạnh đường phố.",
+                    "th": "ทางเดินเท้าที่ปูด้วยวัสดุสำหรับคนเดินเท้าที่อยู่ข้างถนน ทางเท้าที่อยู่ติดกับถนน",
+                    "id": "Jalur beraspal untuk pejalan kaki di sisi jalan. Trotoar di samping jalan.",
+                    "ar": "مسار ممهد للمشاة على جانب الطريق. الرصيف بجانب الشارع."
+                },
+                "translation": {
+                    "vi": "vỉa hè",
+                    "th": "ทางเท้า",
+                    "id": "trotoar",
+                    "ar": "رصيف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsaɪdwɔːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sidewalk-uk-1760857057022.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsaɪdwɔːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sidewalk-us-1760857057376.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please walk on the sidewalk, not in the street.",
+                    "vi": "Xin hãy đi trên vỉa hè, không đi dưới lòng đường.",
+                    "th": "โปรดเดินบนทางเท้า อย่าเดินบนถนน",
+                    "id": "Tolong berjalan di trotoar, bukan di jalan.",
+                    "ar": "يرجى المشي على الرصيف، وليس في الشارع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecb9a4e8dd8355a2226_1760870929755.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecb9a4e8dd8355a2229",
+                "word": "lane",
+                "explanation": {
+                    "en": "A narrow road or passage. A division of a road marked for a single line of vehicles.",
+                    "vi": "Một con đường hoặc lối đi hẹp. Một phần của con đường được đánh dấu cho một hàng phương tiện duy nhất.",
+                    "th": "ถนนหรือทางเดินแคบๆ การแบ่งถนนที่ทำเครื่องหมายไว้สำหรับรถยนต์แถวเดียว",
+                    "id": "Jalan sempit atau lorong. Pembagian jalan yang ditandai untuk satu baris kendaraan.",
+                    "ar": "طريق أو ممر ضيق. تقسيم للطريق مخصص لصف واحد من المركبات."
+                },
+                "translation": {
+                    "vi": "làn đường",
+                    "th": "เลน",
+                    "id": "lajur",
+                    "ar": "مسار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/leɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lane-uk-1760857058679.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/leɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lane-us-1760857059017.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Stay in your lane while driving.",
+                    "vi": "Hãy giữ đúng làn đường của bạn khi lái xe.",
+                    "th": "ขับรถอยู่ในเลนของคุณ",
+                    "id": "Tetaplah di jalur Anda saat mengemudi.",
+                    "ar": "ابق في مسارك أثناء القيادة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecb9a4e8dd8355a2229_1760870937338.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecb9a4e8dd8355a222c",
+                "word": "vehicle",
+                "explanation": {
+                    "en": "A means of carrying people or goods. A device for transport, like a car or bus.",
+                    "vi": "Một phương tiện để chở người hoặc hàng hóa. Một thiết bị dùng để vận chuyển, như ô tô hoặc xe buýt.",
+                    "th": "พาหนะสำหรับขนส่งคนหรือสิ่งของ อุปกรณ์สำหรับการขนส่ง เช่น รถยนต์หรือรถบัส",
+                    "id": "Sarana untuk mengangkut orang atau barang. Sebuah alat transportasi, seperti mobil atau bus.",
+                    "ar": "وسيلة لنقل الأشخاص أو البضائع. جهاز للنقل، مثل السيارة أو الحافلة."
+                },
+                "translation": {
+                    "vi": "phương tiện",
+                    "th": "ยานพาหนะ",
+                    "id": "kendaraan",
+                    "ar": "مركبة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈviːəkl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/vehicle-uk-1760857060277.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈviːəkl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/vehicle-us-1760857060615.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Many different vehicles use this road.",
+                    "vi": "Nhiều loại phương tiện khác nhau sử dụng con đường này.",
+                    "th": "ยานพาหนะหลายชนิดใช้ถนนสายนี้",
+                    "id": "Banyak kendaraan berbeda menggunakan jalan ini.",
+                    "ar": "تستخدم العديد من المركبات المختلفة هذا الطريق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecb9a4e8dd8355a222c_1760870943933.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecb9a4e8dd8355a222f",
+                "word": "car",
+                "explanation": {
+                    "en": "A motor vehicle with four wheels for carrying passengers. A common form of personal transport.",
+                    "vi": "Một phương tiện cơ giới có bốn bánh để chở hành khách. Một hình thức vận tải cá nhân phổ biến.",
+                    "th": "ยานยนต์สี่ล้อสำหรับบรรทุกผู้โดยสาร รูปแบบการขนส่งส่วนบุคคลที่พบได้ทั่วไป",
+                    "id": "Kendaraan bermotor roda empat untuk mengangkut penumpang. Bentuk transportasi pribadi yang umum.",
+                    "ar": "مركبة آلية بأربع عجلات لنقل الركاب. شكل شائع من وسائل النقل الشخصية."
+                },
+                "translation": {
+                    "vi": "ô tô",
+                    "th": "รถยนต์",
+                    "id": "mobil",
+                    "ar": "سيارة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kɑː(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/car-uk-1760857061896.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kɑːr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/car-us-1760857062247.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My new car is red and very fast.",
+                    "vi": "Chiếc ô tô mới của tôi màu đỏ và rất nhanh.",
+                    "th": "รถคันใหม่ของฉันสีแดงและเร็วมาก",
+                    "id": "Mobil baru saya berwarna merah dan sangat cepat.",
+                    "ar": "سيارتي الجديدة حمراء وسريعة جدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecb9a4e8dd8355a222f_1760870950359.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecb9a4e8dd8355a2232",
+                "word": "motorbike",
+                "explanation": {
+                    "en": "A two-wheeled vehicle powered by a motor. A common mode of transport, especially in Asia.",
+                    "vi": "Một phương tiện hai bánh chạy bằng động cơ. Một phương tiện giao thông phổ biến, đặc biệt ở châu Á.",
+                    "th": "ยานพาหนะสองล้อที่ขับเคลื่อนด้วยเครื่องยนต์ รูปแบบการขนส่งที่พบได้ทั่วไป โดยเฉพาะในเอเชีย",
+                    "id": "Kendaraan roda dua yang digerakkan oleh motor. Moda transportasi yang umum, terutama di Asia.",
+                    "ar": "مركبة ذات عجلتين تعمل بمحرك. وسيلة نقل شائعة، خاصة في آسيا."
+                },
+                "translation": {
+                    "vi": "xe máy",
+                    "th": "รถจักรยานยนต์",
+                    "id": "sepeda motor",
+                    "ar": "دراجة نارية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈməʊtəbaɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/motorbike-uk-1760857063520.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈməʊtərbaɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/motorbike-us-1760857063868.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He rides his motorbike to work every day.",
+                    "vi": "Anh ấy đi xe máy đi làm mỗi ngày.",
+                    "th": "เขาขี่มอเตอร์ไซค์ไปทำงานทุกวัน",
+                    "id": "Dia mengendarai sepeda motornya ke kantor setiap hari.",
+                    "ar": "يركب دراجته النارية إلى العمل كل يوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecb9a4e8dd8355a2232_1760870962117.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecb9a4e8dd8355a2235",
+                "word": "bicycle",
+                "explanation": {
+                    "en": "A vehicle with two wheels that is pedaled. A non-motorized means of transportation.",
+                    "vi": "Một phương tiện có hai bánh được đạp. Một phương tiện giao thông không có động cơ.",
+                    "th": "ยานพาหนะสองล้อที่ใช้การถีบ เป็นวิธีการขนส่งที่ไม่ใช้เครื่องยนต์",
+                    "id": "Kendaraan roda dua yang digerakkan dengan pedal. Sarana transportasi non-motor.",
+                    "ar": "مركبة ذات عجلتين تُدفع بالدواسات. وسيلة نقل غير آلية."
+                },
+                "translation": {
+                    "vi": "xe đạp",
+                    "th": "จักรยาน",
+                    "id": "sepeda",
+                    "ar": "دراجة هوائية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbaɪsɪkl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bicycle-uk-1760857065133.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbaɪsɪkl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bicycle-us-1760857065533.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She bought a new bicycle for her birthday.",
+                    "vi": "Cô ấy đã mua một chiếc xe đạp mới cho ngày sinh nhật của mình.",
+                    "th": "เธอซื้อจักรยานคันใหม่สำหรับวันเกิดของเธอ",
+                    "id": "Dia membeli sepeda baru untuk ulang tahunnya.",
+                    "ar": "اشترت دراجة هوائية جديدة لعيد ميلادها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecb9a4e8dd8355a2235_1760870968652.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecc9a4e8dd8355a2238",
+                "word": "scooter",
+                "explanation": {
+                    "en": "A light two-wheeled motor vehicle with a step-through frame. A common type of motorized two-wheeler.",
+                    "vi": "Một phương tiện cơ giới hai bánh nhẹ với khung xe có thể bước qua. Một loại xe hai bánh có động cơ phổ biến.",
+                    "th": "ยานยนต์สองล้อน้ำหนักเบาที่มีโครงแบบก้าวข้าม เป็นยานยนต์สองล้อชนิดหนึ่งที่พบได้ทั่วไป",
+                    "id": "Kendaraan bermotor roda dua ringan dengan rangka step-through. Jenis kendaraan roda dua bermotor yang umum.",
+                    "ar": "مركبة آلية خفيفة ذات عجلتين بإطار يسمح بالمرور من خلاله. نوع شائع من المركبات ذات العجلتين الآلية."
+                },
+                "translation": {
+                    "vi": "xe tay ga",
+                    "th": "รถสกูตเตอร์",
+                    "id": "skuter",
+                    "ar": "سكوتر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈskuːtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/scooter-uk-1760857066799.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈskuːtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/scooter-us-1760857067141.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The child rode his scooter down the path.",
+                    "vi": "Đứa trẻ đi xe scooter xuống đường.",
+                    "th": "เด็กขี่สกู๊ตเตอร์ลงไปตามทาง",
+                    "id": "Anak itu mengendarai skuter-nya menyusuri jalan setapak.",
+                    "ar": "ركب الطفل سكوتره في الممر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecc9a4e8dd8355a2238_1760870976019.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecc9a4e8dd8355a223b",
+                "word": "bus",
+                "explanation": {
+                    "en": "A large motor vehicle carrying passengers by road. A common form of public transportation.",
+                    "vi": "Một phương tiện cơ giới lớn chở hành khách bằng đường bộ. Một hình thức giao thông công cộng phổ biến.",
+                    "th": "ยานยนต์ขนาดใหญ่ที่บรรทุกผู้โดยสารทางถนน เป็นรูปแบบการขนส่งสาธารณะที่พบได้ทั่วไป",
+                    "id": "Kendaraan bermotor besar yang mengangkut penumpang melalui jalan darat. Bentuk transportasi umum yang umum.",
+                    "ar": "مركبة آلية كبيرة تنقل الركاب عبر الطريق. شكل شائع من وسائل النقل العام."
+                },
+                "translation": {
+                    "vi": "xe buýt",
+                    "th": "รถประจำทาง",
+                    "id": "bus",
+                    "ar": "حافلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/bʌs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bus-uk-1760857068450.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/bʌs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bus-us-1760857068788.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I take the bus to school every morning.",
+                    "vi": "Tôi đi xe buýt đến trường mỗi sáng.",
+                    "th": "ฉันขึ้นรถบัสไปโรงเรียนทุกเช้า",
+                    "id": "Saya naik bus ke sekolah setiap pagi.",
+                    "ar": "أركب الحافلة إلى المدرسة كل صباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecc9a4e8dd8355a223b_1760870983791.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecc9a4e8dd8355a223e",
+                "word": "coach",
+                "explanation": {
+                    "en": "A comfortable bus used for long journeys. A passenger vehicle for intercity travel.",
+                    "vi": "Một loại xe buýt thoải mái được sử dụng cho những hành trình dài. Một phương tiện chở khách cho việc đi lại giữa các thành phố.",
+                    "th": "รถบัสที่สะดวกสบายสำหรับเดินทางไกล ยานพาหนะสำหรับผู้โดยสารสำหรับการเดินทางระหว่างเมือง",
+                    "id": "Bus yang nyaman digunakan untuk perjalanan jauh. Kendaraan penumpang untuk perjalanan antar kota.",
+                    "ar": "حافلة مريحة تستخدم للرحلات الطويلة. مركبة ركاب للسفر بين المدن."
+                },
+                "translation": {
+                    "vi": "xe khách",
+                    "th": "รถโค้ช",
+                    "id": "bus antarkota",
+                    "ar": "حافلة سياحية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kəʊtʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/coach-uk-1760857070042.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kəʊtʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/coach-us-1760857070378.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We took a coach trip to the coast.",
+                    "vi": "Chúng tôi đã có một chuyến đi bằng xe khách đến bờ biển.",
+                    "th": "เรานั่งรถโค้ชไปเที่ยวชายฝั่ง",
+                    "id": "Kami melakukan perjalanan dengan bus wisata ke pantai.",
+                    "ar": "قمنا برحلة بالحافلة إلى الساحل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecc9a4e8dd8355a223e_1760870995010.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecc9a4e8dd8355a2241",
+                "word": "train",
+                "explanation": {
+                    "en": "A series of connected vehicles running on rails. A form of heavy-duty rail transport.",
+                    "vi": "Một chuỗi các phương tiện được nối với nhau chạy trên đường ray. Một hình thức vận tải đường sắt hạng nặng.",
+                    "th": "ชุดของยานพาหนะที่เชื่อมต่อกันวิ่งบนราง รูปแบบการขนส่งทางรถไฟขนาดใหญ่",
+                    "id": "Serangkaian kendaraan yang terhubung berjalan di atas rel. Bentuk transportasi rel tugas berat.",
+                    "ar": "سلسلة من المركبات المتصلة التي تسير على القضبان. شكل من أشكال النقل بالسكك الحديدية الثقيلة."
+                },
+                "translation": {
+                    "vi": "tàu hỏa",
+                    "th": "รถไฟ",
+                    "id": "kereta api",
+                    "ar": "قطار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/treɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/train-uk-1760857071806.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/treɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/train-us-1760857072144.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The train will arrive at 3 PM.",
+                    "vi": "Chuyến tàu sẽ đến lúc 3 giờ chiều.",
+                    "th": "รถไฟจะมาถึงเวลา 15.00 น.",
+                    "id": "Kereta akan tiba pukul 3 sore.",
+                    "ar": "ستصل القطار الساعة 3 مساءً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecc9a4e8dd8355a2241_1760871002657.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecc9a4e8dd8355a2244",
+                "word": "subway",
+                "explanation": {
+                    "en": "An underground railway system in a city. A fast form of urban public transport.",
+                    "vi": "Hệ thống đường sắt ngầm trong thành phố. Một hình thức giao thông công cộng đô thị nhanh chóng.",
+                    "th": "ระบบรถไฟใต้ดินในเมือง รูปแบบการขนส่งสาธารณะในเมืองที่รวดเร็ว",
+                    "id": "Sistem kereta api bawah tanah di kota. Bentuk transportasi umum perkotaan yang cepat.",
+                    "ar": "نظام سكك حديدية تحت الأرض في مدينة. شكل سريع من وسائل النقل العام الحضري."
+                },
+                "translation": {
+                    "vi": "tàu điện ngầm",
+                    "th": "รถไฟใต้ดิน",
+                    "id": "kereta bawah tanah",
+                    "ar": "مترو الأنفاق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsʌbweɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/subway-uk-1760857073418.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsʌbweɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/subway-us-1760857073758.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Take the subway to get downtown quickly.",
+                    "vi": "Đi tàu điện ngầm để đến trung tâm thành phố nhanh chóng.",
+                    "th": "ขึ้นรถไฟใต้ดินเพื่อไปยังใจกลางเมืองอย่างรวดเร็ว",
+                    "id": "Naik kereta bawah tanah untuk sampai ke pusat kota dengan cepat.",
+                    "ar": "استقل المترو للوصول إلى وسط المدينة بسرعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecc9a4e8dd8355a2244_1760871010120.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecc9a4e8dd8355a2247",
+                "word": "tram",
+                "explanation": {
+                    "en": "A passenger vehicle powered by electricity that runs on rails in city streets. A streetcar or trolley.",
+                    "vi": "Một phương tiện chở khách chạy bằng điện trên đường ray trong các đường phố thành phố. Xe điện hoặc xe đẩy.",
+                    "th": "ยานพาหนะโดยสารที่ขับเคลื่อนด้วยไฟฟ้าซึ่งวิ่งบนรางในถนนในเมือง รถรางหรือรถเข็น",
+                    "id": "Kendaraan penumpang bertenaga listrik yang berjalan di atas rel di jalan-jalan kota. Trem atau troli.",
+                    "ar": "مركبة ركاب تعمل بالكهرباء وتسير على قضبان في شوارع المدينة. ترام أو عربة."
+                },
+                "translation": {
+                    "vi": "tàu điện (trên phố)",
+                    "th": "รถราง",
+                    "id": "trem",
+                    "ar": "ترام"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/træm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tram-uk-1760857075013.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/træm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tram-us-1760857075354.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The tram stops right outside the museum.",
+                    "vi": "Xe điện dừng ngay bên ngoài bảo tàng.",
+                    "th": "รถรางจอดอยู่หน้าพิพิธภัณฑ์พอดี",
+                    "id": "Trem berhenti tepat di luar museum.",
+                    "ar": "يتوقف الترام مباشرة أمام المتحف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecc9a4e8dd8355a2247_1760871017512.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecd9a4e8dd8355a224a",
+                "word": "airplane",
+                "explanation": {
+                    "en": "A powered flying vehicle with fixed wings. A machine designed for air travel.",
+                    "vi": "Một phương tiện bay có động cơ với cánh cố định. Một cỗ máy được thiết kế để di chuyển bằng đường hàng không.",
+                    "th": "ยานพาหนะบินที่มีเครื่องยนต์และปีกคงที่ เครื่องจักรที่ออกแบบมาสำหรับการเดินทางทางอากาศ",
+                    "id": "Kendaraan terbang bertenaga dengan sayap tetap. Sebuah mesin yang dirancang untuk perjalanan udara.",
+                    "ar": "مركبة طائرة تعمل بمحرك ذات أجنحة ثابتة. آلة مصممة للسفر الجوي."
+                },
+                "translation": {
+                    "vi": "máy bay",
+                    "th": "เครื่องบิน",
+                    "id": "pesawat terbang",
+                    "ar": "طائرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈeəpleɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airplane-uk-1760857076625.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈerpleɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airplane-us-1760857077337.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The airplane flew high above the clouds.",
+                    "vi": "Chiếc máy bay bay cao trên những đám mây.",
+                    "th": "เครื่องบินบินสูงเหนือเมฆ",
+                    "id": "Pesawat terbang tinggi di atas awan.",
+                    "ar": "حلقت الطائرة عالياً فوق السحب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecd9a4e8dd8355a224a_1760871027298.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecd9a4e8dd8355a224d",
+                "word": "airport",
+                "explanation": {
+                    "en": "A place where aircraft regularly take off and land. A facility for air travel operations.",
+                    "vi": "Một nơi mà máy bay thường xuyên cất cánh và hạ cánh. Một cơ sở cho các hoạt động di chuyển bằng đường hàng không.",
+                    "th": "สถานที่ที่เครื่องบินขึ้นและลงจอดเป็นประจำ สิ่งอำนวยความสะดวกสำหรับการปฏิบัติการเดินทางทางอากาศ",
+                    "id": "Tempat di mana pesawat secara teratur lepas landas dan mendarat. Fasilitas untuk operasi perjalanan udara.",
+                    "ar": "مكان تقلع فيه الطائرات وتهبط بانتظام. مرفق لعمليات السفر الجوي."
+                },
+                "translation": {
+                    "vi": "sân bay",
+                    "th": "สนามบิน",
+                    "id": "bandara",
+                    "ar": "مطار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈeəpɔːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airport-uk-1760857078656.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈerpɔːrt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airport-us-1760857078990.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We arrived at the airport two hours early.",
+                    "vi": "Chúng tôi đến sân bay sớm hai giờ.",
+                    "th": "เรามาถึงสนามบินก่อนเวลาสองชั่วโมง",
+                    "id": "Kami tiba di bandara dua jam lebih awal.",
+                    "ar": "وصلنا إلى المطار قبل ساعتين."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecd9a4e8dd8355a224d_1760871035557.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecd9a4e8dd8355a2250",
+                "word": "flight",
+                "explanation": {
+                    "en": "An act of flying, especially a scheduled trip by aircraft. A specific journey through the air.",
+                    "vi": "Một hành động bay, đặc biệt là một chuyến đi theo lịch trình bằng máy bay. Một hành trình cụ thể qua không trung.",
+                    "th": "การบิน โดยเฉพาะการเดินทางตามกำหนดเวลาด้วยเครื่องบิน การเดินทางเฉพาะทางอากาศ",
+                    "id": "Tindakan terbang, terutama perjalanan terjadwal dengan pesawat. Perjalanan tertentu melalui udara.",
+                    "ar": "فعل الطيران، خاصة رحلة مجدولة بالطائرة. رحلة محددة عبر الجو."
+                },
+                "translation": {
+                    "vi": "chuyến bay",
+                    "th": "เที่ยวบิน",
+                    "id": "penerbangan",
+                    "ar": "رحلة طيران"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/flaɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flight-uk-1760857080258.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/flaɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flight-us-1760857080605.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our flight to London was delayed.",
+                    "vi": "Chuyến bay của chúng tôi đến London đã bị hoãn.",
+                    "th": "เที่ยวบินของเราไปลอนดอนล่าช้า",
+                    "id": "Penerbangan kami ke London tertunda.",
+                    "ar": "تأخرت رحلتنا إلى لندن."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecd9a4e8dd8355a2250_1760871042964.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecd9a4e8dd8355a2253",
+                "word": "pilot",
+                "explanation": {
+                    "en": "A person who operates the flying controls of an aircraft. Someone who controls an airplane.",
+                    "vi": "Người điều khiển các bộ phận bay của máy bay. Người điều khiển máy bay.",
+                    "th": "บุคคลที่ควบคุมการบินของเครื่องบิน ผู้ที่ควบคุมเครื่องบิน",
+                    "id": "Seseorang yang mengoperasikan kontrol terbang pesawat. Seseorang yang mengendalikan pesawat terbang.",
+                    "ar": "شخص يدير أدوات التحكم في الطيران للطائرة. شخص يتحكم في الطائرة."
+                },
+                "translation": {
+                    "vi": "phi công",
+                    "th": "นักบิน",
+                    "id": "pilot",
+                    "ar": "طيار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpaɪlət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pilot-uk-1760857081854.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpaɪlət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pilot-us-1760857082187.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The pilot announced our descent.",
+                    "vi": "Phi công thông báo việc hạ cánh của chúng tôi.",
+                    "th": "นักบินประกาศการลดระดับของเรา",
+                    "id": "Pilot mengumumkan penurunan ketinggian kami.",
+                    "ar": "أعلن الطيار عن هبوطنا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecd9a4e8dd8355a2253_1760871052193.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecd9a4e8dd8355a2256",
+                "word": "passenger",
+                "explanation": {
+                    "en": "A person traveling in a vehicle, but not the driver. Someone being transported.",
+                    "vi": "Người đi trong xe, nhưng không phải là người lái. Người đang được vận chuyển.",
+                    "th": "บุคคลที่เดินทางในยานพาหนะ แต่ไม่ใช่คนขับ ผู้ที่ถูกขนส่ง",
+                    "id": "Seseorang yang bepergian dalam kendaraan, tetapi bukan pengemudi. Seseorang yang sedang diangkut.",
+                    "ar": "شخص يسافر في مركبة، ولكن ليس السائق. شخص يتم نقله."
+                },
+                "translation": {
+                    "vi": "hành khách",
+                    "th": "ผู้โดยสาร",
+                    "id": "penumpang",
+                    "ar": "راكب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpæsɪndʒə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/passenger-uk-1760857083511.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpæsɪndʒər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/passenger-us-1760857083850.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Each passenger must show their ticket.",
+                    "vi": "Mỗi hành khách phải xuất trình vé của mình.",
+                    "th": "ผู้โดยสารแต่ละคนต้องแสดงตั๋ว",
+                    "id": "Setiap penumpang harus menunjukkan tiket mereka.",
+                    "ar": "يجب على كل راكب إظهار تذكرته."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecd9a4e8dd8355a2256_1760871059470.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecd9a4e8dd8355a2259",
+                "word": "driver",
+                "explanation": {
+                    "en": "A person who drives a vehicle. Someone who controls and operates a car or bus.",
+                    "vi": "Người lái xe. Người điều khiển và vận hành ô tô hoặc xe buýt.",
+                    "th": "บุคคลที่ขับยานพาหนะ ผู้ที่ควบคุมและขับรถยนต์หรือรถบัส",
+                    "id": "Seseorang yang mengemudikan kendaraan. Seseorang yang mengendalikan dan mengoperasikan mobil atau bus.",
+                    "ar": "شخص يقود مركبة. شخص يتحكم ويشغل سيارة أو حافلة."
+                },
+                "translation": {
+                    "vi": "tài xế",
+                    "th": "คนขับรถ",
+                    "id": "pengemudi",
+                    "ar": "سائق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdraɪvə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/driver-uk-1760857085105.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdraɪvər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/driver-us-1760857085461.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The bus driver smiled at us.",
+                    "vi": "Người lái xe buýt mỉm cười với chúng tôi.",
+                    "th": "คนขับรถบัสยิ้มให้เรา",
+                    "id": "Sopir bus tersenyum kepada kami.",
+                    "ar": "ابتسم سائق الحافلة لنا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecd9a4e8dd8355a2259_1760871066346.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecd9a4e8dd8355a225c",
+                "word": "rider",
+                "explanation": {
+                    "en": "A person who is traveling on a bicycle, motorcycle, or horse. Someone who operates a two-wheeled vehicle.",
+                    "vi": "Người đi xe đạp, xe máy hoặc cưỡi ngựa. Người điều khiển phương tiện hai bánh.",
+                    "th": "บุคคลที่เดินทางด้วยจักรยาน รถจักรยานยนต์ หรือม้า ผู้ที่ขับขี่ยานพาหนะสองล้อ",
+                    "id": "Seseorang yang bepergian dengan sepeda, sepeda motor, atau kuda. Seseorang yang mengoperasikan kendaraan roda dua.",
+                    "ar": "شخص يسافر على دراجة هوائية أو دراجة نارية أو حصان. شخص يشغل مركبة ذات عجلتين."
+                },
+                "translation": {
+                    "vi": "người lái (xe máy, xe đạp)",
+                    "th": "ผู้ขับขี่",
+                    "id": "pengendara",
+                    "ar": "راكب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈraɪdə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rider-uk-1760857086731.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈraɪdər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rider-us-1760857087077.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The bike rider wore a bright yellow jacket.",
+                    "vi": "Người đi xe đạp mặc một chiếc áo khoác màu vàng tươi.",
+                    "th": "ผู้ขี่จักรยานสวมเสื้อแจ็คเก็ตสีเหลืองสดใส",
+                    "id": "Pengendara sepeda itu mengenakan jaket kuning cerah.",
+                    "ar": "ارتدى راكب الدراجة سترة صفراء زاهية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecd9a4e8dd8355a225c_1760871073066.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ece9a4e8dd8355a225f",
+                "word": "helmet",
+                "explanation": {
+                    "en": "A hard or padded protective hat. Worn to protect the head, especially when riding.",
+                    "vi": "Mũ bảo hiểm cứng hoặc có đệm. Đội để bảo vệ đầu, đặc biệt khi đi xe.",
+                    "th": "หมวกป้องกันที่แข็งหรือมีเบาะสวมใส่เพื่อป้องกันศีรษะ โดยเฉพาะเมื่อขี่",
+                    "id": "Topi pelindung yang keras atau berlapis. Dipakai untuk melindungi kepala, terutama saat berkendara.",
+                    "ar": "خوذة واقية صلبة أو مبطنة. تُلبس لحماية الرأس، خاصة عند الركوب."
+                },
+                "translation": {
+                    "vi": "mũ bảo hiểm",
+                    "th": "หมวกกันน็อก",
+                    "id": "helm",
+                    "ar": "خوذة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhelmɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/helmet-uk-1760857088326.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhelmɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/helmet-us-1760857088692.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Always wear a helmet when cycling.",
+                    "vi": "Luôn đội mũ bảo hiểm khi đạp xe.",
+                    "th": "สวมหมวกกันน็อคเสมอเมื่อปั่นจักรยาน",
+                    "id": "Selalu pakai helm saat bersepeda.",
+                    "ar": "ارتدِ خوذة دائمًا عند ركوب الدراجة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ece9a4e8dd8355a225f_1760871081095.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ece9a4e8dd8355a2262",
+                "word": "seatbelt",
+                "explanation": {
+                    "en": "A strap securing a person to their seat in a vehicle. Used to protect passengers in case of a crash.",
+                    "vi": "Dây đai cố định người vào ghế trong xe. Dùng để bảo vệ hành khách trong trường hợp va chạm.",
+                    "th": "สายรัดที่ยึดคนเข้ากับที่นั่งในยานพาหนะ ใช้เพื่อปกป้องผู้โดยสารในกรณีที่เกิดอุบัติเหตุ",
+                    "id": "Tali pengaman yang mengikat seseorang ke tempat duduknya di dalam kendaraan. Digunakan untuk melindungi penumpang jika terjadi kecelakaan.",
+                    "ar": "حزام يثبت الشخص في مقعده في المركبة. يستخدم لحماية الركاب في حالة وقوع حادث."
+                },
+                "translation": {
+                    "vi": "dây an toàn",
+                    "th": "เข็มขัดนิรภัย",
+                    "id": "sabuk pengaman",
+                    "ar": "حزام الأمان"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsiːtbɛlt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/seatbelt-uk-ai-1760858347189.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsiːtbɛlt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/seatbelt-us-ai-1760858347726.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please fasten your seatbelt before we leave.",
+                    "vi": "Vui lòng thắt dây an toàn trước khi chúng ta khởi hành.",
+                    "th": "โปรดคาดเข็มขัดนิรภัยก่อนที่เราจะออกเดินทาง",
+                    "id": "Harap kencangkan sabuk pengaman Anda sebelum kita berangkat.",
+                    "ar": "يرجى ربط حزام الأمان قبل أن نغادر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ece9a4e8dd8355a2262_1760871087793.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ece9a4e8dd8355a2265",
+                "word": "traffic light",
+                "explanation": {
+                    "en": "A set of colored lights regulating traffic flow. Red, yellow, and green signals at intersections.",
+                    "vi": "Một bộ đèn màu điều chỉnh luồng giao thông. Tín hiệu đỏ, vàng và xanh lá cây tại các giao lộ.",
+                    "th": "ชุดไฟสีที่ควบคุมการจราจร สัญญาณไฟแดง เหลือง และเขียวที่สี่แยก",
+                    "id": "Serangkaian lampu berwarna yang mengatur arus lalu lintas. Sinyal merah, kuning, dan hijau di persimpangan.",
+                    "ar": "مجموعة من الأضواء الملونة التي تنظم تدفق حركة المرور. إشارات حمراء وصفراء وخضراء عند التقاطعات."
+                },
+                "translation": {
+                    "vi": "đèn giao thông",
+                    "th": "สัญญาณไฟจราจร",
+                    "id": "lampu lalu lintas",
+                    "ar": "إشارة مرور"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtræfɪk laɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/traffic-light-uk-ai-1760858353514.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtræfɪk laɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/traffic-light-us-ai-1760858354240.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Stop at the red traffic light.",
+                    "vi": "Dừng lại ở đèn giao thông màu đỏ.",
+                    "th": "หยุดที่ไฟจราจรสีแดง",
+                    "id": "Berhenti di lampu lalu lintas merah.",
+                    "ar": "توقف عند إشارة المرور الحمراء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ece9a4e8dd8355a2265_1760871094813.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ece9a4e8dd8355a2268",
+                "word": "accident",
+                "explanation": {
+                    "en": "An unfortunate incident that happens unexpectedly, often causing damage. A crash involving vehicles.",
+                    "vi": "Một sự cố không may xảy ra bất ngờ, thường gây thiệt hại. Một vụ va chạm liên quan đến các phương tiện.",
+                    "th": "เหตุการณ์โชคร้ายที่เกิดขึ้นโดยไม่คาดคิด มักก่อให้เกิดความเสียหาย การชนกันที่เกี่ยวข้องกับยานพาหนะ",
+                    "id": "Insiden tidak menyenangkan yang terjadi secara tak terduga, seringkali menyebabkan kerusakan. Tabrakan yang melibatkan kendaraan.",
+                    "ar": "حادث مؤسف يحدث بشكل غير متوقع، وغالبًا ما يسبب ضررًا. تصادم يضم مركبات."
+                },
+                "translation": {
+                    "vi": "tai nạn",
+                    "th": "อุบัติเหตุ",
+                    "id": "kecelakaan",
+                    "ar": "حادث"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈæksɪdənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/accident-uk-1760857091678.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈæksɪdənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/accident-us-1760857092034.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "There was a small accident on the road.",
+                    "vi": "Có một vụ tai nạn nhỏ trên đường.",
+                    "th": "เกิดอุบัติเหตุเล็กน้อยบนถนน",
+                    "id": "Ada kecelakaan kecil di jalan.",
+                    "ar": "كان هناك حادث صغير على الطريق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ece9a4e8dd8355a2268_1763693489469.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ece9a4e8dd8355a226b",
+                "word": "congestion",
+                "explanation": {
+                    "en": "A situation in which too many vehicles are in a small area. Severe overcrowding of traffic.",
+                    "vi": "Tình trạng có quá nhiều phương tiện trong một khu vực nhỏ. Tắc nghẽn giao thông nghiêm trọng.",
+                    "th": "สถานการณ์ที่มีรถยนต์มากเกินไปในพื้นที่เล็กๆ การจราจรติดขัดอย่างรุนแรง",
+                    "id": "Situasi di mana terlalu banyak kendaraan berada di area kecil. Kemacetan lalu lintas yang parah.",
+                    "ar": "حالة يكون فيها عدد كبير جدًا من المركبات في منطقة صغيرة. ازدحام مروري شديد."
+                },
+                "translation": {
+                    "vi": "tắc nghẽn",
+                    "th": "การจราจรติดขัด",
+                    "id": "kemacetan lalu lintas",
+                    "ar": "ازدحام مروري"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kənˈdʒestʃən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/congestion-uk-1760857093291.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kənˈdʒestʃən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/congestion-us-1760857093625.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Rush hour causes a lot of traffic congestion.",
+                    "vi": "Giờ cao điểm gây ra rất nhiều ùn tắc giao thông.",
+                    "th": "ชั่วโมงเร่งด่วนทำให้เกิดการจราจรติดขัดเป็นอย่างมาก",
+                    "id": "Jam sibuk menyebabkan banyak kemacetan lalu lintas.",
+                    "ar": "تسبب ساعة الذروة الكثير من الازدحام المروري."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ece9a4e8dd8355a226b_1760871107957.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ece9a4e8dd8355a226e",
+                "word": "jam",
+                "explanation": {
+                    "en": "A large number of vehicles so close together that they can scarcely move. A period of heavy traffic.",
+                    "vi": "Một số lượng lớn phương tiện quá gần nhau đến mức chúng hầu như không thể di chuyển. Một khoảng thời gian giao thông đông đúc.",
+                    "th": "ยานพาหนะจำนวนมากที่อยู่ใกล้กันมากจนแทบจะเคลื่อนที่ไม่ได้ ช่วงเวลาของการจราจรหนาแน่น",
+                    "id": "Sejumlah besar kendaraan yang begitu dekat sehingga hampir tidak bisa bergerak. Periode lalu lintas padat.",
+                    "ar": "عدد كبير من المركبات متقاربة جدًا بحيث لا تستطيع التحرك بالكاد. فترة من حركة المرور الكثيفة."
+                },
+                "translation": {
+                    "vi": "kẹt xe",
+                    "th": "รถติด",
+                    "id": "macet",
+                    "ar": "اختناق مروري"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dʒæm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/jam-uk-1760857094897.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dʒæm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/jam-us-1760857095244.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We were stuck in a huge traffic jam.",
+                    "vi": "Chúng tôi bị kẹt trong một vụ kẹt xe lớn.",
+                    "th": "เราติดอยู่ในรถติดขนาดใหญ่",
+                    "id": "Kami terjebak dalam kemacetan lalu lintas yang parah.",
+                    "ar": "علقنا في ازدحام مروري كبير."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ece9a4e8dd8355a226e_1760871114892.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecf9a4e8dd8355a2271",
+                "word": "petrol",
+                "explanation": {
+                    "en": "Refined petroleum used as fuel for internal combustion engines. Gasoline, used to power cars.",
+                    "vi": "Dầu mỏ tinh chế dùng làm nhiên liệu cho động cơ đốt trong. Xăng, dùng để chạy ô tô.",
+                    "th": "น้ำมันปิโตรเลียมที่ผ่านการกลั่นแล้ว ใช้เป็นเชื้อเพลิงสำหรับเครื่องยนต์สันดาปภายใน น้ำมันเบนซินที่ใช้ขับเคลื่อนรถยนต์",
+                    "id": "Minyak bumi olahan yang digunakan sebagai bahan bakar untuk mesin pembakaran internal. Bensin, digunakan untuk menggerakkan mobil.",
+                    "ar": "بترول مكرر يستخدم كوقود لمحركات الاحتراق الداخلي. بنزين، يستخدم لتشغيل السيارات."
+                },
+                "translation": {
+                    "vi": "xăng",
+                    "th": "น้ำมันเบนซิน",
+                    "id": "bensin",
+                    "ar": "بنزين"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpetrəl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/petrol-uk-1760857096509.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpetrəl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/petrol-us-1760857096842.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need to put petrol in my car.",
+                    "vi": "Tôi cần đổ xăng vào xe.",
+                    "th": "ฉันต้องเติมน้ำมันรถของฉัน",
+                    "id": "Saya perlu mengisi bensin di mobil saya.",
+                    "ar": "أحتاج إلى وضع البنزين في سيارتي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecf9a4e8dd8355a2271_1760871122363.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecf9a4e8dd8355a2274",
+                "word": "gas station",
+                "explanation": {
+                    "en": "A place where drivers can fill their vehicles with fuel. A service station for gasoline.",
+                    "vi": "Nơi tài xế có thể đổ nhiên liệu cho xe của họ. Một trạm dịch vụ cho xăng.",
+                    "th": "สถานที่ที่ผู้ขับขี่สามารถเติมเชื้อเพลิงให้กับยานพาหนะของตนได้ สถานีบริการน้ำมัน",
+                    "id": "Tempat di mana pengemudi dapat mengisi bahan bakar kendaraan mereka. Stasiun layanan untuk bensin.",
+                    "ar": "مكان يمكن للسائقين فيه ملء سياراتهم بالوقود. محطة خدمة للبنزين."
+                },
+                "translation": {
+                    "vi": "trạm xăng",
+                    "th": "ปั๊มน้ำมัน",
+                    "id": "pom bensin",
+                    "ar": "محطة وقود"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɡæs steɪʃən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/gas-station-uk-ai-1760858358549.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɡæs steɪʃən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/gas-station-us-ai-1760858359136.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Let's stop at the gas station for coffee.",
+                    "vi": "Chúng ta hãy dừng lại ở trạm xăng để uống cà phê.",
+                    "th": "แวะปั๊มน้ำมันดื่มกาแฟกันเถอะ",
+                    "id": "Mari kita berhenti di pom bensin untuk minum kopi.",
+                    "ar": "دعنا نتوقف عند محطة الوقود لتناول القهوة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecf9a4e8dd8355a2274_1760871129307.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecf9a4e8dd8355a2277",
+                "word": "fare",
+                "explanation": {
+                    "en": "The money paid for a journey on public transport. The cost of a ride.",
+                    "vi": "Số tiền phải trả cho một chuyến đi bằng phương tiện giao thông công cộng. Chi phí của một chuyến đi.",
+                    "th": "เงินที่จ่ายสำหรับการเดินทางด้วยระบบขนส่งสาธารณะ ค่าโดยสารของการเดินทาง",
+                    "id": "Uang yang dibayarkan untuk perjalanan dengan transportasi umum. Biaya perjalanan.",
+                    "ar": "المال المدفوع مقابل رحلة على وسائل النقل العام. تكلفة الرحلة."
+                },
+                "translation": {
+                    "vi": "giá vé",
+                    "th": "ค่าโดยสาร",
+                    "id": "ongkos",
+                    "ar": "أجرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/feə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fare-uk-1760857098989.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fer/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fare-us-1760857099330.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The bus fare is cheaper if you pay with a card.",
+                    "vi": "Giá vé xe buýt rẻ hơn nếu bạn thanh toán bằng thẻ.",
+                    "th": "ค่าโดยสารรถบัสจะถูกกว่าถ้าคุณจ่ายด้วยบัตร",
+                    "id": "Ongkos bus lebih murah jika Anda membayar dengan kartu.",
+                    "ar": "أجرة الحافلة أرخص إذا دفعت ببطاقة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecf9a4e8dd8355a2277_1760871136256.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecf9a4e8dd8355a227a",
+                "word": "ticket",
+                "explanation": {
+                    "en": "A paper or electronic document granting entry or passage. Proof of payment for a journey.",
+                    "vi": "Một tài liệu giấy hoặc điện tử cấp quyền vào cửa hoặc đi lại. Bằng chứng thanh toán cho một chuyến đi.",
+                    "th": "เอกสารกระดาษหรืออิเล็กทรอนิกส์ที่อนุญาตให้เข้าหรือผ่าน หลักฐานการชำระเงินสำหรับการเดินทาง",
+                    "id": "Dokumen kertas atau elektronik yang memberikan izin masuk atau lewat. Bukti pembayaran untuk perjalanan.",
+                    "ar": "وثيقة ورقية أو إلكترونية تمنح الدخول أو المرور. إثبات الدفع لرحلة."
+                },
+                "translation": {
+                    "vi": "vé",
+                    "th": "ตั๋ว",
+                    "id": "tiket",
+                    "ar": "تذكرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtɪkɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ticket-uk-1760857100598.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtɪkɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ticket-us-1760857100924.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I bought a train ticket to the city.",
+                    "vi": "Tôi đã mua vé tàu đi thành phố.",
+                    "th": "ฉันซื้อตั๋วรถไฟไปเมือง",
+                    "id": "Saya membeli tiket kereta api ke kota.",
+                    "ar": "اشتريت تذكرة قطار إلى المدينة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecf9a4e8dd8355a227a_1760871143373.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecf9a4e8dd8355a227d",
+                "word": "license",
+                "explanation": {
+                    "en": "An official document authorizing one to operate a vehicle. The certification allowing a person to drive.",
+                    "vi": "Một tài liệu chính thức cho phép một người điều khiển phương tiện. Giấy chứng nhận cho phép một người lái xe.",
+                    "th": "เอกสารราชการที่อนุญาตให้บุคคลหนึ่งขับขี่ยานพาหนะ ใบรับรองที่อนุญาตให้บุคคลขับรถได้",
+                    "id": "Dokumen resmi yang mengizinkan seseorang untuk mengoperasikan kendaraan. Sertifikasi yang memungkinkan seseorang untuk mengemudi.",
+                    "ar": "وثيقة رسمية تصرح لشخص بقيادة مركبة. الشهادة التي تسمح لشخص بالقيادة."
+                },
+                "translation": {
+                    "vi": "giấy phép lái xe",
+                    "th": "ใบขับขี่",
+                    "id": "surat izin mengemudi",
+                    "ar": "رخصة قيادة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈlaɪsns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/license-uk-1760857102194.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈlaɪsns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/license-us-1760857102549.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "You need a driver's license to rent a car.",
+                    "vi": "Bạn cần có bằng lái xe để thuê ô tô.",
+                    "th": "คุณต้องมีใบขับขี่เพื่อเช่ารถ",
+                    "id": "Anda memerlukan SIM untuk menyewa mobil.",
+                    "ar": "تحتاج إلى رخصة قيادة لاستئجار سيارة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecf9a4e8dd8355a227d_1760871152504.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecf9a4e8dd8355a2280",
+                "word": "parking",
+                "explanation": {
+                    "en": "The action of stopping and leaving a vehicle temporarily. An area designated for leaving vehicles.",
+                    "vi": "Hành động dừng và để xe tạm thời. Một khu vực được chỉ định để đỗ xe.",
+                    "th": "การกระทำของการหยุดและจอดรถชั่วคราว พื้นที่ที่กำหนดไว้สำหรับจอดรถ",
+                    "id": "Tindakan menghentikan dan meninggalkan kendaraan sementara. Area yang ditunjuk untuk meninggalkan kendaraan.",
+                    "ar": "فعل إيقاف وترك مركبة مؤقتًا. منطقة مخصصة لترك المركبات."
+                },
+                "translation": {
+                    "vi": "bãi đỗ xe",
+                    "th": "ที่จอดรถ",
+                    "id": "tempat parkir",
+                    "ar": "موقف سيارات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpɑːkɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/parking-uk-1760857103847.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpɑːrkɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/parking-us-1760857104201.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Parking is difficult to find downtown on weekends.",
+                    "vi": "Việc đỗ xe rất khó tìm ở trung tâm thành phố vào cuối tuần.",
+                    "th": "การจอดรถหายากในตัวเมืองช่วงวันหยุดสุดสัปดาห์",
+                    "id": "Parkir sulit ditemukan di pusat kota pada akhir pekan.",
+                    "ar": "يصعب العثور على موقف للسيارات في وسط المدينة في عطلات نهاية الأسبوع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecf9a4e8dd8355a2280_1760871160990.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ecf9a4e8dd8355a2283",
+                "word": "park",
+                "explanation": {
+                    "en": "To bring a vehicle to a stop and leave it temporarily. The action of securing a vehicle in a spot.",
+                    "vi": "Đưa một phương tiện dừng lại và để nó tạm thời. Hành động cố định một phương tiện vào một chỗ.",
+                    "th": "การนำยานพาหนะมาจอดและทิ้งไว้ชั่วคราว การกระทำของการจอดรถในจุดที่กำหนด",
+                    "id": "Menghentikan kendaraan dan meninggalkannya sementara. Tindakan mengamankan kendaraan di suatu tempat.",
+                    "ar": "إيقاف مركبة وتركها مؤقتًا. فعل تأمين مركبة في مكان."
+                },
+                "translation": {
+                    "vi": "đỗ xe",
+                    "th": "จอดรถ",
+                    "id": "parkir",
+                    "ar": "يركن السيارة"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/pɑːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/park-uk-1760857105473.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/pɑːrk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/park-us-1760857105826.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please park your car in the designated area.",
+                    "vi": "Vui lòng đỗ xe của bạn ở khu vực được chỉ định.",
+                    "th": "กรุณาจอดรถของคุณในพื้นที่ที่กำหนด",
+                    "id": "Harap parkir mobil Anda di area yang ditentukan.",
+                    "ar": "يرجى ركن سيارتك في المنطقة المخصصة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ecf9a4e8dd8355a2283_1760871169457.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed09a4e8dd8355a2286",
+                "word": "ride",
+                "explanation": {
+                    "en": "To travel in a vehicle, usually as a passenger. A journey in a car or on a motorcycle.",
+                    "vi": "Đi lại bằng phương tiện, thường là với tư cách hành khách. Một chuyến đi bằng ô tô hoặc xe máy.",
+                    "th": "การเดินทางด้วยยานพาหนะ โดยปกติจะเป็นผู้โดยสาร การเดินทางด้วยรถยนต์หรือรถจักรยานยนต์",
+                    "id": "Bepergian dengan kendaraan, biasanya sebagai penumpang. Perjalanan dengan mobil atau sepeda motor.",
+                    "ar": "السفر في مركبة، عادة كراكب. رحلة في سيارة أو على دراجة نارية."
+                },
+                "translation": {
+                    "vi": "đi nhờ, chở ai đó",
+                    "th": "การนั่งรถ",
+                    "id": "tumpangan",
+                    "ar": "توصيلة"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/raɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ride-uk-1760857107112.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/raɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ride-us-1760857107473.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Can I get a ride to the station with you?",
+                    "vi": "Tôi có thể đi nhờ xe đến nhà ga với bạn không?",
+                    "th": "ฉันขอติดรถไปสถานีกับคุณได้ไหม",
+                    "id": "Bisakah saya menumpang ke stasiun dengan Anda?",
+                    "ar": "هل يمكنني الحصول على توصيلة إلى المحطة معك؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed09a4e8dd8355a2286_1760871176803.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed09a4e8dd8355a2289",
+                "word": "commute",
+                "explanation": {
+                    "en": "Travel some distance between one's home and place of work. The daily journey to and from work.",
+                    "vi": "Đi lại một khoảng cách giữa nhà và nơi làm việc. Chuyến đi hàng ngày đến và từ nơi làm việc.",
+                    "th": "การเดินทางระยะทางหนึ่งระหว่างบ้านและที่ทำงาน การเดินทางไปและกลับจากที่ทำงานทุกวัน",
+                    "id": "Bepergian jarak tertentu antara rumah dan tempat kerja seseorang. Perjalanan harian ke dan dari tempat kerja.",
+                    "ar": "السفر لمسافة ما بين المنزل ومكان العمل. الرحلة اليومية من وإلى العمل."
+                },
+                "translation": {
+                    "vi": "đi lại hằng ngày",
+                    "th": "การเดินทางไปทำงาน",
+                    "id": "perjalanan pulang pergi kerja",
+                    "ar": "التنقل اليومي"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/kəˈmjuːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/commute-uk-1760857108768.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kəˈmjuːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/commute-us-1760857109113.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My daily commute to work takes about an hour.",
+                    "vi": "Chuyến đi làm hàng ngày của tôi mất khoảng một giờ.",
+                    "th": "การเดินทางไปทำงานทุกวันของฉันใช้เวลาประมาณหนึ่งชั่วโมง",
+                    "id": "Perjalanan harian saya ke kantor memakan waktu sekitar satu jam.",
+                    "ar": "تستغرق رحلتي اليومية إلى العمل حوالي ساعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed09a4e8dd8355a2289_1760871183973.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed09a4e8dd8355a228c",
+                "word": "travel card",
+                "explanation": {
+                    "en": "A card used for paying for public transport fares. A pass for accessing buses or subways.",
+                    "vi": "Một loại thẻ dùng để thanh toán vé phương tiện giao thông công cộng. Một loại thẻ để đi xe buýt hoặc tàu điện ngầm.",
+                    "th": "บัตรที่ใช้ชำระค่าโดยสารขนส่งสาธารณะ บัตรผ่านสำหรับขึ้นรถบัสหรือรถไฟใต้ดิน",
+                    "id": "Kartu yang digunakan untuk membayar tarif transportasi umum. Tiket untuk mengakses bus atau kereta bawah tanah.",
+                    "ar": "بطاقة تستخدم لدفع أجرة النقل العام. تصريح للوصول إلى الحافلات أو مترو الأنفاق."
+                },
+                "translation": {
+                    "vi": "thẻ đi lại",
+                    "th": "บัตรโดยสาร",
+                    "id": "kartu perjalanan",
+                    "ar": "بطاقة مواصلات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtræv.əl kɑːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/travel-card-uk-ai-1760858365414.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtræv.əl kɑːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/travel-card-us-ai-1760858366086.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Don't forget to top up your travel card.",
+                    "vi": "Đừng quên nạp tiền vào thẻ đi lại của bạn.",
+                    "th": "อย่าลืมเติมเงินในบัตรเดินทางของคุณ",
+                    "id": "Jangan lupa mengisi ulang kartu perjalanan Anda.",
+                    "ar": "لا تنسَ شحن بطاقة السفر الخاصة بك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed09a4e8dd8355a228c_1760871190636.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed09a4e8dd8355a228f",
+                "word": "route",
+                "explanation": {
+                    "en": "A way or course taken in getting from a starting point to a destination. A designated path for travel.",
+                    "vi": "Một con đường hoặc lộ trình được thực hiện để đi từ điểm xuất phát đến điểm đến. Một con đường được chỉ định để đi lại.",
+                    "th": "เส้นทางหรือแนวทางที่ใช้ในการเดินทางจากจุดเริ่มต้นไปยังจุดหมายปลายทาง เส้นทางที่กำหนดไว้สำหรับการเดินทาง",
+                    "id": "Sebuah jalan atau jalur yang diambil untuk pergi dari titik awal ke tujuan. Jalur yang ditentukan untuk perjalanan.",
+                    "ar": "طريق أو مسار يتم اتباعه للانتقال من نقطة البداية إلى الوجهة. مسار مخصص للسفر."
+                },
+                "translation": {
+                    "vi": "tuyến đường",
+                    "th": "เส้นทาง",
+                    "id": "rute",
+                    "ar": "مسار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ruːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/route-uk-1760857111238.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ruːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/route-us-1760857111579.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We need to plan the best route for our road trip.",
+                    "vi": "Chúng ta cần lên kế hoạch tuyến đường tốt nhất cho chuyến đi đường dài của mình.",
+                    "th": "เราต้องวางแผนเส้นทางที่ดีที่สุดสำหรับการเดินทางบนถนนของเรา",
+                    "id": "Kita perlu merencanakan rute terbaik untuk perjalanan darat kita.",
+                    "ar": "نحتاج إلى التخطيط لأفضل طريق لرحلتنا البرية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed09a4e8dd8355a228f_1760871197153.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed09a4e8dd8355a2292",
+                "word": "delay",
+                "explanation": {
+                    "en": "A period of time by which something is late. A holdup in the schedule of a flight or train.",
+                    "vi": "Một khoảng thời gian mà một cái gì đó bị trễ. Một sự chậm trễ trong lịch trình của một chuyến bay hoặc tàu hỏa.",
+                    "th": "ช่วงเวลาที่บางสิ่งล่าช้า การล่าช้าในตารางเวลาของเที่ยวบินหรือรถไฟ",
+                    "id": "Periode waktu di mana sesuatu terlambat. Penundaan dalam jadwal penerbangan atau kereta api.",
+                    "ar": "فترة زمنية يتأخر بها شيء ما. تأخير في جدول رحلة طيران أو قطار."
+                },
+                "translation": {
+                    "vi": "sự chậm trễ",
+                    "th": "ความล่าช้า",
+                    "id": "keterlambatan",
+                    "ar": "تأخير"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dɪˈleɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/delay-uk-1760857112820.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dɪˈleɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/delay-us-1760857113140.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "There was a long delay for our flight.",
+                    "vi": "Chuyến bay của chúng tôi bị chậm trễ rất lâu.",
+                    "th": "เที่ยวบินของเราล่าช้านานมาก",
+                    "id": "Ada penundaan yang lama untuk penerbangan kami.",
+                    "ar": "كان هناك تأخير طويل لرحلتنا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed09a4e8dd8355a2292_1760871204666.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed09a4e8dd8355a2295",
+                "word": "departure",
+                "explanation": {
+                    "en": "The action of leaving a place. The scheduled time or place for a trip to begin.",
+                    "vi": "Hành động rời khỏi một nơi. Thời gian hoặc địa điểm dự kiến để một chuyến đi bắt đầu.",
+                    "th": "การกระทำของการออกจากสถานที่ เวลาหรือสถานที่ที่กำหนดไว้สำหรับการเริ่มต้นการเดินทาง",
+                    "id": "Tindakan meninggalkan suatu tempat. Waktu atau tempat yang dijadwalkan untuk memulai perjalanan.",
+                    "ar": "فعل مغادرة مكان. الوقت أو المكان المقرر لبدء الرحلة."
+                },
+                "translation": {
+                    "vi": "sự khởi hành",
+                    "th": "การออกเดินทาง",
+                    "id": "keberangkatan",
+                    "ar": "مغادرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dɪˈpɑːtʃə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/departure-uk-1760857114413.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dɪˈpɑːrtʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/departure-us-1760857114745.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Check the departure board for your gate number.",
+                    "vi": "Kiểm tra bảng khởi hành để biết số cổng của bạn.",
+                    "th": "ตรวจสอบกระดานขาออกสำหรับหมายเลขประตูของคุณ",
+                    "id": "Periksa papan keberangkatan untuk nomor gerbang Anda.",
+                    "ar": "تحقق من لوحة المغادرة لمعرفة رقم بوابتك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed09a4e8dd8355a2295_1760871212786.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed19a4e8dd8355a2298",
+                "word": "arrival",
+                "explanation": {
+                    "en": "The action or process of reaching a place. The scheduled time or place of reaching a destination.",
+                    "vi": "Hành động hoặc quá trình đến một nơi. Thời gian hoặc địa điểm dự kiến đến một điểm đến.",
+                    "th": "การกระทำหรือกระบวนการของการไปถึงสถานที่ เวลาหรือสถานที่ที่กำหนดไว้สำหรับการไปถึงจุดหมายปลายทาง",
+                    "id": "Tindakan atau proses mencapai suatu tempat. Waktu atau tempat yang dijadwalkan untuk mencapai tujuan.",
+                    "ar": "فعل أو عملية الوصول إلى مكان. الوقت أو المكان المقرر للوصول إلى وجهة."
+                },
+                "translation": {
+                    "vi": "sự đến nơi",
+                    "th": "การมาถึง",
+                    "id": "kedatangan",
+                    "ar": "وصول"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/əˈraɪvl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/arrival-uk-1760857116005.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈraɪvl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/arrival-us-1760857116350.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "His arrival was expected around noon.",
+                    "vi": "Anh ấy dự kiến sẽ đến vào khoảng trưa.",
+                    "th": "การมาถึงของเขาคาดว่าจะประมาณเที่ยง",
+                    "id": "Kedatangannya diperkirakan sekitar tengah hari.",
+                    "ar": "كان وصوله متوقعًا حوالي الظهر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed19a4e8dd8355a2298_1760871221031.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed19a4e8dd8355a229b",
+                "word": "destination",
+                "explanation": {
+                    "en": "The place to which someone or something is going. The final stopping point of a journey.",
+                    "vi": "Nơi mà ai đó hoặc cái gì đó đang đi đến. Điểm dừng cuối cùng của một chuyến đi.",
+                    "th": "สถานที่ที่ใครบางคนหรือบางสิ่งกำลังจะไป จุดหยุดสุดท้ายของการเดินทาง",
+                    "id": "Tempat tujuan seseorang atau sesuatu. Titik berhenti terakhir dari sebuah perjalanan.",
+                    "ar": "المكان الذي يتجه إليه شخص أو شيء ما. نقطة التوقف النهائية للرحلة."
+                },
+                "translation": {
+                    "vi": "điểm đến",
+                    "th": "จุดหมายปลายทาง",
+                    "id": "tujuan",
+                    "ar": "وجهة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌdestɪˈneɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/destination-uk-1760857117655.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌdestɪˈneɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/destination-us-1760857118018.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We finally reached our destination after a long drive.",
+                    "vi": "Cuối cùng chúng tôi đã đến đích sau một chuyến đi dài.",
+                    "th": "ในที่สุดเราก็ถึงจุดหมายปลายทางหลังจากขับรถมานาน",
+                    "id": "Kami akhirnya mencapai tujuan kami setelah perjalanan panjang.",
+                    "ar": "وصلنا أخيرًا إلى وجهتنا بعد قيادة طويلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed19a4e8dd8355a229b_1760871227902.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed19a4e8dd8355a229e",
+                "word": "navigation",
+                "explanation": {
+                    "en": "The process of planning and controlling the movement of a craft or vehicle. The science of determining the position and course.",
+                    "vi": "Quá trình lập kế hoạch và kiểm soát sự di chuyển của một phương tiện. Khoa học xác định vị trí và lộ trình.",
+                    "th": "กระบวนการวางแผนและควบคุมการเคลื่อนที่ของยานพาหนะ วิทยาศาสตร์ของการกำหนดตำแหน่งและเส้นทาง",
+                    "id": "Proses perencanaan dan pengendalian pergerakan kapal atau kendaraan. Ilmu menentukan posisi dan arah.",
+                    "ar": "عملية تخطيط والتحكم في حركة مركبة أو سفينة. علم تحديد الموقع والمسار."
+                },
+                "translation": {
+                    "vi": "định vị, dẫn đường",
+                    "th": "การนำทาง",
+                    "id": "navigasi, penunjuk arah",
+                    "ar": "ملاحة، توجيه"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌnævɪˈɡeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/navigation-uk-1760857119276.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌnævɪˈɡeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/navigation-us-1760857119611.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The GPS helped with easy navigation through the city.",
+                    "vi": "GPS đã giúp việc điều hướng qua thành phố trở nên dễ dàng.",
+                    "th": "GPS ช่วยให้การนำทางผ่านเมืองเป็นไปอย่างง่ายดาย",
+                    "id": "GPS membantu navigasi yang mudah melalui kota.",
+                    "ar": "ساعد نظام تحديد المواقع العالمي (GPS) في التنقل بسهولة عبر المدينة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed19a4e8dd8355a229e_1760871235088.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df4a",
+                "group_name": "Transportation",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 49
+    }
+}

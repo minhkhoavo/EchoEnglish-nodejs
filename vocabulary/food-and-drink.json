@@ -1,0 +1,2253 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47ded9a4e8dd8355a1ee0",
+                "word": "food",
+                "explanation": {
+                    "en": "Any nutritious substance consumed to maintain life. Something that people or animals eat.",
+                    "vi": "Bất kỳ chất dinh dưỡng nào được tiêu thụ để duy trì sự sống. Thứ mà con người hoặc động vật ăn.",
+                    "th": "สารอาหารใดๆ ที่บริโภคเพื่อดำรงชีวิต สิ่งที่คนหรือสัตว์กิน",
+                    "id": "Zat bergizi apa pun yang dikonsumsi untuk mempertahankan hidup. Sesuatu yang dimakan manusia atau hewan.",
+                    "ar": "أي مادة مغذية تستهلك للحفاظ على الحياة. شيء يأكله الناس أو الحيوانات."
+                },
+                "translation": {
+                    "vi": "đồ ăn",
+                    "th": "อาหาร",
+                    "id": "makanan",
+                    "ar": "طعام"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/fuːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/food-uk-1760856658900.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fuːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/food-us-1760856659176.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "This restaurant serves delicious food.",
+                    "vi": "Nhà hàng này phục vụ đồ ăn ngon.",
+                    "th": "ร้านอาหารนี้เสิร์ฟอาหารอร่อย",
+                    "id": "Restoran ini menyajikan makanan lezat.",
+                    "ar": "يقدم هذا المطعم طعامًا لذيذًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ded9a4e8dd8355a1ee0_1760869077205.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ded9a4e8dd8355a1ee3",
+                "word": "drink",
+                "explanation": {
+                    "en": "A liquid that is consumed to quench thirst. A beverage taken into the body.",
+                    "vi": "Một chất lỏng được tiêu thụ để giải khát. Một loại đồ uống được đưa vào cơ thể.",
+                    "th": "ของเหลวที่บริโภคเพื่อดับกระหาย เครื่องดื่มที่ดื่มเข้าสู่ร่างกาย",
+                    "id": "Cairan yang dikonsumsi untuk menghilangkan dahaga. Minuman yang diminum ke dalam tubuh.",
+                    "ar": "سائل يستهلك لإرواء العطش. مشروب يؤخذ إلى الجسم."
+                },
+                "translation": {
+                    "vi": "đồ uống",
+                    "th": "เครื่องดื่ม",
+                    "id": "minuman",
+                    "ar": "مشروب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/drɪŋk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/drink-uk-1760856660628.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/drɪŋk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/drink-us-1760856660951.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Would you like a hot drink?",
+                    "vi": "Bạn có muốn một đồ uống nóng không?",
+                    "th": "คุณต้องการเครื่องดื่มร้อนไหม?",
+                    "id": "Apakah Anda ingin minuman panas?",
+                    "ar": "هل ترغب في مشروب ساخن؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ded9a4e8dd8355a1ee3_1763492001041.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dee9a4e8dd8355a1ee6",
+                "word": "meal",
+                "explanation": {
+                    "en": "Any of the regular occasions for eating food. A specific time of eating, like lunch or dinner.",
+                    "vi": "Bất kỳ dịp ăn uống thường xuyên nào. Một thời điểm cụ thể để ăn, như bữa trưa hoặc bữa tối.",
+                    "th": "โอกาสปกติในการรับประทานอาหาร ช่วงเวลาเฉพาะของการรับประทานอาหาร เช่น อาหารกลางวันหรืออาหารเย็น",
+                    "id": "Salah satu kesempatan rutin untuk makan. Waktu makan tertentu, seperti makan siang atau makan malam.",
+                    "ar": "أي من المناسبات المنتظمة لتناول الطعام. وقت محدد لتناول الطعام، مثل الغداء أو العشاء."
+                },
+                "translation": {
+                    "vi": "bữa ăn",
+                    "th": "มื้ออาหาร",
+                    "id": "hidangan",
+                    "ar": "وجبة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/miːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/meal-uk-1760856662229.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/miːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/meal-us-1760856662576.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We enjoyed a wonderful meal together.",
+                    "vi": "Chúng tôi đã cùng nhau thưởng thức một bữa ăn tuyệt vời.",
+                    "th": "เรามีความสุขกับมื้ออาหารที่ยอดเยี่ยมด้วยกัน",
+                    "id": "Kami menikmati hidangan yang luar biasa bersama.",
+                    "ar": "استمتعنا بوجبة رائعة معًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dee9a4e8dd8355a1ee6_1760869092120.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dee9a4e8dd8355a1ee9",
+                "word": "breakfast",
+                "explanation": {
+                    "en": "The first meal of the day, eaten in the morning. A light repast after waking up.",
+                    "vi": "Bữa ăn đầu tiên trong ngày, ăn vào buổi sáng. Một bữa ăn nhẹ sau khi thức dậy.",
+                    "th": "มื้อแรกของวัน รับประทานในตอนเช้า อาหารมื้อเบาๆ หลังตื่นนอน",
+                    "id": "Makanan pertama hari itu, dimakan di pagi hari. Santapan ringan setelah bangun tidur.",
+                    "ar": "الوجبة الأولى في اليوم، تؤكل في الصباح. وجبة خفيفة بعد الاستيقاظ."
+                },
+                "translation": {
+                    "vi": "bữa sáng",
+                    "th": "อาหารเช้า",
+                    "id": "sarapan",
+                    "ar": "فطور"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbrekfəst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/breakfast-uk-1760856663865.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbrekfəst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/breakfast-us-1760856664201.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I eat eggs for breakfast every morning.",
+                    "vi": "Tôi ăn trứng vào bữa sáng mỗi sáng.",
+                    "th": "ฉันกินไข่เป็นอาหารเช้าทุกเช้า",
+                    "id": "Saya makan telur untuk sarapan setiap pagi.",
+                    "ar": "أتناول البيض على الإفطار كل صباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dee9a4e8dd8355a1ee9_1760869099228.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dee9a4e8dd8355a1eec",
+                "word": "lunch",
+                "explanation": {
+                    "en": "A meal eaten in the middle of the day. The midday repast.",
+                    "vi": "Một bữa ăn được ăn vào giữa ngày. Bữa ăn giữa trưa.",
+                    "th": "มื้ออาหารที่รับประทานกลางวัน อาหารกลางวัน",
+                    "id": "Makanan yang dimakan di tengah hari. Santapan tengah hari.",
+                    "ar": "وجبة تؤكل في منتصف اليوم. وجبة الظهيرة."
+                },
+                "translation": {
+                    "vi": "bữa trưa",
+                    "th": "อาหารกลางวัน",
+                    "id": "makan siang",
+                    "ar": "غداء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/lʌntʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lunch-uk-1760856665453.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/lʌntʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lunch-us-1760856665783.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Let's meet for lunch tomorrow.",
+                    "vi": "Ngày mai chúng ta hãy gặp nhau ăn trưa nhé.",
+                    "th": "พรุ่งนี้เรามาเจอกันเพื่อทานอาหารกลางวันกันเถอะ",
+                    "id": "Mari kita bertemu untuk makan siang besok.",
+                    "ar": "لنتقابل لتناول الغداء غدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dee9a4e8dd8355a1eec_1760869105790.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47dee9a4e8dd8355a1eef",
+                "word": "dinner",
+                "explanation": {
+                    "en": "The main meal of the day, eaten in the evening. The principal repast.",
+                    "vi": "Bữa ăn chính trong ngày, ăn vào buổi tối. Bữa ăn chính.",
+                    "th": "มื้ออาหารหลักของวัน รับประทานในตอนเย็น อาหารมื้อหลัก",
+                    "id": "Makanan utama hari itu, dimakan di malam hari. Santapan utama.",
+                    "ar": "الوجبة الرئيسية في اليوم، تؤكل في المساء. الوجبة الأساسية."
+                },
+                "translation": {
+                    "vi": "bữa tối",
+                    "th": "อาหารเย็น",
+                    "id": "makan malam",
+                    "ar": "عشاء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɪnə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/dinner-uk-1760856667033.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdɪnər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/dinner-us-1760856667306.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "What are we having for dinner tonight?",
+                    "vi": "Tối nay chúng ta ăn gì?",
+                    "th": "คืนนี้เราจะกินอะไรเป็นอาหารเย็น?",
+                    "id": "Kita makan malam apa malam ini?",
+                    "ar": "ماذا سنتناول على العشاء الليلة؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47dee9a4e8dd8355a1eef_1760869113514.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47def9a4e8dd8355a1ef2",
+                "word": "snack",
+                "explanation": {
+                    "en": "A small amount of food eaten between meals. A light portion intended to prevent hunger.",
+                    "vi": "Một lượng nhỏ thức ăn ăn giữa các bữa ăn. Một phần nhẹ nhằm ngăn chặn cơn đói.",
+                    "th": "อาหารปริมาณเล็กน้อยที่รับประทานระหว่างมื้ออาหาร ส่วนเล็กน้อยที่ตั้งใจจะป้องกันความหิว",
+                    "id": "Sejumlah kecil makanan yang dimakan di antara waktu makan. Porsi ringan yang dimaksudkan untuk mencegah rasa lapar.",
+                    "ar": "كمية صغيرة من الطعام تؤكل بين الوجبات. جزء خفيف يهدف إلى منع الجوع."
+                },
+                "translation": {
+                    "vi": "món ăn nhẹ",
+                    "th": "ของว่าง",
+                    "id": "camilan",
+                    "ar": "وجبة خفيفة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/snæk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/snack-uk-1760856668513.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/snæk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/snack-us-1760856668841.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I often eat fruit as a healthy snack.",
+                    "vi": "Tôi thường ăn trái cây như một bữa ăn nhẹ lành mạnh.",
+                    "th": "ฉันมักจะกินผลไม้เป็นของว่างเพื่อสุขภาพ",
+                    "id": "Saya sering makan buah sebagai camilan sehat.",
+                    "ar": "غالبًا ما أتناول الفاكهة كوجبة خفيفة صحية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47def9a4e8dd8355a1ef2_1760869120795.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47def9a4e8dd8355a1ef5",
+                "word": "water",
+                "explanation": {
+                    "en": "A colorless, transparent, odorless liquid. The essential liquid for all life forms.",
+                    "vi": "Một chất lỏng không màu, trong suốt, không mùi. Chất lỏng thiết yếu cho mọi dạng sống.",
+                    "th": "ของเหลวที่ไม่มีสี โปร่งใส ไม่มีกลิ่น ของเหลวที่จำเป็นสำหรับสิ่งมีชีวิตทุกชนิด",
+                    "id": "Cairan tak berwarna, transparan, dan tidak berbau. Cairan esensial untuk semua bentuk kehidupan.",
+                    "ar": "سائل عديم اللون، شفاف، لا رائحة له. السائل الأساسي لجميع أشكال الحياة."
+                },
+                "translation": {
+                    "vi": "nước",
+                    "th": "น้ำ",
+                    "id": "air",
+                    "ar": "ماء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɔːtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/water-uk-1760856670098.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɔːtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/water-us-1760856670438.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please give me a glass of water.",
+                    "vi": "Làm ơn cho tôi một ly nước.",
+                    "th": "กรุณาขอน้ำหนึ่งแก้ว",
+                    "id": "Tolong beri saya segelas air.",
+                    "ar": "من فضلك أعطني كوبًا من الماء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47def9a4e8dd8355a1ef5_1760869126965.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47def9a4e8dd8355a1ef8",
+                "word": "juice",
+                "explanation": {
+                    "en": "The natural fluid contained in fruit or vegetables. A sweet liquid pressed from plants.",
+                    "vi": "Chất lỏng tự nhiên có trong trái cây hoặc rau củ. Một chất lỏng ngọt được ép từ thực vật.",
+                    "th": "ของเหลวธรรมชาติที่อยู่ในผลไม้หรือผัก ของเหลวรสหวานที่คั้นจากพืช",
+                    "id": "Cairan alami yang terkandung dalam buah atau sayuran. Cairan manis yang diperas dari tumbuhan.",
+                    "ar": "السائل الطبيعي الموجود في الفاكهة أو الخضروات. سائل حلو مستخرج من النباتات."
+                },
+                "translation": {
+                    "vi": "nước ép",
+                    "th": "น้ำผลไม้",
+                    "id": "jus",
+                    "ar": "عصير"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dʒuːs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/juice-uk-1760856671688.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dʒuːs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/juice-us-1760856672014.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My favorite juice is orange juice.",
+                    "vi": "Nước ép yêu thích của tôi là nước cam.",
+                    "th": "น้ำผลไม้ที่ฉันชอบคือน้ำส้ม",
+                    "id": "Jus favorit saya adalah jus jeruk.",
+                    "ar": "عصيري المفضل هو عصير البرتقال."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47def9a4e8dd8355a1ef8_1760869133740.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47def9a4e8dd8355a1efb",
+                "word": "soda",
+                "explanation": {
+                    "en": "A sweetened, carbonated soft drink. A fizzy, non-alcoholic beverage.",
+                    "vi": "Một loại đồ uống nhẹ có ga, có đường. Một loại đồ uống có ga, không cồn.",
+                    "th": "เครื่องดื่มอัดลมรสหวาน เครื่องดื่มไม่มีแอลกอฮอล์ที่มีฟอง",
+                    "id": "Minuman ringan manis berkarbonasi. Minuman bersoda non-alkohol.",
+                    "ar": "مشروب غازي محلى. مشروب فوار غير كحولي."
+                },
+                "translation": {
+                    "vi": "nước ngọt có ga",
+                    "th": "น้ำอัดลม",
+                    "id": "minuman bersoda",
+                    "ar": "مشروب غازي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsəʊdə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/soda-uk-1760856673272.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsəʊdə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/soda-us-1760856673603.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I prefer water over soda.",
+                    "vi": "Tôi thích nước hơn soda.",
+                    "th": "ฉันชอบน้ำมากกว่าโซดา",
+                    "id": "Saya lebih suka air daripada soda.",
+                    "ar": "أفضل الماء على الصودا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47def9a4e8dd8355a1efb_1760869140512.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47def9a4e8dd8355a1efe",
+                "word": "coffee",
+                "explanation": {
+                    "en": "A drink made from roasted and ground beans. A dark, hot beverage often drunk for energy.",
+                    "vi": "Một loại đồ uống làm từ hạt cà phê rang và xay. Một loại đồ uống nóng, màu sẫm thường được uống để lấy năng lượng.",
+                    "th": "เครื่องดื่มที่ทำจากเมล็ดกาแฟคั่วและบด เครื่องดื่มร้อนสีเข้มที่มักดื่มเพื่อเพิ่มพลังงาน",
+                    "id": "Minuman yang terbuat dari biji kopi yang dipanggang dan digiling. Minuman panas berwarna gelap yang sering diminum untuk energi.",
+                    "ar": "مشروب مصنوع من حبوب محمصة ومطحونة. مشروب ساخن داكن غالبًا ما يشرب للطاقة."
+                },
+                "translation": {
+                    "vi": "cà phê",
+                    "th": "กาแฟ",
+                    "id": "kopi",
+                    "ar": "قهوة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkɒfi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/coffee-uk-1760856674851.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkɔːfi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/coffee-us-1760856675254.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Let's grab a coffee this afternoon.",
+                    "vi": "Chiều nay chúng ta đi uống cà phê nhé.",
+                    "th": "บ่ายนี้เราไปดื่มกาแฟกันเถอะ",
+                    "id": "Mari kita minum kopi sore ini.",
+                    "ar": "لنتناول القهوة بعد الظهر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47def9a4e8dd8355a1efe_1760869146988.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df09a4e8dd8355a1f01",
+                "word": "tea",
+                "explanation": {
+                    "en": "A hot drink made by infusing dried leaves in boiling liquid. A popular beverage made from the Camellia sinensis plant.",
+                    "vi": "Một thức uống nóng được pha bằng cách ngâm lá khô trong chất lỏng sôi. Một đồ uống phổ biến được làm từ cây Camellia sinensis.",
+                    "th": "เครื่องดื่มร้อนที่ทำจากการชงใบชาแห้งในของเหลวเดือด เครื่องดื่มยอดนิยมที่ทำจากพืช Camellia sinensis.",
+                    "id": "Minuman panas yang dibuat dengan menyeduh daun kering dalam cairan mendidih. Minuman populer yang terbuat dari tanaman Camellia sinensis.",
+                    "ar": "مشروب ساخن يُصنع بنقع الأوراق المجففة في سائل مغلي. مشروب شائع يُصنع من نبات الكاميليا الصينية (Camellia sinensis)."
+                },
+                "translation": {
+                    "vi": "trà",
+                    "th": "ชา",
+                    "id": "teh",
+                    "ar": "شاي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tiː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tea-uk-1760856676547.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tiː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tea-us-1760856676895.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I like to drink hot tea in the morning.",
+                    "vi": "Tôi thích uống trà nóng vào buổi sáng.",
+                    "th": "ฉันชอบดื่มชาร้อนในตอนเช้า.",
+                    "id": "Saya suka minum teh panas di pagi hari.",
+                    "ar": "أحب شرب الشاي الساخن في الصباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df09a4e8dd8355a1f01_1760869153671.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df09a4e8dd8355a1f04",
+                "word": "milk",
+                "explanation": {
+                    "en": "An opaque white fluid produced by mammals. A nutritious liquid used in many beverages and foods.",
+                    "vi": "Một chất lỏng màu trắng đục do động vật có vú sản xuất. Một chất lỏng bổ dưỡng được sử dụng trong nhiều đồ uống và thực phẩm.",
+                    "th": "ของเหลวสีขาวขุ่นที่ผลิตโดยสัตว์เลี้ยงลูกด้วยนม ของเหลวที่มีคุณค่าทางโภชนาการที่ใช้ในเครื่องดื่มและอาหารหลายชนิด.",
+                    "id": "Cairan putih buram yang dihasilkan oleh mamalia. Cairan bergizi yang digunakan dalam banyak minuman dan makanan.",
+                    "ar": "سائل أبيض معتم تنتجه الثدييات. سائل مغذٍ يستخدم في العديد من المشروبات والأطعمة."
+                },
+                "translation": {
+                    "vi": "sữa",
+                    "th": "นม",
+                    "id": "susu",
+                    "ar": "حليب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/mɪlk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/milk-uk-1760856678168.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/mɪlk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/milk-us-1760856678502.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please add some milk to my coffee.",
+                    "vi": "Làm ơn thêm một ít sữa vào cà phê của tôi.",
+                    "th": "กรุณาเติมนมลงในกาแฟของฉันหน่อย.",
+                    "id": "Tolong tambahkan sedikit susu ke kopi saya.",
+                    "ar": "الرجاء إضافة بعض الحليب إلى قهوتي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df09a4e8dd8355a1f04_1760869159904.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df09a4e8dd8355a1f07",
+                "word": "bread",
+                "explanation": {
+                    "en": "Food made from flour, liquid, and yeast, then baked. A staple food item eaten globally.",
+                    "vi": "Thực phẩm làm từ bột mì, chất lỏng và men, sau đó được nướng. Một loại thực phẩm thiết yếu được ăn trên toàn cầu.",
+                    "th": "อาหารที่ทำจากแป้ง ของเหลว และยีสต์ แล้วนำไปอบ อาหารหลักที่บริโภคกันทั่วโลก.",
+                    "id": "Makanan yang terbuat dari tepung, cairan, dan ragi, lalu dipanggang. Makanan pokok yang dimakan secara global.",
+                    "ar": "طعام مصنوع من الدقيق والسائل والخميرة، ثم يُخبز. عنصر غذائي أساسي يُؤكل عالميًا."
+                },
+                "translation": {
+                    "vi": "bánh mì",
+                    "th": "ขนมปัง",
+                    "id": "roti",
+                    "ar": "خبز"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/bred/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bread-uk-1760856679763.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/bred/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bread-us-1760856680107.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We need to buy a loaf of bread.",
+                    "vi": "Chúng ta cần mua một ổ bánh mì.",
+                    "th": "เราต้องซื้อขนมปังหนึ่งแถว.",
+                    "id": "Kita perlu membeli sepotong roti.",
+                    "ar": "نحن بحاجة لشراء رغيف خبز."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df09a4e8dd8355a1f07_1760869166259.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df09a4e8dd8355a1f0a",
+                "word": "rice",
+                "explanation": {
+                    "en": "A cereal grain used as a staple food. The seeds of a grass species, cooked and eaten.",
+                    "vi": "Một loại ngũ cốc được sử dụng làm thực phẩm thiết yếu. Hạt của một loài cỏ, được nấu chín và ăn.",
+                    "th": "ธัญพืชที่ใช้เป็นอาหารหลัก เมล็ดของพืชตระกูลหญ้าที่นำมาปรุงสุกและรับประทาน.",
+                    "id": "Biji-bijian sereal yang digunakan sebagai makanan pokok. Biji dari spesies rumput, dimasak dan dimakan.",
+                    "ar": "حبوب غذائية تستخدم كغذاء أساسي. بذور نوع من الأعشاب، تُطهى وتُؤكل."
+                },
+                "translation": {
+                    "vi": "cơm, gạo",
+                    "th": "ข้าว",
+                    "id": "nasi",
+                    "ar": "أرز"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/raɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rice-uk-1760856681382.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/raɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rice-us-1760856681732.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Do you want white rice or brown rice?",
+                    "vi": "Bạn muốn cơm trắng hay cơm gạo lứt?",
+                    "th": "คุณต้องการข้าวขาวหรือข้าวกล้อง?",
+                    "id": "Anda mau nasi putih atau nasi merah?",
+                    "ar": "هل تريد أرز أبيض أم أرز بني؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df09a4e8dd8355a1f0a_1760869175669.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df09a4e8dd8355a1f0d",
+                "word": "noodle",
+                "explanation": {
+                    "en": "A thin strip of dough, typically made of flour and egg. A staple food boiled or served in soup.",
+                    "vi": "Một dải bột mỏng, thường được làm từ bột mì và trứng. Một loại thực phẩm thiết yếu được luộc hoặc dùng trong súp.",
+                    "th": "เส้นแป้งบางๆ โดยทั่วไปทำจากแป้งและไข่ อาหารหลักที่นำไปต้มหรือเสิร์ฟในซุป.",
+                    "id": "Potongan adonan tipis, biasanya terbuat dari tepung dan telur. Makanan pokok yang direbus atau disajikan dalam sup.",
+                    "ar": "شريط رفيع من العجين، عادة ما يُصنع من الدقيق والبيض. طعام أساسي يُغلى أو يُقدم في الحساء."
+                },
+                "translation": {
+                    "vi": "mì",
+                    "th": "เส้นก๋วยเตี๋ยว",
+                    "id": "mie",
+                    "ar": "نودلز"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈnuːdl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/noodle-uk-1760856683016.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈnuːdl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/noodle-us-1760856683364.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "This soup has a lot of thin noodles.",
+                    "vi": "Món súp này có rất nhiều sợi mì mỏng.",
+                    "th": "ซุปนี้มีเส้นก๋วยเตี๋ยวเส้นเล็กๆ เยอะมาก.",
+                    "id": "Sup ini memiliki banyak mi tipis.",
+                    "ar": "هذا الحساء يحتوي على الكثير من المعكرونة الرفيعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df09a4e8dd8355a1f0d_1760869181890.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df09a4e8dd8355a1f10",
+                "word": "soup",
+                "explanation": {
+                    "en": "A liquid dish, typically made by boiling meat or vegetables. A warm dish often served as an appetizer.",
+                    "vi": "Một món ăn dạng lỏng, thường được làm bằng cách đun sôi thịt hoặc rau củ. Một món ăn ấm thường được dùng làm món khai vị.",
+                    "th": "อาหารเหลวที่มักทำโดยการต้มเนื้อสัตว์หรือผัก อาหารอุ่นๆ ที่มักเสิร์ฟเป็นอาหารเรียกน้ำย่อย.",
+                    "id": "Hidangan cair, biasanya dibuat dengan merebus daging atau sayuran. Hidangan hangat yang sering disajikan sebagai hidangan pembuka.",
+                    "ar": "طبق سائل، يُصنع عادة بغلي اللحم أو الخضروات. طبق دافئ يُقدم غالبًا كمقبلات."
+                },
+                "translation": {
+                    "vi": "súp",
+                    "th": "ซุป",
+                    "id": "sup",
+                    "ar": "حساء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/suːp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/soup-uk-1760856684622.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/suːp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/soup-us-1760856684962.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Mom made delicious chicken soup for dinner.",
+                    "vi": "Mẹ đã nấu món súp gà ngon tuyệt cho bữa tối.",
+                    "th": "แม่ทำซุปไก่แสนอร่อยสำหรับมื้อเย็น.",
+                    "id": "Ibu membuat sup ayam lezat untuk makan malam.",
+                    "ar": "أعدت أمي حساء دجاج لذيذ للعشاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df09a4e8dd8355a1f10_1760869189221.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df09a4e8dd8355a1f13",
+                "word": "salad",
+                "explanation": {
+                    "en": "A cold dish of mixed vegetables, often with a dressing. A blend of raw greens and other ingredients.",
+                    "vi": "Một món ăn nguội gồm rau củ trộn, thường có nước sốt. Một hỗn hợp rau xanh sống và các nguyên liệu khác.",
+                    "th": "อาหารเย็นที่ประกอบด้วยผักผสม มักมีน้ำสลัด เป็นการผสมผสานของผักสดและส่วนผสมอื่นๆ.",
+                    "id": "Hidangan dingin berupa campuran sayuran, seringkali dengan saus. Campuran sayuran hijau mentah dan bahan-bahan lainnya.",
+                    "ar": "طبق بارد من الخضروات المختلطة، غالبًا مع صلصة. مزيج من الخضروات الورقية النيئة ومكونات أخرى."
+                },
+                "translation": {
+                    "vi": "món salad",
+                    "th": "สลัด",
+                    "id": "salad",
+                    "ar": "سلطة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsæləd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/salad-uk-1760856686248.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsæləd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/salad-us-1760856686590.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I often eat a fresh salad for lunch.",
+                    "vi": "Tôi thường ăn một đĩa salad tươi cho bữa trưa.",
+                    "th": "ฉันมักจะกินสลัดสดสำหรับมื้อกลางวัน.",
+                    "id": "Saya sering makan salad segar untuk makan siang.",
+                    "ar": "غالبًا ما أتناول سلطة طازجة على الغداء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df09a4e8dd8355a1f13_1760869196238.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df19a4e8dd8355a1f16",
+                "word": "egg",
+                "explanation": {
+                    "en": "An oval object laid by a female animal, especially a bird. A common ingredient used for breakfast.",
+                    "vi": "Một vật hình bầu dục do động vật cái đẻ ra, đặc biệt là chim. Một nguyên liệu phổ biến được dùng cho bữa sáng.",
+                    "th": "วัตถุรูปไข่ที่สัตว์เพศเมียวางไข่ โดยเฉพาะนก ส่วนผสมทั่วไปที่ใช้สำหรับอาหารเช้า.",
+                    "id": "Benda berbentuk oval yang diletakkan oleh hewan betina, terutama burung. Bahan umum yang digunakan untuk sarapan.",
+                    "ar": "جسم بيضاوي تضعه أنثى الحيوان، خاصة الطيور. مكون شائع يستخدم لوجبة الإفطار."
+                },
+                "translation": {
+                    "vi": "trứng",
+                    "th": "ไข่",
+                    "id": "telur",
+                    "ar": "بيضة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/eɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/egg-uk-1760856687885.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/eɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/egg-us-1760856688229.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "How many eggs do we have left?",
+                    "vi": "Chúng ta còn lại bao nhiêu quả trứng?",
+                    "th": "เราเหลือไข่กี่ฟอง?",
+                    "id": "Berapa banyak telur yang tersisa?",
+                    "ar": "كم بيضة تبقى لدينا؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df19a4e8dd8355a1f16_1760869204724.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df19a4e8dd8355a1f19",
+                "word": "meat",
+                "explanation": {
+                    "en": "The flesh of an animal consumed as food. The edible muscle tissue of livestock.",
+                    "vi": "Thịt của động vật được tiêu thụ làm thực phẩm. Mô cơ ăn được của gia súc.",
+                    "th": "เนื้อของสัตว์ที่บริโภคเป็นอาหาร เนื้อเยื่อกล้ามเนื้อที่กินได้ของปศุสัตว์.",
+                    "id": "Daging hewan yang dikonsumsi sebagai makanan. Jaringan otot yang dapat dimakan dari ternak.",
+                    "ar": "لحم الحيوان الذي يُستهلك كطعام. النسيج العضلي الصالح للأكل من الماشية."
+                },
+                "translation": {
+                    "vi": "thịt",
+                    "th": "เนื้อ",
+                    "id": "daging",
+                    "ar": "لحم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/miːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/meat-uk-1760856689507.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/miːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/meat-us-1760856689829.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He prefers to eat red meat once a week.",
+                    "vi": "Anh ấy thích ăn thịt đỏ mỗi tuần một lần.",
+                    "th": "เขาชอบกินเนื้อแดงสัปดาห์ละครั้ง.",
+                    "id": "Dia lebih suka makan daging merah seminggu sekali.",
+                    "ar": "يفضل أن يأكل اللحم الأحمر مرة واحدة في الأسبوع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df19a4e8dd8355a1f19_1760869213211.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df19a4e8dd8355a1f1c",
+                "word": "chicken",
+                "explanation": {
+                    "en": "The flesh of a domestic fowl eaten as food. A lean source of protein often grilled or fried.",
+                    "vi": "Thịt của gia cầm được ăn làm thực phẩm. Một nguồn protein nạc thường được nướng hoặc chiên.",
+                    "th": "เนื้อของสัตว์ปีกที่เลี้ยงในบ้านที่กินเป็นอาหาร แหล่งโปรตีนไร้มันที่มักนำไปย่างหรือทอด.",
+                    "id": "Daging unggas domestik yang dimakan sebagai makanan. Sumber protein tanpa lemak yang sering dipanggang atau digoreng.",
+                    "ar": "لحم الدواجن المستأنسة الذي يُؤكل كطعام. مصدر بروتين قليل الدهن غالبًا ما يُشوى أو يُقلى."
+                },
+                "translation": {
+                    "vi": "thịt gà",
+                    "th": "เนื้อไก่",
+                    "id": "daging ayam",
+                    "ar": "لحم دجاج"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃɪkɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chicken-uk-1760856691037.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃɪkɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chicken-us-1760856691379.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Let's order a whole roast chicken tonight.",
+                    "vi": "Tối nay chúng ta hãy gọi một con gà quay nguyên con.",
+                    "th": "คืนนี้เรามาสั่งไก่ย่างทั้งตัวกันเถอะ.",
+                    "id": "Mari kita pesan ayam panggang utuh malam ini.",
+                    "ar": "دعنا نطلب دجاجة مشوية كاملة الليلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df19a4e8dd8355a1f1c_1760869220935.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df19a4e8dd8355a1f1f",
+                "word": "beef",
+                "explanation": {
+                    "en": "The flesh of a cow, bull, or ox used as food. A red meat known for its rich flavor.",
+                    "vi": "Thịt của bò cái, bò đực hoặc bò thiến được dùng làm thực phẩm. Một loại thịt đỏ nổi tiếng với hương vị đậm đà.",
+                    "th": "เนื้อของวัว วัวตัวผู้ หรือวัวตอนที่ใช้เป็นอาหาร เนื้อแดงที่ขึ้นชื่อเรื่องรสชาติเข้มข้น.",
+                    "id": "Daging sapi, banteng, atau lembu jantan yang digunakan sebagai makanan. Daging merah yang dikenal karena rasanya yang kaya.",
+                    "ar": "لحم البقر أو الثور أو الثور المخصي المستخدم كطعام. لحم أحمر معروف بنكهته الغنية."
+                },
+                "translation": {
+                    "vi": "thịt bò",
+                    "th": "เนื้อวัว",
+                    "id": "daging sapi",
+                    "ar": "لحم بقر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/biːf/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/beef-uk-1760856692663.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/biːf/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/beef-us-1760856693029.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My favorite dish is a tasty beef stew.",
+                    "vi": "Món ăn yêu thích của tôi là món thịt bò hầm ngon tuyệt.",
+                    "th": "อาหารจานโปรดของฉันคือสตูว์เนื้อแสนอร่อย.",
+                    "id": "Hidangan favorit saya adalah semur daging sapi yang lezat.",
+                    "ar": "طبقي المفضل هو يخنة لحم البقر اللذيذة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df19a4e8dd8355a1f1f_1760869227962.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df19a4e8dd8355a1f22",
+                "word": "pork",
+                "explanation": {
+                    "en": "The flesh of a pig eaten as food. A commonly consumed white meat.",
+                    "vi": "Thịt lợn được ăn làm thực phẩm. Một loại thịt trắng được tiêu thụ phổ biến.",
+                    "th": "เนื้อหมูที่กินเป็นอาหาร เนื้อขาวที่บริโภคกันทั่วไป.",
+                    "id": "Daging babi yang dimakan sebagai makanan. Daging putih yang umum dikonsumsi.",
+                    "ar": "لحم الخنزير الذي يُؤكل كطعام. لحم أبيض يُستهلك بشكل شائع."
+                },
+                "translation": {
+                    "vi": "thịt heo",
+                    "th": "เนื้อหมู",
+                    "id": "daging babi",
+                    "ar": "لحم خنزير"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/pɔːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pork-uk-1760856694306.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/pɔːrk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pork-us-1760856694653.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We had roasted pork with apples.",
+                    "vi": "Chúng tôi đã ăn thịt lợn quay với táo.",
+                    "th": "เรากินหมูย่างกับแอปเปิล.",
+                    "id": "Kami makan babi panggang dengan apel.",
+                    "ar": "تناولنا لحم الخنزير المشوي مع التفاح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df19a4e8dd8355a1f22_1760869237331.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df19a4e8dd8355a1f25",
+                "word": "fish",
+                "explanation": {
+                    "en": "An animal living in water, eaten as food. A protein source found in seas, rivers, and lakes.",
+                    "vi": "Một loài động vật sống dưới nước, được ăn làm thực phẩm. Một nguồn protein được tìm thấy ở biển, sông và hồ.",
+                    "th": "สัตว์ที่อาศัยอยู่ในน้ำที่กินเป็นอาหาร แหล่งโปรตีนที่พบในทะเล แม่น้ำ และทะเลสาบ.",
+                    "id": "Hewan yang hidup di air, dimakan sebagai makanan. Sumber protein yang ditemukan di laut, sungai, dan danau.",
+                    "ar": "حيوان يعيش في الماء، يُؤكل كطعام. مصدر بروتين يوجد في البحار والأنهار والبحيرات."
+                },
+                "translation": {
+                    "vi": "cá",
+                    "th": "ปลา",
+                    "id": "ikan",
+                    "ar": "سمك"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/fɪʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fish-uk-1760856695943.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fɪʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fish-us-1760856696288.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I love to eat fresh fish by the sea.",
+                    "vi": "Tôi thích ăn cá tươi bên bờ biển.",
+                    "th": "ฉันชอบกินปลาสดริมทะเล.",
+                    "id": "Saya suka makan ikan segar di tepi laut.",
+                    "ar": "أحب أكل السمك الطازج بجانب البحر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df19a4e8dd8355a1f25_1760869244829.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df29a4e8dd8355a1f28",
+                "word": "shrimp",
+                "explanation": {
+                    "en": "A small edible crustacean with a long tail. A popular type of seafood.",
+                    "vi": "Một loài giáp xác nhỏ ăn được có đuôi dài. Một loại hải sản phổ biến.",
+                    "th": "สัตว์น้ำจำพวกครัสเตเชียนขนาดเล็กที่กินได้ มีหางยาว อาหารทะเลยอดนิยมชนิดหนึ่ง.",
+                    "id": "Krstase kecil yang dapat dimakan dengan ekor panjang. Jenis makanan laut yang populer.",
+                    "ar": "قشريات صغيرة صالحة للأكل ذات ذيل طويل. نوع شائع من المأكولات البحرية."
+                },
+                "translation": {
+                    "vi": "tôm",
+                    "th": "กุ้ง",
+                    "id": "udang",
+                    "ar": "روبيان"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ʃrɪmp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shrimp-uk-1760856697571.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ʃrɪmp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shrimp-us-1760856697931.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "These grilled shrimp are very delicious.",
+                    "vi": "Những con tôm nướng này rất ngon.",
+                    "th": "กุ้งย่างเหล่านี้อร่อยมาก.",
+                    "id": "Udang bakar ini sangat lezat.",
+                    "ar": "هذا الروبيان المشوي لذيذ جدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df29a4e8dd8355a1f28_1760869250903.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df29a4e8dd8355a1f2b",
+                "word": "vegetable",
+                "explanation": {
+                    "en": "A plant or part of a plant used as food. The savory, non-sweet part of a plant often eaten cooked.",
+                    "vi": "Một loại cây hoặc một phần của cây được dùng làm thực phẩm. Phần mặn, không ngọt của cây thường được ăn khi nấu chín.",
+                    "th": "พืชหรือส่วนของพืชที่ใช้เป็นอาหาร ส่วนที่ไม่มีรสหวานของพืชที่มักนำไปปรุงสุก.",
+                    "id": "Tumbuhan atau bagian dari tumbuhan yang digunakan sebagai makanan. Bagian tumbuhan yang gurih, tidak manis, sering dimakan setelah dimasak.",
+                    "ar": "نبات أو جزء من نبات يُستخدم كطعام. الجزء اللذيذ غير الحلو من النبات الذي غالبًا ما يُؤكل مطبوخًا."
+                },
+                "translation": {
+                    "vi": "rau",
+                    "th": "ผัก",
+                    "id": "sayur",
+                    "ar": "خضروات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈvedʒtəbl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/vegetable-uk-1760856699213.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈvedʒtəbl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/vegetable-us-1760856699552.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Eat your vegetables; they are good for you.",
+                    "vi": "Hãy ăn rau của bạn; chúng rất tốt cho sức khỏe.",
+                    "th": "กินผักของคุณนะ มันดีต่อสุขภาพ.",
+                    "id": "Makanlah sayuranmu; itu baik untukmu.",
+                    "ar": "تناول خضرواتك؛ إنها مفيدة لك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df29a4e8dd8355a1f2b_1760869258171.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df29a4e8dd8355a1f2e",
+                "word": "fruit",
+                "explanation": {
+                    "en": "The sweet, fleshy product of a tree or plant. The edible, usually sweet, reproductive part of a plant.",
+                    "vi": "Sản phẩm ngọt, nhiều thịt của cây hoặc thực vật. Phần ăn được, thường ngọt, là bộ phận sinh sản của thực vật.",
+                    "th": "ผลผลิตที่หวานและมีเนื้อจากต้นไม้หรือพืช ส่วนที่กินได้ มักมีรสหวาน เป็นส่วนสืบพันธุ์ของพืช",
+                    "id": "Produk manis dan berdaging dari pohon atau tumbuhan. Bagian reproduktif tumbuhan yang dapat dimakan, biasanya manis.",
+                    "ar": "المنتج الحلو واللحمي لشجرة أو نبات. الجزء التناسلي الصالح للأكل، وعادة ما يكون حلواً، من النبات."
+                },
+                "translation": {
+                    "vi": "trái cây",
+                    "th": "ผลไม้",
+                    "id": "buah",
+                    "ar": "فاكهة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/fruːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fruit-uk-1760856700832.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fruːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fruit-us-1760856701162.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She always brings fresh fruit to work.",
+                    "vi": "Cô ấy luôn mang trái cây tươi đi làm.",
+                    "th": "เธอเอานำผลไม้สดไปทำงานเสมอ",
+                    "id": "Dia selalu membawa buah segar ke kantor.",
+                    "ar": "هي دائماً تحضر الفاكهة الطازجة إلى العمل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df29a4e8dd8355a1f2e_1760869265396.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df29a4e8dd8355a1f31",
+                "word": "apple",
+                "explanation": {
+                    "en": "A round fruit with firm, white flesh and green or red skin. A common, crisp fruit.",
+                    "vi": "Một loại trái cây tròn với thịt chắc, màu trắng và vỏ màu xanh hoặc đỏ. Một loại trái cây phổ biến, giòn.",
+                    "th": "ผลไม้ทรงกลมที่มีเนื้อแน่นสีขาวและเปลือกสีเขียวหรือแดง ผลไม้กรอบที่พบได้ทั่วไป",
+                    "id": "Buah bulat dengan daging putih yang padat dan kulit hijau atau merah. Buah renyah yang umum.",
+                    "ar": "فاكهة مستديرة ذات لب أبيض صلب وقشرة خضراء أو حمراء. فاكهة شائعة ومقرمشة."
+                },
+                "translation": {
+                    "vi": "táo",
+                    "th": "แอปเปิล",
+                    "id": "apel",
+                    "ar": "تفاح"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈæpl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/apple-uk-1760856702441.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈæpl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/apple-us-1760856702814.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "An apple a day keeps the doctor away.",
+                    "vi": "Mỗi ngày một quả táo giúp tránh xa bác sĩ.",
+                    "th": "กินแอปเปิลวันละลูก ช่วยให้ห่างไกลหมอ",
+                    "id": "Satu apel sehari menjauhkan dokter.",
+                    "ar": "تفاحة في اليوم تبعد الطبيب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df29a4e8dd8355a1f31_1760869272325.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df29a4e8dd8355a1f34",
+                "word": "banana",
+                "explanation": {
+                    "en": "A long, curved fruit with a yellow peel. A soft, sweet fruit grown in tropical regions.",
+                    "vi": "Một loại trái cây dài, cong với vỏ màu vàng. Một loại trái cây mềm, ngọt được trồng ở vùng nhiệt đới.",
+                    "th": "ผลไม้รูปร่างยาว โค้งงอ มีเปลือกสีเหลือง ผลไม้นุ่ม หวานที่ปลูกในเขตร้อน",
+                    "id": "Buah panjang melengkung dengan kulit kuning. Buah lembut dan manis yang tumbuh di daerah tropis.",
+                    "ar": "فاكهة طويلة ومنحنية ذات قشرة صفراء. فاكهة ناعمة وحلوة تنمو في المناطق الاستوائية."
+                },
+                "translation": {
+                    "vi": "chuối",
+                    "th": "กล้วย",
+                    "id": "pisang",
+                    "ar": "موز"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/bəˈnɑːnə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/banana-uk-1760856704095.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/bəˈnænə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/banana-us-1760856704615.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My monkey loves to eat a ripe banana.",
+                    "vi": "Con khỉ của tôi thích ăn một quả chuối chín.",
+                    "th": "ลิงของฉันชอบกินกล้วยสุก",
+                    "id": "Monyet saya suka makan pisang matang.",
+                    "ar": "قردي يحب أكل الموز الناضج."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df29a4e8dd8355a1f34_1760869278596.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df29a4e8dd8355a1f37",
+                "word": "orange",
+                "explanation": {
+                    "en": "A round, juicy citrus fruit with a thick rind. Known for its distinct sweet and sour flavor.",
+                    "vi": "Một loại trái cây họ cam quýt tròn, mọng nước với vỏ dày. Nổi tiếng với hương vị chua ngọt đặc trưng.",
+                    "th": "ผลไม้ตระกูลส้มทรงกลม ฉ่ำน้ำ มีเปลือกหนา เป็นที่รู้จักจากรสชาติเปรี้ยวอมหวานที่โดดเด่น",
+                    "id": "Buah jeruk bulat, berair dengan kulit tebal. Dikenal karena rasa manis dan asamnya yang khas.",
+                    "ar": "فاكهة حمضية مستديرة وعصيرية ذات قشرة سميكة. معروفة بنكهتها الحلوة والحامضة المميزة."
+                },
+                "translation": {
+                    "vi": "cam",
+                    "th": "ส้ม",
+                    "id": "jeruk",
+                    "ar": "برتقال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɒrɪndʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/orange-uk-1760856705882.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɔːrɪndʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/orange-us-1760856706207.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I'll have an orange juice, please.",
+                    "vi": "Làm ơn cho tôi một ly nước cam.",
+                    "th": "ขอเป็นน้ำส้มครับ/ค่ะ",
+                    "id": "Saya mau jus jeruk, tolong.",
+                    "ar": "سآخذ عصير برتقال، من فضلك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df29a4e8dd8355a1f37_1760869284416.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df29a4e8dd8355a1f3a",
+                "word": "grape",
+                "explanation": {
+                    "en": "A small, round berry growing in clusters. A fruit used to make wine.",
+                    "vi": "Một loại quả mọng nhỏ, tròn mọc thành chùm. Một loại trái cây dùng để làm rượu vang.",
+                    "th": "ผลเบอร์รี่กลมเล็กที่เติบโตเป็นพวง ผลไม้ที่ใช้ทำไวน์",
+                    "id": "Buah beri kecil, bulat yang tumbuh dalam kelompok. Buah yang digunakan untuk membuat anggur.",
+                    "ar": "توت صغير مستدير ينمو في عناقيد. فاكهة تستخدم لصنع النبيذ."
+                },
+                "translation": {
+                    "vi": "nho",
+                    "th": "องุ่น",
+                    "id": "anggur",
+                    "ar": "عنب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɡreɪp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/grape-uk-1760856707467.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɡreɪp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/grape-us-1760856707837.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "These green grapes are sweet and juicy.",
+                    "vi": "Những quả nho xanh này ngọt và mọng nước.",
+                    "th": "องุ่นเขียวเหล่านี้หวานและฉ่ำ",
+                    "id": "Anggur hijau ini manis dan berair.",
+                    "ar": "هذه العنب الأخضر حلو وعصيري."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df29a4e8dd8355a1f3a_1760869290558.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df39a4e8dd8355a1f3d",
+                "word": "strawberry",
+                "explanation": {
+                    "en": "A soft, red fruit with tiny seeds on its surface. A sweet fruit often used in desserts.",
+                    "vi": "Một loại trái cây mềm, màu đỏ với những hạt nhỏ li ti trên bề mặt. Một loại trái cây ngọt thường được dùng trong món tráng miệng.",
+                    "th": "ผลไม้นุ่มสีแดงที่มีเมล็ดเล็กๆ บนผิว ผลไม้หวานที่มักใช้ในของหวาน",
+                    "id": "Buah merah lembut dengan biji-biji kecil di permukaannya. Buah manis yang sering digunakan dalam hidangan penutup.",
+                    "ar": "فاكهة حمراء ناعمة ذات بذور صغيرة على سطحها. فاكهة حلوة تستخدم غالباً في الحلويات."
+                },
+                "translation": {
+                    "vi": "dâu",
+                    "th": "สตรอว์เบอร์รี",
+                    "id": "stroberi",
+                    "ar": "فراولة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈstrɔːbəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/strawberry-uk-1760856709064.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈstrɔːberi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/strawberry-us-1760856709402.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I picked a big, red strawberry from the garden.",
+                    "vi": "Tôi đã hái một quả dâu tây lớn, màu đỏ từ vườn.",
+                    "th": "ฉันเก็บสตรอว์เบอร์รีลูกใหญ่สีแดงจากสวน",
+                    "id": "Saya memetik stroberi merah besar dari kebun.",
+                    "ar": "قطفتُ فراولة حمراء كبيرة من الحديقة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df39a4e8dd8355a1f3d_1760869296332.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df39a4e8dd8355a1f40",
+                "word": "sugar",
+                "explanation": {
+                    "en": "A sweet crystalline substance obtained from plants. Used to sweeten food and drinks.",
+                    "vi": "Một chất kết tinh ngọt được chiết xuất từ thực vật. Dùng để làm ngọt thức ăn và đồ uống.",
+                    "th": "สารผลึกหวานที่ได้จากพืช ใช้สำหรับเพิ่มความหวานในอาหารและเครื่องดื่ม",
+                    "id": "Zat kristal manis yang diperoleh dari tumbuhan. Digunakan untuk memaniskan makanan dan minuman.",
+                    "ar": "مادة بلورية حلوة تُستخرج من النباتات. تستخدم لتحلية الطعام والمشروبات."
+                },
+                "translation": {
+                    "vi": "đường",
+                    "th": "น้ำตาล",
+                    "id": "gula",
+                    "ar": "سكر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈʃʊɡə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sugar-uk-1760856710662.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈʃʊɡər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sugar-us-1760856710997.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Do you take sugar in your coffee?",
+                    "vi": "Bạn có dùng đường trong cà phê không?",
+                    "th": "คุณใส่น้ำตาลในกาแฟไหม?",
+                    "id": "Apakah Anda memakai gula di kopi Anda?",
+                    "ar": "هل تضع السكر في قهوتك؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df39a4e8dd8355a1f40_1760869303541.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df39a4e8dd8355a1f43",
+                "word": "salt",
+                "explanation": {
+                    "en": "A white crystalline substance used to season food. The primary seasoning ingredient.",
+                    "vi": "Một chất kết tinh màu trắng dùng để nêm nếm thức ăn. Thành phần gia vị chính.",
+                    "th": "สารผลึกสีขาวที่ใช้ปรุงรสอาหาร ส่วนผสมหลักในการปรุงรส",
+                    "id": "Zat kristal putih yang digunakan untuk membumbui makanan. Bahan bumbu utama.",
+                    "ar": "مادة بلورية بيضاء تستخدم لتتبيل الطعام. المكون الأساسي للتتبيل."
+                },
+                "translation": {
+                    "vi": "muối",
+                    "th": "เกลือ",
+                    "id": "garam",
+                    "ar": "ملح"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/sɔːlt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/salt-uk-1760856712266.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/sɔːlt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/salt-us-1760856712603.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please pass the salt and pepper.",
+                    "vi": "Làm ơn chuyển cho tôi lọ muối và hạt tiêu.",
+                    "th": "กรุณาส่งเกลือและพริกไทยให้หน่อย",
+                    "id": "Tolong berikan garam dan merica.",
+                    "ar": "من فضلك مرر الملح والفلفل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df39a4e8dd8355a1f43_1760869311334.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df39a4e8dd8355a1f46",
+                "word": "pepper",
+                "explanation": {
+                    "en": "A pungent, hot-tasting spice from a tropical berry. Often used with salt to season savory dishes.",
+                    "vi": "Một loại gia vị cay nồng, có vị nóng từ quả mọng nhiệt đới. Thường được dùng với muối để nêm các món mặn.",
+                    "th": "เครื่องเทศรสเผ็ดร้อนจากผลเบอร์รี่เขตร้อน มักใช้คู่กับเกลือเพื่อปรุงรสอาหารคาว",
+                    "id": "Rempah pedas, berasa panas dari buah beri tropis. Sering digunakan dengan garam untuk membumbui hidangan gurih.",
+                    "ar": "بهار حار ولاذع من توت استوائي. غالباً ما يستخدم مع الملح لتتبيل الأطباق المالحة."
+                },
+                "translation": {
+                    "vi": "tiêu",
+                    "th": "พริกไทย",
+                    "id": "lada",
+                    "ar": "فلفل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpepə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pepper-uk-1760856713905.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpepər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pepper-us-1760856714241.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Add some black pepper to the pasta.",
+                    "vi": "Thêm một ít hạt tiêu đen vào mì ống.",
+                    "th": "ใส่พริกไทยดำลงในพาสต้าหน่อย",
+                    "id": "Tambahkan sedikit lada hitam ke pasta.",
+                    "ar": "أضف بعض الفلفل الأسود إلى المعكرونة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df39a4e8dd8355a1f46_1760869319024.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df39a4e8dd8355a1f49",
+                "word": "oil",
+                "explanation": {
+                    "en": "A thick, flammable liquid used in cooking. Used for frying or as a salad dressing base.",
+                    "vi": "Một chất lỏng đặc, dễ cháy dùng trong nấu ăn. Dùng để chiên hoặc làm nền cho nước sốt salad.",
+                    "th": "ของเหลวข้น ไวไฟ ใช้ในการปรุงอาหาร ใช้สำหรับทอดหรือเป็นส่วนผสมหลักของน้ำสลัด",
+                    "id": "Cairan kental, mudah terbakar yang digunakan dalam memasak. Digunakan untuk menggoreng atau sebagai dasar saus salad.",
+                    "ar": "سائل سميك قابل للاشتعال يستخدم في الطهي. يستخدم للقلي أو كقاعدة لصلصة السلطة."
+                },
+                "translation": {
+                    "vi": "dầu",
+                    "th": "น้ำมัน",
+                    "id": "minyak",
+                    "ar": "زيت"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɔɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/oil-uk-1760856715521.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɔɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/oil-us-1760856715865.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We need more cooking oil for the stir-fry.",
+                    "vi": "Chúng ta cần thêm dầu ăn cho món xào.",
+                    "th": "เราต้องการน้ำมันพืชเพิ่มสำหรับผัด",
+                    "id": "Kita butuh lebih banyak minyak goreng untuk tumisan.",
+                    "ar": "نحتاج المزيد من زيت الطهي للقلي السريع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df39a4e8dd8355a1f49_1760869325328.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df49a4e8dd8355a1f4c",
+                "word": "butter",
+                "explanation": {
+                    "en": "A pale yellow edible fatty substance made from cream. Used as a spread or in baking.",
+                    "vi": "Một chất béo ăn được màu vàng nhạt làm từ kem. Dùng làm phết bánh mì hoặc trong làm bánh.",
+                    "th": "สารไขมันสีเหลืองอ่อนที่กินได้ ทำจากครีม ใช้ทาขนมปังหรือในการอบ",
+                    "id": "Zat lemak yang dapat dimakan berwarna kuning pucat yang terbuat dari krim. Digunakan sebagai olesan atau dalam memanggang.",
+                    "ar": "مادة دهنية صفراء شاحبة صالحة للأكل مصنوعة من الكريمة. تستخدم كدهان أو في الخبز."
+                },
+                "translation": {
+                    "vi": "bơ",
+                    "th": "เนย",
+                    "id": "mentega",
+                    "ar": "زبدة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbʌtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/butter-uk-1760856717135.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbʌtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/butter-us-1760856717478.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Spread some butter on your toast.",
+                    "vi": "Phết một ít bơ lên bánh mì nướng của bạn.",
+                    "th": "ทาเนยบนขนมปังปิ้งของคุณ",
+                    "id": "Oleskan sedikit mentega di roti panggang Anda.",
+                    "ar": "ادهن بعض الزبدة على خبز التوست الخاص بك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df49a4e8dd8355a1f4c_1760869331589.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df49a4e8dd8355a1f4f",
+                "word": "cheese",
+                "explanation": {
+                    "en": "A food made from the pressed curds of milk. A dairy product with a wide variety of flavors.",
+                    "vi": "Một loại thực phẩm làm từ sữa đông ép. Một sản phẩm từ sữa với nhiều hương vị đa dạng.",
+                    "th": "อาหารที่ทำจากนมที่จับตัวเป็นก้อนแล้วนำมาอัดแน่น ผลิตภัณฑ์นมที่มีรสชาติหลากหลาย",
+                    "id": "Makanan yang terbuat dari dadih susu yang dipadatkan. Produk susu dengan berbagai macam rasa.",
+                    "ar": "طعام مصنوع من خثارة الحليب المضغوطة. منتج ألبان ذو مجموعة واسعة من النكهات."
+                },
+                "translation": {
+                    "vi": "phô mai",
+                    "th": "ชีส",
+                    "id": "keju",
+                    "ar": "جبنة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tʃiːz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cheese-uk-1760856718700.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʃiːz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cheese-us-1760856719036.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Would you like some cheese on your burger?",
+                    "vi": "Bạn có muốn thêm phô mai vào bánh burger của mình không?",
+                    "th": "คุณต้องการชีสบนเบอร์เกอร์ของคุณไหม?",
+                    "id": "Apakah Anda ingin keju di burger Anda?",
+                    "ar": "هل ترغب ببعض الجبن على البرجر الخاص بك؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df49a4e8dd8355a1f4f_1760869338412.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df49a4e8dd8355a1f52",
+                "word": "sandwich",
+                "explanation": {
+                    "en": "Two slices of bread with a filling between them. A quick, portable meal.",
+                    "vi": "Hai lát bánh mì với nhân ở giữa. Một bữa ăn nhanh, tiện lợi mang theo.",
+                    "th": "ขนมปังสองแผ่นที่มีไส้อยู่ตรงกลาง อาหารจานด่วนที่พกพาสะดวก",
+                    "id": "Dua potong roti dengan isian di antaranya. Makanan cepat saji yang mudah dibawa.",
+                    "ar": "شريحتا خبز مع حشوة بينهما. وجبة سريعة وسهلة الحمل."
+                },
+                "translation": {
+                    "vi": "bánh mì kẹp",
+                    "th": "แซนด์วิช",
+                    "id": "sandwich",
+                    "ar": "ساندويتش"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsænwɪtʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sandwich-uk-1760856720309.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsænwɪtʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sandwich-us-1760856720657.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I packed a turkey sandwich for my lunch.",
+                    "vi": "Tôi đã gói một chiếc bánh sandwich gà tây cho bữa trưa của mình.",
+                    "th": "ฉันทำแซนด์วิชไก่งวงสำหรับมื้อกลางวัน",
+                    "id": "Saya menyiapkan sandwich kalkun untuk makan siang saya.",
+                    "ar": "لقد أعددت ساندويتش ديك رومي لغدائي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df49a4e8dd8355a1f52_1760869345487.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df49a4e8dd8355a1f55",
+                "word": "hamburger",
+                "explanation": {
+                    "en": "A patty of ground beef, served in a bun. A type of fast food.",
+                    "vi": "Một miếng thịt bò xay, được phục vụ trong bánh mì tròn. Một loại thức ăn nhanh.",
+                    "th": "เนื้อบดเป็นแผ่น เสิร์ฟในขนมปังเบอร์เกอร์ อาหารจานด่วนชนิดหนึ่ง",
+                    "id": "Patty daging sapi giling, disajikan dalam roti. Jenis makanan cepat saji.",
+                    "ar": "قطعة من اللحم البقري المفروم، تقدم في خبز. نوع من الوجبات السريعة."
+                },
+                "translation": {
+                    "vi": "bánh hamburger",
+                    "th": "แฮมเบอร์เกอร์",
+                    "id": "hamburger",
+                    "ar": "همبرغر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhæmbɜːɡə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hamburger-uk-1760856721922.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhæmbɜːrɡər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hamburger-us-1760856722257.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Let's get a hamburger and fries for dinner.",
+                    "vi": "Chúng ta hãy ăn một chiếc hamburger và khoai tây chiên cho bữa tối.",
+                    "th": "เราไปกินแฮมเบอร์เกอร์กับเฟรนช์ฟรายส์เป็นอาหารเย็นกันเถอะ",
+                    "id": "Mari kita makan hamburger dan kentang goreng untuk makan malam.",
+                    "ar": "دعنا نأخذ همبرغر وبطاطس مقلية للعشاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df49a4e8dd8355a1f55_1760869354434.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df49a4e8dd8355a1f58",
+                "word": "pizza",
+                "explanation": {
+                    "en": "A baked Italian dish of flat bread with toppings. A savory dish topped with cheese and tomato sauce.",
+                    "vi": "Một món ăn Ý nướng gồm bánh mì dẹt với các loại nhân. Một món ăn mặn được phủ phô mai và sốt cà chua.",
+                    "th": "อาหารอิตาเลียนอบที่ทำจากขนมปังแบนพร้อมหน้าต่างๆ อาหารคาวที่ราดด้วยชีสและซอสมะเขือเทศ",
+                    "id": "Hidangan Italia panggang berupa roti pipih dengan topping. Hidangan gurih yang diberi keju dan saus tomat.",
+                    "ar": "طبق إيطالي مخبوز من الخبز المسطح مع إضافات. طبق مالح يعلوه الجبن وصلصة الطماطم."
+                },
+                "translation": {
+                    "vi": "pizza",
+                    "th": "พิซซ่า",
+                    "id": "pizza",
+                    "ar": "بيتزا"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpiːtsə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pizza-uk-1760856723531.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpiːtsə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pizza-us-1760856723973.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We ordered a large pepperoni pizza last night.",
+                    "vi": "Tối qua chúng tôi đã gọi một chiếc pizza pepperoni lớn.",
+                    "th": "เมื่อคืนเราสั่งพิซซ่าเปปเปอโรนีขนาดใหญ่",
+                    "id": "Kami memesan pizza pepperoni besar tadi malam.",
+                    "ar": "طلبنا بيتزا بيبروني كبيرة الليلة الماضية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df49a4e8dd8355a1f58_1760869361307.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df59a4e8dd8355a1f5b",
+                "word": "ice cream",
+                "explanation": {
+                    "en": "A frozen dessert made from cream and sugar. A sweet treat, often flavored with chocolate or vanilla.",
+                    "vi": "Món tráng miệng đông lạnh làm từ kem và đường. Một món ngọt, thường có hương sô cô la hoặc vani.",
+                    "th": "ของหวานแช่แข็งที่ทำจากครีมและน้ำตาล ของหวานที่มักปรุงแต่งด้วยรสช็อกโกแลตหรือวานิลลา",
+                    "id": "Makanan penutup beku yang terbuat dari krim dan gula. Hidangan manis, sering diberi rasa cokelat atau vanila.",
+                    "ar": "حلوى مجمدة مصنوعة من الكريمة والسكر. حلوى لذيذة، غالبًا ما تكون بنكهة الشوكولاتة أو الفانيليا."
+                },
+                "translation": {
+                    "vi": "kem",
+                    "th": "ไอศกรีม",
+                    "id": "es krim",
+                    "ar": "آيس كريم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/aɪs kriːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ice-cream-uk-ai-1760858199315.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/aɪs kriːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ice-cream-us-ai-1760858199907.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I love to eat vanilla ice cream on a hot day.",
+                    "vi": "Tôi thích ăn kem vani vào một ngày nóng.",
+                    "th": "ฉันชอบกินไอศกรีมวานิลลาในวันอากาศร้อน",
+                    "id": "Saya suka makan es krim vanila di hari yang panas.",
+                    "ar": "أحب أن آكل آيس كريم الفانيليا في يوم حار."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df59a4e8dd8355a1f5b_1760869368632.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df59a4e8dd8355a1f5e",
+                "word": "cake",
+                "explanation": {
+                    "en": "An item of soft, sweet baked goods. Often decorated and served for celebrations.",
+                    "vi": "Một loại bánh nướng mềm, ngọt. Thường được trang trí và phục vụ trong các dịp lễ kỷ niệm.",
+                    "th": "ขนมอบเนื้อนุ่มรสหวาน มักตกแต่งและเสิร์ฟในงานเฉลิมฉลอง",
+                    "id": "Sebuah makanan panggang yang lembut dan manis. Sering dihias dan disajikan untuk perayaan.",
+                    "ar": "نوع من المخبوزات الطرية والحلويات. غالبًا ما يتم تزيينها وتقديمها للاحتفالات."
+                },
+                "translation": {
+                    "vi": "bánh ngọt",
+                    "th": "เค้ก",
+                    "id": "kue",
+                    "ar": "كعكة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/keɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cake-uk-1760856726118.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/keɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cake-us-1760856726447.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We bought a chocolate cake for her birthday party.",
+                    "vi": "Chúng tôi đã mua một chiếc bánh sô cô la cho bữa tiệc sinh nhật của cô ấy.",
+                    "th": "เราซื้อเค้กช็อกโกแลตสำหรับงานเลี้ยงวันเกิดของเธอ",
+                    "id": "Kami membeli kue cokelat untuk pesta ulang tahunnya.",
+                    "ar": "اشترينا كعكة شوكولاتة لحفلة عيد ميلادها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df59a4e8dd8355a1f5e_1760869375038.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df59a4e8dd8355a1f61",
+                "word": "biscuit",
+                "explanation": {
+                    "en": "A small, flat, dry baked good. A sweet or savory item often served with tea.",
+                    "vi": "Một loại bánh nướng nhỏ, dẹt, khô. Một món ngọt hoặc mặn thường được dùng với trà.",
+                    "th": "ขนมอบชิ้นเล็ก แบน และแห้ง ของหวานหรือของคาวที่มักเสิร์ฟพร้อมชา",
+                    "id": "Makanan panggang kecil, pipih, dan kering. Hidangan manis atau gurih yang sering disajikan dengan teh.",
+                    "ar": "مخبوزات صغيرة، مسطحة، وجافة. حلوى أو طبق مالح غالبًا ما يقدم مع الشاي."
+                },
+                "translation": {
+                    "vi": "bánh quy",
+                    "th": "บิสกิต",
+                    "id": "biskuit",
+                    "ar": "بسكويت"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbɪskɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/biscuit-uk-1760856727669.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbɪskɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/biscuit-us-1760856728039.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Would you like a cup of tea and a biscuit?",
+                    "vi": "Bạn có muốn một tách trà và một chiếc bánh quy không?",
+                    "th": "คุณต้องการชาหนึ่งถ้วยกับบิสกิตไหม?",
+                    "id": "Mau secangkir teh dan biskuit?",
+                    "ar": "هل ترغب في كوب من الشاي وبسكويت؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df59a4e8dd8355a1f61_1760869381641.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df59a4e8dd8355a1f64",
+                "word": "chopsticks",
+                "explanation": {
+                    "en": "A pair of small, thin sticks used for eating Asian food. Utensils held between the thumb and fingers.",
+                    "vi": "Một cặp đũa nhỏ, mỏng dùng để ăn món ăn châu Á. Dụng cụ được giữ giữa ngón cái và các ngón tay.",
+                    "th": "ตะเกียบเล็กบางคู่หนึ่งที่ใช้สำหรับกินอาหารเอเชีย อุปกรณ์ที่ถือระหว่างนิ้วหัวแม่มือและนิ้วมือ",
+                    "id": "Sepasang stik kecil dan tipis yang digunakan untuk makan makanan Asia. Peralatan yang dipegang di antara ibu jari dan jari.",
+                    "ar": "زوج من العصي الصغيرة الرفيعة تستخدم لتناول الطعام الآسيوي. أدوات تمسك بين الإبهام والأصابع."
+                },
+                "translation": {
+                    "vi": "đũa",
+                    "th": "ตะเกียบ",
+                    "id": "sumpit",
+                    "ar": "عيدان الأكل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃɒpstɪks/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chopsticks-uk-1760856729310.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃɑːpstɪks/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chopsticks-us-1760856729644.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I learned how to eat noodles with chopsticks.",
+                    "vi": "Tôi đã học cách ăn mì bằng đũa.",
+                    "th": "ฉันเรียนรู้วิธีการกินบะหมี่ด้วยตะเกียบ",
+                    "id": "Saya belajar cara makan mi dengan sumpit.",
+                    "ar": "تعلمت كيف آكل المعكرونة بالعيدان."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df59a4e8dd8355a1f64_1760869388028.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df59a4e8dd8355a1f67",
+                "word": "spoon",
+                "explanation": {
+                    "en": "An eating utensil with a small, oval bowl. Used for liquids or soft foods.",
+                    "vi": "Một dụng cụ ăn uống có bát nhỏ, hình bầu dục. Dùng cho chất lỏng hoặc thức ăn mềm.",
+                    "th": "อุปกรณ์รับประทานอาหารที่มีชามเล็กรูปไข่ ใช้สำหรับของเหลวหรืออาหารอ่อน",
+                    "id": "Alat makan dengan mangkuk kecil berbentuk oval. Digunakan untuk cairan atau makanan lunak.",
+                    "ar": "أداة طعام ذات وعاء صغير بيضاوي. تستخدم للسوائل أو الأطعمة اللينة."
+                },
+                "translation": {
+                    "vi": "muỗng",
+                    "th": "ช้อน",
+                    "id": "sendok",
+                    "ar": "ملعقة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/spuːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/spoon-uk-1760856730931.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/spuːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/spoon-us-1760856731268.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please give me a spoon for my soup.",
+                    "vi": "Làm ơn cho tôi một cái thìa để ăn súp.",
+                    "th": "โปรดให้ช้อนสำหรับซุปของฉัน",
+                    "id": "Tolong beri saya sendok untuk sup saya.",
+                    "ar": "من فضلك أعطني ملعقة لحسائي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df59a4e8dd8355a1f67_1760869395099.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df59a4e8dd8355a1f6a",
+                "word": "fork",
+                "explanation": {
+                    "en": "An eating utensil with several prongs. Used for lifting food to the mouth.",
+                    "vi": "Một dụng cụ ăn uống có nhiều răng. Dùng để đưa thức ăn lên miệng.",
+                    "th": "อุปกรณ์รับประทานอาหารที่มีหลายซี่ ใช้สำหรับยกอาหารเข้าปาก",
+                    "id": "Alat makan dengan beberapa garpu. Digunakan untuk mengangkat makanan ke mulut.",
+                    "ar": "أداة طعام ذات عدة أسنان. تستخدم لرفع الطعام إلى الفم."
+                },
+                "translation": {
+                    "vi": "nĩa",
+                    "th": "ส้อม",
+                    "id": "garpu",
+                    "ar": "شوكة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/fɔːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fork-uk-1760856732540.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fɔːrk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fork-us-1760856732904.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Use a fork to eat your salad.",
+                    "vi": "Dùng nĩa để ăn salad của bạn.",
+                    "th": "ใช้ส้อมกินสลัดของคุณ",
+                    "id": "Gunakan garpu untuk makan saladmu.",
+                    "ar": "استخدم شوكة لتناول سلطتك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df59a4e8dd8355a1f6a_1760869401623.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df59a4e8dd8355a1f6d",
+                "word": "knife",
+                "explanation": {
+                    "en": "A cutting tool with a sharp blade. Used for slicing food on the plate.",
+                    "vi": "Một dụng cụ cắt có lưỡi sắc. Dùng để thái thức ăn trên đĩa.",
+                    "th": "เครื่องมือตัดที่มีใบมีดคม ใช้สำหรับหั่นอาหารบนจาน",
+                    "id": "Alat potong dengan bilah tajam. Digunakan untuk mengiris makanan di piring.",
+                    "ar": "أداة قطع ذات نصل حاد. تستخدم لتقطيع الطعام على الطبق."
+                },
+                "translation": {
+                    "vi": "dao",
+                    "th": "มีด",
+                    "id": "pisau",
+                    "ar": "سكين"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/naɪf/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/knife-uk-1760856734191.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/naɪf/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/knife-us-1760856734547.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He used a sharp knife to cut the bread.",
+                    "vi": "Anh ấy dùng một con dao sắc để cắt bánh mì.",
+                    "th": "เขาใช้มีดคมหั่นขนมปัง",
+                    "id": "Dia menggunakan pisau tajam untuk memotong roti.",
+                    "ar": "استخدم سكينًا حادًا لتقطيع الخبز."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df59a4e8dd8355a1f6d_1760869408718.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df69a4e8dd8355a1f70",
+                "word": "plate",
+                "explanation": {
+                    "en": "A flat dish from which food is eaten. A round, shallow vessel for serving meals.",
+                    "vi": "Một đĩa phẳng dùng để ăn thức ăn. Một vật đựng tròn, nông để phục vụ bữa ăn.",
+                    "th": "จานแบนสำหรับรับประทานอาหาร ภาชนะกลมตื้นสำหรับเสิร์ฟอาหาร",
+                    "id": "Piring datar tempat makanan dimakan. Wadah bulat dangkal untuk menyajikan makanan.",
+                    "ar": "طبق مسطح يؤكل منه الطعام. وعاء دائري ضحل لتقديم الوجبات."
+                },
+                "translation": {
+                    "vi": "đĩa",
+                    "th": "จาน",
+                    "id": "piring",
+                    "ar": "طبق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/pleɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/plate-uk-1760856735803.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/pleɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/plate-us-1760856736473.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Put your dinner on this clean plate.",
+                    "vi": "Đặt bữa tối của bạn lên đĩa sạch này.",
+                    "th": "วางอาหารเย็นของคุณบนจานสะอาดนี้",
+                    "id": "Letakkan makan malammu di piring bersih ini.",
+                    "ar": "ضع عشاءك على هذا الطبق النظيف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df69a4e8dd8355a1f70_1760869414953.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df69a4e8dd8355a1f73",
+                "word": "bowl",
+                "explanation": {
+                    "en": "A deep, round dish for food or liquid. Used for serving soup, cereal, or salad.",
+                    "vi": "Một bát sâu, tròn đựng thức ăn hoặc chất lỏng. Dùng để đựng súp, ngũ cốc hoặc salad.",
+                    "th": "ชามลึกทรงกลมสำหรับอาหารหรือของเหลว ใช้สำหรับเสิร์ฟซุป ซีเรียล หรือสลัด",
+                    "id": "Mangkuk dalam dan bulat untuk makanan atau cairan. Digunakan untuk menyajikan sup, sereal, atau salad.",
+                    "ar": "وعاء عميق ومستدير للطعام أو السائل. يستخدم لتقديم الحساء أو الحبوب أو السلطة."
+                },
+                "translation": {
+                    "vi": "tô, bát",
+                    "th": "ชาม",
+                    "id": "mangkuk",
+                    "ar": "وعاء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/bəʊl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bowl-uk-1760856737736.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/bəʊl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bowl-us-1760856738088.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She poured cereal into a large bowl.",
+                    "vi": "Cô ấy đổ ngũ cốc vào một cái bát lớn.",
+                    "th": "เธอเทซีเรียลลงในชามใหญ่",
+                    "id": "Dia menuangkan sereal ke dalam mangkuk besar.",
+                    "ar": "سكبت الحبوب في وعاء كبير."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df69a4e8dd8355a1f73_1760869421979.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47df69a4e8dd8355a1f76",
+                "word": "menu",
+                "explanation": {
+                    "en": "A list of dishes available in a restaurant. A paper listing all the food and drink options.",
+                    "vi": "Một danh sách các món ăn có sẵn trong nhà hàng. Một tờ giấy liệt kê tất cả các lựa chọn đồ ăn và thức uống.",
+                    "th": "รายการอาหารที่มีอยู่ในร้านอาหาร กระดาษที่ระบุรายการอาหารและเครื่องดื่มทั้งหมด",
+                    "id": "Daftar hidangan yang tersedia di restoran. Sebuah kertas yang mencantumkan semua pilihan makanan dan minuman.",
+                    "ar": "قائمة بالأطباق المتوفرة في المطعم. ورقة تسرد جميع خيارات الطعام والشراب."
+                },
+                "translation": {
+                    "vi": "thực đơn",
+                    "th": "เมนู",
+                    "id": "menu",
+                    "ar": "قائمة الطعام"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmenjuː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/menu-uk-1760856739346.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmenjuː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/menu-us-1760856739682.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Can I see the menu, please?",
+                    "vi": "Làm ơn cho tôi xem thực đơn được không?",
+                    "th": "ขอเมนูหน่อยได้ไหมครับ/คะ?",
+                    "id": "Bisakah saya melihat menunya, tolong?",
+                    "ar": "هل يمكنني رؤية القائمة، من فضلك؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47df69a4e8dd8355a1f76_1760869429840.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297dedc",
+                "group_name": "Food & Drinks",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 51
+    }
+}
