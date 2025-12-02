@@ -10,8 +10,9 @@ import { GoogleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
 import { flashcardTools } from '~/ai/tools/flashcardTools.js';
 import { categoryTools } from '~/ai/tools/categoryTools.js';
 import { paymentTools } from '~/ai/tools/paymentTools.js';
-import { retrieveMyFilesTool } from '~/ai/tools/ragRetrieveTool.js';
 import { learningResourceTools } from '~/ai/tools/learningResourceTools.js';
+import { knowledgeBaseTools } from '~/ai/tools/knowledgeBaseTools.js';
+// import { retrieveMyFilesTool } from '~/ai/tools/ragRetrieveTool.js'; // Temporarily disabled
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { promptManagerService } from '~/ai/service/PromptManagerService.js';
 
@@ -22,16 +23,30 @@ import {
 } from '@langchain/core/chat_history';
 import { z } from 'zod';
 
+// Citation schema for knowledge base references
+const CitationSchema = z.object({
+    id: z.number().describe('Citation number [1], [2], etc.'),
+    resourceId: z.string().describe('Resource ID in database'),
+    title: z.string().describe('Article/resource title'),
+    url: z.string().describe('Frontend URL to the resource'),
+});
+
 export const ChatbotResponseSchema = z
     .object({
         intent: z
             .string()
             .regex(/^[A-Z0-9_]+$/, 'intent phải là UPPER_SNAKE_CASE'),
         layout: z.enum(['notice', 'list', 'detail', 'result', 'html_embed']),
-        message: z.string().min(1).max(300),
+        message: z.string().min(1).max(2000),
 
         actions: z.array(z.record(z.unknown())).max(3).optional(),
         payload: z.record(z.unknown()).optional(),
+        citations: z
+            .array(CitationSchema)
+            .optional()
+            .describe(
+                'Sources referenced in the message using [1], [2] markers'
+            ),
     })
     .strict();
 
@@ -53,7 +68,8 @@ export class ChatbotAgent {
         ...(categoryTools as unknown as ToolInterface[]),
         ...(paymentTools as unknown as ToolInterface[]),
         ...(learningResourceTools as unknown as ToolInterface[]),
-        retrieveMyFilesTool as unknown as ToolInterface,
+        ...(knowledgeBaseTools as unknown as ToolInterface[]),
+        // retrieveMyFilesTool as unknown as ToolInterface, // Temporarily disabled
     ];
 
     private getHistory(sessionId: string): BaseChatMessageHistory {

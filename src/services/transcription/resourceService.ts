@@ -10,12 +10,29 @@ import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { YoutubeTranscript } from '@danielxceron/youtube-transcript';
 import { PaginationHelper } from '~/utils/pagination.js';
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, Types } from 'mongoose';
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import pLimit from 'p-limit';
 import omit from 'lodash/omit.js';
+import { knowledgeBaseService } from '../knowledgeBase/knowledgeBaseService.js';
+
+interface CreateArticleParams {
+    title: string;
+    content: string;
+    summary?: string;
+    thumbnail?: string;
+    attachmentUrl?: string;
+    attachmentName?: string;
+    labels?: {
+        cefr?: string;
+        domain?: string;
+        topic?: string[];
+    };
+    suitableForLearners?: boolean;
+    createdBy: string;
+}
 
 class ResourceService {
     public async getResourceById(id: string) {
@@ -274,6 +291,136 @@ class ResourceService {
 
         const resource = await this.createResource(payload);
         return omit(resource.toObject(), ['__v']);
+    };
+
+    /**
+     * Tạo bài viết mới do admin viết
+     */
+    public createArticle = async (params: CreateArticleParams) => {
+        const {
+            title,
+            content,
+            summary,
+            thumbnail,
+            attachmentUrl,
+            attachmentName,
+            labels,
+            suitableForLearners = true,
+            createdBy,
+        } = params;
+
+        // Validate domain nếu có
+        if (
+            labels?.domain &&
+            !AVAILABLE_DOMAINS.includes(labels.domain as Domain)
+        ) {
+            throw new ApiError({
+                message: `Invalid domain: ${labels.domain}`,
+                status: 400,
+            });
+        }
+
+        const payload: Partial<ResourceTypeModel> = {
+            type: ResourceType.ARTICLE,
+            isArticle: true,
+            title,
+            content,
+            summary,
+            thumbnail,
+            attachmentUrl,
+            attachmentName,
+            labels: {
+                cefr: labels?.cefr,
+                domain: labels?.domain as Domain,
+                topic: labels?.topic || [],
+                speechActs: [],
+            },
+            publishedAt: new Date(),
+            lang: 'en',
+            suitableForLearners,
+            createdBy: new Types.ObjectId(createdBy),
+        };
+
+        const resource = await this.createResource(payload);
+        if (!resource) {
+            throw new ApiError({
+                message: 'Failed to create article',
+                status: 500,
+            });
+        }
+
+        // Index vào knowledge base (RAG)
+        try {
+            await knowledgeBaseService.indexArticle({
+                resourceId: resource._id.toString(),
+                title,
+                content,
+                attachmentUrl,
+            });
+        } catch {
+            // Silent fail - vẫn trả về resource
+        }
+
+        return omit(resource.toObject(), ['__v']);
+    };
+
+    /**
+     * Cập nhật bài viết admin
+     */
+    public updateArticle = async (
+        id: string,
+        params: Partial<CreateArticleParams>
+    ) => {
+        const resource = await Resource.findById(id);
+        if (!resource) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
+
+        if (!resource.isArticle) {
+            throw new ApiError({
+                message: 'This resource is not an article',
+                status: 400,
+            });
+        }
+
+        const updateData: Partial<ResourceTypeModel> = {};
+        if (params.title) updateData.title = params.title;
+        if (params.content) updateData.content = params.content;
+        if (params.summary) updateData.summary = params.summary;
+        if (params.thumbnail) updateData.thumbnail = params.thumbnail;
+        if (params.attachmentUrl)
+            updateData.attachmentUrl = params.attachmentUrl;
+        if (params.attachmentName)
+            updateData.attachmentName = params.attachmentName;
+        if (params.suitableForLearners !== undefined) {
+            updateData.suitableForLearners = params.suitableForLearners;
+        }
+        if (params.labels) {
+            updateData.labels = {
+                ...resource.labels,
+                ...params.labels,
+            };
+        }
+
+        const updated = await Resource.findByIdAndUpdate(id, updateData, {
+            new: true,
+        });
+
+        // Re-index vào knowledge base
+        if (params.content || params.attachmentUrl) {
+            try {
+                await knowledgeBaseService.indexArticle({
+                    resourceId: id,
+                    title: updated?.title || resource.title,
+                    content: updated?.content || resource.content || '',
+                    attachmentUrl: updated?.attachmentUrl,
+                });
+            } catch {
+                // Silent fail
+            }
+        }
+
+        return omit(updated?.toObject(), ['__v']);
     };
 
     public searchResource = async (

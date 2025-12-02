@@ -6,6 +6,7 @@ import { TestResult } from '../../models/testResultModel.js';
 import { toeicAnalysisAIService } from '../../ai/service/toeicAnalysisAIService.js';
 import { SeverityLevel } from '../../enum/severityLevel.js';
 import { Difficulty } from '../../enum/difficulty.js';
+import { knowledgeBaseService } from '../knowledgeBase/knowledgeBaseService.js';
 
 // Type definitions for internal use
 type LearningResource = {
@@ -561,6 +562,25 @@ export class StudyPlanGeneratorService {
         userAccuracy: number
     ): Promise<LearningResource | null> {
         try {
+            let knowledgeContext: string | null = null;
+            const category = weakness.category?.toUpperCase() || '';
+
+            if (
+                category.includes('GRAMMAR') ||
+                category.includes('VOCABULARY')
+            ) {
+                knowledgeContext =
+                    await knowledgeBaseService.getKnowledgeContext(
+                        weakness.skillName
+                    );
+                if (knowledgeContext) {
+                    console.log(
+                        '[StudyPlan] Found knowledge context for:',
+                        weakness.skillName
+                    );
+                }
+            }
+
             // console.log('Generating personalized guide with AI...');
             const guide =
                 await toeicAnalysisAIService.generatePersonalizedGuide({
@@ -573,6 +593,7 @@ export class StudyPlanGeneratorService {
                     questionsAttempted: weakness.totalCount || 0,
                     errorPatterns: 'Analysis in progress',
                     commonMistakes: 'Will be identified after more practice',
+                    knowledgeContext, // Truyền knowledge context vào AI
                 });
 
             if (!guide || !guide.sections || guide.sections.length === 0) {
