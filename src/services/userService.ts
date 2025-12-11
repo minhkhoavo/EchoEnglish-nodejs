@@ -12,8 +12,8 @@ import bcrypt from 'bcrypt';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { OtpEmailService } from './otpEmailService.js';
 import { OtpPurpose } from '~/enum/otpPurpose.js';
-import { Role } from '~/models/roleModel.js';
-import { RoleName } from '~/enum/role.js';
+import { Role } from '~/enum/role.js';
+import { DeletedReason } from '~/enum/deletedReason.js';
 import { ApiError } from '~/middleware/apiError.js';
 import CategoryFlashcardService from './categoryFlashcardService.js';
 import { PaginationHelper } from '~/utils/pagination.js';
@@ -31,12 +31,9 @@ class UserService {
     };
 
     public getProfile = async (email: string): Promise<UserProfileResponse> => {
-        const user = await User.findOne({ email })
-            .select('-password -isDeleted -__v')
-            .populate({
-                path: 'roles',
-                populate: { path: 'permissions' },
-            });
+        const user = await User.findOne({ email }).select(
+            '-password -isDeleted -__v'
+        );
         if (!user) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
 
         return user;
@@ -58,27 +55,44 @@ class UserService {
         const hashPassword = await this.hashPassword(userDto.password);
 
         if (existUser) {
+            // User đã tồn tại và chưa bị xóa
             if (existUser.isDeleted === false) {
                 throw new ApiError(ErrorMessage.USER_EXISTED);
             }
-            await otpEmailService.sendOtp(existUser.email, OtpPurpose.REGISTER);
-            const populatedUser = await User.populate(existUser, {
-                path: 'roles',
-                populate: { path: 'permissions' },
-            });
-            const userResponse = populatedUser.toObject();
-            return omit(userResponse, [
-                'password',
-                'isDeleted',
-                '__v',
-            ]) as UserResponse;
-        }
 
-        const userRole = await Role.findOne({ name: RoleName.USER })
-            .populate('permissions')
-            .exec();
-        if (!userRole) {
-            throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
+            // Kiểm tra lý do xóa
+            if (
+                existUser.deletedReason === DeletedReason.ADMIN_DELETED ||
+                (existUser.isDeleted === true && !existUser.deletedReason)
+            ) {
+                throw new ApiError(ErrorMessage.USER_HAS_BEEN_DELETED);
+            }
+
+            // User đang pending verification - cho phép gửi lại OTP
+            if (
+                existUser.deletedReason === DeletedReason.PENDING_VERIFICATION
+            ) {
+                // Cập nhật thông tin user
+                existUser.password = hashPassword;
+                if (userDto.fullName) existUser.fullName = userDto.fullName;
+                if (userDto.gender) existUser.gender = userDto.gender;
+                if (userDto.dob) existUser.dob = userDto.dob;
+                if (userDto.phoneNumber)
+                    existUser.phoneNumber = userDto.phoneNumber;
+                if (userDto.address) existUser.address = userDto.address;
+                if (userDto.image) existUser.image = userDto.image;
+                await existUser.save();
+
+                await otpEmailService.sendOtp(
+                    existUser.email,
+                    OtpPurpose.REGISTER
+                );
+                return omit(existUser.toObject(), [
+                    'password',
+                    'isDeleted',
+                    '__v',
+                ]) as UserResponse;
+            }
         }
 
         const user = new User({
@@ -91,14 +105,11 @@ class UserService {
             address: userDto.address,
             image: userDto.image,
             isDeleted: true,
-            roles: [userRole._id],
+            deletedReason: DeletedReason.PENDING_VERIFICATION,
+            role: Role.USER,
         });
         const savedUser = await user.save();
         await otpEmailService.sendOtp(savedUser.email, OtpPurpose.REGISTER);
-        const populatedUser = await User.populate(savedUser, {
-            path: 'roles',
-            populate: { path: 'permissions' },
-        });
 
         await categoryService.createCategory(
             {
@@ -109,7 +120,7 @@ class UserService {
             savedUser._id.toString()
         );
 
-        return omit(populatedUser.toObject(), [
+        return omit(savedUser.toObject(), [
             'password',
             'isDeleted',
             '__v',
@@ -136,12 +147,6 @@ class UserService {
             ]) as UserResponse;
         }
 
-        const userRole = await Role.findOne({ name: RoleName.USER })
-            .populate('permissions')
-            .exec();
-        if (!userRole) {
-            throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
-        }
         const user = new User({
             fullName: userDto.fullName,
             email: userDto.email,
@@ -152,7 +157,7 @@ class UserService {
             address: userDto.address,
             image: userDto.image,
             isDeleted: false,
-            roles: [userRole._id],
+            role: Role.USER,
         });
         const savedUser = await user.save();
 
@@ -229,6 +234,7 @@ class UserService {
             throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
         user.isDeleted = true;
+        user.deletedReason = DeletedReason.ADMIN_DELETED;
         await user.save();
     };
 
@@ -254,13 +260,11 @@ class UserService {
             'credits',
             'createdAt',
             'updatedAt',
-            'roles',
+            'role',
             'isDeleted',
         ];
 
         let selectFields: string;
-        let shouldPopulateRoles = true;
-        let populateOptions: { path: string; select: string }[] = [];
 
         if (fields) {
             const requestedFields = fields.split(',').map((f) => f.trim());
@@ -270,21 +274,11 @@ class UserService {
 
             if (validFields.length > 0) {
                 selectFields = validFields.join(' ');
-                shouldPopulateRoles = validFields.includes('roles');
             } else {
                 selectFields = '-password -__v';
             }
         } else {
             selectFields = '-password -__v';
-        }
-
-        if (shouldPopulateRoles) {
-            populateOptions = [
-                {
-                    path: 'roles',
-                    select: '_id name description',
-                },
-            ];
         }
 
         // Build filter query
@@ -349,7 +343,7 @@ class UserService {
             User,
             filter,
             { page, limit },
-            populateOptions,
+            [],
             selectFields,
             sortOptions
         );

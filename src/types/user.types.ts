@@ -4,10 +4,7 @@ import { Domain } from '~/enum/domain.js';
 // Response for all HTTP methods except DELETE
 export type UserResponse = Omit<UserType, 'password' | 'isDeleted'>;
 
-export type UserProfileResponse = Omit<
-    UserType,
-    'password' | 'isDeleted' | 'roles'
->;
+export type UserProfileResponse = Omit<UserType, 'password' | 'isDeleted'>;
 
 export interface UserCreateRequest {
     email: string;
@@ -70,4 +67,6 @@ export interface UserUpdateRequest {
     phoneNumber?: string;
     address?: string;
     image?: string;
+    role?: 'ADMIN' | 'USER';
+    credits?: number;
 }

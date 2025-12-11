@@ -2,6 +2,8 @@ import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 import { addBaseFields, setBaseOptions } from './baseEntity.js';
 import { Gender } from '~/enum/gender.js';
 import { Domain } from '~/enum/domain.js';
+import { DeletedReason } from '~/enum/deletedReason.js';
+import { Role } from '~/enum/role.js';
 import { validateDob } from '~/utils/validation/validate.js';
 
 const userSchema = new Schema(
@@ -46,12 +48,11 @@ const userSchema = new Schema(
         image: {
             type: String,
         },
-        roles: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Role',
-            },
-        ],
+        role: {
+            type: String,
+            enum: Object.values(Role),
+            default: Role.USER,
+        },
         credits: {
             type: Number,
             default: 0,
@@ -214,6 +215,13 @@ const userSchema = new Schema(
 );
 
 addBaseFields(userSchema);
+userSchema.add({
+    deletedReason: {
+        type: String,
+        enum: Object.values(DeletedReason),
+        default: null,
+    },
+});
 setBaseOptions(userSchema);
 
 export type UserType = InferSchemaType<typeof userSchema> & {

@@ -6,26 +6,22 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 class AuthService {
     public SECRET_KEY = process.env.JWT_SECRETKEY!;
 
-    public login = async (email: string, password: string) => {
+    public login = async (
+        email: string,
+        password: string
+    ): Promise<{ token: string; authenticated: boolean }> => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email === undefined || email === null || !emailRegex.test(email)) {
+        if (!email || !emailRegex.test(email)) {
             throw new ApiError(ErrorMessage.EMAIL_INVALID);
         }
-        if (
-            password === undefined ||
-            password === null ||
-            password.length < 8
-        ) {
+        if (!password || password.length < 8) {
             throw new ApiError(ErrorMessage.PASSWORD_MUST_BE_8_CHARACTERS);
         }
 
         // Find by email
-        const user = await User.findOne({ email: email }).populate({
-            path: 'roles',
-            select: 'name',
-        });
+        const user = await User.findOne({ email: email });
 
-        if (user === null) {
+        if (!user) {
             throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         } else {
             if (user.isDeleted === true) {
@@ -42,19 +38,14 @@ class AuthService {
         }
     };
 
-    public generateToken = (user: UserType) => {
-        let scopes: string[] = [];
-        if (user.roles && user.roles.length) {
-            scopes = user.roles.map(
-                (role) => (role as unknown as { name: string }).name
-            );
-        }
+    public generateToken = (user: UserType): string => {
+        const scope = user.role || '';
 
         return jwt.sign(
             {
                 sub: user.email,
-                iss: 'https://echo-english.com',
-                scope: scopes.join(' '),
+                iss: 'https://toeic.mkhoavo.site',
+                scope: scope,
                 userId: user._id.toString(),
                 custom_key: 'Custom_value',
             },

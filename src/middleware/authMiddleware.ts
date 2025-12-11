@@ -84,8 +84,8 @@ export function hasAuthority(...roles: string[]) {
             return res.status(403).json(new ApiResponse('Forbidden'));
         }
 
-        const scopes = (user.scope as string).split(' ');
-        const hasRole = roles.some((r) => scopes.includes(r));
+        const userRole = user.scope as string;
+        const hasRole = roles.includes(userRole);
 
         if (!hasRole) {
             return res

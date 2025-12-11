@@ -7,6 +7,15 @@ export const ErrorMessage = {
     USER_EXISTED: { message: 'User already existed', status: 400 },
     USER_NOT_FOUND: { message: 'User not found', status: 404 },
     USER_HAS_BEEN_DELETED: { message: 'User has been deleted', status: 400 },
+    REGISTRATION_PENDING_VERIFICATION: {
+        message:
+            'Registration pending verification. Please check your email for OTP',
+        status: 400,
+    },
+    OTP_SEND_LIMIT_EXCEEDED: {
+        message: 'Too many OTP requests. Please try again after 15 minutes',
+        status: 429,
+    },
     USER_PREFERENCE_NOT_FOUND: {
         message: 'User preference not found',
         status: 404,
@@ -21,6 +30,10 @@ export const ErrorMessage = {
     FULL_NAME_REQUIRED: { message: 'Full name is required', status: 400 },
     EMAIL_REQUIRED: { message: 'Email is required', status: 400 },
     EMAIL_INVALID: { message: 'Email is invalid', status: 400 },
+    EMAIL_NOT_FOUND_IN_TOKEN: {
+        message: 'Email not found in token',
+        status: 401,
+    },
     DOB_INVALID: { message: 'Date of birth is invalid', status: 400 },
     PASSWORD_REQUIRED: { message: 'Password is required', status: 400 },
     PASSWORD_INVALID: { message: 'Password is invalid', status: 400 },

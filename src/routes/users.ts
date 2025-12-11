@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import UserController from '~/controllers/userController.js';
-import { RoleName } from '~/enum/role.js';
+import { Role } from '~/enum/role.js';
 import { hasAuthority } from '~/middleware/authMiddleware.js';
 import { competencyProfileController } from '~/controllers/competencyProfileController.js';
 
@@ -36,18 +36,14 @@ router.put('/my-profile', userController.updateProfileUser);
 router.get('/credits', userController.getCredit);
 router.get('/check-afford-feature', userController.checkCanAffordFeature);
 router.get('/:id', userController.getUserById);
-router.delete(
-    '/:id',
-    hasAuthority(RoleName.ADMIN),
-    userController.softDeleteUser
-);
+router.delete('/:id', hasAuthority(Role.ADMIN), userController.softDeleteUser);
 router.patch(
     '/:id/restore',
-    hasAuthority(RoleName.ADMIN),
+    hasAuthority(Role.ADMIN),
     userController.restoreUser
 );
-router.put('/:id', hasAuthority(RoleName.ADMIN), userController.updateUser);
+router.put('/:id', hasAuthority(Role.ADMIN), userController.updateUser);
 
-router.post('', hasAuthority(RoleName.ADMIN), userController.createUser);
-router.get('', hasAuthority(RoleName.ADMIN), userController.getAllUsers);
+router.post('', hasAuthority(Role.ADMIN), userController.createUser);
+router.get('', hasAuthority(Role.ADMIN), userController.getAllUsers);
 export default router;
