@@ -107,6 +107,7 @@ class UserService {
             isDeleted: true,
             deletedReason: DeletedReason.PENDING_VERIFICATION,
             role: Role.USER,
+            credits: 100, // Add 100 credits for new user
         });
         const savedUser = await user.save();
         await otpEmailService.sendOtp(savedUser.email, OtpPurpose.REGISTER);
