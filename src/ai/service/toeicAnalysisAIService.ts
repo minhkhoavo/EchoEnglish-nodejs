@@ -178,9 +178,9 @@ class ToeicAnalysisAIService {
     private aiClient: GoogleGenAIClient;
 
     constructor() {
+        // Uses GEMINI_DEFAULT_MODEL from env, only set temperature
         this.aiClient = new GoogleGenAIClient({
             temperature: 0.3,
-            model: 'gemini-flash-lite-latest',
         });
     }
 

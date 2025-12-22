@@ -1,6 +1,7 @@
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { StringOutputParser } from '@langchain/core/output_parsers';
+import { GoogleGenAIClient } from '../provider/googleGenAIClient.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -83,17 +84,11 @@ class ConversationPracticeService {
     private categories: ConversationCategory[] = [];
 
     constructor() {
-        const apiKey =
-            process.env.GENAI_API_KEY ??
-            process.env.GOOGLE_API_KEY ??
-            process.env.GOOGLE_GENAI_API_KEY;
-
-        this.model = new ChatGoogleGenerativeAI({
-            model: 'gemini-2.5-flash-lite',
+        // Uses GEMINI_DEFAULT_MODEL from env via GoogleGenAIClient
+        const client = new GoogleGenAIClient({
             temperature: 0.7,
-            apiKey,
-            maxRetries: 3,
         });
+        this.model = client.getModel();
 
         this.loadTopics();
     }

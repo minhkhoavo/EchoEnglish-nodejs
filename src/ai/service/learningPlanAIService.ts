@@ -67,9 +67,7 @@ export class LearningPlanAIService {
     private llmClient: GoogleGenAIClient;
 
     constructor() {
-        this.llmClient = new GoogleGenAIClient({
-            model: 'models/gemini-flash-lite-latest',
-        });
+        this.llmClient = new GoogleGenAIClient();
     }
 
     async generateLearningRoadmap(

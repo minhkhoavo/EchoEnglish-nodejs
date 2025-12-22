@@ -518,10 +518,8 @@ export class RoadmapCalibrationService {
             'studyplan/regenerate_week',
             variables
         );
-
-        const llmClient = new GoogleGenAIClient({
-            model: 'models/gemini-flash-lite-latest',
-        });
+        // Uses GEMINI_DEFAULT_MODEL from env, no explicit model = flexible switching
+        const llmClient = new GoogleGenAIClient();
 
         interface RegenerateWeekOutput {
             dailyFocuses: Array<{
