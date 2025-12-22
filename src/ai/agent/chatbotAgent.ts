@@ -58,7 +58,9 @@ export class ChatbotAgent {
     >;
     private client = new GoogleGenAIClient({
         // Chatbot agent requires Gemini models for function calling support
-        model: process.env.GEMINI_CHATBOT_MODEL ?? 'gemini-2.5-flash',
+        model:
+            process.env.GEMINI_CHATBOT_CONSERVATION_MODEL ??
+            'gemini-2.5-flash-lite',
     });
     private systemPrompt?: string;
 

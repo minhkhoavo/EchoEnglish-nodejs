@@ -86,6 +86,9 @@ class ConversationPracticeService {
     constructor() {
         // Uses GEMINI_DEFAULT_MODEL from env via GoogleGenAIClient
         const client = new GoogleGenAIClient({
+            model:
+                process.env.GEMINI_CHATBOT_CONSERVATION_MODEL ??
+                'gemini-2.5-flash-lite',
             temperature: 0.7,
         });
         this.model = client.getModel();
