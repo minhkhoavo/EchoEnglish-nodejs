@@ -38,25 +38,33 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/echo-english:cache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/echo-english:cache,mode=max
 
-      # 5) Deploy on VPS via SSH
+      # 5) Deploy on VPS via SSH Action
       - name: Deploy to VPS
-        uses: appleboy/ssh-action@v1.2.0
+        uses: appleboy/ssh-action@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
           port: 22
+          envs: DOCKER_USERNAME,DOCKER_TOKEN
+          script_stop: true
+          command_timeout: 15m
           script: |
             set -e
-            IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/echo-english:latest
-            echo "Pull latest image..."
+            echo "Login Docker registry..."
+            echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            
+            IMAGE_NAME=${DOCKER_USERNAME}/echo-english:latest
+            echo "Pulling $IMAGE_NAME..."
             docker pull "$IMAGE_NAME"
 
-            echo "Stop & remove old container if exists..."
+            echo "Restarting container..."
             docker stop echo-english || true
             docker rm echo-english || true
-
-            echo "Run new container with --env-file ..."
+            
             docker run -d --name echo-english \
               --restart unless-stopped \
               --env-file /home/apps/EchoEnglish/.env \
