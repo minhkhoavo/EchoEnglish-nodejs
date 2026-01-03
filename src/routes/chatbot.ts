@@ -25,4 +25,6 @@ router.post(
     ChatbotAgentController.runAgent
 );
 
+router.post('/message', ChatbotAgentController.sendMessage);
+
 export default router;
