@@ -4,10 +4,12 @@
         "moduleResolution": "NodeNext",
         "target": "ES2022", // Target output cho code
         "outDir": "dist", // Đường dẫn output cho thư mục build
+        "rootDir": "src", // Thư mục gốc cho source
         "esModuleInterop": true,
         "strict": true /* Enable all strict type-checking options. */,
         "skipLibCheck": true /* Skip type checking all .d.ts files. */,
         // "forceConsistentCasingInFileNames": false,
+        "ignoreDeprecations": "6.0",
         "baseUrl": ".", // Đường dẫn base cho các import
         "paths": {
             "~/*": ["src/*"] // Đường dẫn tương đối cho các import (alias)
