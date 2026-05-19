@@ -51,6 +51,94 @@ class ChatbotAgentController {
         }
     };
 
+    /**
+     * Streaming endpoint using Server-Sent Events (SSE)
+     * Returns real-time streaming response for better UX
+     */
+    public runAgentStream = async (req: MulterRequest, res: Response) => {
+        try {
+            const userId = req.user?.id;
+            if (!userId) {
+                res.status(401).json({ message: 'Unauthorized' });
+                return;
+            }
+
+            const prompt = req.body?.prompt;
+            if (!prompt) {
+                res.status(400).json({ message: 'Prompt is required' });
+                return;
+            }
+
+            let image: string | undefined;
+            if (req.file) {
+                const imageBuffer = req.file.buffer;
+                const base64Image = imageBuffer.toString('base64');
+                image = `data:${req.file.mimetype};base64,${base64Image}`;
+            } else if (req.body.image) {
+                image = req.body.image;
+            }
+
+            let enhancedPrompt = prompt;
+            if (image) {
+                enhancedPrompt = `[IMAGE PROVIDED] Please analyze the image and follow this prompt ${prompt}`;
+            }
+
+            // Set up SSE headers
+            res.setHeader('Content-Type', 'text/event-stream');
+            res.setHeader('Cache-Control', 'no-cache');
+            res.setHeader('Connection', 'keep-alive');
+            res.setHeader('X-Accel-Buffering', 'no'); // Disable nginx buffering
+            res.flushHeaders();
+
+            // Send initial "thinking" event
+            res.write(
+                `event: thinking\ndata: ${JSON.stringify({ status: 'thinking' })}\n\n`
+            );
+
+            // Get full response from agent
+            const result = await flashcardAgent.run(
+                enhancedPrompt,
+                userId,
+                image
+            );
+
+            // Stream the message character by character for typing effect
+            const message = (result as { message?: string }).message || '';
+            const chunkSize = 3; // Send 3 characters at a time for faster streaming
+
+            for (let i = 0; i < message.length; i += chunkSize) {
+                const chunk = message.slice(i, i + chunkSize);
+                res.write(
+                    `event: chunk\ndata: ${JSON.stringify({ text: chunk, index: i })}\n\n`
+                );
+                // Small delay for typing effect (10ms per chunk)
+                await new Promise((resolve) => setTimeout(resolve, 10));
+            }
+
+            // Send final complete response with payload
+            res.write(`event: complete\ndata: ${JSON.stringify(result)}\n\n`);
+
+            // Close the stream
+            res.write(
+                `event: done\ndata: ${JSON.stringify({ status: 'done' })}\n\n`
+            );
+            res.end();
+        } catch (error) {
+            console.error('Error in streaming agent:', error);
+            // Send error event
+            res.write(
+                `event: error\ndata: ${JSON.stringify({
+                    error: 'Failed to process request',
+                    message:
+                        error instanceof Error
+                            ? error.message
+                            : 'Unknown error',
+                })}\n\n`
+            );
+            res.end();
+        }
+    };
+
     public sendMessage = async (req: Request, res: Response) => {
         try {
             const userId = req.user?.id;

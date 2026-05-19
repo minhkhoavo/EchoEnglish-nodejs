@@ -12,8 +12,14 @@ import { categoryTools } from '~/ai/tools/categoryTools.js';
 import { paymentTools } from '~/ai/tools/paymentTools.js';
 import { learningResourceTools } from '~/ai/tools/learningResourceTools.js';
 import { knowledgeBaseTools } from '~/ai/tools/knowledgeBaseTools.js';
+import { learnerProgressTools } from '~/ai/tools/learnerProgressTools.js';
+import { navigationTools } from '~/ai/tools/navigationTools.js';
 // import { retrieveMyFilesTool } from '~/ai/tools/ragRetrieveTool.js'; // Temporarily disabled
-import { SystemMessage, HumanMessage } from '@langchain/core/messages';
+import {
+    SystemMessage,
+    HumanMessage,
+    AIMessage,
+} from '@langchain/core/messages';
 import { promptManagerService } from '~/ai/service/PromptManagerService.js';
 
 import { RunnableWithMessageHistory } from '@langchain/core/runnables';
@@ -72,6 +78,8 @@ export class ChatbotAgent {
         ...(paymentTools as unknown as ToolInterface[]),
         ...(learningResourceTools as unknown as ToolInterface[]),
         ...(knowledgeBaseTools as unknown as ToolInterface[]),
+        ...(learnerProgressTools as unknown as ToolInterface[]),
+        ...(navigationTools as unknown as ToolInterface[]),
         // retrieveMyFilesTool as unknown as ToolInterface, // Temporarily disabled
     ];
 
@@ -120,7 +128,7 @@ export class ChatbotAgent {
             },
             inputMessagesKey: 'human_input',
             historyMessagesKey: 'chat_history',
-            outputMessagesKey: 'output',
+            // Note: We manually add AI response to history to avoid coercion issues
         });
     }
 
@@ -171,7 +179,13 @@ export class ChatbotAgent {
 
         const raw = result.output ?? '';
         const text = typeof raw === 'string' ? raw : JSON.stringify(raw);
-        return this.parseAgentResponse(text);
+        const parsedResponse = this.parseAgentResponse(text);
+
+        // Manually add AI response to history to avoid coercion issues
+        const history = this.getHistory(userId);
+        await history.addMessage(new AIMessage(JSON.stringify(parsedResponse)));
+
+        return parsedResponse;
     }
 
     private parseAgentResponse(text: string): Record<string, unknown> {

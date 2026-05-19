@@ -25,6 +25,28 @@ router.post(
     ChatbotAgentController.runAgent
 );
 
+// Streaming endpoint with SSE for realtime chat experience
+router.post(
+    '/stream',
+    (req, res, next) => {
+        const contentType = req.get('Content-Type') || '';
+        if (contentType.includes('multipart/form-data')) {
+            uploadSingleImage(req, res, (err) => {
+                if (err) {
+                    return res.status(400).json({
+                        message: 'File upload error',
+                        error: err.message,
+                    });
+                }
+                next();
+            });
+        } else {
+            next();
+        }
+    },
+    ChatbotAgentController.runAgentStream
+);
+
 router.post('/message', ChatbotAgentController.sendMessage);
 
 export default router;
