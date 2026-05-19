@@ -1,10 +1,17 @@
-import { Request, Response, NextFunction } from 'express';
-import PaymentService from '../services/payment/paymentService.js';
+import { Request, Response } from 'express';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import PromoService from '~/services/payment/promoService.js';
+
+type AuthRequest = Request & {
+    user?: {
+        id: string;
+        email: string;
+        scope: string;
+    };
+};
 class PromoController {
     public promoService = new PromoService();
 
@@ -157,7 +164,7 @@ class PromoController {
         );
     };
 
-    validatePromoCode = async (req: Request, res: Response) => {
+    validatePromoCode = async (req: AuthRequest, res: Response) => {
         const { code, credits } = req.body;
         const userId = req.user?.id as string;
         const orderValue = credits * 1000;

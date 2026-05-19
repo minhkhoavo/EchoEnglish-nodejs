@@ -1,8 +1,16 @@
-﻿import { Request, Response, NextFunction } from 'express';
+﻿import { Request, Response } from 'express';
 import S3Service, { UploadResult } from '../services/s3Service.js';
 import ApiResponse from '../dto/response/apiResponse.js';
 import { ApiError } from '../middleware/apiError.js';
 import { fileIntelligenceService } from '~/services/document-analyze/fileAnalysis.js';
+
+type AuthRequest = Request & {
+    user?: {
+        id: string;
+        email: string;
+        scope: string;
+    };
+};
 
 class FileUploadController {
     async uploadOnly(req: Request, res: Response): Promise<void> {
@@ -24,7 +32,7 @@ class FileUploadController {
         );
     }
 
-    async analyzeFile(req: Request, res: Response): Promise<void> {
+    async analyzeFile(req: AuthRequest, res: Response): Promise<void> {
         if (!req.file) {
             throw new ApiError({ message: 'No file provided', status: 400 });
         }
@@ -60,11 +68,7 @@ class FileUploadController {
         );
     }
 
-    async chatWithUploads(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async chatWithUploads(req: AuthRequest, res: Response): Promise<void> {
         if (!req.user?.id) {
             throw new ApiError({ message: 'Unauthorized', status: 401 });
         }
@@ -88,11 +92,7 @@ class FileUploadController {
         res.status(200).json(new ApiResponse('Chat completed', result));
     }
 
-    async deleteFile(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async deleteFile(req: Request, res: Response): Promise<void> {
         const { key } = req.params;
 
         if (!key) {
@@ -107,11 +107,7 @@ class FileUploadController {
         res.status(200).json(new ApiResponse('File deleted successfully'));
     }
 
-    async getPresignedUrl(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async getPresignedUrl(req: Request, res: Response): Promise<void> {
         const { key } = req.params;
         const { expiresIn } = req.query;
 
@@ -133,11 +129,7 @@ class FileUploadController {
         );
     }
 
-    async uploadImage(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async uploadImage(req: Request, res: Response): Promise<void> {
         if (!req.file) {
             throw new ApiError({
                 message: 'No image file provided',
@@ -164,11 +156,7 @@ class FileUploadController {
         );
     }
 
-    async uploadAudio(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async uploadAudio(req: Request, res: Response): Promise<void> {
         if (!req.file) {
             throw new ApiError({
                 message: 'No audio file provided',

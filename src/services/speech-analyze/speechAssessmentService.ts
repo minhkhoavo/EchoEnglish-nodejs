@@ -116,7 +116,9 @@ class SpeechAssessmentService {
                 }
             };
             // sessionStopped moved earlier for logging; still handle promise resolution here
-            recognizer.sessionStopped = (s, e) => {
+            recognizer.sessionStopped = (_s, _e) => {
+                void _s;
+                void _e;
                 recognizer.stopContinuousRecognitionAsync(
                     () => {
                         recognizer.close();

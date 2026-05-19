@@ -1,9 +1,7 @@
 import mongoose, { Types } from 'mongoose';
-import SpeechAssessmentService from '~/services/speech-analyze/speechAssessmentService.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { createRecordingAndStartAnalysisHelper } from '~/controllers/speechController.js';
-import RecordingService from '~/services/recordingService.js';
 import { aiScoringService } from '~/ai/service/toeicSpeakingScoringService.js';
 
 type MongoDb = mongoose.mongo.Db;
@@ -98,7 +96,6 @@ export default class SpeakingAttemptService {
     public async getCurrentAttempt({
         userId,
         toeicSpeakingTestId,
-        examMode,
     }: StartAttemptInput) {
         const db = await this.getDb();
 
