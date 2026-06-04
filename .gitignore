@@ -147,3 +147,4 @@ vite.config.ts.timestamp-*
 out/
 gen/
 prod.env
+devhub-464904-dba712b6f3bc.json

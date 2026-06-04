@@ -1,11 +1,7 @@
-// FlashcardAgent.ts
-import { AgentExecutor, createToolCallingAgent } from 'langchain/agents';
-import {
-    ChatPromptTemplate,
-    MessagesPlaceholder,
-} from '@langchain/core/prompts';
-import type { ToolInterface } from '@langchain/core/tools';
-import { RunnableConfig } from '@langchain/core/runnables';
+// ChatbotAgent.ts
+import { createAgent } from 'langchain';
+import { MemorySaver } from '@langchain/langgraph';
+import { HumanMessage } from '@langchain/core/messages';
 import { GoogleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
 import { flashcardTools } from '~/ai/tools/flashcardTools.js';
 import { categoryTools } from '~/ai/tools/categoryTools.js';
@@ -15,18 +11,7 @@ import { knowledgeBaseTools } from '~/ai/tools/knowledgeBaseTools.js';
 import { learnerProgressTools } from '~/ai/tools/learnerProgressTools.js';
 import { navigationTools } from '~/ai/tools/navigationTools.js';
 // import { retrieveMyFilesTool } from '~/ai/tools/ragRetrieveTool.js'; // Temporarily disabled
-import {
-    SystemMessage,
-    HumanMessage,
-    AIMessage,
-} from '@langchain/core/messages';
 import { promptManagerService } from '~/ai/service/PromptManagerService.js';
-
-import { RunnableWithMessageHistory } from '@langchain/core/runnables';
-import {
-    InMemoryChatMessageHistory,
-    BaseChatMessageHistory,
-} from '@langchain/core/chat_history';
 import { z } from 'zod';
 
 // Citation schema for knowledge base references
@@ -56,12 +41,21 @@ export const ChatbotResponseSchema = z
     })
     .strict();
 
+// Tools share a single flat list. The agent forwards the invocation
+// `configurable` (incl. userId) down to each tool's RunnableConfig.
+const agentTools = [
+    ...flashcardTools,
+    ...categoryTools,
+    ...paymentTools,
+    ...learningResourceTools,
+    ...knowledgeBaseTools,
+    ...learnerProgressTools,
+    ...navigationTools,
+    // retrieveMyFilesTool, // Temporarily disabled
+];
+
 export class ChatbotAgent {
-    private executor?: AgentExecutor;
-    private withHistory?: RunnableWithMessageHistory<
-        Record<string, unknown>,
-        Record<string, unknown>
-    >;
+    private agent?: ReturnType<typeof createAgent>;
     private client = new GoogleGenAIClient({
         // Chatbot agent requires Gemini models for function calling support
         model:
@@ -70,65 +64,21 @@ export class ChatbotAgent {
     });
     private systemPrompt?: string;
 
-    private histories = new Map<string, BaseChatMessageHistory>(); // sessionId -> history
-
-    private tools: ToolInterface[] = [
-        ...(flashcardTools as unknown as ToolInterface[]),
-        ...(categoryTools as unknown as ToolInterface[]),
-        ...(paymentTools as unknown as ToolInterface[]),
-        ...(learningResourceTools as unknown as ToolInterface[]),
-        ...(knowledgeBaseTools as unknown as ToolInterface[]),
-        ...(learnerProgressTools as unknown as ToolInterface[]),
-        ...(navigationTools as unknown as ToolInterface[]),
-        // retrieveMyFilesTool as unknown as ToolInterface, // Temporarily disabled
-    ];
-
-    private getHistory(sessionId: string): BaseChatMessageHistory {
-        const h = this.histories.get(sessionId);
-        if (h) return h;
-        const created = new InMemoryChatMessageHistory(); // Bạn có thể thay bằng Redis/Mongo (xem bên dưới)
-        this.histories.set(sessionId, created);
-        return created;
-    }
+    // LangGraph checkpointer persists conversation per thread_id (= userId).
+    // Swap for a Redis/Postgres saver to share history across instances.
+    private checkpointer = new MemorySaver();
 
     private async init(): Promise<void> {
-        if (this.executor && this.withHistory) return;
+        if (this.agent) return;
         this.systemPrompt =
             await promptManagerService.getSystemPrompt('ai-agent');
-        const llm = this.client.getModel();
+        const model = this.client.getModel();
 
-        const prompt = ChatPromptTemplate.fromMessages([
-            new SystemMessage(this.systemPrompt || ''),
-            new MessagesPlaceholder('chat_history'),
-            new MessagesPlaceholder('human_input'), // Use placeholder for flexible input
-            new MessagesPlaceholder('agent_scratchpad'),
-        ]);
-
-        const agent = createToolCallingAgent({
-            llm,
-            tools: this.tools,
-            prompt,
-        });
-
-        this.executor = new AgentExecutor({
-            agent,
-            tools: this.tools,
-            maxIterations: 8,
-            returnIntermediateSteps: true,
-            // verbose: true,
-        });
-
-        this.withHistory = new RunnableWithMessageHistory({
-            runnable: this.executor,
-            getMessageHistory: async (config) => {
-                const sessionId = (
-                    config?.configurable as Record<string, unknown>
-                )?.sessionId as string;
-                return this.getHistory(sessionId);
-            },
-            inputMessagesKey: 'human_input',
-            historyMessagesKey: 'chat_history',
-            // Note: We manually add AI response to history to avoid coercion issues
+        this.agent = createAgent({
+            model,
+            tools: agentTools,
+            systemPrompt: this.systemPrompt || '',
+            checkpointer: this.checkpointer,
         });
     }
 
@@ -137,12 +87,10 @@ export class ChatbotAgent {
         userId: string,
         image?: string
     ): Promise<Record<string, unknown>> {
-        if (!this.executor || !this.withHistory) await this.init();
-
-        type ExecutorResult = { output?: unknown } & Record<string, unknown>;
+        if (!this.agent) await this.init();
 
         // Create human message - multimodal if image provided, text-only otherwise
-        let humanMessage;
+        let humanMessage: HumanMessage;
         if (image) {
             humanMessage = new HumanMessage({
                 content: [
@@ -164,28 +112,44 @@ export class ChatbotAgent {
             });
         }
 
-        // Pass human message directly to agent
-        const result: ExecutorResult = await this.withHistory!.invoke(
+        // thread_id scopes the checkpointed history; userId is forwarded to
+        // tools via their RunnableConfig (config.configurable.userId).
+        const result = (await this.agent!.invoke(
             {
-                human_input: [humanMessage], // Agent receives the message with potential image
+                messages: [humanMessage],
             },
             {
                 configurable: {
+                    thread_id: userId,
                     userId,
                     sessionId: userId,
                 },
-            } as RunnableConfig
-        );
+            }
+        )) as { messages?: Array<{ content?: unknown }> };
 
-        const raw = result.output ?? '';
-        const text = typeof raw === 'string' ? raw : JSON.stringify(raw);
-        const parsedResponse = this.parseAgentResponse(text);
+        const messages = result.messages ?? [];
+        const last = messages[messages.length - 1];
+        const text = this.extractText(last?.content);
 
-        // Manually add AI response to history to avoid coercion issues
-        const history = this.getHistory(userId);
-        await history.addMessage(new AIMessage(JSON.stringify(parsedResponse)));
+        return this.parseAgentResponse(text);
+    }
 
-        return parsedResponse;
+    // The final AI message content may be a plain string or an array of
+    // content blocks (LangChain v1 standard content). Flatten to text.
+    private extractText(content: unknown): string {
+        if (typeof content === 'string') return content;
+        if (Array.isArray(content)) {
+            return content
+                .map((part) => {
+                    if (typeof part === 'string') return part;
+                    if (part && typeof part === 'object' && 'text' in part) {
+                        return String((part as { text: unknown }).text ?? '');
+                    }
+                    return '';
+                })
+                .join('');
+        }
+        return content == null ? '' : String(content);
     }
 
     private parseAgentResponse(text: string): Record<string, unknown> {

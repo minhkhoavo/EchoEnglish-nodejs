@@ -1,18 +1,33 @@
 import dotenv from 'dotenv';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { resolve } from 'path';
+import { existsSync } from 'fs';
 
 dotenv.config();
 
-const apiKey =
-    process.env.GENAI_API_KEY ??
-    process.env.GOOGLE_API_KEY ??
-    process.env.GOOGLE_GENAI_API_KEY;
+let authConfig: { apiKey?: string } = {};
+const serviceAccountPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
-if (!apiKey) {
-    // Do not throw at import time in case server doesn't use AI features.
-    console.warn(
-        '[ai] No Gemini API key found in GENAI_API_KEY / GOOGLE_API_KEY / GOOGLE_GENAI_API_KEY'
+if (serviceAccountPath && existsSync(serviceAccountPath)) {
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = resolve(serviceAccountPath);
+    console.log(
+        '[ai] Using service account authentication from:',
+        serviceAccountPath
     );
+} else {
+    const apiKey =
+        process.env.GENAI_API_KEY ??
+        process.env.GOOGLE_API_KEY ??
+        process.env.GOOGLE_GENAI_API_KEY;
+
+    if (apiKey) {
+        authConfig.apiKey = apiKey;
+        console.log('[ai] Using API key authentication');
+    } else {
+        console.warn(
+            '[ai] No Gemini authentication found. Set either GOOGLE_APPLICATION_CREDENTIALS (service account) or GENAI_API_KEY (API key)'
+        );
+    }
 }
 
 export type GenerateOptions = {
@@ -31,7 +46,7 @@ export class GoogleGenAIClient {
         this.model = new ChatGoogleGenerativeAI({
             model: modelName,
             temperature: opts?.temperature ?? 0.2,
-            apiKey,
+            ...authConfig,
             maxRetries: 4,
         });
     }
