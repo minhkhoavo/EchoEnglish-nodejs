@@ -9,6 +9,8 @@ import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ObjectId } from 'mongodb';
 import * as XLSX from 'xlsx';
+import { JsonOutputParser } from 'node_modules/@langchain/core/dist/output_parsers/index.js';
+import { GoogleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
 
 interface CreateTestDto {
     testTitle: string;
@@ -489,6 +491,19 @@ class AdminTestService {
             type: 'buffer',
             bookType: 'xlsx',
         }) as Buffer;
+    }
+
+    public async run<T = unknown>(
+        prompt: string,
+        temperature = 0.4
+    ): Promise<T> {
+        const client = new GoogleGenAIClient({ temperature });
+        const parser = new JsonOutputParser();
+        const formatInstructions = parser.getFormatInstructions();
+        const response = await client.generate(
+            `${prompt}\n\n${formatInstructions}`
+        );
+        return (await parser.parse(response)) as T;
     }
 }
 
