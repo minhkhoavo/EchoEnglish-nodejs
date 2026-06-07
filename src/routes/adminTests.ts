@@ -42,4 +42,6 @@ router.get('/:id/export', AdminTestController.exportToExcel);
 // Part Management
 router.put('/:id/parts/:partNumber', AdminTestController.updatePart);
 
+// AI Helper
+router.post('/ai', AdminTestController.run);
 export default router;

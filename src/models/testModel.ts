@@ -7,6 +7,14 @@ export interface IOption {
     text: string;
 }
 
+// Vocabulary word interface (AI-extracted, attached to media for learners)
+export interface IVocabWord {
+    word: string;
+    partOfSpeech?: string;
+    meaning?: string;
+    example?: string;
+}
+
 // Media interface
 export interface IMedia {
     audioUrl?: string | null;
@@ -14,6 +22,7 @@ export interface IMedia {
     passageHtml?: string | null;
     transcript?: string | null;
     translation?: string | null;
+    vocabulary?: IVocabWord[] | null;
 }
 
 // Content Tags interface
@@ -93,6 +102,17 @@ const OptionSchema = new Schema<IOption>(
     { _id: false }
 );
 
+// Vocabulary word Schema
+const VocabWordSchema = new Schema<IVocabWord>(
+    {
+        word: { type: String, required: true },
+        partOfSpeech: { type: String },
+        meaning: { type: String },
+        example: { type: String },
+    },
+    { _id: false }
+);
+
 // Media Schema
 const MediaSchema = new Schema<IMedia>(
     {
@@ -101,6 +121,7 @@ const MediaSchema = new Schema<IMedia>(
         passageHtml: { type: String, default: null },
         transcript: { type: String, default: null },
         translation: { type: String, default: null },
+        vocabulary: { type: [VocabWordSchema], default: null },
     },
     { _id: false }
 );

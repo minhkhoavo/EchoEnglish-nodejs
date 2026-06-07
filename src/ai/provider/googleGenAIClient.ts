@@ -26,7 +26,7 @@ export class GoogleGenAIClient {
 
     constructor(opts?: GenerateOptions) {
         const defaultModel =
-            process.env.GEMINI_DEFAULT_MODEL ?? 'gemini-2.5-flash-lite';
+            process.env.GEMINI_DEFAULT_MODEL ?? 'gemini-3.1-flash-lite';
         const modelName = opts?.model ?? defaultModel;
         this.model = new ChatGoogleGenerativeAI({
             model: modelName,

@@ -178,6 +178,18 @@ class AdminTestController {
             .status(200)
             .json(new ApiResponse('Part updated successfully', test));
     };
+
+    run = async (req: Request, res: Response) => {
+        const { prompt, temperature } = req.body;
+        if (typeof prompt !== 'string' || !prompt.trim()) {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+        const data = await AdminTestService.run(
+            prompt,
+            typeof temperature === 'number' ? temperature : undefined
+        );
+        return res.status(200).json(new ApiResponse('OK', data));
+    };
 }
 
 export default new AdminTestController();
