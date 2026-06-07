@@ -2,8 +2,17 @@ import { Router } from 'express';
 import { resourceController } from '~/controllers/resourceController.js';
 import { hasAuthority } from '~/middleware/authMiddleware.js';
 import { Role } from '~/enum/role.js';
+import { uploadXapiSingle } from '~/config/multerConfig.js';
 
 const router = Router();
+
+// xAPI routes
+router.post(
+    '/xapi/upload',
+    hasAuthority(Role.ADMIN),
+    uploadXapiSingle,
+    resourceController.uploadXapiPackage
+);
 
 // Public routes
 router.get('', resourceController.searchResource);

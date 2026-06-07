@@ -8,7 +8,8 @@ import { Domain, AVAILABLE_DOMAINS } from '~/enum/domain.js';
 import Parser from 'rss-parser';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
-import { YoutubeTranscript } from '@danielxceron/youtube-transcript';
+import { YoutubeTranscript } from 'youtube-transcript-plus';
+import type { FetchParams, TranscriptSegment } from 'youtube-transcript-plus';
 import { PaginationHelper } from '~/utils/pagination.js';
 import { FilterQuery, Types } from 'mongoose';
 import axios from 'axios';
@@ -16,6 +17,7 @@ import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import pLimit from 'p-limit';
 import omit from 'lodash/omit.js';
+import s3Service from '../s3Service.js';
 import { knowledgeBaseService } from '../knowledgeBase/knowledgeBaseService.js';
 
 interface CreateArticleParams {
@@ -32,6 +34,13 @@ interface CreateArticleParams {
     };
     suitableForLearners?: boolean;
     createdBy: string;
+}
+
+interface YoutubeTranscriptSegment {
+    text: string;
+    offset: number;
+    duration: number;
+    lang?: string;
 }
 
 class ResourceService {
@@ -73,14 +82,27 @@ class ResourceService {
         id: string,
         updateData: Partial<ResourceTypeModel>
     ) {
-        const { title, summary, suitableForLearners } = updateData;
-        const resource = await Resource.findByIdAndUpdate(
-            id,
-            { title, summary, suitableForLearners },
-            { new: true }
-        );
+        const { title, summary, content, suitableForLearners, labels } =
+            updateData;
+
+        const resource = await Resource.findById(id);
         if (!resource) throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
-        return omit(resource.toObject(), ['__v']);
+
+        const update: Partial<ResourceTypeModel> = {};
+        if (title !== undefined) update.title = title;
+        if (summary !== undefined) update.summary = summary;
+        if (content !== undefined) update.content = content;
+        if (suitableForLearners !== undefined)
+            update.suitableForLearners = suitableForLearners;
+        if (labels !== undefined) {
+            const current = resource.toObject().labels || {};
+            update.labels = { ...current, ...labels };
+        }
+
+        const updated = await Resource.findByIdAndUpdate(id, update, {
+            new: true,
+        });
+        return omit(updated?.toObject(), ['__v']);
     }
 
     public async deleteResource(id: string) {
@@ -234,21 +256,73 @@ class ResourceService {
         const vid = this.extractVideoId(url);
         if (!vid) throw new ApiError(ErrorMessage.INVALID_URL_ID_YOUTUBE);
 
-        // console.log('>>> Extracted videoId:', vid);
+        const cacheKey = `transcripts/${vid}.json`;
+        const cached = await s3Service.getJSON<TranscriptSegment[]>(cacheKey);
+        if (cached) return cached;
 
-        const transcriptItems = await YoutubeTranscript.fetchTranscript(vid, {
-            // 'lang' might not be in the ResourceTypeModel typing; cast the object to any to avoid TS error
-            lang: 'en',
-        });
+        const customFetch = async (params: FetchParams): Promise<Response> => {
+            const headers: Record<string, string> = {
+                ...(params.lang && {
+                    'Accept-Language': `${params.lang},en;q=0.9`,
+                }),
+                'User-Agent':
+                    'Mozilla/5.0 (Linux; Android 14; Pixel 8 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
+                Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Encoding': 'gzip, deflate, br',
+                Referer: 'https://www.google.com/',
+                Origin: 'https://www.youtube.com',
+                'Sec-Ch-Ua':
+                    '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+                'Sec-Ch-Ua-Mobile': '?1',
+                'Sec-Ch-Ua-Platform': '"Android"',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
+                'Sec-Fetch-User': '?1',
+                'Upgrade-Insecure-Requests': '1',
+                ...params.headers,
+            };
+            return fetch(params.url, {
+                method: params.method ?? 'GET',
+                headers,
+                body: params.body,
+                signal: params.signal,
+            });
+        };
+
+        let transcriptItems: YoutubeTranscriptSegment[];
+        try {
+            transcriptItems = await YoutubeTranscript.fetchTranscript(vid, {
+                lang: 'en',
+                videoFetch: customFetch,
+                transcriptFetch: customFetch,
+                playerFetch: customFetch,
+            });
+        } catch (err) {
+            console.log(
+                `[fetchTranscript] Error fetching transcript for ${vid}:`,
+                err
+            );
+            if (
+                err instanceof Error &&
+                err.constructor.name === 'YoutubeTranscriptTooManyRequestError'
+            ) {
+                throw new ApiError(ErrorMessage.TRANSCRIPT_RATE_LIMITED);
+            }
+            console.warn(`[fetchTranscript] No transcript for ${vid}:`, err);
+            throw new ApiError(ErrorMessage.TRANSCRIPT_NOT_AVAILABLE);
+        }
 
         // console.log('>>> Raw transcriptItems:', transcriptItems);
 
-        return transcriptItems.map((r) => ({
+        const segments = transcriptItems.map((r: YoutubeTranscriptSegment) => ({
             text: r.text,
             start: r.offset,
             duration: r.duration,
             end: r.duration + r.offset,
         }));
+        s3Service.putJSON(cacheKey, segments).catch(() => {});
+        return segments;
     };
 
     public saveTranscriptAsResource = async (url: string) => {

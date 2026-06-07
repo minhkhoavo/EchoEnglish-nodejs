@@ -86,4 +86,33 @@ export const uploadSingleImage = uploadImage.single('image');
 
 export const uploadSingle = upload.single('file');
 export const uploadAudioSingle = upload.single('audio');
+
+const xapiZipFilter = (
+    req: Request,
+    file: Express.Multer.File,
+    cb: multer.FileFilterCallback
+) => {
+    const lowerName = file.originalname.toLowerCase();
+    if (
+        lowerName.endsWith('.zip') ||
+        file.mimetype === 'application/zip' ||
+        file.mimetype === 'application/x-zip-compressed' ||
+        file.mimetype === 'application/octet-stream'
+    ) {
+        cb(null, true);
+    } else {
+        cb(new Error('Only .zip files are allowed for xAPI package'));
+    }
+};
+
+const uploadXapi = multer({
+    storage,
+    fileFilter: xapiZipFilter,
+    limits: {
+        fileSize: 200 * 1024 * 1024, // 200MB cho gói iSpring lớn
+    },
+});
+
+export const uploadXapiSingle = uploadXapi.single('file');
+
 export default upload;

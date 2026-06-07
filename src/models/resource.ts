@@ -19,10 +19,14 @@ const resourceSchema = new Schema(
 
         // === Article fields ===
         isArticle: { type: Boolean, default: false },
-        attachmentUrl: { type: String }, // File đính kèm S3
+        attachmentUrl: { type: String }, // S3 Attachment URL
         attachmentName: { type: String },
-        isIndexed: { type: Boolean, default: false }, // Đã RAG index chưa
+        isIndexed: { type: Boolean, default: false },
         createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+
+        // === xAPI fields
+        xapiLaunchUrl: { type: String }, // URL public S3 to launch course
+        xapiPackageKey: { type: String }, // Prefix S3 include files of the uploaded package
 
         // === Common fields ===
         title: { type: String },

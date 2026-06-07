@@ -5,6 +5,7 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import resourceService from '~/services/transcription/resourceService.js';
+import xapiService from '~/services/transcription/xapiService.js';
 import { knowledgeBaseService } from '~/services/knowledgeBase/knowledgeBaseService.js';
 
 class ResourceController {
@@ -171,6 +172,25 @@ class ResourceController {
         return res
             .status(200)
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, results));
+    };
+
+    /**
+     * Upload xAPI package. Body: multipart, file=<zip>.
+     */
+    public uploadXapiPackage = async (req: Request, res: Response) => {
+        if (!req.file) {
+            throw new ApiError({ message: 'No file provided', status: 400 });
+        }
+
+        const resource = await xapiService.createXapiResource({
+            zipBuffer: req.file.buffer,
+            fileName: req.file.originalname,
+            createdBy: req.user?.id,
+        });
+
+        return res
+            .status(201)
+            .json(new ApiResponse(SuccessMessage.CREATE_SUCCESS, resource));
     };
 
     public searchResource = async (req: Request, res: Response) => {

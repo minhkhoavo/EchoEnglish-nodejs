@@ -17,6 +17,10 @@ export interface UploadResult {
     mimeType: string;
 }
 
+interface Streamable {
+    transformToString(): Promise<string>;
+}
+
 class S3Service {
     private s3Client = AWS_CONFIG.s3Client;
     private bucketName = AWS_CONFIG.bucketName;
@@ -110,6 +114,31 @@ class S3Service {
                 status: 500,
             });
         }
+    }
+
+    async getJSON<T>(key: string): Promise<T | null> {
+        try {
+            const { Body } = await this.s3Client.send(
+                new GetObjectCommand({ Bucket: this.bucketName, Key: key })
+            );
+            if (!Body) return null;
+            return JSON.parse(
+                await (Body as Streamable).transformToString()
+            ) as T;
+        } catch {
+            return null;
+        }
+    }
+
+    async putJSON(key: string, data: unknown): Promise<void> {
+        await this.s3Client.send(
+            new PutObjectCommand({
+                Bucket: this.bucketName,
+                Key: key,
+                Body: JSON.stringify(data),
+                ContentType: 'application/json',
+            })
+        );
     }
 
     async downloadFile(url: string): Promise<Buffer | null> {

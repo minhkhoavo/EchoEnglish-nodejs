@@ -131,6 +131,15 @@ export const ErrorMessage = {
     /*youtube*/
     INVALID_URL_ID_YOUTUBE: { message: 'Invalid YouTube URL', status: 400 },
     YOUTUBE_URL_REQUIRE: { message: 'Youtube url is required', status: 400 },
+    TRANSCRIPT_NOT_AVAILABLE: {
+        message: 'Transcript is not available for this video',
+        status: 404,
+    },
+    TRANSCRIPT_RATE_LIMITED: {
+        message:
+            'YouTube is rate limiting transcript requests, please try again later',
+        status: 429,
+    },
 
     /*Resource*/
     RESOURCE_NOT_FOUND: { message: 'Resource not found', status: 404 },
