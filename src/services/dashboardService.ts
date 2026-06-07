@@ -233,8 +233,12 @@ class DashboardService {
 
     public async getResourceStats() {
         const totalResources = await Resource.countDocuments();
-        const approved = await Resource.countDocuments({ approved: true });
-        const notApproved = await Resource.countDocuments({ approved: false });
+        const suitableForLearners = await Resource.countDocuments({
+            suitableForLearners: true,
+        });
+        const notSuitableForLearners = await Resource.countDocuments({
+            suitableForLearners: false,
+        });
 
         // Thống kê theo domain, sort giảm dần theo count
         const byDomain = await Resource.aggregate([
@@ -242,27 +246,44 @@ class DashboardService {
                 $group: {
                     _id: '$labels.domain',
                     total: { $sum: 1 },
-                    approvedCount: {
-                        $sum: { $cond: [{ $eq: ['$approved', true] }, 1, 0] },
+                    suitableForLearnersCount: {
+                        $sum: {
+                            $cond: [
+                                { $eq: ['$suitableForLearners', true] },
+                                1,
+                                0,
+                            ],
+                        },
                     },
-                    notApprovedCount: {
-                        $sum: { $cond: [{ $eq: ['$approved', false] }, 1, 0] },
+                    notSuitableForLearnersCount: {
+                        $sum: {
+                            $cond: [
+                                { $eq: ['$suitableForLearners', false] },
+                                1,
+                                0,
+                            ],
+                        },
                     },
                 },
             },
-            { $sort: { count: -1 } },
+            { $sort: { total: -1 } },
             {
                 $project: {
                     _id: 0,
                     domain: '$_id',
                     total: 1,
-                    approvedCount: 1,
-                    notApprovedCount: 1,
+                    suitableForLearnersCount: 1,
+                    notSuitableForLearnersCount: 1,
                 },
             },
         ]);
 
-        return { totalResources, approved, notApproved, byDomain };
+        return {
+            totalResources,
+            suitableForLearners,
+            notSuitableForLearners,
+            byDomain,
+        };
     }
 }
 
