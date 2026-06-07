@@ -190,6 +190,24 @@ class AdminTestController {
         );
         return res.status(200).json(new ApiResponse('OK', data));
     };
+
+    runMedia = async (req: Request, res: Response) => {
+        const { prompt, imageUrls, temperature } = req.body;
+        if (typeof prompt !== 'string' || !prompt.trim()) {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+        const urls = Array.isArray(imageUrls)
+            ? imageUrls.filter(
+                  (u): u is string => typeof u === 'string' && u.trim() !== ''
+              )
+            : undefined;
+        const data = await AdminTestService.runWithMedia(prompt, {
+            imageUrls: urls,
+            temperature:
+                typeof temperature === 'number' ? temperature : undefined,
+        });
+        return res.status(200).json(new ApiResponse('OK', data));
+    };
 }
 
 export default new AdminTestController();
