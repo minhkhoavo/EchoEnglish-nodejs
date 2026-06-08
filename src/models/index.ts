@@ -1,0 +1,17 @@
+import './baseEntity.js';
+import './categoryFlashcardModel.js';
+import './fileContentModel.js';
+import './flashcardModel.js';
+import './notificationModel.js';
+import './otpModel.js';
+import './payment.js';
+import './promoCode.js';
+import './questionMetadataModel.js';
+import './recordingModel.js';
+import './resource.js';
+import './roadmapModel.js';
+import './studyPlanModel.js';
+import './testResultModel.js';
+import './testModel.js';
+import './userModel.js';
+import './weaknessDrillModel.js';

@@ -36,4 +36,19 @@ export function computeToeicScores(
     return { listeningScore, readingScore, totalScore };
 }
 
+// Determine currentLevel from test score
+export function determineToeicLevel(totalScore: number) {
+    let detectedCurrentLevel: string;
+    if (totalScore < 400) {
+        detectedCurrentLevel = 'beginner';
+    } else if (totalScore < 700) {
+        detectedCurrentLevel = 'intermediate';
+    } else if (totalScore < 850) {
+        detectedCurrentLevel = 'upper_intermediate';
+    } else {
+        detectedCurrentLevel = 'advanced';
+    }
+    return detectedCurrentLevel;
+}
+
 export default computeToeicScores;

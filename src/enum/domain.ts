@@ -22,4 +22,19 @@ export enum Domain {
     POLITICS = 'politics',
     ENVIRONMENT = 'environment',
     SCIENCE = 'science',
+    MEDIA = 'media',
+    LEGAL = 'legal',
+    OUTDOOR_RECREATION = 'outdoor_recreation',
+    COOKING = 'cooking',
+    HOUSE = 'house',
+
+    TECHNICAL = 'technical',
+    DAILY_LIFE = 'daily_life',
+    HEALTH = 'health',
+    SOCIETY = 'society',
+    GENERAL = 'general',
 }
+
+export const AVAILABLE_DOMAINS = Object.values(
+    Domain
+) satisfies readonly Domain[];

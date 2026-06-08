@@ -15,6 +15,7 @@ class ErrorMiddleware {
         res: Response,
         next: NextFunction
     ) {
+        void next;
         // Lỗi do mình throw ra
         if (err instanceof ApiError) {
             return res.status(err.status).json(new ApiResponse(err.message));

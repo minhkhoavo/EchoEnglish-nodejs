@@ -3,6 +3,7 @@ import { writingAttemptService } from '~/services/writingAttemptService.js';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
+import creditsService from '~/services/payment/creditsService.js';
 
 class WritingAttemptController {
     public submitAndScore = async (req: Request, res: Response) => {
@@ -19,6 +20,10 @@ class WritingAttemptController {
             throw new ApiError(ErrorMessage.ANSWERS_OBJECT_REQUIRED);
         }
 
+        await creditsService.deductCreditsForFeature(
+            userId,
+            'test_analysis_writing'
+        );
         const result = await writingAttemptService.submitAndScore({
             userId,
             toeicWritingTestId,
@@ -27,7 +32,7 @@ class WritingAttemptController {
 
         res.status(201).json(
             new ApiResponse(
-                'Bài thi đã được nộp thành công! Kết quả sẽ có sau vài phút.',
+                'The writing test has been submitted and scored successfully. Please check after a few moments for the detailed analysis.',
                 result
             )
         );

@@ -5,11 +5,13 @@ import { TransactionType } from '~/enum/transactionType.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { Payment, PaymentType } from '~/models/payment.js';
 import { PromoCode, PromoCodeType } from '~/models/promoCode.js';
+import PromoService from './promoService.js';
 import vnpayService from './vnpayService.js';
 import { User, UserType } from '../../models/userModel.js';
 import stripeService from './stripeService.js';
 
 class PaymentService {
+    private promoService = new PromoService();
     public async getTransactionById(id: string): Promise<PaymentType | null> {
         const payment = await Payment.findById(id).lean<PaymentType>().exec();
         if (!payment) {
@@ -17,6 +19,113 @@ class PaymentService {
         }
         return payment;
     }
+
+    /* Lay danh sach payment cho admin (all users) */
+    getAllTransactions = async ({
+        status,
+        type,
+        gateway,
+        email,
+        fromDate,
+        toDate,
+        page,
+        limit,
+        sort = 'desc',
+    }: AdminTransactionFilter) => {
+        const query: Record<string, unknown> = {};
+
+        if (email) {
+            // Find user by email first
+            const user = await User.findOne({ email }).lean<UserType>();
+            if (user) {
+                query.user = user._id;
+            } else {
+                // If no user found with this email, return empty result
+                return {
+                    data: [],
+                    pagination: {
+                        page,
+                        limit,
+                        total: 0,
+                        totalPages: 0,
+                        hasNext: false,
+                        hasPrev: false,
+                    },
+                };
+            }
+        }
+
+        if (fromDate || toDate) {
+            query.createdAt = {};
+            if (fromDate) {
+                (query.createdAt as Record<string, unknown>).$gte = new Date(
+                    fromDate
+                );
+            }
+            if (toDate) {
+                const endDate = new Date(toDate);
+                endDate.setHours(23, 59, 59, 999);
+                (query.createdAt as Record<string, unknown>).$lte = endDate;
+            }
+        }
+
+        if (status != null) {
+            if (
+                Object.values(PaymentStatus).includes(status as PaymentStatus)
+            ) {
+                query.status = status;
+            } else {
+                throw new ApiError(ErrorMessage.PAYMENT_STATUS_NOT_FOUND);
+            }
+        }
+
+        if (type != null) {
+            if (
+                Object.values(TransactionType).includes(type as TransactionType)
+            ) {
+                query.type = type;
+            } else {
+                throw new ApiError(ErrorMessage.TRANSACTION_TYPE_NOT_FOUND);
+            }
+        }
+
+        if (gateway != null) {
+            if (
+                gateway &&
+                Object.values(PaymentGateway).includes(
+                    gateway as PaymentGateway
+                )
+            ) {
+                query.paymentGateway = gateway;
+            } else {
+                throw new ApiError(ErrorMessage.PAYMENT_GATEWAY_NOT_FOUND);
+            }
+        }
+
+        const skip = (page - 1) * limit;
+        const sortOrder = sort === 'asc' ? 1 : -1;
+        const [data, total] = await Promise.all([
+            Payment.find(query)
+                .populate('user', 'fullName email')
+                .sort({ createdAt: sortOrder })
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            Payment.countDocuments(query),
+        ]);
+
+        return {
+            data,
+            pagination: {
+                page,
+                limit,
+                total,
+                totalPages: Math.ceil(total / limit),
+                hasNext: page < Math.ceil(total / limit),
+                hasPrev: page > 1,
+            },
+        };
+    };
 
     /* Lay danh sach payment */
     getTransactions = async ({
@@ -179,9 +288,16 @@ class PaymentService {
             throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
         let amount = request.tokens! * 1000;
+        let discount = 0;
         if (request.promoCode) {
-            const promo = await PromoCode.findOne({ code: request.promoCode });
-            amount = amount * (1 - promo.discount / 100);
+            const validation = await this.promoService.validatePromoCode(
+                request.promoCode,
+                userId,
+                amount
+            );
+            discount = validation.discount;
+            amount -= discount;
+            this.promoService.applyPromoCode(request.promoCode, userId);
         }
 
         if (amount < 0) throw new ApiError(ErrorMessage.AMOUNT_INVALID);
@@ -263,6 +379,18 @@ interface TransactionFilter {
     gateway?: string;
     page: number;
     limit: number;
+}
+
+interface AdminTransactionFilter {
+    status?: string;
+    type?: string;
+    gateway?: string;
+    email?: string;
+    fromDate?: string;
+    toDate?: string;
+    page: number;
+    limit: number;
+    sort?: 'asc' | 'desc';
 }
 
 export default new PaymentService();

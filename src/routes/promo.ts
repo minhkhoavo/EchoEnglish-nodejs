@@ -12,6 +12,6 @@ router.get('/:id', promoController.getPromoById);
 router.put('/:id', promoController.updatePromo);
 router.delete('/:id', promoController.deletePromo);
 // Validate promo code
-router.get('/validate', promoController.validatePromoCode);
+router.post('/validate', promoController.validatePromoCode);
 
 export default router;

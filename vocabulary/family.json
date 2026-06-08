@@ -1,0 +1,2165 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47d059a4e8dd8355a1c50",
+                "word": "parents",
+                "explanation": {
+                    "en": "The mother and father of a person. The people who raise a child.",
+                    "vi": "Mẹ và cha của một người. Những người nuôi dưỡng một đứa trẻ.",
+                    "th": "แม่และพ่อของบุคคล ผู้ที่เลี้ยงดูเด็ก",
+                    "id": "Ibu dan ayah seseorang. Orang-orang yang membesarkan seorang anak.",
+                    "ar": "أم وأب الشخص. الأشخاص الذين يربون طفلاً."
+                },
+                "translation": {
+                    "vi": "cha mẹ",
+                    "th": "พ่อแม่",
+                    "id": "orang tua",
+                    "ar": "الوالدان"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpeərənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/parents-uk-1760856364737.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈperənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/parents-us-1760856365469.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My parents taught me to be kind.",
+                    "vi": "Cha mẹ tôi đã dạy tôi phải tử tế.",
+                    "th": "พ่อแม่ของฉันสอนให้ฉันเป็นคนใจดี",
+                    "id": "Orang tua saya mengajari saya untuk bersikap baik.",
+                    "ar": "علمني والداي أن أكون لطيفًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d059a4e8dd8355a1c50_1760867603021.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d059a4e8dd8355a1c53",
+                "word": "siblings",
+                "explanation": {
+                    "en": "A person's brothers and sisters. Children with the same parents.",
+                    "vi": "Anh chị em ruột của một người. Những đứa trẻ có cùng cha mẹ.",
+                    "th": "พี่น้องของบุคคล เด็กที่มีพ่อแม่เดียวกัน",
+                    "id": "Saudara laki-laki dan perempuan seseorang. Anak-anak dengan orang tua yang sama.",
+                    "ar": "إخوة وأخوات الشخص. الأطفال الذين لديهم نفس الوالدين."
+                },
+                "translation": {
+                    "vi": "anh chị em ruột",
+                    "th": "พี่น้องร่วมสายเลือด",
+                    "id": "saudara kandung",
+                    "ar": "إخوة أشقاء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsɪblɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/siblings-uk-1760856366753.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsɪblɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/siblings-us-1760856367079.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I have two siblings, a brother and a sister.",
+                    "vi": "Tôi có hai anh chị em, một anh trai và một em gái.",
+                    "th": "ฉันมีพี่น้องสองคน เป็นพี่ชายหนึ่งคนและน้องสาวหนึ่งคน",
+                    "id": "Saya punya dua saudara kandung, seorang kakak laki-laki dan seorang adik perempuan.",
+                    "ar": "لدي شقيقان، أخ وأخت."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d059a4e8dd8355a1c53_1760867610798.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d059a4e8dd8355a1c56",
+                "word": "spouse",
+                "explanation": {
+                    "en": "A husband or wife. A person who is married to another.",
+                    "vi": "Chồng hoặc vợ. Một người đã kết hôn với người khác.",
+                    "th": "สามีหรือภรรยา บุคคลที่แต่งงานกับอีกคนหนึ่ง",
+                    "id": "Suami atau istri. Seseorang yang menikah dengan orang lain.",
+                    "ar": "زوج أو زوجة. شخص متزوج من آخر."
+                },
+                "translation": {
+                    "vi": "vợ/chồng",
+                    "th": "คู่สมรส",
+                    "id": "pasangan",
+                    "ar": "زوج/زوجة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/spaʊs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/spouse-uk-1760856368343.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/spaʊs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/spouse-us-1760856368686.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Her spouse is a very supportive person.",
+                    "vi": "Người bạn đời của cô ấy là một người rất ủng hộ.",
+                    "th": "คู่สมรสของเธอเป็นคนให้การสนับสนุนมาก",
+                    "id": "Pasangannya adalah orang yang sangat suportif.",
+                    "ar": "زوجها شخص داعم للغاية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d059a4e8dd8355a1c56_1760867619116.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d069a4e8dd8355a1c59",
+                "word": "cousin",
+                "explanation": {
+                    "en": "The child of your uncle or aunt. A relative in the same generation.",
+                    "vi": "Con của chú hoặc dì của bạn. Một người họ hàng cùng thế hệ.",
+                    "th": "ลูกของลุงหรือป้าของคุณ ญาติในรุ่นเดียวกัน",
+                    "id": "Anak dari paman atau bibi Anda. Kerabat dalam generasi yang sama.",
+                    "ar": "ابن أو ابنة عمك أو خالتك. قريب من نفس الجيل."
+                },
+                "translation": {
+                    "vi": "anh/chị/em họ",
+                    "th": "ลูกพี่ลูกน้อง",
+                    "id": "sepupu",
+                    "ar": "ابن/ابنة العم أو الخال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkʌzn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cousin-uk-1760856369957.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkʌzn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cousin-us-1760856370305.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My cousin lives in a different city.",
+                    "vi": "Anh họ tôi sống ở một thành phố khác.",
+                    "th": "ลูกพี่ลูกน้องของฉันอาศัยอยู่ในเมืองอื่น",
+                    "id": "Sepupu saya tinggal di kota yang berbeda.",
+                    "ar": "يعيش ابن عمي في مدينة مختلفة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d069a4e8dd8355a1c59_1760899297203.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d069a4e8dd8355a1c5c",
+                "word": "nephew",
+                "explanation": {
+                    "en": "The son of your brother or sister. Your sibling's son.",
+                    "vi": "Con trai của anh hoặc chị của bạn. Con trai của anh chị em ruột của bạn.",
+                    "th": "ลูกชายของพี่ชายหรือน้องสาวของคุณ ลูกชายของพี่น้องของคุณ",
+                    "id": "Anak laki-laki dari saudara laki-laki atau perempuan Anda. Putra saudara kandung Anda.",
+                    "ar": "ابن أخيك أو أختك. ابن شقيقك."
+                },
+                "translation": {
+                    "vi": "cháu trai",
+                    "th": "หลานชาย",
+                    "id": "keponakan laki-laki",
+                    "ar": "ابن الأخ أو الأخت"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈnefjuː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nephew-uk-1760856371582.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈnefjuː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nephew-us-1760856371912.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My nephew loves to play with toy cars.",
+                    "vi": "Cháu trai tôi thích chơi ô tô đồ chơi.",
+                    "th": "หลานชายของฉันชอบเล่นรถของเล่น",
+                    "id": "Keponakan saya suka bermain mobil-mobilan.",
+                    "ar": "ابن أخي يحب اللعب بالسيارات اللعبة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d069a4e8dd8355a1c5c_1760867634220.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d069a4e8dd8355a1c5f",
+                "word": "niece",
+                "explanation": {
+                    "en": "The daughter of your brother or sister. Your sibling's daughter.",
+                    "vi": "Con gái của anh hoặc chị của bạn. Con gái của anh chị em ruột của bạn.",
+                    "th": "ลูกสาวของพี่ชายหรือน้องสาวของคุณ ลูกสาวของพี่น้องของคุณ",
+                    "id": "Anak perempuan dari saudara laki-laki atau perempuan Anda. Putri saudara kandung Anda.",
+                    "ar": "ابنة أخيك أو أختك. ابنة شقيقك."
+                },
+                "translation": {
+                    "vi": "cháu gái",
+                    "th": "หลานสาว",
+                    "id": "keponakan perempuan",
+                    "ar": "ابنة الأخ أو الأخت"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/niːs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/niece-uk-1760856373176.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/niːs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/niece-us-1760856373504.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My niece just started kindergarten this year.",
+                    "vi": "Cháu gái tôi vừa bắt đầu mẫu giáo năm nay.",
+                    "th": "หลานสาวของฉันเพิ่งเริ่มเข้าโรงเรียนอนุบาลปีนี้",
+                    "id": "Keponakan saya baru mulai taman kanak-kanak tahun ini.",
+                    "ar": "ابنة أخي بدأت روضة الأطفال هذا العام."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d069a4e8dd8355a1c5f_1760867642937.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d069a4e8dd8355a1c62",
+                "word": "grandfather",
+                "explanation": {
+                    "en": "The father of one's father or mother. A male parent of a parent.",
+                    "vi": "Cha của cha hoặc mẹ của một người. Cha mẹ nam giới của một phụ huynh.",
+                    "th": "พ่อของพ่อหรือแม่ของบุคคล พ่อแม่เพศชายของพ่อแม่",
+                    "id": "Ayah dari ayah atau ibu seseorang. Orang tua laki-laki dari seorang orang tua.",
+                    "ar": "والد الأب أو الأم. الأب الذكر لأحد الوالدين."
+                },
+                "translation": {
+                    "vi": "ông",
+                    "th": "ปู่หรือตา",
+                    "id": "kakek",
+                    "ar": "جد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɡrænfɑːðə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/grandfather-uk-1760856374756.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɡrænfɑːðər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/grandfather-us-1760856375095.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My grandfather tells the best stories.",
+                    "vi": "Ông tôi kể những câu chuyện hay nhất.",
+                    "th": "คุณปู่ของฉันเล่าเรื่องได้ดีที่สุด",
+                    "id": "Kakek saya menceritakan kisah-kisah terbaik.",
+                    "ar": "جدي يروي أفضل القصص."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d069a4e8dd8355a1c62_1760867650792.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d069a4e8dd8355a1c65",
+                "word": "grandmother",
+                "explanation": {
+                    "en": "The mother of one's father or mother. A female parent of a parent.",
+                    "vi": "Mẹ của cha hoặc mẹ của một người. Cha mẹ nữ giới của một phụ huynh.",
+                    "th": "แม่ของพ่อหรือแม่ของบุคคล พ่อแม่เพศหญิงของพ่อแม่",
+                    "id": "Ibu dari ayah atau ibu seseorang. Orang tua perempuan dari seorang orang tua.",
+                    "ar": "والدة الأب أو الأم. الأم الأنثى لأحد الوالدين."
+                },
+                "translation": {
+                    "vi": "bà",
+                    "th": "ย่าหรือยาย",
+                    "id": "nenek",
+                    "ar": "جدة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɡrænmʌðə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/grandmother-uk-1760856376345.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɡrænmʌðər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/grandmother-us-1760856376700.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My grandmother bakes delicious cookies.",
+                    "vi": "Bà tôi nướng bánh quy rất ngon.",
+                    "th": "คุณย่าของฉันอบคุกกี้อร่อยมาก",
+                    "id": "Nenek saya membuat kue-kue lezat.",
+                    "ar": "جدتي تخبز كعكًا لذيذًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d069a4e8dd8355a1c65_1760867657745.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d069a4e8dd8355a1c68",
+                "word": "father",
+                "explanation": {
+                    "en": "A male parent. One's male progenitor.",
+                    "vi": "Một người cha. Người tạo ra nam giới của một người.",
+                    "th": "พ่อแม่เพศชาย ผู้ให้กำเนิดเพศชายของบุคคล",
+                    "id": "Orang tua laki-laki. Leluhur laki-laki seseorang.",
+                    "ar": "أب ذكر. سلف الشخص الذكر."
+                },
+                "translation": {
+                    "vi": "bố",
+                    "th": "พ่อ",
+                    "id": "ayah",
+                    "ar": "أب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfɑːðə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/father-uk-1760856377972.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfɑːðər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/father-us-1760856378333.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My father helped me fix my bike.",
+                    "vi": "Cha tôi đã giúp tôi sửa xe đạp.",
+                    "th": "พ่อของฉันช่วยฉันซ่อมจักรยาน",
+                    "id": "Ayah saya membantu saya memperbaiki sepeda saya.",
+                    "ar": "ساعدني والدي في إصلاح دراجتي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d069a4e8dd8355a1c68_1760867664340.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d069a4e8dd8355a1c6b",
+                "word": "mother",
+                "explanation": {
+                    "en": "A female parent. One's female progenitor.",
+                    "vi": "Một người mẹ. Người tạo ra nữ giới của một người.",
+                    "th": "พ่อแม่เพศหญิง ผู้ให้กำเนิดเพศหญิงของบุคคล",
+                    "id": "Orang tua perempuan. Leluhur perempuan seseorang.",
+                    "ar": "أم أنثى. سلف الشخص الأنثى."
+                },
+                "translation": {
+                    "vi": "mẹ",
+                    "th": "แม่",
+                    "id": "ibu",
+                    "ar": "أم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmʌðə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mother-uk-1760856379594.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmʌðər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mother-us-1760856379936.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My mother always gives the best advice.",
+                    "vi": "Mẹ tôi luôn đưa ra lời khuyên tốt nhất.",
+                    "th": "แม่ของฉันมักจะให้คำแนะนำที่ดีที่สุดเสมอ",
+                    "id": "Ibu saya selalu memberikan nasihat terbaik.",
+                    "ar": "أمي دائمًا ما تقدم أفضل النصائح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d069a4e8dd8355a1c6b_1760867671372.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d079a4e8dd8355a1c6e",
+                "word": "son",
+                "explanation": {
+                    "en": "A male child of a parent. One's male offspring.",
+                    "vi": "Con trai của một phụ huynh. Con cái nam giới của một người.",
+                    "th": "ลูกชายของพ่อแม่ ลูกหลานเพศชายของบุคคล",
+                    "id": "Anak laki-laki dari seorang orang tua. Keturunan laki-laki seseorang.",
+                    "ar": "ابن ذكر لأحد الوالدين. نسل الشخص الذكر."
+                },
+                "translation": {
+                    "vi": "con trai",
+                    "th": "ลูกชาย",
+                    "id": "anak laki-laki",
+                    "ar": "ابن"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/sʌn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/son-uk-1760856381193.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/sʌn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/son-us-1760856381522.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Their son is going to college next year.",
+                    "vi": "Con trai của họ sẽ vào đại học vào năm tới.",
+                    "th": "ลูกชายของพวกเขาจะเข้ามหาวิทยาลัยในปีหน้า",
+                    "id": "Putra mereka akan kuliah tahun depan.",
+                    "ar": "ابنهما سيلتحق بالجامعة العام المقبل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d079a4e8dd8355a1c6e_1760867677709.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d079a4e8dd8355a1c71",
+                "word": "daughter",
+                "explanation": {
+                    "en": "A female child of a parent. One's female offspring.",
+                    "vi": "Con gái của một phụ huynh. Con cái nữ giới của một người.",
+                    "th": "ลูกสาวของพ่อแม่ ลูกหลานเพศหญิงของบุคคล",
+                    "id": "Anak perempuan dari seorang orang tua. Keturunan perempuan seseorang.",
+                    "ar": "ابنة أنثى لأحد الوالدين. نسل الشخص الأنثى."
+                },
+                "translation": {
+                    "vi": "con gái",
+                    "th": "ลูกสาว",
+                    "id": "anak perempuan",
+                    "ar": "ابنة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɔːtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/daughter-uk-1760856382806.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdɔːtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/daughter-us-1760856383155.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My daughter loves to read books.",
+                    "vi": "Con gái tôi thích đọc sách.",
+                    "th": "ลูกสาวของฉันชอบอ่านหนังสือ",
+                    "id": "Putri saya suka membaca buku.",
+                    "ar": "ابنتي تحب قراءة الكتب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d079a4e8dd8355a1c71_1760867684238.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d079a4e8dd8355a1c74",
+                "word": "uncle",
+                "explanation": {
+                    "en": "The brother of one's parent. Your aunt's husband.",
+                    "vi": "Anh trai của cha hoặc mẹ của một người. Chồng của dì của bạn.",
+                    "th": "พี่ชายของพ่อแม่ของบุคคล สามีของป้าของคุณ",
+                    "id": "Saudara laki-laki dari orang tua seseorang. Suami bibi Anda.",
+                    "ar": "أخ أحد الوالدين. زوج خالتك."
+                },
+                "translation": {
+                    "vi": "chú/cậu/bác (nam)",
+                    "th": "ลุง/อา/น้าชาย",
+                    "id": "paman",
+                    "ar": "العم أو الخال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈʌŋkl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/uncle-uk-1760856384410.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈʌŋkl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/uncle-us-1760856384834.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My uncle visited us last summer.",
+                    "vi": "Chú tôi đã đến thăm chúng tôi vào mùa hè năm ngoái.",
+                    "th": "ลุงของฉันมาเยี่ยมเราเมื่อฤดูร้อนที่แล้ว",
+                    "id": "Paman saya mengunjungi kami musim panas lalu.",
+                    "ar": "زارنا عمي الصيف الماضي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d079a4e8dd8355a1c74_1760867690795.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d079a4e8dd8355a1c77",
+                "word": "aunt",
+                "explanation": {
+                    "en": "The sister of one's parent. Your uncle's wife.",
+                    "vi": "Chị gái của cha hoặc mẹ của một người. Vợ của chú của bạn.",
+                    "th": "น้องสาวของพ่อแม่ของบุคคล ภรรยาของลุงของคุณ",
+                    "id": "Saudara perempuan dari orang tua seseorang. Istri paman Anda.",
+                    "ar": "أخت أحد الوالدين. زوجة عمك."
+                },
+                "translation": {
+                    "vi": "cô/dì/bác (nữ)",
+                    "th": "ป้า/อา/น้าสาว",
+                    "id": "bibi",
+                    "ar": "العمة أو الخالة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɑːnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/aunt-uk-1760856386264.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ænt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/aunt-us-1760856386630.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My aunt sent me a birthday gift.",
+                    "vi": "Dì tôi đã gửi cho tôi một món quà sinh nhật.",
+                    "th": "ป้าของฉันส่งของขวัญวันเกิดมาให้ฉัน",
+                    "id": "Bibi saya mengirimi saya hadiah ulang tahun.",
+                    "ar": "أرسلت لي عمتي هدية عيد ميلاد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d079a4e8dd8355a1c77_1760867699117.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d079a4e8dd8355a1c7a",
+                "word": "stepfather",
+                "explanation": {
+                    "en": "The husband of one's mother who is not one's biological father. A man married to one's mother.",
+                    "vi": "Chồng của mẹ một người mà không phải là cha ruột của người đó. Một người đàn ông kết hôn với mẹ một người.",
+                    "th": "สามีของแม่ของบุคคลที่ไม่ใช่พ่อแท้ๆ ของบุคคลนั้น ผู้ชายที่แต่งงานกับแม่ของบุคคลนั้น",
+                    "id": "Suami dari ibu seseorang yang bukan ayah kandungnya. Seorang pria yang menikah dengan ibu seseorang.",
+                    "ar": "زوج الأم الذي ليس الأب البيولوجي للشخص. رجل متزوج من أم الشخص."
+                },
+                "translation": {
+                    "vi": "cha dượng",
+                    "th": "พ่อเลี้ยง",
+                    "id": "ayah tiri",
+                    "ar": "زوج الأم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈstepfɑːðə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/stepfather-uk-1760856387914.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈstepfɑːðər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/stepfather-us-1760856388260.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My stepfather taught me how to fish.",
+                    "vi": "Cha dượng tôi đã dạy tôi cách câu cá.",
+                    "th": "พ่อเลี้ยงของฉันสอนฉันตกปลา",
+                    "id": "Ayah tiri saya mengajari saya cara memancing.",
+                    "ar": "علمني زوج أمي كيف أصطاد السمك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d079a4e8dd8355a1c7a_1760867706704.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d079a4e8dd8355a1c7d",
+                "word": "stepmother",
+                "explanation": {
+                    "en": "The wife of one's father who is not one's biological mother. A woman married to one's father.",
+                    "vi": "Vợ của cha nhưng không phải là mẹ ruột. Một người phụ nữ kết hôn với cha của một người.",
+                    "th": "ภรรยาของพ่อที่ไม่ใช่แม่ผู้ให้กำเนิด. ผู้หญิงที่แต่งงานกับพ่อของคนใดคนหนึ่ง.",
+                    "id": "Istri dari ayah seseorang yang bukan ibu kandungnya. Seorang wanita yang menikah dengan ayah seseorang.",
+                    "ar": "زوجة الأب التي ليست الأم البيولوجية للشخص. امرأة متزوجة من والد شخص ما."
+                },
+                "translation": {
+                    "vi": "mẹ kế",
+                    "th": "แม่เลี้ยง",
+                    "id": "ibu tiri",
+                    "ar": "زوجة الأب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈstepmʌðə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/stepmother-uk-1760856389529.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈstepmʌðər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/stepmother-us-1760856389851.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Her stepmother is a kind and caring woman.",
+                    "vi": "Mẹ kế của cô ấy là một người phụ nữ tốt bụng và chu đáo.",
+                    "th": "แม่เลี้ยงของเธอเป็นผู้หญิงที่ใจดีและเอาใจใส่.",
+                    "id": "Ibu tirinya adalah wanita yang baik dan perhatian.",
+                    "ar": "زوجة أبيها امرأة طيبة ومهتمة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d079a4e8dd8355a1c7d_1760867713533.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d079a4e8dd8355a1c80",
+                "word": "half-brother",
+                "explanation": {
+                    "en": "A brother who shares only one parent with you. A male sibling with a different father or mother.",
+                    "vi": "Anh hoặc em trai chỉ có chung một cha hoặc mẹ với bạn. Một người anh em ruột khác cha hoặc khác mẹ.",
+                    "th": "พี่ชายหรือน้องชายที่มีพ่อหรือแม่ร่วมกันเพียงคนเดียวกับคุณ. พี่น้องชายที่มีพ่อหรือแม่ต่างกัน.",
+                    "id": "Saudara laki-laki yang hanya berbagi satu orang tua dengan Anda. Saudara laki-laki dengan ayah atau ibu yang berbeda.",
+                    "ar": "أخ يشاركك أحد الوالدين فقط. شقيق ذكر له أب أو أم مختلفة."
+                },
+                "translation": {
+                    "vi": "anh/em trai cùng cha hoặc mẹ",
+                    "th": "พี่ชาย/น้องชายต่างบิดาหรือมารดา",
+                    "id": "saudara laki-laki seayah atau seibu",
+                    "ar": "أخ غير شقيق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌhɑːfˈbrʌðə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/half-brother-uk-ai-1760857915847.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌhæfˈbrʌðər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/half-brother-us-ai-1760857916527.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My half-brother is older than me.",
+                    "vi": "Anh trai cùng cha khác mẹ của tôi lớn tuổi hơn tôi.",
+                    "th": "พี่ชายต่างมารดาของฉันอายุมากกว่าฉัน.",
+                    "id": "Saudara tiri laki-laki saya lebih tua dari saya.",
+                    "ar": "أخي غير الشقيق أكبر مني."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d079a4e8dd8355a1c80_1760867722140.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d089a4e8dd8355a1c83",
+                "word": "half-sister",
+                "explanation": {
+                    "en": "A sister who shares only one parent with you. A female sibling with a different father or mother.",
+                    "vi": "Chị hoặc em gái chỉ có chung một cha hoặc mẹ với bạn. Một người chị em ruột khác cha hoặc khác mẹ.",
+                    "th": "พี่สาวหรือน้องสาวที่มีพ่อหรือแม่ร่วมกันเพียงคนเดียวกับคุณ. พี่น้องหญิงที่มีพ่อหรือแม่ต่างกัน.",
+                    "id": "Saudara perempuan yang hanya berbagi satu orang tua dengan Anda. Saudara perempuan dengan ayah atau ibu yang berbeda.",
+                    "ar": "أخت تشاركك أحد الوالدين فقط. شقيقة أنثى لها أب أو أم مختلفة."
+                },
+                "translation": {
+                    "vi": "chị/em gái cùng cha hoặc mẹ",
+                    "th": "พี่สาว/น้องสาวต่างบิดาหรือมารดา",
+                    "id": "saudara perempuan seayah atau seibu",
+                    "ar": "أخت غير شقيقة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌhɑːfˈsɪstə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/half-sister-uk-ai-1760857923123.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌhæfˈsɪstər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/half-sister-us-ai-1760857923824.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My half-sister and I have the same mother.",
+                    "vi": "Chị gái cùng mẹ khác cha của tôi và tôi có cùng mẹ.",
+                    "th": "น้องสาวต่างบิดาของฉันกับฉันมีแม่คนเดียวกัน.",
+                    "id": "Saudara tiri perempuan saya dan saya memiliki ibu yang sama.",
+                    "ar": "أختي غير الشقيقة وأنا لدينا نفس الأم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d089a4e8dd8355a1c83_1760867730235.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d089a4e8dd8355a1c86",
+                "word": "in-laws",
+                "explanation": {
+                    "en": "Relatives by marriage, especially the family of one's spouse. Your spouse's parents and siblings.",
+                    "vi": "Họ hàng do hôn nhân, đặc biệt là gia đình của vợ/chồng. Cha mẹ và anh chị em ruột của vợ/chồng bạn.",
+                    "th": "ญาติที่เกิดจากการแต่งงาน โดยเฉพาะครอบครัวของคู่สมรส. พ่อแม่และพี่น้องของคู่สมรสของคุณ.",
+                    "id": "Kerabat karena pernikahan, terutama keluarga dari pasangan seseorang. Orang tua dan saudara kandung pasangan Anda.",
+                    "ar": "الأقارب بالزواج، وخاصة عائلة الزوج/الزوجة. والدا زوجك/زوجتك وأشقاؤه/شقيقاته."
+                },
+                "translation": {
+                    "vi": "gia đình bên vợ/chồng",
+                    "th": "ครอบครัวของคู่สมรส",
+                    "id": "keluarga pasangan",
+                    "ar": "أهل الزوج/الزوجة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪnˈlɔːz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/in-laws-uk-ai-1760857928755.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪnˈlɑːz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/in-laws-us-ai-1760857929452.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We are visiting my in-laws this weekend.",
+                    "vi": "Cuối tuần này chúng tôi sẽ đi thăm gia đình bên vợ/chồng.",
+                    "th": "สุดสัปดาห์นี้เราจะไปเยี่ยมญาติฝ่ายคู่สมรส.",
+                    "id": "Kami akan mengunjungi mertua saya akhir pekan ini.",
+                    "ar": "سنزور أهل زوجي/زوجتي في نهاية هذا الأسبوع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d089a4e8dd8355a1c86_1760867737414.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d089a4e8dd8355a1c89",
+                "word": "father-in-law",
+                "explanation": {
+                    "en": "The father of one's spouse. Your husband or wife's father.",
+                    "vi": "Cha của vợ/chồng. Cha của chồng hoặc vợ bạn.",
+                    "th": "พ่อของคู่สมรส. พ่อของสามีหรือภรรยาของคุณ.",
+                    "id": "Ayah dari pasangan seseorang. Ayah dari suami atau istri Anda.",
+                    "ar": "والد زوجة/زوج الشخص. والد زوجك أو زوجتك."
+                },
+                "translation": {
+                    "vi": "bố vợ / bố chồng",
+                    "th": "พ่อตา/พ่อสามี",
+                    "id": "ayah mertua",
+                    "ar": "والد الزوج/الزوجة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfɑːðərɪnˌlɔː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/father-in-law-uk-ai-1760857937818.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfɑːðərɪnˌlɔː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/father-in-law-us-ai-1760857938558.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My father-in-law enjoys gardening very much.",
+                    "vi": "Bố vợ/chồng của tôi rất thích làm vườn.",
+                    "th": "พ่อตา/พ่อสามีของฉันชอบทำสวนมาก.",
+                    "id": "Ayah mertua saya sangat suka berkebun.",
+                    "ar": "والد زوجتي/زوجي يستمتع بالبستنة كثيرًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d089a4e8dd8355a1c89_1760867744044.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d099a4e8dd8355a1c8c",
+                "word": "mother-in-law",
+                "explanation": {
+                    "en": "The mother of one's spouse. Your husband or wife's mother.",
+                    "vi": "Mẹ của vợ/chồng. Mẹ của chồng hoặc vợ bạn.",
+                    "th": "แม่ของคู่สมรส. แม่ของสามีหรือภรรยาของคุณ.",
+                    "id": "Ibu dari pasangan seseorang. Ibu dari suami atau istri Anda.",
+                    "ar": "والدة زوجة/زوج الشخص. والدة زوجك أو زوجتك."
+                },
+                "translation": {
+                    "vi": "mẹ vợ / mẹ chồng",
+                    "th": "แม่ยาย/แม่สามี",
+                    "id": "ibu mertua",
+                    "ar": "والدة الزوج/الزوجة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmʌðərɪnˌlɔː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mother-in-law-uk-ai-1760857948209.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmʌðərɪnˌlɔː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mother-in-law-us-ai-1760857948882.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Her mother-in-law gave her a beautiful gift.",
+                    "vi": "Mẹ vợ/chồng của cô ấy đã tặng cô ấy một món quà đẹp.",
+                    "th": "แม่ยาย/แม่สามีของเธอให้ของขวัญที่สวยงามแก่เธอ.",
+                    "id": "Ibu mertuanya memberinya hadiah yang indah.",
+                    "ar": "والدة زوجها/زوجته أعطتها هدية جميلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d099a4e8dd8355a1c8c_1760867750941.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d099a4e8dd8355a1c8f",
+                "word": "brother-in-law",
+                "explanation": {
+                    "en": "The brother of one's spouse or the husband of one's sister. A male relative by marriage.",
+                    "vi": "Anh hoặc em trai của vợ/chồng hoặc chồng của chị/em gái. Một người họ hàng nam giới do hôn nhân.",
+                    "th": "พี่ชายหรือน้องชายของคู่สมรส หรือสามีของพี่สาวหรือน้องสาว. ญาติชายที่เกิดจากการแต่งงาน.",
+                    "id": "Saudara laki-laki dari pasangan seseorang atau suami dari saudara perempuan seseorang. Kerabat laki-laki karena pernikahan.",
+                    "ar": "أخو الزوج/الزوجة أو زوج الأخت. قريب ذكر بالزواج."
+                },
+                "translation": {
+                    "vi": "anh/em rể",
+                    "th": "พี่เขย/น้องเขย",
+                    "id": "ipar laki-laki",
+                    "ar": "صهر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbrʌðərɪnˌlɔː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/brother-in-law-us-ai-1760899818535.mp3",
+                        "locale": "en-US"
+                    },
+                    {
+                        "text": "/ˈbrʌðərɪnˌlɔː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/brother-in-law-uk-ai-1760899818501.mp3",
+                        "locale": "en-UK"
+                    }
+                ],
+                "example": {
+                    "en": "My brother-in-law plays soccer every Saturday.",
+                    "vi": "Anh rể/em rể của tôi chơi bóng đá vào mỗi thứ Bảy.",
+                    "th": "พี่เขย/น้องเขยของฉันเล่นฟุตบอลทุกวันเสาร์.",
+                    "id": "Kakak ipar/adik ipar saya bermain sepak bola setiap hari Sabtu.",
+                    "ar": "صهري يلعب كرة القدم كل يوم سبت."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d099a4e8dd8355a1c8f_1760899820060.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d099a4e8dd8355a1c92",
+                "word": "sister-in-law",
+                "explanation": {
+                    "en": "The sister of one's spouse or the wife of one's brother. A female relative by marriage.",
+                    "vi": "Chị hoặc em gái của vợ/chồng hoặc vợ của anh/em trai. Một người họ hàng nữ giới do hôn nhân.",
+                    "th": "พี่สาวหรือน้องสาวของคู่สมรส หรือภรรยาของพี่ชายหรือน้องชาย. ญาติหญิงที่เกิดจากการแต่งงาน.",
+                    "id": "Saudara perempuan dari pasangan seseorang atau istri dari saudara laki-laki seseorang. Kerabat perempuan karena pernikahan.",
+                    "ar": "أخت الزوج/الزوجة أو زوجة الأخ. قريبة أنثى بالزواج."
+                },
+                "translation": {
+                    "vi": "chị/em dâu",
+                    "th": "พี่สะใภ้/น้องสะใภ้",
+                    "id": "ipar perempuan",
+                    "ar": "أخت الزوج أو زوجة الأخ"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsɪstərɪnˌlɔː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sister-in-law-uk-ai-1760857966395.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsɪstərɪnˌlɔː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sister-in-law-us-ai-1760857967132.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My sister-in-law is a very talented artist.",
+                    "vi": "Chị dâu/em dâu của tôi là một nghệ sĩ rất tài năng.",
+                    "th": "พี่สะใภ้/น้องสะใภ้ของฉันเป็นศิลปินที่มีความสามารถมาก.",
+                    "id": "Kakak ipar/adik ipar saya adalah seniman yang sangat berbakat.",
+                    "ar": "أخت زوجي/زوجتي فنانة موهوبة جدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d099a4e8dd8355a1c92_1760867765114.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d099a4e8dd8355a1c95",
+                "word": "twins",
+                "explanation": {
+                    "en": "Two children born to the same mother at the same time. Siblings born from the same pregnancy.",
+                    "vi": "Hai đứa trẻ được sinh ra từ cùng một người mẹ vào cùng một thời điểm. Anh chị em ruột được sinh ra từ cùng một thai kỳ.",
+                    "th": "เด็กสองคนที่เกิดจากแม่คนเดียวกันในเวลาเดียวกัน. พี่น้องที่เกิดจากการตั้งครรภ์เดียวกัน.",
+                    "id": "Dua anak yang lahir dari ibu yang sama pada waktu yang bersamaan. Saudara kandung yang lahir dari kehamilan yang sama.",
+                    "ar": "طفلان ولدا لأم واحدة في نفس الوقت. أشقاء ولدوا من نفس الحمل."
+                },
+                "translation": {
+                    "vi": "sinh đôi",
+                    "th": "ฝาแฝด",
+                    "id": "kembar",
+                    "ar": "توأم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/twɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/twins-uk-1760856397226.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/twɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/twins-us-1760856397718.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The new neighbors have a set of twins.",
+                    "vi": "Hàng xóm mới có một cặp song sinh.",
+                    "th": "เพื่อนบ้านใหม่มีลูกแฝด.",
+                    "id": "Tetangga baru memiliki sepasang anak kembar.",
+                    "ar": "الجيران الجدد لديهم توأم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d099a4e8dd8355a1c95_1760977726880.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d099a4e8dd8355a1c98",
+                "word": "only child",
+                "explanation": {
+                    "en": "A child who has no siblings. The single child in a family.",
+                    "vi": "Một đứa trẻ không có anh chị em ruột. Đứa con duy nhất trong một gia đình.",
+                    "th": "เด็กที่ไม่มีพี่น้อง. ลูกคนเดียวในครอบครัว.",
+                    "id": "Seorang anak yang tidak memiliki saudara kandung. Anak tunggal dalam sebuah keluarga.",
+                    "ar": "طفل ليس لديه أشقاء. الطفل الوحيد في العائلة."
+                },
+                "translation": {
+                    "vi": "con một",
+                    "th": "ลูกคนเดียว",
+                    "id": "anak tunggal",
+                    "ar": "طفل وحيد"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/ˈəʊnli tʃaɪld/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/only-child-uk-ai-1760857972504.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈoʊnli tʃaɪld/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/only-child-us-ai-1760857973223.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She is an only child, so she has no siblings.",
+                    "vi": "Cô ấy là con một, vì vậy cô ấy không có anh chị em ruột.",
+                    "th": "เธอเป็นลูกคนเดียว ดังนั้นเธอจึงไม่มีพี่น้อง.",
+                    "id": "Dia adalah anak tunggal, jadi dia tidak memiliki saudara kandung.",
+                    "ar": "إنها طفلة وحيدة، لذلك ليس لديها أشقاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d099a4e8dd8355a1c98_1760867778863.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d099a4e8dd8355a1c9b",
+                "word": "adopted",
+                "explanation": {
+                    "en": "Taken into a family by legal means and raised as one's own. Legally made the child of new parents.",
+                    "vi": "Được nhận vào một gia đình bằng phương tiện pháp lý và nuôi dưỡng như con ruột. Được pháp luật công nhận là con của cha mẹ mới.",
+                    "th": "รับเข้ามาเป็นสมาชิกในครอบครัวโดยวิธีการทางกฎหมายและเลี้ยงดูเหมือนลูกของตนเอง. ได้รับการรับรองตามกฎหมายให้เป็นบุตรของพ่อแม่ใหม่.",
+                    "id": "Diambil ke dalam keluarga melalui jalur hukum dan dibesarkan sebagai anak sendiri. Secara hukum dijadikan anak dari orang tua baru.",
+                    "ar": "تم ضمّه إلى عائلة بوسائل قانونية وتربيته كأحد أفرادها. أصبح طفلاً قانونيًا لوالدين جديدين."
+                },
+                "translation": {
+                    "vi": "nhận nuôi",
+                    "th": "รับบุตรบุญธรรม",
+                    "id": "diadopsi",
+                    "ar": "متبنى"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/əˈdɒptɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/adopted-uk-1760856399892.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈdɑːptɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/adopted-us-1760856400222.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "They adopted a lovely puppy from the shelter.",
+                    "vi": "Họ đã nhận nuôi một chú chó con đáng yêu từ trại cứu hộ.",
+                    "th": "พวกเขารับลูกสุนัขน่ารักจากศูนย์พักพิงมาเลี้ยง.",
+                    "id": "Mereka mengadopsi anak anjing yang cantik dari tempat penampungan.",
+                    "ar": "لقد تبنوا جروًا جميلًا من الملجأ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d099a4e8dd8355a1c9b_1760867785920.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0a9a4e8dd8355a1c9e",
+                "word": "adoptive parents",
+                "explanation": {
+                    "en": "Parents who have adopted a child. Legal parents who are not biological.",
+                    "vi": "Cha mẹ đã nhận nuôi một đứa trẻ. Cha mẹ hợp pháp không phải là cha mẹ ruột.",
+                    "th": "พ่อแม่ที่รับบุตรบุญธรรมมาเลี้ยง. พ่อแม่ตามกฎหมายที่ไม่ใช่พ่อแม่ผู้ให้กำเนิด.",
+                    "id": "Orang tua yang telah mengadopsi seorang anak. Orang tua sah yang bukan biologis.",
+                    "ar": "الآباء الذين تبنوا طفلاً. الآباء القانونيون الذين ليسوا بيولوجيين."
+                },
+                "translation": {
+                    "vi": "cha mẹ nuôi",
+                    "th": "พ่อแม่บุญธรรม",
+                    "id": "orang tua angkat",
+                    "ar": "والدان بالتبني"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/əˈdɒptɪv ˈpeər.ənts/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/adoptive-parents-uk-ai-1760857978941.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈdɑːptɪv ˈper.ənts/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/adoptive-parents-us-ai-1760857979606.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Her adoptive parents love her very much.",
+                    "vi": "Cha mẹ nuôi của cô ấy rất yêu thương cô ấy.",
+                    "th": "พ่อแม่บุญธรรมของเธอรักเธอมาก.",
+                    "id": "Orang tua angkatnya sangat mencintainya.",
+                    "ar": "والداها بالتبني يحبانها كثيرًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0a9a4e8dd8355a1c9e_1760867793237.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0a9a4e8dd8355a1ca1",
+                "word": "biological parents",
+                "explanation": {
+                    "en": "The parents who created the child's genetic material. One's natural, genetic mother and father.",
+                    "vi": "Cha mẹ đã tạo ra vật liệu di truyền của đứa trẻ. Cha mẹ ruột, di truyền tự nhiên của một người.",
+                    "th": "พ่อแม่ผู้ให้กำเนิดสารพันธุกรรมของเด็ก. พ่อแม่ตามธรรมชาติและทางพันธุกรรมของคนใดคนหนึ่ง.",
+                    "id": "Orang tua yang menciptakan materi genetik anak. Ibu dan ayah kandung, genetik seseorang.",
+                    "ar": "الوالدان اللذان أنشأا المادة الوراثية للطفل. الأم والأب الطبيعيان والوراثيان للشخص."
+                },
+                "translation": {
+                    "vi": "cha mẹ ruột",
+                    "th": "พ่อแม่แท้จริง",
+                    "id": "orang tua kandung",
+                    "ar": "الوالدان البيولوجيان"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/baɪəˈlɒdʒɪkəl ˈpeərənts/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/biological-parents-uk-ai-1760857990238.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/baɪəˈlɑːdʒɪkəl ˈpɛrənts/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/biological-parents-us-ai-1760857990878.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She met her biological parents last year.",
+                    "vi": "Cô ấy đã gặp cha mẹ ruột của mình vào năm ngoái.",
+                    "th": "เธอได้พบพ่อแม่ผู้ให้กำเนิดของเธอเมื่อปีที่แล้ว.",
+                    "id": "Dia bertemu orang tua kandungnya tahun lalu.",
+                    "ar": "التقت بوالديها البيولوجيين العام الماضي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0a9a4e8dd8355a1ca1_1760867799989.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0a9a4e8dd8355a1ca4",
+                "word": "family reunion",
+                "explanation": {
+                    "en": "A social gathering of an extended family. When family members meet after being apart.",
+                    "vi": "Một buổi họp mặt xã hội của đại gia đình. Khi các thành viên gia đình gặp nhau sau một thời gian xa cách.",
+                    "th": "การรวมญาติของครอบครัวใหญ่. เมื่อสมาชิกในครอบครัวมาพบกันหลังจากที่แยกจากกัน.",
+                    "id": "Pertemuan sosial keluarga besar. Ketika anggota keluarga bertemu setelah berpisah.",
+                    "ar": "تجمع اجتماعي للعائلة الممتدة. عندما يلتقي أفراد العائلة بعد فترة من الانفصال."
+                },
+                "translation": {
+                    "vi": "họp mặt gia đình",
+                    "th": "การรวมญาติ",
+                    "id": "reuni keluarga",
+                    "ar": "لم شمل العائلة"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/ˌfæm.ə.li riːˈjuː.njən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/family-reunion-uk-ai-1760857998262.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌfæm.ə.li riːˈjuː.njən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/family-reunion-us-ai-1760857998929.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We are having a big family reunion next month.",
+                    "vi": "Chúng tôi sẽ có một buổi họp mặt gia đình lớn vào tháng tới.",
+                    "th": "เราจะมีการรวมญาติครั้งใหญ่ในเดือนหน้า.",
+                    "id": "Kami akan mengadakan reuni keluarga besar bulan depan.",
+                    "ar": "سنقيم لم شمل عائلي كبير الشهر المقبل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0a9a4e8dd8355a1ca4_1760867806941.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0a9a4e8dd8355a1ca7",
+                "word": "household",
+                "explanation": {
+                    "en": "A house and its occupants regarded as a unit. The people living together in one home.",
+                    "vi": "Một ngôi nhà và những người cư ngụ trong đó được coi là một đơn vị. Những người sống cùng nhau trong một ngôi nhà.",
+                    "th": "บ้านและผู้ที่อาศัยอยู่ในบ้านนั้นถือเป็นหนึ่งหน่วย. ผู้คนที่อาศัยอยู่ร่วมกันในบ้านหลังเดียวกัน.",
+                    "id": "Sebuah rumah dan penghuninya dianggap sebagai satu unit. Orang-orang yang tinggal bersama dalam satu rumah.",
+                    "ar": "منزل وساكنوه يعتبرون وحدة واحدة. الأشخاص الذين يعيشون معًا في منزل واحد."
+                },
+                "translation": {
+                    "vi": "hộ gia đình",
+                    "th": "ครัวเรือน",
+                    "id": "rumah tangga",
+                    "ar": "أسرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhaʊshəʊld/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/household-uk-1760856404094.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhaʊshəʊld/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/household-us-1760856404441.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "There are four people in my household.",
+                    "vi": "Có bốn người trong gia đình tôi.",
+                    "th": "มีสี่คนในครัวเรือนของฉัน.",
+                    "id": "Ada empat orang di rumah tangga saya.",
+                    "ar": "يوجد أربعة أشخاص في منزلي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0a9a4e8dd8355a1ca7_1760867814511.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0a9a4e8dd8355a1caa",
+                "word": "relative",
+                "explanation": {
+                    "en": "A person connected by blood or marriage. A member of your extended family.",
+                    "vi": "Một người có quan hệ huyết thống hoặc hôn nhân. Một thành viên trong đại gia đình của bạn.",
+                    "th": "บุคคลที่เกี่ยวข้องกันทางสายเลือดหรือการแต่งงาน สมาชิกในครอบครัวขยายของคุณ",
+                    "id": "Seseorang yang terhubung melalui ikatan darah atau pernikahan. Anggota keluarga besar Anda.",
+                    "ar": "شخص مرتبط بالدم أو الزواج. فرد من عائلتك الممتدة."
+                },
+                "translation": {
+                    "vi": "họ hàng",
+                    "th": "ญาติ",
+                    "id": "kerabat",
+                    "ar": "أقارب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈrelətɪv/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/relative-uk-1760856405737.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈrelətɪv/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/relative-us-1760856406068.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My aunt is a close relative of mine.",
+                    "vi": "Dì tôi là một người thân ruột thịt của tôi.",
+                    "th": "ป้าของฉันเป็นญาติสนิทของฉัน",
+                    "id": "Bibi saya adalah kerabat dekat saya.",
+                    "ar": "عمتي قريبة لي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0a9a4e8dd8355a1caa_1760867821492.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0b9a4e8dd8355a1cad",
+                "word": "generation",
+                "explanation": {
+                    "en": "All of the people born and living at about the same time. A group in a family's line of descent.",
+                    "vi": "Tất cả những người sinh ra và sống cùng một thời điểm. Một nhóm trong dòng dõi gia đình.",
+                    "th": "ผู้คนทั้งหมดที่เกิดและมีชีวิตอยู่ในช่วงเวลาเดียวกัน กลุ่มหนึ่งในสายตระกูลของครอบครัว",
+                    "id": "Semua orang yang lahir dan hidup pada waktu yang hampir bersamaan. Sebuah kelompok dalam garis keturunan keluarga.",
+                    "ar": "جميع الأشخاص الذين ولدوا وعاشوا في نفس الوقت تقريبًا. مجموعة في سلالة عائلية."
+                },
+                "translation": {
+                    "vi": "thế hệ",
+                    "th": "รุ่น",
+                    "id": "generasi",
+                    "ar": "جيل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌdʒenəˈreɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/generation-uk-1760856407273.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌdʒenəˈreɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/generation-us-1760856407610.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "This new generation loves technology.",
+                    "vi": "Thế hệ mới này yêu công nghệ.",
+                    "th": "คนรุ่นใหม่นี้รักเทคโนโลยี",
+                    "id": "Generasi baru ini menyukai teknologi.",
+                    "ar": "هذا الجيل الجديد يحب التكنولوجيا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0b9a4e8dd8355a1cad_1760867828223.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0b9a4e8dd8355a1cb0",
+                "word": "extended family",
+                "explanation": {
+                    "en": "A family that extends beyond the nuclear family. Includes grandparents, aunts, uncles, and cousins.",
+                    "vi": "Một gia đình mở rộng vượt ra ngoài gia đình hạt nhân. Bao gồm ông bà, cô dì, chú bác và anh chị em họ.",
+                    "th": "ครอบครัวที่ขยายใหญ่กว่าครอบครัวเดี่ยว รวมถึงปู่ย่าตายาย ป้า ลุง และลูกพี่ลูกน้อง",
+                    "id": "Keluarga yang meluas di luar keluarga inti. Termasuk kakek-nenek, bibi, paman, dan sepupu.",
+                    "ar": "عائلة تمتد إلى ما وراء الأسرة النووية. تشمل الأجداد والعمات والأعمام وأبناء العم."
+                },
+                "translation": {
+                    "vi": "đại gia đình",
+                    "th": "ครอบครัวขยาย",
+                    "id": "keluarga besar",
+                    "ar": "عائلة ممتدة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪkˈstɛndɪd ˈfæmɪli/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/extended-family-uk-ai-1760858007314.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪkˈstɛndɪd ˈfæmɪli/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/extended-family-us-ai-1760858007860.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We invite our extended family to holiday dinner.",
+                    "vi": "Chúng tôi mời đại gia đình đến bữa tối ngày lễ.",
+                    "th": "เราเชิญครอบครัวขยายของเรามาร่วมรับประทานอาหารค่ำวันหยุด",
+                    "id": "Kami mengundang keluarga besar kami untuk makan malam liburan.",
+                    "ar": "ندعو عائلتنا الممتدة لتناول عشاء العطلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0b9a4e8dd8355a1cb0_1760867835867.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0b9a4e8dd8355a1cb3",
+                "word": "nuclear family",
+                "explanation": {
+                    "en": "A couple and their dependent children. A small, central family unit.",
+                    "vi": "Một cặp vợ chồng và những đứa con phụ thuộc của họ. Một đơn vị gia đình nhỏ, trung tâm.",
+                    "th": "คู่สามีภรรยาและบุตรที่ยังพึ่งพาอาศัยอยู่ หน่วยครอบครัวขนาดเล็กที่เป็นศูนย์กลาง",
+                    "id": "Sepasang suami istri dan anak-anak tanggungan mereka. Unit keluarga kecil dan inti.",
+                    "ar": "زوجان وأطفالهم المعالون. وحدة عائلية صغيرة ومركزية."
+                },
+                "translation": {
+                    "vi": "gia đình hạt nhân (bố mẹ và con)",
+                    "th": "ครอบครัวเดี่ยว",
+                    "id": "keluarga inti",
+                    "ar": "أسرة نووية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈnjuːkliə fæməli/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nuclear-family-uk-ai-1760858014037.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈnuːkliər fæməli/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/nuclear-family-us-ai-1760858014798.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A nuclear family includes parents and children.",
+                    "vi": "Một gia đình hạt nhân bao gồm cha mẹ và con cái.",
+                    "th": "ครอบครัวเดี่ยวประกอบด้วยพ่อแม่และลูก",
+                    "id": "Keluarga inti meliputi orang tua dan anak-anak.",
+                    "ar": "الأسرة النووية تشمل الوالدين والأطفال."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0b9a4e8dd8355a1cb3_1760867843962.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0b9a4e8dd8355a1cb6",
+                "word": "newborn",
+                "explanation": {
+                    "en": "A baby recently or newly born. An infant within the first month of life.",
+                    "vi": "Một em bé vừa mới sinh. Một trẻ sơ sinh trong tháng đầu tiên của cuộc đời.",
+                    "th": "ทารกที่เพิ่งเกิดใหม่ ทารกแรกเกิดภายในเดือนแรกของชีวิต",
+                    "id": "Bayi yang baru lahir. Bayi dalam bulan pertama kehidupannya.",
+                    "ar": "طفل حديث الولادة. رضيع خلال الشهر الأول من حياته."
+                },
+                "translation": {
+                    "vi": "trẻ sơ sinh",
+                    "th": "ทารกแรกเกิด",
+                    "id": "bayi baru lahir",
+                    "ar": "مولود جديد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈnjuːbɔːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/newborn-uk-1760856410617.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈnuːbɔːrn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/newborn-us-1760856410937.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The newborn baby slept peacefully in his crib.",
+                    "vi": "Em bé sơ sinh ngủ yên bình trong nôi của mình.",
+                    "th": "ทารกแรกเกิดนอนหลับอย่างสงบในเปลของเขา",
+                    "id": "Bayi yang baru lahir tidur nyenyak di ranjangnya.",
+                    "ar": "نام الطفل حديث الولادة بسلام في سريره."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0b9a4e8dd8355a1cb6_1760867851348.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0c9a4e8dd8355a1cb9",
+                "word": "toddler",
+                "explanation": {
+                    "en": "A young child who is just learning to walk. Usually a child between one and three years old.",
+                    "vi": "Một đứa trẻ nhỏ vừa mới học đi. Thường là một đứa trẻ từ một đến ba tuổi.",
+                    "th": "เด็กเล็กที่เพิ่งหัดเดิน โดยปกติคือเด็กอายุระหว่างหนึ่งถึงสามขวบ",
+                    "id": "Anak kecil yang baru belajar berjalan. Biasanya anak berusia antara satu hingga tiga tahun.",
+                    "ar": "طفل صغير يتعلم المشي للتو. عادة ما يكون طفلاً يتراوح عمره بين سنة وثلاث سنوات."
+                },
+                "translation": {
+                    "vi": "trẻ tập đi",
+                    "th": "เด็กหัดเดิน",
+                    "id": "balita",
+                    "ar": "طفل دارج"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtɒdlə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/toddler-uk-1760856412217.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtɑːdlər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/toddler-us-1760856412562.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The toddler chased the ball around the park.",
+                    "vi": "Đứa trẻ chập chững biết đi đuổi theo quả bóng quanh công viên.",
+                    "th": "เด็กวัยหัดเดินวิ่งไล่ลูกบอลไปรอบๆ สวนสาธารณะ",
+                    "id": "Balita itu mengejar bola di sekitar taman.",
+                    "ar": "طارد الطفل الصغير الكرة حول الحديقة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0c9a4e8dd8355a1cb9_1760867858572.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0d9a4e8dd8355a1cbc",
+                "word": "single parent",
+                "explanation": {
+                    "en": "A person who raises a child alone. Someone not living with a spouse or partner.",
+                    "vi": "Một người nuôi con một mình. Một người không sống chung với vợ/chồng hoặc bạn đời.",
+                    "th": "บุคคลที่เลี้ยงลูกคนเดียว ผู้ที่ไม่ได้อาศัยอยู่กับคู่สมรสหรือคู่ครอง",
+                    "id": "Seseorang yang membesarkan anak sendirian. Seseorang yang tidak tinggal bersama pasangan atau pasangannya.",
+                    "ar": "شخص يربي طفلاً بمفرده. شخص لا يعيش مع زوج أو شريك."
+                },
+                "translation": {
+                    "vi": "cha/mẹ đơn thân",
+                    "th": "พ่อแม่เลี้ยงเดี่ยว",
+                    "id": "orang tua tunggal",
+                    "ar": "والد/ة منفرد/ة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌsɪŋ.ɡəl ˈpeə.rənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/single-parent-uk-ai-1760858023323.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌsɪŋ.ɡəl ˈper.ənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/single-parent-us-ai-1760858023915.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Being a single parent can be challenging but rewarding.",
+                    "vi": "Làm cha mẹ đơn thân có thể đầy thử thách nhưng cũng rất đáng giá.",
+                    "th": "การเป็นพ่อแม่เลี้ยงเดี่ยวอาจเป็นเรื่องที่ท้าทายแต่ก็คุ้มค่า",
+                    "id": "Menjadi orang tua tunggal bisa menantang tetapi juga memuaskan.",
+                    "ar": "كونك والدًا وحيدًا يمكن أن يكون صعبًا ولكنه مجزٍ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0d9a4e8dd8355a1cbc_1760867865135.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0d9a4e8dd8355a1cbf",
+                "word": "widowed",
+                "explanation": {
+                    "en": "Having lost one's spouse by death. A person whose husband or wife has died.",
+                    "vi": "Đã mất vợ/chồng do qua đời. Một người có chồng hoặc vợ đã mất.",
+                    "th": "การสูญเสียคู่สมรสด้วยความตาย บุคคลที่สามีหรือภรรยาเสียชีวิต",
+                    "id": "Telah kehilangan pasangan karena kematian. Seseorang yang suami atau istrinya telah meninggal.",
+                    "ar": "فقدان الزوج بالوفاة. شخص توفي زوجها أو زوجته."
+                },
+                "translation": {
+                    "vi": "goá (chồng hoặc vợ mất)",
+                    "th": "เป็นหม้าย",
+                    "id": "berstatus janda/duda",
+                    "ar": "أرمل/أرملة"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɪdəʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/widowed-uk-1760856414725.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɪdəʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/widowed-us-1760856415220.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My grandmother became widowed last year.",
+                    "vi": "Bà tôi đã trở thành góa phụ vào năm ngoái.",
+                    "th": "คุณย่าของฉันเป็นม่ายเมื่อปีที่แล้ว",
+                    "id": "Nenek saya menjadi janda tahun lalu.",
+                    "ar": "أصبحت جدتي أرملة العام الماضي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0d9a4e8dd8355a1cbf_1760867872765.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0d9a4e8dd8355a1cc2",
+                "word": "divorced",
+                "explanation": {
+                    "en": "Having legally separated from one's spouse. No longer married due to a legal action.",
+                    "vi": "Đã ly thân hợp pháp với vợ/chồng. Không còn kết hôn do hành động pháp lý.",
+                    "th": "ได้แยกทางกับคู่สมรสอย่างถูกกฎหมาย ไม่ได้แต่งงานกันอีกต่อไปเนื่องจากการดำเนินการทางกฎหมาย",
+                    "id": "Telah berpisah secara hukum dari pasangannya. Tidak lagi menikah karena tindakan hukum.",
+                    "ar": "انفصل عن زوجه قانونياً. لم يعد متزوجًا بسبب إجراء قانوني."
+                },
+                "translation": {
+                    "vi": "đã ly hôn",
+                    "th": "หย่าร้าง",
+                    "id": "bercerai",
+                    "ar": "مطلق/مطلقة"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/dɪˈvɔːst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/divorced-uk-1760856416512.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dɪˈvɔːrst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/divorced-us-1760856416923.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "They decided to get divorced after ten years of marriage.",
+                    "vi": "Họ quyết định ly hôn sau mười năm kết hôn.",
+                    "th": "พวกเขาตัดสินใจหย่าร้างกันหลังจากแต่งงานกันมาสิบปี",
+                    "id": "Mereka memutuskan untuk bercerai setelah sepuluh tahun menikah.",
+                    "ar": "قرروا الطلاق بعد عشر سنوات من الزواج."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0d9a4e8dd8355a1cc2_1760867880207.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0d9a4e8dd8355a1cc5",
+                "word": "family-oriented",
+                "explanation": {
+                    "en": "Giving a high priority to family relationships. Focused on the family unit and its needs.",
+                    "vi": "Ưu tiên cao cho các mối quan hệ gia đình. Tập trung vào đơn vị gia đình và nhu cầu của nó.",
+                    "th": "ให้ความสำคัญกับความสัมพันธ์ในครอบครัวเป็นอันดับแรก มุ่งเน้นไปที่หน่วยครอบครัวและความต้องการของครอบครัว",
+                    "id": "Memberikan prioritas tinggi pada hubungan keluarga. Berfokus pada unit keluarga dan kebutuhannya.",
+                    "ar": "إعطاء أولوية عالية للعلاقات الأسرية. يركز على الوحدة الأسرية واحتياجاتها."
+                },
+                "translation": {
+                    "vi": "coi trọng gia đình",
+                    "th": "ให้ความสำคัญกับครอบครัว",
+                    "id": "berorientasi keluarga",
+                    "ar": "يولي أهمية كبيرة للعائلة"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˌfæm.əl.iˈɔː.ri.ən.tɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/family-oriented-uk-ai-1760858034850.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌfæm.əl.iˈɔːr.i.ən.tɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/family-oriented-us-ai-1760858035510.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She is very family-oriented and loves spending time with them.",
+                    "vi": "Cô ấy rất hướng về gia đình và thích dành thời gian cho họ.",
+                    "th": "เธอเป็นคนรักครอบครัวมากและชอบใช้เวลากับพวกเขา",
+                    "id": "Dia sangat berorientasi pada keluarga dan suka menghabiskan waktu bersama mereka.",
+                    "ar": "إنها موجهة نحو الأسرة جدًا وتحب قضاء الوقت معهم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0d9a4e8dd8355a1cc5_1760867888029.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0d9a4e8dd8355a1cc8",
+                "word": "caring",
+                "explanation": {
+                    "en": "Displaying kindness and concern for others. Kind and sensitive to the needs of people.",
+                    "vi": "Thể hiện lòng tốt và sự quan tâm đến người khác. Tốt bụng và nhạy cảm với nhu cầu của mọi người.",
+                    "th": "แสดงความเมตตาและความห่วงใยผู้อื่น มีน้ำใจและอ่อนไหวต่อความต้องการของผู้คน",
+                    "id": "Menunjukkan kebaikan dan kepedulian terhadap orang lain. Baik hati dan peka terhadap kebutuhan orang lain.",
+                    "ar": "إظهار اللطف والاهتمام بالآخرين. لطيف وحساس لاحتياجات الناس."
+                },
+                "translation": {
+                    "vi": "biết quan tâm",
+                    "th": "ห่วงใย",
+                    "id": "peduli",
+                    "ar": "مهتم بالآخرين"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈkeərɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/caring-uk-1760856419091.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkerɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/caring-us-1760856419453.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He is a very caring person and always helps others.",
+                    "vi": "Anh ấy là một người rất chu đáo và luôn giúp đỡ người khác.",
+                    "th": "เขาเป็นคนที่มีน้ำใจมากและคอยช่วยเหลือผู้อื่นเสมอ",
+                    "id": "Dia adalah orang yang sangat peduli dan selalu membantu orang lain.",
+                    "ar": "إنه شخص مهتم جدًا ويساعد الآخرين دائمًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0d9a4e8dd8355a1cc8_1760867894803.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0d9a4e8dd8355a1ccb",
+                "word": "strict",
+                "explanation": {
+                    "en": "Demanding that rules concerning behaviour are obeyed. Enforcing rules firmly and completely.",
+                    "vi": "Yêu cầu các quy tắc về hành vi phải được tuân thủ. Thực thi các quy tắc một cách kiên quyết và hoàn toàn.",
+                    "th": "เรียกร้องให้ปฏิบัติตามกฎระเบียบเกี่ยวกับพฤติกรรม บังคับใช้กฎอย่างเคร่งครัดและสมบูรณ์",
+                    "id": "Menuntut agar aturan mengenai perilaku dipatuhi. Menegakkan aturan dengan tegas dan sepenuhnya.",
+                    "ar": "المطالبة بالالتزام الصارم بالقواعد المتعلقة بالسلوك. تطبيق القواعد بحزم وبشكل كامل."
+                },
+                "translation": {
+                    "vi": "nghiêm khắc",
+                    "th": "เข้มงวด",
+                    "id": "ketat",
+                    "ar": "صارم"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/strɪkt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/strict-uk-1760856420733.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/strɪkt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/strict-us-1760856421056.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My parents were strict about my bedtime.",
+                    "vi": "Cha mẹ tôi rất nghiêm khắc về giờ đi ngủ của tôi.",
+                    "th": "พ่อแม่ของฉันเข้มงวดเรื่องเวลานอนของฉัน",
+                    "id": "Orang tua saya sangat ketat tentang waktu tidur saya.",
+                    "ar": "كان والداي صارمين بشأن وقت نومي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0d9a4e8dd8355a1ccb_1760867902047.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0d9a4e8dd8355a1cce",
+                "word": "supportive",
+                "explanation": {
+                    "en": "Providing encouragement or emotional help. Giving support and showing loyalty.",
+                    "vi": "Cung cấp sự khuyến khích hoặc giúp đỡ về mặt tinh thần. Hỗ trợ và thể hiện lòng trung thành.",
+                    "th": "ให้กำลังใจหรือความช่วยเหลือทางอารมณ์ ให้การสนับสนุนและแสดงความภักดี",
+                    "id": "Memberikan dorongan atau bantuan emosional. Memberikan dukungan dan menunjukkan kesetiaan.",
+                    "ar": "تقديم التشجيع أو المساعدة العاطفية. تقديم الدعم وإظهار الولاء."
+                },
+                "translation": {
+                    "vi": "hay hỗ trợ, ủng hộ",
+                    "th": "ให้การสนับสนุน",
+                    "id": "suportif",
+                    "ar": "داعم"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/səˈpɔːtɪv/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/supportive-uk-1760856422313.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/səˈpɔːrtɪv/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/supportive-us-1760856422670.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Her friends were very supportive during her difficult time.",
+                    "vi": "Bạn bè của cô ấy rất ủng hộ trong thời gian khó khăn của cô ấy.",
+                    "th": "เพื่อนๆ ของเธอให้การสนับสนุนอย่างมากในช่วงเวลาที่ยากลำบากของเธอ",
+                    "id": "Teman-temannya sangat mendukung selama masa sulitnya.",
+                    "ar": "كان أصدقاؤها داعمين للغاية خلال فترة عصيبة مرت بها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0d9a4e8dd8355a1cce_1760867908959.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0e9a4e8dd8355a1cd1",
+                "word": "close-knit",
+                "explanation": {
+                    "en": "Working or living together closely and sharing interests. Having strong, reciprocal ties.",
+                    "vi": "Làm việc hoặc sống cùng nhau một cách chặt chẽ và chia sẻ sở thích. Có mối quan hệ bền chặt, tương hỗ.",
+                    "th": "ทำงานหรือใช้ชีวิตร่วมกันอย่างใกล้ชิดและแบ่งปันความสนใจ มีความผูกพันที่แน่นแฟ้นและเป็นประโยชน์ร่วมกัน",
+                    "id": "Bekerja atau hidup bersama secara erat dan berbagi minat. Memiliki ikatan yang kuat dan saling timbal balik.",
+                    "ar": "العمل أو العيش معًا بشكل وثيق وتبادل الاهتمامات. وجود روابط قوية ومتبادلة."
+                },
+                "translation": {
+                    "vi": "gắn bó",
+                    "th": "ผูกพันกันแน่นแฟ้น",
+                    "id": "erat",
+                    "ar": "مترابط"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˌkləʊsˈnɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/close-knit-uk-ai-1760858040420.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌkloʊsˈnɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/close-knit-us-ai-1760858041106.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our village has a very close-knit community.",
+                    "vi": "Làng của chúng tôi có một cộng đồng rất gắn bó.",
+                    "th": "หมู่บ้านของเรามีชุมชนที่แน่นแฟ้นมาก",
+                    "id": "Desa kami memiliki komunitas yang sangat erat.",
+                    "ar": "قريتنا لديها مجتمع مترابط للغاية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0e9a4e8dd8355a1cd1_1760867916256.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0e9a4e8dd8355a1cd4",
+                "word": "generation gap",
+                "explanation": {
+                    "en": "Differences in beliefs and values between generations. A lack of understanding between older and younger people.",
+                    "vi": "Sự khác biệt về niềm tin và giá trị giữa các thế hệ. Sự thiếu hiểu biết giữa người lớn tuổi và người trẻ tuổi.",
+                    "th": "ความแตกต่างในความเชื่อและค่านิยมระหว่างคนรุ่นต่างๆ การขาดความเข้าใจระหว่างคนรุ่นเก่าและคนรุ่นใหม่",
+                    "id": "Perbedaan keyakinan dan nilai antar generasi. Kurangnya pemahaman antara orang yang lebih tua dan lebih muda.",
+                    "ar": "الاختلافات في المعتقدات والقيم بين الأجيال. نقص التفاهم بين كبار السن والشباب."
+                },
+                "translation": {
+                    "vi": "khoảng cách thế hệ",
+                    "th": "ช่องว่างระหว่างวัย",
+                    "id": "kesenjangan generasi",
+                    "ar": "فجوة الأجيال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌdʒɛnəˈreɪʃən ɡæp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/generation-gap-uk-ai-1760858050802.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌdʒɛnəˈreɪʃən ɡæp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/generation-gap-us-ai-1760858051492.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "There is often a generation gap between teens and their grandparents.",
+                    "vi": "Thường có một khoảng cách thế hệ giữa thanh thiếu niên và ông bà của họ.",
+                    "th": "มักจะมีความแตกต่างระหว่างวัยรุ่นกับปู่ย่าตายายของพวกเขา",
+                    "id": "Seringkali ada kesenjangan generasi antara remaja dan kakek-nenek mereka.",
+                    "ar": "غالبًا ما توجد فجوة جيل بين المراهقين وأجدادهم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0e9a4e8dd8355a1cd4_1760867923699.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0e9a4e8dd8355a1cd7",
+                "word": "chores",
+                "explanation": {
+                    "en": "Routine tasks, especially household ones. Regular, daily work around the home.",
+                    "vi": "Các công việc thường ngày, đặc biệt là việc nhà. Công việc thường xuyên, hàng ngày quanh nhà.",
+                    "th": "งานประจำ โดยเฉพาะงานในครัวเรือน งานประจำวันรอบๆ บ้าน",
+                    "id": "Tugas rutin, terutama yang berhubungan dengan rumah tangga. Pekerjaan harian yang teratur di sekitar rumah.",
+                    "ar": "مهام روتينية، خاصة تلك المتعلقة بالمنزل. عمل يومي منتظم حول المنزل."
+                },
+                "translation": {
+                    "vi": "việc nhà",
+                    "th": "งานบ้าน",
+                    "id": "pekerjaan rumah tangga",
+                    "ar": "أعمال منزلية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tʃɔː(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chores-uk-1760856425696.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʃɔːr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chores-us-1760856426024.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I help with household chores every Saturday.",
+                    "vi": "Tôi giúp làm việc nhà vào mỗi thứ Bảy.",
+                    "th": "ฉันช่วยทำงานบ้านทุกวันเสาร์",
+                    "id": "Saya membantu pekerjaan rumah tangga setiap hari Sabtu.",
+                    "ar": "أنا أساعد في الأعمال المنزلية كل يوم سبت."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0e9a4e8dd8355a1cd7_1760867930598.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0e9a4e8dd8355a1cda",
+                "word": "discipline",
+                "explanation": {
+                    "en": "The practice of training people to obey rules. Control gained by enforcing order and rules.",
+                    "vi": "Việc rèn luyện con người tuân thủ các quy tắc. Sự kiểm soát đạt được bằng cách thực thi trật tự và quy tắc.",
+                    "th": "การฝึกฝนผู้คนให้เชื่อฟังกฎเกณฑ์ การควบคุมที่ได้มาจากการบังคับใช้ระเบียบและกฎ",
+                    "id": "Praktik melatih orang untuk mematuhi aturan. Kontrol yang diperoleh dengan menegakkan ketertiban dan aturan.",
+                    "ar": "ممارسة تدريب الناس على طاعة القواعد. السيطرة المكتسبة عن طريق فرض النظام والقواعد."
+                },
+                "translation": {
+                    "vi": "kỷ luật",
+                    "th": "ระเบียบวินัย",
+                    "id": "disiplin",
+                    "ar": "انضباط"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɪsəplɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/discipline-uk-1760856427301.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdɪsəplɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/discipline-us-1760856427678.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Good discipline helps children learn right from wrong.",
+                    "vi": "Kỷ luật tốt giúp trẻ em học được điều đúng sai.",
+                    "th": "ระเบียบวินัยที่ดีช่วยให้เด็กเรียนรู้ถูกผิด",
+                    "id": "Disiplin yang baik membantu anak-anak belajar membedakan yang benar dari yang salah.",
+                    "ar": "الانضباط الجيد يساعد الأطفال على تعلم الصواب من الخطأ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0e9a4e8dd8355a1cda_1760867937252.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0e9a4e8dd8355a1cdd",
+                "word": "upbringing",
+                "explanation": {
+                    "en": "The way a child is cared for and taught how to behave. The process of raising and educating a child.",
+                    "vi": "Cách một đứa trẻ được chăm sóc và dạy dỗ cách cư xử. Quá trình nuôi dạy và giáo dục một đứa trẻ.",
+                    "th": "วิธีที่เด็กได้รับการดูแลและสอนให้ประพฤติตน กระบวนการเลี้ยงดูและให้การศึกษาแก่เด็ก",
+                    "id": "Cara seorang anak diasuh dan diajari cara berperilaku. Proses membesarkan dan mendidik seorang anak.",
+                    "ar": "الطريقة التي يُعتنى بها بالطفل ويُعلّم كيف يتصرف. عملية تربية وتعليم الطفل."
+                },
+                "translation": {
+                    "vi": "sự nuôi dạy",
+                    "th": "การเลี้ยงดู",
+                    "id": "pengasuhan",
+                    "ar": "تربية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈʌpbrɪŋɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/upbringing-uk-1760856428987.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈʌpbrɪŋɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/upbringing-us-1760856429341.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "His polite manners are a result of his good upbringing.",
+                    "vi": "Cách cư xử lịch sự của anh ấy là kết quả của sự giáo dục tốt.",
+                    "th": "มารยาทที่สุภาพของเขาเป็นผลมาจากการเลี้ยงดูที่ดี",
+                    "id": "Sopan santunnya adalah hasil dari didikan yang baik.",
+                    "ar": "أخلاقه المهذبة هي نتيجة لتربيته الجيدة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0e9a4e8dd8355a1cdd_1760867944749.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d0f9a4e8dd8355a1ce0",
+                "word": "family values",
+                "explanation": {
+                    "en": "Moral and ethical principles traditionally upheld within a family. Beliefs passed down to children about how to live.",
+                    "vi": "Các nguyên tắc đạo đức và luân lý truyền thống được duy trì trong một gia đình. Những niềm tin được truyền lại cho con cái về cách sống.",
+                    "th": "หลักการทางศีลธรรมและจริยธรรมที่ยึดถือปฏิบัติกันมาในครอบครัว ความเชื่อที่ส่งต่อให้ลูกหลานเกี่ยวกับวิธีการใช้ชีวิต",
+                    "id": "Prinsip moral dan etika yang secara tradisional dijunjung tinggi dalam sebuah keluarga. Keyakinan yang diturunkan kepada anak-anak tentang cara hidup.",
+                    "ar": "المبادئ الأخلاقية والأخلاقية التي تُحترم تقليديًا داخل الأسرة. المعتقدات التي تنتقل إلى الأطفال حول كيفية العيش."
+                },
+                "translation": {
+                    "vi": "giá trị gia đình",
+                    "th": "ค่านิยมครอบครัว",
+                    "id": "nilai-nilai keluarga",
+                    "ar": "قيم عائلية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfæm.əl.i ˈvæl.juːz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/family-values-uk-ai-1760858056861.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfæm.əl.i ˈvæl.juːz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/family-values-us-ai-1760858057418.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We teach our children strong family values.",
+                    "vi": "Chúng tôi dạy con cái những giá trị gia đình vững chắc.",
+                    "th": "เราสอนลูกๆ ของเราให้มีค่านิยมครอบครัวที่เข้มแข็ง",
+                    "id": "Kami mengajarkan anak-anak kami nilai-nilai keluarga yang kuat.",
+                    "ar": "نحن نعلم أطفالنا قيمًا عائلية قوية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d0f9a4e8dd8355a1ce0_1760867951632.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de84",
+                "group_name": "Family",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 49
+    }
+}

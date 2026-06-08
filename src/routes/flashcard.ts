@@ -8,6 +8,9 @@ router.get('', FlashcardController.getAllFlashcard);
 router.get('/category/:cateId', FlashcardController.getFlashcardByCategory);
 router.post('/by-source', FlashcardController.getFlashcardBySource);
 router.post('/', FlashcardController.createFlashcard);
+router.post('/bulk', FlashcardController.bulkCreateFlashcards);
+router.put('/bulk', FlashcardController.bulkUpdateFlashcards);
+router.delete('/bulk', FlashcardController.bulkDeleteFlashcards);
 router.put('/:id', FlashcardController.updateFlashcard);
 router.delete('/:id', FlashcardController.deleteFlashcard);
 

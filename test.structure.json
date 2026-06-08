@@ -1,0 +1,270 @@
+{
+  "_id": {
+    "$oid": "68de5afc0d59e9c5e7b0bd6d"
+  },
+  "testTitle": "2024 Practice Set TOEIC Test 10",
+  "type": "listening-reading",
+  "duration": 120,
+  "number_of_questions": 200,
+  "number_of_parts": 7,
+  "parts": [
+    {
+      "partName": "Part 1",
+      "questions": [
+        {
+          "questionNumber": 1,
+          "questionText": null,
+          "options": [
+            { "label": "A", "text": "" },
+            { "label": "B", "text": "" },
+            { "label": "C", "text": "" },
+            { "label": "D", "text": "" }
+          ],
+          "correctAnswer": "D",
+          "explanation": "\n                <p><b>Dịch đáp án:</b></p><p><span>(A) Người đàn ông đang với tay lên trên một cái kệ.</span></p><p><span>(B) Người đàn ông đang chỉnh lại kính của mình.</span></p><p><span>(C) Người đàn ông đang trả tiền cho một món hàng.</span></p><p><span>(D) Người đàn ông đang thử găng tay.</span></p>\n                \n            ",
+          "media": {
+            "audioUrl": "https://s4-media1.study4.com/media/e24/audio/questions/Test_10/Test_10-1.mp3",
+            "imageUrls": ["https://s4-media1.study4.com/media/e24/images_fixed2/image236.png"],
+            "passageHtml": null,
+            "transcript": "<p><span>(A) The man is reaching above a shelf.</span></p><p><span>(B) The man is adjusting his glasses.</span></p><p><span>(C) The man is paying for an item.</span></p><p><span>(D) The man is trying on gloves.</span></p>",
+            "translation": null
+          },
+          "contentTags": {
+            "difficulty": "B1",
+            "style": "neutral",
+            "domain": ["customer_service"],
+            "genre": ["conversation"],
+            "setting": ["store"]
+          },
+          "skillTags": {
+            "part": "1",
+            "skills": ["identifyActionInProgress"],
+            "distractorTypes": ["wrongSubjectVerb"]
+          },
+          "_id": { "$oid": "68de5af095a2c8eceae85e65" }
+        }
+      ],
+      "_id": { "$oid": "68de5af095a2c8eceae85e64" }
+    },
+    {
+      "partName": "Part 2",
+      "questions": [
+        {
+          "questionNumber": 7,
+          "questionText": null,
+          "options": [
+            { "label": "A", "text": "" },
+            { "label": "B", "text": "" },
+            { "label": "C", "text": "" }
+          ],
+          "correctAnswer": "A",
+          "explanation": "\n                <p><b>Dịch đáp án:</b></p><p><span>w-Am Khi nào bạn sẽ giao đồ nội thất tôi đã đặt?</span></p><p><span>M-Âu (A) Chậm nhất là thứ ba. (B) Cho một số khách hàng. (C) Tôi đã mua một chiếc xe kéo.</span></p>\n                \n            ",
+          "media": {
+            "audioUrl": "https://s4-media1.study4.com/media/e24/audio/questions/Test_10/Test_10-7.mp3",
+            "imageUrls": null,
+            "passageHtml": null,
+            "transcript": "<p><span>w-Am When will you deliver the furniture I ordered?</span></p><p><span>M-Au (A) By Tuesday at the latest. (B) To several clients. (C) I bought a trailer.</span></p>",
+            "translation": null
+          },
+          "contentTags": {
+            "difficulty": "B1",
+            "style": "neutral",
+            "domain": ["customer_service", "logistics"],
+            "genre": ["conversation"],
+            "setting": ["office"]
+          },
+          "skillTags": {
+            "part": "2",
+            "questionForm": "wh_question",
+            "question_function": "information_seeking",
+            "responseStrategy": "direct"
+          },
+          "_id": { "$oid": "68de5af095a2c8eceae85e6c" }
+        }
+      ],
+      "_id": { "$oid": "68de5af095a2c8eceae85e6b" }
+    },
+    {
+      "partName": "Part 3",
+      "questionGroups": [
+        {
+          "groupContext": {
+            "audioUrl": "https://s4-media1.study4.com/media/e24/audio/questions/Test_10/Test_10-32-34.mp3",
+            "imageUrls": null,
+            "passageHtml": null,
+            "transcript": "<p><span>M-Cn Welcome to the Firelamp Bistro. (32)How many for dinner?</span></p><p><span>W-Br There'll be five of us, but (32)I’m afraid I forgot to make a reservation.</span></p><p><span>M-Cn No problem. But I should mention that (33) we'll be closing earlier than usual this evening for a private event. If you'd like to sit outdoors on the patio while you wait, I'll send a server to get you started with drinks and appetizers. We'll get you seated as soon as possible.</span></p><p><span>W-Br That sounds fine. Thank you. And if possible, (34)we’d like to sit in a quieter part of the restaurant. We have some business to discuss.</span></p>",
+            "translation": "<p><span>M-Cn Chào mừng bạn đến với Firelamp Bistro. (32)Bữa tối có bao nhiêu người?</span></p><p><span>W-Br Sẽ có năm người chúng tôi, nhưng (32)tôi e rằng tôi đã quên đặt chỗ trước.</span></p><p><span>M-Cn Không vấn đề gì. Nhưng tôi nên đề cập rằng (33) tối nay chúng tôi sẽ đóng cửa sớm hơn thường lệ để tổ chức một sự kiện riêng. Nếu bạn muốn ngồi ngoài hiên trong khi chờ đợi, tôi sẽ cử người phục vụ để giúp bạn bắt đầu với đồ uống và món khai vị. Chúng tôi sẽ giúp bạn có chỗ ngồi sớm nhất có thể.</span></p><p><span>W-Br Nghe ổn đấy. Cảm ơn. Và nếu có thể, (34)chúng tôi muốn ngồi ở một nơi yên tĩnh hơn trong nhà hàng. Chúng tôi có một số công việc cần thảo luận.</span></p>"
+          },
+          "questions": [
+            {
+              "questionNumber": 32,
+              "questionText": "What did the woman forget to do?",
+              "options": [
+                { "label": "A", "text": "Ask about menu choices" },
+                { "label": "B", "text": "Reserve a table" },
+                { "label": "C", "text": "Invite a colleague" },
+                { "label": "D", "text": "Bring a parking permit" }
+              ],
+              "correctAnswer": "B",
+              "explanation": "\n                <p><b>Dịch đáp án:</b></p><p><span>Người phụ nữ đã quên làm gì?</span></p><p><span>(A) Hỏi về các lựa chọn thực đơn </span></p><p><span>(B) Đặt bàn</span></p><p><span>(C) Mời đồng nghiệp</span></p><p><span>(D) Mang theo giấy phép đậu xe</span></p>\n                \n            ",
+              "contentTags": {
+                "difficulty": "B1",
+                "style": "neutral",
+                "domain": ["hospitality", "business"],
+                "genre": ["conversation"],
+                "setting": ["restaurant", "office"]
+              },
+              "skillTags": { "part": "3", "skillCategory": "DETAIL", "skillDetail": "specific_detail" },
+              "_id": { "$oid": "68de5af095a2c8eceae85e87" },
+              "groupId": { "$oid": "68de5af095a2c8eceae85e86" }
+            }
+          ],
+          "_id": { "$oid": "68de5af095a2c8eceae85e86" }
+        }
+      ],
+      "_id": { "$oid": "68de5af095a2c8eceae85e85" }
+    },
+    {
+      "partName": "Part 4",
+      "questionGroups": [
+        {
+          "groupContext": {
+            "audioUrl": "https://s4-media1.study4.com/media/e24/audio/questions/Test_10/Test_10-71-73.mp3",
+            "imageUrls": null,
+            "passageHtml": null,
+            "transcript": "<p><span>M-Cn (71)Some of you have been accidentally skipping some of your closing duties, so I've called this meeting to clarify what is expected. (72)After you've sanitized all the food preparation areas in the kitchen, make sure the pantry and walk-in refrigerator doors are shut and locked. There are a few other tasks to complete before you leave. (73)I know the current checklist isn’t up-to-date, so I'll referring to make the necessary revisions to it.</span></p>",
+            "translation": "<p><span>M-Cn (71)Một số bạn đã vô tình bỏ qua một số nhiệm vụ khi kết thúc của mình, vì vậy tôi đã triệu tập cuộc họp này để làm rõ những gì sẽ xảy ra. (72)Sau khi vệ sinh tất cả các khu vực chuẩn bị thức ăn trong nhà bếp, hãy đảm bảo cửa tủ đựng thức ăn và tủ lạnh cỡ nhỏ được đóng và khóa. Có một số nhiệm vụ khác phải hoàn thành trước khi bạn rời đi. (73)Tôi biết danh sách kiểm tra hiện tại chưa được cập nhật, vì vậy tôi sẽ đề cập đến việc thực hiện những sửa đổi cần thiết cho nó.</span></p>"
+          },
+          "questions": [
+            {
+              "questionNumber": 71,
+              "questionText": "What is the purpose of a meeting?",
+              "options": [
+                { "label": "A", "text": "To prepare staff for a special event" },
+                { "label": "B", "text": "To review some closing procedures" },
+                { "label": "C", "text": "To introduce some staff members" },
+                { "label": "D", "text": "To resolve an issue with inventory" }
+              ],
+              "correctAnswer": "B",
+              "explanation": "\n                <p><b>Dịch đáp án:</b></p><p><span>Mục đích của cuộc họp là gì?</span></p><p><span>(A) Để chuẩn bị nhân sự cho một sự kiện đặc biệt</span></p><p><span>(B) Để xem lại một số quy trình kết thúc</span></p><p><span>(C) Để giới thiệu một số nhân viên </span></p><p><span>(D) Để giải quyết vấn đề về hàng tồn kho</span></p>\n                \n            ",
+              "contentTags": {
+                "difficulty": "B1",
+                "style": "neutral",
+                "domain": ["business", "office"],
+                "genre": ["presentation"],
+                "setting": ["office", "meeting_room"]
+              },
+              "skillTags": { "part": "4", "skillCategory": "GIST", "skillDetail": "purpose" },
+              "_id": { "$oid": "68de5af095a2c8eceae85ebc" },
+              "groupId": { "$oid": "68de5af095a2c8eceae85ebb" }
+            }
+          ],
+          "_id": { "$oid": "68de5af095a2c8eceae85ebb" }
+        }
+      ],
+      "_id": { "$oid": "68de5af095a2c8eceae85eba" }
+    },
+    {
+      "partName": "Part 5",
+      "questions": [
+        {
+          "questionNumber": 101,
+          "questionText": "According to the department head, -- are ready to begin work on the Arborney Bridge project.",
+          "options": [
+            { "label": "A", "text": "us" },
+            { "label": "B", "text": "we" },
+            { "label": "C", "text": "our" },
+            { "label": "D", "text": "ours" }
+          ],
+          "correctAnswer": "B",
+          "explanation": "\n                <p><b>Dịch đáp án:</b></p><p><span>Theo người đứng đầu bộ phận, ------- đã sẵn sàng bắt đầu công việc tại dự án cầu Arborney.</span></p><p><span>(A) chúng tôi</span></p><p><span>(B) chúng tôi</span></p><p><span>(C) của chúng tôi</span></p><p><span>(D) của chúng tôi</span></p><p><span>Có thể thấy câu thiếu chủ ngữ, vậy ta cần một danh từ hoặc đại từ đóng vai trò chủ ngữ cho câu. Nếu “us” và “our” muốn làm chủ ngữ, theo sau phải có danh từ; “ours” cũng không phù hợp, vì với ngữ cảnh của câu thì chưa rõ nó thay thế cho danh từ gì. “We” là đáp án phù hợp nhất.</span></p><p><span>=&gt; Đáp án (B)</span></p>\n                \n            ",
+          "media": { "audioUrl": null, "imageUrls": null, "passageHtml": null, "transcript": null, "translation": null },
+          "contentTags": { "difficulty": "A2", "style": "neutral", "domain": ["business"], "genre": ["announcement"], "setting": ["office"] },
+          "skillTags": { "part": "5", "grammarPoint": "pronoun", "vocabPoint": null },
+          "_id": { "$oid": "68de5af095a2c8eceae85ee4" }
+        }
+      ],
+      "_id": { "$oid": "68de5af095a2c8eceae85ee3" }
+    },
+    {
+      "partName": "Part 6",
+      "questionGroups": [
+        {
+          "groupContext": {
+            "audioUrl": null,
+            "imageUrls": ["https://s4-media1.study4.com/media/e24/images_fixed2/image107.png"],
+            "passageHtml": "<div><p><img alt=\"\" src=\"https://s4-media1.study4.com/media/e24/images_fixed2/image107.png\" title=\"\"></p></div>",
+            "transcript": "<div><div><b>Kray Villa Museum To Celebrate Grand Opening</b></div><div><br></div><div>DEERFIELD (May 2)-The official opening of the Kray Villa Museum will take place on May 29 at 10 A.M. To mark the occasion, various festivities will be held throughout the day. ----- (131). Visin www.krayvillamuseum.org for details.</div><div><br></div><div>The museum is housed in the imposing structure ----- (132). was home to the once-influential Kray family beginning in the late 1800s. Having laid abandoned for the last 30 years, the property was purchased 2 years ago by the Deerfield Historical Society. Subsequently, the gardens were restored to appear as they did when the first generation of Krays moved into the villa. ----- (133), furnishings of the kind most likely used by the family are on display.</div><div><br></div><div>During the museum's opening festivities, a live band ----- (134) music that was popular in the late nineteenth century.</div> </div>",
+            "translation": "<p><span>Bảo tàng biệt thự Kray mừng khai trương</span></p><p><span>DEERFIELD (ngày 2 tháng 5)—Lễ khai trương chính thức của Bảo tàng Biệt thự Kray sẽ diễn ra vào lúc 10 giờ sáng ngày 29 tháng 5. Để đánh dấu sự kiện này, nhiều lễ hội khác nhau sẽ được tổ chức suốt cả ngày. (131). Hãy truy cập www.krayvillamuseum.org để biết thêm chi tiết.</span></p><p><span>Bảo tàng nằm trong công trình kiến trúc hùng vĩ (132) là nơi sinh sống của gia đình Kray có ảnh hưởng một thời bắt đầu từ cuối những năm 1800. Bị bỏ hoang trong 30 năm qua, tài sản này đã được Hiệp hội Lịch sử Deerfield mua cách đây 2 năm. Sau đó, những khu vườn đã được khôi phục để trông giống như khi thế hệ Krays đầu tiên chuyển đến biệt thự. (133), đồ nội thất thuộc loại mà gia đình thường sử dụng nhất đang được trưng bày.</span></p><p><span>Trong lễ hội khai trương bảo tàng, một ban nhạc sống (134) loại nhạc đã phổ biến vào cuối thế kỷ 19.</span></p>"
+          },
+          "questions": [
+            {
+              "questionNumber": 131,
+              "questionText": null,
+              "options": [
+                { "label": "A", "text": "This year’s celebrations are part of a weeklong national campaign." },
+                { "label": "B", "text": "Results of the survey will be presented at 6:00 p.m." },
+                { "label": "C", "text": "Programs will be distributed at the next meeting." },
+                { "label": "D", "text": "Admission is free, but a donation is suggested." }
+              ],
+              "correctAnswer": "D",
+              "explanation": "\n                <p><b>Dịch đáp án:</b></p><p><span>(A) Lễ kỷ niệm năm nay là một phần của chiến dịch quốc gia kéo dài một tuần.</span></p><p><span>(B) Kết quả khảo sát sẽ được trình bày lúc 6 giờ chiều.</span></p><p><span>(C) Các chương trình sẽ được phân phát tại cuộc họp tiếp theo.</span></p><p><span>(D) Vào cửa miễn phí nhưng nên quyên góp.</span></p><p><span>Ta dựa vào câu trước và câu sau chỗ trống để điền câu tạo thành mạch logic hoàn chỉnh.</span></p><p><span>Câu trước chỗ trống cho biết các hoạt động ăn mừng sẽ được tổ chức nhân dịp bảo tàng chính thức mở cửa. Câu sau chỗ trống cung cấp địa chỉ trang web có chứa thông tin chi tiết.</span></p><p><span>=&gt; Chỗ trống cần điền câu liên quan đến hoạt động trong dịp khai trương bảo tàng.</span></p><p><span>=&gt; Loại B và C</span></p><p><span>A có vẻ hợp lý, nhưng nếu phân tích kĩ, ta sẽ thấy cụm \"this year's celebrations\" chứng tỏ những năm khác cũng có \"celebrations\", trong khi việc ăn mừng lại chỉ diễn ra nhân dịp khai trương bảo tàng mà thôi =&gt; loại A</span></p><p><span>=&gt; Đáp án (D)</span></p>\n                \n            ",
+              "contentTags": { "difficulty": "B2", "style": "formal", "domain": ["business"], "genre": ["announcement"], "setting": ["office"] },
+              "skillTags": { "part": "6", "tagType": "sentence_insertion" },
+              "_id": { "$oid": "68de5af095a2c8eceae85f04" },
+              "groupId": { "$oid": "68de5af095a2c8eceae85f03" }
+            }
+          ],
+          "_id": { "$oid": "68de5af095a2c8eceae85f03" }
+        }
+      ],
+      "_id": { "$oid": "68de5af095a2c8eceae85f02" }
+    },
+    {
+      "partName": "Part 7",
+      "questionGroups": [
+        {
+          "groupContext": {
+            "audioUrl": null,
+            "imageUrls": ["https://s4-media1.study4.com/media/e24/images_fixed2/image270.png"],
+            "passageHtml": "<div><p><img alt=\"\" src=\"https://s4-media1.study4.com/media/e24/images_fixed2/image270.png\" title=\"\"></p></div>",
+            "transcript": "<div><div><b>Galloway Office Park</b></div><div><br></div><div><u>Building 1</u></div><div>Harris Toddman, MD</div><div>Lansin Diagnostic Labs</div><div>Smiley Dental Offices</div><div><br></div><div><u>Building 2</u></div><div>Freel Primary Care Physicians</div><div>Rally Star Physical Therapy Associates</div><div><u><br></u></div><div><u>Building 3</u></div><div>Lee and Associates, Internists</div><div>Kare Medical Services</div><div><br></div><div><u>Building 4</u></div><div>Lurie Pharmaceuticals</div><div>No Truck Access</div><div>No Soliciting</div><div>No Trespassing</div> </div>",
+            "translation": "<p><span>Khu Văn phòng Galloway</span></p><p><span>Harris Toddman, Bác sĩ y khoa</span></p><p><span>Phòng thí nghiệm chẩn đoán Lansin</span></p><p><span>Nha khoa Smiley</span></p><p><span>Tòa nhà 2</span></p><p><span>Bác sĩ chăm sóc chính Freel</span></p><p><span>Hiệp hội Vật lý trị liệu Rally Star</span></p><p><span>Tòa nhà 3</span></p><p><span>Lee và cộng sự, bác sĩ nội khoa</span></p><p><span>Dịch vụ y tế Kare</span></p><p><span>Tòa nhà 4</span></p><p><span>Dược phẩm Lurie</span></p><p><span>Không cho xe tải vào</span></p><p><span>Không chào mời</span></p><p><span>Không xâm phạm</span></p>"
+          },
+          "questions": [
+            {
+              "questionNumber": 147,
+              "questionText": "Where would the sign most likely be found?",
+              "options": [
+                { "label": "A", "text": "On an office desk" },
+                { "label": "B", "text": "In a hospital waiting room" },
+                { "label": "C", "text": "In the lobby of a real estate agency" },
+                { "label": "D", "text": "Near the entrance of an office complex" }
+              ],
+              "correctAnswer": "D",
+              "explanation": "\n                <p><b>Dịch đáp án:</b></p><p><span>Biển báo có nhiều khả năng được tìm thấy ở đâu nhất?</span></p><p><span>(A) Trên bàn văn phòng</span></p><p><span>(B) Trong phòng chờ của bệnh viện</span></p><p><span>(C) Tại sảnh của một đại lý bất động sản</span></p><p><span>(D) Gần lối vào của một khu phức hợp văn phòng</span></p>\n                \n            ",
+              "contentTags": {
+                "difficulty": "B2",
+                "style": "neutral",
+                "domain": ["business", "real_estate"],
+                "genre": ["announcement"],
+                "setting": ["office", "reception"]
+              },
+              "skillTags": {
+                "part": "7",
+                "skillCategory": "INFERENCE",
+                "skillDetail": "inferImplication",
+                "passageType": "single",
+                "requiresCrossReference": false
+              },
+              "_id": { "$oid": "68de5af095a2c8eceae85f19" },
+              "groupId": { "$oid": "68de5af095a2c8eceae85f18" }
+            }
+          ],
+          "_id": { "$oid": "68de5af095a2c8eceae85f18" }
+        }
+      ],
+      "_id": { "$oid": "68de5af095a2c8eceae85f17" }
+    }
+  ]
+}

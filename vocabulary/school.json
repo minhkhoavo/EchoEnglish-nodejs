@@ -1,0 +1,2209 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47d509a4e8dd8355a1cf1",
+                "word": "student",
+                "explanation": {
+                    "en": "A person formally engaged in learning. Someone who is enrolled at a school or college.",
+                    "vi": "Một người đang chính thức tham gia vào việc học. Người đang theo học tại một trường học hoặc trường cao đẳng.",
+                    "th": "บุคคลที่กำลังศึกษาอย่างเป็นทางการ ผู้ที่ลงทะเบียนเรียนในโรงเรียนหรือวิทยาลัย",
+                    "id": "Seseorang yang secara formal terlibat dalam pembelajaran. Seseorang yang terdaftar di sekolah atau perguruan tinggi.",
+                    "ar": "شخص يشارك رسميًا في التعلم. شخص مسجل في مدرسة أو كلية."
+                },
+                "translation": {
+                    "vi": "học sinh",
+                    "th": "นักเรียน",
+                    "id": "siswa",
+                    "ar": "طالب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈstjuːdnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/student-uk-1760856431471.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈstuːdnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/student-us-1760856431820.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The student studied hard for the upcoming test.",
+                    "vi": "Học sinh đã học hành chăm chỉ cho bài kiểm tra sắp tới.",
+                    "th": "นักเรียนตั้งใจเรียนอย่างหนักสำหรับการสอบที่กำลังจะมาถึง",
+                    "id": "Siswa belajar keras untuk ujian yang akan datang.",
+                    "ar": "درس الطالب بجد للاختبار القادم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d509a4e8dd8355a1cf1_1760867958408.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d509a4e8dd8355a1cf4",
+                "word": "teacher",
+                "explanation": {
+                    "en": "A person who educates others. Someone who instructs in a school.",
+                    "vi": "Một người giáo dục người khác. Người hướng dẫn trong một trường học.",
+                    "th": "บุคคลที่ให้การศึกษาแก่ผู้อื่น ผู้ที่สอนในโรงเรียน",
+                    "id": "Seseorang yang mendidik orang lain. Seseorang yang mengajar di sekolah.",
+                    "ar": "شخص يقوم بتعليم الآخرين. شخص يقوم بالتدريس في مدرسة."
+                },
+                "translation": {
+                    "vi": "giáo viên",
+                    "th": "ครู",
+                    "id": "guru",
+                    "ar": "معلم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtiːtʃə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/teacher-uk-1760856433092.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtiːtʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/teacher-us-1760856433431.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The teacher explained the lesson clearly to the class.",
+                    "vi": "Giáo viên đã giải thích bài học rõ ràng cho cả lớp.",
+                    "th": "ครูอธิบายบทเรียนให้ชั้นเรียนฟังอย่างชัดเจน",
+                    "id": "Guru menjelaskan pelajaran dengan jelas kepada kelas.",
+                    "ar": "شرح المعلم الدرس بوضوح للفصل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d509a4e8dd8355a1cf4_1760867965415.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d509a4e8dd8355a1cf7",
+                "word": "classroom",
+                "explanation": {
+                    "en": "A room where instruction takes place. The place where pupils have lessons.",
+                    "vi": "Một căn phòng nơi diễn ra việc giảng dạy. Nơi học sinh có các bài học.",
+                    "th": "ห้องที่ใช้สำหรับการเรียนการสอน สถานที่ที่นักเรียนมีบทเรียน",
+                    "id": "Sebuah ruangan tempat pengajaran berlangsung. Tempat di mana siswa menerima pelajaran.",
+                    "ar": "غرفة يتم فيها التدريس. المكان الذي يتلقى فيه التلاميذ الدروس."
+                },
+                "translation": {
+                    "vi": "lớp học",
+                    "th": "ห้องเรียน",
+                    "id": "ruang kelas",
+                    "ar": "فصل دراسي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈklɑːsruːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/classroom-uk-1760856434693.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈklæsruːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/classroom-us-1760856435039.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The students sat quietly in the classroom.",
+                    "vi": "Các học sinh ngồi yên lặng trong lớp học.",
+                    "th": "นักเรียนนั่งเงียบๆ ในห้องเรียน",
+                    "id": "Para siswa duduk dengan tenang di ruang kelas.",
+                    "ar": "جلس الطلاب بهدوء في الفصل الدراسي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d509a4e8dd8355a1cf7_1760867972917.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d509a4e8dd8355a1cfa",
+                "word": "blackboard",
+                "explanation": {
+                    "en": "A dark surface used for writing with chalk. A common teaching aid in the past.",
+                    "vi": "Một bề mặt tối màu dùng để viết bằng phấn. Một công cụ hỗ trợ giảng dạy phổ biến trong quá khứ.",
+                    "th": "พื้นผิวสีเข้มที่ใช้เขียนด้วยชอล์ก อุปกรณ์ช่วยสอนทั่วไปในอดีต",
+                    "id": "Permukaan gelap yang digunakan untuk menulis dengan kapur. Alat bantu mengajar yang umum di masa lalu.",
+                    "ar": "سطح داكن يستخدم للكتابة بالطباشير. وسيلة تعليمية شائعة في الماضي."
+                },
+                "translation": {
+                    "vi": "bảng đen",
+                    "th": "กระดานดำ",
+                    "id": "papan tulis hitam",
+                    "ar": "سبورة سوداء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈblækbɔːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/blackboard-uk-1760856436304.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈblækbɔːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/blackboard-us-1760856436644.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The teacher wrote the math problem on the blackboard.",
+                    "vi": "Giáo viên viết bài toán lên bảng đen.",
+                    "th": "ครูเขียนโจทย์คณิตศาสตร์บนกระดานดำ",
+                    "id": "Guru menulis soal matematika di papan tulis.",
+                    "ar": "كتب المعلم المسألة الرياضية على السبورة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d509a4e8dd8355a1cfa_1760867981742.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d519a4e8dd8355a1cfd",
+                "word": "homework",
+                "explanation": {
+                    "en": "School assignments to be done outside of class. Required tasks completed at home.",
+                    "vi": "Các bài tập ở trường phải làm ngoài giờ học. Các nhiệm vụ bắt buộc phải hoàn thành tại nhà.",
+                    "th": "งานที่โรงเรียนมอบหมายให้ทำนอกเวลาเรียน งานที่ต้องทำที่บ้าน",
+                    "id": "Tugas sekolah yang harus dikerjakan di luar jam pelajaran. Tugas wajib yang diselesaikan di rumah.",
+                    "ar": "واجبات مدرسية تُنجز خارج الفصل. مهام مطلوبة تُكمل في المنزل."
+                },
+                "translation": {
+                    "vi": "bài tập về nhà",
+                    "th": "การบ้าน",
+                    "id": "pekerjaan rumah",
+                    "ar": "واجب منزلي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhəʊmwɜːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/homework-uk-1760856437923.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhəʊmwɜːrk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/homework-us-1760856438263.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need to finish my homework before dinner.",
+                    "vi": "Tôi cần hoàn thành bài tập về nhà trước bữa tối.",
+                    "th": "ฉันต้องทำการบ้านให้เสร็จก่อนอาหารเย็น",
+                    "id": "Saya harus menyelesaikan pekerjaan rumah saya sebelum makan malam.",
+                    "ar": "أحتاج إلى إنهاء واجبي المنزلي قبل العشاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d519a4e8dd8355a1cfd_1760867988898.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d519a4e8dd8355a1d00",
+                "word": "exam",
+                "explanation": {
+                    "en": "A formal test of knowledge or ability. An important assessment in education.",
+                    "vi": "Một bài kiểm tra chính thức về kiến thức hoặc khả năng. Một đánh giá quan trọng trong giáo dục.",
+                    "th": "การทดสอบความรู้หรือความสามารถอย่างเป็นทางการ การประเมินที่สำคัญในการศึกษา",
+                    "id": "Tes formal pengetahuan atau kemampuan. Penilaian penting dalam pendidikan.",
+                    "ar": "اختبار رسمي للمعرفة أو القدرة. تقييم مهم في التعليم."
+                },
+                "translation": {
+                    "vi": "kỳ thi",
+                    "th": "การสอบ",
+                    "id": "ujian",
+                    "ar": "امتحان"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪɡˈzæm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/exam-uk-1760856439537.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪɡˈzæm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/exam-us-1760856439883.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She passed her final exam with an excellent score.",
+                    "vi": "Cô ấy đã vượt qua kỳ thi cuối kỳ với điểm số xuất sắc.",
+                    "th": "เธอสอบปลายภาคผ่านด้วยคะแนนที่ยอดเยี่ยม",
+                    "id": "Dia lulus ujian akhir dengan nilai yang sangat baik.",
+                    "ar": "اجتازت امتحانها النهائي بدرجة ممتازة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d519a4e8dd8355a1d00_1760867995717.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d519a4e8dd8355a1d03",
+                "word": "subject",
+                "explanation": {
+                    "en": "An area of knowledge studied in a curriculum. A course like Math or History.",
+                    "vi": "Một lĩnh vực kiến thức được nghiên cứu trong chương trình học. Một khóa học như Toán hoặc Lịch sử.",
+                    "th": "สาขาวิชาความรู้ที่ศึกษาในหลักสูตร วิชาเช่น คณิตศาสตร์หรือประวัติศาสตร์",
+                    "id": "Bidang pengetahuan yang dipelajari dalam kurikulum. Mata pelajaran seperti Matematika atau Sejarah.",
+                    "ar": "مجال معرفي يُدرس في المنهج الدراسي. مقرر دراسي مثل الرياضيات أو التاريخ."
+                },
+                "translation": {
+                    "vi": "môn học",
+                    "th": "วิชา",
+                    "id": "mata pelajaran",
+                    "ar": "مادة دراسية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsʌbdʒɪkt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/subject-uk-1760856441172.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsʌbdʒɪkt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/subject-us-1760856441516.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My favorite subject in school is history.",
+                    "vi": "Môn học yêu thích của tôi ở trường là lịch sử.",
+                    "th": "วิชาโปรดของฉันที่โรงเรียนคือประวัติศาสตร์",
+                    "id": "Mata pelajaran favorit saya di sekolah adalah sejarah.",
+                    "ar": "مادتي المفضلة في المدرسة هي التاريخ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d519a4e8dd8355a1d03_1760868002288.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d519a4e8dd8355a1d06",
+                "word": "library",
+                "explanation": {
+                    "en": "A building or room containing collections of books. A place for quiet study and reading.",
+                    "vi": "Một tòa nhà hoặc căn phòng chứa các bộ sưu tập sách. Một nơi để học tập và đọc sách yên tĩnh.",
+                    "th": "อาคารหรือห้องที่เก็บรวบรวมหนังสือ สถานที่สำหรับการศึกษาและอ่านหนังสืออย่างเงียบสงบ",
+                    "id": "Sebuah bangunan atau ruangan yang berisi koleksi buku. Tempat untuk belajar dan membaca dengan tenang.",
+                    "ar": "مبنى أو غرفة تحتوي على مجموعات من الكتب. مكان للدراسة والقراءة الهادئة."
+                },
+                "translation": {
+                    "vi": "thư viện",
+                    "th": "ห้องสมุด",
+                    "id": "perpustakaan",
+                    "ar": "مكتبة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈlaɪbrəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/library-uk-1760856442803.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈlaɪbreri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/library-us-1760856443156.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I borrowed a book from the school library.",
+                    "vi": "Tôi đã mượn một cuốn sách từ thư viện trường.",
+                    "th": "ฉันยืมหนังสือจากห้องสมุดโรงเรียน",
+                    "id": "Saya meminjam buku dari perpustakaan sekolah.",
+                    "ar": "استعرت كتابًا من مكتبة المدرسة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d519a4e8dd8355a1d06_1760868010292.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d519a4e8dd8355a1d09",
+                "word": "principal",
+                "explanation": {
+                    "en": "The head of a school. The administrative leader of an institution.",
+                    "vi": "Người đứng đầu một trường học. Người lãnh đạo hành chính của một tổ chức.",
+                    "th": "หัวหน้าโรงเรียน ผู้นำฝ่ายบริหารของสถาบัน",
+                    "id": "Kepala sekolah. Pemimpin administratif sebuah institusi.",
+                    "ar": "رئيس المدرسة. القائد الإداري لمؤسسة."
+                },
+                "translation": {
+                    "vi": "hiệu trưởng",
+                    "th": "ผู้อำนวยการโรงเรียน",
+                    "id": "kepala sekolah",
+                    "ar": "مدير المدرسة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈprɪnsəpl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/principal-uk-1760856444434.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈprɪnsəpl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/principal-us-1760856444799.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The principal announced new school rules.",
+                    "vi": "Hiệu trưởng đã công bố các quy tắc mới của trường.",
+                    "th": "ครูใหญ่ประกาศกฎระเบียบใหม่ของโรงเรียน",
+                    "id": "Kepala sekolah mengumumkan peraturan sekolah yang baru.",
+                    "ar": "أعلن مدير المدرسة عن قواعد مدرسية جديدة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d519a4e8dd8355a1d09_1760868017192.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d519a4e8dd8355a1d0c",
+                "word": "break",
+                "explanation": {
+                    "en": "A short period of time between classes. A recess period for relaxation.",
+                    "vi": "Một khoảng thời gian ngắn giữa các tiết học. Một khoảng thời gian nghỉ ngơi để thư giãn.",
+                    "th": "ช่วงเวลาสั้นๆ ระหว่างคาบเรียน ช่วงเวลาพักผ่อน",
+                    "id": "Periode waktu singkat di antara kelas. Periode istirahat untuk relaksasi.",
+                    "ar": "فترة زمنية قصيرة بين الحصص. فترة استراحة للاسترخاء."
+                },
+                "translation": {
+                    "vi": "giờ nghỉ, giờ ra chơi",
+                    "th": "เวลาพัก",
+                    "id": "waktu istirahat",
+                    "ar": "استراحة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/breɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/break-uk-1760856446072.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/breɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/break-us-1760856446410.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We get a ten-minute break after every hour.",
+                    "vi": "Chúng tôi có mười phút giải lao sau mỗi giờ.",
+                    "th": "เราได้พักสิบนาทีหลังจากทุกๆ ชั่วโมง",
+                    "id": "Kami mendapat istirahat sepuluh menit setelah setiap jam.",
+                    "ar": "نحصل على استراحة لمدة عشر دقائق بعد كل ساعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d519a4e8dd8355a1d0c_1760868025800.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d529a4e8dd8355a1d0f",
+                "word": "assignment",
+                "explanation": {
+                    "en": "A task given to pupils as part of their studies. A piece of required work to be completed.",
+                    "vi": "Một nhiệm vụ được giao cho học sinh như một phần của việc học. Một phần công việc bắt buộc phải hoàn thành.",
+                    "th": "งานที่มอบหมายให้นักเรียนเป็นส่วนหนึ่งของการศึกษา งานที่ต้องทำให้เสร็จ",
+                    "id": "Tugas yang diberikan kepada siswa sebagai bagian dari studi mereka. Bagian dari pekerjaan wajib yang harus diselesaikan.",
+                    "ar": "مهمة تُعطى للتلاميذ كجزء من دراساتهم. قطعة عمل مطلوبة يجب إكمالها."
+                },
+                "translation": {
+                    "vi": "bài tập",
+                    "th": "งานที่มอบหมาย",
+                    "id": "tugas",
+                    "ar": "واجب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/əˈsaɪnmənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/assignment-uk-1760856447672.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈsaɪnmənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/assignment-us-1760856448031.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I have to complete my English assignment tonight.",
+                    "vi": "Tôi phải hoàn thành bài tập tiếng Anh của mình tối nay.",
+                    "th": "ฉันต้องทำงานภาษาอังกฤษให้เสร็จคืนนี้",
+                    "id": "Saya harus menyelesaikan tugas bahasa Inggris saya malam ini.",
+                    "ar": "يجب عليّ إكمال واجبي في اللغة الإنجليزية الليلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d529a4e8dd8355a1d0f_1760868032797.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d529a4e8dd8355a1d12",
+                "word": "notebook",
+                "explanation": {
+                    "en": "A book of blank pages for writing notes. Used to record information during lectures.",
+                    "vi": "Một cuốn sách có các trang trắng để ghi chú. Dùng để ghi lại thông tin trong các bài giảng.",
+                    "th": "หนังสือที่มีหน้าเปล่าสำหรับจดบันทึก ใช้สำหรับบันทึกข้อมูลระหว่างการบรรยาย",
+                    "id": "Sebuah buku dengan halaman kosong untuk menulis catatan. Digunakan untuk merekam informasi selama kuliah.",
+                    "ar": "كتاب ذو صفحات فارغة لتدوين الملاحظات. يستخدم لتسجيل المعلومات أثناء المحاضرات."
+                },
+                "translation": {
+                    "vi": "vở ghi",
+                    "th": "สมุดบันทึก",
+                    "id": "buku catatan",
+                    "ar": "دفتر ملاحظات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈnəʊtbʊk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/notebook-uk-1760856449308.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈnəʊtbʊk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/notebook-us-1760856449654.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please write your ideas in your notebook.",
+                    "vi": "Vui lòng viết ý tưởng của bạn vào sổ tay.",
+                    "th": "กรุณาเขียนความคิดของคุณลงในสมุดบันทึก",
+                    "id": "Tolong tulis ide-ide Anda di buku catatan Anda.",
+                    "ar": "من فضلك اكتب أفكارك في دفتر ملاحظاتك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d529a4e8dd8355a1d12_1760868039348.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d529a4e8dd8355a1d15",
+                "word": "uniform",
+                "explanation": {
+                    "en": "Distinctive clothing worn by members of an organization. Required attire for all pupils at a school.",
+                    "vi": "Trang phục đặc trưng được mặc bởi các thành viên của một tổ chức. Trang phục bắt buộc cho tất cả học sinh tại một trường học.",
+                    "th": "เสื้อผ้าที่โดดเด่นซึ่งสมาชิกขององค์กรสวมใส่ เครื่องแต่งกายที่จำเป็นสำหรับนักเรียนทุกคนในโรงเรียน",
+                    "id": "Pakaian khas yang dikenakan oleh anggota suatu organisasi. Pakaian wajib bagi semua siswa di sekolah.",
+                    "ar": "ملابس مميزة يرتديها أعضاء منظمة. زي إلزامي لجميع التلاميذ في المدرسة."
+                },
+                "translation": {
+                    "vi": "đồng phục",
+                    "th": "เครื่องแบบ",
+                    "id": "seragam",
+                    "ar": "زي موحد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈjuːnɪfɔːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/uniform-uk-1760856450904.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈjuːnɪfɔːrm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/uniform-us-1760856451247.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Students must wear their school uniform every day.",
+                    "vi": "Học sinh phải mặc đồng phục học sinh mỗi ngày.",
+                    "th": "นักเรียนต้องสวมเครื่องแบบนักเรียนทุกวัน",
+                    "id": "Siswa harus mengenakan seragam sekolah mereka setiap hari.",
+                    "ar": "يجب على الطلاب ارتداء زيهم المدرسي كل يوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d529a4e8dd8355a1d15_1760868045722.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d529a4e8dd8355a1d18",
+                "word": "lesson",
+                "explanation": {
+                    "en": "A period of teaching or instruction. A scheduled time for learning a topic.",
+                    "vi": "Một khoảng thời gian giảng dạy hoặc hướng dẫn. Một thời gian đã định để học một chủ đề.",
+                    "th": "ช่วงเวลาของการสอนหรือการแนะนำ เวลาที่กำหนดไว้สำหรับการเรียนรู้หัวข้อ",
+                    "id": "Periode pengajaran atau instruksi. Waktu yang dijadwalkan untuk mempelajari suatu topik.",
+                    "ar": "فترة تعليم أو توجيه. وقت محدد لتعلم موضوع ما."
+                },
+                "translation": {
+                    "vi": "bài học",
+                    "th": "บทเรียน",
+                    "id": "pelajaran",
+                    "ar": "درس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈlesn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lesson-uk-1760856452522.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈlesn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lesson-us-1760856452854.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We learned a new math lesson today.",
+                    "vi": "Hôm nay chúng tôi đã học một bài toán mới.",
+                    "th": "วันนี้เราได้เรียนบทเรียนคณิตศาสตร์ใหม่",
+                    "id": "Kami belajar pelajaran matematika baru hari ini.",
+                    "ar": "لقد تعلمنا درس رياضيات جديد اليوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d529a4e8dd8355a1d18_1760868052627.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d539a4e8dd8355a1d1b",
+                "word": "chalk",
+                "explanation": {
+                    "en": "A soft white or colored substance for writing. Used for drawing on a blackboard.",
+                    "vi": "Một chất mềm màu trắng hoặc có màu dùng để viết. Dùng để vẽ trên bảng đen.",
+                    "th": "สารสีขาวหรือสีอ่อนนุ่มสำหรับเขียน ใช้สำหรับวาดบนกระดานดำ",
+                    "id": "Zat putih atau berwarna lembut untuk menulis. Digunakan untuk menggambar di papan tulis.",
+                    "ar": "مادة بيضاء ناعمة أو ملونة للكتابة. تستخدم للرسم على السبورة."
+                },
+                "translation": {
+                    "vi": "phấn",
+                    "th": "ชอล์ก",
+                    "id": "kapur",
+                    "ar": "طباشير"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tʃɔːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chalk-uk-1760856454107.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʃɔːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chalk-us-1760856454445.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The teacher wrote with chalk on the board.",
+                    "vi": "Giáo viên đã viết bằng phấn trên bảng.",
+                    "th": "ครูเขียนด้วยชอล์กบนกระดาน",
+                    "id": "Guru menulis dengan kapur di papan tulis.",
+                    "ar": "كتب المعلم بالطباشير على السبورة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d539a4e8dd8355a1d1b_1760868059496.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d539a4e8dd8355a1d1e",
+                "word": "backpack",
+                "explanation": {
+                    "en": "A bag carried on one's back. Used by pupils to carry books and supplies.",
+                    "vi": "Một chiếc túi đeo trên lưng. Được học sinh dùng để mang sách vở và đồ dùng học tập.",
+                    "th": "กระเป๋าที่สะพายบนหลัง ใช้โดยนักเรียนเพื่อพกหนังสือและอุปกรณ์",
+                    "id": "Tas yang dibawa di punggung. Digunakan oleh siswa untuk membawa buku dan perlengkapan.",
+                    "ar": "حقيبة تحمل على الظهر. يستخدمها التلاميذ لحمل الكتب واللوازم."
+                },
+                "translation": {
+                    "vi": "ba lô",
+                    "th": "กระเป๋าสะพายหลัง",
+                    "id": "ransel",
+                    "ar": "حقيبة ظهر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbækpæk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/backpack-uk-1760856455735.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbækpæk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/backpack-us-1760856456079.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He packed his books into his backpack.",
+                    "vi": "Anh ấy đã xếp sách vào ba lô của mình.",
+                    "th": "เขาเก็บหนังสือของเขาไว้ในกระเป๋าเป้",
+                    "id": "Dia memasukkan buku-bukunya ke dalam ranselnya.",
+                    "ar": "لقد حزم كتبه في حقيبة ظهره."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d539a4e8dd8355a1d1e_1760868067419.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d539a4e8dd8355a1d21",
+                "word": "grade",
+                "explanation": {
+                    "en": "A mark indicating the quality of a performance. A score given for an assignment or assessment.",
+                    "vi": "Một dấu hiệu cho biết chất lượng của một bài làm. Một số điểm được cho cho một bài tập hoặc đánh giá.",
+                    "th": "เครื่องหมายที่บ่งบอกถึงคุณภาพของผลงาน คะแนนที่ได้รับสำหรับการมอบหมายหรืองานประเมิน",
+                    "id": "Tanda yang menunjukkan kualitas suatu kinerja. Skor yang diberikan untuk tugas atau penilaian.",
+                    "ar": "علامة تشير إلى جودة الأداء. درجة تُمنح لمهمة أو تقييم."
+                },
+                "translation": {
+                    "vi": "điểm số",
+                    "th": "คะแนน",
+                    "id": "nilai",
+                    "ar": "درجة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɡreɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/grade-uk-1760856457330.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɡreɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/grade-us-1760856457675.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She got a good grade on her English test.",
+                    "vi": "Cô ấy đã đạt điểm cao trong bài kiểm tra tiếng Anh của mình.",
+                    "th": "เธอได้เกรดดีในการสอบภาษาอังกฤษ",
+                    "id": "Dia mendapat nilai bagus dalam ujian bahasa Inggrisnya.",
+                    "ar": "حصلت على درجة جيدة في اختبار اللغة الإنجليزية الخاص بها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d539a4e8dd8355a1d21_1760868076091.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d539a4e8dd8355a1d24",
+                "word": "graduate",
+                "explanation": {
+                    "en": "To successfully complete a course of study. To be awarded a degree or diploma.",
+                    "vi": "Hoàn thành thành công một khóa học. Được trao bằng cấp hoặc chứng chỉ.",
+                    "th": "สำเร็จหลักสูตรการศึกษา ได้รับปริญญาหรือประกาศนียบัตร",
+                    "id": "Untuk berhasil menyelesaikan program studi. Untuk dianugerahi gelar atau diploma.",
+                    "ar": "إكمال دورة دراسية بنجاح. الحصول على شهادة أو دبلوم."
+                },
+                "translation": {
+                    "vi": "tốt nghiệp",
+                    "th": "สำเร็จการศึกษา",
+                    "id": "lulus",
+                    "ar": "يتخرج"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ˈɡrædʒuət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/graduate-uk-1760856458962.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɡrædʒuət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/graduate-us-1760856459308.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My sister will graduate from college next year.",
+                    "vi": "Chị gái tôi sẽ tốt nghiệp đại học vào năm tới.",
+                    "th": "พี่สาวของฉันจะสำเร็จการศึกษาจากวิทยาลัยในปีหน้า",
+                    "id": "Kakak saya akan lulus kuliah tahun depan.",
+                    "ar": "ستتخرج أختي من الكلية العام المقبل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d539a4e8dd8355a1d24_1760868084243.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d539a4e8dd8355a1d27",
+                "word": "lecture",
+                "explanation": {
+                    "en": "An educational talk to an audience. A formal presentation on a given topic.",
+                    "vi": "Một buổi nói chuyện giáo dục trước khán giả. Một bài thuyết trình chính thức về một chủ đề nhất định.",
+                    "th": "การพูดคุยเชิงวิชาการต่อหน้าผู้ฟัง การนำเสนออย่างเป็นทางการในหัวข้อที่กำหนด",
+                    "id": "Sebuah ceramah pendidikan untuk audiens. Presentasi formal tentang topik tertentu.",
+                    "ar": "حديث تعليمي لجمهور. عرض تقديمي رسمي حول موضوع معين."
+                },
+                "translation": {
+                    "vi": "bài giảng",
+                    "th": "การบรรยาย",
+                    "id": "kuliah",
+                    "ar": "محاضرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈlektʃə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lecture-uk-1760856460588.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈlektʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lecture-us-1760856460942.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The professor gave an interesting lecture on history.",
+                    "vi": "Giáo sư đã có một bài giảng thú vị về lịch sử.",
+                    "th": "ศาสตราจารย์ได้บรรยายที่น่าสนใจเกี่ยวกับประวัติศาสตร์",
+                    "id": "Profesor memberikan kuliah yang menarik tentang sejarah.",
+                    "ar": "ألقى الأستاذ محاضرة شيقة عن التاريخ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d539a4e8dd8355a1d27_1760868091903.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d539a4e8dd8355a1d2a",
+                "word": "diploma",
+                "explanation": {
+                    "en": "A certificate awarded by an institution. Proof of having successfully finished a course of study.",
+                    "vi": "Một chứng chỉ được cấp bởi một tổ chức. Bằng chứng đã hoàn thành thành công một khóa học.",
+                    "th": "ใบรับรองที่ออกโดยสถาบัน หลักฐานการสำเร็จหลักสูตรการศึกษา",
+                    "id": "Sertifikat yang diberikan oleh suatu institusi. Bukti telah berhasil menyelesaikan program studi.",
+                    "ar": "شهادة تمنحها مؤسسة. إثبات إتمام دورة دراسية بنجاح."
+                },
+                "translation": {
+                    "vi": "bằng tốt nghiệp",
+                    "th": "ประกาศนียบัตร",
+                    "id": "ijazah",
+                    "ar": "شهادة تخرج"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dɪˈpləʊmə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/diploma-uk-1760856462212.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dɪˈpləʊmə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/diploma-us-1760856462560.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She proudly received her high school diploma.",
+                    "vi": "Cô ấy tự hào nhận bằng tốt nghiệp trung học của mình.",
+                    "th": "เธอได้รับประกาศนียบัตรมัธยมปลายด้วยความภาคภูมิใจ",
+                    "id": "Dia dengan bangga menerima ijazah sekolah menengahnya.",
+                    "ar": "استلمت دبلومها الثانوي بفخر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d539a4e8dd8355a1d2a_1760868100482.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d539a4e8dd8355a1d2d",
+                "word": "pencil",
+                "explanation": {
+                    "en": "An instrument for writing or drawing. Uses graphite that can be erased.",
+                    "vi": "Một dụng cụ để viết hoặc vẽ. Sử dụng than chì có thể tẩy được.",
+                    "th": "อุปกรณ์สำหรับเขียนหรือวาด ใช้กราไฟต์ที่สามารถลบได้",
+                    "id": "Alat untuk menulis atau menggambar. Menggunakan grafit yang bisa dihapus.",
+                    "ar": "أداة للكتابة أو الرسم. يستخدم الجرافيت الذي يمكن مسحه."
+                },
+                "translation": {
+                    "vi": "bút chì",
+                    "th": "ดินสอ",
+                    "id": "pensil",
+                    "ar": "قلم رصاص"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpensl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pencil-uk-1760856463837.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpensl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pencil-us-1760856464178.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please use a pencil to draw the picture.",
+                    "vi": "Vui lòng dùng bút chì để vẽ bức tranh.",
+                    "th": "กรุณาใช้ดินสอวาดภาพ",
+                    "id": "Tolong gunakan pensil untuk menggambar gambar itu.",
+                    "ar": "من فضلك استخدم قلم رصاص لرسم الصورة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d539a4e8dd8355a1d2d_1760868107803.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d549a4e8dd8355a1d30",
+                "word": "eraser",
+                "explanation": {
+                    "en": "A piece of soft rubber used for removing marks. Used to correct mistakes made in pencil.",
+                    "vi": "Một miếng cao su mềm dùng để xóa các vết. Dùng để sửa lỗi viết bằng bút chì.",
+                    "th": "ชิ้นส่วนของยางนุ่มที่ใช้สำหรับลบรอย ใช้เพื่อแก้ไขข้อผิดพลาดที่ทำด้วยดินสอ",
+                    "id": "Sepotong karet lembut yang digunakan untuk menghilangkan tanda. Digunakan untuk memperbaiki kesalahan yang dibuat dengan pensil.",
+                    "ar": "قطعة مطاط ناعمة تستخدم لإزالة العلامات. تستخدم لتصحيح الأخطاء التي ترتكب بالقلم الرصاص."
+                },
+                "translation": {
+                    "vi": "cục tẩy",
+                    "th": "ยางลบ",
+                    "id": "penghapus",
+                    "ar": "ممحاة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪˈreɪzə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/eraser-uk-1760856465435.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪˈreɪsər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/eraser-us-1760856465772.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I used an eraser to correct my mistake.",
+                    "vi": "Tôi đã dùng cục tẩy để sửa lỗi của mình.",
+                    "th": "ฉันใช้ยางลบเพื่อแก้ไขข้อผิดพลาดของฉัน",
+                    "id": "Saya menggunakan penghapus untuk memperbaiki kesalahan saya.",
+                    "ar": "استخدمت ممحاة لتصحيح خطئي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d549a4e8dd8355a1d30_1760868114835.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d549a4e8dd8355a1d33",
+                "word": "ruler",
+                "explanation": {
+                    "en": "A straight strip of wood or plastic used for measuring. Used to draw straight lines.",
+                    "vi": "Một dải gỗ hoặc nhựa thẳng dùng để đo. Dùng để vẽ các đường thẳng.",
+                    "th": "แถบไม้หรือพลาสติกตรงที่ใช้สำหรับวัด ใช้สำหรับวาดเส้นตรง",
+                    "id": "Sebuah strip lurus dari kayu atau plastik yang digunakan untuk mengukur. Digunakan untuk menggambar garis lurus.",
+                    "ar": "شريط مستقيم من الخشب أو البلاستيك يستخدم للقياس. تستخدم لرسم خطوط مستقيمة."
+                },
+                "translation": {
+                    "vi": "thước kẻ",
+                    "th": "ไม้บรรทัด",
+                    "id": "penggaris",
+                    "ar": "مسطرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈruːlə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ruler-uk-1760856467031.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈruːlər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ruler-us-1760856467383.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Can I borrow your ruler to draw this line?",
+                    "vi": "Tôi có thể mượn thước kẻ của bạn để vẽ đường này không?",
+                    "th": "ฉันขอยืมไม้บรรทัดของคุณเพื่อวาดเส้นนี้ได้ไหม",
+                    "id": "Bisakah saya meminjam penggaris Anda untuk menggambar garis ini?",
+                    "ar": "هل يمكنني استعارة مسطرتك لرسم هذا الخط؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d549a4e8dd8355a1d33_1760868121865.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d549a4e8dd8355a1d36",
+                "word": "pen",
+                "explanation": {
+                    "en": "An instrument for writing with ink. Used for permanent writing.",
+                    "vi": "Một dụng cụ để viết bằng mực. Dùng để viết vĩnh viễn.",
+                    "th": "อุปกรณ์สำหรับเขียนด้วยหมึก ใช้สำหรับการเขียนถาวร",
+                    "id": "Alat untuk menulis dengan tinta. Digunakan untuk tulisan permanen.",
+                    "ar": "أداة للكتابة بالحبر. تستخدم للكتابة الدائمة."
+                },
+                "translation": {
+                    "vi": "bút mực",
+                    "th": "ปากกา",
+                    "id": "pulpen",
+                    "ar": "قلم حبر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/pen/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pen-uk-1760856468667.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/pen/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/pen-us-1760856469039.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I prefer to write with a blue pen.",
+                    "vi": "Tôi thích viết bằng bút mực xanh.",
+                    "th": "ฉันชอบเขียนด้วยปากกาสีน้ำเงิน",
+                    "id": "Saya lebih suka menulis dengan pulpen biru.",
+                    "ar": "أفضل الكتابة بقلم أزرق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d549a4e8dd8355a1d36_1760868130303.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d549a4e8dd8355a1d39",
+                "word": "test",
+                "explanation": {
+                    "en": "A procedure intended to establish the quality or performance of something. A short assessment of knowledge.",
+                    "vi": "Một quy trình nhằm xác định chất lượng hoặc hiệu suất của một cái gì đó. Một đánh giá ngắn về kiến thức.",
+                    "th": "ขั้นตอนที่มุ่งหมายเพื่อสร้างคุณภาพหรือประสิทธิภาพของบางสิ่ง การประเมินความรู้สั้นๆ",
+                    "id": "Prosedur yang dimaksudkan untuk menetapkan kualitas atau kinerja sesuatu. Penilaian singkat tentang pengetahuan.",
+                    "ar": "إجراء يهدف إلى تحديد جودة أو أداء شيء ما. تقييم قصير للمعرفة."
+                },
+                "translation": {
+                    "vi": "bài kiểm tra",
+                    "th": "การทดสอบ",
+                    "id": "ujian",
+                    "ar": "اختبار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/test/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/test-uk-1760856470297.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/test/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/test-us-1760856470637.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We have a big math test tomorrow morning.",
+                    "vi": "Chúng ta có một bài kiểm tra toán lớn vào sáng mai.",
+                    "th": "เรามีการสอบคณิตศาสตร์ครั้งใหญ่ในเช้าวันพรุ่งนี้",
+                    "id": "Kami ada ujian matematika besar besok pagi.",
+                    "ar": "لدينا اختبار رياضيات كبير صباح الغد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d549a4e8dd8355a1d39_1760868137108.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d559a4e8dd8355a1d3c",
+                "word": "answer",
+                "explanation": {
+                    "en": "A response to a question or problem. The solution to a task or query.",
+                    "vi": "Một phản hồi cho một câu hỏi hoặc vấn đề. Giải pháp cho một nhiệm vụ hoặc truy vấn.",
+                    "th": "การตอบสนองต่อคำถามหรือปัญหา วิธีแก้ปัญหาหรืองานที่สอบถาม",
+                    "id": "Tanggapan terhadap pertanyaan atau masalah. Solusi untuk tugas atau pertanyaan.",
+                    "ar": "رد على سؤال أو مشكلة. الحل لمهمة أو استعلام."
+                },
+                "translation": {
+                    "vi": "câu trả lời",
+                    "th": "คำตอบ",
+                    "id": "jawaban",
+                    "ar": "إجابة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɑːnsə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/answer-uk-1760856471891.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈænsər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/answer-us-1760856472237.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He knew the correct answer to every question.",
+                    "vi": "Anh ấy biết câu trả lời đúng cho mọi câu hỏi.",
+                    "th": "เขารู้คำตอบที่ถูกต้องสำหรับทุกคำถาม",
+                    "id": "Dia tahu jawaban yang benar untuk setiap pertanyaan.",
+                    "ar": "كان يعرف الإجابة الصحيحة على كل سؤال."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d559a4e8dd8355a1d3c_1760868144343.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d559a4e8dd8355a1d3f",
+                "word": "question",
+                "explanation": {
+                    "en": "A sentence worded to elicit information. A query posed to a person.",
+                    "vi": "Một câu được đặt ra để thu thập thông tin. Một câu hỏi được đặt ra cho một người.",
+                    "th": "ประโยคที่ใช้ถามเพื่อต้องการข้อมูล คำถามที่ถามบุคคล",
+                    "id": "Kalimat yang disusun untuk mendapatkan informasi. Sebuah pertanyaan yang diajukan kepada seseorang.",
+                    "ar": "جملة مصاغة لطلب معلومات. استفسار موجه لشخص."
+                },
+                "translation": {
+                    "vi": "câu hỏi",
+                    "th": "คำถาม",
+                    "id": "pertanyaan",
+                    "ar": "سؤال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkwestʃən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/question-uk-1760856473502.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkwestʃən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/question-us-1760856473838.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Do you have a question for the teacher?",
+                    "vi": "Bạn có câu hỏi nào cho giáo viên không?",
+                    "th": "คุณมีคำถามจะถามคุณครูไหม?",
+                    "id": "Apakah Anda punya pertanyaan untuk guru?",
+                    "ar": "هل لديك سؤال للمعلم؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d559a4e8dd8355a1d3f_1760868152513.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d559a4e8dd8355a1d42",
+                "word": "chalkboard",
+                "explanation": {
+                    "en": "A smooth, dark surface used for writing with chalk. A common teaching surface in a classroom.",
+                    "vi": "Một bề mặt nhẵn, tối màu dùng để viết bằng phấn. Một bề mặt giảng dạy phổ biến trong lớp học.",
+                    "th": "พื้นผิวเรียบสีเข้มที่ใช้เขียนด้วยชอล์ก พื้นผิวการสอนทั่วไปในห้องเรียน",
+                    "id": "Permukaan halus berwarna gelap yang digunakan untuk menulis dengan kapur. Permukaan pengajaran umum di kelas.",
+                    "ar": "سطح أملس داكن يستخدم للكتابة بالطباشير. سطح تدريس شائع في الفصول الدراسية."
+                },
+                "translation": {
+                    "vi": "bảng viết",
+                    "th": "กระดานดำ",
+                    "id": "papan tulis",
+                    "ar": "سبورة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃɔːkbɔːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chalkboard-uk-1760856475111.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃɔːkbɔːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chalkboard-us-1760856475464.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The teacher wrote the homework on the chalkboard.",
+                    "vi": "Giáo viên đã viết bài tập về nhà lên bảng đen.",
+                    "th": "คุณครูเขียนการบ้านบนกระดานดำ",
+                    "id": "Guru menulis pekerjaan rumah di papan tulis.",
+                    "ar": "كتب المعلم الواجب المنزلي على السبورة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d559a4e8dd8355a1d42_1760868158905.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d559a4e8dd8355a1d45",
+                "word": "schedule",
+                "explanation": {
+                    "en": "A plan for carrying out a process or procedure. A timetable listing class times.",
+                    "vi": "Một kế hoạch để thực hiện một quá trình hoặc thủ tục. Một thời gian biểu liệt kê thời gian các lớp học.",
+                    "th": "แผนการดำเนินการหรือขั้นตอน ตารางเวลาที่ระบุเวลาเรียน",
+                    "id": "Sebuah rencana untuk melaksanakan suatu proses atau prosedur. Sebuah jadwal yang mencantumkan waktu kelas.",
+                    "ar": "خطة لتنفيذ عملية أو إجراء. جدول زمني يسرد أوقات الحصص."
+                },
+                "translation": {
+                    "vi": "thời khóa biểu",
+                    "th": "ตารางเรียน",
+                    "id": "jadwal pelajaran",
+                    "ar": "جدول الحصص"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈʃedjuːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/schedule-uk-1760856476741.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈskedʒuːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/schedule-us-1760856477082.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Check the bus schedule to see the departure times.",
+                    "vi": "Kiểm tra lịch trình xe buýt để xem giờ khởi hành.",
+                    "th": "ตรวจสอบตารางเดินรถบัสเพื่อดูเวลาออกเดินทาง",
+                    "id": "Periksa jadwal bus untuk melihat waktu keberangkatan.",
+                    "ar": "تحقق من جدول الحافلات لمعرفة أوقات المغادرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d559a4e8dd8355a1d45_1760868167323.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d559a4e8dd8355a1d48",
+                "word": "tuition",
+                "explanation": {
+                    "en": "The fee for instruction, especially at a college. The cost of attending a school or university.",
+                    "vi": "Phí giảng dạy, đặc biệt là ở trường cao đẳng. Chi phí theo học một trường học hoặc đại học.",
+                    "th": "ค่าธรรมเนียมการเรียนการสอน โดยเฉพาะอย่างยิ่งในวิทยาลัย ค่าใช้จ่ายในการเข้าเรียนในโรงเรียนหรือมหาวิทยาลัย",
+                    "id": "Biaya untuk pengajaran, terutama di perguruan tinggi. Biaya untuk menghadiri sekolah atau universitas.",
+                    "ar": "رسوم التعليم، خاصة في الكلية. تكلفة الالتحاق بمدرسة أو جامعة."
+                },
+                "translation": {
+                    "vi": "học phí",
+                    "th": "ค่าเล่าเรียน",
+                    "id": "biaya kuliah",
+                    "ar": "الرسوم الدراسية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tjuˈɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tuition-uk-1760856478363.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tuˈɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tuition-us-1760856478724.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "University tuition fees can be very expensive.",
+                    "vi": "Học phí đại học có thể rất đắt đỏ.",
+                    "th": "ค่าเล่าเรียนมหาวิทยาลัยอาจมีราคาแพงมาก",
+                    "id": "Biaya kuliah universitas bisa sangat mahal.",
+                    "ar": "يمكن أن تكون الرسوم الدراسية الجامعية باهظة الثمن."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d559a4e8dd8355a1d48_1760868174861.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d569a4e8dd8355a1d4b",
+                "word": "attendance",
+                "explanation": {
+                    "en": "The action of being present at a place. The record of pupils' presence in class.",
+                    "vi": "Hành động có mặt tại một nơi. Hồ sơ về sự hiện diện của học sinh trong lớp.",
+                    "th": "การกระทำของการอยู่ในสถานที่ใดที่หนึ่ง บันทึกการเข้าเรียนของนักเรียนในชั้นเรียน",
+                    "id": "Tindakan hadir di suatu tempat. Catatan kehadiran siswa di kelas.",
+                    "ar": "فعل التواجد في مكان ما. سجل حضور التلاميذ في الفصل."
+                },
+                "translation": {
+                    "vi": "sự có mặt",
+                    "th": "การเข้าเรียน",
+                    "id": "kehadiran",
+                    "ar": "الحضور"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/əˈtendəns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/attendance-uk-1760856480008.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈtendəns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/attendance-us-1760856480352.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Good attendance is important for learning in class.",
+                    "vi": "Việc chuyên cần là quan trọng cho việc học trong lớp.",
+                    "th": "การเข้าเรียนที่ดีเป็นสิ่งสำคัญสำหรับการเรียนรู้ในชั้นเรียน",
+                    "id": "Kehadiran yang baik penting untuk belajar di kelas.",
+                    "ar": "الحضور الجيد مهم للتعلم في الفصل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d569a4e8dd8355a1d4b_1760868181796.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d569a4e8dd8355a1d4e",
+                "word": "kindergarten",
+                "explanation": {
+                    "en": "A school or class for young children, typically ages four to six. The first level of formal schooling.",
+                    "vi": "Một trường học hoặc lớp học dành cho trẻ nhỏ, thường từ bốn đến sáu tuổi. Cấp độ đầu tiên của giáo dục chính quy.",
+                    "th": "โรงเรียนหรือชั้นเรียนสำหรับเด็กเล็ก โดยทั่วไปอายุสี่ถึงหกขวบ ระดับแรกของการศึกษาอย่างเป็นทางการ",
+                    "id": "Sekolah atau kelas untuk anak-anak kecil, biasanya usia empat hingga enam tahun. Tingkat pertama pendidikan formal.",
+                    "ar": "مدرسة أو فصل للأطفال الصغار، تتراوح أعمارهم عادة بين أربع وست سنوات. المستوى الأول من التعليم الرسمي."
+                },
+                "translation": {
+                    "vi": "mẫu giáo",
+                    "th": "อนุบาล",
+                    "id": "taman kanak-kanak",
+                    "ar": "روضة أطفال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkɪndəɡɑːtn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/kindergarten-uk-1760856481629.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkɪndərɡɑːrtn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/kindergarten-us-1760856482165.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My daughter started kindergarten this fall.",
+                    "vi": "Con gái tôi bắt đầu học mẫu giáo vào mùa thu này.",
+                    "th": "ลูกสาวของฉันเริ่มเข้าโรงเรียนอนุบาลในฤดูใบไม้ร่วงนี้",
+                    "id": "Putri saya mulai masuk taman kanak-kanak musim gugur ini.",
+                    "ar": "بدأت ابنتي روضة الأطفال هذا الخريف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d569a4e8dd8355a1d4e_1760868188948.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d569a4e8dd8355a1d51",
+                "word": "elementary",
+                "explanation": {
+                    "en": "Relating to the first and most basic stage of a subject. The basic level of primary schooling.",
+                    "vi": "Liên quan đến giai đoạn đầu tiên và cơ bản nhất của một môn học. Cấp độ cơ bản của giáo dục tiểu học.",
+                    "th": "เกี่ยวข้องกับขั้นตอนแรกและพื้นฐานที่สุดของวิชา ระดับพื้นฐานของการศึกษาประถมศึกษา",
+                    "id": "Berhubungan dengan tahap pertama dan paling dasar dari suatu subjek. Tingkat dasar pendidikan dasar.",
+                    "ar": "يتعلق بالمرحلة الأولى والأكثر أساسية من الموضوع. المستوى الأساسي للتعليم الابتدائي."
+                },
+                "translation": {
+                    "vi": "tiểu học",
+                    "th": "ประถมศึกษา",
+                    "id": "sekolah dasar",
+                    "ar": "التعليم الابتدائي"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˌelɪˈmentri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/elementary-uk-1760856483450.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌelɪˈmentri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/elementary-us-1760856483788.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She teaches at an elementary school near here.",
+                    "vi": "Cô ấy dạy ở một trường tiểu học gần đây.",
+                    "th": "เธอสอนที่โรงเรียนประถมใกล้ๆ นี้",
+                    "id": "Dia mengajar di sekolah dasar dekat sini.",
+                    "ar": "هي تدرس في مدرسة ابتدائية قريبة من هنا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d569a4e8dd8355a1d51_1760868196266.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d569a4e8dd8355a1d54",
+                "word": "high school",
+                "explanation": {
+                    "en": "A secondary school for adolescents. The final stage before college or university.",
+                    "vi": "Một trường trung học dành cho thanh thiếu niên. Giai đoạn cuối trước khi vào cao đẳng hoặc đại học.",
+                    "th": "โรงเรียนมัธยมสำหรับวัยรุ่น ขั้นตอนสุดท้ายก่อนเข้าวิทยาลัยหรือมหาวิทยาลัย",
+                    "id": "Sekolah menengah untuk remaja. Tahap akhir sebelum kuliah atau universitas.",
+                    "ar": "مدرسة ثانوية للمراهقين. المرحلة النهائية قبل الكلية أو الجامعة."
+                },
+                "translation": {
+                    "vi": "trung học",
+                    "th": "โรงเรียนมัธยม",
+                    "id": "sekolah menengah atas",
+                    "ar": "المدرسة الثانوية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/haɪ skuːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/high-school-uk-ai-1760858060933.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/haɪ skuːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/high-school-us-ai-1760858061582.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "They are planning a reunion for their high school class.",
+                    "vi": "Họ đang lên kế hoạch họp lớp cấp ba.",
+                    "th": "พวกเขากำลังวางแผนจัดงานเลี้ยงรุ่นสำหรับชั้นเรียนมัธยมปลาย",
+                    "id": "Mereka merencanakan reuni untuk kelas SMA mereka.",
+                    "ar": "إنهم يخططون لجمع شمل فصلهم في المدرسة الثانوية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d569a4e8dd8355a1d54_1760868202762.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d579a4e8dd8355a1d57",
+                "word": "university",
+                "explanation": {
+                    "en": "An institution of higher education and research. Where one studies for a bachelor's or master's degree.",
+                    "vi": "Một cơ sở giáo dục đại học và nghiên cứu. Nơi người ta học để lấy bằng cử nhân hoặc thạc sĩ.",
+                    "th": "สถาบันอุดมศึกษาและการวิจัย ที่ที่คนเรียนเพื่อปริญญาตรีหรือปริญญาโท",
+                    "id": "Sebuah institusi pendidikan tinggi dan penelitian. Tempat seseorang belajar untuk gelar sarjana atau magister.",
+                    "ar": "مؤسسة للتعليم العالي والبحث. حيث يدرس المرء للحصول على درجة البكالوريوس أو الماجستير."
+                },
+                "translation": {
+                    "vi": "đại học",
+                    "th": "มหาวิทยาลัย",
+                    "id": "universitas",
+                    "ar": "جامعة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌjuːnɪˈvɜːsəti/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/university-uk-1760856485990.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌjuːnɪˈvɜːrsəti/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/university-us-1760856486325.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He dreams of going to university to study medicine.",
+                    "vi": "Anh ấy mơ ước được vào đại học để học y khoa.",
+                    "th": "เขาฝันอยากจะเข้ามหาวิทยาลัยเพื่อเรียนแพทย์",
+                    "id": "Dia bermimpi untuk kuliah untuk belajar kedokteran.",
+                    "ar": "يحلم بالذهاب إلى الجامعة لدراسة الطب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d579a4e8dd8355a1d57_1760868209308.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d579a4e8dd8355a1d5a",
+                "word": "notepad",
+                "explanation": {
+                    "en": "A block of paper sheets fastened together at one edge. Used for making quick written notes.",
+                    "vi": "Một tập giấy được gắn chặt ở một cạnh. Dùng để ghi chú nhanh.",
+                    "th": "กระดาษหลายแผ่นที่เย็บติดกันที่ขอบด้านหนึ่ง ใช้สำหรับจดบันทึกสั้นๆ",
+                    "id": "Sekumpulan lembaran kertas yang disatukan di satu sisi. Digunakan untuk membuat catatan tertulis cepat.",
+                    "ar": "كتلة من أوراق الورق مثبتة معًا من حافة واحدة. تستخدم لتدوين الملاحظات الكتابية السريعة."
+                },
+                "translation": {
+                    "vi": "sổ tay",
+                    "th": "สมุดบันทึก",
+                    "id": "buku catatan",
+                    "ar": "دفتر ملاحظات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈnəʊtpæd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/notepad-uk-1760856487600.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈnəʊtpæd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/notepad-us-1760856487960.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I always carry a small notepad for ideas.",
+                    "vi": "Tôi luôn mang theo một cuốn sổ nhỏ để ghi lại ý tưởng.",
+                    "th": "ฉันพกสมุดจดเล็กๆ ไว้เสมอสำหรับจดความคิด",
+                    "id": "Saya selalu membawa buku catatan kecil untuk ide-ide.",
+                    "ar": "أحمل دائمًا مفكرة صغيرة للأفكار."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d579a4e8dd8355a1d5a_1760868215918.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d579a4e8dd8355a1d5d",
+                "word": "marker",
+                "explanation": {
+                    "en": "A felt-tipped pen used for coloring or writing. Often used to highlight text or write on a whiteboard.",
+                    "vi": "Một cây bút dạ quang dùng để tô màu hoặc viết. Thường dùng để đánh dấu văn bản hoặc viết trên bảng trắng.",
+                    "th": "ปากกาปลายสักหลาดที่ใช้สำหรับระบายสีหรือเขียน มักใช้เพื่อเน้นข้อความหรือเขียนบนกระดานไวท์บอร์ด",
+                    "id": "Pena berujung felt yang digunakan untuk mewarnai atau menulis. Sering digunakan untuk menyoroti teks atau menulis di papan tulis.",
+                    "ar": "قلم ذو رأس لباد يستخدم للتلوين أو الكتابة. غالبًا ما يستخدم لتحديد النص أو الكتابة على السبورة البيضاء."
+                },
+                "translation": {
+                    "vi": "bút lông",
+                    "th": "ปากกาเมจิก",
+                    "id": "spidol",
+                    "ar": "قلم تحديد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmɑːkə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/marker-uk-1760856489235.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmɑːrkər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/marker-us-1760856489564.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please use a dry-erase marker on the whiteboard.",
+                    "vi": "Vui lòng sử dụng bút dạ bảng trắng trên bảng trắng.",
+                    "th": "กรุณาใช้ปากกาไวท์บอร์ดแบบลบได้บนกระดานไวท์บอร์ด",
+                    "id": "Harap gunakan spidol papan tulis yang bisa dihapus di papan tulis.",
+                    "ar": "يرجى استخدام قلم تحديد قابل للمسح الجاف على السبورة البيضاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d579a4e8dd8355a1d5d_1760868222903.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d579a4e8dd8355a1d60",
+                "word": "whiteboard",
+                "explanation": {
+                    "en": "A smooth, white surface used for writing with markers. A common modern teaching aid.",
+                    "vi": "Một bề mặt nhẵn, màu trắng dùng để viết bằng bút dạ. Một công cụ giảng dạy hiện đại phổ biến.",
+                    "th": "พื้นผิวเรียบสีขาวที่ใช้เขียนด้วยปากกาไวท์บอร์ด อุปกรณ์ช่วยสอนที่ทันสมัยและเป็นที่นิยม",
+                    "id": "Permukaan halus berwarna putih yang digunakan untuk menulis dengan spidol. Alat bantu mengajar modern yang umum.",
+                    "ar": "سطح أملس أبيض يستخدم للكتابة بأقلام التحديد. وسيلة تعليمية حديثة شائعة."
+                },
+                "translation": {
+                    "vi": "bảng trắng",
+                    "th": "กระดานไวท์บอร์ด",
+                    "id": "papan tulis putih",
+                    "ar": "سبورة بيضاء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwaɪtbɔːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/whiteboard-uk-ai-1760858065694.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwaɪtbɔːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/whiteboard-us-ai-1760858066287.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The teacher wrote the vocabulary words on the whiteboard.",
+                    "vi": "Giáo viên đã viết các từ vựng lên bảng trắng.",
+                    "th": "คุณครูเขียนคำศัพท์บนกระดานไวท์บอร์ด",
+                    "id": "Guru menulis kata-kata kosakata di papan tulis.",
+                    "ar": "كتب المعلم كلمات المفردات على السبورة البيضاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d579a4e8dd8355a1d60_1760868232489.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d579a4e8dd8355a1d63",
+                "word": "lecture hall",
+                "explanation": {
+                    "en": "A large room for giving lectures. Typically found in colleges and universities.",
+                    "vi": "Một căn phòng lớn dùng để giảng bài. Thường thấy ở các trường cao đẳng và đại học.",
+                    "th": "ห้องขนาดใหญ่สำหรับบรรยาย โดยทั่วไปจะพบในวิทยาลัยและมหาวิทยาลัย",
+                    "id": "Ruangan besar untuk memberikan kuliah. Biasanya ditemukan di perguruan tinggi dan universitas.",
+                    "ar": "قاعة كبيرة لإلقاء المحاضرات. توجد عادة في الكليات والجامعات."
+                },
+                "translation": {
+                    "vi": "giảng đường",
+                    "th": "ห้องบรรยาย",
+                    "id": "ruang kuliah",
+                    "ar": "قاعة محاضرات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/lektʃə hɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lecture-hall-uk-ai-1760858071568.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/lektʃər hɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lecture-hall-us-ai-1760858072233.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The lecture hall was full of students today.",
+                    "vi": "Hôm nay giảng đường đầy sinh viên.",
+                    "th": "วันนี้ห้องบรรยายเต็มไปด้วยนักเรียน",
+                    "id": "Ruang kuliah penuh dengan mahasiswa hari ini.",
+                    "ar": "كانت قاعة المحاضرات مليئة بالطلاب اليوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d579a4e8dd8355a1d63_1760868239848.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d579a4e8dd8355a1d66",
+                "word": "schoolyard",
+                "explanation": {
+                    "en": "An outdoor area attached to a school building. A space where pupils play during recess.",
+                    "vi": "Một khu vực ngoài trời gắn liền với tòa nhà trường học. Một không gian nơi học sinh chơi đùa trong giờ giải lao.",
+                    "th": "พื้นที่กลางแจ้งที่ติดกับอาคารเรียน พื้นที่ที่นักเรียนเล่นในช่วงพัก",
+                    "id": "Area luar ruangan yang melekat pada bangunan sekolah. Sebuah ruang tempat siswa bermain selama istirahat.",
+                    "ar": "منطقة خارجية ملحقة بمبنى المدرسة. مساحة يلعب فيها التلاميذ أثناء الاستراحة."
+                },
+                "translation": {
+                    "vi": "sân trường",
+                    "th": "สนามโรงเรียน",
+                    "id": "halaman sekolah",
+                    "ar": "فناء المدرسة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈskuːljɑːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/schoolyard-uk-ai-1760858078184.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈskuːljɑːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/schoolyard-us-ai-1760858078757.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Children play games in the schoolyard during break time.",
+                    "vi": "Trẻ em chơi trò chơi trong sân trường trong giờ giải lao.",
+                    "th": "เด็กๆ เล่นเกมในสนามโรงเรียนในช่วงเวลาพัก",
+                    "id": "Anak-anak bermain di halaman sekolah saat istirahat.",
+                    "ar": "يلعب الأطفال الألعاب في ساحة المدرسة خلال وقت الاستراحة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d579a4e8dd8355a1d66_1760868246697.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d589a4e8dd8355a1d69",
+                "word": "term",
+                "explanation": {
+                    "en": "One of the periods in which a school year is divided. A main division of the academic year.",
+                    "vi": "Một trong những giai đoạn mà một năm học được chia ra. Một phân đoạn chính của năm học.",
+                    "th": "หนึ่งในช่วงเวลาที่ปีการศึกษาถูกแบ่งออก การแบ่งหลักของปีการศึกษา",
+                    "id": "Salah satu periode di mana tahun ajaran dibagi. Pembagian utama tahun akademik.",
+                    "ar": "إحدى الفترات التي يقسم فيها العام الدراسي. تقسيم رئيسي للسنة الأكاديمية."
+                },
+                "translation": {
+                    "vi": "học kỳ",
+                    "th": "ภาคเรียน",
+                    "id": "semester",
+                    "ar": "فصل دراسي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tɜːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/term-uk-1760856493455.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tɜːrm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/term-us-1760856493864.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The spring term starts next Monday.",
+                    "vi": "Học kỳ mùa xuân bắt đầu vào thứ Hai tới.",
+                    "th": "ภาคเรียนฤดูใบไม้ผลิจะเริ่มในวันจันทร์หน้า",
+                    "id": "Semester musim semi dimulai Senin depan.",
+                    "ar": "يبدأ الفصل الدراسي الربيعي يوم الاثنين القادم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d589a4e8dd8355a1d69_1760868254266.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d589a4e8dd8355a1d6c",
+                "word": "semester",
+                "explanation": {
+                    "en": "A half-year academic term in colleges and schools. A division of the school year, usually two per year.",
+                    "vi": "Một kỳ học kéo dài nửa năm trong các trường cao đẳng và đại học. Một phần của năm học, thường có hai kỳ mỗi năm.",
+                    "th": "ระยะเวลาเรียนครึ่งปีในวิทยาลัยและโรงเรียน การแบ่งปีการศึกษา โดยปกติจะมีสองภาคเรียนต่อปี",
+                    "id": "Istilah akademik setengah tahun di perguruan tinggi dan sekolah. Pembagian tahun ajaran, biasanya dua per tahun.",
+                    "ar": "فترة أكاديمية مدتها نصف عام في الكليات والمدارس. تقسيم للسنة الدراسية، وعادة ما يكون هناك فصلان في السنة."
+                },
+                "translation": {
+                    "vi": "học kỳ (Mỹ)",
+                    "th": "ภาคเรียน",
+                    "id": "semester",
+                    "ar": "فصل دراسي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/sɪˈmestə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/semester-uk-1760856495134.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/sɪˈmestər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/semester-us-1760856495471.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "This semester, I am taking five classes.",
+                    "vi": "Học kỳ này, tôi đang học năm môn.",
+                    "th": "ภาคเรียนนี้ ฉันเรียนห้าวิชา",
+                    "id": "Semester ini, saya mengambil lima mata kuliah.",
+                    "ar": "في هذا الفصل الدراسي، أدرس خمسة مواد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d589a4e8dd8355a1d6c_1760868260859.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d589a4e8dd8355a1d6f",
+                "word": "curriculum",
+                "explanation": {
+                    "en": "The subjects comprising a course of study. The content taught in an educational program.",
+                    "vi": "Các môn học cấu thành một khóa học. Nội dung được giảng dạy trong một chương trình giáo dục.",
+                    "th": "วิชาที่ประกอบเป็นหลักสูตร เนื้อหาที่สอนในโปรแกรมการศึกษา",
+                    "id": "Mata pelajaran yang membentuk suatu program studi. Konten yang diajarkan dalam program pendidikan.",
+                    "ar": "المواد التي تشكل مسارًا دراسيًا. المحتوى الذي يتم تدريسه في برنامج تعليمي."
+                },
+                "translation": {
+                    "vi": "chương trình học",
+                    "th": "หลักสูตร",
+                    "id": "kurikulum",
+                    "ar": "منهج دراسي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kəˈrɪkjələm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/curriculum-uk-1760856496723.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kəˈrɪkjələm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/curriculum-us-1760856497045.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The new curriculum includes more science courses.",
+                    "vi": "Chương trình giảng dạy mới bao gồm nhiều môn khoa học hơn.",
+                    "th": "หลักสูตรใหม่มีวิชาวิทยาศาสตร์มากขึ้น",
+                    "id": "Kurikulum baru mencakup lebih banyak mata kuliah sains.",
+                    "ar": "المنهج الجديد يتضمن المزيد من مقررات العلوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d589a4e8dd8355a1d6f_1760868267427.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d589a4e8dd8355a1d72",
+                "word": "examiner",
+                "explanation": {
+                    "en": "A person who sets or supervises a test. Someone who assesses the performance of a candidate.",
+                    "vi": "Người ra đề hoặc giám sát một bài kiểm tra. Người đánh giá năng lực của thí sinh.",
+                    "th": "บุคคลที่ออกข้อสอบหรือกำกับดูแลการสอบ ผู้ที่ประเมินผลการปฏิบัติงานของผู้สมัคร",
+                    "id": "Seseorang yang menyusun atau mengawasi ujian. Seseorang yang menilai kinerja seorang kandidat.",
+                    "ar": "شخص يضع أو يشرف على اختبار. شخص يقيم أداء المرشح."
+                },
+                "translation": {
+                    "vi": "giám khảo",
+                    "th": "ผู้คุมสอบ",
+                    "id": "penguji",
+                    "ar": "ممتحن"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪɡˈzæmɪnə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/examiner-uk-1760856498306.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪɡˈzæmɪnər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/examiner-us-1760856498666.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The examiner asked difficult questions during the test.",
+                    "vi": "Giám khảo đã hỏi những câu hỏi khó trong bài kiểm tra.",
+                    "th": "ผู้คุมสอบถามคำถามยากระหว่างการสอบ",
+                    "id": "Penguji menanyakan pertanyaan sulit selama ujian.",
+                    "ar": "طرح الممتحن أسئلة صعبة خلال الاختبار."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d589a4e8dd8355a1d72_1760868274137.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d589a4e8dd8355a1d75",
+                "word": "cheat",
+                "explanation": {
+                    "en": "To act dishonestly to gain an advantage. To break the rules during a test.",
+                    "vi": "Hành động không trung thực để đạt được lợi thế. Vi phạm quy tắc trong một bài kiểm tra.",
+                    "th": "การกระทำที่ไม่ซื่อสัตย์เพื่อให้ได้เปรียบ การฝ่าฝืนกฎระหว่างการสอบ",
+                    "id": "Bertindak tidak jujur untuk mendapatkan keuntungan. Melanggar aturan selama ujian.",
+                    "ar": "التصرف بعدم أمانة للحصول على ميزة. خرق القواعد أثناء الاختبار."
+                },
+                "translation": {
+                    "vi": "gian lận",
+                    "th": "โกง",
+                    "id": "menyontek",
+                    "ar": "يغش"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/tʃiːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cheat-uk-1760856499932.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʃiːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cheat-us-1760856500395.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Never cheat on an exam; it's wrong.",
+                    "vi": "Đừng bao giờ gian lận trong kỳ thi; điều đó là sai.",
+                    "th": "อย่าโกงข้อสอบเด็ดขาด มันเป็นสิ่งที่ไม่ถูกต้อง",
+                    "id": "Jangan pernah menyontek saat ujian; itu salah.",
+                    "ar": "لا تغش أبدًا في الامتحان؛ إنه خطأ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d589a4e8dd8355a1d75_1760868281407.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d589a4e8dd8355a1d78",
+                "word": "revise",
+                "explanation": {
+                    "en": "To re-examine and make alterations to a text. To study again to prepare for an assessment.",
+                    "vi": "Xem xét lại và thực hiện các thay đổi đối với một văn bản. Học lại để chuẩn bị cho một bài đánh giá.",
+                    "th": "การตรวจสอบใหม่และทำการเปลี่ยนแปลงข้อความ การอ่านทบทวนเพื่อเตรียมตัวสอบ",
+                    "id": "Memeriksa kembali dan membuat perubahan pada teks. Belajar lagi untuk mempersiapkan penilaian.",
+                    "ar": "إعادة فحص وإجراء تعديلات على نص. الدراسة مرة أخرى للتحضير لتقييم."
+                },
+                "translation": {
+                    "vi": "ôn tập",
+                    "th": "ทบทวน",
+                    "id": "mengulang pelajaran",
+                    "ar": "يراجع"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈvaɪz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/revise-uk-1760856501673.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈvaɪz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/revise-us-1760856502016.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need to revise for my history test tonight.",
+                    "vi": "Tối nay tôi cần ôn tập cho bài kiểm tra lịch sử của mình.",
+                    "th": "คืนนี้ฉันต้องทบทวนบทเรียนเพื่อสอบประวัติศาสตร์",
+                    "id": "Saya perlu merevisi untuk ujian sejarah saya malam ini.",
+                    "ar": "أحتاج إلى مراجعة لاختبار التاريخ الخاص بي الليلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d589a4e8dd8355a1d78_1760868289017.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d589a4e8dd8355a1d7b",
+                "word": "graduate",
+                "explanation": {
+                    "en": "A person who has successfully completed a course of study. An alumnus of a school or university.",
+                    "vi": "Người đã hoàn thành thành công một khóa học. Cựu sinh viên của một trường học hoặc đại học.",
+                    "th": "บุคคลที่สำเร็จการศึกษาตามหลักสูตร ศิษย์เก่าของโรงเรียนหรือมหาวิทยาลัย",
+                    "id": "Seseorang yang telah berhasil menyelesaikan program studi. Seorang alumni sekolah atau universitas.",
+                    "ar": "شخص أكمل بنجاح دورة دراسية. خريج مدرسة أو جامعة."
+                },
+                "translation": {
+                    "vi": "người tốt nghiệp",
+                    "th": "ผู้สำเร็จการศึกษา",
+                    "id": "lulusan",
+                    "ar": "خريج"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɡrædʒuət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/graduate-us-ai-1760865551280.mp3",
+                        "locale": "en-US"
+                    },
+                    {
+                        "text": "/ˈɡrædʒuət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/graduate-uk-ai-1760865551265.mp3",
+                        "locale": "en-UK"
+                    }
+                ],
+                "example": {
+                    "en": "My sister is a university graduate.",
+                    "vi": "Chị gái tôi là một sinh viên tốt nghiệp đại học.",
+                    "th": "พี่สาวของฉันเป็นผู้สำเร็จการศึกษาจากมหาวิทยาลัย",
+                    "id": "Kakak saya adalah lulusan universitas.",
+                    "ar": "أختي خريجة جامعية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d589a4e8dd8355a1d7b_1760868297388.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d599a4e8dd8355a1d7e",
+                "word": "clipboard",
+                "explanation": {
+                    "en": "A board with a clip for holding papers. Used for writing when standing up.",
+                    "vi": "Một tấm bảng có kẹp để giữ giấy tờ. Dùng để viết khi đứng.",
+                    "th": "แผ่นกระดานที่มีคลิปหนีบกระดาษ ใช้สำหรับเขียนขณะยืน",
+                    "id": "Papan dengan klip untuk menahan kertas. Digunakan untuk menulis saat berdiri.",
+                    "ar": "لوح مزود بمشبك لحمل الأوراق. يستخدم للكتابة عند الوقوف."
+                },
+                "translation": {
+                    "vi": "bìa kẹp giấy",
+                    "th": "แฟ้มรองเขียน",
+                    "id": "papan jepit",
+                    "ar": "لوح كتابة بمشبك"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈklɪpbɔːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/clipboard-uk-1760856504218.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈklɪpbɔːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/clipboard-us-1760856504543.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The doctor held a clipboard with my medical information.",
+                    "vi": "Bác sĩ cầm một bảng kẹp giấy chứa thông tin y tế của tôi.",
+                    "th": "หมอถือแฟ้มรองเขียนที่มีข้อมูลทางการแพทย์ของฉัน",
+                    "id": "Dokter memegang papan klip dengan informasi medis saya.",
+                    "ar": "حمل الطبيب حافظة أوراق تحتوي على معلوماتي الطبية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d599a4e8dd8355a1d7e_1760868305391.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d599a4e8dd8355a1d81",
+                "word": "whiteout",
+                "explanation": {
+                    "en": "An opaque fluid used to cover errors in a document. Used to correct mistakes made in ink.",
+                    "vi": "Một chất lỏng đục dùng để che lỗi trong tài liệu. Dùng để sửa lỗi viết bằng mực.",
+                    "th": "ของเหลวทึบแสงที่ใช้ปกปิดข้อผิดพลาดในเอกสาร ใช้แก้ไขข้อผิดพลาดที่เขียนด้วยหมึก",
+                    "id": "Cairan buram yang digunakan untuk menutupi kesalahan dalam dokumen. Digunakan untuk mengoreksi kesalahan yang dibuat dengan tinta.",
+                    "ar": "سائل معتم يستخدم لتغطية الأخطاء في المستند. يستخدم لتصحيح الأخطاء المكتوبة بالحبر."
+                },
+                "translation": {
+                    "vi": "bút xóa",
+                    "th": "น้ำยาลบคำผิด",
+                    "id": "cairan koreksi",
+                    "ar": "سائل التصحيح"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwaɪtˌaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/whiteout-uk-ai-1760858091089.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwaɪtˌaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/whiteout-us-ai-1760858091684.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I used whiteout to fix the mistake on my paper.",
+                    "vi": "Tôi đã dùng bút xóa để sửa lỗi trên giấy của mình.",
+                    "th": "ฉันใช้น้ำยาลบคำผิดเพื่อแก้ไขข้อผิดพลาดบนกระดาษของฉัน",
+                    "id": "Saya menggunakan tip-ex untuk memperbaiki kesalahan di kertas saya.",
+                    "ar": "استخدمت سائل التصحيح لتصحيح الخطأ في ورقتي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d599a4e8dd8355a1d81_1760868311668.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d599a4e8dd8355a1d84",
+                "word": "classmate",
+                "explanation": {
+                    "en": "A member of the same class at a school or college. Someone who attends the same lessons as you.",
+                    "vi": "Một thành viên cùng lớp ở trường học hoặc cao đẳng. Người tham gia cùng các bài học với bạn.",
+                    "th": "สมาชิกในชั้นเรียนเดียวกันที่โรงเรียนหรือวิทยาลัย คนที่เรียนบทเรียนเดียวกันกับคุณ",
+                    "id": "Anggota kelas yang sama di sekolah atau perguruan tinggi. Seseorang yang mengikuti pelajaran yang sama dengan Anda.",
+                    "ar": "عضو في نفس الفصل الدراسي في المدرسة أو الكلية. شخص يحضر نفس الدروس معك."
+                },
+                "translation": {
+                    "vi": "bạn cùng lớp",
+                    "th": "เพื่อนร่วมชั้น",
+                    "id": "teman sekelas",
+                    "ar": "زميل دراسة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈklɑːsmeɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/classmate-uk-ai-1760858095651.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈklæsmeɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/classmate-us-ai-1760858096317.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My classmate helped me understand the math problem.",
+                    "vi": "Bạn cùng lớp đã giúp tôi hiểu bài toán.",
+                    "th": "เพื่อนร่วมชั้นของฉันช่วยให้ฉันเข้าใจโจทย์คณิตศาสตร์",
+                    "id": "Teman sekelas saya membantu saya memahami soal matematika.",
+                    "ar": "ساعدني زميلي في فهم مشكلة الرياضيات."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d599a4e8dd8355a1d84_1760868320310.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297de9a",
+                "group_name": "School",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 50
+    }
+}

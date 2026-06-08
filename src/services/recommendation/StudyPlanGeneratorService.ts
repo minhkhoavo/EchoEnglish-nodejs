@@ -6,6 +6,7 @@ import { TestResult } from '../../models/testResultModel.js';
 import { toeicAnalysisAIService } from '../../ai/service/toeicAnalysisAIService.js';
 import { SeverityLevel } from '../../enum/severityLevel.js';
 import { Difficulty } from '../../enum/difficulty.js';
+import { knowledgeBaseService } from '../knowledgeBase/knowledgeBaseService.js';
 
 // Type definitions for internal use
 type LearningResource = {
@@ -85,9 +86,6 @@ export class StudyPlanGeneratorService {
 
         for (let i = 0; i < strategicItems.length; i++) {
             const strategicItem = strategicItems[i];
-            console.log(`\n=== Processing Strategic Item ${i + 1} ===`);
-            console.log('Strategic item:', strategicItem);
-
             // Find corresponding weakness from diagnosis by ID
             const targetWeakness = examAnalysis.topWeaknesses.find(
                 (w: { id: string; skillKey: string; skillName?: string }) =>
@@ -207,15 +205,9 @@ export class StudyPlanGeneratorService {
         console.log(`Generated ${resources.length} learning resources`);
 
         // 3. Generate practice drills
-        const practiceDrills = await this.generatePracticeDrills(weakness);
-        console.log(`Generated ${practiceDrills.length} practice drills`);
+        // const practiceDrills = await this.generatePracticeDrills(weakness);
+        // console.log(`Generated ${practiceDrills.length} practice drills`);
 
-        // 4. Extract skills to improve with validation
-        console.log('Extracting skills from weakness:', {
-            skillKey: weakness.skillKey,
-            skillName: weakness.skillName,
-            category: weakness.category,
-        });
         const skillsToImprove = this.extractSkillsToImprove(weakness);
         console.log('Skills to improve:', skillsToImprove);
 
@@ -248,7 +240,7 @@ export class StudyPlanGeneratorService {
             },
             skillsToImprove: validatedSkillsToImprove,
             resources,
-            practiceDrills,
+            practiceDrills: [],
             progress: 0,
             estimatedWeeks: aiPlanItem.estimatedWeeks || 2,
         };
@@ -260,7 +252,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate all types of learning resources for a weakness
      */
-    private async generateLearningResources(
+    public async generateLearningResources(
         weakness: {
             category: string;
             skillKey: string;
@@ -296,9 +288,9 @@ export class StudyPlanGeneratorService {
 
         // 3. Generate personalized guide - Only for skill-based weaknesses (not grammar/vocabulary)
         if (this.shouldGeneratePersonalizedGuide(weakness)) {
-            console.log(
-                'Generating personalized guide (relevant for this weakness)...'
-            );
+            // console.log(
+            //     'Generating personalized guide (relevant for this weakness)...'
+            // );
             const personalizedGuide = await this.generatePersonalizedGuide(
                 weakness,
                 userAccuracy
@@ -318,7 +310,7 @@ export class StudyPlanGeneratorService {
     /**
      * Determine if vocabulary set is needed for this weakness
      */
-    private shouldGenerateVocabularySet(weakness: {
+    public shouldGenerateVocabularySet(weakness: {
         category: string;
         skillKey: string;
         skillName: string;
@@ -375,7 +367,7 @@ export class StudyPlanGeneratorService {
     /**
      * Determine if personalized guide is needed for this weakness
      */
-    private shouldGeneratePersonalizedGuide(weakness: {
+    public shouldGeneratePersonalizedGuide(weakness: {
         category: string;
         skillKey: string;
     }): boolean {
@@ -419,7 +411,7 @@ export class StudyPlanGeneratorService {
     /**
      * Find videos and articles from database
      */
-    private async findDatabaseResources(
+    public async findDatabaseResources(
         weakness: {
             skillKey: string;
             category: string;
@@ -511,7 +503,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate AI-powered vocabulary set
      */
-    private async generateVocabularySet(
+    public async generateVocabularySet(
         weakness: {
             category: string;
             skillKey: string;
@@ -527,6 +519,8 @@ export class StudyPlanGeneratorService {
                     skillKey: weakness.skillKey,
                     weaknessTitle: weakness.skillName,
                     affectedParts: weakness.affectedParts,
+                    domainContext: weakDomains,
+                    weakDomains: weakDomains,
                 }
             );
 
@@ -555,7 +549,7 @@ export class StudyPlanGeneratorService {
     /**
      * Generate personalized study guide with AI
      */
-    private async generatePersonalizedGuide(
+    public async generatePersonalizedGuide(
         weakness: {
             category: string;
             skillKey: string;
@@ -568,7 +562,26 @@ export class StudyPlanGeneratorService {
         userAccuracy: number
     ): Promise<LearningResource | null> {
         try {
-            console.log('Generating personalized guide with AI...');
+            let knowledgeContext: string | null = null;
+            const category = weakness.category?.toUpperCase() || '';
+
+            if (
+                category.includes('GRAMMAR') ||
+                category.includes('VOCABULARY')
+            ) {
+                knowledgeContext =
+                    await knowledgeBaseService.getKnowledgeContext(
+                        weakness.skillName
+                    );
+                if (knowledgeContext) {
+                    console.log(
+                        '[StudyPlan] Found knowledge context for:',
+                        weakness.skillName
+                    );
+                }
+            }
+
+            // console.log('Generating personalized guide with AI...');
             const guide =
                 await toeicAnalysisAIService.generatePersonalizedGuide({
                     weaknessCategory: weakness.category,
@@ -580,6 +593,7 @@ export class StudyPlanGeneratorService {
                     questionsAttempted: weakness.totalCount || 0,
                     errorPatterns: 'Analysis in progress',
                     commonMistakes: 'Will be identified after more practice',
+                    knowledgeContext, // Truyền knowledge context vào AI
                 });
 
             if (!guide || !guide.sections || guide.sections.length === 0) {
@@ -860,7 +874,7 @@ export class StudyPlanGeneratorService {
     /**
      * Map skill key/category to resource topics
      */
-    private getTopicKeywords(skillKey: string, category: string): string[] {
+    public getTopicKeywords(skillKey: string, category: string): string[] {
         const keywords: string[] = [];
 
         // Handle undefined skillKey
@@ -973,7 +987,7 @@ export class StudyPlanGeneratorService {
             keywords.push('next steps', 'problem solving', 'request handling');
         }
 
-        console.log(`Mapped ${category}/${skillKey} to keywords:`, keywords);
+        // console.log(`Mapped ${category}/${skillKey} to keywords:`, keywords);
         return keywords;
     }
 

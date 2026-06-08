@@ -1,7 +1,3 @@
-import { TransactionType } from '~/enum/transactionType.js';
-import { PaymentStatus } from '~/enum/paymentStatus.js';
-import { Payment } from '~/models/payment.js';
-import { PaymentGateway } from '~/enum/paymentGateway.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { PromoCode, PromoCodeType } from '../../models/promoCode.js';
@@ -11,6 +7,9 @@ interface PromoInput {
     discount: number;
     expiration?: Date;
     usageLimit?: number;
+    maxUsesPerUser?: number;
+    minOrderValue?: number;
+    maxDiscountAmount?: number;
 }
 
 class PromoService {
@@ -34,20 +33,71 @@ class PromoService {
         return promo;
     }
 
-    /* Search promos */
+    /* Search promos with filters */
     public async getAllPromos(
         search: string = '',
         page: number = 1,
-        limit: number = 10
+        limit: number = 10,
+        filters?: {
+            active?: string;
+            minDiscount?: string;
+            maxDiscount?: string;
+            status?: string;
+            availability?: string;
+            sort?: string;
+        }
     ) {
         const query: Record<string, unknown> = {};
+
+        // Search by code
         if (search) {
             query.code = { $regex: search, $options: 'i' };
         }
 
+        // Filter by active status
+        if (filters?.active) {
+            query.active = filters.active === 'true';
+        }
+
+        // Filter by discount range
+        if (filters?.minDiscount || filters?.maxDiscount) {
+            query.discount = {};
+            if (filters.minDiscount) {
+                (query.discount as Record<string, unknown>).$gte = Number(
+                    filters.minDiscount
+                );
+            }
+            if (filters.maxDiscount) {
+                (query.discount as Record<string, unknown>).$lte = Number(
+                    filters.maxDiscount
+                );
+            }
+        }
+
+        // Filter by status (valid/expired)
+        if (filters?.status === 'valid') {
+            query.$or = [
+                { expiration: { $gt: new Date() } },
+                { expiration: null },
+            ];
+        } else if (filters?.status === 'expired') {
+            query.expiration = { $lte: new Date() };
+        }
+
+        // Filter by availability (based on usage limit)
+        if (filters?.availability === 'available') {
+            query.$expr = { $lt: ['$usedCount', '$usageLimit'] };
+        } else if (filters?.availability === 'out') {
+            query.$expr = { $gte: ['$usedCount', '$usageLimit'] };
+        }
+
         const total = await PromoCode.countDocuments(query);
+
+        // Sort order
+        const sortOrder = filters?.sort === 'asc' ? 1 : -1;
+
         const promos = await PromoCode.find(query)
-            .sort({ creatAt: -1 })
+            .sort({ createdAt: sortOrder })
             .skip((page - 1) * limit)
             .limit(limit);
 
@@ -58,6 +108,8 @@ class PromoService {
                 page,
                 limit,
                 totalPages: Math.ceil(total / limit),
+                hasPrev: page > 1,
+                hasNext: page < Math.ceil(total / limit),
             },
         };
     }
@@ -67,6 +119,9 @@ class PromoService {
         discount,
         expiration,
         usageLimit,
+        maxUsesPerUser,
+        minOrderValue,
+        maxDiscountAmount,
     }: PromoInput) => {
         if (!code || !discount) {
             throw new ApiError(ErrorMessage.INVALID_PROMO_DATA);
@@ -82,12 +137,19 @@ class PromoService {
             discount,
             expiration,
             usageLimit,
+            maxUsesPerUser,
+            minOrderValue,
+            maxDiscountAmount,
         });
 
         return promo;
     };
 
-    validatePromoCode = async (code: string) => {
+    validatePromoCode = async (
+        code: string,
+        userId: string,
+        orderValue: number
+    ) => {
         if (!code) {
             throw new ApiError(ErrorMessage.PROMO_CODE_REQUIRED);
         }
@@ -108,13 +170,58 @@ class PromoService {
             throw new ApiError(ErrorMessage.PROMO_USAGE_LIMIT_REACHED);
         }
 
+        // Check min order value
+        console.log(
+            'Order Value:',
+            orderValue,
+            'Min Order Value:',
+            promo.minOrderValue
+        );
+        if (orderValue < promo.minOrderValue) {
+            throw new ApiError(ErrorMessage.MIN_ORDER_VALUE_NOT_MET);
+        }
+
+        // Check max uses per user
+        let userUsage = 0;
+        promo.userUsages.forEach((usage: number, uid: string) => {
+            if (uid === userId) {
+                userUsage = usage;
+                if (promo.maxUsesPerUser && userUsage >= promo.maxUsesPerUser) {
+                    throw new ApiError(ErrorMessage.PROMO_USAGE_LIMIT_REACHED);
+                }
+            }
+        });
+
+        // Calculate effective discount
+        let finalDiscount = (promo.discount * orderValue) / 100;
+        if (
+            promo.maxDiscountAmount &&
+            finalDiscount > promo.maxDiscountAmount
+        ) {
+            finalDiscount = promo.maxDiscountAmount;
+        }
+
         return {
             code: promo.code,
-            discount: promo.discount,
-            expiration: promo.expiration,
-            remaining: promo.usageLimit - promo.usedCount,
-            active: promo.active,
+            discount: finalDiscount,
         };
+    };
+
+    applyPromoCode = async (code: string, userId: string) => {
+        const promo = await PromoCode.findOne({ code: code.toUpperCase() });
+        if (!promo) {
+            throw new ApiError(ErrorMessage.PROMO_NOT_FOUND);
+        }
+
+        // Update usedCount
+        promo.usedCount += 1;
+
+        // Update userUsages
+        const currentUsage = promo.userUsages.get(userId) || 0;
+        promo.userUsages.set(userId, currentUsage + 1);
+
+        await promo.save();
+        return promo;
     };
 }
 

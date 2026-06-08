@@ -1,0 +1,2165 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47ed19a4e8dd8355a22a1",
+                "word": "technology",
+                "explanation": {
+                    "en": "The application of scientific knowledge for practical purposes. Machinery and equipment developed from scientific knowledge.",
+                    "vi": "Ứng dụng kiến thức khoa học vào các mục đích thực tế. Máy móc và thiết bị được phát triển từ kiến thức khoa học.",
+                    "th": "การประยุกต์ใช้ความรู้ทางวิทยาศาสตร์เพื่อวัตถุประสงค์ในทางปฏิบัติ เครื่องจักรและอุปกรณ์ที่พัฒนาขึ้นจากความรู้ทางวิทยาศาสตร์",
+                    "id": "Penerapan pengetahuan ilmiah untuk tujuan praktis. Mesin dan peralatan yang dikembangkan dari pengetahuan ilmiah.",
+                    "ar": "تطبيق المعرفة العلمية لأغراض عملية. الآلات والمعدات المطورة من المعرفة العلمية."
+                },
+                "translation": {
+                    "vi": "công nghệ",
+                    "th": "เทคโนโลยี",
+                    "id": "teknologi",
+                    "ar": "تكنولوجيا"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tekˈnɒlədʒi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/technology-uk-1760857120934.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tekˈnɑːlədʒi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/technology-us-1760857121281.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Modern technology makes our lives much easier.",
+                    "vi": "Công nghệ hiện đại giúp cuộc sống của chúng ta dễ dàng hơn rất nhiều.",
+                    "th": "เทคโนโลยีสมัยใหม่ทำให้ชีวิตของเราง่ายขึ้นมาก",
+                    "id": "Teknologi modern membuat hidup kita jauh lebih mudah.",
+                    "ar": "التكنولوجيا الحديثة تجعل حياتنا أسهل بكثير."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed19a4e8dd8355a22a1_1760871246436.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed19a4e8dd8355a22a4",
+                "word": "computer",
+                "explanation": {
+                    "en": "An electronic device for storing and processing data. A machine used for calculating and operating programs.",
+                    "vi": "Một thiết bị điện tử để lưu trữ và xử lý dữ liệu. Một cỗ máy được sử dụng để tính toán và vận hành các chương trình.",
+                    "th": "อุปกรณ์อิเล็กทรอนิกส์สำหรับจัดเก็บและประมวลผลข้อมูล เครื่องจักรที่ใช้ในการคำนวณและเรียกใช้โปรแกรม",
+                    "id": "Perangkat elektronik untuk menyimpan dan memproses data. Mesin yang digunakan untuk menghitung dan mengoperasikan program.",
+                    "ar": "جهاز إلكتروني لتخزين ومعالجة البيانات. آلة تستخدم للحساب وتشغيل البرامج."
+                },
+                "translation": {
+                    "vi": "máy tính",
+                    "th": "คอมพิวเตอร์",
+                    "id": "komputer",
+                    "ar": "كمبيوتر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kəmˈpjuːtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/computer-uk-1760857122557.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kəmˈpjuːtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/computer-us-1760857122909.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I use my computer for work every day.",
+                    "vi": "Tôi sử dụng máy tính của mình để làm việc mỗi ngày.",
+                    "th": "ฉันใช้คอมพิวเตอร์ทำงานทุกวัน",
+                    "id": "Saya menggunakan komputer saya untuk bekerja setiap hari.",
+                    "ar": "أستخدم جهاز الكمبيوتر الخاص بي للعمل كل يوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed19a4e8dd8355a22a4_1760871253394.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed19a4e8dd8355a22a7",
+                "word": "laptop",
+                "explanation": {
+                    "en": "A small, portable personal computer. A computer that can be easily carried and used in various locations.",
+                    "vi": "Một máy tính cá nhân nhỏ, di động. Một máy tính có thể dễ dàng mang theo và sử dụng ở nhiều địa điểm khác nhau.",
+                    "th": "คอมพิวเตอร์ส่วนบุคคลขนาดเล็กแบบพกพา คอมพิวเตอร์ที่สามารถพกพาและใช้งานได้ง่ายในสถานที่ต่างๆ",
+                    "id": "Komputer pribadi kecil yang portabel. Komputer yang dapat dengan mudah dibawa dan digunakan di berbagai lokasi.",
+                    "ar": "جهاز كمبيوتر شخصي صغير ومحمول. جهاز كمبيوتر يمكن حمله واستخدامه بسهولة في مواقع مختلفة."
+                },
+                "translation": {
+                    "vi": "máy tính xách tay",
+                    "th": "แล็ปท็อป",
+                    "id": "laptop",
+                    "ar": "لابتوب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈlæptɒp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/laptop-uk-1760857124175.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈlæptɑːp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/laptop-us-1760857124534.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She brought her laptop to the coffee shop.",
+                    "vi": "Cô ấy mang laptop của mình đến quán cà phê.",
+                    "th": "เธอเอาแล็ปท็อปไปที่ร้านกาแฟ",
+                    "id": "Dia membawa laptopnya ke kedai kopi.",
+                    "ar": "أحضرت جهاز الكمبيوتر المحمول الخاص بها إلى المقهى."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed19a4e8dd8355a22a7_1760871263189.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed29a4e8dd8355a22aa",
+                "word": "tablet",
+                "explanation": {
+                    "en": "A small, flat computer with a touchscreen. A portable device typically larger than a smartphone.",
+                    "vi": "Một máy tính nhỏ, phẳng có màn hình cảm ứng. Một thiết bị di động thường lớn hơn smartphone.",
+                    "th": "คอมพิวเตอร์ขนาดเล็กแบนพร้อมหน้าจอสัมผัส อุปกรณ์พกพาที่มักจะมีขนาดใหญ่กว่าสมาร์ทโฟน",
+                    "id": "Komputer kecil dan datar dengan layar sentuh. Perangkat portabel yang biasanya lebih besar dari smartphone.",
+                    "ar": "جهاز كمبيوتر صغير ومسطح بشاشة تعمل باللمس. جهاز محمول عادة ما يكون أكبر من الهاتف الذكي."
+                },
+                "translation": {
+                    "vi": "máy tính bảng",
+                    "th": "แท็บเล็ต",
+                    "id": "tablet",
+                    "ar": "تابلت"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtæblət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tablet-uk-1760857125806.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtæblət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tablet-us-1760857126154.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My kids love to play games on the tablet.",
+                    "vi": "Con tôi thích chơi game trên máy tính bảng.",
+                    "th": "ลูกๆ ของฉันชอบเล่นเกมบนแท็บเล็ต",
+                    "id": "Anak-anak saya suka bermain game di tablet.",
+                    "ar": "أطفالي يحبون لعب الألعاب على الجهاز اللوحي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed29a4e8dd8355a22aa_1760871273880.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed29a4e8dd8355a22ad",
+                "word": "smartphone",
+                "explanation": {
+                    "en": "A mobile phone that performs many computer functions. A device with advanced computing abilities.",
+                    "vi": "Một điện thoại di động thực hiện nhiều chức năng của máy tính. Một thiết bị có khả năng tính toán tiên tiến.",
+                    "th": "โทรศัพท์มือถือที่ทำงานได้หลายฟังก์ชันเหมือนคอมพิวเตอร์ อุปกรณ์ที่มีความสามารถในการประมวลผลขั้นสูง",
+                    "id": "Ponsel yang melakukan banyak fungsi komputer. Perangkat dengan kemampuan komputasi canggih.",
+                    "ar": "هاتف محمول يؤدي العديد من وظائف الكمبيوتر. جهاز بقدرات حوسبة متقدمة."
+                },
+                "translation": {
+                    "vi": "điện thoại thông minh",
+                    "th": "สมาร์ทโฟน",
+                    "id": "ponsel pintar",
+                    "ar": "هاتف ذكي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsmɑːtfəʊn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/smartphone-uk-ai-1760858371391.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsmɑːrtfoʊn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/smartphone-us-ai-1760858372028.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He always has his smartphone with him.",
+                    "vi": "Anh ấy luôn mang theo smartphone bên mình.",
+                    "th": "เขามีสมาร์ทโฟนติดตัวอยู่เสมอ",
+                    "id": "Dia selalu membawa smartphonenya.",
+                    "ar": "هو دائما يحمل هاتفه الذكي معه."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed29a4e8dd8355a22ad_1760871282020.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed29a4e8dd8355a22b0",
+                "word": "screen",
+                "explanation": {
+                    "en": "A flat surface that displays images and video. The visual output component of an electronic device.",
+                    "vi": "Một bề mặt phẳng hiển thị hình ảnh và video. Thành phần đầu ra hình ảnh của một thiết bị điện tử.",
+                    "th": "พื้นผิวเรียบที่แสดงภาพและวิดีโอ ส่วนประกอบเอาต์พุตภาพของอุปกรณ์อิเล็กทรอนิกส์",
+                    "id": "Permukaan datar yang menampilkan gambar dan video. Komponen keluaran visual dari perangkat elektronik.",
+                    "ar": "سطح مستوٍ يعرض الصور والفيديو. مكون الإخراج المرئي لجهاز إلكتروني."
+                },
+                "translation": {
+                    "vi": "màn hình",
+                    "th": "หน้าจอ",
+                    "id": "layar",
+                    "ar": "شاشة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/skriːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/screen-uk-1760857128468.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/skriːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/screen-us-1760857128797.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The TV screen is very big and clear.",
+                    "vi": "Màn hình TV rất lớn và rõ nét.",
+                    "th": "หน้าจอทีวีใหญ่และคมชัดมาก",
+                    "id": "Layar TV sangat besar dan jernih.",
+                    "ar": "شاشة التلفزيون كبيرة وواضحة جداً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed29a4e8dd8355a22b0_1760871288852.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed29a4e8dd8355a22b3",
+                "word": "keyboard",
+                "explanation": {
+                    "en": "A panel of keys that operate a computer or typewriter. Used to input text and characters.",
+                    "vi": "Một bảng các phím dùng để điều khiển máy tính hoặc máy đánh chữ. Dùng để nhập văn bản và ký tự.",
+                    "th": "แผงปุ่มที่ใช้ควบคุมคอมพิวเตอร์หรือเครื่องพิมพ์ดีด ใช้สำหรับป้อนข้อความและตัวอักษร",
+                    "id": "Panel tombol yang mengoperasikan komputer atau mesin tik. Digunakan untuk memasukkan teks dan karakter.",
+                    "ar": "لوحة مفاتيح تعمل على تشغيل جهاز كمبيوتر أو آلة كاتبة. تستخدم لإدخال النصوص والأحرف."
+                },
+                "translation": {
+                    "vi": "bàn phím",
+                    "th": "แป้นพิมพ์",
+                    "id": "keyboard",
+                    "ar": "لوحة مفاتيح"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkiːbɔːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/keyboard-uk-1760857130060.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkiːbɔːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/keyboard-us-1760857130384.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My new keyboard has backlit keys.",
+                    "vi": "Bàn phím mới của tôi có đèn nền.",
+                    "th": "คีย์บอร์ดใหม่ของฉันมีไฟแบ็คไลท์",
+                    "id": "Keyboard baru saya memiliki tombol berlampu latar.",
+                    "ar": "لوحة المفاتيح الجديدة الخاصة بي تحتوي على مفاتيح بإضاءة خلفية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed29a4e8dd8355a22b3_1760871295792.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed29a4e8dd8355a22b6",
+                "word": "mouse",
+                "explanation": {
+                    "en": "A hand-held device for controlling the cursor on a computer screen. Used to select, click, and drag items.",
+                    "vi": "Một thiết bị cầm tay để điều khiển con trỏ trên màn hình máy tính. Dùng để chọn, nhấp và kéo các mục.",
+                    "th": "อุปกรณ์มือถือสำหรับควบคุมเคอร์เซอร์บนหน้าจอคอมพิวเตอร์ ใช้สำหรับเลือก คลิก และลากรายการต่างๆ",
+                    "id": "Perangkat genggam untuk mengontrol kursor di layar komputer. Digunakan untuk memilih, mengklik, dan menyeret item.",
+                    "ar": "جهاز محمول باليد للتحكم في المؤشر على شاشة الكمبيوتر. يستخدم لتحديد العناصر والنقر عليها وسحبها."
+                },
+                "translation": {
+                    "vi": "chuột máy tính",
+                    "th": "เมาส์",
+                    "id": "mouse",
+                    "ar": "فأرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/maʊs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mouse-uk-1760857131650.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/maʊs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mouse-us-1760857131990.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "You move the mouse to control the cursor.",
+                    "vi": "Bạn di chuyển chuột để điều khiển con trỏ.",
+                    "th": "คุณเลื่อนเมาส์เพื่อควบคุมเคอร์เซอร์",
+                    "id": "Anda menggerakkan mouse untuk mengontrol kursor.",
+                    "ar": "تحرك الفأرة للتحكم في المؤشر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed29a4e8dd8355a22b6_1760871303207.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed39a4e8dd8355a22b9",
+                "word": "monitor",
+                "explanation": {
+                    "en": "The display screen used to output information from a computer. The visual display unit.",
+                    "vi": "Màn hình hiển thị dùng để xuất thông tin từ máy tính. Đơn vị hiển thị hình ảnh.",
+                    "th": "หน้าจอแสดงผลที่ใช้สำหรับแสดงข้อมูลจากคอมพิวเตอร์ หน่วยแสดงผลภาพ",
+                    "id": "Layar tampilan yang digunakan untuk menampilkan informasi dari komputer. Unit tampilan visual.",
+                    "ar": "شاشة العرض المستخدمة لإخراج المعلومات من جهاز الكمبيوتر. وحدة العرض المرئي."
+                },
+                "translation": {
+                    "vi": "màn hình máy tính",
+                    "th": "จอมอนิเตอร์",
+                    "id": "monitor komputer",
+                    "ar": "شاشة الكمبيوتر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmɒnɪtə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/monitor-uk-1760857133275.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmɑːnɪtər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/monitor-us-1760857133648.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need a bigger monitor for my desk.",
+                    "vi": "Tôi cần một màn hình lớn hơn cho bàn làm việc của mình.",
+                    "th": "ฉันต้องการจอภาพที่ใหญ่ขึ้นสำหรับโต๊ะทำงานของฉัน",
+                    "id": "Saya membutuhkan monitor yang lebih besar untuk meja saya.",
+                    "ar": "أحتاج إلى شاشة أكبر لمكتبي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed39a4e8dd8355a22b9_1760871311826.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed39a4e8dd8355a22bc",
+                "word": "printer",
+                "explanation": {
+                    "en": "A machine for printing text or pictures onto paper. A device that produces hard copies of documents.",
+                    "vi": "Một máy dùng để in văn bản hoặc hình ảnh lên giấy. Một thiết bị tạo ra bản sao cứng của tài liệu.",
+                    "th": "เครื่องสำหรับพิมพ์ข้อความหรือรูปภาพลงบนกระดาษ อุปกรณ์ที่สร้างสำเนาเอกสารในรูปแบบกระดาษ",
+                    "id": "Mesin untuk mencetak teks atau gambar ke kertas. Perangkat yang menghasilkan salinan cetak dokumen.",
+                    "ar": "آلة لطباعة النصوص أو الصور على الورق. جهاز ينتج نسخًا ورقية من المستندات."
+                },
+                "translation": {
+                    "vi": "máy in",
+                    "th": "เครื่องพิมพ์",
+                    "id": "printer",
+                    "ar": "طابعة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈprɪntə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/printer-uk-1760857134917.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈprɪntər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/printer-us-1760857135246.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The printer is out of paper again.",
+                    "vi": "Máy in lại hết giấy rồi.",
+                    "th": "เครื่องพิมพ์กระดาษหมดอีกแล้ว",
+                    "id": "Printer kehabisan kertas lagi.",
+                    "ar": "نفد الورق من الطابعة مرة أخرى."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed39a4e8dd8355a22bc_1760871319407.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed39a4e8dd8355a22bf",
+                "word": "speaker",
+                "explanation": {
+                    "en": "An electrical device that converts electrical signals into sounds. Used to amplify and play audio.",
+                    "vi": "Một thiết bị điện chuyển đổi tín hiệu điện thành âm thanh. Dùng để khuếch đại và phát âm thanh.",
+                    "th": "อุปกรณ์ไฟฟ้าที่แปลงสัญญาณไฟฟ้าเป็นเสียง ใช้สำหรับขยายและเล่นเสียง",
+                    "id": "Perangkat listrik yang mengubah sinyal listrik menjadi suara. Digunakan untuk memperkuat dan memutar audio.",
+                    "ar": "جهاز كهربائي يحول الإشارات الكهربائية إلى أصوات. يستخدم لتضخيم وتشغيل الصوت."
+                },
+                "translation": {
+                    "vi": "loa",
+                    "th": "ลำโพง",
+                    "id": "speaker",
+                    "ar": "مكبر صوت"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈspiːkə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/speaker-uk-1760857136512.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈspiːkər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/speaker-us-1760857136846.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Turn up the speaker so we can hear the music.",
+                    "vi": "Bật loa lớn lên để chúng ta có thể nghe nhạc.",
+                    "th": "เปิดลำโพงให้ดังขึ้นเราจะได้ยินเพลง",
+                    "id": "Nyalakan speaker agar kita bisa mendengar musik.",
+                    "ar": "ارفع صوت السماعة حتى نتمكن من سماع الموسيقى."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed39a4e8dd8355a22bf_1760871326096.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed39a4e8dd8355a22c2",
+                "word": "earphones",
+                "explanation": {
+                    "en": "Small devices worn in or over the ears to listen to audio. Used for private listening to music or calls.",
+                    "vi": "Các thiết bị nhỏ đeo trong hoặc trên tai để nghe âm thanh. Dùng để nghe nhạc hoặc gọi điện riêng tư.",
+                    "th": "อุปกรณ์ขนาดเล็กที่สวมใส่ในหรือบนหูเพื่อฟังเสียง ใช้สำหรับการฟังเพลงหรือการโทรส่วนตัว",
+                    "id": "Perangkat kecil yang dipakai di atau di atas telinga untuk mendengarkan audio. Digunakan untuk mendengarkan musik atau panggilan secara pribadi.",
+                    "ar": "أجهزة صغيرة توضع في الأذن أو فوقها للاستماع إلى الصوت. تستخدم للاستماع الخاص إلى الموسيقى أو المكالمات."
+                },
+                "translation": {
+                    "vi": "tai nghe",
+                    "th": "หูฟัง",
+                    "id": "earphone",
+                    "ar": "سماعات أذن"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɪəfəʊnz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/earphones-uk-1760857138106.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɪrfəʊnz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/earphones-us-1760857138441.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I listen to podcasts with my earphones.",
+                    "vi": "Tôi nghe podcast bằng tai nghe của mình.",
+                    "th": "ฉันฟังพอดแคสต์ด้วยหูฟังของฉัน",
+                    "id": "Saya mendengarkan podcast dengan earphone saya.",
+                    "ar": "أستمع إلى البودكاست باستخدام سماعات الأذن الخاصة بي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed39a4e8dd8355a22c2_1760871334496.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed39a4e8dd8355a22c5",
+                "word": "cable",
+                "explanation": {
+                    "en": "A thick wire or group of wires in a protective casing. Used to transmit electrical current or signals.",
+                    "vi": "Một sợi dây dày hoặc một nhóm dây trong vỏ bảo vệ. Dùng để truyền dòng điện hoặc tín hiệu.",
+                    "th": "สายไฟหนาหรือกลุ่มสายไฟที่อยู่ในปลอกป้องกัน ใช้สำหรับส่งกระแสไฟฟ้าหรือสัญญาณ",
+                    "id": "Kawat tebal atau sekelompok kawat dalam selubung pelindung. Digunakan untuk mengirimkan arus listrik atau sinyal.",
+                    "ar": "سلك سميك أو مجموعة أسلاك في غلاف واقي. يستخدم لنقل التيار الكهربائي أو الإشارات."
+                },
+                "translation": {
+                    "vi": "dây cáp",
+                    "th": "สายเคเบิล",
+                    "id": "kabel",
+                    "ar": "كابل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkeɪbl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cable-uk-1760857139743.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkeɪbl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cable-us-1760857140075.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Make sure the network cable is plugged in.",
+                    "vi": "Đảm bảo rằng cáp mạng đã được cắm vào.",
+                    "th": "ตรวจสอบให้แน่ใจว่าเสียบสายเคเบิลเครือข่ายแล้ว",
+                    "id": "Pastikan kabel jaringan terpasang.",
+                    "ar": "تأكد من توصيل كابل الشبكة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed39a4e8dd8355a22c5_1760871341360.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed39a4e8dd8355a22c8",
+                "word": "charger",
+                "explanation": {
+                    "en": "A device for charging a battery. Used to replenish the power of an electronic device.",
+                    "vi": "Một thiết bị dùng để sạc pin. Dùng để nạp lại năng lượng cho một thiết bị điện tử.",
+                    "th": "อุปกรณ์สำหรับชาร์จแบตเตอรี่ ใช้สำหรับเติมพลังงานให้กับอุปกรณ์อิเล็กทรอนิกส์",
+                    "id": "Perangkat untuk mengisi daya baterai. Digunakan untuk mengisi ulang daya perangkat elektronik.",
+                    "ar": "جهاز لشحن البطارية. يستخدم لتجديد طاقة جهاز إلكتروني."
+                },
+                "translation": {
+                    "vi": "sạc",
+                    "th": "ที่ชาร์จ",
+                    "id": "pengisi daya",
+                    "ar": "شاحن"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃɑːdʒə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/charger-uk-1760857141338.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃɑːrdʒər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/charger-us-1760857141673.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I can't find my phone charger anywhere.",
+                    "vi": "Tôi không thể tìm thấy sạc điện thoại của mình ở đâu cả.",
+                    "th": "ฉันหาที่ชาร์จโทรศัพท์ไม่เจอเลย",
+                    "id": "Saya tidak dapat menemukan pengisi daya ponsel saya di mana pun.",
+                    "ar": "لا أستطيع العثور على شاحن هاتفي في أي مكان."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed39a4e8dd8355a22c8_1760871348245.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed49a4e8dd8355a22cb",
+                "word": "battery",
+                "explanation": {
+                    "en": "A container consisting of one or more cells that store energy. Provides the power source for portable devices.",
+                    "vi": "Một vật chứa gồm một hoặc nhiều ô lưu trữ năng lượng. Cung cấp nguồn điện cho các thiết bị di động.",
+                    "th": "ภาชนะที่ประกอบด้วยเซลล์หนึ่งเซลล์ขึ้นไปที่เก็บพลังงาน เป็นแหล่งพลังงานสำหรับอุปกรณ์พกพา",
+                    "id": "Sebuah wadah yang terdiri dari satu atau lebih sel yang menyimpan energi. Menyediakan sumber daya untuk perangkat portabel.",
+                    "ar": "وعاء يتكون من خلية واحدة أو أكثر تخزن الطاقة. يوفر مصدر الطاقة للأجهزة المحمولة."
+                },
+                "translation": {
+                    "vi": "pin",
+                    "th": "แบตเตอรี่",
+                    "id": "baterai",
+                    "ar": "بطارية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbætri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/battery-uk-1760857142935.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbætəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/battery-us-1760857143272.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My phone battery is low; I need to charge it.",
+                    "vi": "Pin điện thoại của tôi yếu rồi; tôi cần sạc nó.",
+                    "th": "แบตเตอรี่โทรศัพท์ของฉันเหลือน้อย ฉันต้องชาร์จมัน",
+                    "id": "Baterai ponsel saya lemah; saya perlu mengisi dayanya.",
+                    "ar": "بطارية هاتفي منخفضة؛ أحتاج لشحنها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed49a4e8dd8355a22cb_1760871355611.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed49a4e8dd8355a22ce",
+                "word": "Wi-Fi",
+                "explanation": {
+                    "en": "A facility allowing computers and other devices to connect to the Internet wirelessly. Wireless local area networking technology.",
+                    "vi": "Một tiện ích cho phép máy tính và các thiết bị khác kết nối Internet không dây. Công nghệ mạng cục bộ không dây.",
+                    "th": "สิ่งอำนวยความสะดวกที่ช่วยให้คอมพิวเตอร์และอุปกรณ์อื่น ๆ สามารถเชื่อมต่ออินเทอร์เน็ตแบบไร้สายได้ เทคโนโลยีเครือข่ายท้องถิ่นไร้สาย",
+                    "id": "Fasilitas yang memungkinkan komputer dan perangkat lain terhubung ke Internet secara nirkabel. Teknologi jaringan area lokal nirkabel.",
+                    "ar": "مرفق يسمح لأجهزة الكمبيوتر والأجهزة الأخرى بالاتصال بالإنترنت لاسلكياً. تقنية الشبكات المحلية اللاسلكية."
+                },
+                "translation": {
+                    "vi": "kết nối không dây",
+                    "th": "การเชื่อมต่อไร้สาย",
+                    "id": "koneksi nirkabel",
+                    "ar": "اتصال لاسلكي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwaɪ.faɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wi-fi-uk-ai-1760858375506.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwaɪ.faɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wi-fi-us-ai-1760858376151.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Is there free Wi-Fi available in this café?",
+                    "vi": "Quán cà phê này có Wi-Fi miễn phí không?",
+                    "th": "มี Wi-Fi ฟรีในร้านกาแฟนี้ไหม?",
+                    "id": "Apakah ada Wi-Fi gratis di kafe ini?",
+                    "ar": "هل يتوفر Wi-Fi مجاني في هذا المقهى؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed49a4e8dd8355a22ce_1760871362403.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed49a4e8dd8355a22d1",
+                "word": "internet",
+                "explanation": {
+                    "en": "A global computer network providing information and communication facilities. The worldwide system of interconnected computer networks.",
+                    "vi": "Một mạng máy tính toàn cầu cung cấp các tiện ích thông tin và liên lạc. Hệ thống mạng máy tính liên kết toàn cầu.",
+                    "th": "เครือข่ายคอมพิวเตอร์ทั่วโลกที่ให้บริการข้อมูลและการสื่อสาร ระบบเครือข่ายคอมพิวเตอร์ที่เชื่อมโยงกันทั่วโลก",
+                    "id": "Jaringan komputer global yang menyediakan fasilitas informasi dan komunikasi. Sistem jaringan komputer yang saling terhubung di seluruh dunia.",
+                    "ar": "شبكة حاسوب عالمية توفر مرافق المعلومات والاتصالات. النظام العالمي لشبكات الحاسوب المترابطة."
+                },
+                "translation": {
+                    "vi": "mạng internet",
+                    "th": "เครือข่ายอินเทอร์เน็ต",
+                    "id": "jaringan internet",
+                    "ar": "شبكة الإنترنت"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɪntənet/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/internet-uk-1760857145409.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɪntərnet/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/internet-us-1760857145891.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I use the internet to find information for school.",
+                    "vi": "Tôi dùng internet để tìm thông tin cho việc học ở trường.",
+                    "th": "ฉันใช้อินเทอร์เน็ตเพื่อค้นหาข้อมูลสำหรับการเรียน",
+                    "id": "Saya menggunakan internet untuk mencari informasi untuk sekolah.",
+                    "ar": "أستخدم الإنترنت للعثور على معلومات للمدرسة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed49a4e8dd8355a22d1_1760871369183.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed49a4e8dd8355a22d4",
+                "word": "website",
+                "explanation": {
+                    "en": "A set of related web pages managed as a single entity. A location on the internet providing information.",
+                    "vi": "Một tập hợp các trang web liên quan được quản lý như một thực thể duy nhất. Một địa điểm trên internet cung cấp thông tin.",
+                    "th": "ชุดของหน้าเว็บที่เกี่ยวข้องซึ่งจัดการเป็นหน่วยเดียว สถานที่บนอินเทอร์เน็ตที่ให้ข้อมูล",
+                    "id": "Sekumpulan halaman web terkait yang dikelola sebagai satu entitas. Lokasi di internet yang menyediakan informasi.",
+                    "ar": "مجموعة من صفحات الويب ذات الصلة تُدار ككيان واحد. موقع على الإنترنت يوفر المعلومات."
+                },
+                "translation": {
+                    "vi": "trang web",
+                    "th": "เว็บไซต์",
+                    "id": "situs web",
+                    "ar": "موقع ويب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwebsaɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/website-uk-1760857147145.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwebsaɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/website-us-1760857147517.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Visit our website for more details about the event.",
+                    "vi": "Hãy truy cập trang web của chúng tôi để biết thêm chi tiết về sự kiện.",
+                    "th": "เยี่ยมชมเว็บไซต์ของเราสำหรับรายละเอียดเพิ่มเติมเกี่ยวกับงานนี้",
+                    "id": "Kunjungi situs web kami untuk detail lebih lanjut tentang acara tersebut.",
+                    "ar": "قم بزيارة موقعنا الإلكتروني لمزيد من التفاصيل حول الحدث."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed49a4e8dd8355a22d4_1760871377115.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed49a4e8dd8355a22d7",
+                "word": "browser",
+                "explanation": {
+                    "en": "A program used to view and interact with web pages. Software that lets users access the World Wide Web.",
+                    "vi": "Một chương trình dùng để xem và tương tác với các trang web. Phần mềm cho phép người dùng truy cập World Wide Web.",
+                    "th": "โปรแกรมที่ใช้ในการดูและโต้ตอบกับหน้าเว็บ ซอฟต์แวร์ที่ช่วยให้ผู้ใช้เข้าถึง World Wide Web",
+                    "id": "Program yang digunakan untuk melihat dan berinteraksi dengan halaman web. Perangkat lunak yang memungkinkan pengguna mengakses World Wide Web.",
+                    "ar": "برنامج يستخدم لعرض صفحات الويب والتفاعل معها. برنامج يسمح للمستخدمين بالوصول إلى الشبكة العنكبوتية العالمية."
+                },
+                "translation": {
+                    "vi": "trình duyệt",
+                    "th": "เว็บเบราว์เซอร์",
+                    "id": "peramban",
+                    "ar": "متصفح الويب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbraʊzə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/browser-uk-1760857148799.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbraʊzər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/browser-us-1760857149142.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Which internet browser do you prefer to use?",
+                    "vi": "Bạn thích dùng trình duyệt internet nào hơn?",
+                    "th": "คุณชอบใช้เว็บเบราว์เซอร์ใด?",
+                    "id": "Peramban internet mana yang Anda lebih suka gunakan?",
+                    "ar": "أي متصفح إنترنت تفضل استخدامه؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed49a4e8dd8355a22d7_1760871385475.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed49a4e8dd8355a22da",
+                "word": "app",
+                "explanation": {
+                    "en": "A self-contained program or piece of software designed for a specific purpose. Short for application, typically on a mobile device.",
+                    "vi": "Một chương trình hoặc phần mềm độc lập được thiết kế cho một mục đích cụ thể. Viết tắt của application, thường dùng trên thiết bị di động.",
+                    "th": "โปรแกรมหรือซอฟต์แวร์แบบสแตนด์อโลนที่ออกแบบมาเพื่อวัตถุประสงค์เฉพาะ คำย่อของ application โดยทั่วไปจะใช้บนอุปกรณ์เคลื่อนที่",
+                    "id": "Program atau perangkat lunak mandiri yang dirancang untuk tujuan tertentu. Singkatan dari aplikasi, biasanya pada perangkat seluler.",
+                    "ar": "برنامج مستقل أو قطعة من البرمجيات مصممة لغرض معين. اختصار لكلمة application، وعادة ما يكون على جهاز محمول."
+                },
+                "translation": {
+                    "vi": "ứng dụng",
+                    "th": "แอปพลิเคชัน",
+                    "id": "aplikasi",
+                    "ar": "تطبيق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/æp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/app-uk-ai-1760858379374.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/æp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/app-us-ai-1760858379995.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "This new app helps me track my daily steps.",
+                    "vi": "Ứng dụng mới này giúp tôi theo dõi số bước đi hàng ngày.",
+                    "th": "แอปใหม่นี้ช่วยให้ฉันติดตามจำนวนก้าวเดินประจำวันได้",
+                    "id": "Aplikasi baru ini membantu saya melacak langkah harian saya.",
+                    "ar": "هذا التطبيق الجديد يساعدني على تتبع خطواتي اليومية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed49a4e8dd8355a22da_1760871391861.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed59a4e8dd8355a22dd",
+                "word": "software",
+                "explanation": {
+                    "en": "The programs and other operating information used by a computer. Non-physical components of a computing system.",
+                    "vi": "Các chương trình và thông tin vận hành khác được máy tính sử dụng. Các thành phần phi vật lý của hệ thống máy tính.",
+                    "th": "โปรแกรมและข้อมูลการทำงานอื่น ๆ ที่คอมพิวเตอร์ใช้ ส่วนประกอบที่ไม่ใช่ทางกายภาพของระบบคอมพิวเตอร์",
+                    "id": "Program dan informasi operasional lainnya yang digunakan oleh komputer. Komponen non-fisik dari sistem komputasi.",
+                    "ar": "البرامج والمعلومات التشغيلية الأخرى التي يستخدمها الحاسوب. المكونات غير المادية لنظام الحوسبة."
+                },
+                "translation": {
+                    "vi": "phần mềm",
+                    "th": "ซอฟต์แวร์",
+                    "id": "perangkat lunak",
+                    "ar": "برمجيات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsɒftweə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/software-uk-1760857151275.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsɔːftwer/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/software-us-1760857151626.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "You need to install new software for this program.",
+                    "vi": "Bạn cần cài đặt phần mềm mới cho chương trình này.",
+                    "th": "คุณต้องติดตั้งซอฟต์แวร์ใหม่สำหรับโปรแกรมนี้",
+                    "id": "Anda perlu menginstal perangkat lunak baru untuk program ini.",
+                    "ar": "تحتاج إلى تثبيت برنامج جديد لهذا التطبيق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed59a4e8dd8355a22dd_1760871398888.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed59a4e8dd8355a22e0",
+                "word": "hardware",
+                "explanation": {
+                    "en": "The physical parts of a computer or electronic device. The tangible components of a computing system.",
+                    "vi": "Các bộ phận vật lý của máy tính hoặc thiết bị điện tử. Các thành phần hữu hình của hệ thống máy tính.",
+                    "th": "ส่วนประกอบทางกายภาพของคอมพิวเตอร์หรืออุปกรณ์อิเล็กทรอนิกส์ ส่วนประกอบที่จับต้องได้ของระบบคอมพิวเตอร์",
+                    "id": "Bagian fisik dari komputer atau perangkat elektronik. Komponen nyata dari sistem komputasi.",
+                    "ar": "الأجزاء المادية للحاسوب أو الجهاز الإلكتروني. المكونات الملموسة لنظام الحوسبة."
+                },
+                "translation": {
+                    "vi": "phần cứng",
+                    "th": "ฮาร์ดแวร์",
+                    "id": "perangkat keras",
+                    "ar": "معدات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhɑːdweə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hardware-uk-1760857152898.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhɑːrdwer/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hardware-us-1760857153259.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My computer hardware needs an upgrade soon.",
+                    "vi": "Phần cứng máy tính của tôi cần được nâng cấp sớm.",
+                    "th": "ฮาร์ดแวร์คอมพิวเตอร์ของฉันต้องการการอัปเกรดในไม่ช้า",
+                    "id": "Perangkat keras komputer saya perlu ditingkatkan segera.",
+                    "ar": "عتاد حاسوبي يحتاج إلى ترقية قريباً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed59a4e8dd8355a22e0_1760871407790.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed59a4e8dd8355a22e3",
+                "word": "program",
+                "explanation": {
+                    "en": "A set of coded instructions defining the operations for a computer to perform. Executable software.",
+                    "vi": "Một tập hợp các chỉ dẫn được mã hóa xác định các hoạt động để máy tính thực hiện. Phần mềm có thể thực thi.",
+                    "th": "ชุดคำสั่งที่เข้ารหัสซึ่งกำหนดการทำงานที่คอมพิวเตอร์จะดำเนินการ ซอฟต์แวร์ที่สามารถเรียกใช้งานได้",
+                    "id": "Sekumpulan instruksi terkode yang mendefinisikan operasi yang harus dilakukan oleh komputer. Perangkat lunak yang dapat dieksekusi.",
+                    "ar": "مجموعة من التعليمات المرمزة التي تحدد العمليات التي يجب أن يقوم بها الحاسوب. برنامج قابل للتنفيذ."
+                },
+                "translation": {
+                    "vi": "chương trình (máy tính)",
+                    "th": "โปรแกรมคอมพิวเตอร์",
+                    "id": "program komputer",
+                    "ar": "برنامج حاسوب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈprəʊɡræm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/program-uk-1760857154529.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈprəʊɡræm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/program-us-1760857154876.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I use a special program to edit photos.",
+                    "vi": "Tôi dùng một chương trình đặc biệt để chỉnh sửa ảnh.",
+                    "th": "ฉันใช้โปรแกรมพิเศษเพื่อแก้ไขรูปภาพ",
+                    "id": "Saya menggunakan program khusus untuk mengedit foto.",
+                    "ar": "أستخدم برنامجاً خاصاً لتحرير الصور."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed59a4e8dd8355a22e3_1760871416192.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed59a4e8dd8355a22e6",
+                "word": "install",
+                "explanation": {
+                    "en": "To put a program onto a computer or device. The action of setting up software for use.",
+                    "vi": "Để đưa một chương trình vào máy tính hoặc thiết bị. Hành động thiết lập phần mềm để sử dụng.",
+                    "th": "การติดตั้งโปรแกรมลงในคอมพิวเตอร์หรืออุปกรณ์ การดำเนินการตั้งค่าซอฟต์แวร์เพื่อใช้งาน",
+                    "id": "Untuk memasang program ke komputer atau perangkat. Tindakan menyiapkan perangkat lunak untuk digunakan.",
+                    "ar": "وضع برنامج على حاسوب أو جهاز. عملية إعداد البرمجيات للاستخدام."
+                },
+                "translation": {
+                    "vi": "cài đặt",
+                    "th": "ติดตั้ง",
+                    "id": "instal",
+                    "ar": "تثبيت"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ɪnˈstɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/install-uk-1760857156156.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪnˈstɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/install-us-1760857156501.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please install the security update on your computer.",
+                    "vi": "Vui lòng cài đặt bản cập nhật bảo mật trên máy tính của bạn.",
+                    "th": "โปรดติดตั้งการอัปเดตความปลอดภัยบนคอมพิวเตอร์ของคุณ",
+                    "id": "Harap instal pembaruan keamanan di komputer Anda.",
+                    "ar": "الرجاء تثبيت تحديث الأمان على حاسوبك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed59a4e8dd8355a22e6_1760871425688.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed59a4e8dd8355a22e9",
+                "word": "download",
+                "explanation": {
+                    "en": "To copy data from one computer system to another, typically over the Internet. The action of receiving a file.",
+                    "vi": "Để sao chép dữ liệu từ một hệ thống máy tính sang hệ thống khác, thường là qua Internet. Hành động nhận một tệp.",
+                    "th": "การคัดลอกข้อมูลจากระบบคอมพิวเตอร์หนึ่งไปยังอีกระบบหนึ่ง โดยทั่วไปผ่านอินเทอร์เน็ต การกระทำของการรับไฟล์",
+                    "id": "Untuk menyalin data dari satu sistem komputer ke sistem lain, biasanya melalui Internet. Tindakan menerima berkas.",
+                    "ar": "نسخ البيانات من نظام حاسوب إلى آخر، عادة عبر الإنترنت. عملية استلام ملف."
+                },
+                "translation": {
+                    "vi": "tải xuống",
+                    "th": "ดาวน์โหลด",
+                    "id": "unduh",
+                    "ar": "تنزيل"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ˌdaʊnˈləʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/download-uk-1760857157892.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌdaʊnˈləʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/download-us-1760857158348.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "You can download the report from our website.",
+                    "vi": "Bạn có thể tải xuống báo cáo từ trang web của chúng tôi.",
+                    "th": "คุณสามารถดาวน์โหลดรายงานได้จากเว็บไซต์ของเรา",
+                    "id": "Anda dapat mengunduh laporan dari situs web kami.",
+                    "ar": "يمكنك تنزيل التقرير من موقعنا الإلكتروني."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed59a4e8dd8355a22e9_1760871433929.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed59a4e8dd8355a22ec",
+                "word": "upload",
+                "explanation": {
+                    "en": "To transfer data from one computer to a larger remote system. The action of sending a file.",
+                    "vi": "Để chuyển dữ liệu từ một máy tính lên một hệ thống từ xa lớn hơn. Hành động gửi một tệp.",
+                    "th": "การถ่ายโอนข้อมูลจากคอมพิวเตอร์เครื่องหนึ่งไปยังระบบระยะไกลที่ใหญ่กว่า การกระทำของการส่งไฟล์",
+                    "id": "Untuk mentransfer data dari satu komputer ke sistem jarak jauh yang lebih besar. Tindakan mengirim berkas.",
+                    "ar": "نقل البيانات من حاسوب إلى نظام بعيد أكبر. عملية إرسال ملف."
+                },
+                "translation": {
+                    "vi": "tải lên",
+                    "th": "อัปโหลด",
+                    "id": "unggah",
+                    "ar": "رفع"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ˌʌpˈləʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/upload-uk-1760857159625.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌʌpˈləʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/upload-us-1760857160019.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I will upload my photos to the cloud later.",
+                    "vi": "Tôi sẽ tải ảnh của mình lên đám mây sau.",
+                    "th": "ฉันจะอัปโหลดรูปภาพของฉันไปยังคลาวด์ในภายหลัง",
+                    "id": "Saya akan mengunggah foto saya ke cloud nanti.",
+                    "ar": "سأقوم برفع صوري إلى السحابة لاحقاً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed59a4e8dd8355a22ec_1760871441104.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed59a4e8dd8355a22ef",
+                "word": "click",
+                "explanation": {
+                    "en": "To press a button on a mouse to activate a function. The action of selecting an item on a screen.",
+                    "vi": "Để nhấn một nút trên chuột để kích hoạt một chức năng. Hành động chọn một mục trên màn hình.",
+                    "th": "การกดปุ่มบนเมาส์เพื่อเปิดใช้งานฟังก์ชัน การกระทำของการเลือกรายการบนหน้าจอ",
+                    "id": "Untuk menekan tombol pada mouse untuk mengaktifkan fungsi. Tindakan memilih item di layar.",
+                    "ar": "الضغط على زر في الفأرة لتفعيل وظيفة. عملية تحديد عنصر على الشاشة."
+                },
+                "translation": {
+                    "vi": "nhấp chuột",
+                    "th": "คลิก",
+                    "id": "klik",
+                    "ar": "نقر"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/klɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/click-uk-1760857161280.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/klɪk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/click-us-1760857161634.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Click on the button to open the file.",
+                    "vi": "Nhấp vào nút để mở tệp.",
+                    "th": "คลิกที่ปุ่มเพื่อเปิดไฟล์",
+                    "id": "Klik pada tombol untuk membuka berkas.",
+                    "ar": "انقر على الزر لفتح الملف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed59a4e8dd8355a22ef_1760871450626.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed69a4e8dd8355a22f2",
+                "word": "open",
+                "explanation": {
+                    "en": "To access a file, program, or website. The action of initiating access to digital content.",
+                    "vi": "Để truy cập một tệp, chương trình hoặc trang web. Hành động bắt đầu truy cập vào nội dung số.",
+                    "th": "การเข้าถึงไฟล์ โปรแกรม หรือเว็บไซต์ การกระทำของการเริ่มต้นการเข้าถึงเนื้อหาดิจิทัล",
+                    "id": "Untuk mengakses berkas, program, atau situs web. Tindakan memulai akses ke konten digital.",
+                    "ar": "الوصول إلى ملف أو برنامج أو موقع إلكتروني. عملية بدء الوصول إلى المحتوى الرقمي."
+                },
+                "translation": {
+                    "vi": "mở",
+                    "th": "เปิด",
+                    "id": "buka",
+                    "ar": "فتح"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ˈəʊpən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/open-uk-1760857162926.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈəʊpən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/open-us-1760857163283.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Can you open the document for me, please?",
+                    "vi": "Bạn có thể mở tài liệu giúp tôi được không?",
+                    "th": "คุณช่วยเปิดเอกสารให้ฉันหน่อยได้ไหม?",
+                    "id": "Bisakah Anda membuka dokumen itu untuk saya, tolong?",
+                    "ar": "هل يمكنك فتح المستند لي، من فضلك؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed69a4e8dd8355a22f2_1760871457444.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed69a4e8dd8355a22f5",
+                "word": "close",
+                "explanation": {
+                    "en": "To stop using a program or document. The action of exiting a software application.",
+                    "vi": "Để ngừng sử dụng một chương trình hoặc tài liệu. Hành động thoát khỏi một ứng dụng phần mềm.",
+                    "th": "การหยุดใช้โปรแกรมหรือเอกสาร การกระทำของการออกจากแอปพลิเคชันซอฟต์แวร์",
+                    "id": "Untuk berhenti menggunakan program atau dokumen. Tindakan keluar dari aplikasi perangkat lunak.",
+                    "ar": "التوقف عن استخدام برنامج أو مستند. عملية الخروج من تطبيق برمجي."
+                },
+                "translation": {
+                    "vi": "đóng",
+                    "th": "ปิด",
+                    "id": "tutup",
+                    "ar": "إغلاق"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/kləʊz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/close-uk-1760857164578.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kləʊz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/close-us-1760857164926.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Remember to close all programs before shutting down.",
+                    "vi": "Hãy nhớ đóng tất cả các chương trình trước khi tắt máy.",
+                    "th": "อย่าลืมปิดโปรแกรมทั้งหมดก่อนปิดเครื่อง",
+                    "id": "Ingatlah untuk menutup semua program sebelum mematikan komputer.",
+                    "ar": "تذكر إغلاق جميع البرامج قبل إيقاف التشغيل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed69a4e8dd8355a22f5_1760871464705.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed69a4e8dd8355a22f8",
+                "word": "log in",
+                "explanation": {
+                    "en": "To enter a username and password to access a system. The action of authenticating one's identity to a computer.",
+                    "vi": "Để nhập tên người dùng và mật khẩu để truy cập một hệ thống. Hành động xác thực danh tính của một người vào máy tính.",
+                    "th": "เพื่อป้อนชื่อผู้ใช้และรหัสผ่านเพื่อเข้าถึงระบบ การกระทำของการยืนยันตัวตนกับคอมพิวเตอร์",
+                    "id": "Untuk memasukkan nama pengguna dan kata sandi untuk mengakses sistem. Tindakan mengautentikasi identitas seseorang ke komputer.",
+                    "ar": "لإدخال اسم مستخدم وكلمة مرور للوصول إلى نظام. عملية التحقق من هوية الشخص لجهاز الكمبيوتر."
+                },
+                "translation": {
+                    "vi": "đăng nhập",
+                    "th": "เข้าสู่ระบบ",
+                    "id": "masuk",
+                    "ar": "تسجيل الدخول"
+                },
+                "type": "phrasal verb",
+                "phonetics": [
+                    {
+                        "text": "/lɒɡ ɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/log-in-uk-ai-1760858384186.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/lɑːɡ ɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/log-in-us-ai-1760858384810.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I forgot my password and cannot log in.",
+                    "vi": "Tôi quên mật khẩu và không thể đăng nhập.",
+                    "th": "ฉันลืมรหัสผ่านและไม่สามารถเข้าสู่ระบบได้",
+                    "id": "Saya lupa kata sandi saya dan tidak bisa masuk.",
+                    "ar": "لقد نسيت كلمة المرور الخاصة بي ولا يمكنني تسجيل الدخول."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed69a4e8dd8355a22f8_1760871473246.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed69a4e8dd8355a22fb",
+                "word": "log out",
+                "explanation": {
+                    "en": "To exit an account on a computer system. The action of terminating a session.",
+                    "vi": "Để thoát khỏi một tài khoản trên hệ thống máy tính. Hành động kết thúc một phiên làm việc.",
+                    "th": "เพื่อออกจากบัญชีบนระบบคอมพิวเตอร์ การกระทำของการสิ้นสุดเซสชัน",
+                    "id": "Untuk keluar dari akun di sistem komputer. Tindakan mengakhiri sesi.",
+                    "ar": "للخروج من حساب على نظام كمبيوتر. عملية إنهاء جلسة."
+                },
+                "translation": {
+                    "vi": "đăng xuất",
+                    "th": "ออกจากระบบ",
+                    "id": "keluar",
+                    "ar": "تسجيل الخروج"
+                },
+                "type": "phrasal verb",
+                "phonetics": [
+                    {
+                        "text": "/lɒɡ aʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/log-out-uk-ai-1760858390783.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/lɑːɡ aʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/log-out-us-ai-1760858391350.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Always log out of your accounts on public computers.",
+                    "vi": "Luôn đăng xuất khỏi tài khoản của bạn trên máy tính công cộng.",
+                    "th": "ควรออกจากระบบบัญชีของคุณเสมอเมื่อใช้คอมพิวเตอร์สาธารณะ",
+                    "id": "Selalu keluar dari akun Anda di komputer publik.",
+                    "ar": "سجل الخروج دائمًا من حساباتك على أجهزة الكمبيوتر العامة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed69a4e8dd8355a22fb_1760871480198.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed69a4e8dd8355a22fe",
+                "word": "password",
+                "explanation": {
+                    "en": "A secret word or phrase used to gain access to a system. A security measure to protect accounts.",
+                    "vi": "Một từ hoặc cụm từ bí mật được sử dụng để truy cập vào một hệ thống. Một biện pháp bảo mật để bảo vệ tài khoản.",
+                    "th": "คำหรือวลีลับที่ใช้ในการเข้าถึงระบบ มาตรการรักษาความปลอดภัยเพื่อปกป้องบัญชี",
+                    "id": "Kata atau frasa rahasia yang digunakan untuk mendapatkan akses ke sistem. Ukuran keamanan untuk melindungi akun.",
+                    "ar": "كلمة أو عبارة سرية تستخدم للوصول إلى نظام. إجراء أمني لحماية الحسابات."
+                },
+                "translation": {
+                    "vi": "mật khẩu",
+                    "th": "รหัสผ่าน",
+                    "id": "kata sandi",
+                    "ar": "كلمة المرور"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpɑːswɜːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/password-uk-1760857167942.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpæswɜːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/password-us-1760857168291.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Choose a strong password to protect your account.",
+                    "vi": "Chọn một mật khẩu mạnh để bảo vệ tài khoản của bạn.",
+                    "th": "เลือกรหัสผ่านที่แข็งแกร่งเพื่อปกป้องบัญชีของคุณ",
+                    "id": "Pilih kata sandi yang kuat untuk melindungi akun Anda.",
+                    "ar": "اختر كلمة مرور قوية لحماية حسابك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed69a4e8dd8355a22fe_1760871487521.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed69a4e8dd8355a2301",
+                "word": "username",
+                "explanation": {
+                    "en": "A unique sequence of characters used to identify a user. The public or private name for an account.",
+                    "vi": "Một chuỗi ký tự duy nhất được sử dụng để nhận dạng người dùng. Tên công khai hoặc riêng tư cho một tài khoản.",
+                    "th": "ลำดับอักขระที่ไม่ซ้ำกันที่ใช้ระบุผู้ใช้ ชื่อสาธารณะหรือส่วนตัวสำหรับบัญชี",
+                    "id": "Urutan karakter unik yang digunakan untuk mengidentifikasi pengguna. Nama publik atau pribadi untuk sebuah akun.",
+                    "ar": "تسلسل فريد من الأحرف يستخدم لتعريف المستخدم. الاسم العام أو الخاص لحساب."
+                },
+                "translation": {
+                    "vi": "tên đăng nhập",
+                    "th": "ชื่อผู้ใช้",
+                    "id": "nama pengguna",
+                    "ar": "اسم المستخدم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈjuːzəneɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/username-uk-ai-1760858395814.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈjuːzərneɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/username-us-ai-1760858396493.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "What is your username for this online game?",
+                    "vi": "Tên người dùng của bạn cho trò chơi trực tuyến này là gì?",
+                    "th": "ชื่อผู้ใช้ของคุณสำหรับเกมออนไลน์นี้คืออะไร?",
+                    "id": "Apa nama pengguna Anda untuk game online ini?",
+                    "ar": "ما هو اسم المستخدم الخاص بك لهذه اللعبة عبر الإنترنت؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed69a4e8dd8355a2301_1760871496923.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed79a4e8dd8355a2304",
+                "word": "email",
+                "explanation": {
+                    "en": "Messages sent electronically from one user to one or more recipients. Digital communication.",
+                    "vi": "Các tin nhắn được gửi điện tử từ một người dùng đến một hoặc nhiều người nhận. Giao tiếp kỹ thuật số.",
+                    "th": "ข้อความที่ส่งทางอิเล็กทรอนิกส์จากผู้ใช้หนึ่งคนไปยังผู้รับหนึ่งคนหรือมากกว่า การสื่อสารดิจิทัล",
+                    "id": "Pesan yang dikirim secara elektronik dari satu pengguna ke satu atau lebih penerima. Komunikasi digital.",
+                    "ar": "رسائل تُرسل إلكترونيًا من مستخدم واحد إلى مستلم واحد أو أكثر. اتصال رقمي."
+                },
+                "translation": {
+                    "vi": "thư điện tử",
+                    "th": "อีเมล",
+                    "id": "email",
+                    "ar": "بريد إلكتروني"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈiːmeɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/email-uk-1760857170424.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈiːmeɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/email-us-1760857170759.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I sent her an email with all the details.",
+                    "vi": "Tôi đã gửi cho cô ấy một email với tất cả các chi tiết.",
+                    "th": "ฉันส่งอีเมลพร้อมรายละเอียดทั้งหมดให้เธอแล้ว",
+                    "id": "Saya mengiriminya email dengan semua detailnya.",
+                    "ar": "أرسلت لها بريدًا إلكترونيًا يحتوي على جميع التفاصيل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed79a4e8dd8355a2304_1760871505289.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed79a4e8dd8355a2307",
+                "word": "message",
+                "explanation": {
+                    "en": "A communication containing some information. A short piece of communication sent electronically.",
+                    "vi": "Một thông tin liên lạc chứa một số thông tin. Một đoạn thông tin liên lạc ngắn được gửi điện tử.",
+                    "th": "การสื่อสารที่มีข้อมูลบางอย่าง การสื่อสารสั้นๆ ที่ส่งทางอิเล็กทรอนิกส์",
+                    "id": "Komunikasi yang berisi beberapa informasi. Sepotong komunikasi singkat yang dikirim secara elektronik.",
+                    "ar": "اتصال يحتوي على بعض المعلومات. قطعة قصيرة من الاتصال تُرسل إلكترونيًا."
+                },
+                "translation": {
+                    "vi": "tin nhắn",
+                    "th": "ข้อความ",
+                    "id": "pesan",
+                    "ar": "رسالة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmesɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/message-uk-1760857172023.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmesɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/message-us-1760857172751.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Did you get my text message yesterday evening?",
+                    "vi": "Bạn có nhận được tin nhắn văn bản của tôi tối qua không?",
+                    "th": "คุณได้รับข้อความของฉันเมื่อเย็นวานนี้หรือไม่?",
+                    "id": "Apakah Anda menerima pesan teks saya kemarin malam?",
+                    "ar": "هل تلقيت رسالتي النصية مساء أمس؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed79a4e8dd8355a2307_1760871511751.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed79a4e8dd8355a230a",
+                "word": "file",
+                "explanation": {
+                    "en": "A collection of data or a program stored under a specific name. A basic unit for storing information.",
+                    "vi": "Một tập hợp dữ liệu hoặc một chương trình được lưu trữ dưới một tên cụ thể. Một đơn vị cơ bản để lưu trữ thông tin.",
+                    "th": "ชุดข้อมูลหรือโปรแกรมที่จัดเก็บภายใต้ชื่อเฉพาะ หน่วยพื้นฐานสำหรับการจัดเก็บข้อมูล",
+                    "id": "Kumpulan data atau program yang disimpan dengan nama tertentu. Unit dasar untuk menyimpan informasi.",
+                    "ar": "مجموعة من البيانات أو برنامج مخزن تحت اسم معين. وحدة أساسية لتخزين المعلومات."
+                },
+                "translation": {
+                    "vi": "tập tin",
+                    "th": "ไฟล์",
+                    "id": "berkas",
+                    "ar": "ملف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/faɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/file-uk-1760857174052.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/faɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/file-us-1760857174391.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Save the important file on your desktop.",
+                    "vi": "Lưu tệp quan trọng đó vào màn hình nền của bạn.",
+                    "th": "บันทึกไฟล์สำคัญนั้นไว้บนเดสก์ท็อปของคุณ",
+                    "id": "Simpan berkas penting itu di desktop Anda.",
+                    "ar": "احفظ الملف المهم على سطح المكتب الخاص بك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed79a4e8dd8355a230a_1760871519658.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed79a4e8dd8355a230d",
+                "word": "folder",
+                "explanation": {
+                    "en": "A location for organizing and storing computer files. A digital container for organizing data.",
+                    "vi": "Một vị trí để tổ chức và lưu trữ các tệp máy tính. Một vùng chứa kỹ thuật số để tổ chức dữ liệu.",
+                    "th": "ตำแหน่งสำหรับจัดระเบียบและจัดเก็บไฟล์คอมพิวเตอร์ ภาชนะดิจิทัลสำหรับจัดระเบียบข้อมูล",
+                    "id": "Lokasi untuk mengatur dan menyimpan berkas komputer. Wadah digital untuk mengatur data.",
+                    "ar": "موقع لتنظيم وتخزين ملفات الكمبيوتر. حاوية رقمية لتنظيم البيانات."
+                },
+                "translation": {
+                    "vi": "thư mục",
+                    "th": "โฟลเดอร์",
+                    "id": "folder",
+                    "ar": "مجلد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfəʊldə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/folder-uk-1760857175660.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfəʊldər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/folder-us-1760857176023.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Put all your school papers in one folder.",
+                    "vi": "Đặt tất cả các tài liệu học tập của bạn vào một thư mục.",
+                    "th": "ใส่เอกสารการเรียนทั้งหมดของคุณไว้ในโฟลเดอร์เดียว",
+                    "id": "Masukkan semua tugas sekolah Anda ke dalam satu folder.",
+                    "ar": "ضع جميع أوراق مدرستك في مجلد واحد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed79a4e8dd8355a230d_1760871526505.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed79a4e8dd8355a2310",
+                "word": "document",
+                "explanation": {
+                    "en": "A file, typically text-based, containing written information. A digital paper for information storage.",
+                    "vi": "Một tệp, thường là dựa trên văn bản, chứa thông tin viết. Một giấy tờ kỹ thuật số để lưu trữ thông tin.",
+                    "th": "ไฟล์ที่โดยทั่วไปเป็นข้อความ ซึ่งมีข้อมูลที่เป็นลายลักษณ์อักษร กระดาษดิจิทัลสำหรับจัดเก็บข้อมูล",
+                    "id": "Berkas, biasanya berbasis teks, yang berisi informasi tertulis. Kertas digital untuk penyimpanan informasi.",
+                    "ar": "ملف، عادة ما يكون نصيًا، يحتوي على معلومات مكتوبة. ورقة رقمية لتخزين المعلومات."
+                },
+                "translation": {
+                    "vi": "tài liệu",
+                    "th": "เอกสาร",
+                    "id": "dokumen",
+                    "ar": "مستند"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɒkjumənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/document-uk-1760857177285.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdɑːkjumənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/document-us-1760857177627.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please review this document before the meeting.",
+                    "vi": "Vui lòng xem lại tài liệu này trước cuộc họp.",
+                    "th": "โปรดทบทวนเอกสารนี้ก่อนการประชุม",
+                    "id": "Mohon tinjau dokumen ini sebelum rapat.",
+                    "ar": "يرجى مراجعة هذا المستند قبل الاجتماع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed79a4e8dd8355a2310_1760871533554.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed79a4e8dd8355a2313",
+                "word": "video call",
+                "explanation": {
+                    "en": "A telephone call where participants can see each other. Communication combining audio and live visual feeds.",
+                    "vi": "Một cuộc gọi điện thoại mà những người tham gia có thể nhìn thấy nhau. Giao tiếp kết hợp âm thanh và hình ảnh trực tiếp.",
+                    "th": "การโทรศัพท์ที่ผู้เข้าร่วมสามารถมองเห็นกันได้ การสื่อสารที่รวมเสียงและภาพสด",
+                    "id": "Panggilan telepon di mana peserta dapat saling melihat. Komunikasi yang menggabungkan umpan audio dan visual langsung.",
+                    "ar": "مكالمة هاتفية يمكن للمشاركين رؤية بعضهم البعض فيها. اتصال يجمع بين الصوت والصور المرئية المباشرة."
+                },
+                "translation": {
+                    "vi": "cuộc gọi video",
+                    "th": "วิดีโอคอล",
+                    "id": "panggilan video",
+                    "ar": "مكالمة فيديو"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈvɪd.i.əʊ kɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/video-call-uk-ai-1760858405064.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈvɪd.i.oʊ kɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/video-call-us-ai-1760858405713.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Let's have a video call to discuss the project.",
+                    "vi": "Hãy thực hiện một cuộc gọi video để thảo luận về dự án.",
+                    "th": "มาวิดีโอคอลเพื่อหารือเกี่ยวกับโครงการกันเถอะ",
+                    "id": "Mari kita lakukan panggilan video untuk membahas proyek ini.",
+                    "ar": "لنجري مكالمة فيديو لمناقشة المشروع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed79a4e8dd8355a2313_1760871540308.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed89a4e8dd8355a2316",
+                "word": "chat",
+                "explanation": {
+                    "en": "To talk in an informal and friendly way, often through text. The act of engaging in real-time online communication.",
+                    "vi": "Nói chuyện một cách thân mật và thân thiện, thường qua tin nhắn. Hành động tham gia vào giao tiếp trực tuyến thời gian thực.",
+                    "th": "การพูดคุยอย่างไม่เป็นทางการและเป็นกันเอง มักจะผ่านข้อความ การกระทำของการสื่อสารออนไลน์แบบเรียลไทม์",
+                    "id": "Berbicara dengan cara informal dan ramah, seringkali melalui teks. Tindakan terlibat dalam komunikasi online waktu nyata.",
+                    "ar": "التحدث بطريقة غير رسمية وودية، غالبًا عبر الرسائل النصية. فعل الانخراط في التواصل عبر الإنترنت في الوقت الفعلي."
+                },
+                "translation": {
+                    "vi": "trò chuyện",
+                    "th": "แชท",
+                    "id": "chat",
+                    "ar": "دردشة"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/tʃæt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chat-uk-1760857179838.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʃæt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chat-us-1760857180181.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We can chat online if you have time.",
+                    "vi": "Chúng ta có thể trò chuyện trực tuyến nếu bạn có thời gian.",
+                    "th": "เราสามารถแชทออนไลน์ได้ถ้าคุณมีเวลา",
+                    "id": "Kita bisa mengobrol online jika Anda punya waktu.",
+                    "ar": "يمكننا الدردشة عبر الإنترنت إذا كان لديك وقت."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed89a4e8dd8355a2316_1760871547351.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed89a4e8dd8355a2319",
+                "word": "social media",
+                "explanation": {
+                    "en": "Websites and applications enabling users to create and share content. Platforms used for online social networking.",
+                    "vi": "Các trang web và ứng dụng cho phép người dùng tạo và chia sẻ nội dung. Các nền tảng được sử dụng để kết nối mạng xã hội trực tuyến.",
+                    "th": "เว็บไซต์และแอปพลิเคชันที่ช่วยให้ผู้ใช้สร้างและแบ่งปันเนื้อหา แพลตฟอร์มที่ใช้สำหรับการสร้างเครือข่ายสังคมออนไลน์",
+                    "id": "Situs web dan aplikasi yang memungkinkan pengguna untuk membuat dan berbagi konten. Platform yang digunakan untuk jejaring sosial online.",
+                    "ar": "مواقع الويب والتطبيقات التي تمكن المستخدمين من إنشاء المحتوى ومشاركته. منصات تستخدم للشبكات الاجتماعية عبر الإنترنت."
+                },
+                "translation": {
+                    "vi": "mạng xã hội",
+                    "th": "โซเชียลมีเดีย",
+                    "id": "media sosial",
+                    "ar": "وسائل التواصل الاجتماعي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌsəʊʃəl ˈmiːdiə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/social-media-uk-ai-1760858413104.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌsoʊʃəl ˈmiːdiə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/social-media-us-ai-1760858413655.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She spends too much time on social media.",
+                    "vi": "Cô ấy dành quá nhiều thời gian cho mạng xã hội.",
+                    "th": "เธอใช้เวลาบนโซเชียลมีเดียมากเกินไป",
+                    "id": "Dia menghabiskan terlalu banyak waktu di media sosial.",
+                    "ar": "هي تقضي الكثير من الوقت على وسائل التواصل الاجتماعي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed89a4e8dd8355a2319_1760871555119.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed89a4e8dd8355a231c",
+                "word": "screen time",
+                "explanation": {
+                    "en": "The amount of time spent looking at a digital device. The duration a person uses screens.",
+                    "vi": "Khoảng thời gian dành để nhìn vào thiết bị kỹ thuật số. Thời lượng một người sử dụng màn hình.",
+                    "th": "ระยะเวลาที่ใช้ในการมองอุปกรณ์ดิจิทัล ระยะเวลาที่บุคคลใช้หน้าจอ",
+                    "id": "Jumlah waktu yang dihabiskan untuk melihat perangkat digital. Durasi seseorang menggunakan layar.",
+                    "ar": "مقدار الوقت الذي يقضيه المرء في النظر إلى جهاز رقمي. المدة التي يستخدم فيها الشخص الشاشات."
+                },
+                "translation": {
+                    "vi": "thời gian dùng màn hình",
+                    "th": "เวลาหน้าจอ",
+                    "id": "waktu layar",
+                    "ar": "وقت الشاشة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/skriːn taɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/screen-time-uk-ai-1760858423300.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/skɹiːn taɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/screen-time-us-ai-1760858424163.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Doctors recommend limiting children's screen time.",
+                    "vi": "Các bác sĩ khuyến nghị hạn chế thời gian sử dụng màn hình của trẻ em.",
+                    "th": "แพทย์แนะนำให้จำกัดเวลาหน้าจอของเด็ก",
+                    "id": "Dokter merekomendasikan untuk membatasi waktu layar anak-anak.",
+                    "ar": "يوصي الأطباء بالحد من وقت شاشة الأطفال."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed89a4e8dd8355a231c_1760871563629.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed89a4e8dd8355a231f",
+                "word": "settings",
+                "explanation": {
+                    "en": "The configurations that control a software program or device. Options that allow users to customize their system.",
+                    "vi": "Các cấu hình kiểm soát một chương trình phần mềm hoặc thiết bị. Các tùy chọn cho phép người dùng tùy chỉnh hệ thống của họ.",
+                    "th": "การกำหนดค่าที่ควบคุมโปรแกรมซอฟต์แวร์หรืออุปกรณ์ ตัวเลือกที่อนุญาตให้ผู้ใช้ปรับแต่งระบบของตน",
+                    "id": "Konfigurasi yang mengontrol program perangkat lunak atau perangkat. Opsi yang memungkinkan pengguna untuk menyesuaikan sistem mereka.",
+                    "ar": "التكوينات التي تتحكم في برنامج أو جهاز. خيارات تسمح للمستخدمين بتخصيص نظامهم."
+                },
+                "translation": {
+                    "vi": "cài đặt",
+                    "th": "การตั้งค่า",
+                    "id": "pengaturan",
+                    "ar": "الإعدادات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsetɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/settings-uk-1760857183182.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsetɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/settings-us-1760857183512.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Go to settings to change your phone's wallpaper.",
+                    "vi": "Vào cài đặt để thay đổi hình nền điện thoại của bạn.",
+                    "th": "ไปที่การตั้งค่าเพื่อเปลี่ยนวอลเปเปอร์โทรศัพท์ของคุณ",
+                    "id": "Buka pengaturan untuk mengubah wallpaper ponsel Anda.",
+                    "ar": "اذهب إلى الإعدادات لتغيير خلفية هاتفك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed89a4e8dd8355a231f_1760871571953.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed89a4e8dd8355a2322",
+                "word": "update",
+                "explanation": {
+                    "en": "The action of improving or modernizing something. A newer, improved version of software.",
+                    "vi": "Hành động cải thiện hoặc hiện đại hóa một cái gì đó. Một phiên bản phần mềm mới hơn, cải tiến hơn.",
+                    "th": "การกระทำของการปรับปรุงหรือทำให้ทันสมัยขึ้น เวอร์ชันซอฟต์แวร์ที่ใหม่กว่าและปรับปรุงแล้ว",
+                    "id": "Tindakan memperbaiki atau memodernisasi sesuatu. Versi perangkat lunak yang lebih baru dan lebih baik.",
+                    "ar": "عملية تحسين أو تحديث شيء ما. إصدار أحدث ومحسن من البرنامج."
+                },
+                "translation": {
+                    "vi": "cập nhật",
+                    "th": "อัปเดต",
+                    "id": "pembaruan",
+                    "ar": "تحديث"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌʌpˈdeɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/update-uk-1760857184748.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌʌpˈdeɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/update-us-1760857185077.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Don't forget to update your phone's operating system.",
+                    "vi": "Đừng quên cập nhật hệ điều hành điện thoại của bạn.",
+                    "th": "อย่าลืมอัปเดตระบบปฏิบัติการของโทรศัพท์ของคุณ",
+                    "id": "Jangan lupa untuk memperbarui sistem operasi ponsel Anda.",
+                    "ar": "لا تنس تحديث نظام تشغيل هاتفك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed89a4e8dd8355a2322_1760871579330.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed99a4e8dd8355a2325",
+                "word": "notification",
+                "explanation": {
+                    "en": "A message alerting a user to an event or activity. An alert from an application.",
+                    "vi": "Một tin nhắn cảnh báo người dùng về một sự kiện hoặc hoạt động. Một cảnh báo từ một ứng dụng.",
+                    "th": "ข้อความที่แจ้งเตือนผู้ใช้ถึงเหตุการณ์หรือกิจกรรม การแจ้งเตือนจากแอปพลิเคชัน",
+                    "id": "Pesan yang memberi tahu pengguna tentang suatu peristiwa atau aktivitas. Sebuah peringatan dari aplikasi.",
+                    "ar": "رسالة تنبه المستخدم بحدوث حدث أو نشاط. تنبيه من تطبيق."
+                },
+                "translation": {
+                    "vi": "thông báo",
+                    "th": "การแจ้งเตือน",
+                    "id": "notifikasi",
+                    "ar": "إشعار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌnəʊtɪfɪˈkeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/notification-uk-1760857186328.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌnəʊtɪfɪˈkeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/notification-us-1760857186658.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I got a notification on my phone this morning.",
+                    "vi": "Tôi nhận được một thông báo trên điện thoại của mình sáng nay.",
+                    "th": "ฉันได้รับการแจ้งเตือนบนโทรศัพท์เมื่อเช้านี้",
+                    "id": "Saya mendapat notifikasi di ponsel saya pagi ini.",
+                    "ar": "تلقيت إشعارًا على هاتفي هذا الصباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed99a4e8dd8355a2325_1760871587410.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed99a4e8dd8355a2328",
+                "word": "account",
+                "explanation": {
+                    "en": "A private space in a computing system accessed by a user. A record of a user's activity and information.",
+                    "vi": "Một không gian riêng tư trong hệ thống máy tính mà người dùng truy cập. Một bản ghi về hoạt động và thông tin của người dùng.",
+                    "th": "พื้นที่ส่วนตัวในระบบคอมพิวเตอร์ที่ผู้ใช้เข้าถึง บันทึกกิจกรรมและข้อมูลของผู้ใช้",
+                    "id": "Ruang pribadi dalam sistem komputasi yang diakses oleh pengguna. Catatan aktivitas dan informasi pengguna.",
+                    "ar": "مساحة خاصة في نظام حاسوبي يتم الوصول إليها بواسطة المستخدم. سجل لنشاط المستخدم ومعلوماته."
+                },
+                "translation": {
+                    "vi": "tài khoản",
+                    "th": "บัญชี",
+                    "id": "akun",
+                    "ar": "حساب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/əˈkaʊnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/account-uk-1760857187939.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈkaʊnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/account-us-1760857188330.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please log in to your account to check your balance.",
+                    "vi": "Vui lòng đăng nhập vào tài khoản của bạn để kiểm tra số dư.",
+                    "th": "กรุณาเข้าสู่ระบบบัญชีของคุณเพื่อตรวจสอบยอดคงเหลือ",
+                    "id": "Silakan masuk ke akun Anda untuk memeriksa saldo Anda.",
+                    "ar": "يرجى تسجيل الدخول إلى حسابك للتحقق من رصيدك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed99a4e8dd8355a2328_1760871593903.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed99a4e8dd8355a232b",
+                "word": "data",
+                "explanation": {
+                    "en": "Facts and statistics collected together for reference or analysis. Information stored and processed by a computer.",
+                    "vi": "Các sự kiện và số liệu thống kê được thu thập cùng nhau để tham khảo hoặc phân tích. Thông tin được lưu trữ và xử lý bởi máy tính.",
+                    "th": "ข้อเท็จจริงและสถิติที่รวบรวมไว้เพื่ออ้างอิงหรือวิเคราะห์ ข้อมูลที่จัดเก็บและประมวลผลโดยคอมพิวเตอร์",
+                    "id": "Fakta dan statistik yang dikumpulkan bersama untuk referensi atau analisis. Informasi yang disimpan dan diproses oleh komputer.",
+                    "ar": "حقائق وإحصائيات مجمعة للرجوع إليها أو تحليلها. معلومات مخزنة ومعالجة بواسطة الكمبيوتر."
+                },
+                "translation": {
+                    "vi": "dữ liệu",
+                    "th": "ข้อมูล",
+                    "id": "data",
+                    "ar": "بيانات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdeɪtə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/data-uk-1760857189586.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdeɪtə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/data-us-1760857189926.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We need to analyze the sales data from last month.",
+                    "vi": "Chúng ta cần phân tích dữ liệu bán hàng từ tháng trước.",
+                    "th": "เราต้องวิเคราะห์ข้อมูลการขายจากเดือนที่แล้ว",
+                    "id": "Kita perlu menganalisis data penjualan dari bulan lalu.",
+                    "ar": "نحتاج إلى تحليل بيانات المبيعات من الشهر الماضي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed99a4e8dd8355a232b_1760871600624.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed99a4e8dd8355a232e",
+                "word": "storage",
+                "explanation": {
+                    "en": "The process of keeping data in a digital medium. The physical space available for holding information.",
+                    "vi": "Quá trình lưu giữ dữ liệu trong một phương tiện kỹ thuật số. Không gian vật lý có sẵn để chứa thông tin.",
+                    "th": "กระบวนการจัดเก็บข้อมูลในสื่อดิจิทัล พื้นที่ทางกายภาพที่ใช้สำหรับเก็บข้อมูล",
+                    "id": "Proses menyimpan data dalam media digital. Ruang fisik yang tersedia untuk menyimpan informasi.",
+                    "ar": "عملية الاحتفاظ بالبيانات في وسيط رقمي. المساحة المادية المتاحة لحفظ المعلومات."
+                },
+                "translation": {
+                    "vi": "bộ nhớ, lưu trữ",
+                    "th": "การจัดเก็บ",
+                    "id": "penyimpanan",
+                    "ar": "تخزين"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈstɔːrɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/storage-uk-1760857191181.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈstɔːrɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/storage-us-1760857191527.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My new phone has a lot of storage for photos.",
+                    "vi": "Điện thoại mới của tôi có nhiều dung lượng lưu trữ cho ảnh.",
+                    "th": "โทรศัพท์เครื่องใหม่ของฉันมีพื้นที่เก็บข้อมูลสำหรับรูปภาพจำนวนมาก",
+                    "id": "Ponsel baru saya memiliki banyak penyimpanan untuk foto.",
+                    "ar": "هاتفي الجديد لديه مساحة تخزين كبيرة للصور."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed99a4e8dd8355a232e_1760871609789.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47ed99a4e8dd8355a2331",
+                "word": "cloud",
+                "explanation": {
+                    "en": "A network of remote servers hosted on the Internet. Used to store, manage, and process data.",
+                    "vi": "Một mạng lưới các máy chủ từ xa được lưu trữ trên Internet. Được sử dụng để lưu trữ, quản lý và xử lý dữ liệu.",
+                    "th": "เครือข่ายของเซิร์ฟเวอร์ระยะไกลที่โฮสต์บนอินเทอร์เน็ต ใช้สำหรับจัดเก็บ จัดการ และประมวลผลข้อมูล",
+                    "id": "Jaringan server jarak jauh yang di-host di Internet. Digunakan untuk menyimpan, mengelola, dan memproses data.",
+                    "ar": "شبكة من الخوادم البعيدة المستضافة على الإنترنت. تستخدم لتخزين البيانات وإدارتها ومعالجتها."
+                },
+                "translation": {
+                    "vi": "điện toán đám mây",
+                    "th": "คลาวด์คอมพิวติ้ง",
+                    "id": "komputasi awan",
+                    "ar": "الحوسبة السحابية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/klaʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cloud-uk-1760857192782.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/klaʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cloud-us-1760857193140.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Save your files to the cloud so you can access them anywhere.",
+                    "vi": "Lưu tệp của bạn lên đám mây để bạn có thể truy cập chúng ở bất cứ đâu.",
+                    "th": "บันทึกไฟล์ของคุณไปยังคลาวด์เพื่อให้คุณสามารถเข้าถึงได้ทุกที่",
+                    "id": "Simpan file Anda ke cloud agar Anda dapat mengaksesnya di mana saja.",
+                    "ar": "احفظ ملفاتك على السحابة لتتمكن من الوصول إليها في أي مكان."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47ed99a4e8dd8355a2331_1760871617547.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df60",
+                "group_name": "Technology",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 49
+    }
+}

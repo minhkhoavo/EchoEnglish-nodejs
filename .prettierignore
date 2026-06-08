@@ -6,7 +6,6 @@ build
 .env.production
 .env.development
 *.lock
-pnpm-lock.yaml
 package-lock.json
 yarn.lock
 .git

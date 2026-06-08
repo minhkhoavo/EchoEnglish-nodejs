@@ -3,10 +3,11 @@ import crypto from 'crypto';
 import { PaymentStatus } from '~/enum/paymentStatus.js';
 import { User } from '~/models/userModel.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
-import { SuccessMessage } from '~/enum/successMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import moment from 'moment-timezone';
 import QueryString from 'qs';
+import notificationService from '~/services/notifications/notificationService.js';
+import { NotificationType } from '~/enum/notificationType.js';
 class VnPayService {
     private VNP_TMNCODE = process.env.VNP_TMNCODE!;
     private VNP_HASHSECRET = process.env.VNP_HASH_SECRET!;
@@ -37,7 +38,7 @@ class VnPayService {
 
     // Hàm định dạng ngày tháng theo chuẩn của VNPay
     private formatDate(date: Date): string {
-        return moment(date).format('YYYYMMDDHHmmss');
+        return moment(date).tz('Asia/Ho_Chi_Minh').format('YYYYMMDDHHmmss');
     }
 
     // Hàm tạo chữ ký bảo mật
@@ -56,7 +57,7 @@ class VnPayService {
         ipAddress: string
     ) => {
         console.log(payment._id);
-        const nowDate = new Date();
+        const now = moment().tz('Asia/Ho_Chi_Minh');
         let params: Record<string, string | number> = {
             vnp_Version: '2.1.0',
             vnp_Command: 'pay',
@@ -68,11 +69,12 @@ class VnPayService {
             vnp_OrderType: 'other',
             vnp_Amount: payment.amount! * 100,
             vnp_ReturnUrl: this.VNP_RETURNURL.trim(),
-            vnp_ExpireDate: this.formatDate(
-                new Date(nowDate.getTime() + 15 * 60 * 1000)
-            ),
+            vnp_ExpireDate: now
+                .clone()
+                .add(15, 'minutes')
+                .format('YYYYMMDDHHmmss'),
             vnp_IpAddr: ipAddress,
-            vnp_CreateDate: this.formatDate(nowDate),
+            vnp_CreateDate: now.format('YYYYMMDDHHmmss'),
         };
 
         const signedParams = {
@@ -85,7 +87,6 @@ class VnPayService {
     // Hàm xử lý phản hồi từ VNPay sau khi thanh toán
     public handleVnPayReturn = async (params: Record<string, string>) => {
         if (!params) throw new ApiError(ErrorMessage.PAYMENT_FAILED);
-
         let secureHash = params.vnp_SecureHash;
 
         if (!secureHash) throw new ApiError(ErrorMessage.SIGNATURE_INVALID);
@@ -126,13 +127,42 @@ class VnPayService {
             : PaymentStatus.FAILED;
         await payment.save();
 
+        const FRONTEND_URL = (
+            process.env.FRONTEND_URL || 'http://localhost:5173'
+        ).trim();
+        if (isSuccess) {
+            const user = await User.findById(payment.user);
+            if (user) {
+                await User.findByIdAndUpdate(payment.user, {
+                    $inc: { credits: payment.tokens },
+                });
+            }
+
+            // Send notification to user
+            await notificationService.pushNotification(user._id.toString(), {
+                title: 'Payment Successful',
+                body: `You have successfully purchased ${payment.tokens} credits for ${payment.amount} VND`,
+                type: NotificationType.PAYMENT,
+                userIds: [user._id],
+            });
+            const txnRef = payment._id
+                ? payment._id.toString()
+                : params.vnp_TxnRef;
+            const status = payment.status;
+            const redirectUrl = `${FRONTEND_URL}/payment/callback?paymentId=${encodeURIComponent(txnRef)}&status=${encodeURIComponent(String(status))}`;
+            return {
+                success: true,
+                redirectUrl,
+                paymentId: payment._id.toString(),
+                status: payment.status,
+            };
+        }
+        const redirectUrl = `${FRONTEND_URL}/payment/callback?paymentId=${payment._id}&status=${PaymentStatus.FAILED}`;
         return {
-            success: isSuccess,
-            message: isSuccess
-                ? SuccessMessage.PAYMENT_STATUS_SUCCESS
-                : ErrorMessage.PAYMENT_FAILED,
+            success: true,
+            redirectUrl,
             paymentId: payment._id.toString(),
-            status: payment.status,
+            status: PaymentStatus.FAILED,
         };
     };
 

@@ -13,16 +13,29 @@ const resourceSchema = new Schema(
             enum: Object.values(ResourceType),
             required: [true, 'TYPE_REQUIRED'],
         },
-        url: {
-            type: String,
-            required: [true, 'URL_REQUIRED'],
-        },
+
+        // URL cho external resources (youtube, web)
+        url: { type: String },
+
+        // === Article fields ===
+        isArticle: { type: Boolean, default: false },
+        attachmentUrl: { type: String }, // S3 Attachment URL
+        attachmentName: { type: String },
+        isIndexed: { type: Boolean, default: false },
+        createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+
+        // === xAPI fields
+        xapiLaunchUrl: { type: String }, // URL public S3 to launch course
+        xapiPackageKey: { type: String }, // Prefix S3 include files of the uploaded package
+
+        // === Common fields ===
         title: { type: String },
+        thumbnail: { type: String },
         publishedAt: { type: Date },
         lang: { type: String, default: 'en' },
         summary: { type: String },
-        content: { type: String },
-        keyPoints: [{ type: String }], //mảng các ý chính
+        content: { type: String }, // HTML content for articles, plain text for web_rss
+        keyPoints: [{ type: String }],
 
         labels: {
             cefr: { type: String },
@@ -35,17 +48,16 @@ const resourceSchema = new Schema(
                 enum: Object.values(Domain),
             },
             topic: [{ type: String }],
-            genre: { type: String }, //thể loại
-            setting: { type: String }, //ngữ cảnh
-            speechActs: [{ type: String }], //hành vi ngôn ngữ
+            genre: { type: String },
+            setting: { type: String },
+            speechActs: [{ type: String }],
         },
 
         suitableForLearners: {
-            //resource có phù hợp cho người học hay không
             type: Boolean,
             required: [true, 'SUITABLE_FOR_LEARNERS_REQUIRED'],
         },
-        moderationNotes: { type: String }, //ghi chú kiểm duyệt
+        moderationNotes: { type: String },
     },
     {
         collection: 'resources',

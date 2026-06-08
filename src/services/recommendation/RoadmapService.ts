@@ -1,0 +1,241 @@
+import { Schema, Types } from 'mongoose';
+import {
+    DailyFocusType,
+    Roadmap,
+    RoadmapType,
+} from '../../models/roadmapModel.js';
+import { TestResult } from '../../models/testResultModel.js';
+import { learningPlanAIService } from '~/ai/service/learningPlanAIService.js';
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
+import { User } from '~/models/userModel.js';
+import { roadmapCalibrationService } from './RoadmapCalibrationService.js';
+import { determineToeicLevel } from '~/utils/toeicScore.js';
+
+interface WeaknessData {
+    skillKey: string;
+    skillName: string;
+    severity: string;
+    category: string;
+    accuracy: number;
+}
+
+export class RoadmapService {
+    async generateRoadmap(
+        userId: Schema.Types.ObjectId | string,
+        input: {
+            userPrompt?: string;
+            targetScore: number;
+            studyTimePerDay: number;
+            studyDaysPerWeek: number;
+            testResultId?: Schema.Types.ObjectId;
+            weaknesses?: WeaknessData[];
+        }
+    ): Promise<RoadmapType> {
+        // Fetch user preferences
+        const user = await User.findById(userId).select('preferences').lean();
+        const userPreferences =
+            user && !Array.isArray(user) && user.preferences
+                ? {
+                      primaryGoal: user.preferences.primaryGoal,
+                      currentLevel: user.preferences.currentLevel,
+                      preferredStudyTime: user.preferences.preferredStudyTime,
+                      contentInterests: user.preferences.contentInterests,
+                      studyDaysOfWeek: user.preferences.studyDaysOfWeek,
+                  }
+                : undefined;
+        let testAnalysis = null;
+        let detectedCurrentLevel = null;
+        if (input.testResultId) {
+            const testResult = await TestResult.findById(input.testResultId);
+            if (testResult) {
+                testAnalysis = {
+                    score: testResult.totalScore,
+                    weaknesses:
+                        testResult.analysis?.examAnalysis?.topWeaknesses || [],
+                    strengths:
+                        testResult.analysis?.examAnalysis?.strengths || [],
+                    domainsPerformance:
+                        testResult.analysis?.examAnalysis?.domainPerformance ||
+                        [],
+                    summary: testResult.analysis?.examAnalysis?.summary || '',
+                };
+                console.log('Test score', testResult.totalScore);
+                detectedCurrentLevel = determineToeicLevel(
+                    testResult.totalScore
+                );
+            }
+        }
+        console.log('Detected current level:', detectedCurrentLevel);
+        const today = new Date();
+        const todayDayOfWeek = today.getDay();
+        // const todayDayOfWeek = 4;
+
+        const context = {
+            userId: userId.toString(),
+            userPrompt: input.userPrompt || 'I want to improve my TOEIC score',
+            targetScore: input.targetScore,
+            studyTimePerDay: input.studyTimePerDay,
+            studyDaysPerWeek: input.studyDaysPerWeek,
+            userPreferences,
+            testAnalysis,
+            providedWeaknesses: input.weaknesses,
+            todayDayOfWeek,
+        };
+
+        const llmResponse = await learningPlanAIService.generateLearningRoadmap(
+            {
+                ...context,
+                testAnalysis: testAnalysis || undefined,
+            }
+        );
+
+        const roadmapId = `RM_${userId}_${Date.now()}`;
+        const startDate = new Date();
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + llmResponse.totalWeeks * 7);
+        const finalCurrentLevel =
+            detectedCurrentLevel || llmResponse.currentLevel;
+
+        const roadmap = await Roadmap.create({
+            userId,
+            roadmapId,
+            userPrompt: input.userPrompt,
+            currentLevel: finalCurrentLevel,
+            targetScore: input.targetScore,
+            startDate,
+            endDate,
+            totalWeeks: llmResponse.totalWeeks,
+            studyTimePerDay: input.studyTimePerDay,
+            studyDaysPerWeek: input.studyDaysPerWeek,
+            learningStrategy: llmResponse.learningStrategy,
+            phaseSummary: llmResponse.phaseSummary || [],
+            weeklyFocuses: llmResponse.weeklyFocuses,
+            totalSessions: llmResponse.totalWeeks * input.studyDaysPerWeek,
+            status: 'active',
+            testResultId: input.testResultId,
+            activeWeekNumber: 1,
+            lastActiveDate: new Date(),
+        });
+        return roadmap;
+    }
+
+    async getActiveRoadmap(userId: Schema.Types.ObjectId | string) {
+        const roadmap = await Roadmap.findOne({ userId, status: 'active' })
+            .lean()
+            .exec();
+        return roadmap;
+    }
+
+    async updateRoadmapScheduleFromUserPreferences(
+        userId: Types.ObjectId
+    ): Promise<void> {
+        const user = await User.findById(userId).select(
+            'preferences.studyDaysOfWeek'
+        );
+        if (!user?.preferences?.studyDaysOfWeek) {
+            throw new Error('User study days preferences not found');
+        }
+
+        const activeRoadmaps = await Roadmap.find({
+            userId,
+            status: { $in: ['active', 'draft'] },
+        });
+
+        for (const roadmap of activeRoadmaps) {
+            roadmap.updateDayOfWeekFromUserPreferences(
+                user.preferences.studyDaysOfWeek
+            );
+            await roadmap.save();
+        }
+    }
+
+    async checkRoadmapBlocked(roadmapId: string): Promise<{
+        isBlocked: boolean;
+        blockedDailyFocus?: DailyFocusType;
+        currentWeek?: number;
+    }> {
+        const roadmap = await Roadmap.findOne({ roadmapId });
+        if (!roadmap) {
+            throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
+        }
+
+        const isBlocked = roadmap.isBlocked;
+        const blockedDailyFocus = roadmap.blockedDailyFocus;
+
+        return {
+            isBlocked,
+            blockedDailyFocus,
+            currentWeek: roadmap.currentWeek,
+        };
+    }
+
+    async completeDailySession(
+        roadmapId: string,
+        weekNumber: number,
+        dayNumber: number
+    ): Promise<{
+        success: boolean;
+        canProceed: boolean;
+        message: string;
+    }> {
+        const roadmap = await Roadmap.findOne({ roadmapId });
+        if (!roadmap) {
+            throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
+        }
+
+        roadmap.completeDailySession(weekNumber, dayNumber);
+        const stillBlocked = roadmap.isBlocked;
+        roadmap.sessionsCompleted = (roadmap.sessionsCompleted || 0) + 1;
+        roadmap.overallProgress = Math.round(
+            (roadmap.sessionsCompleted / (roadmap.totalSessions || 1)) * 100
+        );
+
+        roadmap.lastActiveDate = new Date();
+        await roadmapCalibrationService.checkAndProgressWeek(roadmapId);
+        await roadmap.save();
+
+        return {
+            success: true,
+            canProceed: !stillBlocked,
+            message: stillBlocked
+                ? 'Daily session completed but roadmap is still blocked by other critical sessions'
+                : 'Daily session completed. Roadmap is now unblocked',
+        };
+    }
+
+    async updateDailyFocusStatus(
+        roadmapId: string,
+        weekNumber: number,
+        dayOfWeek: number,
+        status: 'pending' | 'upcoming' | 'in-progress' | 'completed' | 'skipped'
+    ): Promise<void> {
+        console.log(
+            `Updating daily focus status for roadmap ${roadmapId}, week ${weekNumber}, day ${dayOfWeek} to ${status}`
+        );
+        const roadmap = await Roadmap.findOneAndUpdate(
+            {
+                roadmapId,
+                'weeklyFocuses.weekNumber': weekNumber,
+                'weeklyFocuses.dailyFocuses.dayOfWeek': dayOfWeek,
+            },
+            {
+                $set: {
+                    'weeklyFocuses.$[week].dailyFocuses.$[day].status': status,
+                },
+            },
+            {
+                arrayFilters: [
+                    { 'week.weekNumber': weekNumber },
+                    { 'day.dayOfWeek': dayOfWeek },
+                ],
+            }
+        );
+        console.log('Roadmap not found in here');
+        if (!roadmap) {
+            throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
+        }
+    }
+}
+
+export const roadmapService = new RoadmapService();

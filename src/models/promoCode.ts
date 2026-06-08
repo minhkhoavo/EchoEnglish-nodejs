@@ -30,6 +30,23 @@ const promoCodeSchema = new Schema(
             type: Boolean,
             default: true,
         },
+        maxUsesPerUser: {
+            type: Number,
+            default: null,
+        },
+        minOrderValue: {
+            type: Number,
+            default: 0,
+        },
+        maxDiscountAmount: {
+            type: Number,
+            default: null,
+        },
+        userUsages: {
+            type: Map,
+            of: Number,
+            default: new Map(),
+        },
     },
     {
         collection: 'promo_codes',

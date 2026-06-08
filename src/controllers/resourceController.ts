@@ -2,12 +2,26 @@
 import { Request, Response } from 'express';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
-import { RoleName } from '~/enum/role.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import resourceService from '~/services/transcription/resourceService.js';
+import xapiService from '~/services/transcription/xapiService.js';
+import { knowledgeBaseService } from '~/services/knowledgeBase/knowledgeBaseService.js';
 
 class ResourceController {
+    public getResourceById = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const resource = await resourceService.getResourceById(id);
+
+        if (!resource) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
+
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, resource));
+    };
+
     public updateResourceHandler = async (req: Request, res: Response) => {
         const { id } = req.params;
         const updateData = req.body;
@@ -52,10 +66,137 @@ class ResourceController {
             .json(new ApiResponse(SuccessMessage.CREATE_SUCCESS, resource));
     };
 
+    /**
+     * Tạo bài viết mới (Admin) - hỗ trợ upload file
+     */
+    public createArticle = async (req: Request, res: Response) => {
+        const {
+            title,
+            content,
+            summary,
+            thumbnail,
+            attachmentUrl,
+            attachmentName,
+            labels,
+            suitableForLearners,
+        } = req.body;
+
+        if (!title || !content) {
+            throw new ApiError({
+                message: 'Title and content are required',
+                status: 400,
+            });
+        }
+
+        const article = await resourceService.createArticle({
+            title,
+            content,
+            summary,
+            thumbnail,
+            attachmentUrl,
+            attachmentName,
+            labels,
+            suitableForLearners: suitableForLearners === true,
+            createdBy: req.user?.id || '',
+        });
+
+        return res
+            .status(201)
+            .json(new ApiResponse(SuccessMessage.CREATE_SUCCESS, article));
+    };
+
+    /**
+     * Cập nhật bài viết (Admin) - hỗ trợ upload file mới
+     */
+    public updateArticle = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        const {
+            title,
+            content,
+            summary,
+            thumbnail,
+            attachmentUrl,
+            attachmentName,
+            labels,
+            suitableForLearners,
+        } = req.body;
+
+        const updateData: Record<string, unknown> = {};
+        if (title) updateData.title = title;
+        if (content) updateData.content = content;
+        if (summary) updateData.summary = summary;
+        if (thumbnail) updateData.thumbnail = thumbnail;
+        if (attachmentUrl !== undefined)
+            updateData.attachmentUrl = attachmentUrl;
+        if (attachmentName !== undefined)
+            updateData.attachmentName = attachmentName;
+        if (labels) updateData.labels = labels;
+        if (suitableForLearners !== undefined) {
+            updateData.suitableForLearners = suitableForLearners === true;
+        }
+
+        const updated = await resourceService.updateArticle(id, updateData);
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.UPDATE_SUCCESS, updated));
+    };
+
+    /**
+     * Re-index tất cả articles vào knowledge base
+     */
+    public reindexKnowledge = async (req: Request, res: Response) => {
+        const result = await knowledgeBaseService.reindexAllArticles();
+        return res
+            .status(200)
+            .json(new ApiResponse('Reindex completed', result));
+    };
+
+    /**
+     * Query knowledge base
+     */
+    public queryKnowledge = async (req: Request, res: Response) => {
+        const { query, topK } = req.body;
+
+        if (!query) {
+            throw new ApiError({
+                message: 'Query is required',
+                status: 400,
+            });
+        }
+
+        const results = await knowledgeBaseService.queryKnowledge({
+            query,
+            topK,
+        });
+
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, results));
+    };
+
+    /**
+     * Upload xAPI package. Body: multipart, file=<zip>.
+     */
+    public uploadXapiPackage = async (req: Request, res: Response) => {
+        if (!req.file) {
+            throw new ApiError({ message: 'No file provided', status: 400 });
+        }
+
+        const resource = await xapiService.createXapiResource({
+            zipBuffer: req.file.buffer,
+            fileName: req.file.originalname,
+            createdBy: req.user?.id,
+        });
+
+        return res
+            .status(201)
+            .json(new ApiResponse(SuccessMessage.CREATE_SUCCESS, resource));
+    };
+
     public searchResource = async (req: Request, res: Response) => {
         const { page, limit, ...filters } = req.query;
 
-        let sortOption: Record<string, 1 | -1> = {};
+        let sortOption: Record<string, 1 | -1> = { createdAt: -1 };
         if (filters.sort === 'newest') sortOption = { publishedAt: -1 };
 
         const pageNum = parseInt(page as string);

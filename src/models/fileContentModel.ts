@@ -46,6 +46,11 @@ export const FILE_GENRE_LABELS = [
     'presentation',
     'article',
     'manual',
+    'resume',
+    'letter',
+    'advertisement',
+    'notice',
+    'form',
 ] as const;
 
 export const FILE_SETTING_LABELS = [

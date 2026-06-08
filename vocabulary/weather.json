@@ -1,0 +1,2165 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47e889a4e8dd8355a216d",
+                "word": "weather",
+                "explanation": {
+                    "en": "The state of the atmosphere regarding temperature, cloudiness, and precipitation. Conditions such as sun, rain, or wind at a specific time.",
+                    "vi": "Tình trạng của khí quyển về nhiệt độ, độ che phủ của mây và lượng mưa. Các điều kiện như nắng, mưa hoặc gió vào một thời điểm cụ thể.",
+                    "th": "สภาพของบรรยากาศเกี่ยวกับอุณหภูมิ เมฆปกคลุม และปริมาณน้ำฝน สภาพการณ์เช่น แสงแดด ฝน หรือลม ณ เวลาใดเวลาหนึ่ง.",
+                    "id": "Keadaan atmosfer mengenai suhu, tutupan awan, dan curah hujan. Kondisi seperti matahari, hujan, atau angin pada waktu tertentu.",
+                    "ar": "حالة الغلاف الجوي فيما يتعلق بدرجة الحرارة والغيوم وهطول الأمطار. ظروف مثل الشمس أو المطر أو الرياح في وقت محدد."
+                },
+                "translation": {
+                    "vi": "thời tiết",
+                    "th": "สภาพอากาศ",
+                    "id": "cuaca",
+                    "ar": "الطقس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈweðə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/weather-uk-1760856965135.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈweðər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/weather-us-1760856965480.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The weather report says it will rain.",
+                    "vi": "Bản tin thời tiết nói rằng trời sẽ mưa.",
+                    "th": "รายงานสภาพอากาศบอกว่าฝนจะตก.",
+                    "id": "Laporan cuaca mengatakan akan hujan.",
+                    "ar": "يقول تقرير الطقس إنها ستمطر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e889a4e8dd8355a216d_1760870513020.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e889a4e8dd8355a2170",
+                "word": "sunny",
+                "explanation": {
+                    "en": "Bright with sunlight; full of sun. Having a lot of sunshine.",
+                    "vi": "Sáng sủa với ánh nắng mặt trời; đầy nắng. Có nhiều ánh nắng mặt trời.",
+                    "th": "สว่างด้วยแสงแดด; เต็มไปด้วยแสงแดด มีแสงแดดจัด.",
+                    "id": "Terang dengan sinar matahari; penuh matahari. Memiliki banyak sinar matahari.",
+                    "ar": "مشرق بضوء الشمس؛ مليء بالشمس. يتمتع بالكثير من أشعة الشمس."
+                },
+                "translation": {
+                    "vi": "nắng",
+                    "th": "มีแดด",
+                    "id": "cerah",
+                    "ar": "مشمس"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈsʌni/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sunny-uk-1760856966729.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsʌni/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sunny-us-1760856967070.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "It's a beautiful, sunny day outside.",
+                    "vi": "Bên ngoài là một ngày đẹp trời, đầy nắng.",
+                    "th": "ข้างนอกเป็นวันที่สวยงามและมีแดดจัด.",
+                    "id": "Ini adalah hari yang indah dan cerah di luar.",
+                    "ar": "إنه يوم جميل ومشمس في الخارج."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e889a4e8dd8355a2170_1760870522622.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e889a4e8dd8355a2173",
+                "word": "rainy",
+                "explanation": {
+                    "en": "Having or bringing a lot of rain. Characterized by periods of precipitation.",
+                    "vi": "Có hoặc mang nhiều mưa. Đặc trưng bởi các giai đoạn mưa.",
+                    "th": "มีหรือนำฝนมามาก มีลักษณะเป็นช่วงเวลาที่มีฝนตก.",
+                    "id": "Memiliki atau membawa banyak hujan. Ditandai dengan periode curah hujan.",
+                    "ar": "يحتوي على أو يجلب الكثير من المطر. يتميز بفترات هطول الأمطار."
+                },
+                "translation": {
+                    "vi": "mưa",
+                    "th": "มีฝนตก",
+                    "id": "hujan",
+                    "ar": "ممطر"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈreɪni/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rainy-uk-1760856968477.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈreɪni/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rainy-us-1760856968824.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We stayed home on the rainy afternoon.",
+                    "vi": "Chúng tôi ở nhà vào buổi chiều mưa.",
+                    "th": "เราอยู่บ้านในบ่ายที่ฝนตก.",
+                    "id": "Kami tinggal di rumah pada sore yang hujan.",
+                    "ar": "بقينا في المنزل في فترة ما بعد الظهر الممطرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e889a4e8dd8355a2173_1760870529391.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e889a4e8dd8355a2176",
+                "word": "cloudy",
+                "explanation": {
+                    "en": "Covered with clouds. Overcast and dull.",
+                    "vi": "Bị mây che phủ. U ám và xám xịt.",
+                    "th": "ปกคลุมด้วยเมฆ ครึ้มฟ้าครึ้มฝนและมืดครึ้ม.",
+                    "id": "Tertutup awan. Mendung dan suram.",
+                    "ar": "مغطى بالغيوم. غائم وممل."
+                },
+                "translation": {
+                    "vi": "nhiều mây",
+                    "th": "มีเมฆมาก",
+                    "id": "berawan",
+                    "ar": "غائم"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈklaʊdi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cloudy-uk-1760856970106.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈklaʊdi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cloudy-us-1760856970456.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The sky is cloudy, so I don't see the sun.",
+                    "vi": "Bầu trời nhiều mây nên tôi không thấy mặt trời.",
+                    "th": "ท้องฟ้ามีเมฆมาก ฉันเลยไม่เห็นพระอาทิตย์.",
+                    "id": "Langit berawan, jadi saya tidak melihat matahari.",
+                    "ar": "السماء غائمة، لذا لا أرى الشمس."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e889a4e8dd8355a2176_1760870538118.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e889a4e8dd8355a2179",
+                "word": "windy",
+                "explanation": {
+                    "en": "Characterized by or exposed to strong winds. Having a noticeable air movement.",
+                    "vi": "Đặc trưng bởi hoặc tiếp xúc với gió mạnh. Có sự chuyển động không khí đáng chú ý.",
+                    "th": "มีลักษณะเฉพาะหรือสัมผัสกับลมแรง มีการเคลื่อนที่ของอากาศที่สังเกตเห็นได้.",
+                    "id": "Ditandai oleh atau terpapar angin kencang. Memiliki gerakan udara yang mencolok.",
+                    "ar": "يتميز بالرياح القوية أو يتعرض لها. يتميز بحركة هواء ملحوظة."
+                },
+                "translation": {
+                    "vi": "nhiều gió",
+                    "th": "มีลม",
+                    "id": "berangin",
+                    "ar": "عاصف"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɪndi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/windy-uk-1760856971717.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɪndi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/windy-us-1760856972059.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "It's very windy; hold onto your hat.",
+                    "vi": "Trời rất gió; hãy giữ chặt mũ của bạn.",
+                    "th": "ลมแรงมาก; จับหมวกของคุณไว้ให้ดี.",
+                    "id": "Anginnya sangat kencang; pegang topimu.",
+                    "ar": "الجو عاصف جداً؛ أمسك قبعتك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e889a4e8dd8355a2179_1760870545010.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e889a4e8dd8355a217c",
+                "word": "foggy",
+                "explanation": {
+                    "en": "Filled with or covered in fog. Having poor visibility due to low-lying clouds.",
+                    "vi": "Đầy sương mù hoặc bị sương mù bao phủ. Có tầm nhìn kém do mây thấp.",
+                    "th": "เต็มไปด้วยหรือปกคลุมด้วยหมอก มีทัศนวิสัยไม่ดีเนื่องจากเมฆต่ำ.",
+                    "id": "Dipenuhi atau tertutup kabut. Memiliki jarak pandang yang buruk karena awan rendah.",
+                    "ar": "مليء بالضباب أو مغطى به. يعاني من ضعف الرؤية بسبب السحب المنخفضة."
+                },
+                "translation": {
+                    "vi": "sương mù",
+                    "th": "มีหมอก",
+                    "id": "berkabut",
+                    "ar": "ضبابي"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈfɒɡi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/foggy-uk-1760856973336.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfɑːɡi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/foggy-us-1760856973681.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Driving was hard in the thick, foggy morning.",
+                    "vi": "Lái xe rất khó khăn trong buổi sáng sương mù dày đặc.",
+                    "th": "การขับรถเป็นเรื่องยากในเช้าที่หมอกหนาทึบ.",
+                    "id": "Mengemudi sulit di pagi yang berkabut tebal.",
+                    "ar": "كانت القيادة صعبة في الصباح الضبابي الكثيف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e889a4e8dd8355a217c_1760870552070.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e899a4e8dd8355a217f",
+                "word": "snowy",
+                "explanation": {
+                    "en": "Marked by a covering of snow. Characterized by or bringing snow.",
+                    "vi": "Được đánh dấu bằng một lớp tuyết. Đặc trưng bởi hoặc mang theo tuyết.",
+                    "th": "มีหิมะปกคลุม มีลักษณะเฉพาะหรือนำหิมะมา.",
+                    "id": "Ditandai dengan lapisan salju. Ditandai oleh atau membawa salju.",
+                    "ar": "يتميز بغطاء من الثلج. يتميز بالثلج أو يجلبه."
+                },
+                "translation": {
+                    "vi": "có tuyết",
+                    "th": "มีหิมะ",
+                    "id": "bersalju",
+                    "ar": "ثلجي"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈsnəʊi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/snowy-uk-1760856974960.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsnəʊi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/snowy-us-1760856975304.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We built a snowman on the snowy day.",
+                    "vi": "Chúng tôi đã xây người tuyết vào ngày tuyết rơi.",
+                    "th": "เราสร้างมนุษย์หิมะในวันที่หิมะตก.",
+                    "id": "Kami membuat manusia salju di hari bersalju.",
+                    "ar": "بنينا رجل ثلج في اليوم الثلجي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e899a4e8dd8355a217f_1760870558332.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e899a4e8dd8355a2182",
+                "word": "stormy",
+                "explanation": {
+                    "en": "Relating to or affected by a storm. Characterized by strong winds, rain, and thunder.",
+                    "vi": "Liên quan đến hoặc bị ảnh hưởng bởi bão. Đặc trưng bởi gió mạnh, mưa và sấm sét.",
+                    "th": "เกี่ยวข้องหรือได้รับผลกระทบจากพายุ มีลักษณะเป็นลมแรง ฝนตก และฟ้าร้อง",
+                    "id": "Berhubungan dengan atau dipengaruhi oleh badai. Ditandai oleh angin kencang, hujan, dan guntur.",
+                    "ar": "متعلق بالعاصفة أو متأثر بها. يتميز بالرياح القوية والأمطار والرعد."
+                },
+                "translation": {
+                    "vi": "có bão",
+                    "th": "มีพายุ",
+                    "id": "berbadai",
+                    "ar": "عاصف"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈstɔːmi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/stormy-uk-1760856976555.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈstɔːrmi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/stormy-us-1760856976890.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The sea was rough and stormy.",
+                    "vi": "Biển động và có bão.",
+                    "th": "ทะเลมีคลื่นจัดและมีพายุ",
+                    "id": "Laut berombak dan berbadai.",
+                    "ar": "كان البحر هائجًا وعاصفًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e899a4e8dd8355a2182_1760870565745.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e899a4e8dd8355a2185",
+                "word": "hot",
+                "explanation": {
+                    "en": "Having a high temperature. Feeling great heat.",
+                    "vi": "Có nhiệt độ cao. Cảm thấy rất nóng.",
+                    "th": "มีอุณหภูมิสูง รู้สึกร้อนมาก",
+                    "id": "Memiliki suhu tinggi. Merasakan panas yang hebat.",
+                    "ar": "ذو درجة حرارة عالية. الشعور بحرارة شديدة."
+                },
+                "translation": {
+                    "vi": "nóng",
+                    "th": "ร้อน",
+                    "id": "panas",
+                    "ar": "حار"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/hɒt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hot-uk-1760856978160.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/hɑːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hot-us-1760856978515.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please give me a glass of hot tea.",
+                    "vi": "Làm ơn cho tôi một ly trà nóng.",
+                    "th": "กรุณาชงชาอุ่นๆ ให้ฉันแก้วหนึ่ง",
+                    "id": "Tolong beri saya segelas teh panas.",
+                    "ar": "من فضلك أعطني كوبًا من الشاي الساخن."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e899a4e8dd8355a2185_1760870572736.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e899a4e8dd8355a2188",
+                "word": "cold",
+                "explanation": {
+                    "en": "Having a low temperature. Lacking heat or warmth.",
+                    "vi": "Có nhiệt độ thấp. Thiếu nhiệt hoặc sự ấm áp.",
+                    "th": "มีอุณหภูมิต่ำ ขาดความร้อนหรือความอบอุ่น",
+                    "id": "Memiliki suhu rendah. Kurang panas atau kehangatan.",
+                    "ar": "ذو درجة حرارة منخفضة. يفتقر إلى الحرارة أو الدفء."
+                },
+                "translation": {
+                    "vi": "lạnh",
+                    "th": "หนาว",
+                    "id": "dingin",
+                    "ar": "بارد"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/kəʊld/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cold-uk-1760856979776.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kəʊld/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cold-us-1760856980120.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "It's too cold to go outside without a coat.",
+                    "vi": "Trời quá lạnh để ra ngoài mà không mặc áo khoác.",
+                    "th": "อากาศหนาวเกินกว่าจะออกไปข้างนอกโดยไม่ใส่เสื้อโค้ท",
+                    "id": "Terlalu dingin untuk keluar tanpa mantel.",
+                    "ar": "الجو بارد جدًا للذهاب إلى الخارج بدون معطف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e899a4e8dd8355a2188_1760870579757.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e899a4e8dd8355a218b",
+                "word": "warm",
+                "explanation": {
+                    "en": "Having or giving out a moderate degree of heat. Comfortably or pleasantly hot.",
+                    "vi": "Có hoặc tỏa ra một mức độ nhiệt vừa phải. Nóng một cách thoải mái hoặc dễ chịu.",
+                    "th": "มีหรือให้ความร้อนในระดับปานกลาง ร้อนสบายหรือน่าพอใจ",
+                    "id": "Memiliki atau mengeluarkan tingkat panas sedang. Panas yang nyaman atau menyenangkan.",
+                    "ar": "ذو درجة حرارة معتدلة أو يبعثها. حار بشكل مريح أو لطيف."
+                },
+                "translation": {
+                    "vi": "ấm áp",
+                    "th": "อบอุ่น",
+                    "id": "hangat",
+                    "ar": "دافئ"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/wɔːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/warm-uk-1760856981399.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/wɔːrm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/warm-us-1760856981750.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I like to drink warm milk before bed.",
+                    "vi": "Tôi thích uống sữa ấm trước khi đi ngủ.",
+                    "th": "ฉันชอบดื่มนมอุ่นๆ ก่อนนอน",
+                    "id": "Saya suka minum susu hangat sebelum tidur.",
+                    "ar": "أحب شرب الحليب الدافئ قبل النوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e899a4e8dd8355a218b_1760870586467.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e899a4e8dd8355a218e",
+                "word": "cool",
+                "explanation": {
+                    "en": "Of or at a fairly low temperature. Pleasantly or refreshingly low in temperature.",
+                    "vi": "Có hoặc ở nhiệt độ khá thấp. Nhiệt độ thấp một cách dễ chịu hoặc sảng khoái.",
+                    "th": "มีหรืออยู่ในอุณหภูมิที่ค่อนข้างต่ำ อุณหภูมิต่ำอย่างน่าพอใจหรือสดชื่น",
+                    "id": "Berada pada atau memiliki suhu yang cukup rendah. Suhu rendah yang menyenangkan atau menyegarkan.",
+                    "ar": "ذو درجة حرارة منخفضة إلى حد ما. منخفض الحرارة بشكل لطيف أو منعش."
+                },
+                "translation": {
+                    "vi": "mát",
+                    "th": "เย็นสบาย",
+                    "id": "sejuk",
+                    "ar": "بارد منعش"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/kuːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cool-uk-1760856983043.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kuːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cool-us-1760856983379.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The evening air felt cool and pleasant.",
+                    "vi": "Không khí buổi tối mát mẻ và dễ chịu.",
+                    "th": "อากาศยามเย็นรู้สึกเย็นสบายและน่ารื่นรมย์",
+                    "id": "Udara malam terasa sejuk dan menyenangkan.",
+                    "ar": "كان هواء المساء منعشًا ولطيفًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e899a4e8dd8355a218e_1760870594088.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8a9a4e8dd8355a2191",
+                "word": "freezing",
+                "explanation": {
+                    "en": "Extremely cold, below the freezing point of water. Characterized by intense, bitter cold.",
+                    "vi": "Cực kỳ lạnh, dưới điểm đóng băng của nước. Đặc trưng bởi cái lạnh dữ dội, buốt giá.",
+                    "th": "หนาวจัด ต่ำกว่าจุดเยือกแข็งของน้ำ มีลักษณะเป็นความหนาวเย็นจัดและรุนแรง",
+                    "id": "Sangat dingin, di bawah titik beku air. Ditandai oleh dingin yang intens dan menusuk.",
+                    "ar": "شديد البرودة، تحت نقطة تجمد الماء. يتميز ببرودة شديدة وقارسة."
+                },
+                "translation": {
+                    "vi": "rét buốt",
+                    "th": "หนาวจัด",
+                    "id": "sangat dingin",
+                    "ar": "قارص"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈfriːzɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/freezing-uk-1760856984651.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfriːzɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/freezing-us-1760856984983.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "It's freezing outside; wear a warm jacket.",
+                    "vi": "Ngoài trời đang đóng băng; hãy mặc áo khoác ấm.",
+                    "th": "ข้างนอกหนาวจัด ใส่เสื้อแจ็คเก็ตอุ่นๆ นะ",
+                    "id": "Di luar sangat dingin; kenakan jaket hangat.",
+                    "ar": "الجو متجمد في الخارج؛ ارتدِ سترة دافئة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8a9a4e8dd8355a2191_1760870601931.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8a9a4e8dd8355a2194",
+                "word": "chilly",
+                "explanation": {
+                    "en": "Feeling cold. Unpleasantly cool.",
+                    "vi": "Cảm thấy lạnh. Mát mẻ một cách khó chịu.",
+                    "th": "รู้สึกหนาวเย็น เย็นสบายอย่างไม่น่าพอใจ",
+                    "id": "Merasa dingin. Sejuk yang tidak menyenangkan.",
+                    "ar": "الشعور بالبرد. بارد بشكل غير سار."
+                },
+                "translation": {
+                    "vi": "se lạnh",
+                    "th": "ค่อนข้างเย็น",
+                    "id": "agak dingin",
+                    "ar": "بارد قليلاً"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃɪli/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chilly-uk-1760856986243.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃɪli/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/chilly-us-1760856986588.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A light sweater is good for this chilly weather.",
+                    "vi": "Một chiếc áo len mỏng rất phù hợp cho thời tiết se lạnh này.",
+                    "th": "เสื้อกันหนาวบางๆ เหมาะสำหรับอากาศที่หนาวเย็นนี้",
+                    "id": "Sweater tipis cocok untuk cuaca yang agak dingin ini.",
+                    "ar": "سترة خفيفة جيدة لهذا الطقس البارد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8a9a4e8dd8355a2194_1760870608802.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8a9a4e8dd8355a2197",
+                "word": "drizzle",
+                "explanation": {
+                    "en": "Light rain falling in very fine drops. A slight, fine rain.",
+                    "vi": "Mưa nhẹ rơi thành những hạt rất nhỏ. Một trận mưa nhỏ, mịn.",
+                    "th": "ฝนตกปรอยๆ เป็นเม็ดเล็กๆ ฝนตกเล็กน้อยและละเอียด",
+                    "id": "Hujan ringan yang turun dalam tetesan yang sangat halus. Hujan yang sedikit dan halus.",
+                    "ar": "مطر خفيف يتساقط في قطرات دقيقة جدًا. مطر خفيف وناعم."
+                },
+                "translation": {
+                    "vi": "mưa phùn",
+                    "th": "ฝนปรอย",
+                    "id": "gerimis",
+                    "ar": "رذاذ"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdrɪzl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/drizzle-uk-1760856987875.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdrɪzl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/drizzle-us-1760856988236.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "There was a light drizzle this morning.",
+                    "vi": "Sáng nay có một trận mưa phùn nhẹ.",
+                    "th": "เมื่อเช้านี้มีฝนตกปรอยๆ เล็กน้อย",
+                    "id": "Ada gerimis ringan pagi ini.",
+                    "ar": "كان هناك رذاذ خفيف هذا الصباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8a9a4e8dd8355a2197_1760870615256.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8b9a4e8dd8355a219a",
+                "word": "shower",
+                "explanation": {
+                    "en": "A brief period of rain. A short burst of precipitation.",
+                    "vi": "Một khoảng thời gian mưa ngắn. Một đợt mưa ngắn.",
+                    "th": "ช่วงเวลาสั้นๆ ของฝน การตกของน้ำฟ้าในช่วงสั้นๆ",
+                    "id": "Periode hujan singkat. Curah hujan singkat.",
+                    "ar": "فترة قصيرة من المطر. دفقة قصيرة من الهطول."
+                },
+                "translation": {
+                    "vi": "mưa rào",
+                    "th": "ฝนตกเป็นช่วงๆ",
+                    "id": "hujan singkat",
+                    "ar": "زخة مطر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈʃaʊə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shower-uk-1760856989503.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈʃaʊər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shower-us-1760856989838.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We got caught in a sudden rain shower.",
+                    "vi": "Chúng tôi bị mắc kẹt trong một trận mưa rào bất chợt.",
+                    "th": "เราติดฝนตกหนักกะทันหัน",
+                    "id": "Kami terjebak dalam hujan deras tiba-tiba.",
+                    "ar": "لقد علقنا في زخات مطر مفاجئة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8b9a4e8dd8355a219a_1760870620926.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8b9a4e8dd8355a219d",
+                "word": "thunder",
+                "explanation": {
+                    "en": "A loud rumbling or crashing noise following lightning. The sound created by a rapid expansion of air.",
+                    "vi": "Tiếng ầm ầm hoặc tiếng nổ lớn sau tia chớp. Âm thanh được tạo ra bởi sự giãn nở nhanh chóng của không khí.",
+                    "th": "เสียงคำรามหรือเสียงดังสนั่นตามหลังฟ้าผ่า เสียงที่เกิดจากการขยายตัวอย่างรวดเร็วของอากาศ",
+                    "id": "Suara gemuruh atau dentuman keras yang mengikuti kilat. Suara yang dihasilkan oleh ekspansi udara yang cepat.",
+                    "ar": "صوت هدير أو تصادم عالٍ يتبع البرق. الصوت الناتج عن التمدد السريع للهواء."
+                },
+                "translation": {
+                    "vi": "sấm",
+                    "th": "ฟ้าร้อง",
+                    "id": "guntur",
+                    "ar": "رعد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈθʌndə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/thunder-uk-1760856991095.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈθʌndər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/thunder-us-1760856991416.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We heard loud thunder during the storm.",
+                    "vi": "Chúng tôi nghe thấy tiếng sấm lớn trong cơn bão.",
+                    "th": "เราได้ยินเสียงฟ้าร้องดังลั่นระหว่างพายุ",
+                    "id": "Kami mendengar guntur keras selama badai.",
+                    "ar": "سمعنا رعدًا عاليًا أثناء العاصفة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8b9a4e8dd8355a219d_1760870627930.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8b9a4e8dd8355a21a0",
+                "word": "lightning",
+                "explanation": {
+                    "en": "A sudden, bright flash of light in the sky. An electrical discharge between clouds or the ground.",
+                    "vi": "Một tia sáng chói lòa đột ngột trên bầu trời. Một sự phóng điện giữa các đám mây hoặc mặt đất.",
+                    "th": "แสงวาบสว่างจ้าอย่างกะทันหันบนท้องฟ้า การคายประจุไฟฟ้าที่เกิดขึ้นระหว่างเมฆหรือพื้นดิน",
+                    "id": "Kilatan cahaya terang yang tiba-tiba di langit. Pelepasan listrik antara awan atau tanah.",
+                    "ar": "وميض ضوء ساطع ومفاجئ في السماء. تفريغ كهربائي بين السحب أو الأرض."
+                },
+                "translation": {
+                    "vi": "chớp",
+                    "th": "ฟ้าแลบ",
+                    "id": "kilat",
+                    "ar": "برق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈlaɪtnɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lightning-uk-1760856992674.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈlaɪtnɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/lightning-us-1760856993005.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A bright lightning flash lit up the sky.",
+                    "vi": "Một tia chớp sáng chói chiếu sáng bầu trời.",
+                    "th": "แสงฟ้าผ่าสว่างจ้าส่องสว่างท้องฟ้า",
+                    "id": "Kilatan petir yang terang menerangi langit.",
+                    "ar": "أضاء وميض برق ساطع السماء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8b9a4e8dd8355a21a0_1760870635556.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8b9a4e8dd8355a21a3",
+                "word": "storm",
+                "explanation": {
+                    "en": "A violent disturbance of the atmosphere. Strong winds accompanied by rain, snow, or hail.",
+                    "vi": "Một sự nhiễu loạn dữ dội của khí quyển. Gió mạnh kèm theo mưa, tuyết hoặc mưa đá.",
+                    "th": "การรบกวนอย่างรุนแรงของบรรยากาศ ลมแรงพร้อมกับฝน หิมะ หรือลูกเห็บ",
+                    "id": "Gangguan atmosfer yang hebat. Angin kencang disertai hujan, salju, atau hujan es.",
+                    "ar": "اضطراب عنيف في الغلاف الجوي. رياح قوية مصحوبة بالمطر أو الثلج أو البرد."
+                },
+                "translation": {
+                    "vi": "cơn bão",
+                    "th": "พายุ",
+                    "id": "badai",
+                    "ar": "عاصفة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/stɔːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/storm-uk-1760856994433.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/stɔːrm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/storm-us-1760856994776.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The big storm knocked out the power.",
+                    "vi": "Cơn bão lớn đã làm mất điện.",
+                    "th": "พายุใหญ่ทำให้ไฟฟ้าดับ",
+                    "id": "Badai besar memadamkan listrik.",
+                    "ar": "تسببت العاصفة الكبيرة في انقطاع التيار الكهربائي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8b9a4e8dd8355a21a3_1760870643143.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8b9a4e8dd8355a21a6",
+                "word": "hurricane",
+                "explanation": {
+                    "en": "A large, severe tropical cyclone with high winds. A massive weather system over the ocean.",
+                    "vi": "Một cơn bão nhiệt đới lớn, dữ dội với gió mạnh. Một hệ thống thời tiết khổng lồ trên đại dương.",
+                    "th": "พายุหมุนเขตร้อนขนาดใหญ่และรุนแรงที่มีลมแรง ระบบสภาพอากาศขนาดใหญ่เหนือมหาสมุทร",
+                    "id": "Siklon tropis besar dan parah dengan angin kencang. Sistem cuaca besar di atas samudra.",
+                    "ar": "إعصار استوائي كبير وشديد مصحوب برياح عاتية. نظام طقس ضخم فوق المحيط."
+                },
+                "translation": {
+                    "vi": "bão lớn (xoáy)",
+                    "th": "พายุเฮอริเคน",
+                    "id": "badai hurikan",
+                    "ar": "إعصار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhʌrɪkən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hurricane-uk-1760856996052.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhɜːrəkeɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hurricane-us-1760856996395.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The hurricane caused a lot of damage to the coast.",
+                    "vi": "Cơn bão đã gây ra nhiều thiệt hại cho bờ biển.",
+                    "th": "พายุเฮอริเคนสร้างความเสียหายอย่างมากต่อชายฝั่ง",
+                    "id": "Badai menyebabkan banyak kerusakan pada pantai.",
+                    "ar": "تسبب الإعصار في أضرار جسيمة للساحل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8b9a4e8dd8355a21a6_1760870649817.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8b9a4e8dd8355a21a9",
+                "word": "temperature",
+                "explanation": {
+                    "en": "The degree of heat or cold present in a substance or environment. A measure of how hot or cold the air is.",
+                    "vi": "Mức độ nóng hoặc lạnh hiện có trong một chất hoặc môi trường. Một thước đo mức độ nóng hoặc lạnh của không khí.",
+                    "th": "ระดับความร้อนหรือความเย็นที่มีอยู่ในสารหรือสิ่งแวดล้อม การวัดว่าอากาศร้อนหรือเย็นแค่ไหน",
+                    "id": "Tingkat panas atau dingin yang ada dalam suatu zat atau lingkungan. Ukuran seberapa panas atau dinginnya udara.",
+                    "ar": "درجة الحرارة أو البرودة الموجودة في مادة أو بيئة. مقياس لمدى سخونة أو برودة الهواء."
+                },
+                "translation": {
+                    "vi": "nhiệt độ",
+                    "th": "อุณหภูมิ",
+                    "id": "suhu",
+                    "ar": "درجة الحرارة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtemprətʃə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/temperature-uk-1760856997685.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtemprətʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/temperature-us-1760856998054.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The doctor checked my temperature for fever.",
+                    "vi": "Bác sĩ đã kiểm tra nhiệt độ của tôi để xem có sốt không.",
+                    "th": "หมอตรวจวัดอุณหภูมิร่างกายของฉันเพื่อดูว่ามีไข้หรือไม่",
+                    "id": "Dokter memeriksa suhu tubuh saya untuk demam.",
+                    "ar": "فحص الطبيب درجة حرارتي بحثًا عن الحمى."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8b9a4e8dd8355a21a9_1760870657666.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8b9a4e8dd8355a21ac",
+                "word": "degree",
+                "explanation": {
+                    "en": "A unit of measurement for temperature. A measure on a scale like Celsius or Fahrenheit.",
+                    "vi": "Một đơn vị đo nhiệt độ. Một phép đo trên thang đo như Celsius hoặc Fahrenheit.",
+                    "th": "หน่วยวัดอุณหภูมิ การวัดบนมาตราส่วนเช่นเซลเซียสหรือฟาเรนไฮต์",
+                    "id": "Satuan pengukuran suhu. Ukuran pada skala seperti Celsius atau Fahrenheit.",
+                    "ar": "وحدة قياس لدرجة الحرارة. مقياس على تدريج مثل مئوية أو فهرنهايت."
+                },
+                "translation": {
+                    "vi": "độ (C/F)",
+                    "th": "องศา",
+                    "id": "derajat",
+                    "ar": "درجة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dɪˈɡriː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/degree-uk-1760856999333.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dɪˈɡriː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/degree-us-1760856999676.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The temperature dropped ten degrees overnight.",
+                    "vi": "Nhiệt độ đã giảm mười độ qua đêm.",
+                    "th": "อุณหภูมิลดลงสิบองศาในชั่วข้ามคืน",
+                    "id": "Suhu turun sepuluh derajat semalam.",
+                    "ar": "انخفضت درجة الحرارة عشر درجات خلال الليل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8b9a4e8dd8355a21ac_1760870665816.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8c9a4e8dd8355a21af",
+                "word": "forecast",
+                "explanation": {
+                    "en": "A prediction of future weather conditions. The reported expected atmospheric state.",
+                    "vi": "Dự đoán về các điều kiện thời tiết trong tương lai. Trạng thái khí quyển được dự kiến báo cáo.",
+                    "th": "การพยากรณ์สภาพอากาศในอนาคต สภาวะบรรยากาศที่คาดว่าจะเกิดขึ้นตามที่รายงาน",
+                    "id": "Prediksi kondisi cuaca di masa depan. Keadaan atmosfer yang diharapkan yang dilaporkan.",
+                    "ar": "تنبؤ بالظروف الجوية المستقبلية. الحالة الجوية المتوقعة المبلغ عنها."
+                },
+                "translation": {
+                    "vi": "dự báo thời tiết",
+                    "th": "พยากรณ์อากาศ",
+                    "id": "prakiraan cuaca",
+                    "ar": "توقعات الطقس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfɔːkɑːst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/forecast-uk-1760857000955.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfɔːrkæst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/forecast-us-1760857001344.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The weather forecast predicts rain tomorrow.",
+                    "vi": "Dự báo thời tiết dự đoán trời mưa vào ngày mai.",
+                    "th": "พยากรณ์อากาศคาดการณ์ว่าฝนจะตกในวันพรุ่งนี้",
+                    "id": "Prakiraan cuaca memprediksi hujan besok.",
+                    "ar": "تتوقع النشرة الجوية هطول الأمطار غدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8c9a4e8dd8355a21af_1760870673114.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8c9a4e8dd8355a21b2",
+                "word": "humidity",
+                "explanation": {
+                    "en": "The amount of water vapor in the air. The dampness or moisture level in the atmosphere.",
+                    "vi": "Lượng hơi nước trong không khí. Độ ẩm hoặc mức độ ẩm trong khí quyển.",
+                    "th": "ปริมาณไอน้ำในอากาศ ระดับความชื้นในบรรยากาศ",
+                    "id": "Jumlah uap air di udara. Tingkat kelembapan di atmosfer.",
+                    "ar": "كمية بخار الماء في الهواء. مستوى الرطوبة في الغلاف الجوي."
+                },
+                "translation": {
+                    "vi": "độ ẩm",
+                    "th": "ความชื้น",
+                    "id": "kelembapan",
+                    "ar": "الرطوبة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/hjuːˈmɪdəti/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/humidity-uk-1760857002615.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/hjuːˈmɪdəti/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/humidity-us-1760857002990.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The high humidity makes it feel very sticky.",
+                    "vi": "Độ ẩm cao làm cho không khí cảm thấy rất dính.",
+                    "th": "ความชื้นสูงทำให้รู้สึกเหนียวเหนอะหนะมาก",
+                    "id": "Kelembapan tinggi membuat terasa sangat lengket.",
+                    "ar": "الرطوبة العالية تجعل الجو لزجًا جدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8c9a4e8dd8355a21b2_1760870679502.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8c9a4e8dd8355a21b5",
+                "word": "dry",
+                "explanation": {
+                    "en": "Free from moisture or liquid. Having little or no rain.",
+                    "vi": "Không có độ ẩm hoặc chất lỏng. Có ít hoặc không có mưa.",
+                    "th": "ปราศจากความชื้นหรือของเหลว มีฝนน้อยหรือไม่ตกเลย",
+                    "id": "Bebas dari kelembapan atau cairan. Memiliki sedikit atau tidak ada hujan.",
+                    "ar": "خالٍ من الرطوبة أو السائل. قليل المطر أو عديمه."
+                },
+                "translation": {
+                    "vi": "khô",
+                    "th": "แห้ง",
+                    "id": "kering",
+                    "ar": "جاف"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/draɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/dry-uk-1760857004261.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/draɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/dry-us-1760857004587.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My throat feels very dry today.",
+                    "vi": "Họng tôi cảm thấy rất khô hôm nay.",
+                    "th": "วันนี้คอของฉันรู้สึกแห้งมาก",
+                    "id": "Tenggorokan saya terasa sangat kering hari ini.",
+                    "ar": "حلقي يشعر بالجفاف الشديد اليوم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8c9a4e8dd8355a21b5_1760870687496.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8c9a4e8dd8355a21b8",
+                "word": "wet",
+                "explanation": {
+                    "en": "Covered or saturated with water or liquid. Not dry.",
+                    "vi": "Được bao phủ hoặc bão hòa với nước hoặc chất lỏng. Không khô.",
+                    "th": "ปกคลุมหรืออิ่มตัวด้วยน้ำหรือของเหลว ไม่แห้ง",
+                    "id": "Tertutup atau jenuh dengan air atau cairan. Tidak kering.",
+                    "ar": "مغطى أو مشبع بالماء أو السائل. ليس جافًا."
+                },
+                "translation": {
+                    "vi": "ẩm ướt",
+                    "th": "เปียก",
+                    "id": "basah",
+                    "ar": "مبلل"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/wet/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wet-uk-1760857005853.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/wet/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wet-us-1760857006181.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Don't sit on the wet grass.",
+                    "vi": "Đừng ngồi lên cỏ ướt.",
+                    "th": "อย่านั่งบนหญ้าที่เปียก",
+                    "id": "Jangan duduk di rumput basah.",
+                    "ar": "لا تجلس على العشب المبلل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8c9a4e8dd8355a21b8_1760870694393.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8d9a4e8dd8355a21bb",
+                "word": "climate",
+                "explanation": {
+                    "en": "The prevailing weather conditions in a general area over a long period. The long-term weather pattern of a region.",
+                    "vi": "Các điều kiện thời tiết thịnh hành trong một khu vực chung trong một thời gian dài. Kiểu thời tiết dài hạn của một vùng.",
+                    "th": "สภาพอากาศที่พัดผ่านในพื้นที่ทั่วไปเป็นระยะเวลานาน รูปแบบสภาพอากาศระยะยาวของภูมิภาค",
+                    "id": "Kondisi cuaca yang berlaku di suatu daerah umum dalam jangka waktu yang lama. Pola cuaca jangka panjang suatu wilayah.",
+                    "ar": "الظروف الجوية السائدة في منطقة عامة على مدى فترة طويلة. النمط المناخي طويل الأمد لمنطقة ما."
+                },
+                "translation": {
+                    "vi": "khí hậu",
+                    "th": "ภูมิอากาศ",
+                    "id": "iklim",
+                    "ar": "المناخ"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈklaɪmət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/climate-uk-1760857007452.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈklaɪmət/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/climate-us-1760857007785.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The desert climate is very hot and dry.",
+                    "vi": "Khí hậu sa mạc rất nóng và khô.",
+                    "th": "ภูมิอากาศแบบทะเลทรายร้อนและแห้งมาก",
+                    "id": "Iklim gurun sangat panas dan kering.",
+                    "ar": "المناخ الصحراوي حار وجاف جدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8d9a4e8dd8355a21bb_1760870701715.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8d9a4e8dd8355a21be",
+                "word": "drought",
+                "explanation": {
+                    "en": "A prolonged period of abnormally low rainfall. A shortage of water resulting from dry weather.",
+                    "vi": "Một thời kỳ kéo dài lượng mưa thấp bất thường. Tình trạng thiếu nước do thời tiết khô hạn.",
+                    "th": "ช่วงเวลาที่ฝนตกน้อยผิดปกติเป็นเวลานาน การขาดแคลนน้ำอันเนื่องมาจากสภาพอากาศแห้งแล้ง",
+                    "id": "Periode panjang curah hujan yang sangat rendah. Kekurangan air akibat cuaca kering.",
+                    "ar": "فترة طويلة من الأمطار المنخفضة بشكل غير طبيعي. نقص المياه الناتج عن الطقس الجاف."
+                },
+                "translation": {
+                    "vi": "hạn hán",
+                    "th": "ภัยแล้ง",
+                    "id": "kekeringan",
+                    "ar": "جفاف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/draʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/drought-uk-1760857009051.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/draʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/drought-us-1760857009383.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The long drought caused many plants to die.",
+                    "vi": "Hạn hán kéo dài đã khiến nhiều cây cối chết.",
+                    "th": "ภัยแล้งที่ยาวนานทำให้พืชหลายชนิดตาย",
+                    "id": "Kekeringan panjang menyebabkan banyak tanaman mati.",
+                    "ar": "تسببت فترة الجفاف الطويلة في موت العديد من النباتات."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8d9a4e8dd8355a21be_1760870710338.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8d9a4e8dd8355a21c1",
+                "word": "flood",
+                "explanation": {
+                    "en": "An overflow of a large amount of water beyond its normal limits. A large amount of water covering an area that is usually dry.",
+                    "vi": "Sự tràn ngập một lượng lớn nước vượt quá giới hạn bình thường của nó. Một lượng lớn nước bao phủ một khu vực thường khô ráo.",
+                    "th": "น้ำท่วมปริมาณมากเกินขีดจำกัดปกติ ปริมาณน้ำจำนวนมากที่ปกคลุมพื้นที่ที่ปกติแห้ง",
+                    "id": "Luapan air dalam jumlah besar melampaui batas normalnya. Sejumlah besar air menutupi area yang biasanya kering.",
+                    "ar": "فيضان كمية كبيرة من الماء تتجاوز حدودها الطبيعية. كمية كبيرة من الماء تغطي منطقة عادة ما تكون جافة."
+                },
+                "translation": {
+                    "vi": "lũ lụt",
+                    "th": "น้ำท่วม",
+                    "id": "banjir",
+                    "ar": "فيضان"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/flʌd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flood-uk-1760857010642.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/flʌd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flood-us-1760857010984.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Heavy rain caused a big flood in the town.",
+                    "vi": "Mưa lớn đã gây ra một trận lụt lớn trong thị trấn.",
+                    "th": "ฝนตกหนักทำให้เกิดน้ำท่วมใหญ่ในเมือง",
+                    "id": "Hujan deras menyebabkan banjir besar di kota.",
+                    "ar": "تسببت الأمطار الغزيرة في فيضان كبير في المدينة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8d9a4e8dd8355a21c1_1760870716840.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8d9a4e8dd8355a21c4",
+                "word": "season",
+                "explanation": {
+                    "en": "Each of the four divisions of the year (spring, summer, autumn, and winter). A period characterized by particular conditions.",
+                    "vi": "Mỗi trong bốn phần của năm (xuân, hạ, thu, đông). Một giai đoạn được đặc trưng bởi các điều kiện cụ thể.",
+                    "th": "แต่ละส่วนสี่ส่วนของปี (ฤดูใบไม้ผลิ ฤดูร้อน ฤดูใบไม้ร่วง และฤดูหนาว) ช่วงเวลาที่มีลักษณะเฉพาะด้วยสภาพการณ์บางอย่าง",
+                    "id": "Masing-masing dari empat pembagian tahun (musim semi, musim panas, musim gugur, dan musim dingin). Periode yang ditandai oleh kondisi tertentu.",
+                    "ar": "كل قسم من الأقسام الأربعة للسنة (الربيع، الصيف، الخريف، والشتاء). فترة تتميز بظروف معينة."
+                },
+                "translation": {
+                    "vi": "mùa",
+                    "th": "ฤดู",
+                    "id": "musim",
+                    "ar": "فصل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsiːzn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/season-uk-1760857012270.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsiːzn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/season-us-1760857012641.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My favorite season is summer.",
+                    "vi": "Mùa yêu thích của tôi là mùa hè.",
+                    "th": "ฤดูโปรดของฉันคือฤดูร้อน",
+                    "id": "Musim favorit saya adalah musim panas.",
+                    "ar": "فصلي المفضل هو الصيف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8d9a4e8dd8355a21c4_1760870723743.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8d9a4e8dd8355a21c7",
+                "word": "spring",
+                "explanation": {
+                    "en": "The season after winter and before summer. The time when vegetation begins to appear.",
+                    "vi": "Mùa sau mùa đông và trước mùa hè. Thời điểm cây cối bắt đầu xuất hiện.",
+                    "th": "ฤดูหลังฤดูหนาวและก่อนฤดูร้อน ช่วงเวลาที่พืชพรรณเริ่มปรากฏ",
+                    "id": "Musim setelah musim dingin dan sebelum musim panas. Waktu ketika vegetasi mulai muncul.",
+                    "ar": "الفصل الذي يأتي بعد الشتاء وقبل الصيف. الوقت الذي تبدأ فيه النباتات بالظهور."
+                },
+                "translation": {
+                    "vi": "mùa xuân",
+                    "th": "ฤดูใบไม้ผลิ",
+                    "id": "musim semi",
+                    "ar": "الربيع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/sprɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/spring-uk-1760857013944.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/sprɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/spring-us-1760857014280.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Flowers bloom beautifully in spring.",
+                    "vi": "Hoa nở đẹp vào mùa xuân.",
+                    "th": "ดอกไม้บานสะพรั่งสวยงามในฤดูใบไม้ผลิ",
+                    "id": "Bunga-bunga bermekaran indah di musim semi.",
+                    "ar": "تتفتح الزهور بشكل جميل في الربيع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8d9a4e8dd8355a21c7_1760870730449.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8e9a4e8dd8355a21ca",
+                "word": "summer",
+                "explanation": {
+                    "en": "The warmest season of the year, between spring and autumn. The period with the longest daylight hours.",
+                    "vi": "Mùa ấm nhất trong năm, giữa mùa xuân và mùa thu. Giai đoạn có số giờ ban ngày dài nhất.",
+                    "th": "ฤดูที่อบอุ่นที่สุดของปี ระหว่างฤดูใบไม้ผลิและฤดูใบไม้ร่วง ช่วงเวลาที่มีชั่วโมงกลางวันยาวนานที่สุด",
+                    "id": "Musim terhangat dalam setahun, antara musim semi dan musim gugur. Periode dengan jam siang hari terpanjang.",
+                    "ar": "أدفأ فصول السنة، بين الربيع والخريف. الفترة التي تكون فيها ساعات النهار الأطول."
+                },
+                "translation": {
+                    "vi": "mùa hè",
+                    "th": "ฤดูร้อน",
+                    "id": "musim panas",
+                    "ar": "الصيف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsʌmə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/summer-uk-1760857015535.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsʌmər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/summer-us-1760857015871.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We go to the beach every summer.",
+                    "vi": "Chúng tôi đi biển mỗi mùa hè.",
+                    "th": "เราไปทะเลทุกฤดูร้อน",
+                    "id": "Kami pergi ke pantai setiap musim panas.",
+                    "ar": "نذهب إلى الشاطئ كل صيف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8e9a4e8dd8355a21ca_1760870738033.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8e9a4e8dd8355a21cd",
+                "word": "autumn",
+                "explanation": {
+                    "en": "The season after summer and before winter. The time when leaves fall from trees (also called fall).",
+                    "vi": "Mùa sau mùa hè và trước mùa đông. Thời điểm lá rụng từ cây (còn gọi là fall).",
+                    "th": "ฤดูหลังฤดูร้อนและก่อนฤดูหนาว ช่วงเวลาที่ใบไม้ร่วงจากต้นไม้ (เรียกอีกอย่างว่า fall)",
+                    "id": "Musim setelah musim panas dan sebelum musim dingin. Waktu ketika daun-daun berguguran dari pohon (juga disebut fall).",
+                    "ar": "الفصل الذي يأتي بعد الصيف وقبل الشتاء. الوقت الذي تتساقط فيه الأوراق من الأشجار (ويسمى أيضًا fall)."
+                },
+                "translation": {
+                    "vi": "mùa thu",
+                    "th": "ฤดูใบไม้ร่วง",
+                    "id": "musim gugur",
+                    "ar": "الخريف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɔːtəm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/autumn-uk-1760857017114.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɔːtəm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/autumn-us-1760857017458.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The leaves change color in autumn.",
+                    "vi": "Lá đổi màu vào mùa thu.",
+                    "th": "ใบไม้เปลี่ยนสีในฤดูใบไม้ร่วง",
+                    "id": "Daun-daun berubah warna di musim gugur.",
+                    "ar": "تتغير ألوان الأوراق في الخريف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8e9a4e8dd8355a21cd_1760870744535.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8e9a4e8dd8355a21d0",
+                "word": "fall",
+                "explanation": {
+                    "en": "The American term for the season between summer and winter. The time when leaves drop from trees.",
+                    "vi": "Thuật ngữ của Mỹ cho mùa giữa mùa hè và mùa đông. Thời điểm lá rụng từ cây.",
+                    "th": "คำศัพท์แบบอเมริกันสำหรับฤดูระหว่างฤดูร้อนและฤดูหนาว ช่วงเวลาที่ใบไม้ร่วงจากต้นไม้",
+                    "id": "Istilah Amerika untuk musim antara musim panas dan musim dingin. Waktu ketika daun-daun berguguran dari pohon.",
+                    "ar": "المصطلح الأمريكي للفصل بين الصيف والشتاء. الوقت الذي تتساقط فيه الأوراق من الأشجار."
+                },
+                "translation": {
+                    "vi": "mùa thu (Mỹ)",
+                    "th": "ฤดูใบไม้ร่วง",
+                    "id": "musim gugur",
+                    "ar": "الخريف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/fɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fall-uk-1760857018881.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fall-us-1760857019217.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We enjoy pumpkin picking in the fall.",
+                    "vi": "Chúng tôi thích hái bí ngô vào mùa thu.",
+                    "th": "เราสนุกกับการเก็บฟักทองในฤดูใบไม้ร่วง",
+                    "id": "Kami menikmati memetik labu di musim gugur.",
+                    "ar": "نستمتع بقطف اليقطين في الخريف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8e9a4e8dd8355a21d0_1760870750895.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8e9a4e8dd8355a21d3",
+                "word": "winter",
+                "explanation": {
+                    "en": "The coldest season of the year, between autumn and spring. The period with the shortest daylight hours.",
+                    "vi": "Mùa lạnh nhất trong năm, giữa mùa thu và mùa xuân. Giai đoạn có số giờ ban ngày ngắn nhất.",
+                    "th": "ฤดูที่หนาวที่สุดของปี ระหว่างฤดูใบไม้ร่วงและฤดูใบไม้ผลิ ช่วงเวลาที่มีชั่วโมงกลางวันสั้นที่สุด",
+                    "id": "Musim terdingin dalam setahun, antara musim gugur dan musim semi. Periode dengan jam siang hari terpendek.",
+                    "ar": "أبرد فصول السنة، بين الخريف والربيع. الفترة التي تكون فيها ساعات النهار الأقصر."
+                },
+                "translation": {
+                    "vi": "mùa đông",
+                    "th": "ฤดูหนาว",
+                    "id": "musim dingin",
+                    "ar": "الشتاء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɪntə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/winter-uk-1760857020464.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɪntər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/winter-us-1760857020805.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "It often snows a lot during winter.",
+                    "vi": "Trời thường tuyết rơi nhiều vào mùa đông.",
+                    "th": "มักจะมีหิมะตกมากในช่วงฤดูหนาว",
+                    "id": "Seringkali turun salju lebat selama musim dingin.",
+                    "ar": "غالبًا ما تتساقط الثلوج بغزارة خلال الشتاء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8e9a4e8dd8355a21d3_1760870757948.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8e9a4e8dd8355a21d6",
+                "word": "rainbow",
+                "explanation": {
+                    "en": "An arch of colors appearing in the sky, caused by the sun shining on raindrops. A spectrum of light visible after rain.",
+                    "vi": "Một vòm màu sắc xuất hiện trên bầu trời, do mặt trời chiếu vào những hạt mưa. Một quang phổ ánh sáng có thể nhìn thấy sau mưa.",
+                    "th": "ส่วนโค้งของสีที่ปรากฏบนท้องฟ้า เกิดจากแสงอาทิตย์ส่องกระทบเม็ดฝน สเปกตรัมของแสงที่มองเห็นได้หลังฝนตก",
+                    "id": "Busur warna yang muncul di langit, disebabkan oleh matahari yang menyinari tetesan hujan. Spektrum cahaya yang terlihat setelah hujan.",
+                    "ar": "قوس من الألوان يظهر في السماء، سببه ضوء الشمس الساقط على قطرات المطر. طيف من الضوء مرئي بعد المطر."
+                },
+                "translation": {
+                    "vi": "cầu vồng",
+                    "th": "รุ้งกินน้ำ",
+                    "id": "pelangi",
+                    "ar": "قوس قزح"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈreɪnbəʊ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rainbow-uk-1760857022063.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈreɪnbəʊ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rainbow-us-1760857022413.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "After the rain, we saw a beautiful rainbow.",
+                    "vi": "Sau cơn mưa, chúng tôi thấy một cầu vồng tuyệt đẹp.",
+                    "th": "หลังฝนตก เราเห็นรุ้งกินน้ำที่สวยงาม",
+                    "id": "Setelah hujan, kami melihat pelangi yang indah.",
+                    "ar": "بعد المطر، رأينا قوس قزح جميلًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8e9a4e8dd8355a21d6_1760870765307.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8f9a4e8dd8355a21d9",
+                "word": "sun",
+                "explanation": {
+                    "en": "The star around which the Earth orbits. The source of light and heat in our solar system.",
+                    "vi": "Ngôi sao mà Trái Đất quay quanh. Nguồn sáng và nhiệt trong hệ mặt trời của chúng ta.",
+                    "th": "ดาวฤกษ์ที่โลกโคจรรอบ แหล่งกำเนิดแสงและความร้อนในระบบสุริยะของเรา",
+                    "id": "Bintang tempat Bumi mengorbit. Sumber cahaya dan panas di tata surya kita.",
+                    "ar": "النجم الذي تدور حوله الأرض. مصدر الضوء والحرارة في نظامنا الشمسي."
+                },
+                "translation": {
+                    "vi": "mặt trời",
+                    "th": "ดวงอาทิตย์",
+                    "id": "matahari",
+                    "ar": "الشمس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/sʌn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sun-uk-1760857023684.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/sʌn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sun-us-1760857024023.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The sun feels warm on my face.",
+                    "vi": "Mặt trời cảm thấy ấm áp trên mặt tôi.",
+                    "th": "แสงแดดรู้สึกอบอุ่นบนใบหน้าของฉัน",
+                    "id": "Matahari terasa hangat di wajah saya.",
+                    "ar": "أشعر بدفء الشمس على وجهي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8f9a4e8dd8355a21d9_1760870773157.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8f9a4e8dd8355a21dc",
+                "word": "moon",
+                "explanation": {
+                    "en": "The natural satellite of the Earth. A heavenly body visible at night.",
+                    "vi": "Vệ tinh tự nhiên của Trái Đất. Một thiên thể có thể nhìn thấy vào ban đêm.",
+                    "th": "ดาวเทียมธรรมชาติของโลก วัตถุบนท้องฟ้าที่มองเห็นได้ในเวลากลางคืน",
+                    "id": "Satelit alami Bumi. Benda langit yang terlihat di malam hari.",
+                    "ar": "القمر الصناعي الطبيعي للأرض. جرم سماوي مرئي ليلاً."
+                },
+                "translation": {
+                    "vi": "mặt trăng",
+                    "th": "ดวงจันทร์",
+                    "id": "bulan",
+                    "ar": "القمر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/muːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/moon-uk-1760857025327.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/muːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/moon-us-1760857025667.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The full moon shines brightly at night.",
+                    "vi": "Trăng tròn tỏa sáng rực rỡ vào ban đêm.",
+                    "th": "พระจันทร์เต็มดวงส่องแสงสว่างไสวในเวลากลางคืน",
+                    "id": "Bulan purnama bersinar terang di malam hari.",
+                    "ar": "البدر يضيء ساطعاً في الليل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8f9a4e8dd8355a21dc_1760870780242.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8f9a4e8dd8355a21df",
+                "word": "sky",
+                "explanation": {
+                    "en": "The region of the atmosphere and outer space seen from the earth. The area above the ground where clouds and sun are visible.",
+                    "vi": "Vùng khí quyển và không gian bên ngoài nhìn từ Trái Đất. Khu vực phía trên mặt đất nơi có thể nhìn thấy mây và mặt trời.",
+                    "th": "บริเวณของชั้นบรรยากาศและอวกาศที่มองเห็นได้จากโลก พื้นที่เหนือพื้นดินที่มองเห็นเมฆและดวงอาทิตย์",
+                    "id": "Wilayah atmosfer dan luar angkasa yang terlihat dari bumi. Area di atas tanah tempat awan dan matahari terlihat.",
+                    "ar": "منطقة الغلاف الجوي والفضاء الخارجي التي تُرى من الأرض. المنطقة فوق الأرض حيث تكون الغيوم والشمس مرئية."
+                },
+                "translation": {
+                    "vi": "bầu trời",
+                    "th": "ท้องฟ้า",
+                    "id": "langit",
+                    "ar": "السماء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/skaɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sky-uk-1760857026948.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/skaɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sky-us-1760857027283.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Look at the blue sky today!",
+                    "vi": "Nhìn bầu trời xanh hôm nay kìa!",
+                    "th": "ดูท้องฟ้าสีครามวันนี้สิ!",
+                    "id": "Lihatlah langit biru hari ini!",
+                    "ar": "انظر إلى السماء الزرقاء اليوم!"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8f9a4e8dd8355a21df_1760870788089.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8f9a4e8dd8355a21e2",
+                "word": "air",
+                "explanation": {
+                    "en": "The invisible gaseous substance surrounding the Earth. The atmosphere we breathe.",
+                    "vi": "Chất khí vô hình bao quanh Trái Đất. Bầu khí quyển chúng ta hít thở.",
+                    "th": "สารที่เป็นก๊าซที่มองไม่เห็นซึ่งห่อหุ้มโลก บรรยากาศที่เราหายใจ",
+                    "id": "Zat gas tak terlihat yang mengelilingi Bumi. Atmosfer yang kita hirup.",
+                    "ar": "المادة الغازية غير المرئية المحيطة بالأرض. الغلاف الجوي الذي نتنفسه."
+                },
+                "translation": {
+                    "vi": "không khí",
+                    "th": "อากาศ",
+                    "id": "udara",
+                    "ar": "الهواء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/eə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/air-uk-1760857028542.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/er/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/air-us-1760857028871.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The fresh air felt good after the rain.",
+                    "vi": "Không khí trong lành thật dễ chịu sau cơn mưa.",
+                    "th": "อากาศบริสุทธิ์รู้สึกดีหลังจากฝนตก",
+                    "id": "Udara segar terasa menyenangkan setelah hujan.",
+                    "ar": "شعر الهواء النقي بالراحة بعد المطر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8f9a4e8dd8355a21e2_1760870795094.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8f9a4e8dd8355a21e5",
+                "word": "breeze",
+                "explanation": {
+                    "en": "A gentle wind. A light, pleasant air movement.",
+                    "vi": "Một làn gió nhẹ. Một luồng không khí nhẹ nhàng, dễ chịu.",
+                    "th": "ลมเบาๆ การเคลื่อนที่ของอากาศที่เบาและน่ารื่นรมย์",
+                    "id": "Angin sepoi-sepoi. Gerakan udara yang ringan dan menyenangkan.",
+                    "ar": "رياح لطيفة. حركة هواء خفيفة وممتعة."
+                },
+                "translation": {
+                    "vi": "gió nhẹ",
+                    "th": "ลมเบา ๆ",
+                    "id": "angin sepoi-sepoi",
+                    "ar": "نسيم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/briːz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/breeze-uk-1760857030212.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/briːz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/breeze-us-1760857030558.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A cool breeze came through the open window.",
+                    "vi": "Một làn gió mát lùa qua cửa sổ đang mở.",
+                    "th": "ลมเย็นพัดผ่านหน้าต่างที่เปิดอยู่",
+                    "id": "Angin sepoi-sepoi sejuk masuk melalui jendela yang terbuka.",
+                    "ar": "هب نسيم بارد من النافذة المفتوحة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8f9a4e8dd8355a21e5_1760870801289.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8f9a4e8dd8355a21e8",
+                "word": "heat",
+                "explanation": {
+                    "en": "The quality of being hot. High temperature or warmth.",
+                    "vi": "Đặc tính của sự nóng. Nhiệt độ cao hoặc sự ấm áp.",
+                    "th": "คุณสมบัติของการร้อน อุณหภูมิสูงหรือความอบอุ่น",
+                    "id": "Kualitas menjadi panas. Suhu tinggi atau kehangatan.",
+                    "ar": "خاصية السخونة. درجة حرارة عالية أو دفء."
+                },
+                "translation": {
+                    "vi": "sức nóng",
+                    "th": "ความร้อน",
+                    "id": "panas",
+                    "ar": "حرارة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/hiːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/heat-uk-1760857031822.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/hiːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/heat-us-1760857032166.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The summer heat can be very intense.",
+                    "vi": "Cái nóng mùa hè có thể rất gay gắt.",
+                    "th": "ความร้อนในฤดูร้อนอาจรุนแรงมาก",
+                    "id": "Panas musim panas bisa sangat menyengat.",
+                    "ar": "حرارة الصيف يمكن أن تكون شديدة جداً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8f9a4e8dd8355a21e8_1760870807595.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e8f9a4e8dd8355a21eb",
+                "word": "hail",
+                "explanation": {
+                    "en": "Pellets of frozen rain falling in showers. Small, hard balls of ice.",
+                    "vi": "Những viên mưa đá đông lạnh rơi xuống thành từng trận. Những viên đá nhỏ, cứng.",
+                    "th": "เม็ดฝนที่แข็งตัวตกลงมาเป็นห่าฝน ลูกเห็บเล็กๆ แข็งๆ",
+                    "id": "Butiran hujan beku yang jatuh dalam bentuk hujan. Bola-bola es kecil yang keras.",
+                    "ar": "حبيبات المطر المتجمد تتساقط في زخات. كرات صغيرة صلبة من الجليد."
+                },
+                "translation": {
+                    "vi": "mưa đá",
+                    "th": "ลูกเห็บ",
+                    "id": "hujan es",
+                    "ar": "بَرَد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/heɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hail-uk-1760857033542.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/heɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hail-us-1760857033842.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Small pieces of hail fell during the storm.",
+                    "vi": "Những hạt mưa đá nhỏ rơi xuống trong cơn bão.",
+                    "th": "ลูกเห็บเล็กๆ ตกลงมาระหว่างพายุ",
+                    "id": "Butiran es kecil jatuh selama badai.",
+                    "ar": "تساقطت قطع صغيرة من البرد أثناء العاصفة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e8f9a4e8dd8355a21eb_1760870815223.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e909a4e8dd8355a21ee",
+                "word": "snow",
+                "explanation": {
+                    "en": "Frozen water crystals falling from the sky. Soft, white flakes that cover the ground in winter.",
+                    "vi": "Các tinh thể nước đông lạnh rơi từ bầu trời. Những bông tuyết mềm, trắng phủ kín mặt đất vào mùa đông.",
+                    "th": "ผลึกน้ำแข็งที่ตกลงมาจากท้องฟ้า เกล็ดสีขาวนุ่มที่ปกคลุมพื้นดินในฤดูหนาว",
+                    "id": "Kristal air beku yang jatuh dari langit. Serpihan putih lembut yang menutupi tanah di musim dingin.",
+                    "ar": "بلورات الماء المتجمدة تتساقط من السماء. رقائق بيضاء ناعمة تغطي الأرض في الشتاء."
+                },
+                "translation": {
+                    "vi": "tuyết",
+                    "th": "หิมะ",
+                    "id": "salju",
+                    "ar": "ثلج"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/snəʊ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/snow-uk-1760857035103.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/snəʊ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/snow-us-1760857035445.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I love to play in the soft snow.",
+                    "vi": "Tôi thích chơi trong tuyết mềm.",
+                    "th": "ฉันชอบเล่นในหิมะนุ่มๆ",
+                    "id": "Saya suka bermain di salju yang lembut.",
+                    "ar": "أحب اللعب في الثلج الناعم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e909a4e8dd8355a21ee_1760870821822.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e909a4e8dd8355a21f1",
+                "word": "ice",
+                "explanation": {
+                    "en": "Frozen water, a crystalline solid. A slippery, solidified form of liquid water.",
+                    "vi": "Nước đóng băng, một chất rắn kết tinh. Một dạng nước lỏng đã đông đặc, trơn trượt.",
+                    "th": "น้ำแข็ง, ของแข็งที่เป็นผลึก รูปแบบของน้ำเหลวที่แข็งตัวและลื่น",
+                    "id": "Air beku, padatan kristal. Bentuk air cair yang membeku dan licin.",
+                    "ar": "ماء متجمد، صلب بلوري. شكل متصلب وزلق من الماء السائل."
+                },
+                "translation": {
+                    "vi": "băng",
+                    "th": "น้ำแข็ง",
+                    "id": "es",
+                    "ar": "جليد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/aɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ice-uk-1760857036697.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/aɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ice-us-1760857037146.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Be careful, there is ice on the road.",
+                    "vi": "Cẩn thận, có băng trên đường.",
+                    "th": "ระวังนะ มีน้ำแข็งบนถนน",
+                    "id": "Hati-hati, ada es di jalan.",
+                    "ar": "كن حذراً، هناك جليد على الطريق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e909a4e8dd8355a21f1_1760870829125.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e909a4e8dd8355a21f4",
+                "word": "fog",
+                "explanation": {
+                    "en": "A thick cloud of water droplets near the ground. A dense, opaque mist that limits visibility.",
+                    "vi": "Một đám mây dày gồm các giọt nước gần mặt đất. Một màn sương mù dày đặc, không trong suốt làm hạn chế tầm nhìn.",
+                    "th": "เมฆหนาทึบของละอองน้ำใกล้พื้นดิน หมอกหนาทึบที่จำกัดการมองเห็น",
+                    "id": "Awan tebal tetesan air di dekat tanah. Kabut tebal dan buram yang membatasi jarak pandang.",
+                    "ar": "سحابة كثيفة من قطرات الماء بالقرب من الأرض. ضباب كثيف وغير شفاف يحد من الرؤية."
+                },
+                "translation": {
+                    "vi": "sương mù",
+                    "th": "หมอก",
+                    "id": "kabut",
+                    "ar": "ضباب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/fɒɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fog-uk-1760857038415.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fɑːɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fog-us-1760857038759.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The morning fog made it hard to see.",
+                    "vi": "Sương mù buổi sáng khiến việc nhìn khó khăn.",
+                    "th": "หมอกยามเช้าทำให้มองเห็นได้ยาก",
+                    "id": "Kabut pagi membuat sulit untuk melihat.",
+                    "ar": "ضباب الصباح جعل الرؤية صعبة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e909a4e8dd8355a21f4_1760870836398.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e909a4e8dd8355a21f7",
+                "word": "sunrise",
+                "explanation": {
+                    "en": "The time when the sun appears above the horizon in the morning. The start of the day.",
+                    "vi": "Thời điểm mặt trời xuất hiện phía trên đường chân trời vào buổi sáng. Sự bắt đầu của một ngày.",
+                    "th": "เวลาที่ดวงอาทิตย์ปรากฏขึ้นเหนือขอบฟ้าในตอนเช้า การเริ่มต้นของวัน",
+                    "id": "Waktu ketika matahari muncul di atas cakrawala di pagi hari. Awal hari.",
+                    "ar": "الوقت الذي تظهر فيه الشمس فوق الأفق في الصباح. بداية اليوم."
+                },
+                "translation": {
+                    "vi": "bình minh",
+                    "th": "รุ่งอรุณ",
+                    "id": "matahari terbit",
+                    "ar": "شروق الشمس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsʌnraɪz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sunrise-uk-1760857040002.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsʌnraɪz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sunrise-us-1760857040347.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We woke up early to watch the beautiful sunrise.",
+                    "vi": "Chúng tôi dậy sớm để ngắm bình minh tuyệt đẹp.",
+                    "th": "เราตื่นเช้าเพื่อชมพระอาทิตย์ขึ้นที่สวยงาม",
+                    "id": "Kami bangun pagi untuk menyaksikan matahari terbit yang indah.",
+                    "ar": "استيقظنا مبكراً لمشاهدة شروق الشمس الجميل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e909a4e8dd8355a21f7_1760870845361.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e909a4e8dd8355a21fa",
+                "word": "sunset",
+                "explanation": {
+                    "en": "The time when the sun disappears below the horizon in the evening. The close of the day.",
+                    "vi": "Thời điểm mặt trời lặn xuống dưới đường chân trời vào buổi tối. Sự kết thúc của một ngày.",
+                    "th": "เวลาที่ดวงอาทิตย์ลับขอบฟ้าในตอนเย็น การสิ้นสุดของวัน",
+                    "id": "Waktu ketika matahari menghilang di bawah cakrawala di malam hari. Akhir hari.",
+                    "ar": "الوقت الذي تختفي فيه الشمس تحت الأفق في المساء. نهاية اليوم."
+                },
+                "translation": {
+                    "vi": "hoàng hôn",
+                    "th": "พระอาทิตย์ตก",
+                    "id": "matahari terbenam",
+                    "ar": "غروب الشمس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsʌnset/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sunset-uk-1760857041600.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsʌnset/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sunset-us-1760857041949.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The colors of the sunset were amazing.",
+                    "vi": "Màu sắc của hoàng hôn thật tuyệt vời.",
+                    "th": "สีสันของพระอาทิตย์ตกดินนั้นน่าทึ่งมาก",
+                    "id": "Warna-warni matahari terbenam sangat menakjubkan.",
+                    "ar": "كانت ألوان غروب الشمس مذهلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e909a4e8dd8355a21fa_1760870851364.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e909a4e8dd8355a21fd",
+                "word": "umbrella",
+                "explanation": {
+                    "en": "A device for protection against rain or sun. A portable canopy used for cover.",
+                    "vi": "Một thiết bị để bảo vệ khỏi mưa hoặc nắng. Một mái che di động dùng để che chắn.",
+                    "th": "อุปกรณ์ป้องกันฝนหรือแดด ร่มพกพาที่ใช้สำหรับบัง",
+                    "id": "Sebuah alat untuk perlindungan dari hujan atau matahari. Kanopi portabel yang digunakan sebagai penutup.",
+                    "ar": "جهاز للحماية من المطر أو الشمس. مظلة محمولة تستخدم للغطاء."
+                },
+                "translation": {
+                    "vi": "ô",
+                    "th": "ร่ม",
+                    "id": "payung",
+                    "ar": "مظلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ʌmˈbrelə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/umbrella-uk-1760857043245.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ʌmˈbrelə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/umbrella-us-1760857043596.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Don't forget your umbrella; it might rain.",
+                    "vi": "Đừng quên ô của bạn; trời có thể mưa đấy.",
+                    "th": "อย่าลืมร่มของคุณนะ ฝนอาจจะตก",
+                    "id": "Jangan lupakan payungmu; mungkin akan hujan.",
+                    "ar": "لا تنس مظلتك؛ قد تمطر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e909a4e8dd8355a21fd_1760870862032.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47876d398918f2297df34",
+                "group_name": "Weather",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 49
+    }
+}

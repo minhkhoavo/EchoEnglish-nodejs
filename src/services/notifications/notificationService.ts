@@ -59,7 +59,17 @@ class NotificationService {
 
         const notifications = await PaginationHelper.paginate(
             Notifications,
-            { $or: [{ userIds: { $size: 0 } }, { userIds: userId }] },
+            {
+                $or: [{ userIds: { $size: 0 } }, { userIds: userId }],
+                // Exclude notifications that this user has soft deleted
+                $nor: [
+                    {
+                        readBy: {
+                            $elemMatch: { userId: userId, isDeleted: true },
+                        },
+                    },
+                ],
+            },
             { page, limit },
             undefined,
             '-__v',
@@ -67,35 +77,28 @@ class NotificationService {
         );
 
         return {
-            notifications: notifications.data
-                .map((n) => {
-                    const readByEntry = Array.isArray(n.readBy)
-                        ? n.readBy.find(
-                              (r: {
-                                  userId: string;
-                                  readAt: Date;
-                                  isDeleted?: boolean;
-                              }) => r.userId.toString() === userId
-                          )
-                        : null;
+            notifications: notifications.data.map((n) => {
+                const readByEntry = Array.isArray(n.readBy)
+                    ? n.readBy.find(
+                          (r: {
+                              userId: string;
+                              readAt: Date;
+                              isDeleted?: boolean;
+                          }) => r.userId.toString() === userId
+                      )
+                    : null;
 
-                    // Skip deleted notifications for this user
-                    if (readByEntry?.isDeleted) {
-                        return null;
-                    }
-
-                    return {
-                        _id: n._id,
-                        title: n.title,
-                        body: n.body,
-                        deepLink: n.deepLink,
-                        type: n.type,
-                        createdAt: n.createdAt,
-                        updatedAt: n.updatedAt,
-                        isRead: !!readByEntry,
-                    };
-                })
-                .filter(Boolean), // Remove null entries
+                return {
+                    _id: n._id,
+                    title: n.title,
+                    body: n.body,
+                    deepLink: n.deepLink,
+                    type: n.type,
+                    createdAt: n.createdAt,
+                    updatedAt: n.updatedAt,
+                    isRead: !!readByEntry,
+                };
+            }),
             pagination: notifications.pagination,
         };
     };
@@ -188,6 +191,14 @@ class NotificationService {
         const updateNotifications = await Notifications.updateMany(
             {
                 $or: [{ userIds: { $size: 0 } }, { userIds: userId }],
+                // Exclude notifications that this user has soft deleted
+                $nor: [
+                    {
+                        readBy: {
+                            $elemMatch: { userId: userId, isDeleted: true },
+                        },
+                    },
+                ],
                 readBy: { $not: { $elemMatch: { userId: userId } } },
             },
             { $push: { readBy: { userId: userId, readAt: new Date() } } }
@@ -207,6 +218,10 @@ class NotificationService {
     public getUnreadCount = async (userId: string) => {
         const count = await Notifications.countDocuments({
             $or: [{ userIds: { $size: 0 } }, { userIds: userId }],
+            // Exclude notifications that this user has soft deleted
+            $nor: [
+                { readBy: { $elemMatch: { userId: userId, isDeleted: true } } },
+            ],
             readBy: { $not: { $elemMatch: { userId: userId } } },
         });
         return count;

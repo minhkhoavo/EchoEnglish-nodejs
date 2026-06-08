@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import SpeakingWritingService from '~/services/speakingWritingService.js';
 import ApiResponse from '~/dto/response/apiResponse.js';
-import { ApiError } from '~/middleware/apiError.js';
-import { ErrorMessage } from '~/enum/errorMessage.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 
 class SpeakingWritingController {

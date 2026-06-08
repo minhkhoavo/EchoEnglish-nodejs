@@ -1,0 +1,2209 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47e199a4e8dd8355a1f87",
+                "word": "travel",
+                "explanation": {
+                    "en": "To go from one place to another, often over a great distance. The act of making a journey.",
+                    "vi": "Đi từ nơi này đến nơi khác, thường là một khoảng cách xa. Hành động thực hiện một chuyến đi.",
+                    "th": "การเดินทางจากที่หนึ่งไปยังอีกที่หนึ่ง มักจะเดินทางไกล การกระทำของการเดินทาง",
+                    "id": "Pergi dari satu tempat ke tempat lain, seringkali menempuh jarak yang jauh. Tindakan melakukan perjalanan.",
+                    "ar": "الانتقال من مكان إلى آخر، غالبًا لمسافة طويلة. فعل القيام برحلة."
+                },
+                "translation": {
+                    "vi": "du lịch",
+                    "th": "ท่องเที่ยว",
+                    "id": "bepergian",
+                    "ar": "السفر"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ˈtrævl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/travel-uk-1760856740947.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtrævl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/travel-us-1760856741270.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I love to travel and explore new cities.",
+                    "vi": "Tôi thích đi du lịch và khám phá những thành phố mới.",
+                    "th": "ฉันชอบเดินทางและสำรวจเมืองใหม่ๆ",
+                    "id": "Saya suka bepergian dan menjelajahi kota-kota baru.",
+                    "ar": "أحب السفر واستكشاف مدن جديدة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e199a4e8dd8355a1f87_1760869436546.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e199a4e8dd8355a1f8a",
+                "word": "trip",
+                "explanation": {
+                    "en": "A journey to a place and back again. A short visit for pleasure or business.",
+                    "vi": "Một chuyến đi đến một nơi và quay trở lại. Một chuyến thăm ngắn để giải trí hoặc công việc.",
+                    "th": "การเดินทางไปยังสถานที่หนึ่งแล้วกลับมา การเยี่ยมเยียนสั้นๆ เพื่อความเพลิดเพลินหรือธุรกิจ",
+                    "id": "Sebuah perjalanan ke suatu tempat dan kembali lagi. Kunjungan singkat untuk kesenangan atau bisnis.",
+                    "ar": "رحلة إلى مكان والعودة مرة أخرى. زيارة قصيرة للمتعة أو العمل."
+                },
+                "translation": {
+                    "vi": "chuyến đi",
+                    "th": "การเดินทาง",
+                    "id": "perjalanan",
+                    "ar": "رحلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/trɪp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/trip-uk-1760856742561.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/trɪp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/trip-us-1760856742857.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We planned a weekend trip to the mountains.",
+                    "vi": "Chúng tôi đã lên kế hoạch cho một chuyến đi cuối tuần đến núi.",
+                    "th": "เราวางแผนเดินทางไปภูเขาช่วงสุดสัปดาห์",
+                    "id": "Kami merencanakan perjalanan akhir pekan ke pegunungan.",
+                    "ar": "خططنا لرحلة نهاية الأسبوع إلى الجبال."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e199a4e8dd8355a1f8a_1760869443617.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e199a4e8dd8355a1f8d",
+                "word": "journey",
+                "explanation": {
+                    "en": "The act of going from one place to another, usually over a long distance. A voyage or expedition.",
+                    "vi": "Hành động đi từ nơi này đến nơi khác, thường là một khoảng cách xa. Một chuyến đi biển hoặc chuyến thám hiểm.",
+                    "th": "การเดินทางจากที่หนึ่งไปยังอีกที่หนึ่ง มักจะเดินทางไกล การเดินทางหรือการสำรวจ",
+                    "id": "Tindakan pergi dari satu tempat ke tempat lain, biasanya menempuh jarak yang jauh. Sebuah pelayaran atau ekspedisi.",
+                    "ar": "فعل الانتقال من مكان إلى آخر، عادة لمسافة طويلة. رحلة بحرية أو استكشافية."
+                },
+                "translation": {
+                    "vi": "hành trình",
+                    "th": "การเดินทาง",
+                    "id": "perjalanan",
+                    "ar": "رحلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdʒɜːni/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/journey-uk-1760856744188.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdʒɜːrni/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/journey-us-1760856744549.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The train journey across the country was beautiful.",
+                    "vi": "Chuyến tàu xuyên quốc gia thật đẹp.",
+                    "th": "การเดินทางด้วยรถไฟข้ามประเทศนั้นสวยงามมาก",
+                    "id": "Perjalanan kereta api melintasi negara itu indah.",
+                    "ar": "كانت رحلة القطار عبر البلاد جميلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e199a4e8dd8355a1f8d_1760869449700.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1a9a4e8dd8355a1f90",
+                "word": "tour",
+                "explanation": {
+                    "en": "A journey for pleasure in which several places are visited. A guided visit to an area or attraction.",
+                    "vi": "Một chuyến đi để giải trí mà trong đó nhiều nơi được ghé thăm. Một chuyến thăm có hướng dẫn đến một khu vực hoặc điểm tham quan.",
+                    "th": "การเดินทางเพื่อความเพลิดเพลินซึ่งมีการเยี่ยมชมหลายสถานที่ การเยี่ยมชมพื้นที่หรือสถานที่ท่องเที่ยวแบบมีไกด์นำเที่ยว",
+                    "id": "Sebuah perjalanan untuk kesenangan di mana beberapa tempat dikunjungi. Kunjungan terpandu ke suatu area atau objek wisata.",
+                    "ar": "رحلة للمتعة يتم فيها زيارة عدة أماكن. زيارة موجهة لمنطقة أو معلم جذب."
+                },
+                "translation": {
+                    "vi": "chuyến tham quan",
+                    "th": "ทัวร์",
+                    "id": "tur",
+                    "ar": "جولة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tʊə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tour-uk-1760856745824.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʊr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tour-us-1760856746168.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We went on a guided tour of the old castle.",
+                    "vi": "Chúng tôi đã đi một chuyến tham quan có hướng dẫn đến lâu đài cổ.",
+                    "th": "เราไปทัวร์ปราสาทเก่าแบบมีไกด์",
+                    "id": "Kami mengikuti tur berpemandu ke kastil tua.",
+                    "ar": "ذهبنا في جولة إرشادية للقلعة القديمة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1a9a4e8dd8355a1f90_1760869456996.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1a9a4e8dd8355a1f93",
+                "word": "vacation",
+                "explanation": {
+                    "en": "An extended period of recreation, especially spent away from home. A holiday taken by a person.",
+                    "vi": "Một khoảng thời gian dài để giải trí, đặc biệt là khi xa nhà. Một kỳ nghỉ mà một người thực hiện.",
+                    "th": "ช่วงเวลาพักผ่อนที่ยาวนาน โดยเฉพาะอย่างยิ่งเมื่ออยู่ห่างจากบ้าน วันหยุดที่บุคคลลา",
+                    "id": "Periode rekreasi yang diperpanjang, terutama yang dihabiskan jauh dari rumah. Liburan yang diambil oleh seseorang.",
+                    "ar": "فترة طويلة من الترفيه، خاصة التي تقضى بعيدًا عن المنزل. عطلة يأخذها شخص ما."
+                },
+                "translation": {
+                    "vi": "kỳ nghỉ",
+                    "th": "วันหยุด",
+                    "id": "liburan",
+                    "ar": "إجازة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/veɪˈkeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/vacation-uk-1760856747443.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/veɪˈkeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/vacation-us-1760856747796.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our family is going on vacation next month.",
+                    "vi": "Gia đình chúng tôi sẽ đi nghỉ mát vào tháng tới.",
+                    "th": "ครอบครัวของเราจะไปพักผ่อนในเดือนหน้า",
+                    "id": "Keluarga kami akan pergi berlibur bulan depan.",
+                    "ar": "عائلتنا ستذهب في إجازة الشهر القادم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1a9a4e8dd8355a1f93_1760869465915.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1a9a4e8dd8355a1f96",
+                "word": "holiday",
+                "explanation": {
+                    "en": "An extended period of leisure and recreation. A time away from work or school.",
+                    "vi": "Một khoảng thời gian dài để giải trí và nghỉ ngơi. Thời gian không làm việc hoặc không đi học.",
+                    "th": "ช่วงเวลาที่ยาวนานสำหรับการพักผ่อนหย่อนใจและการสันทนาการ ช่วงเวลาที่หยุดพักจากการทำงานหรือโรงเรียน",
+                    "id": "Periode waktu yang panjang untuk bersantai dan rekreasi. Waktu jauh dari pekerjaan atau sekolah.",
+                    "ar": "فترة طويلة من الترفيه والاستجمام. وقت بعيد عن العمل أو المدرسة."
+                },
+                "translation": {
+                    "vi": "ngày nghỉ / kỳ nghỉ",
+                    "th": "วันหยุด / ช่วงพักผ่อน",
+                    "id": "hari libur / liburan",
+                    "ar": "عطلة / إجازة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhɒlədeɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/holiday-uk-1760856749096.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhɑːlədeɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/holiday-us-1760856749453.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We enjoyed a relaxing holiday by the sea.",
+                    "vi": "Chúng tôi đã tận hưởng một kỳ nghỉ thư giãn bên bờ biển.",
+                    "th": "เรามีความสุขกับวันหยุดพักผ่อนริมทะเล",
+                    "id": "Kami menikmati liburan santai di tepi laut.",
+                    "ar": "استمتعنا بعطلة مريحة بجانب البحر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1a9a4e8dd8355a1f96_1760869473727.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1a9a4e8dd8355a1f99",
+                "word": "tourist",
+                "explanation": {
+                    "en": "A person who is visiting a place for pleasure. A temporary visitor to a location.",
+                    "vi": "Một người đến thăm một địa điểm để giải trí. Một du khách tạm thời đến một địa điểm.",
+                    "th": "บุคคลที่มาเยี่ยมชมสถานที่เพื่อความเพลิดเพลิน ผู้เยี่ยมชมสถานที่ชั่วคราว",
+                    "id": "Seseorang yang mengunjungi suatu tempat untuk kesenangan. Pengunjung sementara ke suatu lokasi.",
+                    "ar": "شخص يزور مكانًا للمتعة. زائر مؤقت لموقع ما."
+                },
+                "translation": {
+                    "vi": "khách du lịch",
+                    "th": "นักท่องเที่ยว",
+                    "id": "wisatawan",
+                    "ar": "سائح"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʊərɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tourist-uk-1760856750744.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʊrɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tourist-us-1760856751090.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "A tourist can learn a lot when visiting Paris.",
+                    "vi": "Một du khách có thể học được rất nhiều điều khi đến thăm Paris.",
+                    "th": "นักท่องเที่ยวสามารถเรียนรู้ได้มากเมื่อไปเยือนปารีส",
+                    "id": "Seorang turis dapat belajar banyak saat mengunjungi Paris.",
+                    "ar": "يمكن للسائح أن يتعلم الكثير عند زيارة باريس."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1a9a4e8dd8355a1f99_1760869481156.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1b9a4e8dd8355a1f9c",
+                "word": "travel agency",
+                "explanation": {
+                    "en": "A business that makes arrangements for visitors. A company that books flights, hotels, and tours.",
+                    "vi": "Một doanh nghiệp sắp xếp các chuyến đi cho du khách. Một công ty đặt vé máy bay, khách sạn và tour du lịch.",
+                    "th": "ธุรกิจที่จัดการการเดินทางสำหรับผู้มาเยือน บริษัทที่จองเที่ยวบิน โรงแรม และทัวร์",
+                    "id": "Bisnis yang membuat pengaturan untuk pengunjung. Perusahaan yang memesan penerbangan, hotel, dan tur.",
+                    "ar": "شركة تقوم بترتيبات للزوار. شركة تحجز الرحلات الجوية والفنادق والجولات."
+                },
+                "translation": {
+                    "vi": "công ty du lịch",
+                    "th": "บริษัทท่องเที่ยว",
+                    "id": "biro perjalanan",
+                    "ar": "وكالة سفر"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/ˈtræv.əl ˈeɪ.dʒən.si/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/travel-agency-uk-ai-1760858205945.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtræv.əl ˈeɪ.dʒən.si/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/travel-agency-us-ai-1760858206610.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The travel agency booked our flights and hotel.",
+                    "vi": "Công ty du lịch đã đặt vé máy bay và khách sạn cho chúng tôi.",
+                    "th": "บริษัทตัวแทนท่องเที่ยวจองเที่ยวบินและโรงแรมให้เรา",
+                    "id": "Agen perjalanan memesankan penerbangan dan hotel kami.",
+                    "ar": "حجزت وكالة السفر رحلاتنا الجوية والفندق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1b9a4e8dd8355a1f9c_1761590574108.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1b9a4e8dd8355a1f9f",
+                "word": "tour guide",
+                "explanation": {
+                    "en": "A person who leads groups and provides information to visitors. Someone who directs sightseers.",
+                    "vi": "Một người dẫn dắt các nhóm và cung cấp thông tin cho du khách. Người hướng dẫn khách tham quan.",
+                    "th": "บุคคลที่นำกลุ่มและให้ข้อมูลแก่ผู้มาเยือน ผู้ที่นำทางนักท่องเที่ยว",
+                    "id": "Seseorang yang memimpin kelompok dan memberikan informasi kepada pengunjung. Seseorang yang mengarahkan para pelancong.",
+                    "ar": "شخص يقود المجموعات ويقدم معلومات للزوار. شخص يوجه المتنزهين."
+                },
+                "translation": {
+                    "vi": "hướng dẫn viên du lịch",
+                    "th": "มัคคุเทศก์",
+                    "id": "pemandu wisata",
+                    "ar": "مرشد سياحي"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/tʊə ɡaɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tour-guide-uk-ai-1760858210370.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʊər ɡaɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/tour-guide-us-ai-1760858210914.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our tour guide was very knowledgeable about the city.",
+                    "vi": "Hướng dẫn viên của chúng tôi rất am hiểu về thành phố.",
+                    "th": "มัคคุเทศก์ของเรามีความรู้เกี่ยวกับเมืองเป็นอย่างดี",
+                    "id": "Pemandu wisata kami sangat berpengetahuan tentang kota.",
+                    "ar": "كان مرشدنا السياحي مطلعًا جدًا على المدينة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1b9a4e8dd8355a1f9f_1760869497196.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1b9a4e8dd8355a1fa2",
+                "word": "passport",
+                "explanation": {
+                    "en": "An official document for international crossing. A government document identifying the bearer's citizenship.",
+                    "vi": "Một tài liệu chính thức để đi lại quốc tế. Một tài liệu của chính phủ xác định quốc tịch của người mang.",
+                    "th": "เอกสารราชการสำหรับการเดินทางระหว่างประเทศ เอกสารของรัฐบาลที่ระบุสัญชาติของผู้ถือ",
+                    "id": "Dokumen resmi untuk perjalanan internasional. Dokumen pemerintah yang mengidentifikasi kewarganegaraan pemegangnya.",
+                    "ar": "وثيقة رسمية للعبور الدولي. وثيقة حكومية تحدد جنسية حاملها."
+                },
+                "translation": {
+                    "vi": "hộ chiếu",
+                    "th": "หนังสือเดินทาง",
+                    "id": "paspor",
+                    "ar": "جواز سفر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpɑːspɔːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/passport-uk-1760856754138.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpæspɔːrt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/passport-us-1760856754470.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Don't forget your passport when you travel internationally.",
+                    "vi": "Đừng quên hộ chiếu của bạn khi bạn đi du lịch quốc tế.",
+                    "th": "อย่าลืมหนังสือเดินทางของคุณเมื่อคุณเดินทางไปต่างประเทศ",
+                    "id": "Jangan lupakan paspor Anda saat bepergian internasional.",
+                    "ar": "لا تنس جواز سفرك عندما تسافر دوليًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1b9a4e8dd8355a1fa2_1760869504033.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1b9a4e8dd8355a1fa5",
+                "word": "visa",
+                "explanation": {
+                    "en": "An official authorization added to a passport. Permission allowing a person to enter a country.",
+                    "vi": "Một giấy phép chính thức được thêm vào hộ chiếu. Giấy phép cho phép một người nhập cảnh vào một quốc gia.",
+                    "th": "การอนุญาตอย่างเป็นทางการที่เพิ่มลงในหนังสือเดินทาง การอนุญาตให้บุคคลเข้าประเทศ",
+                    "id": "Otorisasi resmi yang ditambahkan ke paspor. Izin yang memungkinkan seseorang untuk memasuki suatu negara.",
+                    "ar": "تصريح رسمي يضاف إلى جواز السفر. إذن يسمح لشخص بدخول بلد ما."
+                },
+                "translation": {
+                    "vi": "thị thực",
+                    "th": "วีซ่า",
+                    "id": "visa",
+                    "ar": "تأشيرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈviːzə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/visa-uk-1760856755735.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈviːzə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/visa-us-1760856756087.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "You need a visa to visit that country.",
+                    "vi": "Bạn cần thị thực để đến thăm quốc gia đó.",
+                    "th": "คุณต้องมีวีซ่าเพื่อเยี่ยมชมประเทศนั้น",
+                    "id": "Anda memerlukan visa untuk mengunjungi negara itu.",
+                    "ar": "أنت بحاجة إلى تأشيرة لزيارة ذلك البلد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1b9a4e8dd8355a1fa5_1760869510397.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1c9a4e8dd8355a1fa8",
+                "word": "ticket",
+                "explanation": {
+                    "en": "A paper or electronic document granting entry or passage. Proof of payment for a service.",
+                    "vi": "Một tài liệu giấy hoặc điện tử cấp quyền vào cửa hoặc đi lại. Bằng chứng thanh toán cho một dịch vụ.",
+                    "th": "เอกสารกระดาษหรืออิเล็กทรอนิกส์ที่อนุญาตให้เข้าหรือผ่าน หลักฐานการชำระเงินสำหรับบริการ",
+                    "id": "Dokumen kertas atau elektronik yang memberikan izin masuk atau lewat. Bukti pembayaran untuk suatu layanan.",
+                    "ar": "وثيقة ورقية أو إلكترونية تمنح الدخول أو المرور. إثبات الدفع مقابل خدمة."
+                },
+                "translation": {
+                    "vi": "vé",
+                    "th": "ตั๋ว",
+                    "id": "tiket",
+                    "ar": "تذكرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtɪkɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ticket-uk-1760856757473.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtɪkɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/ticket-us-1760856757833.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I bought a train ticket to London.",
+                    "vi": "Tôi đã mua vé tàu đi London.",
+                    "th": "ฉันซื้อตั๋วรถไฟไปลอนดอน",
+                    "id": "Saya membeli tiket kereta api ke London.",
+                    "ar": "اشتريت تذكرة قطار إلى لندن."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1c9a4e8dd8355a1fa8_1760869517570.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1c9a4e8dd8355a1fab",
+                "word": "flight",
+                "explanation": {
+                    "en": "An act of flying, especially a scheduled trip by airplane. A specific journey through the air.",
+                    "vi": "Một chuyến bay, đặc biệt là một chuyến đi theo lịch trình bằng máy bay. Một hành trình cụ thể qua không trung.",
+                    "th": "การบิน โดยเฉพาะการเดินทางตามกำหนดเวลาด้วยเครื่องบิน การเดินทางเฉพาะทางอากาศ",
+                    "id": "Tindakan terbang, terutama perjalanan terjadwal dengan pesawat terbang. Perjalanan tertentu melalui udara.",
+                    "ar": "فعل الطيران، خاصة رحلة مجدولة بالطائرة. رحلة محددة عبر الجو."
+                },
+                "translation": {
+                    "vi": "chuyến bay",
+                    "th": "เที่ยวบิน",
+                    "id": "penerbangan",
+                    "ar": "رحلة طيران"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/flaɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flight-uk-1760856759114.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/flaɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/flight-us-1760856759454.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our flight departs at 8 o'clock in the morning.",
+                    "vi": "Chuyến bay của chúng tôi khởi hành lúc 8 giờ sáng.",
+                    "th": "เที่ยวบินของเราออกเดินทางเวลา 8 โมงเช้า",
+                    "id": "Penerbangan kami berangkat pukul 8 pagi.",
+                    "ar": "تغادر رحلتنا الجوية في الساعة الثامنة صباحًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1c9a4e8dd8355a1fab_1760869524216.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1c9a4e8dd8355a1fae",
+                "word": "airport",
+                "explanation": {
+                    "en": "A complex of runways and buildings for aircraft operations. A facility for take-off and landing of airplanes.",
+                    "vi": "Một khu phức hợp gồm đường băng và các tòa nhà cho hoạt động của máy bay. Một cơ sở để máy bay cất cánh và hạ cánh.",
+                    "th": "กลุ่มรันเวย์และอาคารสำหรับการปฏิบัติการของเครื่องบิน สิ่งอำนวยความสะดวกสำหรับการขึ้นและลงจอดของเครื่องบิน",
+                    "id": "Kompleks landasan pacu dan bangunan untuk operasi pesawat. Fasilitas untuk lepas landas dan mendaratnya pesawat terbang.",
+                    "ar": "مجمع من مدارج ومباني لعمليات الطائرات. مرفق لإقلاع وهبوط الطائرات."
+                },
+                "translation": {
+                    "vi": "sân bay",
+                    "th": "สนามบิน",
+                    "id": "bandara",
+                    "ar": "مطار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈeəpɔːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airport-uk-1760856760738.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈerpɔːrt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airport-us-1760856761093.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We arrived at the airport two hours early.",
+                    "vi": "Chúng tôi đến sân bay sớm hai giờ.",
+                    "th": "เรามาถึงสนามบินล่วงหน้าสองชั่วโมง",
+                    "id": "Kami tiba di bandara dua jam lebih awal.",
+                    "ar": "وصلنا إلى المطار قبل ساعتين."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1c9a4e8dd8355a1fae_1760869533322.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1d9a4e8dd8355a1fb1",
+                "word": "airline",
+                "explanation": {
+                    "en": "A company that provides scheduled public air transport. A commercial carrier of passengers or freight.",
+                    "vi": "Một công ty cung cấp dịch vụ vận tải hàng không công cộng theo lịch trình. Một hãng vận chuyển thương mại hành khách hoặc hàng hóa.",
+                    "th": "บริษัทที่ให้บริการขนส่งทางอากาศสาธารณะตามกำหนดเวลา ผู้ขนส่งเชิงพาณิชย์สำหรับผู้โดยสารหรือสินค้า",
+                    "id": "Perusahaan yang menyediakan transportasi udara publik terjadwal. Maskapai komersial pengangkut penumpang atau kargo.",
+                    "ar": "شركة تقدم خدمات النقل الجوي العام المجدول. ناقل تجاري للركاب أو البضائع."
+                },
+                "translation": {
+                    "vi": "hãng hàng không",
+                    "th": "สายการบิน",
+                    "id": "maskapai penerbangan",
+                    "ar": "شركة طيران"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈeəlaɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airline-uk-ai-1760858214993.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɛərlaɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airline-us-ai-1760858215607.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Which airline are you flying with today?",
+                    "vi": "Hôm nay bạn bay với hãng hàng không nào?",
+                    "th": "วันนี้คุณจะบินกับสายการบินอะไร",
+                    "id": "Anda terbang dengan maskapai apa hari ini?",
+                    "ar": "مع أي شركة طيران تسافر اليوم؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1d9a4e8dd8355a1fb1_1760869539729.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1d9a4e8dd8355a1fb4",
+                "word": "airplane",
+                "explanation": {
+                    "en": "A powered flying vehicle with fixed wings. A machine designed for air transport.",
+                    "vi": "Một phương tiện bay có động cơ với cánh cố định. Một cỗ máy được thiết kế để vận chuyển bằng đường hàng không.",
+                    "th": "ยานพาหนะบินที่มีเครื่องยนต์และปีกคงที่ เครื่องจักรที่ออกแบบมาสำหรับการขนส่งทางอากาศ",
+                    "id": "Kendaraan terbang bertenaga dengan sayap tetap. Mesin yang dirancang untuk transportasi udara.",
+                    "ar": "مركبة طائرة تعمل بالطاقة ذات أجنحة ثابتة. آلة مصممة للنقل الجوي."
+                },
+                "translation": {
+                    "vi": "máy bay",
+                    "th": "เครื่องบิน",
+                    "id": "pesawat terbang",
+                    "ar": "طائرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈeəpleɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airplane-uk-1760856763288.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈerpleɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/airplane-us-1760856763632.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The airplane flew high above the clouds.",
+                    "vi": "Chiếc máy bay bay cao trên những đám mây.",
+                    "th": "เครื่องบินบินสูงเหนือเมฆ",
+                    "id": "Pesawat terbang tinggi di atas awan.",
+                    "ar": "حلقت الطائرة عاليًا فوق السحب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1d9a4e8dd8355a1fb4_1760869546041.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1d9a4e8dd8355a1fb7",
+                "word": "luggage",
+                "explanation": {
+                    "en": "Suitcases or other bags used for carrying belongings. Bags and items packed for a journey.",
+                    "vi": "Vali hoặc các túi khác dùng để mang đồ đạc. Túi và vật dụng được đóng gói cho một chuyến đi.",
+                    "th": "กระเป๋าเดินทางหรือกระเป๋าอื่นๆ ที่ใช้สำหรับบรรทุกสัมภาระ กระเป๋าและสิ่งของที่บรรจุสำหรับการเดินทาง",
+                    "id": "Koper atau tas lain yang digunakan untuk membawa barang-barang. Tas dan barang-barang yang dikemas untuk perjalanan.",
+                    "ar": "حقائب أو أكياس أخرى تستخدم لحمل الأمتعة. حقائب وأشياء معبأة لرحلة."
+                },
+                "translation": {
+                    "vi": "hành lý",
+                    "th": "สัมภาระ",
+                    "id": "bagasi",
+                    "ar": "أمتعة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈlʌɡɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/luggage-uk-1760856764940.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈlʌɡɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/luggage-us-1760856765271.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please put your luggage in the overhead compartment.",
+                    "vi": "Vui lòng đặt hành lý của bạn vào ngăn chứa đồ phía trên.",
+                    "th": "กรุณาเก็บสัมภาระของคุณไว้ในช่องเก็บของเหนือศีรษะ",
+                    "id": "Harap letakkan barang bawaan Anda di kompartemen atas.",
+                    "ar": "يرجى وضع أمتعتك في المقصورة العلوية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1d9a4e8dd8355a1fb7_1760869552513.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1d9a4e8dd8355a1fba",
+                "word": "suitcase",
+                "explanation": {
+                    "en": "A rectangular bag with a handle for carrying clothes. A container for packing possessions when travelling.",
+                    "vi": "Một chiếc túi hình chữ nhật có tay cầm để đựng quần áo. Một vật chứa để đóng gói đồ đạc khi đi du lịch.",
+                    "th": "กระเป๋าสี่เหลี่ยมที่มีหูหิ้วสำหรับใส่เสื้อผ้า ภาชนะสำหรับบรรจุสิ่งของเมื่อเดินทาง",
+                    "id": "Tas persegi panjang dengan pegangan untuk membawa pakaian. Wadah untuk mengemas barang-barang saat bepergian.",
+                    "ar": "حقيبة مستطيلة بمقبض لحمل الملابس. حاوية لتعبئة الممتلكات عند السفر."
+                },
+                "translation": {
+                    "vi": "vali",
+                    "th": "กระเป๋าเดินทาง",
+                    "id": "koper",
+                    "ar": "حقيبة سفر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsuːtkeɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/suitcase-uk-1760856766533.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsuːtkeɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/suitcase-us-1760856766860.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My suitcase is packed and ready for the trip.",
+                    "vi": "Vali của tôi đã được đóng gói và sẵn sàng cho chuyến đi.",
+                    "th": "กระเป๋าเดินทางของฉันถูกจัดเตรียมไว้พร้อมสำหรับการเดินทางแล้ว",
+                    "id": "Koper saya sudah dikemas dan siap untuk perjalanan.",
+                    "ar": "حقيبتي معبأة وجاهزة للرحلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1d9a4e8dd8355a1fba_1760869560913.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1d9a4e8dd8355a1fbd",
+                "word": "backpack",
+                "explanation": {
+                    "en": "A bag carried on one's back, secured by two straps. Used for carrying gear, especially when hiking.",
+                    "vi": "Một chiếc túi đeo trên lưng, được cố định bằng hai dây đeo. Dùng để mang đồ đạc, đặc biệt khi đi bộ đường dài.",
+                    "th": "กระเป๋าที่สะพายหลัง ยึดด้วยสายรัดสองเส้น ใช้สำหรับบรรทุกอุปกรณ์ โดยเฉพาะเมื่อเดินป่า",
+                    "id": "Tas yang dibawa di punggung, diikat dengan dua tali. Digunakan untuk membawa perlengkapan, terutama saat mendaki.",
+                    "ar": "حقيبة تحمل على الظهر، مثبتة بحزامين. تستخدم لحمل المعدات، خاصة عند المشي لمسافات طويلة."
+                },
+                "translation": {
+                    "vi": "ba lô",
+                    "th": "เป้",
+                    "id": "ransel",
+                    "ar": "حقيبة ظهر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbækpæk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/backpack-uk-1760856768126.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbækpæk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/backpack-us-1760856768466.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He carried his books in a large backpack.",
+                    "vi": "Anh ấy mang sách của mình trong một chiếc ba lô lớn.",
+                    "th": "เขาแบกหนังสือของเขาในกระเป๋าเป้ใบใหญ่",
+                    "id": "Dia membawa buku-bukunya di ransel besar.",
+                    "ar": "حمل كتبه في حقيبة ظهر كبيرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1d9a4e8dd8355a1fbd_1760869566515.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1d9a4e8dd8355a1fc0",
+                "word": "hotel",
+                "explanation": {
+                    "en": "An establishment providing lodging and meals for travellers. A large building offering rooms for rent.",
+                    "vi": "Một cơ sở cung cấp chỗ ở và bữa ăn cho du khách. Một tòa nhà lớn cung cấp phòng cho thuê.",
+                    "th": "สถานประกอบการที่ให้บริการที่พักและอาหารสำหรับนักเดินทาง อาคารขนาดใหญ่ที่ให้บริการห้องพักให้เช่า",
+                    "id": "Sebuah tempat yang menyediakan penginapan dan makanan untuk para pelancong. Sebuah bangunan besar yang menawarkan kamar untuk disewa.",
+                    "ar": "مؤسسة تقدم الإقامة والوجبات للمسافرين. مبنى كبير يقدم غرفًا للإيجار."
+                },
+                "translation": {
+                    "vi": "khách sạn",
+                    "th": "โรงแรม",
+                    "id": "hotel",
+                    "ar": "فندق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/həʊˈtel/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hotel-uk-1760856769725.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/həʊˈtel/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hotel-us-1760856770049.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We booked a nice hotel near the beach.",
+                    "vi": "Chúng tôi đã đặt một khách sạn đẹp gần bãi biển.",
+                    "th": "เราจองโรงแรมที่ดีใกล้ชายหาด",
+                    "id": "Kami memesan hotel yang bagus dekat pantai.",
+                    "ar": "حجزنا فندقًا لطيفًا بالقرب من الشاطئ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1d9a4e8dd8355a1fc0_1760869574752.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1d9a4e8dd8355a1fc3",
+                "word": "hostel",
+                "explanation": {
+                    "en": "An establishment providing inexpensive lodging, especially for young people. A budget accommodation with shared rooms.",
+                    "vi": "Một cơ sở cung cấp chỗ ở giá rẻ, đặc biệt cho giới trẻ. Một loại hình lưu trú tiết kiệm với phòng ngủ chung.",
+                    "th": "สถานประกอบการที่ให้บริการที่พักราคาไม่แพง โดยเฉพาะสำหรับคนหนุ่มสาว ที่พักราคาประหยัดพร้อมห้องพักรวม",
+                    "id": "Sebuah penginapan yang menyediakan akomodasi murah, terutama untuk kaum muda. Akomodasi hemat dengan kamar bersama.",
+                    "ar": "مؤسسة توفر سكنًا غير مكلف، خاصة للشباب. سكن اقتصادي بغرف مشتركة."
+                },
+                "translation": {
+                    "vi": "nhà nghỉ, ký túc xá",
+                    "th": "โฮสเทล",
+                    "id": "Hostel",
+                    "ar": "نُزُل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈhɒstl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hostel-uk-1760856771482.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhɑːstl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hostel-us-1760856771825.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We stayed in a cheap hostel during our trip to Berlin.",
+                    "vi": "Chúng tôi đã ở một hostel giá rẻ trong chuyến đi đến Berlin.",
+                    "th": "เราพักที่โฮสเทลราคาถูกระหว่างการเดินทางไปเบอร์ลิน.",
+                    "id": "Kami menginap di hostel murah selama perjalanan kami ke Berlin.",
+                    "ar": "أقمنا في نزل رخيص خلال رحلتنا إلى برلين."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1d9a4e8dd8355a1fc3_1760869582821.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1e9a4e8dd8355a1fc6",
+                "word": "resort",
+                "explanation": {
+                    "en": "A place frequented for holidays or recreation. A complex offering amenities for leisure and relaxation.",
+                    "vi": "Một địa điểm thường xuyên được ghé thăm vào các kỳ nghỉ hoặc để giải trí. Một khu phức hợp cung cấp các tiện nghi cho giải trí và thư giãn.",
+                    "th": "สถานที่ที่ผู้คนนิยมไปพักผ่อนหรือหย่อนใจ คอมเพล็กซ์ที่นำเสนอสิ่งอำนวยความสะดวกสำหรับการพักผ่อนและความบันเทิง.",
+                    "id": "Sebuah tempat yang sering dikunjungi untuk liburan atau rekreasi. Sebuah kompleks yang menawarkan fasilitas untuk bersantai dan rekreasi.",
+                    "ar": "مكان يرتاده الناس لقضاء العطلات أو الترفيه. مجمع يقدم وسائل الراحة للترفيه والاسترخاء."
+                },
+                "translation": {
+                    "vi": "khu nghỉ dưỡng",
+                    "th": "รีสอร์ต",
+                    "id": "Resor",
+                    "ar": "منتجع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈzɔːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/resort-uk-1760856773105.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈzɔːrt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/resort-us-1760856773429.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The family booked a week at a luxury beach resort.",
+                    "vi": "Gia đình đã đặt một tuần tại một khu nghỉ dưỡng bãi biển sang trọng.",
+                    "th": "ครอบครัวจองรีสอร์ตชายหาดหรูเป็นเวลาหนึ่งสัปดาห์.",
+                    "id": "Keluarga itu memesan seminggu di resor pantai mewah.",
+                    "ar": "حجزت العائلة أسبوعًا في منتجع شاطئي فاخر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1e9a4e8dd8355a1fc6_1760869591638.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1e9a4e8dd8355a1fc9",
+                "word": "accommodation",
+                "explanation": {
+                    "en": "A room, building, or lodging where someone may live. The housing provided for people on a journey.",
+                    "vi": "Một căn phòng, tòa nhà hoặc chỗ ở nơi ai đó có thể sống. Chỗ ở được cung cấp cho những người đang trong chuyến đi.",
+                    "th": "ห้องพัก อาคาร หรือที่พักที่ใครบางคนอาจอาศัยอยู่ ที่พักที่จัดหาให้สำหรับผู้ที่เดินทาง.",
+                    "id": "Sebuah kamar, bangunan, atau penginapan tempat seseorang dapat tinggal. Perumahan yang disediakan untuk orang-orang dalam perjalanan.",
+                    "ar": "غرفة أو مبنى أو سكن يمكن لشخص أن يعيش فيه. السكن المقدم للأشخاص في رحلة."
+                },
+                "translation": {
+                    "vi": "chỗ ở",
+                    "th": "ที่พัก",
+                    "id": "Akomodasi",
+                    "ar": "سكن"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/əˌkɒməˈdeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/accommodation-uk-1760856774715.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˌkɑːməˈdeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/accommodation-us-1760856775043.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We found good accommodation near the city center.",
+                    "vi": "Chúng tôi đã tìm thấy chỗ ở tốt gần trung tâm thành phố.",
+                    "th": "เราพบที่พักที่ดีใกล้ใจกลางเมือง.",
+                    "id": "Kami menemukan akomodasi yang bagus dekat pusat kota.",
+                    "ar": "وجدنا سكنًا جيدًا بالقرب من وسط المدينة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1e9a4e8dd8355a1fc9_1760869599610.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1e9a4e8dd8355a1fcc",
+                "word": "booking",
+                "explanation": {
+                    "en": "An arrangement to secure passage or a reservation. The act of reserving a place in advance.",
+                    "vi": "Một sự sắp xếp để đảm bảo chỗ đi hoặc đặt trước. Hành động đặt chỗ trước.",
+                    "th": "การจัดการเพื่อสำรองที่นั่งหรือการจอง การกระทำของการจองสถานที่ล่วงหน้า.",
+                    "id": "Pengaturan untuk mengamankan perjalanan atau reservasi. Tindakan memesan tempat di muka.",
+                    "ar": "ترتيب لتأمين مرور أو حجز. فعل حجز مكان مسبقًا."
+                },
+                "translation": {
+                    "vi": "đặt chỗ",
+                    "th": "การจอง",
+                    "id": "Pemesanan",
+                    "ar": "حجز"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbʊkɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/booking-uk-1760856776311.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbʊkɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/booking-us-1760856776646.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need to confirm my flight booking for next month.",
+                    "vi": "Tôi cần xác nhận đặt vé máy bay cho tháng tới.",
+                    "th": "ฉันต้องยืนยันการจองเที่ยวบินสำหรับเดือนหน้า.",
+                    "id": "Saya perlu mengkonfirmasi pemesanan penerbangan saya untuk bulan depan.",
+                    "ar": "أحتاج إلى تأكيد حجز رحلتي للشهر القادم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1e9a4e8dd8355a1fcc_1760869607488.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1e9a4e8dd8355a1fcf",
+                "word": "check-in",
+                "explanation": {
+                    "en": "The procedure for officially registering arrival at a hotel or airport. The process of verifying a reservation.",
+                    "vi": "Thủ tục đăng ký chính thức khi đến khách sạn hoặc sân bay. Quá trình xác minh đặt chỗ.",
+                    "th": "ขั้นตอนการลงทะเบียนการมาถึงอย่างเป็นทางการที่โรงแรมหรือสนามบิน กระบวนการตรวจสอบการจอง.",
+                    "id": "Prosedur untuk secara resmi mendaftarkan kedatangan di hotel atau bandara. Proses verifikasi reservasi.",
+                    "ar": "الإجراء الرسمي لتسجيل الوصول إلى فندق أو مطار. عملية التحقق من الحجز."
+                },
+                "translation": {
+                    "vi": "làm thủ tục nhận phòng",
+                    "th": "เช็คอิน",
+                    "id": "Check-in",
+                    "ar": "تسجيل الدخول"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃɛkɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/check-in-uk-ai-1760858220343.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃɛkɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/check-in-us-ai-1760858221001.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please go to the desk for your hotel check-in.",
+                    "vi": "Vui lòng đến quầy để làm thủ tục nhận phòng khách sạn của bạn.",
+                    "th": "กรุณาไปที่เคาน์เตอร์เพื่อเช็คอินโรงแรมของคุณ.",
+                    "id": "Silakan pergi ke meja untuk check-in hotel Anda.",
+                    "ar": "يرجى الذهاب إلى المكتب لإجراء تسجيل الدخول إلى الفندق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1e9a4e8dd8355a1fcf_1760869614595.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1e9a4e8dd8355a1fd2",
+                "word": "check-out",
+                "explanation": {
+                    "en": "The procedure for formally settling the bill and leaving a hotel. The process of concluding a stay.",
+                    "vi": "Thủ tục thanh toán hóa đơn và rời khách sạn một cách chính thức. Quá trình kết thúc một kỳ lưu trú.",
+                    "th": "ขั้นตอนการชำระเงินและออกจากโรงแรมอย่างเป็นทางการ กระบวนการสิ้นสุดการเข้าพัก.",
+                    "id": "Prosedur untuk secara resmi menyelesaikan tagihan dan meninggalkan hotel. Proses mengakhiri masa menginap.",
+                    "ar": "الإجراء الرسمي لتسوية الفاتورة ومغادرة الفندق. عملية إنهاء الإقامة."
+                },
+                "translation": {
+                    "vi": "trả phòng",
+                    "th": "เช็คเอาท์",
+                    "id": "Check-out",
+                    "ar": "تسجيل الخروج"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃɛkˌaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/check-out-uk-ai-1760858224787.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃɛkˌaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/check-out-us-ai-1760858225469.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our check-out time is at 11 AM tomorrow.",
+                    "vi": "Thời gian trả phòng của chúng tôi là 11 giờ sáng ngày mai.",
+                    "th": "เวลาเช็คเอาต์ของเราคือ 11 โมงเช้าพรุ่งนี้.",
+                    "id": "Waktu check-out kami adalah pukul 11 pagi besok.",
+                    "ar": "وقت تسجيل الخروج لدينا هو الساعة 11 صباحًا غدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1e9a4e8dd8355a1fd2_1760869623092.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1e9a4e8dd8355a1fd5",
+                "word": "map",
+                "explanation": {
+                    "en": "A diagrammatic representation of an area. Used to show features and routes.",
+                    "vi": "Một biểu diễn đồ họa của một khu vực. Được sử dụng để hiển thị các đặc điểm và tuyến đường.",
+                    "th": "การแสดงแผนผังของพื้นที่ ใช้เพื่อแสดงคุณสมบัติและเส้นทาง.",
+                    "id": "Representasi diagramatis suatu area. Digunakan untuk menunjukkan fitur dan rute.",
+                    "ar": "تمثيل تخطيطي لمنطقة ما. يستخدم لإظهار الميزات والمسارات."
+                },
+                "translation": {
+                    "vi": "bản đồ",
+                    "th": "แผนที่",
+                    "id": "Peta",
+                    "ar": "خريطة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/mæp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/map-uk-1760856779681.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/mæp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/map-us-1760856780023.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We used a map to find our way around the city.",
+                    "vi": "Chúng tôi đã sử dụng bản đồ để tìm đường đi quanh thành phố.",
+                    "th": "เราใช้แผนที่เพื่อหาทางไปรอบเมือง.",
+                    "id": "Kami menggunakan peta untuk menemukan jalan kami di sekitar kota.",
+                    "ar": "استخدمنا خريطة لإيجاد طريقنا في المدينة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1e9a4e8dd8355a1fd5_1760869630314.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1f9a4e8dd8355a1fd8",
+                "word": "guidebook",
+                "explanation": {
+                    "en": "A book of information about a place for visitors. A manual describing attractions and services.",
+                    "vi": "Một cuốn sách thông tin về một địa điểm dành cho du khách. Một cuốn cẩm nang mô tả các điểm tham quan và dịch vụ.",
+                    "th": "หนังสือข้อมูลเกี่ยวกับสถานที่สำหรับนักท่องเที่ยว คู่มือที่อธิบายสถานที่ท่องเที่ยวและบริการ.",
+                    "id": "Sebuah buku informasi tentang suatu tempat untuk pengunjung. Sebuah manual yang menjelaskan atraksi dan layanan.",
+                    "ar": "كتاب معلومات عن مكان للزوار. دليل يصف المعالم السياحية والخدمات."
+                },
+                "translation": {
+                    "vi": "sách hướng dẫn",
+                    "th": "หนังสือคู่มือ",
+                    "id": "Buku panduan",
+                    "ar": "دليل سياحي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɡaɪdbʊk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/guidebook-uk-ai-1760858229022.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɡaɪdbʊk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/guidebook-us-ai-1760858229678.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The guidebook suggested many interesting places to visit.",
+                    "vi": "Cuốn sách hướng dẫn đã gợi ý nhiều địa điểm thú vị để tham quan.",
+                    "th": "หนังสือคู่มือแนะนำสถานที่น่าสนใจมากมายให้เยี่ยมชม.",
+                    "id": "Buku panduan itu menyarankan banyak tempat menarik untuk dikunjungi.",
+                    "ar": "اقترح الدليل السياحي العديد من الأماكن المثيرة للاهتمام للزيارة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1f9a4e8dd8355a1fd8_1760869637003.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1f9a4e8dd8355a1fdb",
+                "word": "itinerary",
+                "explanation": {
+                    "en": "A planned route or journey. A detailed schedule of locations to be visited.",
+                    "vi": "Một lộ trình hoặc hành trình đã được lên kế hoạch. Một lịch trình chi tiết về các địa điểm sẽ ghé thăm.",
+                    "th": "เส้นทางหรือการเดินทางที่วางแผนไว้ กำหนดการโดยละเอียดของสถานที่ที่จะเยี่ยมชม.",
+                    "id": "Rute atau perjalanan yang direncanakan. Jadwal terperinci lokasi yang akan dikunjungi.",
+                    "ar": "مسار أو رحلة مخططة. جدول زمني مفصل للمواقع التي سيتم زيارتها."
+                },
+                "translation": {
+                    "vi": "lịch trình",
+                    "th": "กำหนดการเดินทาง",
+                    "id": "Rencana perjalanan",
+                    "ar": "خط سير الرحلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪˈtɪnərərɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/itinerary-uk-ai-1760858238272.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪˈtɪnəˌrɛri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/itinerary-us-ai-1760858238872.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our travel itinerary includes stops in three different countries.",
+                    "vi": "Lịch trình du lịch của chúng tôi bao gồm các điểm dừng ở ba quốc gia khác nhau.",
+                    "th": "แผนการเดินทางของเรามีการหยุดพักในสามประเทศที่แตกต่างกัน.",
+                    "id": "Itinerary perjalanan kami mencakup pemberhentian di tiga negara berbeda.",
+                    "ar": "يتضمن خط سير رحلتنا محطات توقف في ثلاث دول مختلفة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1f9a4e8dd8355a1fdb_1760869644336.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1f9a4e8dd8355a1fde",
+                "word": "destination",
+                "explanation": {
+                    "en": "The place to which someone or something is going. The final stopping point of a journey.",
+                    "vi": "Nơi mà ai đó hoặc cái gì đó đang đi đến. Điểm dừng cuối cùng của một hành trình.",
+                    "th": "สถานที่ที่ใครบางคนหรือบางสิ่งกำลังจะไป จุดหยุดสุดท้ายของการเดินทาง.",
+                    "id": "Tempat tujuan seseorang atau sesuatu. Titik pemberhentian terakhir dari sebuah perjalanan.",
+                    "ar": "المكان الذي يتجه إليه شخص أو شيء ما. نقطة التوقف النهائية للرحلة."
+                },
+                "translation": {
+                    "vi": "điểm đến",
+                    "th": "จุดหมายปลายทาง",
+                    "id": "Destinasi",
+                    "ar": "وجهة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌdestɪˈneɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/destination-uk-1760856783024.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌdestɪˈneɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/destination-us-1760856783352.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Paris is a very popular tourist destination.",
+                    "vi": "Paris là một điểm đến du lịch rất phổ biến.",
+                    "th": "ปารีสเป็นจุดหมายปลายทางยอดนิยมสำหรับนักท่องเที่ยว.",
+                    "id": "Paris adalah tujuan wisata yang sangat populer.",
+                    "ar": "باريس وجهة سياحية شهيرة جدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1f9a4e8dd8355a1fde_1760869651523.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e1f9a4e8dd8355a1fe1",
+                "word": "sightseeing",
+                "explanation": {
+                    "en": "The act of visiting places of interest. Touring a locale for pleasure.",
+                    "vi": "Hành động tham quan các địa điểm thú vị. Du ngoạn một địa phương để giải trí.",
+                    "th": "การกระทำของการเยี่ยมชมสถานที่ที่น่าสนใจ การท่องเที่ยวในท้องถิ่นเพื่อความเพลิดเพลิน.",
+                    "id": "Tindakan mengunjungi tempat-tempat menarik. Mengunjungi suatu lokasi untuk kesenangan.",
+                    "ar": "فعل زيارة الأماكن ذات الأهمية. التجول في منطقة ما للمتعة."
+                },
+                "translation": {
+                    "vi": "tham quan",
+                    "th": "การเที่ยวชม",
+                    "id": "Wisata",
+                    "ar": "مشاهدة المعالم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsaɪtsiːɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sightseeing-uk-1760856784603.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsaɪtsiːɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sightseeing-us-1760856784944.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We spent the whole day sightseeing in Rome.",
+                    "vi": "Chúng tôi đã dành cả ngày để tham quan ở Rome.",
+                    "th": "เราใช้เวลาทั้งวันในการเที่ยวชมสถานที่ในกรุงโรม.",
+                    "id": "Kami menghabiskan sepanjang hari berkeliling di Roma.",
+                    "ar": "قضينا اليوم كله في مشاهدة المعالم السياحية في روما."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e1f9a4e8dd8355a1fe1_1760869661320.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e209a4e8dd8355a1fe4",
+                "word": "beach",
+                "explanation": {
+                    "en": "A stretch of sand or pebbles along the edge of a sea or lake. A popular coastal area for recreation.",
+                    "vi": "Một dải cát hoặc sỏi dọc theo bờ biển hoặc hồ. Một khu vực ven biển phổ biến để giải trí.",
+                    "th": "หาดทรายหรือกรวดตามแนวชายทะเลหรือทะเลสาบ พื้นที่ชายฝั่งยอดนิยมสำหรับการพักผ่อนหย่อนใจ.",
+                    "id": "Hamparan pasir atau kerikil di sepanjang tepi laut atau danau. Area pesisir yang populer untuk rekreasi.",
+                    "ar": "امتداد من الرمال أو الحصى على طول حافة البحر أو البحيرة. منطقة ساحلية شهيرة للترفيه."
+                },
+                "translation": {
+                    "vi": "bãi biển",
+                    "th": "ชายหาด",
+                    "id": "Pantai",
+                    "ar": "شاطئ"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/biːtʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/beach-uk-1760856786217.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/biːtʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/beach-us-1760856786550.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Let's go to the beach and swim in the ocean.",
+                    "vi": "Hãy đi ra bãi biển và bơi ở đại dương.",
+                    "th": "ไปชายหาดแล้วว่ายน้ำในมหาสมุทรกันเถอะ.",
+                    "id": "Mari kita pergi ke pantai dan berenang di laut.",
+                    "ar": "دعنا نذهب إلى الشاطئ ونسبح في المحيط."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e209a4e8dd8355a1fe4_1760869668030.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e209a4e8dd8355a1fe7",
+                "word": "mountain",
+                "explanation": {
+                    "en": "A large natural elevation of the earth's surface. A high, rugged landform.",
+                    "vi": "Một khối đất tự nhiên lớn nhô cao trên bề mặt trái đất. Một dạng địa hình cao, gồ ghề.",
+                    "th": "พื้นผิวโลกที่สูงขึ้นตามธรรมชาติขนาดใหญ่ ภูมิประเทศที่สูงชันและขรุขระ.",
+                    "id": "Ketinggian alami yang besar dari permukaan bumi. Bentang alam yang tinggi dan terjal.",
+                    "ar": "ارتفاع طبيعي كبير لسطح الأرض. شكل أرضي مرتفع ووعر."
+                },
+                "translation": {
+                    "vi": "núi",
+                    "th": "ภูเขา",
+                    "id": "Gunung",
+                    "ar": "جبل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmaʊntən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mountain-uk-1760856787817.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmaʊntn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mountain-us-1760856788154.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We plan to hike up the mountain next weekend.",
+                    "vi": "Chúng tôi dự định đi bộ đường dài lên núi vào cuối tuần tới.",
+                    "th": "เราวางแผนที่จะเดินป่าขึ้นภูเขาในสุดสัปดาห์หน้า.",
+                    "id": "Kami berencana untuk mendaki gunung akhir pekan depan.",
+                    "ar": "نخطط للتنزه في الجبل في نهاية الأسبوع المقبل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e209a4e8dd8355a1fe7_1760869674220.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e209a4e8dd8355a1fea",
+                "word": "island",
+                "explanation": {
+                    "en": "A piece of land surrounded by water. A popular remote vacation spot.",
+                    "vi": "Một mảnh đất được bao quanh bởi nước. Một địa điểm nghỉ dưỡng xa xôi phổ biến.",
+                    "th": "ผืนดินที่ล้อมรอบด้วยน้ำ สถานที่พักผ่อนยอดนิยมที่ห่างไกล.",
+                    "id": "Sepetak tanah yang dikelilingi air. Tempat liburan terpencil yang populer.",
+                    "ar": "قطعة أرض محاطة بالماء. بقعة عطلة نائية شعبية."
+                },
+                "translation": {
+                    "vi": "hòn đảo",
+                    "th": "เกาะ",
+                    "id": "Pulau",
+                    "ar": "جزيرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈaɪlənd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/island-uk-1760856789434.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈaɪlənd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/island-us-1760856789764.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "They took a boat trip to a small tropical island.",
+                    "vi": "Họ đã đi thuyền đến một hòn đảo nhiệt đới nhỏ.",
+                    "th": "พวกเขาเดินทางด้วยเรือไปยังเกาะเขตร้อนเล็กๆ.",
+                    "id": "Mereka melakukan perjalanan perahu ke pulau tropis kecil.",
+                    "ar": "قاموا برحلة بالقارب إلى جزيرة استوائية صغيرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e209a4e8dd8355a1fea_1760869680611.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e209a4e8dd8355a1fed",
+                "word": "sea",
+                "explanation": {
+                    "en": "The expanse of salt water that covers most of the world. A large body of salt water, typically smaller than an ocean.",
+                    "vi": "Vùng nước mặn rộng lớn bao phủ hầu hết thế giới. Một khối nước mặn lớn, thường nhỏ hơn đại dương.",
+                    "th": "ผืนน้ำเค็มที่ครอบคลุมส่วนใหญ่ของโลก แหล่งน้ำเค็มขนาดใหญ่ โดยทั่วไปมีขนาดเล็กกว่ามหาสมุทร.",
+                    "id": "Hamparan air asin yang menutupi sebagian besar dunia. Badan air asin yang besar, biasanya lebih kecil dari samudra.",
+                    "ar": "مساحة المياه المالحة التي تغطي معظم العالم. مسطح مائي كبير من المياه المالحة، وعادة ما يكون أصغر من المحيط."
+                },
+                "translation": {
+                    "vi": "biển",
+                    "th": "ทะเล",
+                    "id": "Laut",
+                    "ar": "بحر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/siː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sea-uk-1760856791005.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/siː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sea-us-1760856791340.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The sea was calm and blue this morning.",
+                    "vi": "Biển sáng nay lặng sóng và xanh biếc.",
+                    "th": "ทะเลสงบและเป็นสีฟ้าในเช้านี้.",
+                    "id": "Laut tenang dan biru pagi ini.",
+                    "ar": "كان البحر هادئًا وأزرق هذا الصباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e209a4e8dd8355a1fed_1760869688624.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e209a4e8dd8355a1ff0",
+                "word": "museum",
+                "explanation": {
+                    "en": "A building where objects of historical or cultural interest are stored. A place to view exhibits of art or science.",
+                    "vi": "Một tòa nhà nơi lưu giữ các hiện vật có giá trị lịch sử hoặc văn hóa. Một nơi để xem các cuộc triển lãm nghệ thuật hoặc khoa học.",
+                    "th": "อาคารที่เก็บวัตถุที่มีคุณค่าทางประวัติศาสตร์หรือวัฒนธรรม สถานที่สำหรับชมการจัดแสดงศิลปะหรือวิทยาศาสตร์",
+                    "id": "Sebuah bangunan tempat benda-benda bersejarah atau budaya disimpan. Tempat untuk melihat pameran seni atau sains.",
+                    "ar": "مبنى تُخزّن فيه الأشياء ذات الأهمية التاريخية أو الثقافية. مكان لمشاهدة معروضات الفن أو العلوم."
+                },
+                "translation": {
+                    "vi": "bảo tàng",
+                    "th": "พิพิธภัณฑ์",
+                    "id": "museum",
+                    "ar": "متحف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/mjuˈziːəm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/museum-uk-1760856792579.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/mjuˈziːəm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/museum-us-1760856792945.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We saw ancient artifacts at the history museum.",
+                    "vi": "Chúng tôi đã xem các hiện vật cổ tại bảo tàng lịch sử.",
+                    "th": "เราได้เห็นโบราณวัตถุที่พิพิธภัณฑ์ประวัติศาสตร์",
+                    "id": "Kami melihat artefak kuno di museum sejarah.",
+                    "ar": "رأينا تحفًا أثرية في متحف التاريخ."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e209a4e8dd8355a1ff0_1760869696974.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e209a4e8dd8355a1ff3",
+                "word": "temple",
+                "explanation": {
+                    "en": "A building devoted to the worship of a god or gods. A sacred structure for religious practices.",
+                    "vi": "Một tòa nhà dành riêng cho việc thờ cúng một vị thần hoặc các vị thần. Một công trình kiến trúc linh thiêng cho các nghi lễ tôn giáo.",
+                    "th": "อาคารที่อุทิศให้กับการบูชาเทพเจ้าหรือเทพเจ้าหลายองค์ โครงสร้างศักดิ์สิทธิ์สำหรับการปฏิบัติทางศาสนา",
+                    "id": "Sebuah bangunan yang didedikasikan untuk penyembahan dewa atau dewa-dewa. Struktur suci untuk praktik keagamaan.",
+                    "ar": "مبنى مخصص لعبادة إله أو آلهة. هيكل مقدس للممارسات الدينية."
+                },
+                "translation": {
+                    "vi": "đền, chùa",
+                    "th": "วัด",
+                    "id": "kuil",
+                    "ar": "معبد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtempl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/temple-uk-1760856794218.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtempl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/temple-us-1760856794533.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The old temple had beautiful carvings on its walls.",
+                    "vi": "Ngôi đền cổ có những chạm khắc tuyệt đẹp trên tường.",
+                    "th": "วัดเก่ามีลวดลายแกะสลักที่สวยงามบนผนัง",
+                    "id": "Kuil tua itu memiliki ukiran indah di dindingnya.",
+                    "ar": "كان المعبد القديم يحتوي على نقوش جميلة على جدرانه."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e209a4e8dd8355a1ff3_1760869703671.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e219a4e8dd8355a1ff6",
+                "word": "market",
+                "explanation": {
+                    "en": "A regular gathering for the purchase and sale of goods. A location for local commerce.",
+                    "vi": "Một nơi tụ họp thường xuyên để mua bán hàng hóa. Một địa điểm cho thương mại địa phương.",
+                    "th": "การรวมตัวกันเป็นประจำเพื่อซื้อและขายสินค้า สถานที่สำหรับการค้าขายในท้องถิ่น",
+                    "id": "Pertemuan rutin untuk pembelian dan penjualan barang. Lokasi untuk perdagangan lokal.",
+                    "ar": "تجمع منتظم لشراء وبيع السلع. موقع للتجارة المحلية."
+                },
+                "translation": {
+                    "vi": "chợ",
+                    "th": "ตลาด",
+                    "id": "pasar",
+                    "ar": "سوق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmɑːkɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/market-uk-1760856795796.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmɑːrkɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/market-us-1760856796146.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I bought fresh vegetables at the local market.",
+                    "vi": "Tôi đã mua rau tươi ở chợ địa phương.",
+                    "th": "ฉันซื้อผักสดที่ตลาดท้องถิ่น",
+                    "id": "Saya membeli sayuran segar di pasar lokal.",
+                    "ar": "اشتريت خضروات طازجة من السوق المحلي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e219a4e8dd8355a1ff6_1760869710563.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e219a4e8dd8355a1ff9",
+                "word": "souvenir",
+                "explanation": {
+                    "en": "A thing kept as a reminder of a place or event. A token purchased during a visit.",
+                    "vi": "Một vật được giữ lại để kỷ niệm một địa điểm hoặc sự kiện. Một món quà lưu niệm được mua trong chuyến thăm.",
+                    "th": "สิ่งของที่เก็บไว้เพื่อเป็นที่ระลึกถึงสถานที่หรือเหตุการณ์ ของที่ระลึกที่ซื้อระหว่างการเยี่ยมชม",
+                    "id": "Sesuatu yang disimpan sebagai pengingat akan suatu tempat atau peristiwa. Sebuah tanda mata yang dibeli selama kunjungan.",
+                    "ar": "شيء يُحتفظ به كتذكار لمكان أو حدث. هدية تذكارية تُشترى أثناء الزيارة."
+                },
+                "translation": {
+                    "vi": "quà lưu niệm",
+                    "th": "ของที่ระลึก",
+                    "id": "oleh-oleh",
+                    "ar": "هدية تذكارية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌsuːvəˈnɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/souvenir-uk-1760856797446.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌsuːvəˈnɪr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/souvenir-us-1760856797783.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I bought a small souvenir to remember my trip.",
+                    "vi": "Tôi đã mua một món quà lưu niệm nhỏ để nhớ chuyến đi của mình.",
+                    "th": "ฉันซื้อของที่ระลึกเล็กๆ น้อยๆ เพื่อจดจำการเดินทางของฉัน",
+                    "id": "Saya membeli suvenir kecil untuk mengingat perjalanan saya.",
+                    "ar": "اشتريت هدية تذكارية صغيرة لأتذكر رحلتي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e219a4e8dd8355a1ff9_1760869717211.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e219a4e8dd8355a1ffc",
+                "word": "currency",
+                "explanation": {
+                    "en": "A system of money in general use in a particular country. The type of banknotes and coins used locally.",
+                    "vi": "Một hệ thống tiền tệ được sử dụng rộng rãi ở một quốc gia cụ thể. Loại tiền giấy và tiền xu được sử dụng tại địa phương.",
+                    "th": "ระบบเงินตราที่ใช้กันทั่วไปในประเทศใดประเทศหนึ่ง ประเภทของธนบัตรและเหรียญที่ใช้ในท้องถิ่น",
+                    "id": "Sistem uang yang umum digunakan di negara tertentu. Jenis uang kertas dan koin yang digunakan secara lokal.",
+                    "ar": "نظام نقدي مستخدم بشكل عام في بلد معين. نوع الأوراق النقدية والعملات المعدنية المستخدمة محليًا."
+                },
+                "translation": {
+                    "vi": "tiền tệ",
+                    "th": "สกุลเงิน",
+                    "id": "mata uang",
+                    "ar": "عملة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkʌrənsi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/currency-uk-1760856799051.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkɜːrənsi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/currency-us-1760856799383.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "What is the local currency in Japan?",
+                    "vi": "Tiền tệ địa phương ở Nhật Bản là gì?",
+                    "th": "สกุลเงินท้องถิ่นในญี่ปุ่นคืออะไร?",
+                    "id": "Apa mata uang lokal di Jepang?",
+                    "ar": "ما هي العملة المحلية في اليابان؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e219a4e8dd8355a1ffc_1760869725377.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e219a4e8dd8355a1fff",
+                "word": "exchange",
+                "explanation": {
+                    "en": "The act of giving or receiving one thing in return for another. Converting one type of money for another.",
+                    "vi": "Hành động cho hoặc nhận một thứ để đổi lấy thứ khác. Chuyển đổi một loại tiền sang loại khác.",
+                    "th": "การกระทำของการให้หรือรับสิ่งหนึ่งเพื่อแลกกับอีกสิ่งหนึ่ง การแปลงเงินประเภทหนึ่งเป็นอีกประเภทหนึ่ง",
+                    "id": "Tindakan memberi atau menerima sesuatu sebagai imbalan atas yang lain. Mengkonversi satu jenis uang ke jenis lain.",
+                    "ar": "فعل إعطاء أو تلقي شيء مقابل شيء آخر. تحويل نوع واحد من المال إلى نوع آخر."
+                },
+                "translation": {
+                    "vi": "đổi tiền",
+                    "th": "แลกเงิน",
+                    "id": "menukar uang",
+                    "ar": "صرف العملات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪksˈtʃeɪndʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/exchange-uk-1760856800646.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪksˈtʃeɪndʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/exchange-us-1760856800975.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We need to exchange our money for euros.",
+                    "vi": "Chúng tôi cần đổi tiền của mình sang euro.",
+                    "th": "เราต้องแลกเงินของเราเป็นยูโร",
+                    "id": "Kita perlu menukar uang kita dengan euro.",
+                    "ar": "نحتاج إلى صرف أموالنا باليورو."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e219a4e8dd8355a1fff_1760869734510.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e219a4e8dd8355a2002",
+                "word": "transportation",
+                "explanation": {
+                    "en": "The movement of goods or people from one place to another. A system of vehicles for public travel.",
+                    "vi": "Sự di chuyển của hàng hóa hoặc con người từ nơi này đến nơi khác. Một hệ thống phương tiện giao thông công cộng.",
+                    "th": "การเคลื่อนย้ายสินค้าหรือผู้คนจากที่หนึ่งไปยังอีกที่หนึ่ง ระบบยานพาหนะสำหรับการเดินทางสาธารณะ",
+                    "id": "Pergerakan barang atau orang dari satu tempat ke tempat lain. Sistem kendaraan untuk perjalanan umum.",
+                    "ar": "حركة البضائع أو الأشخاص من مكان إلى آخر. نظام من المركبات للنقل العام."
+                },
+                "translation": {
+                    "vi": "phương tiện di chuyển",
+                    "th": "การขนส่ง",
+                    "id": "transportasi",
+                    "ar": "مواصلات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌtrænspɔːˈteɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/transportation-uk-1760856802243.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌtrænspərˈteɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/transportation-us-1760856802576.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Public transportation in the city is very efficient.",
+                    "vi": "Giao thông công cộng trong thành phố rất hiệu quả.",
+                    "th": "การขนส่งสาธารณะในเมืองมีประสิทธิภาพมาก",
+                    "id": "Transportasi umum di kota sangat efisien.",
+                    "ar": "النقل العام في المدينة فعال للغاية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e219a4e8dd8355a2002_1760869742409.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e229a4e8dd8355a2005",
+                "word": "taxi",
+                "explanation": {
+                    "en": "A vehicle hired to carry passengers to their destination. A car available for hire, driven by a professional.",
+                    "vi": "Một phương tiện được thuê để chở hành khách đến điểm đến của họ. Một chiếc xe có sẵn để thuê, được lái bởi một tài xế chuyên nghiệp.",
+                    "th": "ยานพาหนะที่จ้างเพื่อขนส่งผู้โดยสารไปยังจุดหมายปลายทาง รถยนต์ที่พร้อมให้เช่า ขับโดยมืออาชีพ",
+                    "id": "Kendaraan yang disewa untuk mengangkut penumpang ke tujuan mereka. Mobil yang tersedia untuk disewa, dikendarai oleh seorang profesional.",
+                    "ar": "مركبة تُستأجر لنقل الركاب إلى وجهتهم. سيارة متاحة للإيجار، يقودها سائق محترف."
+                },
+                "translation": {
+                    "vi": "xe taxi",
+                    "th": "รถแท็กซี่",
+                    "id": "taksi",
+                    "ar": "تاكسي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtæksi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/taxi-uk-1760856803852.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtæksi/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/taxi-us-1760856804192.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Let's take a taxi to the airport.",
+                    "vi": "Chúng ta hãy đi taxi đến sân bay.",
+                    "th": "ไปสนามบินด้วยแท็กซี่กันเถอะ",
+                    "id": "Mari kita naik taksi ke bandara.",
+                    "ar": "دعنا نأخذ سيارة أجرة إلى المطار."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e229a4e8dd8355a2005_1760869748635.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e229a4e8dd8355a2008",
+                "word": "bus",
+                "explanation": {
+                    "en": "A large motor vehicle carrying passengers by road. A form of public transit.",
+                    "vi": "Một phương tiện cơ giới lớn chở hành khách bằng đường bộ. Một hình thức vận tải công cộng.",
+                    "th": "ยานยนต์ขนาดใหญ่ที่บรรทุกผู้โดยสารทางถนน รูปแบบหนึ่งของการขนส่งสาธารณะ",
+                    "id": "Kendaraan bermotor besar yang mengangkut penumpang melalui jalan darat. Bentuk transportasi umum.",
+                    "ar": "مركبة آلية كبيرة تنقل الركاب عبر الطريق. شكل من أشكال النقل العام."
+                },
+                "translation": {
+                    "vi": "xe buýt",
+                    "th": "รถเมล์",
+                    "id": "bus",
+                    "ar": "حافلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/bʌs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bus-uk-1760856805474.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/bʌs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bus-us-1760856805799.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The bus stops right outside my house.",
+                    "vi": "Xe buýt dừng ngay trước nhà tôi.",
+                    "th": "รถบัสจอดอยู่หน้าบ้านฉันพอดี",
+                    "id": "Bus berhenti tepat di luar rumah saya.",
+                    "ar": "تتوقف الحافلة مباشرة خارج منزلي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e229a4e8dd8355a2008_1760869754807.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e229a4e8dd8355a200b",
+                "word": "train",
+                "explanation": {
+                    "en": "A series of connected vehicles running on rails. A mode of transport for long distances.",
+                    "vi": "Một loạt các phương tiện được nối với nhau chạy trên đường ray. Một phương thức vận tải cho những quãng đường dài.",
+                    "th": "ขบวนยานพาหนะที่เชื่อมต่อกันวิ่งบนราง รูปแบบการขนส่งสำหรับการเดินทางระยะไกล",
+                    "id": "Serangkaian kendaraan yang terhubung berjalan di atas rel. Moda transportasi untuk jarak jauh.",
+                    "ar": "سلسلة من المركبات المتصلة تسير على القضبان. وسيلة نقل للمسافات الطويلة."
+                },
+                "translation": {
+                    "vi": "tàu hỏa",
+                    "th": "รถไฟ",
+                    "id": "kereta api",
+                    "ar": "قطار"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/treɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/train-uk-1760856807076.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/treɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/train-us-1760856807415.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We decided to take the train for our long journey.",
+                    "vi": "Chúng tôi quyết định đi tàu cho chuyến hành trình dài của mình.",
+                    "th": "เราตัดสินใจนั่งรถไฟสำหรับการเดินทางไกลของเรา",
+                    "id": "Kami memutuskan untuk naik kereta api untuk perjalanan jauh kami.",
+                    "ar": "قررنا ركوب القطار لرحلتنا الطويلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e229a4e8dd8355a200b_1760869761297.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e229a4e8dd8355a200e",
+                "word": "subway",
+                "explanation": {
+                    "en": "An underground railway system in a city. A fast form of urban public transport.",
+                    "vi": "Một hệ thống đường sắt ngầm trong thành phố. Một hình thức vận tải công cộng đô thị nhanh chóng.",
+                    "th": "ระบบรถไฟใต้ดินในเมือง รูปแบบการขนส่งสาธารณะในเมืองที่รวดเร็ว",
+                    "id": "Sistem kereta api bawah tanah di kota. Bentuk transportasi umum perkotaan yang cepat.",
+                    "ar": "نظام سكك حديدية تحت الأرض في مدينة. شكل سريع من أشكال النقل العام الحضري."
+                },
+                "translation": {
+                    "vi": "tàu điện ngầm",
+                    "th": "รถไฟฟ้าใต้ดิน",
+                    "id": "kereta bawah tanah",
+                    "ar": "مترو الأنفاق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsʌbweɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/subway-uk-1760856808679.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsʌbweɪ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/subway-us-1760856809021.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The subway is the fastest way to travel downtown.",
+                    "vi": "Tàu điện ngầm là cách nhanh nhất để đi vào trung tâm thành phố.",
+                    "th": "รถไฟใต้ดินเป็นวิธีที่เร็วที่สุดในการเดินทางไปยังใจกลางเมือง",
+                    "id": "Kereta bawah tanah adalah cara tercepat untuk bepergian ke pusat kota.",
+                    "ar": "مترو الأنفاق هو أسرع وسيلة للسفر إلى وسط المدينة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e229a4e8dd8355a200e_1760869767196.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e229a4e8dd8355a2011",
+                "word": "rent",
+                "explanation": {
+                    "en": "To pay someone for the use of something. To hire a vehicle or lodging temporarily.",
+                    "vi": "Trả tiền cho ai đó để sử dụng một thứ gì đó. Thuê một phương tiện hoặc chỗ ở tạm thời.",
+                    "th": "การจ่ายเงินให้ใครบางคนเพื่อใช้สิ่งของ การเช่ายานพาหนะหรือที่พักชั่วคราว",
+                    "id": "Membayar seseorang untuk penggunaan sesuatu. Menyewa kendaraan atau penginapan sementara.",
+                    "ar": "دفع لشخص مقابل استخدام شيء ما. استئجار مركبة أو سكن مؤقتًا."
+                },
+                "translation": {
+                    "vi": "thuê",
+                    "th": "เช่า",
+                    "id": "menyewa",
+                    "ar": "يستأجر"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/rent/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rent-uk-1760856810295.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rent/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/rent-us-1760856810615.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We decided to rent a car for the weekend.",
+                    "vi": "Chúng tôi quyết định thuê một chiếc xe hơi cho cuối tuần.",
+                    "th": "เราตัดสินใจเช่ารถสำหรับวันหยุดสุดสัปดาห์",
+                    "id": "Kami memutuskan untuk menyewa mobil untuk akhir pekan.",
+                    "ar": "قررنا استئجار سيارة لقضاء عطلة نهاية الأسبوع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e229a4e8dd8355a2011_1760869775799.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e239a4e8dd8355a2014",
+                "word": "driver",
+                "explanation": {
+                    "en": "A person who drives a vehicle. Someone whose occupation is transporting people or goods.",
+                    "vi": "Một người lái xe. Người có nghề nghiệp là vận chuyển người hoặc hàng hóa.",
+                    "th": "บุคคลที่ขับยานพาหนะ ผู้ที่มีอาชีพขนส่งผู้คนหรือสินค้า",
+                    "id": "Seseorang yang mengendarai kendaraan. Seseorang yang pekerjaannya adalah mengangkut orang atau barang.",
+                    "ar": "شخص يقود مركبة. شخص مهنته نقل الأشخاص أو البضائع."
+                },
+                "translation": {
+                    "vi": "tài xế",
+                    "th": "คนขับรถ",
+                    "id": "sopir",
+                    "ar": "سائق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdraɪvə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/driver-uk-1760856811876.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdraɪvər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/driver-us-1760856812564.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The taxi driver knew the city streets very well.",
+                    "vi": "Người lái taxi biết rất rõ các con phố trong thành phố.",
+                    "th": "คนขับแท็กซี่รู้จักถนนในเมืองเป็นอย่างดี",
+                    "id": "Sopir taksi mengenal jalan-jalan kota dengan sangat baik.",
+                    "ar": "كان سائق التاكسي يعرف شوارع المدينة جيدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e239a4e8dd8355a2014_1760869782809.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e239a4e8dd8355a2017",
+                "word": "adventure",
+                "explanation": {
+                    "en": "An unusual and exciting or daring experience. An exciting and challenging activity.",
+                    "vi": "Một trải nghiệm khác thường và thú vị hoặc táo bạo. Một hoạt động thú vị và đầy thử thách.",
+                    "th": "ประสบการณ์ที่ไม่ธรรมดา น่าตื่นเต้น หรือกล้าหาญ กิจกรรมที่น่าตื่นเต้นและท้าทาย",
+                    "id": "Pengalaman yang tidak biasa dan menarik atau berani. Aktivitas yang menarik dan menantang.",
+                    "ar": "تجربة غير عادية ومثيرة أو جريئة. نشاط مثير ومليء بالتحديات."
+                },
+                "translation": {
+                    "vi": "cuộc phiêu lưu",
+                    "th": "การผจญภัย",
+                    "id": "petualangan",
+                    "ar": "مغامرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ədˈventʃə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/adventure-uk-1760856813875.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ədˈventʃər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/adventure-us-1760856814218.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Traveling to new places is always an adventure.",
+                    "vi": "Du lịch đến những nơi mới luôn là một cuộc phiêu lưu.",
+                    "th": "การเดินทางไปยังสถานที่ใหม่ๆ มักจะเป็นการผจญภัยเสมอ",
+                    "id": "Bepergian ke tempat-tempat baru selalu merupakan petualangan.",
+                    "ar": "السفر إلى أماكن جديدة هو دائمًا مغامرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e239a4e8dd8355a2017_1760869789823.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e239a4e8dd8355a201a",
+                "word": "explore",
+                "explanation": {
+                    "en": "To travel through a place to learn about it. To investigate or discover a location or concept.",
+                    "vi": "Du lịch qua một nơi để tìm hiểu về nó. Điều tra hoặc khám phá một địa điểm hoặc khái niệm.",
+                    "th": "การเดินทางผ่านสถานที่เพื่อเรียนรู้เกี่ยวกับมัน การสำรวจหรือค้นพบสถานที่หรือแนวคิด",
+                    "id": "Bepergian melalui suatu tempat untuk mempelajarinya. Untuk menyelidiki atau menemukan lokasi atau konsep.",
+                    "ar": "السفر عبر مكان للتعرف عليه. التحقيق أو اكتشاف موقع أو مفهوم."
+                },
+                "translation": {
+                    "vi": "khám phá",
+                    "th": "สำรวจ",
+                    "id": "menjelajahi",
+                    "ar": "يستكشف"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ɪkˈsplɔː(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/explore-uk-1760856815517.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪkˈsplɔːr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/explore-us-1760856815850.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We want to explore the ancient ruins tomorrow.",
+                    "vi": "Chúng tôi muốn khám phá những tàn tích cổ xưa vào ngày mai.",
+                    "th": "เราต้องการสำรวจซากปรักหักพังโบราณในวันพรุ่งนี้",
+                    "id": "Kami ingin menjelajahi reruntuhan kuno besok.",
+                    "ar": "نريد استكشاف الآثار القديمة غدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e239a4e8dd8355a201a_1760869796519.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297def2",
+                "group_name": "Travel",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 50
+    }
+}

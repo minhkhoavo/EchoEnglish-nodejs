@@ -34,9 +34,33 @@ const flashcardSchema = new Schema(
             type: String,
             trim: true,
         },
+        phonetic: {
+            type: String,
+            trim: true,
+        },
         isAIGenerated: {
             type: Boolean,
             default: false,
+        },
+        // Spaced Repetition fields
+        level_memory: {
+            type: Number,
+            min: 0,
+            max: 5,
+            default: 0,
+            required: false,
+        },
+        nextReviewDate: {
+            type: Date,
+            required: false,
+        },
+        lastReviewDate: {
+            type: Date,
+            required: false,
+        },
+        reviewCount: {
+            type: Number,
+            default: 0,
         },
         createBy: {
             type: Schema.Types.ObjectId,

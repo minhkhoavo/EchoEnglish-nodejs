@@ -1,6 +1,7 @@
 import userRouter from './users.js';
 import authRouter from './auth.js';
 import testRouter from './tests.js';
+import adminTestRouter from './adminTests.js';
 import flashcardRouter from './flashcard.js';
 import filesRouter from './files.js';
 import { Router } from 'express';
@@ -18,12 +19,17 @@ import notificationRouter from './notifications.js';
 import translateRouter from './translate.js';
 import writingAttemptsRouter from './writingAttempts.js';
 import writingResults from './writingResults.js';
+import learningPlanRouter from './learningPlan.js';
+import conversationPracticeRouter from './conversationPractice.js';
+import vocabularyRouter from './vocabulary.js';
+import reviewRouter from './review.js';
 
 const apiRouter = Router();
 
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/users', userRouter);
 apiRouter.use('/tests', testRouter);
+apiRouter.use('/admin/tests', adminTestRouter);
 apiRouter.use('/flashcards', flashcardRouter);
 apiRouter.use('/files', filesRouter);
 apiRouter.use('/speech', speechRouter);
@@ -41,5 +47,9 @@ apiRouter.use('/chat', chatbotRouter);
 apiRouter.use('/notifications', notificationRouter);
 apiRouter.use('/writing-attempts', writingAttemptsRouter);
 apiRouter.use('/writing-results', writingResults);
+apiRouter.use('/learning-plans', learningPlanRouter);
+apiRouter.use('/conversation-practice', conversationPracticeRouter);
+apiRouter.use('/vocabulary', vocabularyRouter);
+apiRouter.use('/reviews', reviewRouter);
 
 export default apiRouter;

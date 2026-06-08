@@ -1,7 +1,7 @@
 import mongoose, { Schema, model, Types, InferSchemaType } from 'mongoose';
 import { setBaseOptions } from './baseEntity.js';
 
-// Learning Resource Schema (embedded in study plan items)
+// Learning Activity Schema (for daily sessions)
 const learningResourceSchema = new Schema(
     {
         type: {
@@ -12,23 +12,35 @@ const learningResourceSchema = new Schema(
                 'vocabulary_set',
                 'personalized_guide',
                 'flashcard',
+                'practice_drill',
             ],
             required: true,
         },
         title: { type: String, required: true },
-        description: { type: String, required: true },
+        description: { type: String },
         estimatedTime: { type: Number, required: true }, // in minutes
 
-        // For DB resources (video, article)
         resourceId: {
             type: Schema.Types.ObjectId,
             ref: 'Resource',
         },
         url: { type: String },
 
-        // For AI-generated content (vocabulary_set, personalized_guide)
         generatedContent: {
-            type: Schema.Types.Mixed, // Flexible structure for AI-generated content
+            type: Schema.Types.Mixed,
+        },
+
+        practiceConfig: {
+            skillTags: {
+                skillCategory: String,
+                specificSkills: [String],
+            },
+            partNumbers: [Number],
+            difficulty: {
+                type: String,
+                enum: ['beginner', 'intermediate', 'advanced'],
+            },
+            totalQuestions: Number,
         },
 
         completed: { type: Boolean, default: false },
@@ -37,31 +49,29 @@ const learningResourceSchema = new Schema(
     { _id: true }
 );
 
-// Practice Drill Schema (for targeted practice with skill tags)
+// Practice Drill Schema
 const practiceDrillSchema = new Schema(
     {
         title: { type: String, required: true },
         description: { type: String, required: true },
         totalQuestions: { type: Number, required: true },
-        estimatedTime: { type: Number, required: true }, // in minutes
+        estimatedTime: { type: Number, required: true },
 
-        // Skill tags to query test questions
         skillTags: {
-            skillCategory: { type: String, required: true }, // e.g., INFERENCE, GRAMMAR
-            specificSkills: [{ type: String }], // e.g., ['infer_speaker_role', 'infer_implication']
+            skillCategory: { type: String, required: true },
+            specificSkills: [{ type: String }],
         },
 
-        // Content filters
-        partNumbers: [{ type: Number }], // e.g., [3, 4] for listening parts
+        partNumbers: [{ type: Number }],
         difficulty: {
             type: String,
             enum: ['beginner', 'intermediate', 'advanced'],
         },
-
-        // Progress tracking
+        practiceQuestionIds: { type: [String], required: false, default: [] },
+        minCorrectAnswers: { type: Number, required: false, default: 0 },
         completed: { type: Boolean, default: false },
         completedAt: { type: Date },
-        score: { type: Number }, // Score achieved if completed
+        score: { type: Number },
         attempts: { type: Number, default: 0 },
     },
     { _id: true }
@@ -70,11 +80,10 @@ const practiceDrillSchema = new Schema(
 // Study Plan Item Schema
 const studyPlanItemSchema = new Schema(
     {
-        priority: { type: Number, required: true }, // 1, 2, 3
+        priority: { type: Number, required: true },
         title: { type: String, required: true },
         description: { type: String, required: true },
 
-        // Target weakness information
         targetWeakness: {
             skillKey: { type: String, required: true },
             skillName: { type: String, required: true },
@@ -82,22 +91,33 @@ const studyPlanItemSchema = new Schema(
         },
         skillsToImprove: [{ type: String, required: true }],
 
-        // Learning resources (videos, articles, AI-generated content)
         resources: [learningResourceSchema],
 
-        // Targeted practice drills (queryable by skill tags)
         practiceDrills: [practiceDrillSchema],
 
-        progress: { type: Number, default: 0, min: 0, max: 100 }, // 0-100%
+        progress: { type: Number, default: 0, min: 0, max: 100 },
         estimatedWeeks: { type: Number, required: true },
 
         startedAt: { type: Date },
         completedAt: { type: Date },
+
+        // Minimal fields for daily activities
+        activityType: {
+            type: String,
+            enum: ['learn', 'practice', 'review', 'drill'],
+        },
+        resourceType: { type: String },
+        order: { type: Number },
+        status: {
+            type: String,
+            enum: ['pending', 'in-progress', 'completed', 'skipped'],
+            default: 'pending',
+        },
+        result: { type: Schema.Types.Mixed },
     },
     { _id: true }
 );
 
-// Main Study Plan Schema
 export const studyPlanSchema = new Schema(
     {
         userId: {
@@ -106,16 +126,44 @@ export const studyPlanSchema = new Schema(
             required: true,
             index: true,
         },
+
+        roadmapRef: {
+            type: Schema.Types.ObjectId,
+            ref: 'Roadmap',
+            required: false,
+            index: true,
+        },
+
         testResultId: {
             type: Schema.Types.ObjectId,
             ref: 'TestResult',
-            required: true,
+            required: false,
             index: true,
         },
 
         planItems: [studyPlanItemSchema],
 
-        overallProgress: {
+        dayNumber: { type: Number, min: 1 },
+        weekNumber: { type: Number, min: 1 },
+        scheduledDate: { type: Date, index: true },
+
+        title: { type: String },
+        description: { type: String },
+        targetSkills: [String],
+        targetDomains: [String],
+        targetWeaknesses: [
+            {
+                skillKey: String,
+                skillName: String,
+                severity: String,
+                category: String,
+                userAccuracy: Number,
+            },
+        ],
+
+        totalEstimatedTime: { type: Number },
+        totalTimeSpent: { type: Number, default: 0 },
+        progress: {
             type: Number,
             default: 0,
             min: 0,
@@ -124,19 +172,17 @@ export const studyPlanSchema = new Schema(
 
         status: {
             type: String,
-            enum: ['active', 'completed', 'abandoned'],
-            default: 'active',
+            enum: ['upcoming', 'in-progress', 'completed', 'skipped', 'active'],
+            default: 'upcoming',
         },
+        startedAt: Date,
+        completedAt: Date,
     },
     {
         collection: 'study_plans',
+        timestamps: true,
     }
 );
-
-// Indexes
-studyPlanSchema.index({ userId: 1, createdAt: -1 });
-studyPlanSchema.index({ analysisResultId: 1 });
-studyPlanSchema.index({ status: 1 });
 
 setBaseOptions(studyPlanSchema);
 

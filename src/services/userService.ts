@@ -3,6 +3,8 @@ import {
     UserProfileResponse,
     UserCreateRequest,
     UserUpdateRequest,
+    UserPreferences,
+    SetUserPreferencesRequest,
 } from '~/types/user.types.js';
 import omit from 'lodash/omit.js';
 import { User, UserType } from '../models/userModel.js';
@@ -10,8 +12,8 @@ import bcrypt from 'bcrypt';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { OtpEmailService } from './otpEmailService.js';
 import { OtpPurpose } from '~/enum/otpPurpose.js';
-import { Role } from '~/models/roleModel.js';
-import { RoleName } from '~/enum/role.js';
+import { Role } from '~/enum/role.js';
+import { DeletedReason } from '~/enum/deletedReason.js';
 import { ApiError } from '~/middleware/apiError.js';
 import CategoryFlashcardService from './categoryFlashcardService.js';
 import { PaginationHelper } from '~/utils/pagination.js';
@@ -30,7 +32,7 @@ class UserService {
 
     public getProfile = async (email: string): Promise<UserProfileResponse> => {
         const user = await User.findOne({ email }).select(
-            '-password -isDeleted -roles -__v'
+            '-password -isDeleted -__v'
         );
         if (!user) throw new ApiError(ErrorMessage.USER_NOT_FOUND);
 
@@ -40,31 +42,57 @@ class UserService {
     public registerUser = async (
         userDto: UserCreateRequest
     ): Promise<UserResponse> => {
+        if (
+            userDto.email == null ||
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userDto.email)
+        ) {
+            throw new ApiError(ErrorMessage.EMAIL_INVALID);
+        }
+        if (userDto.password == null || userDto.password.length < 8) {
+            throw new ApiError(ErrorMessage.PASSWORD_MUST_BE_8_CHARACTERS);
+        }
         const existUser = await User.findOne({ email: userDto.email });
         const hashPassword = await this.hashPassword(userDto.password);
 
         if (existUser) {
+            // User đã tồn tại và chưa bị xóa
             if (existUser.isDeleted === false) {
                 throw new ApiError(ErrorMessage.USER_EXISTED);
             }
-            await otpEmailService.sendOtp(existUser.email, OtpPurpose.REGISTER);
-            const populatedUser = await User.populate(existUser, {
-                path: 'roles',
-                populate: { path: 'permissions' },
-            });
-            const userResponse = populatedUser.toObject();
-            return omit(userResponse, [
-                'password',
-                'isDeleted',
-                '__v',
-            ]) as UserResponse;
-        }
 
-        const userRole = await Role.findOne({ name: RoleName.USER })
-            .populate('permissions')
-            .exec();
-        if (!userRole) {
-            throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
+            // Kiểm tra lý do xóa
+            if (
+                existUser.deletedReason === DeletedReason.ADMIN_DELETED ||
+                (existUser.isDeleted === true && !existUser.deletedReason)
+            ) {
+                throw new ApiError(ErrorMessage.USER_HAS_BEEN_DELETED);
+            }
+
+            // User đang pending verification - cho phép gửi lại OTP
+            if (
+                existUser.deletedReason === DeletedReason.PENDING_VERIFICATION
+            ) {
+                // Cập nhật thông tin user
+                existUser.password = hashPassword;
+                if (userDto.fullName) existUser.fullName = userDto.fullName;
+                if (userDto.gender) existUser.gender = userDto.gender;
+                if (userDto.dob) existUser.dob = userDto.dob;
+                if (userDto.phoneNumber)
+                    existUser.phoneNumber = userDto.phoneNumber;
+                if (userDto.address) existUser.address = userDto.address;
+                if (userDto.image) existUser.image = userDto.image;
+                await existUser.save();
+
+                await otpEmailService.sendOtp(
+                    existUser.email,
+                    OtpPurpose.REGISTER
+                );
+                return omit(existUser.toObject(), [
+                    'password',
+                    'isDeleted',
+                    '__v',
+                ]) as UserResponse;
+            }
         }
 
         const user = new User({
@@ -77,15 +105,23 @@ class UserService {
             address: userDto.address,
             image: userDto.image,
             isDeleted: true,
-            roles: [userRole._id],
+            deletedReason: DeletedReason.PENDING_VERIFICATION,
+            role: Role.USER,
+            credits: 100, // Add 100 credits for new user
         });
         const savedUser = await user.save();
         await otpEmailService.sendOtp(savedUser.email, OtpPurpose.REGISTER);
-        const populatedUser = await User.populate(savedUser, {
-            path: 'roles',
-            populate: { path: 'permissions' },
-        });
-        return omit(populatedUser.toObject(), [
+
+        await categoryService.createCategory(
+            {
+                name: 'Uncategorized',
+                description: 'Default category for uncategorized flashcards',
+                is_default: true,
+            },
+            savedUser._id.toString()
+        );
+
+        return omit(savedUser.toObject(), [
             'password',
             'isDeleted',
             '__v',
@@ -112,12 +148,6 @@ class UserService {
             ]) as UserResponse;
         }
 
-        const userRole = await Role.findOne({ name: RoleName.USER })
-            .populate('permissions')
-            .exec();
-        if (!userRole) {
-            throw new ApiError(ErrorMessage.ROLE_NOT_FOUND);
-        }
         const user = new User({
             fullName: userDto.fullName,
             email: userDto.email,
@@ -128,12 +158,11 @@ class UserService {
             address: userDto.address,
             image: userDto.image,
             isDeleted: false,
-            roles: [userRole._id],
+            role: Role.USER,
         });
         const savedUser = await user.save();
 
         // Tạo category mặc định cho user
-
         await categoryService.createCategory(
             {
                 name: 'Uncategorized',
@@ -206,13 +235,18 @@ class UserService {
             throw new ApiError(ErrorMessage.USER_NOT_FOUND);
         }
         user.isDeleted = true;
+        user.deletedReason = DeletedReason.ADMIN_DELETED;
         await user.save();
     };
 
     public getAllUsers = async (
         page: number,
         limit: number,
-        fields?: string
+        fields?: string,
+        search?: string,
+        gender?: string,
+        includeDeleted?: string,
+        sortBy?: string
     ) => {
         // Allowed fields for selection
         const allowedFields = [
@@ -227,12 +261,11 @@ class UserService {
             'credits',
             'createdAt',
             'updatedAt',
-            'roles',
+            'role',
+            'isDeleted',
         ];
 
         let selectFields: string;
-        let shouldPopulateRoles = true;
-        let populateOptions: { path: string; select: string }[] = [];
 
         if (fields) {
             const requestedFields = fields.split(',').map((f) => f.trim());
@@ -242,36 +275,141 @@ class UserService {
 
             if (validFields.length > 0) {
                 selectFields = validFields.join(' ');
-                shouldPopulateRoles = validFields.includes('roles');
             } else {
-                selectFields = '-password -isDeleted -__v';
+                selectFields = '-password -__v';
             }
         } else {
-            selectFields = '-password -isDeleted -__v';
+            selectFields = '-password -__v';
         }
 
-        if (shouldPopulateRoles) {
-            populateOptions = [
-                {
-                    path: 'roles',
-                    select: '_id name description',
-                },
+        // Build filter query
+        const filter: Record<string, unknown> = {};
+
+        // Handle deleted filter
+        if (includeDeleted === 'true') {
+            // Only show deleted users
+            filter.isDeleted = true;
+        } else {
+            // Default: only show active users (not deleted)
+            filter.isDeleted = false;
+        }
+
+        // Handle search
+        if (search && search.trim()) {
+            filter.$or = [
+                { fullName: { $regex: search.trim(), $options: 'i' } },
+                { email: { $regex: search.trim(), $options: 'i' } },
+                { phoneNumber: { $regex: search.trim(), $options: 'i' } },
             ];
+        }
+
+        // Handle gender filter
+        if (gender && gender !== 'all') {
+            filter.gender = gender;
+        }
+
+        // Handle sorting
+        let sortOptions: Record<string, 1 | -1> = { createdAt: -1 };
+        if (sortBy) {
+            switch (sortBy) {
+                case 'name_asc':
+                    sortOptions = { fullName: 1 };
+                    break;
+                case 'name_desc':
+                    sortOptions = { fullName: -1 };
+                    break;
+                case 'email_asc':
+                    sortOptions = { email: 1 };
+                    break;
+                case 'email_desc':
+                    sortOptions = { email: -1 };
+                    break;
+                case 'credits_asc':
+                    sortOptions = { credits: 1 };
+                    break;
+                case 'credits_desc':
+                    sortOptions = { credits: -1 };
+                    break;
+                case 'date_asc':
+                    sortOptions = { createdAt: 1 };
+                    break;
+                case 'date_desc':
+                default:
+                    sortOptions = { createdAt: -1 };
+                    break;
+            }
         }
 
         const result = await PaginationHelper.paginate(
             User,
-            { isDeleted: false },
+            filter,
             { page, limit },
-            populateOptions,
+            [],
             selectFields,
-            { createdAt: -1 }
+            sortOptions
         );
 
         return {
             users: result.data,
             pagination: result.pagination,
         };
+    };
+
+    public getUserPreference = async (
+        userId: string
+    ): Promise<UserPreferences> => {
+        const user = await User.findOne({
+            _id: userId,
+            isDeleted: false,
+        }).select('preferences');
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        if (!user.preferences) {
+            throw new ApiError(ErrorMessage.USER_PREFERENCE_NOT_FOUND);
+        }
+        return user.preferences;
+    };
+
+    public setUserPreferences = async (
+        userId: string,
+        preferencesData: SetUserPreferencesRequest
+    ): Promise<UserPreferences> => {
+        const user = await User.findOne({ _id: userId, isDeleted: false });
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        const updatedPreferences = {
+            ...user.preferences,
+            ...preferencesData,
+            lastUpdated: new Date(),
+        };
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { preferences: updatedPreferences },
+            { new: true, runValidators: true }
+        ).select('preferences');
+
+        if (!updatedUser || !updatedUser.preferences) {
+            throw new ApiError(ErrorMessage.UPDATE_USER_FAIL);
+        }
+
+        return updatedUser.preferences;
+    };
+
+    public restoreUser = async (id: string): Promise<UserResponse> => {
+        const user = await User.findById(id);
+        if (!user || !user.isDeleted) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        user.isDeleted = false;
+        await user.save();
+        return omit(user.toObject(), [
+            'password',
+            'isDeleted',
+            '__v',
+        ]) as UserResponse;
     };
 }
 

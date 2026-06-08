@@ -41,9 +41,9 @@ const analysisSchema = z.object({
     language: z.string().min(2).max(20),
     language_confidence: z.number().min(0).max(1).optional(),
     teaching_notes: z.string().optional(),
-    personalization_ideas: z.array(z.string()).min(1).max(5),
-    toeic_question_ideas: z.array(z.string()).min(1).max(5),
-    vocabulary_highlights: z.array(vocabularyHighlightSchema).max(10),
+    personalization_ideas: z.array(z.string()).min(1),
+    toeic_question_ideas: z.array(z.string()).min(1),
+    vocabulary_highlights: z.array(vocabularyHighlightSchema),
     additional_metadata: z.record(z.unknown()).optional().default({}),
 });
 

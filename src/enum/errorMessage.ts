@@ -7,6 +7,19 @@ export const ErrorMessage = {
     USER_EXISTED: { message: 'User already existed', status: 400 },
     USER_NOT_FOUND: { message: 'User not found', status: 404 },
     USER_HAS_BEEN_DELETED: { message: 'User has been deleted', status: 400 },
+    REGISTRATION_PENDING_VERIFICATION: {
+        message:
+            'Registration pending verification. Please check your email for OTP',
+        status: 400,
+    },
+    OTP_SEND_LIMIT_EXCEEDED: {
+        message: 'Too many OTP requests. Please try again after 15 minutes',
+        status: 429,
+    },
+    USER_PREFERENCE_NOT_FOUND: {
+        message: 'User preference not found',
+        status: 404,
+    },
     ROLE_NOT_FOUND: { message: 'Role not found', status: 404 },
     ONLY_UPDATE_YOUR_PROFILE: {
         message: 'You can only update your own profile',
@@ -17,6 +30,10 @@ export const ErrorMessage = {
     FULL_NAME_REQUIRED: { message: 'Full name is required', status: 400 },
     EMAIL_REQUIRED: { message: 'Email is required', status: 400 },
     EMAIL_INVALID: { message: 'Email is invalid', status: 400 },
+    EMAIL_NOT_FOUND_IN_TOKEN: {
+        message: 'Email not found in token',
+        status: 401,
+    },
     DOB_INVALID: { message: 'Date of birth is invalid', status: 400 },
     PASSWORD_REQUIRED: { message: 'Password is required', status: 400 },
     PASSWORD_INVALID: { message: 'Password is invalid', status: 400 },
@@ -79,6 +96,10 @@ export const ErrorMessage = {
         message: 'PROMO USAGE LIMIT REACHED',
         status: 400,
     },
+    MIN_ORDER_VALUE_NOT_MET: {
+        message: 'Order value does not meet minimum requirement for this promo',
+        status: 400,
+    },
     INVALID_DISCOUNT: { message: 'INVALID DISCOUNT', status: 400 },
     INVALID_USAGE_LIMIT: { message: 'INVALID USAGE LIMIT', status: 400 },
     INVALID_ACTIVE: { message: 'INVALID ACTIVE', status: 400 },
@@ -110,6 +131,15 @@ export const ErrorMessage = {
     /*youtube*/
     INVALID_URL_ID_YOUTUBE: { message: 'Invalid YouTube URL', status: 400 },
     YOUTUBE_URL_REQUIRE: { message: 'Youtube url is required', status: 400 },
+    TRANSCRIPT_NOT_AVAILABLE: {
+        message: 'Transcript is not available for this video',
+        status: 404,
+    },
+    TRANSCRIPT_RATE_LIMITED: {
+        message:
+            'YouTube is rate limiting transcript requests, please try again later',
+        status: 429,
+    },
 
     /*Resource*/
     RESOURCE_NOT_FOUND: { message: 'Resource not found', status: 404 },
@@ -158,6 +188,23 @@ export const ErrorMessage = {
         status: 400,
     },
     RESULT_ID_REQUIRED: { message: 'Result id is required', status: 400 },
+
+    /* Roadmap */
+    ROADMAP_NOT_FOUND: { message: 'Roadmap not found', status: 404 },
+
+    /* Learning Plan / Session */
+    SESSION_NOT_FOUND: { message: 'Session not found', status: 404 },
+    PLAN_ITEM_NOT_FOUND: { message: 'Plan item not found', status: 404 },
+    RESOURCE_IN_ITEM_NOT_FOUND: {
+        message: 'Resource not found in plan item',
+        status: 404,
+    },
+    DRILL_NOT_FOUND: { message: 'Practice drill not found', status: 404 },
+    INVALID_DRILL_RESULTS: {
+        message: 'Invalid drill results format',
+        status: 400,
+    },
+    TARGET_SCORE_REQUIRED: { message: 'Target score is required', status: 400 },
 } as const;
 
 export type ErrorMessageKey = keyof typeof ErrorMessage;

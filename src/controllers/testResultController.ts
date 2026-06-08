@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Types } from 'mongoose';
 import { testResultService } from '../services/testResultService.js';
 import { TestResult } from '../models/testResultModel.js';
 import { SubmitTestResultRequest } from '../dto/request/testResultRequest.js';
@@ -10,6 +11,10 @@ import { studyPlanGeneratorService } from '../services/recommendation/StudyPlanG
 import { StudyPlan, StudyPlanType } from '../models/studyPlanModel.js';
 import { ApiError } from '~/middleware/apiError.js';
 import ApiResponse from '../dto/response/apiResponse.js';
+import creditsService from '../services/payment/creditsService.js';
+import { competencyProfileService } from '../services/recommendation/CompetencyProfileService.js';
+import notificationService from '../services/notifications/notificationService.js';
+import { NotificationType } from '../enum/notificationType.js';
 
 export class TestResultController {
     async submitTestResult(req: Request, res: Response) {
@@ -94,6 +99,16 @@ export class TestResultController {
         return res
             .status(200)
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, results));
+    }
+
+    async getListeningReadingChartData(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const chartData =
+            await testResultService.getListeningReadingChartData(userId);
+
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, chartData));
     }
 
     async getTestResultMetrics(req: Request, res: Response) {
@@ -341,6 +356,11 @@ export class TestResultController {
         try {
             const userId = req.user?.id as string;
             const testResultId = req.params.id;
+            const creditResult = await creditsService.deductCreditsForFeature(
+                userId,
+                'test_analysis_lr'
+            );
+            let creditsDeducted = creditResult.creditsDeducted;
 
             // Run analysis pipeline
             // 1. Core analysis - now updates testResult directly
@@ -356,11 +376,17 @@ export class TestResultController {
 
             console.log('PASS1 >>>>>>> Analysis complete::::::::');
 
-            // 2. Weakness detection with AI - now uses testResultId
+            // 2. Update competency profile from test result
+            await competencyProfileService.updateFromTestResult(
+                userId,
+                testResultId
+            );
+
+            // 3. Weakness detection with AI - now uses testResultId
             await weaknessDetectorService.detectWeaknesses(testResultId);
             console.log('PASS 2 >>>>>>> weakness detection complete::::::::');
 
-            // // 3. Generate study plan - now uses testResultId
+            // // 4. Generate study plan - now uses testResultId
             const studyPlan = await studyPlanGeneratorService.generateStudyPlan(
                 testResultId,
                 userId
@@ -369,12 +395,21 @@ export class TestResultController {
                 'PASS 3 >>>>>>> study plan generation complete::::::::'
             );
 
+            // Send notification to user about analysis completion
+            await notificationService.pushNotification(userId, {
+                title: 'Test Analysis Complete',
+                body: `Your test analysis is complete! Your score: ${testResult.totalScore}/100. Check your detailed analysis and personalized study plan.`,
+                type: NotificationType.INFO,
+                userIds: [testResult.userId as unknown as Types.ObjectId],
+            });
+
             res.status(200).json({
                 success: true,
                 message: 'Analysis completed successfully',
                 data: {
                     testResultId: testResult._id,
                     studyPlanId: studyPlan._id,
+                    creditsDeducted,
                 },
             });
         } catch (error: unknown) {

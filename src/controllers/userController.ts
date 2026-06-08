@@ -5,6 +5,9 @@ import ApiResponse from '~/dto/response/apiResponse.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
+import { roadmapService } from '~/services/recommendation/RoadmapService.js';
+import { Types } from 'mongoose';
+import creditsService from '~/services/payment/creditsService.js';
 
 class UserController {
     public userService = new UserService();
@@ -58,6 +61,14 @@ class UserController {
             .json(new ApiResponse(SuccessMessage.DELETE_USER_SUCCESS));
     };
 
+    public restoreUser = async (req: Request, res: Response) => {
+        const userId = req.params.id;
+        const user = await this.userService.restoreUser(userId);
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, user));
+    };
+
     public getCredit = async (req: Request, res: Response) => {
         const userId = req.user?.id as string;
         const user = await this.userService.getUserById(userId);
@@ -74,7 +85,8 @@ class UserController {
     };
 
     public getAllUsers = async (req: Request, res: Response) => {
-        const { page, limit, fields } = req.query;
+        const { page, limit, fields, search, gender, includeDeleted, sortBy } =
+            req.query;
 
         const pageNum = parseInt(page as string) || 1;
         const limitNum = parseInt(limit as string) || 10;
@@ -86,11 +98,73 @@ class UserController {
         const result = await this.userService.getAllUsers(
             pageNum,
             limitNum,
-            fields as string
+            fields as string,
+            search as string,
+            gender as string,
+            includeDeleted as string,
+            sortBy as string
         );
         return res
             .status(200)
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
+    };
+
+    public getUserPreference = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const preferences = await this.userService.getUserPreference(userId);
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, preferences));
+    };
+
+    public setUserPreferences = async (req: Request, res: Response) => {
+        if (!req.user || !req.user.id) {
+            return res
+                .status(401)
+                .json(new ApiError(ErrorMessage.UNAUTHORIZED));
+        }
+        const userId = req.user.id;
+        const preferencesData = req.body;
+
+        const preferences = await this.userService.setUserPreferences(
+            userId,
+            preferencesData
+        );
+        await roadmapService.updateRoadmapScheduleFromUserPreferences(
+            new Types.ObjectId(userId)
+        );
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(SuccessMessage.UPDATE_USER_SUCCESS, preferences)
+            );
+    };
+
+    public checkCanAffordFeature = async (req: Request, res: Response) => {
+        if (!req.user || !req.user.id) {
+            throw new ApiError(ErrorMessage.UNAUTHORIZED);
+        }
+
+        const userId = req.user.id;
+        const { featureType } = req.query;
+
+        if (!featureType || typeof featureType !== 'string') {
+            throw new ApiError(ErrorMessage.CATEGORY_REQUIRED);
+        }
+
+        const result = await creditsService.checkCanAffordFeature(
+            userId,
+            featureType
+        );
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    'Feature affordability check successful',
+                    result
+                )
+            );
     };
 }
 

@@ -1,0 +1,74 @@
+name: CI/CD Pipeline for NodeJS
+
+on:
+  push:
+    branches:
+      - feature/integrate-cicd
+      - feat/integrate-cicd
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2) Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3) Login Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      # 4) Build & Push image với cache
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/echo-english:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/echo-english:cache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/echo-english:cache,mode=max
+
+      # 5) Deploy on VPS via SSH Action
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          port: 22
+          envs: DOCKER_USERNAME,DOCKER_TOKEN
+          script_stop: true
+          command_timeout: 15m
+          script: |
+            set -e
+            echo "Login Docker registry..."
+            echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            
+            IMAGE_NAME=${DOCKER_USERNAME}/echo-english:latest
+            echo "Pulling $IMAGE_NAME..."
+            docker pull "$IMAGE_NAME"
+
+            echo "Restarting container..."
+            docker stop echo-english || true
+            docker rm echo-english || true
+            
+            docker run -d --name echo-english \
+              --restart unless-stopped \
+              --env-file /home/apps/EchoEnglish/.env \
+              -p 4000:4000 \
+              "$IMAGE_NAME"
+
+            docker image prune -f

@@ -1,0 +1,2209 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47d899a4e8dd8355a1d98",
+                "word": "job",
+                "explanation": {
+                    "en": "A paid position of regular employment. A person's specific role or task within an organization.",
+                    "vi": "Một vị trí được trả lương trong công việc thường xuyên. Vai trò hoặc nhiệm vụ cụ thể của một người trong một tổ chức.",
+                    "th": "ตำแหน่งที่มีค่าจ้างในการจ้างงานปกติ บทบาทหรือหน้าที่เฉพาะของบุคคลภายในองค์กร",
+                    "id": "Posisi berbayar dari pekerjaan reguler. Peran atau tugas spesifik seseorang dalam suatu organisasi.",
+                    "ar": "منصب مدفوع الأجر للتوظيف المنتظم. دور أو مهمة محددة لشخص داخل منظمة."
+                },
+                "translation": {
+                    "vi": "công việc",
+                    "th": "งาน",
+                    "id": "pekerjaan",
+                    "ar": "وظيفة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dʒɒb/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/job-uk-1760856507560.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dʒɑːb/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/job-us-1760856507914.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She got a new job as a teacher.",
+                    "vi": "Cô ấy có một công việc mới là giáo viên.",
+                    "th": "เธอได้งานใหม่เป็นครู",
+                    "id": "Dia mendapatkan pekerjaan baru sebagai guru.",
+                    "ar": "حصلت على وظيفة جديدة كمعلمة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d899a4e8dd8355a1d98_1760868327020.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d899a4e8dd8355a1d9b",
+                "word": "work",
+                "explanation": {
+                    "en": "To be engaged in physical or mental activity to achieve a purpose. To carry out tasks, especially for payment.",
+                    "vi": "Tham gia vào hoạt động thể chất hoặc tinh thần để đạt được mục đích. Thực hiện các nhiệm vụ, đặc biệt là để được trả lương.",
+                    "th": "การมีส่วนร่วมในกิจกรรมทางกายภาพหรือจิตใจเพื่อให้บรรลุวัตถุประสงค์ การปฏิบัติงาน โดยเฉพาะอย่างยิ่งเพื่อรับค่าจ้าง",
+                    "id": "Terlibat dalam aktivitas fisik atau mental untuk mencapai suatu tujuan. Melakukan tugas, terutama untuk pembayaran.",
+                    "ar": "الانخراط في نشاط بدني أو عقلي لتحقيق غرض. تنفيذ المهام، خاصة مقابل أجر."
+                },
+                "translation": {
+                    "vi": "làm việc",
+                    "th": "ทำงาน",
+                    "id": "bekerja",
+                    "ar": "يعمل"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/wɜːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/work-uk-1760856509368.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/wɜːrk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/work-us-1760856509706.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I go to work early every morning.",
+                    "vi": "Tôi đi làm sớm mỗi sáng.",
+                    "th": "ฉันไปทำงานแต่เช้าทุกวัน",
+                    "id": "Saya pergi bekerja pagi-pagi setiap hari.",
+                    "ar": "أذهب إلى العمل مبكرًا كل صباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d899a4e8dd8355a1d9b_1760868336494.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d899a4e8dd8355a1d9e",
+                "word": "office",
+                "explanation": {
+                    "en": "A room, set of rooms, or building used for commercial business. A place where administrative tasks are done.",
+                    "vi": "Một căn phòng, một tập hợp các phòng, hoặc một tòa nhà được sử dụng cho mục đích kinh doanh. Một nơi thực hiện các nhiệm vụ hành chính.",
+                    "th": "ห้องชุดของห้อง หรืออาคารที่ใช้สำหรับธุรกิจเชิงพาณิชย์ สถานที่ที่ทำงานธุรการ",
+                    "id": "Sebuah ruangan, serangkaian ruangan, atau bangunan yang digunakan untuk bisnis komersial. Tempat di mana tugas-tugas administratif dilakukan.",
+                    "ar": "غرفة، مجموعة غرف، أو مبنى يستخدم للأعمال التجارية. مكان يتم فيه إنجاز المهام الإدارية."
+                },
+                "translation": {
+                    "vi": "văn phòng",
+                    "th": "สำนักงาน",
+                    "id": "kantor",
+                    "ar": "مكتب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɒfɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/office-uk-1760856510961.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɑːfɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/office-us-1760856511279.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My office is on the third floor.",
+                    "vi": "Văn phòng của tôi ở tầng ba.",
+                    "th": "สำนักงานของฉันอยู่บนชั้นสาม",
+                    "id": "Kantor saya ada di lantai tiga.",
+                    "ar": "مكتبي في الطابق الثالث."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d899a4e8dd8355a1d9e_1760868343196.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d899a4e8dd8355a1da1",
+                "word": "boss",
+                "explanation": {
+                    "en": "A person in charge of an employee or organization. The individual who gives directions and oversees staff.",
+                    "vi": "Người phụ trách một nhân viên hoặc tổ chức. Cá nhân đưa ra chỉ đạo và giám sát nhân viên.",
+                    "th": "บุคคลที่รับผิดชอบพนักงานหรือองค์กร บุคคลที่ให้คำแนะนำและดูแลพนักงาน",
+                    "id": "Seseorang yang bertanggung jawab atas seorang karyawan atau organisasi. Individu yang memberikan arahan dan mengawasi staf.",
+                    "ar": "شخص مسؤول عن موظف أو منظمة. الفرد الذي يعطي التوجيهات ويشرف على الموظفين."
+                },
+                "translation": {
+                    "vi": "sếp",
+                    "th": "เจ้านาย",
+                    "id": "atasan",
+                    "ar": "مدير"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/bɒs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/boss-uk-1760856512544.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/bɔːs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/boss-us-1760856512874.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My boss approved my vacation request.",
+                    "vi": "Sếp của tôi đã duyệt đơn xin nghỉ phép của tôi.",
+                    "th": "เจ้านายของฉันอนุมัติคำขอลาพักร้อนของฉัน",
+                    "id": "Bos saya menyetujui permintaan cuti saya.",
+                    "ar": "وافق رئيسي على طلب إجازتي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d899a4e8dd8355a1da1_1760868351030.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8a9a4e8dd8355a1da4",
+                "word": "employee",
+                "explanation": {
+                    "en": "A person employed for wages or salary. Someone hired to serve a company.",
+                    "vi": "Một người được thuê làm việc để nhận tiền lương hoặc tiền công. Người được thuê để phục vụ một công ty.",
+                    "th": "บุคคลที่ได้รับการว่าจ้างเพื่อรับค่าจ้างหรือเงินเดือน ผู้ที่ถูกจ้างให้ทำงานให้กับบริษัท",
+                    "id": "Seseorang yang dipekerjakan dengan upah atau gaji. Seseorang yang dipekerjakan untuk melayani perusahaan.",
+                    "ar": "شخص يعمل بأجر أو راتب. شخص تم توظيفه لخدمة شركة."
+                },
+                "translation": {
+                    "vi": "nhân viên",
+                    "th": "พนักงาน",
+                    "id": "karyawan",
+                    "ar": "موظف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪmˈplɔɪiː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/employee-uk-1760856514274.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪmˈplɔɪiː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/employee-us-1760856514614.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Every employee gets two weeks of paid vacation.",
+                    "vi": "Mỗi nhân viên được nghỉ phép có lương hai tuần.",
+                    "th": "พนักงานทุกคนได้รับวันหยุดพักผ่อนแบบมีค่าจ้างสองสัปดาห์",
+                    "id": "Setiap karyawan mendapatkan dua minggu libur berbayar.",
+                    "ar": "يحصل كل موظف على أسبوعين إجازة مدفوعة الأجر."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8a9a4e8dd8355a1da4_1760868358006.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8a9a4e8dd8355a1da7",
+                "word": "employer",
+                "explanation": {
+                    "en": "A person or company that hires and pays people for service. The organization that provides positions.",
+                    "vi": "Một người hoặc công ty thuê và trả tiền cho người khác để làm việc. Tổ chức cung cấp các vị trí.",
+                    "th": "บุคคลหรือบริษัทที่จ้างและจ่ายเงินให้คนทำงาน องค์กรที่จัดหาตำแหน่งงาน",
+                    "id": "Seseorang atau perusahaan yang mempekerjakan dan membayar orang untuk layanan. Organisasi yang menyediakan posisi.",
+                    "ar": "شخص أو شركة توظف وتدفع للناس مقابل الخدمة. المنظمة التي توفر الوظائف."
+                },
+                "translation": {
+                    "vi": "nhà tuyển dụng",
+                    "th": "นายจ้าง",
+                    "id": "pemberi kerja",
+                    "ar": "صاحب العمل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪmˈplɔɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/employer-uk-1760856515883.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪmˈplɔɪər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/employer-us-1760856516216.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My employer offers great health benefits.",
+                    "vi": "Nhà tuyển dụng của tôi cung cấp các phúc lợi y tế tuyệt vời.",
+                    "th": "นายจ้างของฉันเสนอสวัสดิการด้านสุขภาพที่ดีเยี่ยม",
+                    "id": "Pemberi kerja saya menawarkan tunjangan kesehatan yang luar biasa.",
+                    "ar": "يقدم صاحب عملي مزايا صحية رائعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8a9a4e8dd8355a1da7_1760868365053.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8a9a4e8dd8355a1daa",
+                "word": "colleague",
+                "explanation": {
+                    "en": "A person with whom one works. A co-worker or fellow staff member.",
+                    "vi": "Người làm việc cùng. Đồng nghiệp hoặc thành viên cùng đội ngũ.",
+                    "th": "บุคคลที่ทำงานร่วมกัน เพื่อนร่วมงาน หรือสมาชิกในทีมเดียวกัน",
+                    "id": "Seseorang yang bekerja bersama. Rekan kerja atau anggota staf sesama.",
+                    "ar": "شخص يعمل معه المرء. زميل عمل أو عضو فريق."
+                },
+                "translation": {
+                    "vi": "đồng nghiệp",
+                    "th": "เพื่อนร่วมงาน",
+                    "id": "rekan kerja",
+                    "ar": "زميل عمل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkɒliːɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/colleague-uk-1760856517472.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkɑːliːɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/colleague-us-1760856517811.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I often have lunch with my colleagues.",
+                    "vi": "Tôi thường ăn trưa với các đồng nghiệp của mình.",
+                    "th": "ฉันมักจะทานอาหารกลางวันกับเพื่อนร่วมงาน",
+                    "id": "Saya sering makan siang dengan rekan-rekan saya.",
+                    "ar": "غالبًا ما أتناول الغداء مع زملائي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8a9a4e8dd8355a1daa_1760868371812.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8a9a4e8dd8355a1dad",
+                "word": "meeting",
+                "explanation": {
+                    "en": "A formal planned gathering of people for discussion. A scheduled session for staff to share information.",
+                    "vi": "Một cuộc tụ họp chính thức đã được lên kế hoạch của nhiều người để thảo luận. Một buổi họp đã được sắp xếp để nhân viên chia sẻ thông tin.",
+                    "th": "การรวมตัวอย่างเป็นทางการที่วางแผนไว้ของผู้คนเพื่อการอภิปราย การประชุมที่กำหนดไว้สำหรับพนักงานเพื่อแบ่งปันข้อมูล",
+                    "id": "Pertemuan formal yang direncanakan dari orang-orang untuk diskusi. Sesi terjadwal bagi staf untuk berbagi informasi.",
+                    "ar": "تجمع رسمي مخطط له للأشخاص للمناقشة. جلسة مجدولة للموظفين لتبادل المعلومات."
+                },
+                "translation": {
+                    "vi": "cuộc họp",
+                    "th": "การประชุม",
+                    "id": "rapat",
+                    "ar": "اجتماع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmiːtɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/meeting-uk-1760856519072.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmiːtɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/meeting-us-1760856519398.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We have an important meeting at 10 AM.",
+                    "vi": "Chúng tôi có một cuộc họp quan trọng vào lúc 10 giờ sáng.",
+                    "th": "เรามีการประชุมสำคัญตอน 10 โมงเช้า",
+                    "id": "Kami ada rapat penting jam 10 pagi.",
+                    "ar": "لدينا اجتماع مهم في الساعة 10 صباحًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8a9a4e8dd8355a1dad_1760868379902.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8a9a4e8dd8355a1db0",
+                "word": "manager",
+                "explanation": {
+                    "en": "A person responsible for controlling or administering a group or organization. An individual who directs staff and resources.",
+                    "vi": "Người chịu trách nhiệm kiểm soát hoặc quản lý một nhóm hoặc tổ chức. Một cá nhân điều hành nhân viên và tài nguyên.",
+                    "th": "บุคคลที่รับผิดชอบในการควบคุมหรือบริหารกลุ่มหรือองค์กร บุคคลที่กำกับดูแลพนักงานและทรัพยากร",
+                    "id": "Seseorang yang bertanggung jawab untuk mengendalikan atau mengelola kelompok atau organisasi. Individu yang mengarahkan staf dan sumber daya.",
+                    "ar": "شخص مسؤول عن التحكم أو إدارة مجموعة أو منظمة. فرد يدير الموظفين والموارد."
+                },
+                "translation": {
+                    "vi": "quản lý",
+                    "th": "ผู้จัดการ",
+                    "id": "manajer",
+                    "ar": "مدير"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmænɪdʒə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/manager-uk-1760856520679.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmænɪdʒər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/manager-us-1760856521009.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The project manager oversees the team's progress.",
+                    "vi": "Quản lý dự án giám sát tiến độ của nhóm.",
+                    "th": "ผู้จัดการโครงการดูแลความคืบหน้าของทีม",
+                    "id": "Manajer proyek mengawasi kemajuan tim.",
+                    "ar": "يشرف مدير المشروع على تقدم الفريق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8a9a4e8dd8355a1db0_1760868386776.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8b9a4e8dd8355a1db3",
+                "word": "report",
+                "explanation": {
+                    "en": "A detailed account of an event or situation. A formal document summarizing data or progress.",
+                    "vi": "Một bản tường thuật chi tiết về một sự kiện hoặc tình huống. Một tài liệu chính thức tóm tắt dữ liệu hoặc tiến độ.",
+                    "th": "รายละเอียดเหตุการณ์หรือสถานการณ์ เอกสารทางการที่สรุปข้อมูลหรือความคืบหน้า",
+                    "id": "Laporan rinci tentang suatu peristiwa atau situasi. Dokumen formal yang merangkum data atau kemajuan.",
+                    "ar": "سرد مفصل لحدث أو موقف. وثيقة رسمية تلخص البيانات أو التقدم."
+                },
+                "translation": {
+                    "vi": "báo cáo",
+                    "th": "รายงาน",
+                    "id": "laporan",
+                    "ar": "تقرير"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈpɔːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/report-uk-1760856522256.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈpɔːrt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/report-us-1760856522588.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please finish writing the sales report by Friday.",
+                    "vi": "Vui lòng hoàn thành báo cáo bán hàng trước thứ Sáu.",
+                    "th": "กรุณาเขียนรายงานการขายให้เสร็จภายในวันศุกร์",
+                    "id": "Tolong selesaikan penulisan laporan penjualan paling lambat hari Jumat.",
+                    "ar": "يرجى الانتهاء من كتابة تقرير المبيعات بحلول يوم الجمعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8b9a4e8dd8355a1db3_1760868392963.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8b9a4e8dd8355a1db6",
+                "word": "task",
+                "explanation": {
+                    "en": "A piece of work to be done or undertaken. A specific duty assigned to a person.",
+                    "vi": "Một phần công việc cần được thực hiện hoặc đảm nhận. Một nhiệm vụ cụ thể được giao cho một người.",
+                    "th": "ชิ้นงานที่ต้องทำหรือดำเนินการ หน้าที่เฉพาะที่มอบหมายให้บุคคล",
+                    "id": "Sepotong pekerjaan yang harus dilakukan atau diemban. Tugas spesifik yang diberikan kepada seseorang.",
+                    "ar": "قطعة عمل يجب القيام بها أو الاضطلاع بها. واجب محدد يتم تعيينه لشخص."
+                },
+                "translation": {
+                    "vi": "nhiệm vụ",
+                    "th": "งาน",
+                    "id": "tugas",
+                    "ar": "مهمة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tɑːsk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/task-uk-1760856523851.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tæsk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/task-us-1760856524179.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Completing this task will take about an hour.",
+                    "vi": "Hoàn thành nhiệm vụ này sẽ mất khoảng một giờ.",
+                    "th": "การทำงานนี้จะใช้เวลาประมาณหนึ่งชั่วโมง",
+                    "id": "Menyelesaikan tugas ini akan memakan waktu sekitar satu jam.",
+                    "ar": "إكمال هذه المهمة سيستغرق حوالي ساعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8b9a4e8dd8355a1db6_1760868400271.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8b9a4e8dd8355a1db9",
+                "word": "deadline",
+                "explanation": {
+                    "en": "A time limit for completing a task or project. The final point when something must be finished.",
+                    "vi": "Thời hạn để hoàn thành một nhiệm vụ hoặc dự án. Điểm cuối cùng khi một việc gì đó phải được hoàn thành.",
+                    "th": "กำหนดเวลาสำหรับการทำงานหรือโครงการให้เสร็จสิ้น จุดสุดท้ายที่บางสิ่งต้องเสร็จสิ้น",
+                    "id": "Batas waktu untuk menyelesaikan tugas atau proyek. Titik akhir ketika sesuatu harus diselesaikan.",
+                    "ar": "حد زمني لإكمال مهمة أو مشروع. النقطة النهائية التي يجب أن ينتهي فيها شيء ما."
+                },
+                "translation": {
+                    "vi": "hạn chót",
+                    "th": "เส้นตาย",
+                    "id": "tenggat waktu",
+                    "ar": "موعد نهائي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdedlaɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/deadline-uk-1760856525452.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdedlaɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/deadline-us-1760856525783.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We must meet the project deadline.",
+                    "vi": "Chúng ta phải hoàn thành đúng thời hạn của dự án.",
+                    "th": "เราต้องทำตามกำหนดเวลาของโครงการ",
+                    "id": "Kita harus memenuhi tenggat waktu proyek.",
+                    "ar": "يجب علينا الالتزام بالموعد النهائي للمشروع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8b9a4e8dd8355a1db9_1760868409117.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8b9a4e8dd8355a1dbc",
+                "word": "project",
+                "explanation": {
+                    "en": "An individual or collaborative enterprise that is planned. A set of specific tasks to achieve a goal.",
+                    "vi": "Một công việc cá nhân hoặc hợp tác đã được lên kế hoạch. Một tập hợp các nhiệm vụ cụ thể để đạt được một mục tiêu.",
+                    "th": "กิจการส่วนบุคคลหรือความร่วมมือที่วางแผนไว้ ชุดของงานเฉพาะเพื่อบรรลุเป้าหมาย",
+                    "id": "Usaha individu atau kolaboratif yang direncanakan. Serangkaian tugas spesifik untuk mencapai tujuan.",
+                    "ar": "مشروع فردي أو تعاوني مخطط له. مجموعة من المهام المحددة لتحقيق هدف."
+                },
+                "translation": {
+                    "vi": "dự án",
+                    "th": "โครงการ",
+                    "id": "proyek",
+                    "ar": "مشروع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈprɒdʒekt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/project-uk-1760856527052.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈprɑːdʒekt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/project-us-1760856527386.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our team is working on a new software project.",
+                    "vi": "Nhóm của chúng tôi đang làm việc trên một dự án phần mềm mới.",
+                    "th": "ทีมของเรากำลังทำงานในโครงการซอฟต์แวร์ใหม่",
+                    "id": "Tim kami sedang mengerjakan proyek perangkat lunak baru.",
+                    "ar": "يعمل فريقنا على مشروع برنامج جديد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8b9a4e8dd8355a1dbc_1760868416258.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8b9a4e8dd8355a1dbf",
+                "word": "salary",
+                "explanation": {
+                    "en": "A fixed regular payment, typically paid monthly. The annual compensation for a professional employee.",
+                    "vi": "Một khoản thanh toán cố định, thường được trả hàng tháng. Khoản bồi thường hàng năm cho một nhân viên chuyên nghiệp.",
+                    "th": "การจ่ายเงินประจำที่กำหนดไว้ โดยปกติจะจ่ายเป็นรายเดือน ค่าตอบแทนประจำปีสำหรับพนักงานมืออาชีพ",
+                    "id": "Pembayaran tetap reguler, biasanya dibayarkan bulanan. Kompensasi tahunan untuk karyawan profesional.",
+                    "ar": "دفعة منتظمة ثابتة، تُدفع عادةً شهريًا. التعويض السنوي لموظف محترف."
+                },
+                "translation": {
+                    "vi": "lương",
+                    "th": "เงินเดือน",
+                    "id": "gaji",
+                    "ar": "راتب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈsæləri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/salary-uk-1760856528655.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈsæləri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/salary-us-1760856528987.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Her new job comes with a higher salary.",
+                    "vi": "Công việc mới của cô ấy đi kèm với mức lương cao hơn.",
+                    "th": "งานใหม่ของเธอมาพร้อมกับเงินเดือนที่สูงขึ้น",
+                    "id": "Pekerjaan barunya datang dengan gaji yang lebih tinggi.",
+                    "ar": "وظيفتها الجديدة تأتي براتب أعلى."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8b9a4e8dd8355a1dbf_1760868424134.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8b9a4e8dd8355a1dc2",
+                "word": "wage",
+                "explanation": {
+                    "en": "A fixed regular payment, typically paid daily or weekly. An hourly or piece-rate payment for services.",
+                    "vi": "Một khoản thanh toán cố định, thường được trả hàng ngày hoặc hàng tuần. Khoản thanh toán theo giờ hoặc theo sản phẩm cho các dịch vụ.",
+                    "th": "การจ่ายเงินประจำที่กำหนดไว้ โดยปกติจะจ่ายเป็นรายวันหรือรายสัปดาห์ การจ่ายเงินตามชั่วโมงหรือตามชิ้นงานสำหรับบริการ",
+                    "id": "Pembayaran tetap reguler, biasanya dibayarkan harian atau mingguan. Pembayaran per jam atau per unit untuk layanan.",
+                    "ar": "دفعة منتظمة ثابتة، تُدفع عادةً يوميًا أو أسبوعيًا. دفعة بالساعة أو بالقطعة مقابل الخدمات."
+                },
+                "translation": {
+                    "vi": "tiền công",
+                    "th": "ค่าจ้าง",
+                    "id": "upah",
+                    "ar": "أجر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/weɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wage-uk-1760856530285.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/weɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wage-us-1760856530612.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Workers demanded a higher minimum wage.",
+                    "vi": "Công nhân yêu cầu mức lương tối thiểu cao hơn.",
+                    "th": "คนงานเรียกร้องค่าแรงขั้นต่ำที่สูงขึ้น",
+                    "id": "Para pekerja menuntut upah minimum yang lebih tinggi.",
+                    "ar": "طالب العمال بحد أدنى للأجور أعلى."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8b9a4e8dd8355a1dc2_1760868431311.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8b9a4e8dd8355a1dc5",
+                "word": "promotion",
+                "explanation": {
+                    "en": "The action of raising someone to a higher position. An advancement in rank or salary.",
+                    "vi": "Hành động nâng ai đó lên một vị trí cao hơn. Một sự thăng tiến về cấp bậc hoặc lương.",
+                    "th": "การกระทำที่ยกฐานะบุคคลให้สูงขึ้น การเลื่อนตำแหน่งหรือการเพิ่มเงินเดือน",
+                    "id": "Tindakan menaikkan seseorang ke posisi yang lebih tinggi. Kenaikan pangkat atau gaji.",
+                    "ar": "فعل رفع شخص إلى منصب أعلى. ترقية في الرتبة أو الراتب."
+                },
+                "translation": {
+                    "vi": "sự thăng chức",
+                    "th": "การเลื่อนตำแหน่ง",
+                    "id": "promosi",
+                    "ar": "ترقية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/prəˈməʊʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/promotion-uk-1760856531951.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/prəˈməʊʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/promotion-us-1760856532282.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She received a promotion after five years.",
+                    "vi": "Cô ấy đã được thăng chức sau năm năm.",
+                    "th": "เธอได้รับการเลื่อนตำแหน่งหลังจากห้าปี",
+                    "id": "Dia menerima promosi setelah lima tahun.",
+                    "ar": "حصلت على ترقية بعد خمس سنوات."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8b9a4e8dd8355a1dc5_1760868438932.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8b9a4e8dd8355a1dc8",
+                "word": "career",
+                "explanation": {
+                    "en": "An occupation undertaken for a significant period of a person's life. The progression of professional pursuits.",
+                    "vi": "Một nghề nghiệp được thực hiện trong một khoảng thời gian đáng kể trong cuộc đời một người. Sự tiến triển của các hoạt động chuyên môn.",
+                    "th": "อาชีพที่ทำเป็นระยะเวลานานในชีวิตของบุคคล ความก้าวหน้าของการประกอบอาชีพ",
+                    "id": "Pekerjaan yang dilakukan untuk jangka waktu yang signifikan dalam hidup seseorang. Perkembangan pengejaran profesional.",
+                    "ar": "مهنة يتم الاضطلاع بها لفترة طويلة من حياة الشخص. تقدم المساعي المهنية."
+                },
+                "translation": {
+                    "vi": "sự nghiệp",
+                    "th": "อาชีพ",
+                    "id": "karier",
+                    "ar": "مهنة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kəˈrɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/career-uk-1760856533555.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kəˈrɪr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/career-us-1760856533892.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He wants a career in medicine.",
+                    "vi": "Anh ấy muốn có một sự nghiệp trong ngành y.",
+                    "th": "เขาต้องการอาชีพในวงการแพทย์",
+                    "id": "Dia ingin berkarir di bidang kedokteran.",
+                    "ar": "إنه يريد مهنة في الطب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8b9a4e8dd8355a1dc8_1760868446642.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8c9a4e8dd8355a1dcb",
+                "word": "resume",
+                "explanation": {
+                    "en": "A summary of a person's education and experience. A document used to apply for a position.",
+                    "vi": "Một bản tóm tắt về trình độ học vấn và kinh nghiệm của một người. Một tài liệu được sử dụng để ứng tuyển vào một vị trí.",
+                    "th": "สรุปการศึกษาและประสบการณ์ของบุคคล เอกสารที่ใช้ในการสมัครงาน",
+                    "id": "Ringkasan pendidikan dan pengalaman seseorang. Dokumen yang digunakan untuk melamar posisi.",
+                    "ar": "ملخص لتعليم الشخص وخبرته. وثيقة تستخدم للتقدم لوظيفة."
+                },
+                "translation": {
+                    "vi": "sơ yếu lý lịch (CV)",
+                    "th": "ประวัติย่อ",
+                    "id": "riwayat hidup",
+                    "ar": "سيرة ذاتية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈzjuːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/resume-uk-1760856535105.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈzuːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/resume-us-1760856535434.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please attach your resume to the application.",
+                    "vi": "Vui lòng đính kèm sơ yếu lý lịch của bạn vào đơn đăng ký.",
+                    "th": "กรุณาแนบเรซูเม่ของคุณไปกับใบสมัคร",
+                    "id": "Harap lampirkan resume Anda pada lamaran.",
+                    "ar": "يرجى إرفاق سيرتك الذاتية بالطلب."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8c9a4e8dd8355a1dcb_1760868453230.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8c9a4e8dd8355a1dce",
+                "word": "interview",
+                "explanation": {
+                    "en": "A formal meeting where a person is asked questions. A session to assess a candidate for employment.",
+                    "vi": "Một cuộc họp chính thức nơi một người được hỏi các câu hỏi. Một buổi để đánh giá ứng viên cho việc làm.",
+                    "th": "การประชุมอย่างเป็นทางการที่บุคคลถูกถามคำถาม การสัมภาษณ์เพื่อประเมินผู้สมัครงาน",
+                    "id": "Pertemuan formal di mana seseorang ditanyai pertanyaan. Sesi untuk menilai kandidat untuk pekerjaan.",
+                    "ar": "اجتماع رسمي يتم فيه طرح الأسئلة على شخص. جلسة لتقييم مرشح للتوظيف."
+                },
+                "translation": {
+                    "vi": "phỏng vấn",
+                    "th": "สัมภาษณ์",
+                    "id": "wawancara",
+                    "ar": "مقابلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɪntəvjuː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/interview-uk-1760856536692.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɪntərvjuː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/interview-us-1760856537014.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I have a job interview tomorrow morning.",
+                    "vi": "Tôi có một cuộc phỏng vấn xin việc vào sáng mai.",
+                    "th": "ฉันมีการสัมภาษณ์งานพรุ่งนี้เช้า",
+                    "id": "Saya ada wawancara kerja besok pagi.",
+                    "ar": "لدي مقابلة عمل صباح الغد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8c9a4e8dd8355a1dce_1760868459709.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8c9a4e8dd8355a1dd1",
+                "word": "hire",
+                "explanation": {
+                    "en": "To employ someone for wages. To take a new person on staff.",
+                    "vi": "Tuyển dụng ai đó để trả lương. Tuyển dụng một người mới vào đội ngũ.",
+                    "th": "การจ้างงานใครบางคนเพื่อค่าจ้าง การรับพนักงานใหม่เข้าทำงาน",
+                    "id": "Mempekerjakan seseorang dengan upah. Merekrut orang baru ke dalam staf.",
+                    "ar": "توظيف شخص مقابل أجر. توظيف شخص جديد في فريق العمل."
+                },
+                "translation": {
+                    "vi": "thuê",
+                    "th": "จ้าง",
+                    "id": "mempekerjakan",
+                    "ar": "توظيف"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ˈhaɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hire-uk-1760856538301.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈhaɪər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/hire-us-1760856538758.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The company plans to hire five new employees.",
+                    "vi": "Công ty có kế hoạch tuyển dụng năm nhân viên mới.",
+                    "th": "บริษัทวางแผนที่จะจ้างพนักงานใหม่ห้าคน",
+                    "id": "Perusahaan berencana untuk merekrut lima karyawan baru.",
+                    "ar": "تخطط الشركة لتوظيف خمسة موظفين جدد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8c9a4e8dd8355a1dd1_1760868467189.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8c9a4e8dd8355a1dd4",
+                "word": "fire",
+                "explanation": {
+                    "en": "To dismiss an employee from a position. To terminate someone's employment contract.",
+                    "vi": "Sa thải một nhân viên khỏi một vị trí. Chấm dứt hợp đồng lao động của ai đó.",
+                    "th": "การไล่ออกพนักงานจากตำแหน่ง การยกเลิกสัญญาจ้างงานของใครบางคน",
+                    "id": "Memberhentikan seorang karyawan dari posisi. Mengakhiri kontrak kerja seseorang.",
+                    "ar": "فصل موظف من منصبه. إنهاء عقد عمل شخص ما."
+                },
+                "translation": {
+                    "vi": "sa thải",
+                    "th": "ไล่ออก",
+                    "id": "memecat",
+                    "ar": "فصل"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ˈfaɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fire-uk-1760856540028.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfaɪər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fire-us-1760856540374.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The manager had to fire an employee.",
+                    "vi": "Người quản lý phải sa thải một nhân viên.",
+                    "th": "ผู้จัดการต้องไล่พนักงานออก",
+                    "id": "Manajer harus memecat seorang karyawan.",
+                    "ar": "اضطر المدير إلى فصل موظف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8c9a4e8dd8355a1dd4_1760868473808.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8c9a4e8dd8355a1dd7",
+                "word": "quit",
+                "explanation": {
+                    "en": "To leave a position voluntarily. To resign or give up employment.",
+                    "vi": "Tự nguyện rời bỏ một vị trí. Từ chức hoặc từ bỏ công việc.",
+                    "th": "การลาออกจากตำแหน่งโดยสมัครใจ การลาออกหรือเลิกจ้างงาน",
+                    "id": "Meninggalkan posisi secara sukarela. Mengundurkan diri atau berhenti dari pekerjaan.",
+                    "ar": "ترك منصب طواعية. الاستقالة أو التخلي عن العمل."
+                },
+                "translation": {
+                    "vi": "nghỉ việc",
+                    "th": "ลาออก",
+                    "id": "mengundurkan diri",
+                    "ar": "يستقيل"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/kwɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/quit-uk-1760856541638.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kwɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/quit-us-1760856541960.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She decided to quit her job next month.",
+                    "vi": "Cô ấy quyết định nghỉ việc vào tháng tới.",
+                    "th": "เธอตัดสินใจลาออกจากงานในเดือนหน้า",
+                    "id": "Dia memutuskan untuk berhenti dari pekerjaannya bulan depan.",
+                    "ar": "قررت أن تترك وظيفتها الشهر القادم."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8c9a4e8dd8355a1dd7_1761400550703.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8c9a4e8dd8355a1dda",
+                "word": "retire",
+                "explanation": {
+                    "en": "To leave one's position and cease working. To stop active employment, usually due to age.",
+                    "vi": "Rời bỏ vị trí và ngừng làm việc. Ngừng làm việc tích cực, thường là do tuổi tác.",
+                    "th": "การออกจากตำแหน่งและหยุดทำงาน การหยุดทำงานประจำ มักเกิดจากอายุ",
+                    "id": "Meninggalkan posisi seseorang dan berhenti bekerja. Berhenti dari pekerjaan aktif, biasanya karena usia.",
+                    "ar": "ترك المنصب والتوقف عن العمل. التوقف عن العمل النشط، عادة بسبب العمر."
+                },
+                "translation": {
+                    "vi": "nghỉ hưu",
+                    "th": "เกษียณ",
+                    "id": "pensiun",
+                    "ar": "يتقاعد"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈtaɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/retire-uk-1760856543215.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈtaɪər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/retire-us-1760856543560.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My grandfather will retire from his company soon.",
+                    "vi": "Ông tôi sẽ nghỉ hưu khỏi công ty của mình sớm thôi.",
+                    "th": "คุณปู่ของฉันจะเกษียณจากบริษัทในไม่ช้า",
+                    "id": "Kakek saya akan pensiun dari perusahaannya segera.",
+                    "ar": "جدي سيتقاعد من شركته قريباً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8c9a4e8dd8355a1dda_1760868491611.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8c9a4e8dd8355a1ddd",
+                "word": "unemployment",
+                "explanation": {
+                    "en": "The state of being without paid employment. The condition of not having a position despite looking for one.",
+                    "vi": "Tình trạng không có việc làm được trả lương. Tình trạng không có vị trí mặc dù đang tìm kiếm.",
+                    "th": "สภาวะที่ไม่มีงานทำแบบได้รับค่าจ้าง สภาพที่ไม่มีตำแหน่งงานแม้จะกำลังมองหาอยู่",
+                    "id": "Keadaan tanpa pekerjaan berbayar. Kondisi tidak memiliki posisi meskipun sedang mencari.",
+                    "ar": "حالة عدم وجود عمل مدفوع الأجر. حالة عدم الحصول على وظيفة على الرغم من البحث عنها."
+                },
+                "translation": {
+                    "vi": "sự thất nghiệp",
+                    "th": "การว่างงาน",
+                    "id": "pengangguran",
+                    "ar": "بطالة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌʌnɪmˈplɔɪmənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/unemployment-uk-1760856544831.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌʌnɪmˈplɔɪmənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/unemployment-us-1760856545163.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The country's unemployment rate is currently very high.",
+                    "vi": "Tỷ lệ thất nghiệp của đất nước hiện đang rất cao.",
+                    "th": "อัตราการว่างงานของประเทศในปัจจุบันสูงมาก",
+                    "id": "Tingkat pengangguran negara saat ini sangat tinggi.",
+                    "ar": "معدل البطالة في البلاد مرتفع جداً حالياً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8c9a4e8dd8355a1ddd_1760868499998.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8d9a4e8dd8355a1de0",
+                "word": "occupation",
+                "explanation": {
+                    "en": "A person's regular professional activity or calling. The specific type of position held by an individual.",
+                    "vi": "Hoạt động hoặc nghề nghiệp chuyên môn thường xuyên của một người. Loại vị trí cụ thể mà một cá nhân nắm giữ.",
+                    "th": "กิจกรรมหรืออาชีพประจำของบุคคล ประเภทของตำแหน่งที่บุคคลนั้นดำรงอยู่",
+                    "id": "Aktivitas profesional atau panggilan reguler seseorang. Jenis posisi spesifik yang dipegang oleh individu.",
+                    "ar": "النشاط المهني أو المهنة المنتظمة للشخص. النوع المحدد للمنصب الذي يشغله الفرد."
+                },
+                "translation": {
+                    "vi": "nghề nghiệp",
+                    "th": "อาชีพ",
+                    "id": "pekerjaan",
+                    "ar": "مهنة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌɒkjuˈpeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/occupation-uk-1760856546441.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌɑːkjuˈpeɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/occupation-us-1760856546796.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "What is your current occupation?",
+                    "vi": "Nghề nghiệp hiện tại của bạn là gì?",
+                    "th": "อาชีพปัจจุบันของคุณคืออะไร?",
+                    "id": "Apa pekerjaan Anda saat ini?",
+                    "ar": "ما هي مهنتك الحالية؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8d9a4e8dd8355a1de0_1760868508005.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8d9a4e8dd8355a1de3",
+                "word": "workload",
+                "explanation": {
+                    "en": "The amount of effort or tasks assigned to someone. The total quantity of duties to be performed.",
+                    "vi": "Lượng công sức hoặc nhiệm vụ được giao cho ai đó. Tổng số lượng nhiệm vụ phải thực hiện.",
+                    "th": "ปริมาณความพยายามหรืองานที่มอบหมายให้ใครบางคน ปริมาณรวมของหน้าที่ที่ต้องปฏิบัติ",
+                    "id": "Jumlah usaha atau tugas yang diberikan kepada seseorang. Jumlah total tugas yang harus dilakukan.",
+                    "ar": "كمية الجهد أو المهام الموكلة إلى شخص ما. الكمية الإجمالية للواجبات التي يجب أداؤها."
+                },
+                "translation": {
+                    "vi": "khối lượng công việc",
+                    "th": "ปริมาณงาน",
+                    "id": "beban kerja",
+                    "ar": "عبء العمل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɜːkləʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/workload-uk-ai-1760858101875.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɜːrkloʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/workload-us-ai-1760858102514.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Her workload increased a lot this week.",
+                    "vi": "Khối lượng công việc của cô ấy đã tăng lên rất nhiều trong tuần này.",
+                    "th": "ปริมาณงานของเธอเพิ่มขึ้นมากในสัปดาห์นี้",
+                    "id": "Beban kerjanya meningkat banyak minggu ini.",
+                    "ar": "زاد عبء عملها كثيراً هذا الأسبوع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8d9a4e8dd8355a1de3_1760868515792.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8d9a4e8dd8355a1de6",
+                "word": "responsibility",
+                "explanation": {
+                    "en": "The state of being accountable for something. A duty one must fulfill as part of a position.",
+                    "vi": "Trạng thái chịu trách nhiệm về điều gì đó. Một nhiệm vụ mà một người phải hoàn thành như một phần của vị trí.",
+                    "th": "สภาวะของการรับผิดชอบต่อบางสิ่ง หน้าที่ที่ต้องปฏิบัติตามในฐานะส่วนหนึ่งของตำแหน่ง",
+                    "id": "Keadaan bertanggung jawab atas sesuatu. Kewajiban yang harus dipenuhi sebagai bagian dari suatu posisi.",
+                    "ar": "حالة المساءلة عن شيء ما. واجب يجب على المرء أن يؤديه كجزء من منصب."
+                },
+                "translation": {
+                    "vi": "trách nhiệm",
+                    "th": "ความรับผิดชอบ",
+                    "id": "tanggung jawab",
+                    "ar": "مسؤولية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˌspɒnsəˈbɪləti/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/responsibility-uk-1760856548910.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˌspɑːnsəˈbɪləti/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/responsibility-us-1760856549235.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Taking care of a pet is a big responsibility.",
+                    "vi": "Chăm sóc thú cưng là một trách nhiệm lớn.",
+                    "th": "การดูแลสัตว์เลี้ยงเป็นความรับผิดชอบที่ยิ่งใหญ่",
+                    "id": "Merawat hewan peliharaan adalah tanggung jawab besar.",
+                    "ar": "رعاية حيوان أليف مسؤولية كبيرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8d9a4e8dd8355a1de6_1760868525103.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8d9a4e8dd8355a1de9",
+                "word": "productivity",
+                "explanation": {
+                    "en": "The effectiveness of effort in producing something. The rate at which goods or services are created.",
+                    "vi": "Hiệu quả của nỗ lực trong việc sản xuất ra thứ gì đó. Tốc độ mà hàng hóa hoặc dịch vụ được tạo ra.",
+                    "th": "ประสิทธิผลของความพยายามในการผลิตบางสิ่ง อัตราที่สินค้าหรือบริการถูกสร้างขึ้น",
+                    "id": "Efektivitas usaha dalam menghasilkan sesuatu. Tingkat di mana barang atau jasa diciptakan.",
+                    "ar": "فعالية الجهد في إنتاج شيء ما. المعدل الذي يتم به إنشاء السلع أو الخدمات."
+                },
+                "translation": {
+                    "vi": "năng suất",
+                    "th": "ผลิตภาพ",
+                    "id": "produktivitas",
+                    "ar": "إنتاجية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌprɒdʌkˈtɪvəti/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/productivity-uk-1760856550497.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌprəʊdʌkˈtɪvəti/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/productivity-us-1760856550831.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We need to improve our team's productivity.",
+                    "vi": "Chúng ta cần cải thiện năng suất của đội mình.",
+                    "th": "เราต้องปรับปรุงประสิทธิภาพการทำงานของทีม",
+                    "id": "Kita perlu meningkatkan produktivitas tim kita.",
+                    "ar": "نحتاج إلى تحسين إنتاجية فريقنا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8d9a4e8dd8355a1de9_1760868531409.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8d9a4e8dd8355a1dec",
+                "word": "efficient",
+                "explanation": {
+                    "en": "Achieving maximum results with minimal wasted effort. Doing things correctly and quickly.",
+                    "vi": "Đạt được kết quả tối đa với nỗ lực lãng phí tối thiểu. Làm việc đúng cách và nhanh chóng.",
+                    "th": "การบรรลุผลลัพธ์สูงสุดโดยใช้ความพยายามที่สูญเปล่าน้อยที่สุด การทำสิ่งต่างๆ ได้อย่างถูกต้องและรวดเร็ว",
+                    "id": "Mencapai hasil maksimal dengan sedikit usaha yang terbuang. Melakukan sesuatu dengan benar dan cepat.",
+                    "ar": "تحقيق أقصى قدر من النتائج بأقل قدر من الجهد الضائع. القيام بالأشياء بشكل صحيح وسريع."
+                },
+                "translation": {
+                    "vi": "hiệu quả",
+                    "th": "มีประสิทธิภาพ",
+                    "id": "efisien",
+                    "ar": "كفؤ"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ɪˈfɪʃnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/efficient-uk-1760856552086.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪˈfɪʃnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/efficient-us-1760856552420.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The new machine is very efficient.",
+                    "vi": "Cỗ máy mới này rất hiệu quả.",
+                    "th": "เครื่องจักรใหม่นี้มีประสิทธิภาพมาก",
+                    "id": "Mesin baru ini sangat efisien.",
+                    "ar": "الآلة الجديدة فعالة جداً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8d9a4e8dd8355a1dec_1760868538104.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8d9a4e8dd8355a1def",
+                "word": "overtime",
+                "explanation": {
+                    "en": "Time spent working beyond normal hours. Extra hours worked, often paid at a higher rate.",
+                    "vi": "Thời gian làm việc ngoài giờ bình thường. Giờ làm thêm, thường được trả lương cao hơn.",
+                    "th": "เวลาที่ใช้ในการทำงานเกินกว่าชั่วโมงปกติ ชั่วโมงพิเศษที่ทำงาน มักจะได้รับค่าจ้างในอัตราที่สูงขึ้น",
+                    "id": "Waktu yang dihabiskan untuk bekerja di luar jam normal. Jam kerja tambahan, seringkali dibayar dengan tarif lebih tinggi.",
+                    "ar": "الوقت الذي يقضيه في العمل بعد الساعات العادية. ساعات عمل إضافية، غالباً ما تُدفع بمعدل أعلى."
+                },
+                "translation": {
+                    "vi": "làm thêm giờ",
+                    "th": "ทำงานล่วงเวลา",
+                    "id": "kerja lembur",
+                    "ar": "يعمل ساعات إضافية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈəʊvətaɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/overtime-uk-1760856553681.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈəʊvərtaɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/overtime-us-1760856553997.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He often works overtime to finish projects.",
+                    "vi": "Anh ấy thường làm thêm giờ để hoàn thành các dự án.",
+                    "th": "เขามักจะทำงานล่วงเวลาเพื่อทำโปรเจกต์ให้เสร็จ",
+                    "id": "Dia sering bekerja lembur untuk menyelesaikan proyek.",
+                    "ar": "غالباً ما يعمل ساعات إضافية لإنهاء المشاريع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8d9a4e8dd8355a1def_1760868545131.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8d9a4e8dd8355a1df2",
+                "word": "full-time",
+                "explanation": {
+                    "en": "Working the conventional number of hours per week. A position requiring a standard 40 hours of attendance.",
+                    "vi": "Làm việc số giờ thông thường mỗi tuần. Một vị trí yêu cầu làm việc tiêu chuẩn 40 giờ.",
+                    "th": "การทำงานตามจำนวนชั่วโมงปกติในแต่ละสัปดาห์ ตำแหน่งที่ต้องการการเข้างานมาตรฐาน 40 ชั่วโมง",
+                    "id": "Bekerja jumlah jam konvensional per minggu. Posisi yang membutuhkan kehadiran standar 40 jam.",
+                    "ar": "العمل لعدد الساعات التقليدي في الأسبوع. وظيفة تتطلب حضوراً قياسياً لمدة 40 ساعة."
+                },
+                "translation": {
+                    "vi": "toàn thời gian",
+                    "th": "เต็มเวลา",
+                    "id": "penuh waktu",
+                    "ar": "دوام كامل"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/fʊlˈtaɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/full-time-uk-ai-1760858107798.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fʊlˈtaɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/full-time-us-ai-1760858108466.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She found a new full-time job.",
+                    "vi": "Cô ấy đã tìm được một công việc toàn thời gian mới.",
+                    "th": "เธอได้งานประจำใหม่แล้ว",
+                    "id": "Dia menemukan pekerjaan penuh waktu baru.",
+                    "ar": "لقد وجدت وظيفة جديدة بدوام كامل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8d9a4e8dd8355a1df2_1760868551566.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8e9a4e8dd8355a1df5",
+                "word": "part-time",
+                "explanation": {
+                    "en": "Working less than the conventional number of hours. A position requiring fewer hours per week than standard.",
+                    "vi": "Làm việc ít hơn số giờ thông thường. Một vị trí yêu cầu số giờ mỗi tuần ít hơn tiêu chuẩn.",
+                    "th": "การทำงานน้อยกว่าจำนวนชั่วโมงปกติ ตำแหน่งที่ต้องการชั่วโมงทำงานต่อสัปดาห์น้อยกว่ามาตรฐาน",
+                    "id": "Bekerja kurang dari jumlah jam konvensional. Posisi yang membutuhkan jam kerja per minggu lebih sedikit dari standar.",
+                    "ar": "العمل أقل من عدد الساعات التقليدي. وظيفة تتطلب ساعات أقل في الأسبوع من المعتاد."
+                },
+                "translation": {
+                    "vi": "bán thời gian",
+                    "th": "ไม่เต็มเวลา",
+                    "id": "paruh waktu",
+                    "ar": "دوام جزئي"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˌpɑːtˈtaɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/part-time-uk-ai-1760858115617.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpɑːrtˌtaɪm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/part-time-us-ai-1760858116165.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He prefers to work part-time while studying.",
+                    "vi": "Anh ấy thích làm việc bán thời gian trong khi học.",
+                    "th": "เขาชอบทำงานพาร์ทไทม์ขณะเรียน",
+                    "id": "Dia lebih suka bekerja paruh waktu sambil belajar.",
+                    "ar": "يفضل العمل بدوام جزئي أثناء الدراسة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8e9a4e8dd8355a1df5_1760868558207.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8e9a4e8dd8355a1df8",
+                "word": "workplace",
+                "explanation": {
+                    "en": "The location where someone is employed. The environment in which professional duties are performed.",
+                    "vi": "Địa điểm mà một người được tuyển dụng. Môi trường mà các nhiệm vụ chuyên môn được thực hiện.",
+                    "th": "สถานที่ที่บุคคลถูกจ้างงาน สภาพแวดล้อมที่ปฏิบัติหน้าที่ทางวิชาชีพ",
+                    "id": "Lokasi di mana seseorang dipekerjakan. Lingkungan tempat tugas profesional dilakukan.",
+                    "ar": "الموقع الذي يعمل فيه شخص ما. البيئة التي يتم فيها أداء الواجبات المهنية."
+                },
+                "translation": {
+                    "vi": "nơi làm việc",
+                    "th": "สถานที่ทำงาน",
+                    "id": "tempat kerja",
+                    "ar": "مكان العمل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɜːkpleɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/workplace-uk-1760856556936.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɜːrkpleɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/workplace-us-1760856557279.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our workplace has a friendly atmosphere.",
+                    "vi": "Nơi làm việc của chúng tôi có một bầu không khí thân thiện.",
+                    "th": "ที่ทำงานของเรามีบรรยากาศที่เป็นกันเอง",
+                    "id": "Tempat kerja kami memiliki suasana yang ramah.",
+                    "ar": "مكان عملنا يتمتع بجو ودي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8e9a4e8dd8355a1df8_1760868566150.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8e9a4e8dd8355a1dfb",
+                "word": "team",
+                "explanation": {
+                    "en": "A group of people working together toward a common goal. Staff members cooperating on a project.",
+                    "vi": "Một nhóm người làm việc cùng nhau hướng tới một mục tiêu chung. Các thành viên trong nhóm hợp tác trong một dự án.",
+                    "th": "กลุ่มคนที่ทำงานร่วมกันเพื่อเป้าหมายเดียวกัน สมาชิกพนักงานที่ร่วมมือกันในโครงการ",
+                    "id": "Sekelompok orang yang bekerja sama menuju tujuan bersama. Anggota staf yang bekerja sama dalam sebuah proyek.",
+                    "ar": "مجموعة من الأشخاص يعملون معاً نحو هدف مشترك. أعضاء الفريق يتعاونون في مشروع."
+                },
+                "translation": {
+                    "vi": "nhóm, đội",
+                    "th": "ทีม",
+                    "id": "tim",
+                    "ar": "فريق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tiːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/team-uk-1760856558532.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tiːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/team-us-1760856558872.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Our sales team achieved their goals.",
+                    "vi": "Đội ngũ bán hàng của chúng tôi đã đạt được mục tiêu của họ.",
+                    "th": "ทีมขายของเราบรรลุเป้าหมายแล้ว",
+                    "id": "Tim penjualan kami mencapai tujuan mereka.",
+                    "ar": "حقق فريق المبيعات لدينا أهدافه."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8e9a4e8dd8355a1dfb_1760868573698.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8e9a4e8dd8355a1dfe",
+                "word": "cooperation",
+                "explanation": {
+                    "en": "The process of individuals or groups working together. Collaboration to achieve a shared objective.",
+                    "vi": "Quá trình các cá nhân hoặc nhóm làm việc cùng nhau. Hợp tác để đạt được mục tiêu chung.",
+                    "th": "กระบวนการที่บุคคลหรือกลุ่มทำงานร่วมกัน การร่วมมือกันเพื่อบรรลุวัตถุประสงค์ร่วมกัน",
+                    "id": "Proses individu atau kelompok bekerja sama. Kolaborasi untuk mencapai tujuan bersama.",
+                    "ar": "عملية عمل الأفراد أو المجموعات معاً. التعاون لتحقيق هدف مشترك."
+                },
+                "translation": {
+                    "vi": "sự hợp tác",
+                    "th": "ความร่วมมือ",
+                    "id": "kerja sama",
+                    "ar": "تعاون"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kəʊˌɒpəˈreɪʃən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cooperation-uk-ai-1760858122838.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/koʊˌɑːpəˈreɪʃən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cooperation-us-ai-1760858123508.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Good cooperation is essential for success.",
+                    "vi": "Sự hợp tác tốt là điều cần thiết để thành công.",
+                    "th": "ความร่วมมือที่ดีเป็นสิ่งสำคัญสำหรับความสำเร็จ",
+                    "id": "Kerja sama yang baik sangat penting untuk kesuksesan.",
+                    "ar": "التعاون الجيد ضروري للنجاح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8e9a4e8dd8355a1dfe_1760868580994.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8e9a4e8dd8355a1e01",
+                "word": "contract",
+                "explanation": {
+                    "en": "A formal, legally binding agreement. A written agreement outlining terms of employment.",
+                    "vi": "Một thỏa thuận chính thức, ràng buộc pháp lý. Một thỏa thuận bằng văn bản phác thảo các điều khoản việc làm.",
+                    "th": "ข้อตกลงที่เป็นทางการและมีผลผูกพันทางกฎหมาย ข้อตกลงที่เป็นลายลักษณ์อักษรที่ระบุเงื่อนไขการจ้างงาน",
+                    "id": "Perjanjian formal yang mengikat secara hukum. Perjanjian tertulis yang menguraikan ketentuan pekerjaan.",
+                    "ar": "اتفاق رسمي ملزم قانوناً. اتفاق مكتوب يحدد شروط التوظيف."
+                },
+                "translation": {
+                    "vi": "hợp đồng",
+                    "th": "สัญญา",
+                    "id": "kontrak",
+                    "ar": "عقد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkɒntrækt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/contract-uk-1760856561020.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkɑːntrækt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/contract-us-1760856561349.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "They signed a new work contract.",
+                    "vi": "Họ đã ký một hợp đồng lao động mới.",
+                    "th": "พวกเขาเซ็นสัญญาจ้างงานใหม่",
+                    "id": "Mereka menandatangani kontrak kerja baru.",
+                    "ar": "لقد وقعوا عقد عمل جديد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8e9a4e8dd8355a1e01_1760868589567.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8e9a4e8dd8355a1e04",
+                "word": "freelancer",
+                "explanation": {
+                    "en": "A person who is self-employed and sells services to clients. Someone who works on short-term contracts for various companies.",
+                    "vi": "Người tự làm chủ và bán dịch vụ cho khách hàng. Người làm việc theo hợp đồng ngắn hạn cho nhiều công ty khác nhau.",
+                    "th": "บุคคลที่ประกอบอาชีพอิสระและขายบริการให้กับลูกค้า ผู้ที่ทำงานตามสัญญาจ้างระยะสั้นให้กับบริษัทต่างๆ",
+                    "id": "Seseorang yang bekerja secara mandiri dan menjual jasa kepada klien. Seseorang yang bekerja berdasarkan kontrak jangka pendek untuk berbagai perusahaan.",
+                    "ar": "شخص يعمل لحسابه الخاص ويبيع خدماته للعملاء. شخص يعمل بعقود قصيرة الأجل لشركات مختلفة."
+                },
+                "translation": {
+                    "vi": "người làm tự do",
+                    "th": "คนทำงานอิสระ",
+                    "id": "pekerja lepas",
+                    "ar": "مستقل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈfriːlɑːnsə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/freelancer-uk-1760856562626.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈfriːlænsər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/freelancer-us-1760856562966.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She works as a freelance graphic designer.",
+                    "vi": "Cô ấy làm việc như một nhà thiết kế đồ họa tự do.",
+                    "th": "เธอทำงานเป็นนักออกแบบกราฟิกอิสระ",
+                    "id": "Dia bekerja sebagai desainer grafis lepas.",
+                    "ar": "هي تعمل كمصممة جرافيك مستقلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8e9a4e8dd8355a1e04_1760868599994.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8e9a4e8dd8355a1e07",
+                "word": "self-employed",
+                "explanation": {
+                    "en": "Earning income directly from one's own business or services. Not working for an employer.",
+                    "vi": "Kiếm thu nhập trực tiếp từ công việc kinh doanh hoặc dịch vụ của riêng mình. Không làm việc cho một người sử dụng lao động.",
+                    "th": "การหารายได้โดยตรงจากธุรกิจหรือบริการของตนเอง ไม่ได้ทำงานให้กับนายจ้าง",
+                    "id": "Memperoleh penghasilan langsung dari bisnis atau jasa sendiri. Tidak bekerja untuk seorang majikan.",
+                    "ar": "كسب الدخل مباشرة من عمل الفرد أو خدماته. عدم العمل لدى صاحب عمل."
+                },
+                "translation": {
+                    "vi": "tự kinh doanh",
+                    "th": "ประกอบอาชีพอิสระ",
+                    "id": "berwirausaha",
+                    "ar": "يعمل لحسابه الخاص"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˌsɛlfɪmˈplɔɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/self-employed-uk-ai-1760858129068.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌsɛlfɪmˈplɔɪd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/self-employed-us-ai-1760858129754.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He became self-employed last year.",
+                    "vi": "Anh ấy đã tự kinh doanh vào năm ngoái.",
+                    "th": "เขาประกอบอาชีพอิสระเมื่อปีที่แล้ว",
+                    "id": "Dia menjadi wiraswasta tahun lalu.",
+                    "ar": "لقد أصبح يعمل لحسابه الخاص العام الماضي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8e9a4e8dd8355a1e07_1760868606942.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8f9a4e8dd8355a1e0a",
+                "word": "skill",
+                "explanation": {
+                    "en": "The ability to do something well. A proficiency or expertise gained through training or experience.",
+                    "vi": "Khả năng làm tốt một việc gì đó. Một sự thành thạo hoặc chuyên môn có được thông qua đào tạo hoặc kinh nghiệm.",
+                    "th": "ความสามารถในการทำบางสิ่งได้ดี ความเชี่ยวชาญหรือความชำนาญที่ได้รับจากการฝึกอบรมหรือประสบการณ์",
+                    "id": "Kemampuan untuk melakukan sesuatu dengan baik. Kemahiran atau keahlian yang diperoleh melalui pelatihan atau pengalaman.",
+                    "ar": "القدرة على فعل شيء بشكل جيد. كفاءة أو خبرة مكتسبة من خلال التدريب أو التجربة."
+                },
+                "translation": {
+                    "vi": "kỹ năng",
+                    "th": "ทักษะ",
+                    "id": "keterampilan",
+                    "ar": "مهارة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/skɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/skill-uk-1760856565103.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/skɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/skill-us-1760856565434.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Learning a new skill takes time.",
+                    "vi": "Học một kỹ năng mới cần thời gian.",
+                    "th": "การเรียนรู้ทักษะใหม่ต้องใช้เวลา",
+                    "id": "Mempelajari keterampilan baru membutuhkan waktu.",
+                    "ar": "تعلم مهارة جديدة يستغرق وقتاً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8f9a4e8dd8355a1e0a_1760868614350.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8f9a4e8dd8355a1e0d",
+                "word": "experience",
+                "explanation": {
+                    "en": "Practical knowledge or practice gained over time. The professional history and acquired wisdom of a person.",
+                    "vi": "Kiến thức thực tế hoặc kinh nghiệm thực hành có được theo thời gian. Lịch sử nghề nghiệp và sự khôn ngoan tích lũy của một người.",
+                    "th": "ความรู้เชิงปฏิบัติหรือประสบการณ์ที่ได้รับเมื่อเวลาผ่านไป ประวัติการทำงานและความรู้ที่สั่งสมมาของบุคคล",
+                    "id": "Pengetahuan praktis atau praktik yang diperoleh seiring waktu. Sejarah profesional dan kebijaksanaan yang diperoleh seseorang.",
+                    "ar": "المعرفة العملية أو الممارسة المكتسبة بمرور الوقت. التاريخ المهني والحكمة المكتسبة لشخص ما."
+                },
+                "translation": {
+                    "vi": "kinh nghiệm",
+                    "th": "ประสบการณ์",
+                    "id": "pengalaman",
+                    "ar": "خبرة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɪkˈspɪəriəns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/experience-uk-1760856566834.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪkˈspɪriəns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/experience-us-1760856567171.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She has a lot of experience in marketing.",
+                    "vi": "Cô ấy có rất nhiều kinh nghiệm trong lĩnh vực marketing.",
+                    "th": "เธอมีประสบการณ์มากมายด้านการตลาด",
+                    "id": "Dia memiliki banyak pengalaman dalam pemasaran.",
+                    "ar": "لديها الكثير من الخبرة في التسويق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8f9a4e8dd8355a1e0d_1760868621440.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8f9a4e8dd8355a1e10",
+                "word": "training",
+                "explanation": {
+                    "en": "The action of teaching a person a particular skill. Instruction provided to develop competence.",
+                    "vi": "Hành động dạy một người một kỹ năng cụ thể. Hướng dẫn được cung cấp để phát triển năng lực.",
+                    "th": "การกระทำของการสอนบุคคลให้มีทักษะเฉพาะ การฝึกอบรมที่จัดให้เพื่อพัฒนาความสามารถ",
+                    "id": "Tindakan mengajar seseorang keterampilan tertentu. Instruksi yang diberikan untuk mengembangkan kompetensi.",
+                    "ar": "عملية تعليم شخص مهارة معينة. التعليمات المقدمة لتطوير الكفاءة."
+                },
+                "translation": {
+                    "vi": "đào tạo",
+                    "th": "การฝึกอบรม",
+                    "id": "pelatihan",
+                    "ar": "تدريب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtreɪnɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/training-uk-1760856568431.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtreɪnɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/training-us-1760856568749.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The new employees received extensive training.",
+                    "vi": "Các nhân viên mới đã được đào tạo chuyên sâu.",
+                    "th": "พนักงานใหม่ได้รับการฝึกอบรมอย่างเข้มข้น",
+                    "id": "Karyawan baru menerima pelatihan ekstensif.",
+                    "ar": "تلقى الموظفون الجدد تدريباً مكثفاً."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8f9a4e8dd8355a1e10_1760868628169.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8f9a4e8dd8355a1e13",
+                "word": "goal",
+                "explanation": {
+                    "en": "The object of a person's ambition or effort. The desired result one plans to achieve.",
+                    "vi": "Mục tiêu của tham vọng hoặc nỗ lực của một người. Kết quả mong muốn mà một người dự định đạt được.",
+                    "th": "เป้าหมายของความทะเยอทะยานหรือความพยายามของบุคคล ผลลัพธ์ที่ต้องการที่วางแผนจะบรรลุ",
+                    "id": "Tujuan dari ambisi atau usaha seseorang. Hasil yang diinginkan yang ingin dicapai seseorang.",
+                    "ar": "الهدف من طموح الشخص أو جهده. النتيجة المرجوة التي يخطط المرء لتحقيقها."
+                },
+                "translation": {
+                    "vi": "mục tiêu",
+                    "th": "เป้าหมาย",
+                    "id": "tujuan",
+                    "ar": "هدف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɡəʊl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/goal-uk-1760856570021.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɡəʊl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/goal-us-1760856570345.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My main goal is to finish this project.",
+                    "vi": "Mục tiêu chính của tôi là hoàn thành dự án này.",
+                    "th": "เป้าหมายหลักของฉันคือการทำโปรเจกต์นี้ให้เสร็จ",
+                    "id": "Tujuan utama saya adalah menyelesaikan proyek ini.",
+                    "ar": "هدفي الرئيسي هو إنهاء هذا المشروع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8f9a4e8dd8355a1e13_1760868634725.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8f9a4e8dd8355a1e16",
+                "word": "motivation",
+                "explanation": {
+                    "en": "The reason one acts or behaves in a particular way. The desire or willingness to do something.",
+                    "vi": "Lý do một người hành động hoặc cư xử theo một cách cụ thể. Mong muốn hoặc sự sẵn lòng làm điều gì đó.",
+                    "th": "เหตุผลที่บุคคลกระทำหรือประพฤติตนในลักษณะเฉพาะ ความปรารถนาหรือความเต็มใจที่จะทำบางสิ่ง",
+                    "id": "Alasan seseorang bertindak atau berperilaku dengan cara tertentu. Keinginan atau kemauan untuk melakukan sesuatu.",
+                    "ar": "السبب الذي يجعل الشخص يتصرف أو يسلك بطريقة معينة. الرغبة أو الاستعداد لفعل شيء ما."
+                },
+                "translation": {
+                    "vi": "động lực",
+                    "th": "แรงจูงใจ",
+                    "id": "motivasi",
+                    "ar": "دافع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˌməʊtɪˈveɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/motivation-uk-1760856571597.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌməʊtɪˈveɪʃn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/motivation-us-1760856571936.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Good leadership improves employee motivation.",
+                    "vi": "Khả năng lãnh đạo tốt giúp cải thiện động lực của nhân viên.",
+                    "th": "ความเป็นผู้นำที่ดีช่วยเพิ่มแรงจูงใจของพนักงาน",
+                    "id": "Kepemimpinan yang baik meningkatkan motivasi karyawan.",
+                    "ar": "القيادة الجيدة تحسن دافعية الموظفين."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8f9a4e8dd8355a1e16_1760868641410.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8f9a4e8dd8355a1e19",
+                "word": "performance",
+                "explanation": {
+                    "en": "The action or process of carrying out an action. How well a person executes their professional duties.",
+                    "vi": "Hành động hoặc quá trình thực hiện một hành động. Mức độ một người thực hiện tốt các nhiệm vụ chuyên môn của mình.",
+                    "th": "การกระทำหรือกระบวนการของการดำเนินการ การที่บุคคลปฏิบัติหน้าที่ทางวิชาชีพได้ดีเพียงใด",
+                    "id": "Tindakan atau proses melakukan suatu tindakan. Seberapa baik seseorang melaksanakan tugas profesionalnya.",
+                    "ar": "العمل أو عملية تنفيذ إجراء. مدى جودة أداء الشخص لواجباته المهنية."
+                },
+                "translation": {
+                    "vi": "hiệu suất",
+                    "th": "ผลการปฏิบัติงาน",
+                    "id": "kinerja",
+                    "ar": "أداء"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/pəˈfɔːməns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/performance-uk-1760856573223.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/pərˈfɔːrməns/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/performance-us-1760856573575.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "His job performance was excellent this quarter.",
+                    "vi": "Hiệu suất công việc của anh ấy rất xuất sắc trong quý này.",
+                    "th": "ผลการปฏิบัติงานของเขาดีเยี่ยมในไตรมาสนี้",
+                    "id": "Kinerja pekerjaannya sangat baik kuartal ini.",
+                    "ar": "كان أداؤه الوظيفي ممتازاً هذا الربع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8f9a4e8dd8355a1e19_1760868647960.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d8f9a4e8dd8355a1e1c",
+                "word": "deadline-driven",
+                "explanation": {
+                    "en": "Focusing intensely on meeting time limits. Operating under constant pressure to finish tasks on time.",
+                    "vi": "Tập trung cao độ vào việc đáp ứng các giới hạn thời gian. Hoạt động dưới áp lực liên tục để hoàn thành nhiệm vụ đúng hạn.",
+                    "th": "มุ่งเน้นอย่างเข้มข้นในการปฏิบัติตามกำหนดเวลา การทำงานภายใต้แรงกดดันอย่างต่อเนื่องเพื่อให้งานเสร็จตรงเวลา",
+                    "id": "Sangat fokus pada pemenuhan batas waktu. Beroperasi di bawah tekanan konstan untuk menyelesaikan tugas tepat waktu.",
+                    "ar": "التركيز الشديد على الالتزام بالمواعيد النهائية. العمل تحت ضغط مستمر لإنهاء المهام في الوقت المحدد."
+                },
+                "translation": {
+                    "vi": "chạy theo deadline",
+                    "th": "ทำงานภายใต้กำหนดเวลาที่จำกัด",
+                    "id": "terpacu oleh tenggat waktu",
+                    "ar": "يعمل تحت ضغط المواعيد النهائية"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ˈdedˌlaɪn ˌdrɪvən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/deadline-driven-uk-ai-1760858136547.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdedˌlaɪn ˌdrɪvən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/deadline-driven-us-ai-1760858137121.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "This role is very deadline-driven.",
+                    "vi": "Vai trò này rất nặng về thời hạn.",
+                    "th": "บทบาทนี้ขับเคลื่อนด้วยกำหนดเวลาอย่างมาก",
+                    "id": "Peran ini sangat terikat tenggat waktu.",
+                    "ar": "هذا الدور يعتمد بشكل كبير على المواعيد النهائية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d8f9a4e8dd8355a1e1c_1760868655811.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d909a4e8dd8355a1e1f",
+                "word": "multitask",
+                "explanation": {
+                    "en": "To handle multiple tasks or activities simultaneously. To perform several duties at the same time.",
+                    "vi": "Xử lý nhiều nhiệm vụ hoặc hoạt động cùng lúc. Thực hiện nhiều nhiệm vụ cùng một lúc.",
+                    "th": "การจัดการหลายงานหรือกิจกรรมพร้อมกัน การปฏิบัติหน้าที่หลายอย่างในเวลาเดียวกัน",
+                    "id": "Menangani banyak tugas atau aktivitas secara bersamaan. Melakukan beberapa tugas pada waktu yang sama.",
+                    "ar": "التعامل مع مهام أو أنشطة متعددة في وقت واحد. أداء عدة واجبات في نفس الوقت."
+                },
+                "translation": {
+                    "vi": "làm nhiều việc một lúc",
+                    "th": "ทำงานหลายอย่างพร้อมกัน",
+                    "id": "melakukan banyak tugas sekaligus",
+                    "ar": "القيام بمهام متعددة في وقت واحد"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ˌmʌltɪˈtɑːsk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/multitask-uk-ai-1760858142294.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˌmʌltɪˈtæsk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/multitask-us-ai-1760858142976.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "It's hard to multitask effectively.",
+                    "vi": "Rất khó để đa nhiệm một cách hiệu quả.",
+                    "th": "เป็นการยากที่จะทำงานหลายอย่างพร้อมกันได้อย่างมีประสิทธิภาพ",
+                    "id": "Sulit untuk melakukan banyak tugas secara efektif.",
+                    "ar": "من الصعب القيام بمهام متعددة بفعالية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d909a4e8dd8355a1e1f_1760868662842.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d909a4e8dd8355a1e22",
+                "word": "remote work",
+                "explanation": {
+                    "en": "Employment performed away from the main office location. Carrying out duties using technology from home.",
+                    "vi": "Việc làm được thực hiện ở xa văn phòng chính. Thực hiện nhiệm vụ bằng công nghệ từ nhà.",
+                    "th": "การจ้างงานที่ทำจากที่ตั้งสำนักงานหลัก การปฏิบัติหน้าที่โดยใช้เทคโนโลยีจากที่บ้าน",
+                    "id": "Pekerjaan yang dilakukan jauh dari lokasi kantor utama. Melaksanakan tugas menggunakan teknologi dari rumah.",
+                    "ar": "العمل الذي يتم أداؤه بعيداً عن موقع المكتب الرئيسي. أداء الواجبات باستخدام التكنولوجيا من المنزل."
+                },
+                "translation": {
+                    "vi": "làm việc từ xa",
+                    "th": "การทำงานจากระยะไกล",
+                    "id": "kerja jarak jauh",
+                    "ar": "العمل عن بعد"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈməʊt wɜːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/remote-work-uk-ai-1760858149802.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈmoʊt wɝːk/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/remote-work-us-ai-1760858150458.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Many companies now offer remote work options.",
+                    "vi": "Nhiều công ty hiện nay cung cấp các lựa chọn làm việc từ xa.",
+                    "th": "หลายบริษัทเสนอทางเลือกการทำงานจากระยะไกลแล้ว",
+                    "id": "Banyak perusahaan sekarang menawarkan opsi kerja jarak jauh.",
+                    "ar": "تقدم العديد من الشركات الآن خيارات العمل عن بعد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d909a4e8dd8355a1e22_1760868669370.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d909a4e8dd8355a1e25",
+                "word": "workspace",
+                "explanation": {
+                    "en": "The area where one conducts their professional duties. The physical environment of a desk or office.",
+                    "vi": "Khu vực nơi một người thực hiện các nhiệm vụ chuyên môn của mình. Môi trường vật lý của một bàn làm việc hoặc văn phòng.",
+                    "th": "พื้นที่ที่บุคคลปฏิบัติหน้าที่ทางวิชาชีพ สภาพแวดล้อมทางกายภาพของโต๊ะทำงานหรือสำนักงาน",
+                    "id": "Area di mana seseorang melakukan tugas profesionalnya. Lingkungan fisik meja atau kantor.",
+                    "ar": "المساحة التي يؤدي فيها الشخص واجباته المهنية. البيئة المادية للمكتب أو مكان العمل."
+                },
+                "translation": {
+                    "vi": "không gian làm việc",
+                    "th": "พื้นที่ทำงาน",
+                    "id": "ruang kerja",
+                    "ar": "مساحة العمل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɜːkˌspeɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/workspace-uk-ai-1760858156353.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɝːkˌspeɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/workspace-us-ai-1760858156948.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Keep your workspace clean and organized.",
+                    "vi": "Giữ cho không gian làm việc của bạn sạch sẽ và ngăn nắp.",
+                    "th": "รักษาพื้นที่ทำงานของคุณให้สะอาดและเป็นระเบียบ",
+                    "id": "Jaga ruang kerja Anda tetap bersih dan teratur.",
+                    "ar": "حافظ على مساحة عملك نظيفة ومنظمة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d909a4e8dd8355a1e25_1760868676394.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d909a4e8dd8355a1e28",
+                "word": "leadership",
+                "explanation": {
+                    "en": "The action of guiding a group of people or an organization. The capacity to inspire and direct a team.",
+                    "vi": "Hành động hướng dẫn một nhóm người hoặc một tổ chức. Khả năng truyền cảm hứng và chỉ đạo một đội.",
+                    "th": "การกระทำของการนำกลุ่มคนหรือองค์กร ความสามารถในการสร้างแรงบันดาลใจและชี้นำทีม",
+                    "id": "Tindakan membimbing sekelompok orang atau organisasi. Kapasitas untuk menginspirasi dan mengarahkan tim.",
+                    "ar": "عملية توجيه مجموعة من الأشخاص أو منظمة. القدرة على إلهام وتوجيه فريق."
+                },
+                "translation": {
+                    "vi": "khả năng lãnh đạo",
+                    "th": "ภาวะผู้นำ",
+                    "id": "kepemimpinan",
+                    "ar": "قيادة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈliːdəʃɪp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/leadership-uk-1760856578330.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈliːdərʃɪp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/leadership-us-1760856578690.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Good leadership inspires the whole team.",
+                    "vi": "Khả năng lãnh đạo tốt truyền cảm hứng cho toàn bộ đội ngũ.",
+                    "th": "ความเป็นผู้นำที่ดีสร้างแรงบันดาลใจให้กับทั้งทีม",
+                    "id": "Kepemimpinan yang baik menginspirasi seluruh tim.",
+                    "ar": "القيادة الجيدة تلهم الفريق بأكمله."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d909a4e8dd8355a1e28_1760868683301.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47d909a4e8dd8355a1e2b",
+                "word": "client",
+                "explanation": {
+                    "en": "A person or organization using the services of a professional. An individual who pays for specialized assistance.",
+                    "vi": "Một người hoặc tổ chức sử dụng dịch vụ của một chuyên gia. Một cá nhân trả tiền cho sự hỗ trợ chuyên biệt.",
+                    "th": "บุคคลหรือองค์กรที่ใช้บริการของผู้เชี่ยวชาญ บุคคลที่จ่ายเงินสำหรับความช่วยเหลือเฉพาะทาง",
+                    "id": "Seseorang atau organisasi yang menggunakan jasa seorang profesional. Individu yang membayar untuk bantuan khusus.",
+                    "ar": "شخص أو منظمة تستخدم خدمات محترف. فرد يدفع مقابل مساعدة متخصصة."
+                },
+                "translation": {
+                    "vi": "khách hàng (dịch vụ)",
+                    "th": "ลูกค้า",
+                    "id": "klien",
+                    "ar": "عميل"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈklaɪənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/client-uk-1760856579960.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈklaɪənt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/client-us-1760856580284.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The lawyer met with her new client.",
+                    "vi": "Luật sư đã gặp gỡ khách hàng mới của mình.",
+                    "th": "ทนายความได้พบกับลูกความใหม่ของเธอ",
+                    "id": "Pengacara itu bertemu dengan klien barunya.",
+                    "ar": "التقى المحامي بعميله الجديد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47d909a4e8dd8355a1e2b_1760868689629.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47874d398918f2297deb0",
+                "group_name": "Work",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 50
+    }
+}

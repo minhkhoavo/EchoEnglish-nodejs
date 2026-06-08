@@ -71,7 +71,9 @@ class CategoryFlashcardService {
     async deleteCategory(id: string, userId: string) {
         const session = await mongoose.startSession();
         session.startTransaction();
+
         try {
+            // Check if category exists and is not default
             const category = await CategoryFlashcard.findOne({
                 _id: id,
                 createBy: userId,
@@ -85,14 +87,15 @@ class CategoryFlashcardService {
                 throw new ApiError(ErrorMessage.CATEGORY_CANNOT_DELETE_DEFAULT);
             }
 
-            await CategoryFlashcard.findOneAndDelete({
-                _id: id,
+            // Delete flashcards first (atomic operation)
+            await Flashcard.deleteMany({
+                category: id,
                 createBy: userId,
             }).session(session);
 
-            /* xoa flashcard thuoc category nay */
-            await Flashcard.deleteMany({
-                category: id,
+            // Then delete the category
+            await CategoryFlashcard.findOneAndDelete({
+                _id: id,
                 createBy: userId,
             }).session(session);
 

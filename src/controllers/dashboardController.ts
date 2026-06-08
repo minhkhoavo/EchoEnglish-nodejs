@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
-import { ErrorMessage } from '~/enum/errorMessage.js';
-import { ApiError } from '~/middleware/apiError.js';
 import dashboardService from '~/services/dashboardService.js';
 class DashboardController {
     public getUserStats = async (req: Request, res: Response) => {

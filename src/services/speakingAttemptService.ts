@@ -1,9 +1,7 @@
 import mongoose, { Types } from 'mongoose';
-import SpeechAssessmentService from '~/services/speech-analyze/speechAssessmentService.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { createRecordingAndStartAnalysisHelper } from '~/controllers/speechController.js';
-import RecordingService from '~/services/recordingService.js';
 import { aiScoringService } from '~/ai/service/toeicSpeakingScoringService.js';
 
 type MongoDb = mongoose.mongo.Db;
@@ -11,11 +9,13 @@ type MongoDb = mongoose.mongo.Db;
 export interface StartAttemptInput {
     userId: string;
     toeicSpeakingTestId: string | number;
+    examMode: string;
 }
 
 interface TestQuestion {
     title?: string;
     image?: string;
+    questionText?: string;
 }
 
 interface TestPart {
@@ -29,16 +29,9 @@ interface TestPart {
     narrator?: { text?: string };
     questions?: TestQuestion[];
 }
-
-interface Test {
-    _id?: Types.ObjectId;
-    testId?: number;
-    parts?: TestPart[];
-}
-
 interface AttemptQuestion {
     questionNumber: number;
-    promptText?: string;
+    questionText?: string;
     promptImage?: string;
     s3AudioUrl: string | null;
     recordingId: string | null;
@@ -53,23 +46,16 @@ interface AttemptPart {
     questions: AttemptQuestion[];
 }
 
-interface ScoringContext {
-    questionType: string;
-    referenceText?: string;
-    imageUrl?: string;
-    questionPrompt?: string;
-    providedInfo?: string;
-}
-
 interface AttemptDocument {
+    _id?: Types.ObjectId;
     userId: Types.ObjectId;
     toeicSpeakingTestId: Types.ObjectId;
-    testIdNumeric: number;
     submissionTimestamp: Date;
     status: string;
     totalScore: number;
     level: string;
     parts: AttemptPart[];
+    examMode: string;
     createdAt: Date;
 }
 
@@ -89,9 +75,54 @@ export default class SpeakingAttemptService {
         }
     }
 
+    private mapAttemptToResponse(attempt: AttemptDocument | null) {
+        if (!attempt) return null;
+        return {
+            testAttemptId: attempt._id?.toString?.() || '',
+            userId: attempt.userId?.toString?.() || attempt.userId,
+            toeicSpeakingTestId:
+                attempt.toeicSpeakingTestId?.toString?.() ||
+                attempt.toeicSpeakingTestId,
+            status: attempt.status,
+            totalScore: attempt.totalScore,
+            level: attempt.level,
+            examMode: attempt.examMode,
+            submissionTimestamp: attempt.submissionTimestamp,
+            createdAt: attempt.createdAt,
+            parts: attempt.parts || [],
+        };
+    }
+
+    public async getCurrentAttempt({
+        userId,
+        toeicSpeakingTestId,
+    }: StartAttemptInput) {
+        const db = await this.getDb();
+
+        // Check if there's an existing in_progress attempt for this user and test
+        if (
+            typeof toeicSpeakingTestId !== 'string' ||
+            !mongoose.Types.ObjectId.isValid(toeicSpeakingTestId)
+        ) {
+            return null;
+        }
+
+        const oid = this.toObjectId(toeicSpeakingTestId);
+        const existingAttempt = await db
+            .collection('toeic_speaking_results')
+            .findOne({
+                userId: this.toObjectId(userId),
+                toeicSpeakingTestId: oid,
+                status: 'in_progress',
+            });
+
+        return existingAttempt as AttemptDocument | null;
+    }
+
     public async startAttempt({
         userId,
         toeicSpeakingTestId,
+        examMode,
     }: StartAttemptInput) {
         const db = await this.getDb();
 
@@ -103,11 +134,21 @@ export default class SpeakingAttemptService {
             throw new ApiError(ErrorMessage.INVALID_ID);
         }
         const oid = this.toObjectId(toeicSpeakingTestId);
+
+        // Check if user already has an in_progress attempt for this test
+        const existingAttempt = await this.getCurrentAttempt({
+            userId,
+            toeicSpeakingTestId,
+            examMode,
+        });
+        if (existingAttempt) {
+            return this.mapAttemptToResponse(existingAttempt);
+        }
+
         const test = await db.collection('sw_tests').findOne({ _id: oid });
         if (!test) {
             throw new ApiError(ErrorMessage.TEST_NOT_FOUND);
         }
-        const tid = test._id || oid;
 
         const parts: AttemptPart[] = [];
         let qCounter = 0;
@@ -124,7 +165,7 @@ export default class SpeakingAttemptService {
                 qCounter += 1;
                 questions.push({
                     questionNumber: qCounter,
-                    promptText: q.title || undefined,
+                    questionText: q.questionText || q.title || undefined,
                     promptImage: q.image || undefined,
                     s3AudioUrl: null,
                     recordingId: null,
@@ -150,19 +191,25 @@ export default class SpeakingAttemptService {
         const attemptDoc: AttemptDocument = {
             userId: this.toObjectId(userId),
             toeicSpeakingTestId: oid,
-            testIdNumeric: 0, // Deprecated field, can be removed later
             submissionTimestamp: now,
             status: 'in_progress',
             totalScore: 0,
             level: 'Beginner',
             parts,
+            examMode,
             createdAt: now,
         };
 
         const insert = await db
             .collection('toeic_speaking_results')
             .insertOne(attemptDoc);
-        return { testAttemptId: insert.insertedId.toString() };
+
+        // Fetch the newly created attempt and return full data
+        const newAttempt = (await db
+            .collection('toeic_speaking_results')
+            .findOne({ _id: insert.insertedId })) as AttemptDocument | null;
+
+        return this.mapAttemptToResponse(newAttempt);
     }
 
     public async submitQuestion(params: {
@@ -287,12 +334,12 @@ export default class SpeakingAttemptService {
                             | 'speaking_part4'
                             | 'speaking_part5'
                             | 'speaking_part6',
-                        referenceText: foundQuestion?.promptText,
+                        referenceText: foundQuestion?.questionText,
                         imageUrl: foundQuestion?.promptImage,
-                        questionPrompt: foundQuestion?.promptText || '',
+                        questionPrompt: foundQuestion?.questionText || '',
                         providedInfo:
                             attemptDoc?.parts?.[foundPartIndex]?.partScenario ||
-                            '',
+                            'This part has no additional context.',
                     };
                     try {
                         const scoreResult =

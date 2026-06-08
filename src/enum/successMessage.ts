@@ -10,17 +10,21 @@ export enum SuccessMessage {
     OTP_SENT = 'OTP has been sent to your email',
     PASSWORD_RESET_SUCCESS = 'Password has been reset successfully',
     DELETE_USER_SUCCESS = 'Delete user successfully',
+    GET_PROFILE_SUCCESS = 'Get profile successfully',
+    REGISTER_SUCCESS = 'Register successfully',
 
     /* flashcard */
     CREATE_FLASHCARD_SUCCESS = 'Create flashcard successfully',
     UPDATE_FLASHCARD_SUCCESS = 'Update flashcard successfully',
     DELETE_FLASHCARD_SUCCESS = 'Delete flashcard successfully',
+    BULK_CREATE_FLASHCARD_SUCCESS = 'Bulk create flashcards successfully',
+    BULK_UPDATE_FLASHCARD_SUCCESS = 'Bulk update flashcards successfully',
 
     /* global */
     GET_SUCCESS = 'Get successfully',
     CREATE_SUCCESS = 'Create successfully',
-    DELETE_SUCCESS = 'Delete successfully',
     UPDATE_SUCCESS = 'Update successfully',
+    DELETE_SUCCESS = 'Delete successfully',
 
     /* category */
     DELETE_CATEGORY_SUCCESS = 'Delete category successfully',
@@ -36,6 +40,7 @@ export enum SuccessMessage {
     GET_ALL_TESTS_SUCCESS = 'Get all tests successfully',
     GET_TEST_BY_ID_SUCCESS = 'Get test by ID successfully',
     GET_TEST_BY_PART_SUCCESS = 'Get test by part successfully',
+    GET_RANDOM_QUESTIONS_SUCCESS = 'Get random questions successfully',
 
     /* Notification */
     MARK_AS_READ_SUCCESS = 'Mark as read successfully',

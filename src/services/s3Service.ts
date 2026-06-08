@@ -17,6 +17,10 @@ export interface UploadResult {
     mimeType: string;
 }
 
+interface Streamable {
+    transformToString(): Promise<string>;
+}
+
 class S3Service {
     private s3Client = AWS_CONFIG.s3Client;
     private bucketName = AWS_CONFIG.bucketName;
@@ -109,6 +113,72 @@ class S3Service {
                 message: 'Failed to generate presigned URL',
                 status: 500,
             });
+        }
+    }
+
+    async getJSON<T>(key: string): Promise<T | null> {
+        try {
+            const { Body } = await this.s3Client.send(
+                new GetObjectCommand({ Bucket: this.bucketName, Key: key })
+            );
+            if (!Body) return null;
+            return JSON.parse(
+                await (Body as Streamable).transformToString()
+            ) as T;
+        } catch {
+            return null;
+        }
+    }
+
+    async putJSON(key: string, data: unknown): Promise<void> {
+        await this.s3Client.send(
+            new PutObjectCommand({
+                Bucket: this.bucketName,
+                Key: key,
+                Body: JSON.stringify(data),
+                ContentType: 'application/json',
+            })
+        );
+    }
+
+    async downloadFile(url: string): Promise<Buffer | null> {
+        try {
+            // Extract key from S3 URL
+            // URL format: https://bucket.s3.region.amazonaws.com/key
+            const urlObj = new URL(url);
+            const key = urlObj.pathname.substring(1); // Remove leading slash
+
+            const command = new GetObjectCommand({
+                Bucket: this.bucketName,
+                Key: key,
+            });
+
+            const response = await this.s3Client.send(command);
+
+            // Convert stream to buffer
+            if (!response.Body) {
+                return null;
+            }
+
+            const chunks: Buffer[] = [];
+            const stream = response.Body as NodeJS.ReadableStream;
+
+            return new Promise((resolve, reject) => {
+                stream.on('data', (chunk) => {
+                    chunks.push(
+                        Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+                    );
+                });
+                stream.on('error', (err) => {
+                    reject(err);
+                });
+                stream.on('end', () => {
+                    resolve(Buffer.concat(chunks));
+                });
+            });
+        } catch (error) {
+            console.error('ApiError downloading file from S3:', error);
+            return null;
         }
     }
 }

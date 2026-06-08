@@ -16,6 +16,9 @@ const PUBLIC_ENDPOINTS: { methods: string[]; path: string }[] = [
     { methods: ['ALL'], path: '/api/users/**' },
     { methods: ['GET'], path: '/category-flashcard/test/**' },
     { methods: ['GET'], path: '/payments/vnpay/ipn/**' },
+    { methods: ['GET'], path: '/payments/vnpay/return/**' },
+    { methods: ['GET'], path: '/payments/stripe/return/**' },
+    { methods: ['POST'], path: '/webhook/**' },
     { methods: ['ALL'], path: '/socket.io/**' },
 ];
 
@@ -66,7 +69,8 @@ export function authenticateJWT(
             scope: decoded.scope || '',
         };
         next();
-    } catch (error) {
+    } catch (err) {
+        console.error('JWT verification error:', err);
         return res
             .status(403)
             .json(new ApiResponse('Invalid or expired token'));
@@ -80,8 +84,8 @@ export function hasAuthority(...roles: string[]) {
             return res.status(403).json(new ApiResponse('Forbidden'));
         }
 
-        const scopes = (user.scope as string).split(' ');
-        const hasRole = roles.some((r) => scopes.includes(r));
+        const userRole = user.scope as string;
+        const hasRole = roles.includes(userRole);
 
         if (!hasRole) {
             return res

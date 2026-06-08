@@ -113,6 +113,77 @@ class FlashcardController {
             .status(200)
             .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
     };
+
+    public bulkUpdateFlashcards = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const { updates } = req.body;
+        if (!Array.isArray(updates) || updates.length === 0) {
+            throw new ApiError({
+                message: 'Updates array is required and cannot be empty',
+            });
+        }
+
+        // Transform updates format: { id, category } -> { id, data: { category } }
+        const transformedUpdates = updates.map((update) => ({
+            id: update.id, // id of the flashcard
+            data: { category: update.category }, // category
+        }));
+
+        const flashcards = await FlashCardService.bulkUpdateFlashcards(
+            transformedUpdates,
+            userId
+        );
+
+        return res.status(200).json(
+            new ApiResponse(SuccessMessage.BULK_UPDATE_FLASHCARD_SUCCESS, {
+                flashcards,
+                count: flashcards.length,
+            })
+        );
+    };
+
+    public bulkCreateFlashcards = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const { flashcards } = req.body;
+        if (!Array.isArray(flashcards) || flashcards.length === 0) {
+            throw new ApiError({
+                message: 'Flashcards array is required and cannot be empty',
+            });
+        }
+
+        const createdFlashcards = await FlashCardService.bulkCreateFlashcards(
+            flashcards,
+            userId
+        );
+
+        return res.status(201).json(
+            new ApiResponse(SuccessMessage.BULK_CREATE_FLASHCARD_SUCCESS, {
+                flashcards: createdFlashcards,
+                count: createdFlashcards.length,
+            })
+        );
+    };
+
+    public bulkDeleteFlashcards = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const { flashcardIds } = req.body;
+        if (!Array.isArray(flashcardIds) || flashcardIds.length === 0) {
+            throw new ApiError({
+                message: 'Flashcard IDs array is required and cannot be empty',
+            });
+        }
+
+        const result = await FlashCardService.bulkDeleteFlashcards(
+            flashcardIds,
+            userId
+        );
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(SuccessMessage.DELETE_FLASHCARD_SUCCESS, result)
+            );
+    };
 }
 
 export default new FlashcardController();

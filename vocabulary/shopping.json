@@ -1,0 +1,2209 @@
+{
+    "status": "success",
+    "message": "Lấy danh sách cards mới thành công",
+    "data": {
+        "cards": [
+            {
+                "card_id": "68f47e429a4e8dd8355a202b",
+                "word": "shop",
+                "explanation": {
+                    "en": "A building or location where goods are sold. An establishment for retail trade.",
+                    "vi": "Một tòa nhà hoặc địa điểm nơi hàng hóa được bán. Một cơ sở kinh doanh bán lẻ.",
+                    "th": "อาคารหรือสถานที่ที่ขายสินค้า สถานประกอบการสำหรับการค้าปลีก",
+                    "id": "Sebuah bangunan atau lokasi tempat barang dijual. Sebuah tempat usaha untuk perdagangan ritel.",
+                    "ar": "مبنى أو موقع تُباع فيه السلع. مؤسسة للتجارة بالتجزئة."
+                },
+                "translation": {
+                    "vi": "cửa hàng",
+                    "th": "ร้านค้า",
+                    "id": "toko",
+                    "ar": "متجر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ʃɒp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shop-uk-1760856817277.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ʃɑːp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shop-us-1760856817591.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I need to shop for groceries this evening.",
+                    "vi": "Tối nay tôi cần đi mua sắm thực phẩm.",
+                    "th": "เย็นนี้ฉันต้องไปซื้อของชำ",
+                    "id": "Saya perlu berbelanja bahan makanan malam ini.",
+                    "ar": "أحتاج للتسوق لشراء البقالة هذا المساء."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e429a4e8dd8355a202b_1760869803791.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e439a4e8dd8355a202e",
+                "word": "shopping",
+                "explanation": {
+                    "en": "The activity of buying items from stores. The act of purchasing things.",
+                    "vi": "Hoạt động mua sắm các mặt hàng từ cửa hàng. Hành động mua đồ.",
+                    "th": "กิจวัตรการซื้อสินค้าจากร้านค้า การกระทำของการซื้อของ",
+                    "id": "Aktivitas membeli barang dari toko. Tindakan membeli sesuatu.",
+                    "ar": "نشاط شراء السلع من المتاجر. فعل شراء الأشياء."
+                },
+                "translation": {
+                    "vi": "việc mua sắm",
+                    "th": "การซื้อของ",
+                    "id": "belanja",
+                    "ar": "التسوق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈʃɒpɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shopping-uk-1760856818861.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈʃɑːpɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shopping-us-1760856819184.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She loves going shopping on weekends.",
+                    "vi": "Cô ấy thích đi mua sắm vào cuối tuần.",
+                    "th": "เธอชอบไปช้อปปิ้งในวันหยุดสุดสัปดาห์",
+                    "id": "Dia suka pergi berbelanja di akhir pekan.",
+                    "ar": "هي تحب الذهاب للتسوق في عطلات نهاية الأسبوع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e439a4e8dd8355a202e_1760869811294.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e439a4e8dd8355a2031",
+                "word": "mall",
+                "explanation": {
+                    "en": "A large building complex containing many different stores. A central location for retail and entertainment.",
+                    "vi": "Một khu phức hợp lớn chứa nhiều cửa hàng khác nhau. Một địa điểm trung tâm cho bán lẻ và giải trí.",
+                    "th": "อาคารขนาดใหญ่ที่มีร้านค้าต่าง ๆ มากมาย เป็นศูนย์กลางสำหรับการค้าปลีกและความบันเทิง",
+                    "id": "Sebuah kompleks bangunan besar yang berisi banyak toko berbeda. Lokasi pusat untuk ritel dan hiburan.",
+                    "ar": "مجمع مبانٍ كبير يحتوي على العديد من المتاجر المختلفة. موقع مركزي للتجزئة والترفيه."
+                },
+                "translation": {
+                    "vi": "trung tâm thương mại",
+                    "th": "ศูนย์การค้า",
+                    "id": "pusat perbelanjaan",
+                    "ar": "مركز تجاري"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/mɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mall-uk-1760856820453.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/mɔːl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/mall-us-1760856820777.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We spent the afternoon at the mall.",
+                    "vi": "Chúng tôi đã dành buổi chiều ở trung tâm thương mại.",
+                    "th": "เราใช้เวลาช่วงบ่ายที่ห้างสรรพสินค้า",
+                    "id": "Kami menghabiskan sore di mal.",
+                    "ar": "قضينا فترة ما بعد الظهر في المركز التجاري."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e439a4e8dd8355a2031_1760869821919.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e439a4e8dd8355a2034",
+                "word": "market",
+                "explanation": {
+                    "en": "A public place where people meet to buy and sell goods. A regular gathering for commerce.",
+                    "vi": "Một nơi công cộng nơi mọi người gặp gỡ để mua bán hàng hóa. Một cuộc tụ họp thường xuyên cho thương mại.",
+                    "th": "สถานที่สาธารณะที่ผู้คนมาพบปะเพื่อซื้อขายสินค้า การรวมตัวกันเป็นประจำเพื่อการค้า",
+                    "id": "Tempat umum di mana orang bertemu untuk membeli dan menjual barang. Pertemuan rutin untuk perdagangan.",
+                    "ar": "مكان عام يلتقي فيه الناس لبيع وشراء السلع. تجمع منتظم للتجارة."
+                },
+                "translation": {
+                    "vi": "chợ",
+                    "th": "ตลาด",
+                    "id": "pasar",
+                    "ar": "سوق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈmɑːkɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/market-uk-1760856822030.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈmɑːrkɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/market-us-1760856822376.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Fresh vegetables are cheaper at the market.",
+                    "vi": "Rau tươi rẻ hơn ở chợ.",
+                    "th": "ผักสดราคาถูกกว่าที่ตลาด",
+                    "id": "Sayuran segar lebih murah di pasar.",
+                    "ar": "الخضروات الطازجة أرخص في السوق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e439a4e8dd8355a2034_1760869828653.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e439a4e8dd8355a2037",
+                "word": "store",
+                "explanation": {
+                    "en": "A large establishment for the sale of goods. A retail outlet.",
+                    "vi": "Một cơ sở lớn để bán hàng hóa. Một cửa hàng bán lẻ.",
+                    "th": "สถานประกอบการขนาดใหญ่สำหรับการขายสินค้า ร้านค้าปลีก",
+                    "id": "Sebuah tempat usaha besar untuk penjualan barang. Sebuah gerai ritel.",
+                    "ar": "مؤسسة كبيرة لبيع السلع. منفذ بيع بالتجزئة."
+                },
+                "translation": {
+                    "vi": "cửa hàng",
+                    "th": "ร้านค้า",
+                    "id": "toko",
+                    "ar": "متجر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/stɔː(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/store-uk-1760856823629.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/stɔːr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/store-us-1760856823965.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The new clothing store opens tomorrow.",
+                    "vi": "Cửa hàng quần áo mới sẽ mở cửa vào ngày mai.",
+                    "th": "ร้านเสื้อผ้าใหม่จะเปิดพรุ่งนี้",
+                    "id": "Toko pakaian baru buka besok.",
+                    "ar": "متجر الملابس الجديد يفتح غدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e439a4e8dd8355a2037_1760869835554.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e439a4e8dd8355a203a",
+                "word": "cashier",
+                "explanation": {
+                    "en": "A person handling payments and receipts in a store. Someone responsible for financial transactions with customers.",
+                    "vi": "Người xử lý thanh toán và biên lai trong cửa hàng. Người chịu trách nhiệm về các giao dịch tài chính với khách hàng.",
+                    "th": "บุคคลที่จัดการการชำระเงินและใบเสร็จรับเงินในร้านค้า ผู้รับผิดชอบการทำธุรกรรมทางการเงินกับลูกค้า",
+                    "id": "Seseorang yang menangani pembayaran dan tanda terima di toko. Seseorang yang bertanggung jawab atas transaksi keuangan dengan pelanggan.",
+                    "ar": "شخص يتعامل مع المدفوعات والإيصالات في المتجر. شخص مسؤول عن المعاملات المالية مع العملاء."
+                },
+                "translation": {
+                    "vi": "thu ngân",
+                    "th": "พนักงานเก็บเงิน",
+                    "id": "kasir",
+                    "ar": "أمين الصندوق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kæˈʃɪə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cashier-uk-1760856825233.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kæˈʃɪr/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cashier-us-1760856825721.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The cashier scanned all my items quickly.",
+                    "vi": "Nhân viên thu ngân đã quét tất cả các mặt hàng của tôi một cách nhanh chóng.",
+                    "th": "พนักงานเก็บเงินสแกนสินค้าทั้งหมดของฉันอย่างรวดเร็ว",
+                    "id": "Kasir memindai semua barang saya dengan cepat.",
+                    "ar": "قام أمين الصندوق بمسح جميع أغراضي بسرعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e439a4e8dd8355a203a_1760869842191.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e439a4e8dd8355a203d",
+                "word": "customer",
+                "explanation": {
+                    "en": "A person who buys goods or services from a store. A regular patron of a business.",
+                    "vi": "Một người mua hàng hóa hoặc dịch vụ từ một cửa hàng. Một khách hàng thường xuyên của một doanh nghiệp.",
+                    "th": "บุคคลที่ซื้อสินค้าหรือบริการจากร้านค้า ลูกค้าประจำของธุรกิจ",
+                    "id": "Seseorang yang membeli barang atau jasa dari toko. Pelanggan tetap sebuah bisnis.",
+                    "ar": "شخص يشتري سلعًا أو خدمات من متجر. زبون دائم لعمل تجاري."
+                },
+                "translation": {
+                    "vi": "khách hàng",
+                    "th": "ลูกค้า",
+                    "id": "pelanggan",
+                    "ar": "زبون"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkʌstəmə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/customer-uk-1760856826981.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkʌstəmər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/customer-us-1760856827311.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The customer paid for her new shoes.",
+                    "vi": "Khách hàng đã thanh toán cho đôi giày mới của cô ấy.",
+                    "th": "ลูกค้าจ่ายเงินสำหรับรองเท้าคู่ใหม่ของเธอ",
+                    "id": "Pelanggan membayar sepatu barunya.",
+                    "ar": "دفعت الزبونة ثمن حذائها الجديد."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e439a4e8dd8355a203d_1760869850456.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e439a4e8dd8355a2040",
+                "word": "price",
+                "explanation": {
+                    "en": "The amount of money for which something is bought or sold. The monetary value assigned to a product.",
+                    "vi": "Số tiền mà một thứ được mua hoặc bán. Giá trị tiền tệ được gán cho một sản phẩm.",
+                    "th": "จำนวนเงินที่ใช้ซื้อหรือขายสินค้า มูลค่าทางการเงินที่กำหนดให้กับผลิตภัณฑ์",
+                    "id": "Jumlah uang untuk sesuatu dibeli atau dijual. Nilai moneter yang ditetapkan untuk suatu produk.",
+                    "ar": "المبلغ المالي الذي يُشترى أو يُباع به شيء ما. القيمة النقدية المخصصة لمنتج."
+                },
+                "translation": {
+                    "vi": "giá",
+                    "th": "ราคา",
+                    "id": "harga",
+                    "ar": "سعر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/praɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/price-uk-1760856828581.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/praɪs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/price-us-1760856828912.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "What is the price of this book?",
+                    "vi": "Giá của cuốn sách này là bao nhiêu?",
+                    "th": "หนังสือเล่มนี้ราคาเท่าไหร่?",
+                    "id": "Berapa harga buku ini?",
+                    "ar": "ما هو سعر هذا الكتاب؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e439a4e8dd8355a2040_1760869857632.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e449a4e8dd8355a2043",
+                "word": "sale",
+                "explanation": {
+                    "en": "A period when a store sells goods at reduced prices. A limited-time offer to purchase items cheaply.",
+                    "vi": "Một khoảng thời gian khi một cửa hàng bán hàng hóa với giá giảm. Một ưu đãi có thời hạn để mua các mặt hàng với giá rẻ.",
+                    "th": "ช่วงเวลาที่ร้านค้าขายสินค้าในราคาที่ลดลง ข้อเสนอจำกัดเวลาในการซื้อสินค้าในราคาถูก",
+                    "id": "Periode ketika toko menjual barang dengan harga diskon. Penawaran terbatas waktu untuk membeli barang dengan harga murah.",
+                    "ar": "فترة تبيع فيها المتاجر السلع بأسعار مخفضة. عرض لفترة محدودة لشراء السلع بسعر رخيص."
+                },
+                "translation": {
+                    "vi": "đợt giảm giá",
+                    "th": "ช่วงลดราคา",
+                    "id": "diskon",
+                    "ar": "تخفيضات"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/seɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sale-uk-1760856830186.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/seɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/sale-us-1760856830516.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Many items are on sale this week.",
+                    "vi": "Nhiều mặt hàng đang được giảm giá trong tuần này.",
+                    "th": "สินค้าหลายรายการลดราคาในสัปดาห์นี้",
+                    "id": "Banyak barang sedang diskon minggu ini.",
+                    "ar": "العديد من السلع معروضة للبيع هذا الأسبوع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e449a4e8dd8355a2043_1760869864566.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e449a4e8dd8355a2046",
+                "word": "discount",
+                "explanation": {
+                    "en": "A deduction from the usual cost of something. A percentage reduction in the price.",
+                    "vi": "Một khoản khấu trừ từ chi phí thông thường của một thứ gì đó. Một phần trăm giảm giá.",
+                    "th": "การหักลดจากราคาปกติของบางสิ่ง การลดราคาเป็นเปอร์เซ็นต์",
+                    "id": "Potongan dari biaya biasa suatu barang. Pengurangan persentase harga.",
+                    "ar": "خصم من التكلفة المعتادة لشيء ما. تخفيض نسبة مئوية في السعر."
+                },
+                "translation": {
+                    "vi": "giảm giá",
+                    "th": "ส่วนลด",
+                    "id": "diskon",
+                    "ar": "خصم"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈdɪskaʊnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/discount-uk-1760856831788.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈdɪskaʊnt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/discount-us-1760856832118.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We got a 10% discount on the total bill.",
+                    "vi": "Chúng tôi đã được giảm giá 10% trên tổng hóa đơn.",
+                    "th": "เราได้รับส่วนลด 10% จากยอดรวมบิล",
+                    "id": "Kami mendapat diskon 10% dari total tagihan.",
+                    "ar": "حصلنا على خصم 10% على الفاتورة الإجمالية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e449a4e8dd8355a2046_1760869871291.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e449a4e8dd8355a2049",
+                "word": "receipt",
+                "explanation": {
+                    "en": "A document acknowledging that something has been paid for. Proof of a financial transaction.",
+                    "vi": "Một tài liệu xác nhận rằng một thứ gì đó đã được thanh toán. Bằng chứng về một giao dịch tài chính.",
+                    "th": "เอกสารที่รับรองว่ามีการชำระเงินสำหรับบางสิ่ง หลักฐานการทำธุรกรรมทางการเงิน",
+                    "id": "Dokumen yang mengakui bahwa sesuatu telah dibayar. Bukti transaksi keuangan.",
+                    "ar": "وثيقة تقر بأن شيئًا ما قد تم دفعه. إثبات معاملة مالية."
+                },
+                "translation": {
+                    "vi": "hóa đơn",
+                    "th": "ใบเสร็จ",
+                    "id": "struk",
+                    "ar": "إيصال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈsiːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/receipt-uk-1760856833563.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈsiːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/receipt-us-1760856833903.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please keep your receipt in case you need to return it.",
+                    "vi": "Vui lòng giữ hóa đơn của bạn phòng trường hợp bạn cần trả lại.",
+                    "th": "โปรดเก็บใบเสร็จไว้ในกรณีที่คุณต้องการคืนสินค้า",
+                    "id": "Harap simpan tanda terima Anda jika Anda perlu mengembalikannya.",
+                    "ar": "يرجى الاحتفاظ بإيصالك في حال احتجت لإرجاعه."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e449a4e8dd8355a2049_1760869878528.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e459a4e8dd8355a204c",
+                "word": "bill",
+                "explanation": {
+                    "en": "A written statement of money owed for goods or services. The final request for payment.",
+                    "vi": "Một bản kê khai bằng văn bản về số tiền nợ cho hàng hóa hoặc dịch vụ. Yêu cầu thanh toán cuối cùng.",
+                    "th": "ใบแจ้งหนี้ที่เป็นลายลักษณ์อักษรสำหรับสินค้าหรือบริการ คำขอชำระเงินขั้นสุดท้าย",
+                    "id": "Pernyataan tertulis tentang uang yang terutang untuk barang atau jasa. Permintaan pembayaran terakhir.",
+                    "ar": "بيان مكتوب بالمبلغ المستحق مقابل السلع أو الخدمات. الطلب النهائي للدفع."
+                },
+                "translation": {
+                    "vi": "hóa đơn/thanh toán",
+                    "th": "ใบแจ้งหนี้",
+                    "id": "tagihan",
+                    "ar": "فاتورة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/bɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bill-uk-1760856835153.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/bɪl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bill-us-1760856835426.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Can I have the bill, please?",
+                    "vi": "Vui lòng cho tôi hóa đơn được không?",
+                    "th": "ขอใบเรียกเก็บเงินได้ไหมครับ/คะ?",
+                    "id": "Bisakah saya minta tagihannya?",
+                    "ar": "هل يمكنني الحصول على الفاتورة من فضلك؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e459a4e8dd8355a204c_1760869885406.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e459a4e8dd8355a204f",
+                "word": "coin",
+                "explanation": {
+                    "en": "A small, flat piece of metal used as money. Small currency pieces made of metal.",
+                    "vi": "Một mảnh kim loại nhỏ, dẹt dùng làm tiền. Các mảnh tiền tệ nhỏ làm bằng kim loại.",
+                    "th": "โลหะชิ้นเล็กแบนที่ใช้เป็นเงิน เหรียญกษาปณ์ขนาดเล็กที่ทำจากโลหะ",
+                    "id": "Sepotong logam kecil dan pipih yang digunakan sebagai uang. Potongan mata uang kecil yang terbuat dari logam.",
+                    "ar": "قطعة معدنية صغيرة مسطحة تستخدم كنقود. قطع عملة صغيرة مصنوعة من المعدن."
+                },
+                "translation": {
+                    "vi": "tiền xu",
+                    "th": "เหรียญ",
+                    "id": "koin",
+                    "ar": "عملة معدنية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kɔɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/coin-uk-1760856836688.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kɔɪn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/coin-us-1760856837023.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I found a shiny coin on the sidewalk.",
+                    "vi": "Tôi tìm thấy một đồng xu sáng bóng trên vỉa hè.",
+                    "th": "ฉันเจอเหรียญเงาวับบนทางเท้า",
+                    "id": "Saya menemukan koin berkilau di trotoar.",
+                    "ar": "وجدت عملة معدنية لامعة على الرصيف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e459a4e8dd8355a204f_1760869892667.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e469a4e8dd8355a2052",
+                "word": "note",
+                "explanation": {
+                    "en": "A piece of paper money. Currency printed on paper.",
+                    "vi": "Một tờ tiền giấy. Tiền tệ được in trên giấy.",
+                    "th": "ธนบัตร กระดาษเงินตราที่พิมพ์บนกระดาษ",
+                    "id": "Selembar uang kertas. Mata uang yang dicetak di atas kertas.",
+                    "ar": "قطعة من النقود الورقية. عملة مطبوعة على الورق."
+                },
+                "translation": {
+                    "vi": "tiền giấy",
+                    "th": "ธนบัตร",
+                    "id": "uang kertas",
+                    "ar": "ورقة نقدية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/nəʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/note-uk-1760856838280.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/nəʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/note-us-1760856838593.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I only have a ten-dollar note.",
+                    "vi": "Tôi chỉ có một tờ tiền mười đô la.",
+                    "th": "ฉันมีแค่ธนบัตรสิบดอลลาร์",
+                    "id": "Saya hanya punya uang kertas sepuluh dolar.",
+                    "ar": "ليس لدي سوى ورقة نقدية من فئة عشرة دولارات."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e469a4e8dd8355a2052_1760869898753.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e469a4e8dd8355a2055",
+                "word": "cash",
+                "explanation": {
+                    "en": "Money in the form of notes and coins. Physical currency used for direct payment.",
+                    "vi": "Tiền dưới dạng tiền giấy và tiền xu. Tiền tệ vật chất được sử dụng để thanh toán trực tiếp.",
+                    "th": "เงินในรูปแบบของธนบัตรและเหรียญกษาปณ์ สกุลเงินทางกายภาพที่ใช้สำหรับการชำระเงินโดยตรง",
+                    "id": "Uang dalam bentuk uang kertas dan koin. Mata uang fisik yang digunakan untuk pembayaran langsung.",
+                    "ar": "المال في شكل أوراق نقدية وعملات معدنية. عملة مادية تستخدم للدفع المباشر."
+                },
+                "translation": {
+                    "vi": "tiền mặt",
+                    "th": "เงินสด",
+                    "id": "uang tunai",
+                    "ar": "نقد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kæʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cash-uk-1760856839860.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kæʃ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cash-us-1760856840192.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Do you want to pay by cash or card?",
+                    "vi": "Bạn muốn thanh toán bằng tiền mặt hay thẻ?",
+                    "th": "คุณต้องการชำระด้วยเงินสดหรือบัตร?",
+                    "id": "Anda ingin membayar tunai atau kartu?",
+                    "ar": "هل تريد الدفع نقدًا أم بالبطاقة؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e469a4e8dd8355a2055_1760869905544.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e469a4e8dd8355a2058",
+                "word": "credit card",
+                "explanation": {
+                    "en": "A small plastic card allowing one to buy now and pay later. Used for electronic financial transactions.",
+                    "vi": "Thẻ nhựa nhỏ cho phép mua trước trả sau. Dùng cho các giao dịch tài chính điện tử.",
+                    "th": "บัตรพลาสติกขนาดเล็กที่ช่วยให้สามารถซื้อก่อนจ่ายทีหลัง ใช้สำหรับการทำธุรกรรมทางการเงินอิเล็กทรอนิกส์",
+                    "id": "Kartu plastik kecil yang memungkinkan seseorang untuk membeli sekarang dan membayar nanti. Digunakan untuk transaksi keuangan elektronik.",
+                    "ar": "بطاقة بلاستيكية صغيرة تسمح للشخص بالشراء الآن والدفع لاحقًا. تُستخدم للمعاملات المالية الإلكترونية."
+                },
+                "translation": {
+                    "vi": "thẻ tín dụng",
+                    "th": "บัตรเครดิต",
+                    "id": "kartu kredit",
+                    "ar": "بطاقة ائتمان"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkredɪt ˌkɑːd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/credit-card-uk-ai-1760858244279.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkredɪt ˌkɑːrd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/credit-card-us-ai-1760858244843.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I prefer to pay with my credit card.",
+                    "vi": "Tôi thích thanh toán bằng thẻ tín dụng của mình.",
+                    "th": "ฉันชอบชำระเงินด้วยบัตรเครดิตของฉัน",
+                    "id": "Saya lebih suka membayar dengan kartu kredit saya.",
+                    "ar": "أفضل الدفع ببطاقتي الائتمانية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e469a4e8dd8355a2058_1760869914484.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e469a4e8dd8355a205b",
+                "word": "wallet",
+                "explanation": {
+                    "en": "A small folding case for holding money and cards. Typically carried by men.",
+                    "vi": "Một chiếc ví nhỏ gập lại để đựng tiền và thẻ. Thường được nam giới mang theo.",
+                    "th": "กระเป๋าพับขนาดเล็กสำหรับใส่เงินและบัตร โดยทั่วไปผู้ชายจะพกพา",
+                    "id": "Dompet lipat kecil untuk menyimpan uang dan kartu. Biasanya dibawa oleh pria.",
+                    "ar": "حافظة صغيرة قابلة للطي لحفظ النقود والبطاقات. يحملها الرجال عادةً."
+                },
+                "translation": {
+                    "vi": "ví nam",
+                    "th": "กระเป๋าสตางค์ผู้ชาย",
+                    "id": "dompet pria",
+                    "ar": "محفظة رجالية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈwɒlɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wallet-uk-1760856842490.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈwɑːlɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/wallet-us-1760856842853.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "He put his wallet in his back pocket.",
+                    "vi": "Anh ấy cho ví vào túi sau.",
+                    "th": "เขาเก็บกระเป๋าสตางค์ไว้ในกระเป๋าหลัง",
+                    "id": "Dia memasukkan dompetnya ke saku belakangnya.",
+                    "ar": "وضع محفظته في جيبه الخلفي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e469a4e8dd8355a205b_1760869920596.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e469a4e8dd8355a205e",
+                "word": "purse",
+                "explanation": {
+                    "en": "A small bag for carrying money, typically carried by women. Used for holding coins, keys, or cosmetics.",
+                    "vi": "Một chiếc túi nhỏ để đựng tiền, thường được phụ nữ mang theo. Dùng để đựng tiền xu, chìa khóa hoặc mỹ phẩm.",
+                    "th": "กระเป๋าใบเล็กสำหรับใส่เงิน โดยทั่วไปผู้หญิงจะพกพา ใช้สำหรับใส่เหรียญ กุญแจ หรือเครื่องสำอาง",
+                    "id": "Tas kecil untuk membawa uang, biasanya dibawa oleh wanita. Digunakan untuk menyimpan koin, kunci, atau kosmetik.",
+                    "ar": "حقيبة صغيرة لحمل النقود، تحملها النساء عادةً. تُستخدم لحفظ العملات المعدنية أو المفاتيح أو مستحضرات التجميل."
+                },
+                "translation": {
+                    "vi": "ví nữ",
+                    "th": "กระเป๋าสตางค์ผู้หญิง",
+                    "id": "dompet wanita",
+                    "ar": "محفظة نسائية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/pɜːs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/purse-uk-1760856844146.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/pɜːrs/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/purse-us-1760856844488.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "She keeps her keys in her purse.",
+                    "vi": "Cô ấy giữ chìa khóa trong ví của mình.",
+                    "th": "เธอเก็บกุญแจไว้ในกระเป๋าของเธอ",
+                    "id": "Dia menyimpan kuncinya di dompetnya.",
+                    "ar": "هي تحتفظ بمفاتيحها في حقيبتها."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e469a4e8dd8355a205e_1760869928310.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e469a4e8dd8355a2061",
+                "word": "bag",
+                "explanation": {
+                    "en": "A flexible container with an opening at the top. Used for holding purchases.",
+                    "vi": "Một vật chứa linh hoạt có miệng ở phía trên. Dùng để đựng đồ đã mua.",
+                    "th": "ภาชนะที่ยืดหยุ่นได้มีช่องเปิดด้านบน ใช้สำหรับใส่ของที่ซื้อมา",
+                    "id": "Wadah fleksibel dengan bukaan di bagian atas. Digunakan untuk menampung barang belanjaan.",
+                    "ar": "وعاء مرن بفتحة في الأعلى. يُستخدم لحمل المشتريات."
+                },
+                "translation": {
+                    "vi": "túi",
+                    "th": "ถุง",
+                    "id": "tas",
+                    "ar": "حقيبة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/bæɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bag-uk-1760856845752.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/bæɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bag-us-1760856846049.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Can I have a paper bag for these items?",
+                    "vi": "Tôi có thể lấy một túi giấy cho những món đồ này không?",
+                    "th": "ขอถุงกระดาษสำหรับของเหล่านี้ได้ไหม",
+                    "id": "Bisakah saya mendapatkan kantong kertas untuk barang-barang ini?",
+                    "ar": "هل يمكنني الحصول على كيس ورقي لهذه الأغراض؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e469a4e8dd8355a2061_1760869934704.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e469a4e8dd8355a2064",
+                "word": "basket",
+                "explanation": {
+                    "en": "A container made of woven material or plastic. Used by customers to carry a few items.",
+                    "vi": "Một vật chứa làm bằng vật liệu đan hoặc nhựa. Được khách hàng dùng để mang một vài món đồ.",
+                    "th": "ภาชนะที่ทำจากวัสดุสานหรือพลาสติก ลูกค้าใช้สำหรับถือของไม่กี่ชิ้น",
+                    "id": "Wadah yang terbuat dari bahan anyaman atau plastik. Digunakan oleh pelanggan untuk membawa beberapa barang.",
+                    "ar": "سلة مصنوعة من مواد منسوجة أو بلاستيكية. يستخدمها العملاء لحمل بعض الأغراض."
+                },
+                "translation": {
+                    "vi": "giỏ",
+                    "th": "ตะกร้า",
+                    "id": "keranjang",
+                    "ar": "سلة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbɑːskɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/basket-uk-1760856847486.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbæskɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/basket-us-1760856847832.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please put your items in the basket.",
+                    "vi": "Xin hãy đặt đồ của bạn vào giỏ.",
+                    "th": "กรุณาใส่ของของคุณลงในตะกร้า",
+                    "id": "Tolong masukkan barang-barang Anda ke dalam keranjang.",
+                    "ar": "من فضلك ضع أغراضك في السلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e469a4e8dd8355a2064_1760869940738.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e479a4e8dd8355a2067",
+                "word": "cart",
+                "explanation": {
+                    "en": "A large metal carriage on wheels used for holding many items. Used by customers in supermarkets.",
+                    "vi": "Một xe đẩy kim loại lớn có bánh xe dùng để đựng nhiều món đồ. Được khách hàng sử dụng trong siêu thị.",
+                    "th": "รถเข็นโลหะขนาดใหญ่มีล้อ ใช้สำหรับใส่ของจำนวนมาก ลูกค้าใช้ในซูเปอร์มาร์เก็ต",
+                    "id": "Kereta logam besar beroda yang digunakan untuk menampung banyak barang. Digunakan oleh pelanggan di supermarket.",
+                    "ar": "عربة معدنية كبيرة ذات عجلات تستخدم لحمل العديد من الأغراض. يستخدمها العملاء في المتاجر الكبرى."
+                },
+                "translation": {
+                    "vi": "xe đẩy",
+                    "th": "รถเข็น",
+                    "id": "troli",
+                    "ar": "عربة تسوق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kɑːt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cart-uk-1760856849107.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kɑːrt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cart-us-1760856849450.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We need a shopping cart for all these groceries.",
+                    "vi": "Chúng ta cần một xe đẩy hàng cho tất cả những món đồ tạp hóa này.",
+                    "th": "เราต้องการรถเข็นสำหรับของชำทั้งหมดนี้",
+                    "id": "Kami membutuhkan troli belanja untuk semua bahan makanan ini.",
+                    "ar": "نحتاج إلى عربة تسوق لكل هذه البقالة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e479a4e8dd8355a2067_1760869947310.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e479a4e8dd8355a206a",
+                "word": "product",
+                "explanation": {
+                    "en": "An article or substance manufactured or refined for sale. Any item offered to the public.",
+                    "vi": "Một mặt hàng hoặc chất được sản xuất hoặc tinh chế để bán. Bất kỳ món đồ nào được cung cấp cho công chúng.",
+                    "th": "สินค้าหรือสารที่ผลิตหรือกลั่นกรองเพื่อขาย สินค้าใดๆ ที่เสนอต่อสาธารณะ",
+                    "id": "Sebuah artikel atau zat yang diproduksi atau diolah untuk dijual. Setiap barang yang ditawarkan kepada publik.",
+                    "ar": "سلعة أو مادة مصنعة أو مكررة للبيع. أي غرض يُعرض للجمهور."
+                },
+                "translation": {
+                    "vi": "sản phẩm",
+                    "th": "ผลิตภัณฑ์",
+                    "id": "produk",
+                    "ar": "منتج"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈprɒdʌkt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/product-uk-1760856850717.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈprɑːdʌkt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/product-us-1760856851030.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "This new product is very popular.",
+                    "vi": "Sản phẩm mới này rất phổ biến.",
+                    "th": "ผลิตภัณฑ์ใหม่นี้เป็นที่นิยมมาก",
+                    "id": "Produk baru ini sangat populer.",
+                    "ar": "هذا المنتج الجديد شائع جدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e479a4e8dd8355a206a_1760869953829.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e479a4e8dd8355a206d",
+                "word": "goods",
+                "explanation": {
+                    "en": "Merchandise or possessions. Items produced for sale.",
+                    "vi": "Hàng hóa hoặc tài sản. Các mặt hàng được sản xuất để bán.",
+                    "th": "สินค้าหรือทรัพย์สิน สิ่งของที่ผลิตเพื่อขาย",
+                    "id": "Barang dagangan atau kepemilikan. Barang-barang yang diproduksi untuk dijual.",
+                    "ar": "بضائع أو ممتلكات. أغراض منتجة للبيع."
+                },
+                "translation": {
+                    "vi": "hàng hóa",
+                    "th": "สินค้า",
+                    "id": "barang",
+                    "ar": "بضاعة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ɡʊdz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/goods-uk-1760856852307.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɡʊdz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/goods-us-1760856852654.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The store sells quality goods at fair prices.",
+                    "vi": "Cửa hàng bán hàng hóa chất lượng với giá cả phải chăng.",
+                    "th": "ร้านค้าขายสินค้าคุณภาพดีในราคาที่ยุติธรรม",
+                    "id": "Toko itu menjual barang berkualitas dengan harga yang wajar.",
+                    "ar": "يبيع المتجر بضائع ذات جودة بأسعار عادلة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e479a4e8dd8355a206d_1760869961500.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e479a4e8dd8355a2070",
+                "word": "item",
+                "explanation": {
+                    "en": "A single object or unit, especially one that is part of a list. A piece of merchandise.",
+                    "vi": "Một đối tượng hoặc đơn vị riêng lẻ, đặc biệt là một phần của danh sách. Một món hàng hóa.",
+                    "th": "วัตถุหรือหน่วยเดียว โดยเฉพาะอย่างยิ่งที่เป็นส่วนหนึ่งของรายการ สินค้าชิ้นหนึ่ง",
+                    "id": "Sebuah objek atau unit tunggal, terutama yang merupakan bagian dari daftar. Sebuah barang dagangan.",
+                    "ar": "غرض واحد أو وحدة واحدة، خاصةً ما كان جزءًا من قائمة. قطعة من البضاعة."
+                },
+                "translation": {
+                    "vi": "món hàng",
+                    "th": "ชิ้นสินค้า",
+                    "id": "barang",
+                    "ar": "سلعة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈaɪtəm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/item-uk-ai-1760858250078.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈaɪɾəm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/item-us-ai-1760858250817.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Each item has a different barcode.",
+                    "vi": "Mỗi món đồ có một mã vạch khác nhau.",
+                    "th": "แต่ละรายการมีบาร์โค้ดที่แตกต่างกัน",
+                    "id": "Setiap barang memiliki kode batang yang berbeda.",
+                    "ar": "كل غرض له رمز شريطي مختلف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e479a4e8dd8355a2070_1760869968137.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e479a4e8dd8355a2073",
+                "word": "brand",
+                "explanation": {
+                    "en": "A type of product manufactured by a particular company. A name, term, or design intended to identify the goods.",
+                    "vi": "Một loại sản phẩm được sản xuất bởi một công ty cụ thể. Một tên, thuật ngữ hoặc thiết kế nhằm nhận diện hàng hóa.",
+                    "th": "ประเภทของผลิตภัณฑ์ที่ผลิตโดยบริษัทใดบริษัทหนึ่ง ชื่อ คำ หรือการออกแบบที่ตั้งใจจะระบุสินค้า",
+                    "id": "Jenis produk yang diproduksi oleh perusahaan tertentu. Nama, istilah, atau desain yang dimaksudkan untuk mengidentifikasi barang.",
+                    "ar": "نوع من المنتجات المصنعة بواسطة شركة معينة. اسم أو مصطلح أو تصميم يهدف إلى تحديد البضائع."
+                },
+                "translation": {
+                    "vi": "thương hiệu",
+                    "th": "แบรนด์",
+                    "id": "merek",
+                    "ar": "علامة تجارية"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/brænd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/brand-uk-1760856854820.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/brænd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/brand-us-1760856855223.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Which brand of coffee do you prefer?",
+                    "vi": "Bạn thích thương hiệu cà phê nào?",
+                    "th": "คุณชอบกาแฟยี่ห้อไหน",
+                    "id": "Merek kopi apa yang Anda sukai?",
+                    "ar": "أي ماركة قهوة تفضل؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e479a4e8dd8355a2073_1760869975596.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e479a4e8dd8355a2076",
+                "word": "size",
+                "explanation": {
+                    "en": "The relative extent of something. The dimensions or magnitude of a product.",
+                    "vi": "Phạm vi tương đối của một cái gì đó. Kích thước hoặc độ lớn của một sản phẩm.",
+                    "th": "ขอบเขตสัมพัทธ์ของบางสิ่ง ขนาดหรือปริมาณของผลิตภัณฑ์",
+                    "id": "Luas relatif sesuatu. Dimensi atau besaran suatu produk.",
+                    "ar": "المدى النسبي لشيء ما. أبعاد أو حجم المنتج."
+                },
+                "translation": {
+                    "vi": "kích cỡ",
+                    "th": "ขนาด",
+                    "id": "ukuran",
+                    "ar": "مقاس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/saɪz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/size-uk-1760856856504.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/saɪz/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/size-us-1760856856849.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Do you have this shirt in a larger size?",
+                    "vi": "Bạn có chiếc áo này cỡ lớn hơn không?",
+                    "th": "คุณมีเสื้อตัวนี้ไซส์ใหญ่กว่าไหม",
+                    "id": "Apakah Anda punya kemeja ini dalam ukuran yang lebih besar?",
+                    "ar": "هل لديك هذا القميص بحجم أكبر؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e479a4e8dd8355a2076_1760869982644.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e479a4e8dd8355a2079",
+                "word": "color",
+                "explanation": {
+                    "en": "The property possessed by an object of producing different sensations on the eye. The visual hue of a product.",
+                    "vi": "Thuộc tính của một vật thể tạo ra các cảm giác khác nhau trên mắt. Sắc thái thị giác của một sản phẩm.",
+                    "th": "คุณสมบัติที่วัตถุมีในการสร้างความรู้สึกที่แตกต่างกันต่อสายตา สีสันของผลิตภัณฑ์",
+                    "id": "Sifat yang dimiliki oleh suatu objek untuk menghasilkan sensasi yang berbeda pada mata. Warna visual suatu produk.",
+                    "ar": "الخاصية التي يمتلكها كائن لإنتاج أحاسيس مختلفة على العين. اللون المرئي للمنتج."
+                },
+                "translation": {
+                    "vi": "màu sắc",
+                    "th": "สี",
+                    "id": "warna",
+                    "ar": "لون"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈkʌlə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/color-uk-1760856858115.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈkʌlər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/color-us-1760856858454.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "What color is your new car?",
+                    "vi": "Xe ô tô mới của bạn màu gì?",
+                    "th": "รถคันใหม่ของคุณสีอะไร",
+                    "id": "Mobil baru Anda warna apa?",
+                    "ar": "ما لون سيارتك الجديدة؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e479a4e8dd8355a2079_1760869989892.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e489a4e8dd8355a207c",
+                "word": "fit",
+                "explanation": {
+                    "en": "To be of the right shape and size for someone. To be appropriately sized for the wearer.",
+                    "vi": "Có hình dạng và kích thước phù hợp với ai đó. Có kích thước phù hợp với người mặc.",
+                    "th": "มีรูปร่างและขนาดที่เหมาะสมสำหรับใครบางคน มีขนาดที่เหมาะสมสำหรับผู้สวมใส่",
+                    "id": "Memiliki bentuk dan ukuran yang tepat untuk seseorang. Berukuran sesuai untuk pemakainya.",
+                    "ar": "أن يكون بالشكل والحجم المناسبين لشخص ما. أن يكون بالحجم المناسب لمرتديه."
+                },
+                "translation": {
+                    "vi": "vừa vặn",
+                    "th": "พอดี",
+                    "id": "pas",
+                    "ar": "مناسب"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/fɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fit-uk-1760856859663.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/fɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/fit-us-1760856860005.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "These shoes don't fit me well.",
+                    "vi": "Đôi giày này không vừa với tôi.",
+                    "th": "รองเท้าคู่นี้ไม่พอดีกับฉัน",
+                    "id": "Sepatu ini tidak pas untuk saya.",
+                    "ar": "هذه الأحذية لا تناسبني جيدًا."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e489a4e8dd8355a207c_1760869996188.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e489a4e8dd8355a207f",
+                "word": "try on",
+                "explanation": {
+                    "en": "To put on an item of clothing to see if it fits. The action of testing clothes before buying.",
+                    "vi": "Mặc thử một món đồ quần áo để xem có vừa không. Hành động thử quần áo trước khi mua.",
+                    "th": "สวมใส่เสื้อผ้าเพื่อดูว่าพอดีหรือไม่ การกระทำของการลองเสื้อผ้าก่อนซื้อ",
+                    "id": "Memakai sepotong pakaian untuk melihat apakah pas. Tindakan mencoba pakaian sebelum membeli.",
+                    "ar": "ارتداء قطعة ملابس لمعرفة ما إذا كانت مناسبة. فعل تجربة الملابس قبل الشراء."
+                },
+                "translation": {
+                    "vi": "thử đồ",
+                    "th": "ลองเสื้อผ้า",
+                    "id": "mencoba pakaian",
+                    "ar": "قياس الملابس"
+                },
+                "type": "phrasal verb",
+                "phonetics": [
+                    {
+                        "text": "/traɪ ɒn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/try-on-uk-ai-1760858255564.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/traɪ ɑːn/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/try-on-us-ai-1760858256207.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I want to try on this dress.",
+                    "vi": "Tôi muốn thử chiếc váy này.",
+                    "th": "ฉันอยากลองชุดเดรสตัวนี้",
+                    "id": "Saya ingin mencoba gaun ini.",
+                    "ar": "أريد أن أجرب هذا الفستان."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e489a4e8dd8355a207f_1760870002928.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e489a4e8dd8355a2082",
+                "word": "change room",
+                "explanation": {
+                    "en": "A fitting room in a store for trying on clothing. The area reserved for customers to change clothes.",
+                    "vi": "Phòng thử đồ trong cửa hàng để thử quần áo. Khu vực dành riêng cho khách hàng thay quần áo.",
+                    "th": "ห้องลองเสื้อผ้าในร้านค้าสำหรับลองเสื้อผ้า พื้นที่ที่สงวนไว้สำหรับลูกค้าเพื่อเปลี่ยนเสื้อผ้า",
+                    "id": "Ruang pas di toko untuk mencoba pakaian. Area yang disediakan untuk pelanggan untuk berganti pakaian.",
+                    "ar": "غرفة قياس في متجر لتجربة الملابس. المنطقة المخصصة للعملاء لتغيير الملابس."
+                },
+                "translation": {
+                    "vi": "phòng thử đồ",
+                    "th": "ห้องลองเสื้อผ้า",
+                    "id": "ruang ganti",
+                    "ar": "غرفة تبديل الملابس"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/tʃeɪndʒ ruːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/change-room-uk-ai-1760858260733.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʃeɪndʒ ruːm/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/change-room-us-ai-1760858261392.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The change room is over there.",
+                    "vi": "Phòng thay đồ ở đằng kia.",
+                    "th": "ห้องลองเสื้อผ้าอยู่ตรงนั้น",
+                    "id": "Ruang ganti ada di sana.",
+                    "ar": "غرفة تبديل الملابس هناك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e489a4e8dd8355a2082_1760870012962.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e489a4e8dd8355a2085",
+                "word": "shopping list",
+                "explanation": {
+                    "en": "A list of items that a person intends to purchase. A written reminder of necessities.",
+                    "vi": "Danh sách các mặt hàng mà một người dự định mua. Một lời nhắc nhở bằng văn bản về những thứ cần thiết.",
+                    "th": "รายการสิ่งของที่บุคคลตั้งใจจะซื้อ รายการเตือนความจำถึงสิ่งจำเป็น",
+                    "id": "Daftar barang-barang yang ingin dibeli seseorang. Pengingat tertulis tentang kebutuhan.",
+                    "ar": "قائمة بالسلع التي ينوي الشخص شراؤها. تذكير مكتوب بالضروريات."
+                },
+                "translation": {
+                    "vi": "danh sách mua sắm",
+                    "th": "รายการซื้อของ",
+                    "id": "daftar belanja",
+                    "ar": "قائمة تسوق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ʃɒpɪŋ lɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shopping-list-uk-ai-1760858265963.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ʃɑːpɪŋ lɪst/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shopping-list-us-ai-1760858266580.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I forgot my shopping list at home.",
+                    "vi": "Tôi đã quên danh sách mua sắm của mình ở nhà.",
+                    "th": "ฉันลืมรายการซื้อของไว้ที่บ้าน",
+                    "id": "Saya lupa daftar belanja saya di rumah.",
+                    "ar": "نسيت قائمة التسوق الخاصة بي في المنزل."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e489a4e8dd8355a2085_1760870018816.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e499a4e8dd8355a2088",
+                "word": "shelf",
+                "explanation": {
+                    "en": "A long, flat piece of wood or metal fixed horizontally. Used to display goods in a store.",
+                    "vi": "Một tấm gỗ hoặc kim loại dài, phẳng được gắn ngang. Dùng để trưng bày hàng hóa trong cửa hàng.",
+                    "th": "แผ่นไม้หรือโลหะยาวแบนที่ยึดติดในแนวนอน ใช้สำหรับจัดแสดงสินค้าในร้านค้า",
+                    "id": "Sebuah papan panjang, datar dari kayu atau logam yang dipasang secara horizontal. Digunakan untuk memajang barang di toko.",
+                    "ar": "قطعة طويلة ومسطحة من الخشب أو المعدن مثبتة أفقيًا. تستخدم لعرض البضائع في المتجر."
+                },
+                "translation": {
+                    "vi": "kệ hàng",
+                    "th": "ชั้นวางของ",
+                    "id": "rak barang",
+                    "ar": "رف"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ʃelf/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shelf-uk-1760856863876.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ʃelf/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shelf-us-1760856864208.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Put the books back on the shelf.",
+                    "vi": "Hãy đặt sách trở lại kệ.",
+                    "th": "วางหนังสือกลับไปบนชั้นวาง",
+                    "id": "Letakkan buku-buku itu kembali ke rak.",
+                    "ar": "أعد الكتب إلى الرف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e499a4e8dd8355a2088_1760870024610.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e499a4e8dd8355a208b",
+                "word": "checkout",
+                "explanation": {
+                    "en": "The counter where payment is made in a store. The final station before leaving with purchases.",
+                    "vi": "Quầy thanh toán tại cửa hàng. Điểm cuối cùng trước khi rời đi với các món đồ đã mua.",
+                    "th": "เคาน์เตอร์ที่ชำระเงินในร้านค้า จุดสุดท้ายก่อนออกจากร้านพร้อมสินค้าที่ซื้อ",
+                    "id": "Meja tempat pembayaran dilakukan di toko. Stasiun terakhir sebelum meninggalkan toko dengan barang belanjaan.",
+                    "ar": "العداد الذي يتم فيه الدفع في المتجر. المحطة الأخيرة قبل المغادرة بالمشتريات."
+                },
+                "translation": {
+                    "vi": "quầy thanh toán",
+                    "th": "จุดชำระเงิน",
+                    "id": "meja kasir",
+                    "ar": "صندوق الدفع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈtʃɛkaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/checkout-uk-ai-1760858271380.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈtʃɛkaʊt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/checkout-us-ai-1760858272037.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "We paid for our groceries at the checkout.",
+                    "vi": "Chúng tôi đã thanh toán tiền hàng tạp hóa tại quầy thanh toán.",
+                    "th": "เราจ่ายค่าของชำที่จุดชำระเงิน",
+                    "id": "Kami membayar belanjaan kami di kasir.",
+                    "ar": "دفعنا ثمن مشترياتنا في نقطة الدفع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e499a4e8dd8355a208b_1760870031811.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e499a4e8dd8355a208e",
+                "word": "barcode",
+                "explanation": {
+                    "en": "A machine-readable code of lines and numbers. Used to identify and price products electronically.",
+                    "vi": "Một mã vạch gồm các đường và số có thể đọc được bằng máy. Dùng để nhận dạng và định giá sản phẩm điện tử.",
+                    "th": "รหัสที่เครื่องอ่านได้ซึ่งประกอบด้วยเส้นและตัวเลข ใช้สำหรับระบุและกำหนดราคาสินค้าด้วยระบบอิเล็กทรอนิกส์",
+                    "id": "Kode yang dapat dibaca mesin berupa garis dan angka. Digunakan untuk mengidentifikasi dan memberi harga produk secara elektronik.",
+                    "ar": "رمز يمكن قراءته آليًا يتكون من خطوط وأرقام. يستخدم لتحديد المنتجات وتسعيرها إلكترونيًا."
+                },
+                "translation": {
+                    "vi": "mã vạch",
+                    "th": "บาร์โค้ด",
+                    "id": "kode batang",
+                    "ar": "رمز شريطي"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbɑːkəʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/barcode-uk-1760856866334.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbɑːrkəʊd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/barcode-us-1760856866674.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The cashier scanned the barcode on the item.",
+                    "vi": "Người thu ngân đã quét mã vạch trên món hàng.",
+                    "th": "พนักงานเก็บเงินสแกนบาร์โค้ดบนสินค้า",
+                    "id": "Kasir memindai barcode pada barang tersebut.",
+                    "ar": "قام أمين الصندوق بمسح الباركود على السلعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e499a4e8dd8355a208e_1760870038680.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e499a4e8dd8355a2091",
+                "word": "queue",
+                "explanation": {
+                    "en": "A line or sequence of people waiting for something. Waiting in line, often to pay.",
+                    "vi": "Một hàng hoặc chuỗi người đang chờ đợi điều gì đó. Xếp hàng, thường là để thanh toán.",
+                    "th": "แถวหรือลำดับของผู้คนที่กำลังรอคอยบางสิ่ง การรอคิว มักจะเป็นการรอเพื่อชำระเงิน",
+                    "id": "Antrean atau urutan orang yang menunggu sesuatu. Mengantre, seringkali untuk membayar.",
+                    "ar": "صف أو سلسلة من الأشخاص ينتظرون شيئًا ما. الانتظار في الطابور، غالبًا للدفع."
+                },
+                "translation": {
+                    "vi": "xếp hàng",
+                    "th": "คิว",
+                    "id": "antrean",
+                    "ar": "طابور"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/kjuː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/queue-uk-1760856867951.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/kjuː/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/queue-us-1760856868312.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "There was a long queue at the bank.",
+                    "vi": "Có một hàng dài người tại ngân hàng.",
+                    "th": "มีคิวยาวที่ธนาคาร",
+                    "id": "Ada antrean panjang di bank.",
+                    "ar": "كان هناك طابور طويل في البنك."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e499a4e8dd8355a2091_1760870045989.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e499a4e8dd8355a2094",
+                "word": "refund",
+                "explanation": {
+                    "en": "A sum of money paid back to a customer. Money returned for a returned or damaged item.",
+                    "vi": "Một khoản tiền được trả lại cho khách hàng. Tiền được hoàn lại cho một mặt hàng đã trả lại hoặc bị hư hỏng.",
+                    "th": "จำนวนเงินที่จ่ายคืนให้กับลูกค้า เงินที่คืนให้สำหรับสินค้าที่ส่งคืนหรือเสียหาย",
+                    "id": "Jumlah uang yang dibayarkan kembali kepada pelanggan. Uang yang dikembalikan untuk barang yang dikembalikan atau rusak.",
+                    "ar": "مبلغ من المال يُدفع مرة أخرى للعميل. المال المسترد لسلعة تم إرجاعها أو تالفة."
+                },
+                "translation": {
+                    "vi": "hoàn tiền",
+                    "th": "การคืนเงิน",
+                    "id": "pengembalian dana",
+                    "ar": "استرداد الأموال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈriːfʌnd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/refund-uk-1760856869601.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈriːfʌnd/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/refund-us-1760856869954.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Can I get a refund for this broken toy?",
+                    "vi": "Tôi có thể được hoàn tiền cho món đồ chơi bị hỏng này không?",
+                    "th": "ฉันขอเงินคืนสำหรับของเล่นที่เสียนี้ได้ไหม",
+                    "id": "Bisakah saya mendapatkan pengembalian dana untuk mainan yang rusak ini?",
+                    "ar": "هل يمكنني استرداد أموالي مقابل هذه اللعبة المكسورة؟"
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e499a4e8dd8355a2094_1760870052509.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e499a4e8dd8355a2097",
+                "word": "exchange",
+                "explanation": {
+                    "en": "To give one item in return for another. Replacing a purchased item with a different one.",
+                    "vi": "Đổi một món hàng lấy một món khác. Thay thế một món hàng đã mua bằng một món khác.",
+                    "th": "การให้สินค้าหนึ่งชิ้นเพื่อแลกกับอีกชิ้น การเปลี่ยนสินค้าที่ซื้อด้วยสินค้าอื่น",
+                    "id": "Memberikan satu barang sebagai ganti barang lain. Mengganti barang yang dibeli dengan barang yang berbeda.",
+                    "ar": "إعطاء سلعة مقابل أخرى. استبدال سلعة مشتراة بأخرى مختلفة."
+                },
+                "translation": {
+                    "vi": "đổi hàng",
+                    "th": "การแลกเปลี่ยนสินค้า",
+                    "id": "pertukaran barang",
+                    "ar": "استبدال السلع"
+                },
+                "type": "verb",
+                "phonetics": [
+                    {
+                        "text": "/ɪksˈtʃeɪndʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/exchange-uk-1760856871272.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪksˈtʃeɪndʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/exchange-us-1760856871609.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I want to exchange these shoes for a different size.",
+                    "vi": "Tôi muốn đổi đôi giày này lấy một cỡ khác.",
+                    "th": "ฉันต้องการเปลี่ยนรองเท้าคู่นี้เป็นขนาดอื่น",
+                    "id": "Saya ingin menukar sepatu ini dengan ukuran yang berbeda.",
+                    "ar": "أرغب في استبدال هذه الأحذية بمقاس مختلف."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e499a4e8dd8355a2097_1760870060247.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4a9a4e8dd8355a209a",
+                "word": "delivery",
+                "explanation": {
+                    "en": "The transport of goods to a customer's address. The action of bringing something purchased to the buyer.",
+                    "vi": "Việc vận chuyển hàng hóa đến địa chỉ của khách hàng. Hành động mang một món đồ đã mua đến cho người mua.",
+                    "th": "การขนส่งสินค้าไปยังที่อยู่ของลูกค้า การนำสิ่งของที่ซื้อไปส่งให้ผู้ซื้อ",
+                    "id": "Pengiriman barang ke alamat pelanggan. Tindakan membawa sesuatu yang dibeli kepada pembeli.",
+                    "ar": "نقل البضائع إلى عنوان العميل. عملية إحضار شيء تم شراؤه إلى المشتري."
+                },
+                "translation": {
+                    "vi": "giao hàng",
+                    "th": "การจัดส่งสินค้า",
+                    "id": "pengiriman barang",
+                    "ar": "توصيل البضائع"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/dɪˈlɪvəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/delivery-uk-1760856872882.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/dɪˈlɪvəri/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/delivery-us-1760856873224.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The pizza delivery arrived quickly.",
+                    "vi": "Đơn hàng pizza đã được giao đến nhanh chóng.",
+                    "th": "การจัดส่งพิซซ่ามาถึงอย่างรวดเร็ว",
+                    "id": "Pengiriman pizza tiba dengan cepat.",
+                    "ar": "وصلت طلبية البيتزا بسرعة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4a9a4e8dd8355a209a_1760870071492.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4a9a4e8dd8355a209d",
+                "word": "shipping",
+                "explanation": {
+                    "en": "The activity of transporting goods. The cost or method used for transport.",
+                    "vi": "Hoạt động vận chuyển hàng hóa. Chi phí hoặc phương thức được sử dụng để vận chuyển.",
+                    "th": "กิจกรรมการขนส่งสินค้า ค่าใช้จ่ายหรือวิธีการที่ใช้ในการขนส่ง",
+                    "id": "Aktivitas pengangkutan barang. Biaya atau metode yang digunakan untuk pengangkutan.",
+                    "ar": "نشاط نقل البضائع. التكلفة أو الطريقة المستخدمة للنقل."
+                },
+                "translation": {
+                    "vi": "vận chuyển",
+                    "th": "การขนส่ง",
+                    "id": "pengiriman",
+                    "ar": "الشحن"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈʃɪpɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shipping-uk-1760856874496.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈʃɪpɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shipping-us-1760856874837.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Shipping for this item is free.",
+                    "vi": "Phí vận chuyển cho món hàng này là miễn phí.",
+                    "th": "ค่าจัดส่งสำหรับสินค้านี้ฟรี",
+                    "id": "Pengiriman untuk barang ini gratis.",
+                    "ar": "الشحن لهذا المنتج مجاني."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4a9a4e8dd8355a209d_1760870079749.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4a9a4e8dd8355a20a0",
+                "word": "online shopping",
+                "explanation": {
+                    "en": "Buying goods or services over the internet. The convenient method of purchasing from home.",
+                    "vi": "Mua hàng hóa hoặc dịch vụ qua internet. Phương thức mua sắm tiện lợi từ nhà.",
+                    "th": "การซื้อสินค้าหรือบริการผ่านอินเทอร์เน็ต วิธีการซื้อที่สะดวกสบายจากที่บ้าน",
+                    "id": "Membeli barang atau jasa melalui internet. Metode pembelian yang nyaman dari rumah.",
+                    "ar": "شراء السلع أو الخدمات عبر الإنترنت. طريقة الشراء المريحة من المنزل."
+                },
+                "translation": {
+                    "vi": "mua sắm trực tuyến",
+                    "th": "การซื้อของออนไลน์",
+                    "id": "belanja online",
+                    "ar": "التسوق عبر الإنترنت"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/ɒnlaɪn ˈʃɒpɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/online-shopping-uk-ai-1760858277609.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɑːnlaɪn ˈʃɑːpɪŋ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/online-shopping-us-ai-1760858278295.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I love doing my online shopping on weekends.",
+                    "vi": "Tôi thích mua sắm trực tuyến vào cuối tuần.",
+                    "th": "ฉันชอบซื้อของออนไลน์ในวันหยุดสุดสัปดาห์",
+                    "id": "Saya suka berbelanja online di akhir pekan.",
+                    "ar": "أحب التسوق عبر الإنترنت في عطلات نهاية الأسبوع."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4a9a4e8dd8355a20a0_1760870086593.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4a9a4e8dd8355a20a3",
+                "word": "order",
+                "explanation": {
+                    "en": "A request made to purchase something. The process of requesting goods from a vendor.",
+                    "vi": "Một yêu cầu được thực hiện để mua một thứ gì đó. Quá trình yêu cầu hàng hóa từ một nhà cung cấp.",
+                    "th": "คำขอที่ทำขึ้นเพื่อซื้อบางสิ่ง กระบวนการขอสินค้าจากผู้ขาย",
+                    "id": "Permintaan yang dibuat untuk membeli sesuatu. Proses meminta barang dari penjual.",
+                    "ar": "طلب يتم تقديمه لشراء شيء ما. عملية طلب البضائع من بائع."
+                },
+                "translation": {
+                    "vi": "đặt hàng",
+                    "th": "การสั่งซื้อสินค้า",
+                    "id": "pemesanan barang",
+                    "ar": "طلب"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈɔːdə(r)/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/order-uk-1760856877006.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈɔːrdər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/order-us-1760856877369.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My food order will arrive in 20 minutes.",
+                    "vi": "Đơn hàng thức ăn của tôi sẽ đến trong 20 phút nữa.",
+                    "th": "คำสั่งอาหารของฉันจะมาถึงใน 20 นาที",
+                    "id": "Pesanan makanan saya akan tiba dalam 20 menit.",
+                    "ar": "طلبية طعامي ستصل خلال 20 دقيقة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4a9a4e8dd8355a20a3_1760870093329.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4a9a4e8dd8355a20a6",
+                "word": "package",
+                "explanation": {
+                    "en": "An item or collection of items wrapped or boxed for delivery. A container ready for shipping.",
+                    "vi": "Một món hàng hoặc bộ sưu tập các món hàng được gói hoặc đóng hộp để giao hàng. Một thùng chứa sẵn sàng để vận chuyển.",
+                    "th": "สินค้าหรือชุดของสินค้าที่ห่อหรือบรรจุกล่องสำหรับการจัดส่ง ภาชนะที่พร้อมสำหรับการจัดส่ง",
+                    "id": "Sebuah barang atau kumpulan barang yang dibungkus atau dikemas dalam kotak untuk pengiriman. Sebuah wadah yang siap untuk pengiriman.",
+                    "ar": "عنصر أو مجموعة من العناصر ملفوفة أو معبأة في صندوق للتسليم. حاوية جاهزة للشحن."
+                },
+                "translation": {
+                    "vi": "gói hàng",
+                    "th": "พัสดุ",
+                    "id": "paket",
+                    "ar": "طرد"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈpækɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/package-uk-1760856878700.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈpækɪdʒ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/package-us-1760856879053.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The mailman delivered a package this morning.",
+                    "vi": "Người đưa thư đã giao một gói hàng sáng nay.",
+                    "th": "บุรุษไปรษณีย์ส่งพัสดุเมื่อเช้านี้",
+                    "id": "Tukang pos mengantarkan sebuah paket pagi ini.",
+                    "ar": "سلم ساعي البريد طردًا هذا الصباح."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4a9a4e8dd8355a20a6_1760870099987.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4b9a4e8dd8355a20a9",
+                "word": "label",
+                "explanation": {
+                    "en": "A small piece of material affixed to a product. Provides information about the item's contents or price.",
+                    "vi": "Một mảnh vật liệu nhỏ được gắn vào sản phẩm. Cung cấp thông tin về nội dung hoặc giá của mặt hàng.",
+                    "th": "ชิ้นส่วนเล็กๆ ของวัสดุที่ติดอยู่กับผลิตภัณฑ์ ให้ข้อมูลเกี่ยวกับเนื้อหาหรือราคาของสินค้า",
+                    "id": "Sepotong kecil bahan yang ditempelkan pada produk. Memberikan informasi tentang isi atau harga barang.",
+                    "ar": "قطعة صغيرة من المواد ملصقة على المنتج. توفر معلومات حول محتويات السلعة أو سعرها."
+                },
+                "translation": {
+                    "vi": "nhãn mác",
+                    "th": "ฉลาก",
+                    "id": "label",
+                    "ar": "ملصق"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈleɪbl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/label-uk-1760856880339.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈleɪbl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/label-us-1760856880680.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Read the label before you use the product.",
+                    "vi": "Hãy đọc nhãn trước khi bạn sử dụng sản phẩm.",
+                    "th": "อ่านฉลากก่อนที่คุณจะใช้ผลิตภัณฑ์",
+                    "id": "Baca label sebelum Anda menggunakan produk.",
+                    "ar": "اقرأ الملصق قبل استخدام المنتج."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4b9a4e8dd8355a20a9_1760870106208.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4b9a4e8dd8355a20ac",
+                "word": "price tag",
+                "explanation": {
+                    "en": "A small piece of cardboard or paper showing the cost. Attached to an item to indicate its value.",
+                    "vi": "Một mảnh bìa cứng hoặc giấy nhỏ hiển thị giá. Gắn vào một mặt hàng để chỉ ra giá trị của nó.",
+                    "th": "กระดาษแข็งหรือกระดาษชิ้นเล็กๆ ที่แสดงราคา ติดอยู่กับสินค้าเพื่อระบุมูลค่าของมัน",
+                    "id": "Sepotong kecil karton atau kertas yang menunjukkan harga. Dilekatkan pada barang untuk menunjukkan nilainya.",
+                    "ar": "قطعة صغيرة من الورق المقوى أو الورق تظهر التكلفة. مرفقة بالسلعة للإشارة إلى قيمتها."
+                },
+                "translation": {
+                    "vi": "thẻ giá",
+                    "th": "ป้ายราคา",
+                    "id": "label harga",
+                    "ar": "بطاقة السعر"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/praɪs tæɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/price-tag-uk-ai-1760858282766.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/praɪs tæɡ/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/price-tag-us-ai-1760858283457.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "The dress had a very high price tag.",
+                    "vi": "Chiếc váy có một cái giá rất cao.",
+                    "th": "ชุดเดรสมีป้ายราคาที่สูงมาก",
+                    "id": "Gaun itu memiliki label harga yang sangat tinggi.",
+                    "ar": "كان الفستان يحمل بطاقة سعر باهظة للغاية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4b9a4e8dd8355a20ac_1760870112456.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4b9a4e8dd8355a20af",
+                "word": "affordable",
+                "explanation": {
+                    "en": "Inexpensive or reasonably priced. Easily within one's financial means.",
+                    "vi": "Không đắt hoặc có giá hợp lý. Dễ dàng nằm trong khả năng tài chính của một người.",
+                    "th": "ไม่แพงหรือมีราคาที่สมเหตุสมผล อยู่ในกำลังซื้อของบุคคลได้อย่างง่ายดาย",
+                    "id": "Murah atau harga terjangkau. Mudah dalam jangkauan finansial seseorang.",
+                    "ar": "غير مكلف أو بسعر معقول. في متناول اليد من الناحية المالية بسهولة."
+                },
+                "translation": {
+                    "vi": "giá phải chăng",
+                    "th": "ราคาสมเหตุสมผล",
+                    "id": "harga terjangkau",
+                    "ar": "سعر معقول"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/əˈfɔːdəbl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/affordable-uk-1760856882816.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/əˈfɔːrdəbl/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/affordable-us-1760856883167.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "These new apartments are quite affordable.",
+                    "vi": "Những căn hộ mới này khá phải chăng.",
+                    "th": "อพาร์ตเมนต์ใหม่เหล่านี้ค่อนข้างมีราคาที่จับต้องได้",
+                    "id": "Apartemen-apartemen baru ini cukup terjangkau.",
+                    "ar": "هذه الشقق الجديدة ميسورة التكلفة للغاية."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4b9a4e8dd8355a20af_1760870119071.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4b9a4e8dd8355a20b2",
+                "word": "expensive",
+                "explanation": {
+                    "en": "Costing a lot of money. Priced at a high rate.",
+                    "vi": "Tốn nhiều tiền. Được định giá ở mức cao.",
+                    "th": "มีราคาแพงมาก. ถูกตั้งราคาไว้สูง.",
+                    "id": "Membutuhkan banyak uang. Dihargai dengan tarif tinggi.",
+                    "ar": "يكلف الكثير من المال. بسعر مرتفع."
+                },
+                "translation": {
+                    "vi": "đắt tiền",
+                    "th": "แพง",
+                    "id": "mahal",
+                    "ar": "غالي"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/ɪkˈspensɪv/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/expensive-uk-1760856884443.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ɪkˈspensɪv/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/expensive-us-1760856884842.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "That car is too expensive for me.",
+                    "vi": "Chiếc xe đó quá đắt đối với tôi.",
+                    "th": "รถคันนั้นแพงเกินไปสำหรับฉัน.",
+                    "id": "Mobil itu terlalu mahal untuk saya.",
+                    "ar": "تلك السيارة باهظة الثمن بالنسبة لي."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4b9a4e8dd8355a20b2_1760870126296.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4c9a4e8dd8355a20b5",
+                "word": "cheap",
+                "explanation": {
+                    "en": "Costing little money; inexpensive. Available at a low cost.",
+                    "vi": "Tốn ít tiền; không đắt. Có sẵn với chi phí thấp.",
+                    "th": "มีราคาถูก; ไม่แพง. มีจำหน่ายในราคาต่ำ.",
+                    "id": "Membutuhkan sedikit uang; tidak mahal. Tersedia dengan biaya rendah.",
+                    "ar": "يكلف القليل من المال؛ غير مكلف. متاح بتكلفة منخفضة."
+                },
+                "translation": {
+                    "vi": "rẻ",
+                    "th": "ถูก",
+                    "id": "murah",
+                    "ar": "رخيص"
+                },
+                "type": "adjective",
+                "phonetics": [
+                    {
+                        "text": "/tʃiːp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cheap-uk-1760856886103.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/tʃiːp/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/cheap-us-1760856886437.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Don't buy cheap shoes; they break easily.",
+                    "vi": "Đừng mua giày rẻ tiền; chúng dễ hỏng.",
+                    "th": "อย่าซื้อรองเท้าราคาถูก; มันพังง่าย.",
+                    "id": "Jangan beli sepatu murah; mereka mudah rusak.",
+                    "ar": "لا تشترِ أحذية رخيصة؛ فهي تتلف بسهولة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4c9a4e8dd8355a20b5_1760870133407.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4c9a4e8dd8355a20b8",
+                "word": "bargain",
+                "explanation": {
+                    "en": "Something bought or offered for sale unusually cheaply. An item purchased at a favorable price.",
+                    "vi": "Một thứ gì đó được mua hoặc rao bán với giá rẻ bất thường. Một món hàng được mua với giá ưu đãi.",
+                    "th": "สิ่งที่ซื้อหรือเสนอขายในราคาถูกผิดปกติ. สินค้าที่ซื้อในราคาที่น่าพอใจ.",
+                    "id": "Sesuatu yang dibeli atau ditawarkan untuk dijual dengan harga yang sangat murah. Barang yang dibeli dengan harga yang menguntungkan.",
+                    "ar": "شيء تم شراؤه أو عرضه للبيع بسعر رخيص بشكل غير عادي. سلعة تم شراؤها بسعر مناسب."
+                },
+                "translation": {
+                    "vi": "món hời",
+                    "th": "ของถูกและดี",
+                    "id": "penawaran bagus",
+                    "ar": "صفقة جيدة"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/ˈbɑːɡən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bargain-uk-1760856887893.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈbɑːrɡən/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/bargain-us-1760856888265.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "I found a great bargain at the market.",
+                    "vi": "Tôi đã tìm thấy một món hời lớn ở chợ.",
+                    "th": "ฉันเจอของลดราคาดีๆ ที่ตลาด.",
+                    "id": "Saya menemukan penawaran hebat di pasar.",
+                    "ar": "لقد وجدت صفقة رائعة في السوق."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4c9a4e8dd8355a20b8_1760870139830.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4c9a4e8dd8355a20bb",
+                "word": "receipt number",
+                "explanation": {
+                    "en": "A unique identifier printed on the payment record. Used to track the transaction.",
+                    "vi": "Một mã định danh duy nhất được in trên hồ sơ thanh toán. Dùng để theo dõi giao dịch.",
+                    "th": "ตัวระบุเฉพาะที่พิมพ์อยู่บนบันทึกการชำระเงิน. ใช้เพื่อติดตามการทำธุรกรรม.",
+                    "id": "Sebuah pengenal unik yang dicetak pada catatan pembayaran. Digunakan untuk melacak transaksi.",
+                    "ar": "معرف فريد مطبوع على سجل الدفع. يستخدم لتتبع المعاملة."
+                },
+                "translation": {
+                    "vi": "mã hóa đơn",
+                    "th": "เลขที่ใบเสร็จ",
+                    "id": "nomor resi",
+                    "ar": "رقم الإيصال"
+                },
+                "type": "noun",
+                "phonetics": [
+                    {
+                        "text": "/rɪˈsiːt ˈnʌmbə/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/receipt-number-uk-ai-1760858288799.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/rɪˈsiːt ˈnʌmbər/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/receipt-number-us-ai-1760858289456.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "Please keep your receipt number for returns.",
+                    "vi": "Vui lòng giữ số biên lai của bạn để trả hàng.",
+                    "th": "โปรดเก็บหมายเลขใบเสร็จของคุณไว้สำหรับการคืนสินค้า.",
+                    "id": "Harap simpan nomor resi Anda untuk pengembalian.",
+                    "ar": "يرجى الاحتفاظ برقم إيصالك للمرتجعات."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4c9a4e8dd8355a20bb_1760870147250.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            },
+            {
+                "card_id": "68f47e4c9a4e8dd8355a20be",
+                "word": "shopping habit",
+                "explanation": {
+                    "en": "The regular and repeated patterns of buying behavior. A person's customary way of purchasing goods.",
+                    "vi": "Các kiểu hành vi mua sắm thường xuyên và lặp đi lặp lại. Cách mua hàng thông thường của một người.",
+                    "th": "รูปแบบพฤติกรรมการซื้อที่เกิดขึ้นเป็นประจำและซ้ำๆ. วิธีการซื้อสินค้าตามปกติของบุคคล.",
+                    "id": "Pola perilaku pembelian yang teratur dan berulang. Cara seseorang biasa membeli barang.",
+                    "ar": "الأنماط المنتظمة والمتكررة لسلوك الشراء. طريقة الشخص المعتادة لشراء السلع."
+                },
+                "translation": {
+                    "vi": "thói quen mua sắm",
+                    "th": "พฤติกรรมการซื้อของ",
+                    "id": "kebiasaan berbelanja",
+                    "ar": "عادة التسوق"
+                },
+                "type": "phrase",
+                "phonetics": [
+                    {
+                        "text": "/ˈʃɒpɪŋ ˈhæbɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shopping-habit-uk-ai-1760858301210.mp3",
+                        "locale": "en-UK"
+                    },
+                    {
+                        "text": "/ˈʃɑpɪŋ ˈhæbɪt/",
+                        "audio": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/audio/phonetics/shopping-habit-us-ai-1760858301864.mp3",
+                        "locale": "en-US"
+                    }
+                ],
+                "example": {
+                    "en": "My shopping habit is getting out of control.",
+                    "vi": "Thói quen mua sắm của tôi đang mất kiểm soát.",
+                    "th": "นิสัยการช้อปปิ้งของฉันกำลังควบคุมไม่ได้.",
+                    "id": "Kebiasaan belanja saya mulai tidak terkontrol.",
+                    "ar": "عادة التسوق لدي تخرج عن السيطرة."
+                },
+                "image_url": "https://assets.parroto.app/decks/68f46a24b79f2226f4ef9491/images/68f47e4c9a4e8dd8355a20be_1760870153410.webp",
+                "notes": "",
+                "difficulty": "",
+                "group_id": "68f47875d398918f2297df08",
+                "group_name": "Shopping",
+                "deck_id": "68f46a24b79f2226f4ef9491",
+                "deck_name": "1000 common English words"
+            }
+        ],
+        "count": 50
+    }
+}

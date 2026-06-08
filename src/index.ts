@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import connectDB from './config/db/configDb.js';
+import './models/index.js';
 import apiRouter from '~/routes/index.js';
 import { globalAuth } from './middleware/authMiddleware.js';
 import cors from 'cors';
@@ -11,7 +12,6 @@ import resourceService from './services/transcription/resourceService.js';
 import paymentService from './services/payment/paymentService.js';
 import socketService from './services/notifications/socketService.js';
 import { createServer } from 'http';
-import morgan from 'morgan';
 
 dotenv.config();
 
@@ -22,12 +22,14 @@ const httpServer = createServer(app);
 connectDB();
 
 app.use(cors());
-app.use(express.json());
 app.post(
     '/payments/stripe/webhook',
     express.raw({ type: 'application/json' }),
     paymentController.stripeWebhook
 );
+
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 cron.schedule('0 0 * * 0', async () => {
     console.log('[CRON] Trigger RSS fetching...');
