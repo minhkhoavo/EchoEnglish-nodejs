@@ -37,10 +37,8 @@ describe('AuthService', () => {
             throw new Error(message);
         });
 
-        // Mock User.findOne with populate chain
-        (mockedUser.findOne as any) = jest.fn().mockReturnValue({
-            populate: jest.fn().mockResolvedValue(mockUser),
-        });
+        // Mock User.findOne to return the user document directly
+        (mockedUser.findOne as any) = jest.fn().mockResolvedValue(mockUser);
     });
 
     describe('login', () => {
@@ -81,9 +79,7 @@ describe('AuthService', () => {
         });
 
         it('should throw error when user not found', async () => {
-            (mockedUser.findOne as any).mockReturnValue({
-                populate: jest.fn().mockResolvedValue(null),
-            });
+            (mockedUser.findOne as any).mockResolvedValue(null);
 
             await expect(
                 authService.login('test@example.com', 'password123')
@@ -92,9 +88,7 @@ describe('AuthService', () => {
 
         it('should throw error when user is deleted', async () => {
             const deletedUser = { ...mockUser, isDeleted: true };
-            (mockedUser.findOne as any).mockReturnValue({
-                populate: jest.fn().mockResolvedValue(deletedUser),
-            });
+            (mockedUser.findOne as any).mockResolvedValue(deletedUser);
 
             await expect(
                 authService.login('test@example.com', 'password123')

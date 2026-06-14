@@ -9,7 +9,7 @@ import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ObjectId } from 'mongodb';
 import * as XLSX from 'xlsx';
-import { JsonOutputParser } from 'node_modules/@langchain/core/dist/output_parsers/index.js';
+import { JsonOutputParser } from '@langchain/core/output_parsers';
 import { GoogleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
 
 interface CreateTestDto {

@@ -17,11 +17,9 @@ export default {
             {
                 useESM: true,
                 allowImportingTsExtensions: true,
+                tsconfig: '<rootDir>/__tests__/tsconfig.json',
                 diagnostics: {
                     ignoreCodes: [151002],
-                },
-                tsconfig: {
-                    allowJs: true,
                 },
             },
         ],
