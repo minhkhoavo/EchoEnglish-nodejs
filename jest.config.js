@@ -4,7 +4,7 @@ export default {
     moduleNameMapper: {
         '^~/(.*)\\.js$': '<rootDir>/src/$1.ts',
         '^~/(.*)$': '<rootDir>/src/$1',
-        '(\\..+)\\.js$': '$1',
+        '^(\\.\\.?/.*)\\.js$': '$1',
         '^uuid$': '<rootDir>/node_modules/uuid/dist/index.js',
     },
     transformIgnorePatterns: ['node_modules/(?!(uuid|.*\\.mjs$))'],
