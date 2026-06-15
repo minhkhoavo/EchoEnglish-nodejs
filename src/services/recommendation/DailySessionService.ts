@@ -7,6 +7,12 @@ import { studyPlanGeneratorService } from './StudyPlanGeneratorService.js';
 import { Resource } from '../../models/resource.js';
 import { progressTrackingService } from './ProgressTrackingService.js';
 import { roadmapCalibrationService } from './RoadmapCalibrationService.js';
+import { studyMemoService, ResolvedMaterial } from './StudyMemoService.js';
+import { materialContentAIService } from '../../ai/service/materialContentAIService.js';
+import {
+    getSavedFlashcardTerms,
+    filterDuplicateVocabulary,
+} from '../../utils/vocabularyDedup.js';
 import testService from '../../services/testService.js';
 
 interface WeeklyFocus {
@@ -241,6 +247,82 @@ export class DailySessionService {
         const skippedContent =
             await roadmapCalibrationService.getSkippedSessionsContent(userId);
 
+        // Resolve user-provided study material memo for today (highest priority).
+        // Materials are prepended into availableResources so the LLM can pick them
+        // via the existing useDBResource mechanism.
+        let userDirectives:
+            | {
+                  focus: string;
+                  note?: string;
+                  materials: Array<{
+                      title: string;
+                      type: string;
+                      domain?: string;
+                  }>;
+              }
+            | undefined;
+        // Materials that carry real text get an explicit content-grounded lesson
+        // (grammar from actual sentences + vocabulary extracted from the text),
+        // built after the AI plan below.
+        let memoContentMaterials: ResolvedMaterial[] = [];
+        let memoDayFocus = '';
+
+        const memoMatch = studyMemoService.getActiveMemoForToday(
+            singleRoadmap as unknown as {
+                studyMemos?: Parameters<
+                    typeof studyMemoService.getActiveMemoForToday
+                >[0]['studyMemos'];
+                activeWeekNumber?: number;
+            },
+            today
+        );
+        if (memoMatch) {
+            const resolvedMaterials = await studyMemoService.resolveMaterials(
+                memoMatch.memo.materials.map((m) => ({
+                    refType: m.refType as 'file' | 'resource',
+                    refId: m.refId.toString(),
+                }))
+            );
+            memoDayFocus = memoMatch.dayItem.focus;
+
+            const hasUsableText = (m: ResolvedMaterial) =>
+                (m.content || '').replace(/<[^>]*>/g, '').trim().length > 80;
+            memoContentMaterials = resolvedMaterials.filter(hasUsableText);
+            const linkOnlyMaterials = resolvedMaterials.filter(
+                (m) => !hasUsableText(m)
+            );
+
+            // Link-only materials (e.g. videos): hand to the LLM via useDBResource.
+            if (linkOnlyMaterials.length > 0) {
+                for (const rm of linkOnlyMaterials) {
+                    availableResources.unshift({
+                        _id: rm.refId as unknown as Schema.Types.ObjectId,
+                        type: rm.resourceType,
+                        title: rm.title,
+                        description: rm.description,
+                        url: rm.url,
+                        labels: rm.labels,
+                    });
+                }
+                userDirectives = {
+                    focus: memoMatch.dayItem.focus,
+                    note: memoMatch.memo.note || undefined,
+                    materials: linkOnlyMaterials.map((rm) => ({
+                        title: rm.title,
+                        type: rm.resourceType,
+                        domain: rm.domains?.[0],
+                    })),
+                };
+            }
+
+            // Lock today's memo day so regeneration stays put and completion advances it.
+            await studyMemoService.markDayInProgress(
+                singleRoadmap.roadmapId,
+                memoMatch.memo._id,
+                memoMatch.dayItem._id
+            );
+        }
+
         // Generate activities using AI with smart resource allocation
         const dailyFocusContext = targetDailyFocus
             ? {
@@ -301,6 +383,7 @@ export class DailySessionService {
             missedSessions: skippedContent.hasSkippedSessions
                 ? skippedContent.skippedContent
                 : undefined,
+            userDirectives,
         });
 
         // console.log('AI Plan reasoning:', aiPlan.reasoning);
@@ -360,7 +443,8 @@ export class DailySessionService {
                 const vocabSet =
                     await studyPlanGeneratorService.generateVocabularySet(
                         weakness,
-                        weakDomains
+                        weakDomains,
+                        userId
                     );
                 if (vocabSet) {
                     resources.push(vocabSet);
@@ -522,6 +606,98 @@ export class DailySessionService {
                 order: activity.priority,
                 status: 'pending' as const,
             });
+        }
+
+        // Build content-grounded lesson item(s) from the learner's own material:
+        // pull real sentences for grammar analysis and extract vocabulary from
+        // the actual text. Prepended so it is the first thing the learner does.
+        if (memoContentMaterials.length > 0) {
+            const savedTerms = await getSavedFlashcardTerms(userId);
+            const memoSkills =
+                targetDailyFocus?.targetSkills || weekFocus.focusSkills || [];
+            const memoLevel =
+                user?.competencyProfile?.currentCEFRLevel ||
+                singleRoadmap.currentLevel ||
+                'B1';
+
+            const memoItems = [];
+            for (const rm of memoContentMaterials) {
+                const extracted =
+                    await materialContentAIService.extractFromMaterial({
+                        title: rm.title,
+                        content: rm.content || '',
+                        focus: memoDayFocus,
+                        targetSkills: memoSkills,
+                        level: memoLevel,
+                        studyTimePerDay: singleRoadmap.studyTimePerDay || 30,
+                    });
+
+                const resources: Array<Record<string, unknown>> = [];
+                // The material itself.
+                resources.push({
+                    type: rm.resourceType === 'video' ? 'video' : 'article',
+                    title: rm.title,
+                    description:
+                        rm.description || `Study this material: ${rm.title}`,
+                    estimatedTime: 10,
+                    resourceId: rm.refId,
+                    url: rm.url,
+                    completed: false,
+                });
+                // Grammar analysis grounded in real sentences.
+                if (extracted.grammarGuide.sections.length > 0) {
+                    resources.push({
+                        type: 'personalized_guide',
+                        title: extracted.grammarGuide.title,
+                        description:
+                            'Grammar analysis from sentences in your material',
+                        estimatedTime: 10,
+                        generatedContent: {
+                            sections: extracted.grammarGuide.sections,
+                            quickTips: extracted.grammarGuide.quickTips,
+                        },
+                        completed: false,
+                    });
+                }
+                // Vocabulary extracted from the text (deduped vs saved flashcards).
+                const uniqueWords = filterDuplicateVocabulary(
+                    extracted.vocabulary.words,
+                    savedTerms
+                );
+                if (uniqueWords.length > 0) {
+                    resources.push({
+                        type: 'vocabulary_set',
+                        title: extracted.vocabulary.title,
+                        description: extracted.vocabulary.description,
+                        estimatedTime: 10,
+                        generatedContent: { words: uniqueWords },
+                        completed: false,
+                    });
+                }
+
+                memoItems.push({
+                    priority: 1,
+                    title: `Study your material: ${rm.title}`,
+                    description:
+                        memoDayFocus || `Work through ${rm.title} in detail`,
+                    targetWeakness: {
+                        skillKey: 'user_material',
+                        skillName: 'Your material',
+                        severity: 'medium',
+                    },
+                    skillsToImprove: memoSkills,
+                    resources,
+                    practiceDrills: [],
+                    progress: 0,
+                    estimatedWeeks: 0,
+                    activityType: 'learn',
+                    resourceType: 'generated',
+                    order: 0,
+                    status: 'pending' as const,
+                });
+            }
+            // Prepend so the learner's own material comes first.
+            planItems.unshift(...memoItems);
         }
 
         // Create new study plan

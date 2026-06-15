@@ -7,6 +7,10 @@ import { toeicAnalysisAIService } from '../../ai/service/toeicAnalysisAIService.
 import { SeverityLevel } from '../../enum/severityLevel.js';
 import { Difficulty } from '../../enum/difficulty.js';
 import { knowledgeBaseService } from '../knowledgeBase/knowledgeBaseService.js';
+import {
+    getSavedFlashcardTerms,
+    filterDuplicateVocabulary,
+} from '../../utils/vocabularyDedup.js';
 
 // Type definitions for internal use
 type LearningResource = {
@@ -510,7 +514,8 @@ export class StudyPlanGeneratorService {
             skillName: string;
             affectedParts: string[];
         },
-        weakDomains: string[]
+        weakDomains: string[],
+        userId?: Schema.Types.ObjectId | string
     ): Promise<LearningResource | null> {
         try {
             const vocabSet = await toeicAnalysisAIService.generateVocabularySet(
@@ -529,13 +534,30 @@ export class StudyPlanGeneratorService {
                 return null;
             }
 
+            // Enforce: the generated list must NOT contain any word the learner
+            // already has saved as a flashcard. Filter them out after generation.
+            const savedTerms = userId
+                ? await getSavedFlashcardTerms(userId)
+                : [];
+            const uniqueWords = filterDuplicateVocabulary(
+                vocabSet.words,
+                savedTerms
+            );
+
+            if (uniqueWords.length === 0) {
+                console.log(
+                    'All generated vocabulary already exists in saved flashcards'
+                );
+                return null;
+            }
+
             return {
                 type: 'vocabulary_set',
                 title: vocabSet.title,
                 description: vocabSet.description,
                 estimatedTime: 20,
                 generatedContent: {
-                    words: vocabSet.words,
+                    words: uniqueWords,
                     focusDomains: weakDomains, // Include domain context
                 },
                 completed: false,

@@ -50,6 +50,66 @@ const mistakeQuestionSchema = new Schema(
     { _id: true }
 );
 
+// User-provided study material memo, embedded on the roadmap (no separate collection).
+// Lets a learner attach existing materials (file/resource) to a day/week and have the
+// daily plan generator build sessions around them, split across multiple days.
+const studyMemoMaterialSchema = new Schema(
+    {
+        refType: {
+            type: String,
+            enum: ['file', 'resource'],
+            required: true,
+        },
+        refId: { type: Schema.Types.ObjectId, required: true },
+        title: { type: String },
+    },
+    { _id: false }
+);
+
+const studyMemoDayPlanSchema = new Schema(
+    {
+        order: { type: Number, required: true, min: 1 },
+        focus: { type: String, required: true },
+        status: {
+            type: String,
+            enum: ['pending', 'in-progress', 'done'],
+            default: 'pending',
+        },
+    },
+    { _id: true }
+);
+
+const studyMemoSchema = new Schema(
+    {
+        materials: [studyMemoMaterialSchema],
+        note: { type: String },
+
+        scope: {
+            type: String,
+            enum: ['date', 'week'],
+            required: true,
+        },
+        targetDate: { type: Date },
+        targetWeekNumber: { type: Number, min: 1 },
+
+        suitability: {
+            isSuitable: { type: Boolean, default: true },
+            reason: { type: String },
+            cefrFit: { type: String },
+        },
+
+        totalDays: { type: Number, min: 1, default: 1 },
+        dayPlan: [studyMemoDayPlanSchema],
+
+        status: {
+            type: String,
+            enum: ['active', 'completed'],
+            default: 'active',
+        },
+    },
+    { _id: true, timestamps: true }
+);
+
 const weeklyFocusSchema = new Schema(
     {
         weekNumber: { type: Number, required: true, min: 1 },
@@ -142,6 +202,9 @@ export const roadmapSchema = new Schema(
         ],
 
         weeklyFocuses: [weeklyFocusSchema],
+
+        // User-provided study material memos (personalisation layer over the daily plan)
+        studyMemos: [studyMemoSchema],
 
         currentWeek: { type: Number, default: 1 },
         activeWeekNumber: { type: Number, default: 1 },
@@ -269,6 +332,16 @@ export type DailyFocusType = InferSchemaType<typeof dailyFocusSchema> & {
 };
 
 export type WeeklyFocusType = InferSchemaType<typeof weeklyFocusSchema> & {
+    _id: Types.ObjectId;
+};
+
+export type StudyMemoDayPlanType = InferSchemaType<
+    typeof studyMemoDayPlanSchema
+> & {
+    _id: Types.ObjectId;
+};
+
+export type StudyMemoType = InferSchemaType<typeof studyMemoSchema> & {
     _id: Types.ObjectId;
 };
 

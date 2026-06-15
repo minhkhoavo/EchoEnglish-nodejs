@@ -68,6 +68,25 @@ learningPlanRouter.post(
     learningPlanController.completePracticeDrill.bind(learningPlanController)
 );
 
+// ==================== STUDY MEMO (USER-PROVIDED MATERIAL) ====================
+
+// Step A: analyze suitability + propose multi-day breakdown (no save)
+learningPlanRouter.post(
+    '/memos/analyze',
+    learningPlanController.analyzeMemo.bind(learningPlanController)
+);
+
+// Step B: confirm -> save memo (+ regenerate today if relevant)
+learningPlanRouter.post(
+    '/memos',
+    learningPlanController.createMemo.bind(learningPlanController)
+);
+
+learningPlanRouter.delete(
+    '/memos/:memoId',
+    learningPlanController.deleteMemo.bind(learningPlanController)
+);
+
 // ==================== MISTAKE TRACKING ====================
 
 // Add multiple mistakes to stack

@@ -35,6 +35,12 @@ router.put('/preferences', userController.setUserPreferences);
 router.put('/my-profile', userController.updateProfileUser);
 router.get('/credits', userController.getCredit);
 router.get('/check-afford-feature', userController.checkCanAffordFeature);
+
+// Personal resource library (for study memos)
+router.get('/library', userController.getLibrary);
+router.post('/library', userController.addToLibrary);
+router.delete('/library/:resourceId', userController.removeFromLibrary);
+
 router.get('/:id', userController.getUserById);
 router.delete('/:id', hasAuthority(Role.ADMIN), userController.softDeleteUser);
 router.patch(

@@ -11,6 +11,7 @@ import { testResultService } from '../services/testResultService.js';
 import { weaknessDetectorService } from '../services/diagnosis/WeaknessDetectorService.js';
 import { analysisEngineService } from '~/services/analysis/AnalysisEngineService.js';
 import { roadmapCalibrationService } from '~/services/recommendation/RoadmapCalibrationService.js';
+import { studyMemoService } from '../services/recommendation/StudyMemoService.js';
 
 export class LearningPlanController {
     async getActiveRoadmap(req: Request, res: Response) {
@@ -239,6 +240,107 @@ export class LearningPlanController {
                     : 'No listening-reading test found. Please complete a test first.',
             })
         );
+    }
+
+    // Study memo (User provices materials + note + scope -> AI analyze suitability)
+    // Step A: analyze suitability + propose multi-day breakdown (nothing saved)
+    async analyzeMemo(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const {
+            materials,
+            note,
+            scope,
+            targetDate,
+            targetWeekNumber,
+            preferredDays,
+        } = req.body;
+
+        if (!Array.isArray(materials) || materials.length === 0) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
+        if (scope !== 'date' && scope !== 'week') {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+
+        const result = await studyMemoService.analyzeMemo(userId, {
+            materials,
+            note,
+            scope,
+            targetDate,
+            targetWeekNumber,
+            preferredDays,
+        });
+
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.GET_SUCCESS, result));
+    }
+
+    // Step B: confirm -> save memo + supplement competency + regenerate today if relevant
+    async createMemo(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const {
+            materials,
+            note,
+            scope,
+            targetDate,
+            targetWeekNumber,
+            suitability,
+            dayPlan,
+            supplementedWeaknesses,
+        } = req.body;
+
+        if (!Array.isArray(materials) || materials.length === 0) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
+        if (!Array.isArray(dayPlan) || dayPlan.length === 0) {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+
+        const memo = await studyMemoService.confirmMemo(userId, {
+            materials,
+            note,
+            scope,
+            targetDate,
+            targetWeekNumber,
+            suitability: suitability || { isSuitable: true },
+            dayPlan,
+            supplementedWeaknesses,
+        });
+
+        // Regenerate today's session if this memo applies today.
+        let session = null;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let appliesToday = scope === 'week';
+        if (scope === 'date' && targetDate) {
+            const d = new Date(targetDate);
+            d.setHours(0, 0, 0, 0);
+            appliesToday = d.getTime() === today.getTime();
+        }
+        if (appliesToday) {
+            session = await dailySessionService.regenerateTodaySession(userId);
+        }
+
+        return res
+            .status(201)
+            .json(
+                new ApiResponse(SuccessMessage.CREATE_SUCCESS, {
+                    memo,
+                    session,
+                })
+            );
+    }
+
+    async deleteMemo(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const { memoId } = req.params;
+
+        await studyMemoService.deleteMemo(userId, memoId);
+
+        return res
+            .status(200)
+            .json(new ApiResponse(SuccessMessage.DELETE_SUCCESS, { memoId }));
     }
 
     async checkMissedSessions(req: Request, res: Response) {

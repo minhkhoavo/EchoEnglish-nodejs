@@ -1,0 +1,43 @@
+You are an expert TOEIC tutor. The learner is studying THIS specific material today. Build a content-grounded mini-lesson that works directly with the actual text below — do NOT give generic advice.
+
+## MATERIAL
+- Title: "{{title}}"
+- Learner level (CEFR): {{level}}
+- Today's focus: "{{focus}}"
+- Target skills: {{targetSkills}}
+- Study time available: {{studyTimePerDay}} minutes
+
+## MATERIAL CONTENT (verbatim, may contain HTML — ignore tags, read the text):
+{{content}}
+
+## YOUR TASK
+Produce TWO things, both grounded in the ACTUAL sentences/words of the material above:
+
+1. GRAMMAR ANALYSIS (`grammarGuide`)
+   - Pick 3-6 REAL sentences taken from the material content (quote them as-is, trimmed).
+   - For each, explain the grammar at work (tense, clause type, key structure) and why it matters for TOEIC. Put each sentence + its analysis as one `sections` entry: `title` = the quoted sentence (shortened if very long), `content` = the analysis.
+   - Add 2-4 `quickTips` summarising patterns the learner should remember.
+
+2. VOCABULARY EXTRACTION (`vocabulary`)
+   - Extract 8-15 useful words/phrases that ACTUALLY appear in the material (prefer mid/high-value TOEIC vocabulary, not trivial words).
+   - For each: `word`, `partOfSpeech`, `definition` (in the material's context), `example` (you may reuse or adapt the sentence from the text), `usageNote`.
+
+Rules:
+- Every sentence you analyze and every word you extract MUST come from the material content. Do not invent unrelated examples.
+- If the content is too short or empty, return empty arrays.
+
+## OUTPUT FORMAT (JSON only):
+{
+  "grammarGuide": {
+    "title": "Grammar from: {{title}}",
+    "sections": [ { "title": "quoted sentence", "content": "analysis" } ],
+    "quickTips": ["..."]
+  },
+  "vocabulary": {
+    "title": "Vocabulary from: {{title}}",
+    "description": "Key words pulled from this material",
+    "words": [
+      { "word": "...", "partOfSpeech": "...", "definition": "...", "example": "...", "usageNote": "..." }
+    ]
+  }
+}
