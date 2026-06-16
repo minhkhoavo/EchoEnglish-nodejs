@@ -2,7 +2,7 @@ import userRouter from './users.js';
 import authRouter from './auth.js';
 import testRouter from './tests.js';
 import adminTestRouter from './adminTests.js';
-import flashcardRouter from './flashcard.js';
+import flashcardRouter from './flashCard.js';
 import filesRouter from './files.js';
 import { Router } from 'express';
 import speechRouter from './speech.js';

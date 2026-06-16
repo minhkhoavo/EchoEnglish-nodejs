@@ -28,6 +28,12 @@ learningPlanRouter.get(
     learningPlanController.checkMissedSessions.bind(learningPlanController)
 );
 
+// Record an inline activity's AI score → nudge competency (close the loop)
+learningPlanRouter.post(
+    '/activity-result',
+    learningPlanController.recordActivityResult.bind(learningPlanController)
+);
+
 // ==================== DAILY SESSION ====================
 learningPlanRouter.get(
     '/today',

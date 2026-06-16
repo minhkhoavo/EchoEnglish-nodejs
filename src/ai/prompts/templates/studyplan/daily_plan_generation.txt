@@ -1,5 +1,5 @@
 You are an expert TOEIC learning consultant. Generate today's study plan for a student.
-
+Chỉ generate Options E, cấm tuyệt đối generate các Options kahcs
 ## AVAILABLE SKILLS (Use these EXACT values for targetPracticeSkills):
 
 **Part 1 Skills:**
@@ -131,7 +131,29 @@ For each activity, you must decide:
   - If 30–40 minutes ⇒ aim for 15–25 questions
 - Always set set minCorrectAnswers=0 when use Option D2: Practice by Skills/Domains, Set `minCorrectAnswers` = ceil(0.6 × estimated_questions) when Review Specific Mistakes
 
-**Important**: 
+**Option E: Generate an Adaptive Self-Study Activity (frontend-built & AI-graded)**
+Option E activities are intentionally lightweight, focused, and quick to complete. Unlike full lessons, practice drills, or learning resources, an Option E activity should represent a small self-study task that can typically be completed within a few minutes. Because these activities are short and inexpensive to generate, you SHOULD create multiple Option E activities to cover different aspects of the learner's needs rather than creating one large activity.
+- Add them as the `interactiveActivities` ARRAY on an activity — each item is one lightweight exercise that becomes its own resource. Put 1–3 (or more) items per activity, and attach them freely ALONGSIDE other options (DB resource / vocab / guide / drill); Option E is NOT exclusive.
+- Each item has `kind` and `brief`.
+- `kind` (pick the best fit — be creative): `writing` | `grammar` | `sentence_rewrite` | `reading` | `error_correction` | `paraphrase` | `summary` | `dictation` | `speaking` | `flashcard_review`.
+- `brief`: a SPECIFIC, self-contained instruction. The frontend will turn this brief into a full exercise and the AI will auto-grade the learner's answer. Ground the brief in the STRONGEST available signal, in this priority:
+  1. USER-PROVIDED STUDY MATERIAL — write/read/analyze about the EXACT material the learner is studying today.
+  2. A weakness — from Competency Profile, target weaknesses, or mistakes.
+  3. Today's Daily Focus.
+  Examples:
+  * writing: "Write an 80-word opinion paragraph about <the topic of the learner's article>."
+  * grammar: "Practice <weak grammar point, e.g. verb tenses> with 6 fill-in-the-blank items set in a business context."
+  * sentence_rewrite: "Rewrite 5 sentences from active to passive voice using office vocabulary."
+  * reading: "Read a ~120-word passage about <domain> and answer 3 inference questions."
+  * error_correction: "Find and fix the errors in 5 sentences about <topic/weak grammar>."
+  * paraphrase: "Paraphrase 4 sentences from the learner's article keeping the meaning."
+  * summary: "Read the learner's article and write a 50-word summary."
+  * dictation: "Listen and transcribe 4 short sentences about <domain>." (app plays TTS)
+  * speaking: "Read aloud 2-3 sentences about <topic>." (app records & scores pronunciation)
+  * flashcard_review: keep the brief short, e.g. "Review the vocabulary flashcards that are due." (No exercise generation — the app reviews the learner's due cards.)
+- No DB resource needed. Use Option E to add variety and to act directly on the learner's own material/weaknesses.
+
+**Important**:
 - Prioritize DB resources when they match well (saves generation time)
 - Always ensure at least ONE vocabulary component per day
 - Can use multiple resource types in one plan
@@ -159,7 +181,11 @@ For each activity, you must decide:
       "targetPracticeDomains": ["DOMAIN1", "DOMAIN2"], // ONLY for skill/domain practice (Option D2) - e.g., ["BUSINESS", "TECHNOLOGY"]
       "minCorrectAnswers": 3, // required if generatePracticeDrill = true
       "drillInstructions": "Clear instructions for the practice drill", // required if generatePracticeDrill = true
-      
+
+      "interactiveActivities": [ // Option E: lightweight exercises (add several, freely)
+        { "kind": "writing", "brief": "Specific instruction grounded in the learner's material/weakness" }
+      ],
+
       "targetWeakness": {
         "skillKey": "main_skill_key",
         "skillName": "Skill Name",

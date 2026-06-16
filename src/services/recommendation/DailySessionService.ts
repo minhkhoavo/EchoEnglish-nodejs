@@ -220,6 +220,10 @@ export class DailySessionService {
                     currentAccuracy: number;
                     proficiency: string;
                 }>;
+                aiInsights?: Array<{
+                    title: string;
+                    description: string;
+                }>;
             };
             preferences?: {
                 preferredStudyTime?: string;
@@ -581,6 +585,70 @@ export class DailySessionService {
                         completed: false,
                         score: 0,
                         attempts: 0,
+                    });
+                }
+            }
+
+            // Option E: lightweight self-study exercises. The backend only
+            // supplies kind + brief + signals; the frontend builds the full
+            // exercise and AI-grades it inline. An activity may carry several.
+            if (activity.interactiveActivities?.length) {
+                const material = memoContentMaterials[0];
+                const activitySignals = {
+                    level:
+                        user?.competencyProfile?.currentCEFRLevel ||
+                        singleRoadmap.currentLevel ||
+                        'B1',
+                    focus: memoDayFocus || dailyFocusContext.focus,
+                    targetSkill: activity.targetWeakness?.skillName,
+                    // Weaknesses + AI insights so the frontend AI can adapt.
+                    weaknesses: (weekFocus.targetWeaknesses || [])
+                        .slice(0, 4)
+                        .map(
+                            (w) =>
+                                `${w.skillName} (${w.severity}${
+                                    w.userAccuracy != null
+                                        ? `, ${w.userAccuracy}%`
+                                        : ''
+                                })`
+                        ),
+                    aiInsights: (user?.competencyProfile?.aiInsights || [])
+                        .slice(-3)
+                        .map((i) => `${i.title}: ${i.description}`),
+                    interests: user?.preferences?.contentInterests || [],
+                    // Real material so reading/writing can be grounded in the
+                    // exact article the learner is studying.
+                    materialResourceId: material?.refId?.toString(),
+                    materialTitle: material?.title,
+                    materialSummary: material?.summary || material?.description,
+                };
+
+                const kindLabels: Record<string, string> = {
+                    writing: 'Writing',
+                    grammar: 'Grammar',
+                    sentence_rewrite: 'Sentence rewrite',
+                    reading: 'Reading',
+                    error_correction: 'Error correction',
+                    paraphrase: 'Paraphrase',
+                    summary: 'Summary',
+                    dictation: 'Dictation',
+                    speaking: 'Speaking',
+                    flashcard_review: 'Flashcard review',
+                };
+
+                for (const ex of activity.interactiveActivities) {
+                    if (!ex?.kind || !ex?.brief) continue;
+                    resources.push({
+                        type: 'activity',
+                        title: `${kindLabels[ex.kind] || 'Practice'} exercise`,
+                        description: ex.brief,
+                        estimatedTime: 10,
+                        generatedContent: {
+                            kind: ex.kind,
+                            brief: ex.brief,
+                            signals: activitySignals,
+                        },
+                        completed: false,
                     });
                 }
             }
