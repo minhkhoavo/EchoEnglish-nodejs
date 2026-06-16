@@ -13,6 +13,7 @@ const learningResourceSchema = new Schema(
                 'personalized_guide',
                 'flashcard',
                 'practice_drill',
+                'activity',
             ],
             required: true,
         },

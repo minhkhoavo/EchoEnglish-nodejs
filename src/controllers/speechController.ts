@@ -283,6 +283,48 @@ class SpeechController {
         );
     }
 
+    async assessInline(req: Request, res: Response) {
+        if (!req.file)
+            throw new ApiError({ message: 'No file provided', status: 400 });
+        const mimeType = req.file.mimetype || '';
+        if (!mimeType.startsWith('audio/'))
+            throw new ApiError({
+                message: 'Only audio files are allowed',
+                status: 400,
+            });
+
+        const referenceText =
+            typeof req.body?.referenceText === 'string'
+                ? req.body.referenceText
+                : '';
+
+        const results = (await SpeechAssessmentService.assess(
+            req.file.buffer,
+            mimeType,
+            referenceText
+        )) as Array<Record<string, unknown>>;
+
+        const first = (results && results[0]) || {};
+        const nbest = (first.NBest as Array<Record<string, unknown>>) || [];
+        const pa =
+            (nbest[0]?.PronunciationAssessment as Record<string, number>) ||
+            (first.PronunciationAssessment as Record<string, number>) ||
+            {};
+
+        res.status(200).json(
+            new ApiResponse('OK', {
+                accuracyScore: pa.AccuracyScore ?? null,
+                fluencyScore: pa.FluencyScore ?? null,
+                completenessScore: pa.CompletenessScore ?? null,
+                pronScore: pa.PronScore ?? null,
+                recognizedText:
+                    (first.DisplayText as string) ||
+                    (nbest[0]?.Display as string) ||
+                    '',
+            })
+        );
+    }
+
     async listRecordings(req: Request, res: Response) {
         const userId =
             (req.user as { id?: string })?.id ||

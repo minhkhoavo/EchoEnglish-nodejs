@@ -70,6 +70,17 @@ interface DailyPlanContext {
         targetSkills: string[];
         suggestedDomains: string[];
     }>;
+
+    // User Directives (HIGHEST priority) - learner-attached study material for today
+    userDirectives?: {
+        focus: string; // what to study today from the user's material breakdown
+        note?: string; // free-text instruction from the user
+        materials: Array<{
+            title: string;
+            type: string;
+            domain?: string;
+        }>;
+    };
 }
 
 interface DailyPlanOutput {
@@ -94,6 +105,8 @@ interface DailyPlanOutput {
         targetPracticeDomains?: string[]; // Domains to practice (for domain-based drills)
         minCorrectAnswers?: number; // Minimum correct answers to complete
         drillInstructions?: string; // Instructions for the practice drill
+
+        interactiveActivities?: Array<{ kind: string; brief: string }>;
 
         // Metadata
         targetWeakness: {
@@ -190,7 +203,27 @@ ${context.missedSessions
 Create additional review activities that cover the missed skills and topics, but keep total time within budget.`
                 : '';
 
+        const userDirectivesBlock = context.userDirectives
+            ? `### 🎯 USER-PROVIDED STUDY MATERIAL (HIGHEST PRIORITY — the learner explicitly asked to study this today):
+- Today's focus from the learner's plan: "${context.userDirectives.focus}"
+${context.userDirectives.note ? `- Learner note: "${context.userDirectives.note}"` : ''}
+- Attached material(s) (these are included in AVAILABLE DATABASE RESOURCES below — prefer using them via useDBResource):
+${context.userDirectives.materials
+    .map(
+        (m) =>
+            `  • ${m.type.toUpperCase()}: "${m.title}"${m.domain ? ` [${m.domain}]` : ''}`
+    )
+    .join('\n')}
+
+**RULES (treat above the Daily Focus):**
+1. Build the FIRST activity around the learner's focus and the attached material.
+2. Do NOT deliver the material as a bare link. That first activity MUST be a rich, designed lesson: set \`useDBResource: true\` referencing the attached material AND \`generatePersonalizedGuide: true\` (a step-by-step guide on HOW to study this material for the target skill — what to look for, how to take notes, key takeaways).
+3. ALSO add hands-on practice tied to the material: include a \`generatePracticeDrill\` (skill/domain matching the material) and/or \`generateVocabularySet\` when the material is vocabulary-rich. Prefer a SEPARATE second activity for the practice drill so the learner both studies the material and practises it.
+4. Other priorities (week focus, weaknesses, mistakes) still apply for any remaining activities within the time budget.`
+            : '';
+
         const variables = {
+            userDirectivesBlock,
             dailyFocus: context.dailyFocus.focus,
             targetSkills: context.dailyFocus.targetSkills.join(', '),
             suggestedDomains: context.dailyFocus.suggestedDomains.join(', '),

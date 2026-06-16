@@ -43,5 +43,13 @@ Format your response as JSON:
     }
   ]
 }
+Your entire response will be consumed by an automated parser.
+Any character outside the JSON object will cause a production failure.
+Therefore:
+- Never output natural language.
+- Never explain.
+- Never ask questions.
+- Never use markdown.
+- Return exactly one JSON object.
 
 Be practical and TOEIC-focused, with domain-specific vocabulary.

@@ -8,6 +8,11 @@ router.post('/assess', uploadSingle, (req, res) =>
     SpeechController.assess(req, res)
 );
 
+// Synchronous pronunciation check for inline daily activities
+router.post('/assess-inline', uploadSingle, (req, res) =>
+    SpeechController.assessInline(req, res)
+);
+
 // Recording
 router.get('/recordings/', (req, res) =>
     SpeechController.listRecordings(req, res)
