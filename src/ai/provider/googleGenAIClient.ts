@@ -41,8 +41,15 @@ export class GoogleGenAIClient {
         });
     }
 
-    public getModel(): ChatGoogleGenerativeAI {
-        return this.model;
+    public getModel(model?: string): ChatGoogleGenerativeAI {
+        const defaultModel =
+            process.env.GEMINI_DEFAULT_MODEL ?? 'gemini-3.1-flash-lite';
+        return new ChatGoogleGenerativeAI({
+            model: model ?? defaultModel,
+            temperature: 0.2,
+            apiKey,
+            maxRetries: 4,
+        });
     }
 
     async generate(text: string, images?: InlineImage[]) {
