@@ -12,7 +12,7 @@ export default {
     roots: ['<rootDir>/__tests__', '<rootDir>/src'],
     testMatch: ['**/__tests__/**/*.test.ts'],
     transform: {
-        '^.+\\.ts$': [
+        '^.+\\.[jt]s$': [
             'ts-jest',
             {
                 useESM: true,

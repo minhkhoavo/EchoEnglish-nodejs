@@ -71,11 +71,16 @@ export class EmailQueue {
      * Start background queue processing
      */
     private startProcessing(): void {
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             if (!this.processing && this.queue.length > 0) {
                 this.processQueue();
             }
         }, 5000); // Check every 5 seconds
+
+        // Prevent the interval from keeping the Node process alive (important for Jest)
+        if (intervalId && typeof intervalId.unref === 'function') {
+            intervalId.unref();
+        }
     }
 
     /**

@@ -175,7 +175,7 @@ class SpeechProsodyService {
             return DURATION_WEIGHT * nd + INTENSITY_WEIGHT * nr;
         });
         const m = mean(stressScores);
-        const s = std(stressScores, m);
+        const s = std(stressScores);
         const threshold = m + 0.75 * s;
         for (let i = 0; i < allWords.length; i++) {
             stressWords.push({

@@ -135,7 +135,6 @@ class ResourceService {
 
                 const exist = await Resource.findOne({ url: item.link });
                 if (exist) {
-                    console.log(`[RSS] Skip duplicated: ${item.link}`);
                     continue;
                 }
 
@@ -157,9 +156,6 @@ class ResourceService {
                                 analyzed.labels.domain as Domain
                             )
                         ) {
-                            console.warn(
-                                `[RSS] Invalid domain "${analyzed.labels.domain}" for ${item.link}, fallback to GENERAL`
-                            );
                             analyzed.labels.domain = Domain.GENERAL;
                         } else if (!analyzed.labels?.domain) {
                             analyzed.labels = {
@@ -299,17 +295,12 @@ class ResourceService {
                 playerFetch: customFetch,
             });
         } catch (err) {
-            console.log(
-                `[fetchTranscript] Error fetching transcript for ${vid}:`,
-                err
-            );
             if (
                 err instanceof Error &&
                 err.constructor.name === 'YoutubeTranscriptTooManyRequestError'
             ) {
                 throw new ApiError(ErrorMessage.TRANSCRIPT_RATE_LIMITED);
             }
-            console.warn(`[fetchTranscript] No transcript for ${vid}:`, err);
             throw new ApiError(ErrorMessage.TRANSCRIPT_NOT_AVAILABLE);
         }
 

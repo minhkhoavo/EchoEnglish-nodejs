@@ -6,8 +6,12 @@ import { ApiError } from '~/middleware/apiError.js';
 
 // Mock dependencies
 jest.mock('bcryptjs');
+jest.mock('jsonwebtoken');
 jest.mock('~/models/userModel.js');
 jest.mock('~/middleware/apiError.js');
+
+import jwt from 'jsonwebtoken';
+const mockedJwt = jwt as jest.Mocked<typeof jwt>;
 
 const mockedBcrypt = bcrypt as jest.Mocked<typeof bcrypt>;
 const mockedUser = User as jest.Mocked<typeof User>;
@@ -18,6 +22,7 @@ describe('AuthService', () => {
 
     beforeAll(() => {
         process.env.JWT_SECRETKEY = 'test-secret-key';
+        authService.SECRET_KEY = 'test-secret-key'; // Add this because it's instantiated before env var is set
     });
 
     beforeEach(() => {
@@ -120,6 +125,47 @@ describe('AuthService', () => {
             });
 
             expect(authService.generateToken).toHaveBeenCalledWith(mockUser);
+        });
+    });
+
+    describe('generateToken', () => {
+        beforeEach(() => {
+            // Restore spy for generateToken so we can test the real implementation
+            jest.restoreAllMocks();
+        });
+
+        it('should generate token with user role as scope', () => {
+            mockedJwt.sign = jest.fn().mockReturnValue('mocked-token');
+            const user = { ...mockUser, role: 'admin' };
+            const token = authService.generateToken(user);
+
+            expect(token).toBe('mocked-token');
+            expect(mockedJwt.sign).toHaveBeenCalledWith(
+                {
+                    sub: user.email,
+                    iss: 'https://toeic.mkhoavo.site',
+                    scope: 'admin',
+                    userId: user._id.toString(),
+                    custom_key: 'Custom_value',
+                },
+                'test-secret-key',
+                { algorithm: 'HS512', expiresIn: '30d' }
+            );
+        });
+
+        it('should fallback to empty string when user role is not provided', () => {
+            mockedJwt.sign = jest.fn().mockReturnValue('mocked-token-2');
+            const user = { ...mockUser, role: undefined };
+            const token = authService.generateToken(user);
+
+            expect(token).toBe('mocked-token-2');
+            expect(mockedJwt.sign).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    scope: '',
+                }),
+                'test-secret-key',
+                expect.any(Object)
+            );
         });
     });
 });
