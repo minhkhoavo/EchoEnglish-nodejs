@@ -112,7 +112,10 @@ class ChatbotAgentController {
                     `event: chunk\ndata: ${JSON.stringify({ text: chunk, index: i })}\n\n`
                 );
                 // Small delay for typing effect (10ms per chunk)
-                await new Promise((resolve) => setTimeout(resolve, 10));
+                await new Promise((resolve) => {
+                    const t = setTimeout(resolve, 10);
+                    if (t && typeof t.unref === 'function') t.unref();
+                });
             }
 
             // Send final complete response with payload
