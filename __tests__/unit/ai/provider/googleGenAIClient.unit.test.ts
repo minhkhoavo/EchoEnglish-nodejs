@@ -138,6 +138,26 @@ describe('GoogleGenAIClient', () => {
             expect(model).toBeDefined();
             expect(model.invoke).toBeDefined();
         });
+
+        it('should fallback to default model if GEMINI_DEFAULT_MODEL is not set', async () => {
+            const mod = await import('~/ai/provider/googleGenAIClient.js');
+            GoogleGenAIClient = mod.GoogleGenAIClient;
+
+            const originalModel = process.env.GEMINI_DEFAULT_MODEL;
+            delete process.env.GEMINI_DEFAULT_MODEL;
+            MockChatGoogleGenerativeAI.mockClear();
+
+            const client = new GoogleGenAIClient();
+            client.getModel();
+
+            expect(MockChatGoogleGenerativeAI).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    model: 'gemini-3.1-flash-lite',
+                })
+            );
+
+            process.env.GEMINI_DEFAULT_MODEL = originalModel;
+        });
     });
 
     // ════════════════════════════════════════════
@@ -257,6 +277,35 @@ describe('GoogleGenAIClient', () => {
 
             // output is [] → length = 0 → falsy → skip to text
             expect(result).toBe('fallback-text');
+        });
+        it('should send a multimodal message when images are provided', async () => {
+            const mod = await import('~/ai/provider/googleGenAIClient.js');
+            GoogleGenAIClient = mod.GoogleGenAIClient;
+
+            mockInvoke.mockResolvedValue({
+                text: 'image description',
+            });
+
+            const client = new GoogleGenAIClient();
+            const result = await client.generate('describe this', [
+                { data: 'base64data', mimeType: 'image/jpeg' },
+            ]);
+
+            expect(result).toBe('image description');
+            expect(mockInvoke).toHaveBeenCalledWith([
+                {
+                    role: 'user',
+                    content: [
+                        { type: 'text', text: 'describe this' },
+                        {
+                            type: 'image_url',
+                            image_url: {
+                                url: 'data:image/jpeg;base64,base64data',
+                            },
+                        },
+                    ],
+                },
+            ]);
         });
     });
 

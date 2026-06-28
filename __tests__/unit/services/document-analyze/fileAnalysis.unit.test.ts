@@ -16,23 +16,6 @@ jest.mock('dotenv', () => {
     };
 });
 
-jest.mock('mongoose', () => {
-    const actual = jest.requireActual('mongoose');
-    const originalEmitWarning = process.emitWarning;
-    process.emitWarning = (warning: any, ...args: any[]) => {
-        if (
-            typeof warning === 'string' &&
-            warning.includes('suppressReservedKeysWarning')
-        ) {
-            return;
-        }
-        if (args[0] === 'MongooseWarning') {
-            return;
-        }
-        return originalEmitWarning(warning, ...args);
-    };
-    return actual;
-});
 import { contentModerationService } from '~/services/document-analyze/moderationService.js';
 import { documentAnalysisService } from '~/services/document-analyze/analysisService.js';
 import { chromaVectorService } from '~/services/document-analyze/chromaService.js';
