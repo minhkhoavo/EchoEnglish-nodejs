@@ -1,6 +1,21 @@
 export default {
     preset: 'ts-jest',
     extensionsToTreatAsEsm: ['.ts'],
+    collectCoverageFrom: [
+        'src/**/*.ts',
+        '!src/**/*.d.ts',
+        '!src/**/index.ts',
+        '!src/types/**/*.ts',
+        '!src/**/*.interface.ts',
+        '!src/**/*.type.ts',
+        '!src/config/**/*.ts',
+        '!src/constants/**/*.ts',
+        '!src/enum/**/*.ts',
+        '!src/routes/**/*.ts',
+        '!src/ai/prompts/**/*.ts',
+        '!src/models/**/*.ts',
+        '!src/dto/**/*.ts',
+    ],
     moduleNameMapper: {
         '^~/(.*)\\.js$': '<rootDir>/src/$1.ts',
         '^~/(.*)$': '<rootDir>/src/$1',
