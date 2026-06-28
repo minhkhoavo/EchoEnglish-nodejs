@@ -1,6 +1,7 @@
 export default {
     preset: 'ts-jest',
     extensionsToTreatAsEsm: ['.ts'],
+    collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
     moduleNameMapper: {
         '^~/(.*)\\.js$': '<rootDir>/src/$1.ts',
         '^~/(.*)$': '<rootDir>/src/$1',

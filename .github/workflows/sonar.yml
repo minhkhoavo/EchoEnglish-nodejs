@@ -32,6 +32,9 @@ jobs:
       - name: Run tests
         run: pnpm run test:coverage
 
+      - name: Fix coverage paths for SonarQube
+        run: sed -i "s|$GITHUB_WORKSPACE|/github/workspace|g" coverage/lcov.info
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v8
         env:
