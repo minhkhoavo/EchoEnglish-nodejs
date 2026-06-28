@@ -10,6 +10,7 @@ export default {
     transformIgnorePatterns: ['node_modules/(?!(uuid|.*\\.mjs$))'],
     testEnvironment: 'node',
     roots: ['<rootDir>/__tests__', '<rootDir>/src'],
+    setupFiles: ['<rootDir>/__tests__/setup.ts'],
     testMatch: ['**/__tests__/**/*.test.ts'],
     transform: {
         '^.+\\.[jt]s$': [

@@ -44,6 +44,8 @@ jest.mock('~/ai/service/toeicAnalysisAIService.js', () => ({
     },
 }));
 
+jest.mock('~/ai/provider/googleGenAIClient.js');
+
 jest.mock('~/services/knowledgeBase/knowledgeBaseService.js', () => ({
     knowledgeBaseService: {
         getKnowledgeContext: jest.fn(),

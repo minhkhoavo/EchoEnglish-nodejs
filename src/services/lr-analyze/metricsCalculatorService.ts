@@ -250,10 +250,15 @@ class MetricsCalculatorService {
         // Formula: 100 - (total changes / max possible changes * 100)
         // Assuming max 3 changes per question is reasonable
         const maxPossibleChanges = answers.length * 3;
-        const confidenceScore = Math.max(
-            0,
-            Math.round(100 - (totalAnswerChanges / maxPossibleChanges) * 100)
-        );
+        const confidenceScore =
+            maxPossibleChanges === 0
+                ? 100
+                : Math.max(
+                      0,
+                      Math.round(
+                          100 - (totalAnswerChanges / maxPossibleChanges) * 100
+                      )
+                  );
 
         // Time distribution across parts
         const timeDistribution = new Map<string, number>();
@@ -285,7 +290,10 @@ class MetricsCalculatorService {
         // Find top 10 questions with most changes
         const topHesitationQuestions = [...answers]
             .filter((a) => (a.answerChanges || 0) > 0) // Only questions with changes
-            .sort((a, b) => (b.answerChanges || 0) - (a.answerChanges || 0))
+            .sort(
+                (a, b) =>
+                    (b.answerChanges as number) - (a.answerChanges as number)
+            )
             .slice(0, 10)
             .map((a) => {
                 // Extract change history from timeline
@@ -293,7 +301,7 @@ class MetricsCalculatorService {
                     a.answerTimeline?.map((t) => t.answer) || [];
                 return {
                     questionNumber: a.questionNumber,
-                    answerChanges: a.answerChanges || 0,
+                    answerChanges: a.answerChanges as number,
                     timeToFirstAnswer: a.timeToFirstAnswer || 0,
                     totalTimeSpent: a.totalTimeSpent || 0,
                     finalAnswer: a.selectedAnswer,

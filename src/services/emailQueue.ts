@@ -134,7 +134,10 @@ export class EmailQueue {
                     this.queue.push(this.queue.shift()!);
 
                     // Wait before next retry
-                    await new Promise((resolve) => setTimeout(resolve, 2000));
+                    await new Promise((resolve) => {
+                        const t = setTimeout(resolve, 2000);
+                        if (t && typeof t.unref === 'function') t.unref();
+                    });
                 }
             }
         }
