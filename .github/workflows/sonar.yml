@@ -15,10 +15,28 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm run test:coverage
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v8
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.exclusions=**/test/**,**/tests/**,**/__tests__/**,**/node_modules/**,**/dist/**,**/build/**

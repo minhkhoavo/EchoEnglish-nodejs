@@ -26,7 +26,7 @@ class VnPayService {
                 str.push(encodeURIComponent(key));
             }
         }
-        str.sort();
+        str.sort((a, b) => a.localeCompare(b));
         for (let i = 0; i < str.length; i++) {
             sorted[str[i]] = encodeURIComponent(String(obj[str[i]])).replace(
                 /%20/g,

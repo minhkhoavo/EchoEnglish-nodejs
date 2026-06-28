@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { OtpPurpose } from '~/enum/otpPurpose.js';
 
 interface EmailJob {
@@ -46,7 +47,7 @@ export class EmailQueue {
      * Add email job to queue
      */
     public addJob(email: string, otpCode: string, purpose: OtpPurpose): string {
-        const jobId = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
+        const jobId = `${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
 
         this.queue.push({
             id: jobId,
