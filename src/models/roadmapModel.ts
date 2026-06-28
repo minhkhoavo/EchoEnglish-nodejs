@@ -233,7 +233,6 @@ export const roadmapSchema = new Schema(
 
 // Indexes
 roadmapSchema.index({ userId: 1, status: 1 });
-roadmapSchema.index({ roadmapId: 1 }, { unique: true });
 roadmapSchema.index({ userId: 1, currentWeek: 1 });
 
 roadmapSchema.virtual('isBlocked').get(function () {

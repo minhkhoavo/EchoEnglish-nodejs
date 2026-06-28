@@ -4,10 +4,7 @@ import { StringOutputParser } from '@langchain/core/output_parsers';
 import { GoogleGenAIClient } from '../provider/googleGenAIClient.js';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const currentDir = path.dirname(__filename);
+const currentDir = path.join(process.cwd(), 'src/ai/service');
 
 // Types
 export interface ConversationTask {
