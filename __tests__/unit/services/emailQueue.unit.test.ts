@@ -155,6 +155,27 @@ describe('EmailQueue', () => {
 
             expect(freshQueue.getStatus().queueLength).toBe(0);
         });
+
+        it('should handle setTimeout without unref (e.g. browser env) gracefully during retry', async () => {
+            mockSender.sendOtpEmail.mockRejectedValue(new Error('SMTP error'));
+
+            const originalSetTimeout = global.setTimeout;
+            (global as any).setTimeout = jest.fn((cb, ms) => {
+                const timerId = originalSetTimeout(cb, ms);
+                // Return a fake ID without unref
+                return 12345;
+            });
+
+            queue.addJob('browser@test.com', '123', OtpPurpose.REGISTER);
+
+            await flushPromises();
+
+            jest.advanceTimersByTime(2000);
+            await flushPromises();
+
+            expect((global as any).setTimeout).toHaveBeenCalled();
+            global.setTimeout = originalSetTimeout;
+        });
     });
 
     // ════════════════════════════════════════════

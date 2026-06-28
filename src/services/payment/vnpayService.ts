@@ -56,7 +56,6 @@ class VnPayService {
         payment: Partial<PaymentType>,
         ipAddress: string
     ) => {
-        console.log(payment._id);
         const now = moment().tz('Asia/Ho_Chi_Minh');
         let params: Record<string, string | number> = {
             vnp_Version: '2.1.0',

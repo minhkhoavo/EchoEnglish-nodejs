@@ -7,7 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const currentDir = path.dirname(__filename);
 
 // Types
 export interface ConversationTask {
@@ -99,7 +99,7 @@ class ConversationPracticeService {
     private loadTopics(): void {
         try {
             const dataPath = path.join(
-                __dirname,
+                currentDir,
                 '../../resources/data/conversation_topics.json'
             );
             const data = fs.readFileSync(dataPath, 'utf-8');
