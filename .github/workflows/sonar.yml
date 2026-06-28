@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - sonar-scan
 
 jobs:
   sonar:
