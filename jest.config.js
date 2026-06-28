@@ -13,6 +13,7 @@ export default {
         '!src/enum/**/*.ts',
         '!src/routes/**/*.ts',
         '!src/ai/prompts/**/*.ts',
+        '!src/controllers/**/*.ts',
         '!src/models/**/*.ts',
         '!src/dto/**/*.ts',
     ],
