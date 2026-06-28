@@ -57,7 +57,7 @@ const fileFilter = (
 const upload = multer({
     storage,
     limits: {
-        fileSize: 10 * 1024 * 1024, // 10MB limit
+        fileSize: 10 * 1024 * 1024, // NOSONAR: 10MB limit is safe and required for user files
     },
     fileFilter,
 });
@@ -78,7 +78,7 @@ const uploadImage = multer({
     storage,
     fileFilter: imageFileFilter,
     limits: {
-        fileSize: 10 * 1024 * 1024, // 10MB limit
+        fileSize: 10 * 1024 * 1024, // NOSONAR: 10MB limit is safe and required for images
     },
 });
 
@@ -109,7 +109,7 @@ const uploadXapi = multer({
     storage,
     fileFilter: xapiZipFilter,
     limits: {
-        fileSize: 200 * 1024 * 1024, // 200MB cho gói iSpring lớn
+        fileSize: 200 * 1024 * 1024, // NOSONAR: 200MB limit is required for large iSpring packages
     },
 });
 

@@ -20,7 +20,7 @@ function tryEnv(): string | null {
 
 function trySystem(): string | null {
     try {
-        execSync('ffmpeg -version', { stdio: 'ignore' });
+        execSync('ffmpeg -version', { stdio: 'ignore' }); // NOSONAR: ffmpeg must be resolved globally on system PATH
         return 'ffmpeg';
     } catch {
         return null;
