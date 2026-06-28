@@ -154,7 +154,9 @@ class TestResultService {
                 partsKey =
                     normalizedParts.length === 7
                         ? 'full'
-                        : [...normalizedParts].sort().join('-');
+                        : [...normalizedParts]
+                              .sort((a, b) => a.localeCompare(b))
+                              .join('-');
             }
 
             // Create test result
