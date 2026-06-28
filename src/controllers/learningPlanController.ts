@@ -395,13 +395,11 @@ export class LearningPlanController {
         user.markModified('competencyProfile');
         await user.save();
 
-        return res
-            .status(200)
-            .json(
-                new ApiResponse(SuccessMessage.UPDATE_SUCCESS, {
-                    score: clamped,
-                })
-            );
+        return res.status(200).json(
+            new ApiResponse(SuccessMessage.UPDATE_SUCCESS, {
+                score: clamped,
+            })
+        );
     }
 }
 

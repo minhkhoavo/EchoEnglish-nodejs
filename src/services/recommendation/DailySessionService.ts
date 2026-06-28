@@ -693,7 +693,7 @@ export class DailySessionService {
                 const extracted =
                     await materialContentAIService.extractFromMaterial({
                         title: rm.title,
-                        content: rm.content || '',
+                        content: rm.content as string,
                         focus: memoDayFocus,
                         targetSkills: memoSkills,
                         level: memoLevel,

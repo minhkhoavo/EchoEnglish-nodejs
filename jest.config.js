@@ -5,21 +5,21 @@ export default {
         '^~/(.*)\\.js$': '<rootDir>/src/$1.ts',
         '^~/(.*)$': '<rootDir>/src/$1',
         '^(\\.\\.?/.*)\\.js$': '$1',
-        '^uuid$': '<rootDir>/node_modules/uuid/dist/index.js',
+        '^uuid$': '<rootDir>/__tests__/mocks/uuid.ts',
     },
     transformIgnorePatterns: ['node_modules/(?!(uuid|.*\\.mjs$))'],
     testEnvironment: 'node',
     roots: ['<rootDir>/__tests__', '<rootDir>/src'],
     testMatch: ['**/__tests__/**/*.test.ts'],
     transform: {
-        '^.+\\.ts$': [
+        '^.+\\.[jt]s$': [
             'ts-jest',
             {
                 useESM: true,
                 allowImportingTsExtensions: true,
                 tsconfig: '<rootDir>/__tests__/tsconfig.json',
                 diagnostics: {
-                    ignoreCodes: [151002],
+                    ignoreCodes: [151002, 1343],
                 },
             },
         ],

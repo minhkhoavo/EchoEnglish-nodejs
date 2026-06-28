@@ -391,6 +391,7 @@ export class RoadmapCalibrationService {
             });
         }
 
+        week.dailyFocuses = week.dailyFocuses || [];
         week.dailyFocuses.push(...dailyFocuses);
         week.totalSessions = dailyFocuses.length;
         week.status = 'in-progress';
