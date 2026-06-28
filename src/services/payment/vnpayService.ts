@@ -136,15 +136,17 @@ class VnPayService {
                 await User.findByIdAndUpdate(payment.user, {
                     $inc: { credits: payment.tokens },
                 });
+                // Send notification to user
+                await notificationService.pushNotification(
+                    user._id.toString(),
+                    {
+                        title: 'Payment Successful',
+                        body: `You have successfully purchased ${payment.tokens} credits for ${payment.amount} VND`,
+                        type: NotificationType.PAYMENT,
+                        userIds: [user._id],
+                    }
+                );
             }
-
-            // Send notification to user
-            await notificationService.pushNotification(user._id.toString(), {
-                title: 'Payment Successful',
-                body: `You have successfully purchased ${payment.tokens} credits for ${payment.amount} VND`,
-                type: NotificationType.PAYMENT,
-                userIds: [user._id],
-            });
             const txnRef = payment._id
                 ? payment._id.toString()
                 : params.vnp_TxnRef;
@@ -153,7 +155,7 @@ class VnPayService {
             return {
                 success: true,
                 redirectUrl,
-                paymentId: payment._id.toString(),
+                paymentId: txnRef,
                 status: payment.status,
             };
         }
