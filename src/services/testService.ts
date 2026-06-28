@@ -179,7 +179,7 @@ class TestService {
                                 // Add the entire group to the questionGroups array of existingPartData
                                 existingPartData.questionGroups.push({
                                     groupContext: group.groupContext || {},
-                                    questions: group.questions || [],
+                                    questions: group.questions,
                                 });
                                 hasMatchingQuestionsInCurrentPart = true;
                             }
@@ -219,7 +219,7 @@ class TestService {
                     if (hasIndividualQuestions && !hasQuestionGroups) {
                         // Parts 1, 2, 5 - individual questions
                         partData.questions = part.questions;
-                    } else if (hasQuestionGroups) {
+                    } else {
                         // Parts 3, 4, 6, 7 - question groups
                         partData.questionGroups = part.questionGroups as Array<{
                             groupContext: Record<string, unknown>;
@@ -250,7 +250,6 @@ class TestService {
         const { skills = [], domains = [] } = criteria;
 
         if (skills.length === 0 && domains.length === 0) {
-            console.log('No search criteria provided. Returning empty array.');
             return [];
         }
 
@@ -276,9 +275,6 @@ class TestService {
                 orConditions.push({ 'contentTags.domain': { $in: domains } });
             }
 
-            if (orConditions.length === 0) {
-                return [];
-            }
             const pipeline = [
                 { $unwind: '$parts' },
                 {

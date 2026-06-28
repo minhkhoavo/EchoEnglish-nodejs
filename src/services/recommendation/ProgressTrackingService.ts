@@ -1,6 +1,7 @@
 import { StudyPlanType, StudyPlan } from '../../models/studyPlanModel.js';
 import { Schema } from 'mongoose';
 import { roadmapService } from './RoadmapService.js';
+import { studyMemoService } from './StudyMemoService.js';
 
 export class ProgressTrackingService {
     private readonly AUTO_COMPLETE_THRESHOLD = 5; // seconds
@@ -119,6 +120,10 @@ export class ProgressTrackingService {
                     (singleRoadmap as { roadmapId: string }).roadmapId,
                     session.weekNumber || 1,
                     session.dayNumber || 1
+                );
+                // Advance any user study memo whose day was delivered in this session.
+                await studyMemoService.markActiveMemoDayDone(
+                    session.userId.toString()
                 );
             }
             console.log(
@@ -270,6 +275,9 @@ export class ProgressTrackingService {
             session.weekNumber || 1,
             session.dayNumber || 1
         );
+
+        // Advance any user study memo whose day was delivered in this session.
+        await studyMemoService.markActiveMemoDayDone(userId);
 
         return {
             success: true,

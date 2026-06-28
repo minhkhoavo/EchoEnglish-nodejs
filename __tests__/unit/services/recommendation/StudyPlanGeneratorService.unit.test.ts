@@ -50,6 +50,14 @@ jest.mock('~/services/knowledgeBase/knowledgeBaseService.js', () => ({
     },
 }));
 
+jest.mock('~/utils/vocabularyDedup.js', () => ({
+    getSavedFlashcardTerms: jest.fn().mockResolvedValue([]),
+    filterDuplicateVocabulary: jest.fn().mockImplementation((words) => words),
+}));
+
+import { filterDuplicateVocabulary } from '~/utils/vocabularyDedup.js';
+const mockedFilterDuplicateVocabulary = filterDuplicateVocabulary as jest.Mock;
+
 const mockedStudyPlan = StudyPlan as jest.Mocked<typeof StudyPlan>;
 const mockedResource = Resource as jest.Mocked<typeof Resource>;
 const mockedQuestionMetadata = QuestionMetadata as jest.Mocked<
@@ -214,17 +222,15 @@ describe('StudyPlanGeneratorService', () => {
             );
 
             (mockedResource.find as any).mockReturnValue({
-                limit: jest
-                    .fn()
-                    .mockResolvedValue([
-                        {
-                            title: 'R1',
-                            type: 'video',
-                            description: 'D1',
-                            _id: 'r1',
-                            url: 'u1',
-                        },
-                    ]),
+                limit: jest.fn().mockResolvedValue([
+                    {
+                        title: 'R1',
+                        type: 'video',
+                        description: 'D1',
+                        _id: 'r1',
+                        url: 'u1',
+                    },
+                ]),
             });
 
             mockedToeicAnalysisAIService.generatePersonalizedGuide.mockResolvedValue(
@@ -545,11 +551,9 @@ describe('StudyPlanGeneratorService', () => {
 
         it('should get active study plan', async () => {
             (mockedStudyPlan.findOne as any).mockReturnValue({
-                sort: jest
-                    .fn()
-                    .mockReturnValue({
-                        populate: jest.fn().mockResolvedValue({ _id: 'sp1' }),
-                    }),
+                sort: jest.fn().mockReturnValue({
+                    populate: jest.fn().mockResolvedValue({ _id: 'sp1' }),
+                }),
             });
             const result =
                 await studyPlanGeneratorService.getActiveStudyPlan('u1');
@@ -993,6 +997,26 @@ describe('StudyPlanGeneratorService', () => {
                         affectedParts: [],
                     },
                     []
+                );
+            expect(result).toBeNull();
+        });
+
+        it('should return null if uniqueWords is empty after filtering duplicates', async () => {
+            mockedToeicAnalysisAIService.generateVocabularySet.mockResolvedValue(
+                { words: [{ word: 'apple', definition: 'fruit' }] } as any
+            );
+            mockedFilterDuplicateVocabulary.mockReturnValueOnce([]);
+
+            const result =
+                await studyPlanGeneratorService.generateVocabularySet(
+                    {
+                        category: 'VOCABULARY',
+                        skillKey: '',
+                        skillName: '',
+                        affectedParts: [],
+                    },
+                    [],
+                    'user1'
                 );
             expect(result).toBeNull();
         });

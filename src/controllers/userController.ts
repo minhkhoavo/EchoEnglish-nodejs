@@ -8,6 +8,8 @@ import { ApiError } from '~/middleware/apiError.js';
 import { roadmapService } from '~/services/recommendation/RoadmapService.js';
 import { Types } from 'mongoose';
 import creditsService from '~/services/payment/creditsService.js';
+import { User } from '~/models/userModel.js';
+import { Resource } from '~/models/resource.js';
 
 class UserController {
     public userService = new UserService();
@@ -164,6 +166,92 @@ class UserController {
                     'Feature affordability check successful',
                     result
                 )
+            );
+    };
+
+    // ==================== PERSONAL RESOURCE LIBRARY ====================
+
+    public getLibrary = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const user = (await User.findById(userId)
+            .select('savedResources')
+            .lean()) as unknown as {
+            savedResources?: unknown[];
+        } | null;
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    SuccessMessage.GET_SUCCESS,
+                    user?.savedResources || []
+                )
+            );
+    };
+
+    public addToLibrary = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const { resourceId } = req.body;
+        if (!resourceId) {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+
+        const resource = (await Resource.findById(
+            resourceId
+        ).lean()) as unknown as {
+            _id: Types.ObjectId;
+            title?: string;
+            type?: string;
+        } | null;
+        if (!resource) {
+            throw new ApiError(ErrorMessage.RESOURCE_NOT_FOUND);
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        user.savedResources = user.savedResources || [];
+        const exists = user.savedResources.some(
+            (r: { resourceId: Types.ObjectId }) =>
+                r.resourceId.toString() === resourceId.toString()
+        );
+        if (!exists) {
+            user.savedResources.push({
+                resourceId: new Types.ObjectId(resourceId),
+                title: resource.title,
+                type: resource.type,
+                addedAt: new Date(),
+            });
+            await user.save();
+        }
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    SuccessMessage.UPDATE_SUCCESS,
+                    user.savedResources
+                )
+            );
+    };
+
+    public removeFromLibrary = async (req: Request, res: Response) => {
+        const userId = req.user?.id as string;
+        const { resourceId } = req.params;
+        await User.updateOne(
+            { _id: new Types.ObjectId(userId) },
+            {
+                $pull: {
+                    savedResources: {
+                        resourceId: new Types.ObjectId(resourceId),
+                    },
+                },
+            }
+        );
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(SuccessMessage.DELETE_SUCCESS, { resourceId })
             );
     };
 }

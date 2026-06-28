@@ -58,12 +58,40 @@ jest.mock('~/services/recommendation/RoadmapCalibrationService.js', () => ({
         getSkippedSessionsContent: jest.fn(),
     },
 }));
+jest.mock('~/services/recommendation/StudyMemoService.js', () => ({
+    studyMemoService: {
+        getActiveMemoForToday: jest.fn(),
+        resolveMaterials: jest.fn(),
+        markDayInProgress: jest.fn(),
+    },
+}));
+jest.mock('~/ai/service/materialContentAIService.js', () => ({
+    materialContentAIService: {
+        extractFromMaterial: jest.fn(),
+    },
+}));
+jest.mock('~/utils/vocabularyDedup.js', () => ({
+    getSavedFlashcardTerms: jest.fn().mockResolvedValue([]),
+    filterDuplicateVocabulary: jest.fn().mockImplementation((words) => words),
+}));
 jest.mock('~/services/testService.js', () => ({
     __esModule: true,
     default: {
         findRandomQuestionIds: jest.fn(),
     },
 }));
+
+import { studyMemoService } from '~/services/recommendation/StudyMemoService.js';
+import { materialContentAIService } from '~/ai/service/materialContentAIService.js';
+import { filterDuplicateVocabulary } from '~/utils/vocabularyDedup.js';
+
+const mockedStudyMemoService = studyMemoService as jest.Mocked<
+    typeof studyMemoService
+>;
+const mockedMaterialContentAIService = materialContentAIService as jest.Mocked<
+    typeof materialContentAIService
+>;
+const mockedFilterDuplicateVocabulary = filterDuplicateVocabulary as jest.Mock;
 
 const mockedUser = User as jest.Mocked<typeof User>;
 const mockedStudyPlan = StudyPlan as jest.Mocked<typeof StudyPlan>;
@@ -133,7 +161,15 @@ describe('DailySessionService', () => {
                         title: 'Week 1 Focus',
                         summary: 'Summary 1',
                         focusSkills: ['GRAMMAR'],
-                        targetWeaknesses: [],
+                        targetWeaknesses: [
+                            {
+                                skillName: 'w1',
+                                skillKey: 'k1',
+                                category: 'c1',
+                                severity: 'high',
+                                userAccuracy: 80,
+                            },
+                        ],
                         recommendedDomains: ['Business'],
                         mistakes: [
                             {
@@ -218,12 +254,10 @@ describe('DailySessionService', () => {
                     contentInterests: ['Business'],
                 },
             };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(mockUser),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(mockUser),
+            });
 
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 {
@@ -386,12 +420,10 @@ describe('DailySessionService', () => {
             mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
                 isBlocked: false,
             });
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 { hasSkippedSessions: false, skippedContent: [] } as any
             );
@@ -443,12 +475,10 @@ describe('DailySessionService', () => {
                 isBlocked: false,
             });
 
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 {
                     hasSkippedSessions: true,
@@ -505,12 +535,10 @@ describe('DailySessionService', () => {
             mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
                 isBlocked: false,
             });
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 { hasSkippedSessions: false, skippedContent: [] } as any
             );
@@ -541,12 +569,10 @@ describe('DailySessionService', () => {
             });
             mockedRoadmapService.updateDailyFocusStatus.mockResolvedValue();
 
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 {
                     hasSkippedSessions: false,
@@ -729,12 +755,10 @@ describe('DailySessionService', () => {
             mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
                 isBlocked: false,
             });
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 { hasSkippedSessions: false, skippedContent: [] } as any
             );
@@ -763,12 +787,10 @@ describe('DailySessionService', () => {
                 isBlocked: false,
             });
 
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 {
                     hasSkippedSessions: true,
@@ -822,12 +844,10 @@ describe('DailySessionService', () => {
             mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
                 isBlocked: false,
             });
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 { hasSkippedSessions: false, skippedContent: [] } as any
             );
@@ -862,12 +882,10 @@ describe('DailySessionService', () => {
                 isBlocked: false,
             });
 
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
                 { hasSkippedSessions: false, skippedContent: [] } as any
             );
@@ -880,6 +898,396 @@ describe('DailySessionService', () => {
 
             const result = await dailySessionService.getTodaySession('userId');
             expect(result).toEqual({ _id: 'new-session' });
+        });
+
+        it('should handle memoMatch and create content-grounded lesson and link-only resources', async () => {
+            (mockedStudyPlan.findOne as any) = jest
+                .fn()
+                .mockReturnValue({ lean: jest.fn().mockResolvedValue(null) });
+            const mockRoadmap = buildMockRoadmap();
+            mockedRoadmapService.getActiveRoadmap.mockResolvedValue(
+                mockRoadmap as any
+            );
+            mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
+                isBlocked: false,
+            });
+
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue({
+                    competencyProfile: {
+                        currentCEFRLevel: 'B2',
+                        skillMatrix: [],
+                        aiInsights: [
+                            { title: 'insight 1', description: 'desc 1' },
+                        ],
+                    },
+                    preferences: {},
+                }),
+            });
+            mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
+                { hasSkippedSessions: false, skippedContent: [] } as any
+            );
+
+            mockedStudyMemoService.getActiveMemoForToday.mockReturnValue({
+                memo: {
+                    _id: 'memoId',
+                    materials: [
+                        { refType: 'file', refId: 'file1' },
+                        { refType: 'resource', refId: 'res1' },
+                    ],
+                    note: 'note 1',
+                },
+                dayItem: { _id: 'dayId', focus: 'Test focus' },
+            } as any);
+
+            mockedStudyMemoService.resolveMaterials.mockResolvedValue([
+                {
+                    refId: 'file1',
+                    resourceType: 'article',
+                    title: 'Title 1',
+                    description: 'Desc 1',
+                    url: 'url 1',
+                    labels: { domain: 'Business' },
+                    domains: ['Business'],
+                    content:
+                        'This is a long enough content to pass the hasUsableText check. '.repeat(
+                            10
+                        ),
+                },
+                {
+                    refId: 'res1',
+                    resourceType: 'video',
+                    title: 'Title 2',
+                    description: 'Desc 2',
+                    url: 'url 2',
+                    content: '', // empty content, so it becomes linkOnlyMaterial
+                },
+            ] as any);
+
+            mockedStudyMemoService.markDayInProgress.mockResolvedValue(
+                undefined
+            );
+
+            mockedDailyPlanAIService.generateDailyPlan.mockResolvedValue({
+                activities: [
+                    {
+                        activityType: 'learn',
+                        title: 'Learn AI',
+                        interactiveActivities: [
+                            { kind: 'writing', brief: 'Write something' },
+                            { kind: 'invalid', brief: '' }, // should skip due to missing brief or kind
+                        ],
+                    },
+                ],
+            } as any);
+
+            mockedFilterDuplicateVocabulary.mockReturnValue([{ word: 'test' }]);
+            mockedMaterialContentAIService.extractFromMaterial.mockResolvedValue(
+                {
+                    grammarGuide: {
+                        title: 'Grammar Guide',
+                        sections: [{ title: 'section', content: 'content' }],
+                        quickTips: ['tip'],
+                    },
+                    vocabulary: {
+                        title: 'Vocab',
+                        description: 'Desc',
+                        words: [{ word: 'test' }],
+                    },
+                } as any
+            );
+
+            (mockedStudyPlan.create as any) = jest
+                .fn()
+                .mockResolvedValue({ _id: 'new-session' });
+
+            const result = await dailySessionService.getTodaySession('userId');
+            expect(result).toEqual({ _id: 'new-session' });
+
+            const createCall = (mockedStudyPlan.create as jest.Mock).mock
+                .calls[0][0];
+
+            // Should prepend memo items
+            expect(createCall.planItems[0].title).toBe(
+                'Study your material: Title 1'
+            );
+            expect(createCall.planItems[0].activityType).toBe('learn');
+            expect(createCall.planItems[0].resources.length).toBe(3); // article, grammar guide, vocab set
+
+            // interactive activities
+            expect(createCall.planItems[1].resources.length).toBe(1); // the writing activity
+            expect(createCall.planItems[1].resources[0].type).toBe('activity');
+        });
+
+        it('should handle memoMatch with ONLY content materials (linkOnlyMaterials.length === 0)', async () => {
+            (mockedStudyPlan.findOne as any) = jest
+                .fn()
+                .mockReturnValue({ lean: jest.fn().mockResolvedValue(null) });
+            mockedRoadmapService.getActiveRoadmap.mockResolvedValue(
+                buildMockRoadmap() as any
+            );
+            mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
+                isBlocked: false,
+            });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue({
+                    competencyProfile: {
+                        currentCEFRLevel: 'B2',
+                        aiInsights: [],
+                    },
+                }),
+            });
+            mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
+                { hasSkippedSessions: false, skippedContent: [] } as any
+            );
+            mockedStudyMemoService.getActiveMemoForToday.mockReturnValue({
+                memo: {
+                    materials: [{ refType: 'file', refId: 'file1' }],
+                    note: '',
+                },
+                dayItem: { focus: 'focus' },
+            } as any);
+            mockedStudyMemoService.resolveMaterials.mockResolvedValue([
+                {
+                    refId: 'file1',
+                    resourceType: 'article',
+                    title: 'T1',
+                    domains: [],
+                    content:
+                        'This is a long enough content to pass the hasUsableText check. '.repeat(
+                            10
+                        ),
+                },
+            ] as any);
+            mockedDailyPlanAIService.generateDailyPlan.mockResolvedValue({
+                activities: [],
+            } as any);
+            mockedMaterialContentAIService.extractFromMaterial.mockResolvedValue(
+                {
+                    grammarGuide: { sections: [], title: 'Title' },
+                    vocabulary: {
+                        words: [],
+                        title: 'Vocab',
+                        description: 'desc',
+                    },
+                    comprehensionQuestions: [],
+                } as any
+            );
+            (mockedStudyPlan.create as any) = jest
+                .fn()
+                .mockResolvedValue({ _id: 'new-session' });
+
+            await dailySessionService.getTodaySession('userId');
+            expect(mockedStudyPlan.create).toHaveBeenCalled();
+        });
+
+        it('should handle memoMatch with ONLY link materials (memoContentMaterials.length === 0) and cover weakDomains map fallback', async () => {
+            (mockedStudyPlan.findOne as any) = jest
+                .fn()
+                .mockReturnValue({ lean: jest.fn().mockResolvedValue(null) });
+            mockedRoadmapService.getActiveRoadmap.mockResolvedValue(
+                buildMockRoadmap() as any
+            );
+            mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
+                isBlocked: false,
+            });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue({
+                    competencyProfile: {
+                        currentCEFRLevel: 'B2',
+                        domainProficiency: [
+                            { domain: 'Tech' },
+                            { domain: 'Business', accuracy: 50 },
+                        ], // testing map fallback
+                    },
+                }),
+            });
+            mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
+                { hasSkippedSessions: false, skippedContent: [] } as any
+            );
+            mockedStudyMemoService.getActiveMemoForToday.mockReturnValue({
+                memo: {
+                    materials: [{ refType: 'resource', refId: 'res1' }],
+                    note: '',
+                },
+                dayItem: { focus: 'focus' },
+            } as any);
+            mockedStudyMemoService.resolveMaterials.mockResolvedValue([
+                {
+                    refId: 'res1',
+                    resourceType: 'video',
+                    title: 'T2',
+                    domains: [],
+                    content: '',
+                },
+            ] as any);
+            mockedDailyPlanAIService.generateDailyPlan.mockResolvedValue({
+                activities: [],
+            } as any);
+            (mockedStudyPlan.create as any) = jest
+                .fn()
+                .mockResolvedValue({ _id: 'new-session' });
+
+            await dailySessionService.getTodaySession('userId');
+            expect(mockedStudyPlan.create).toHaveBeenCalled();
+        });
+
+        it('should handle memoMatch and cover falsy branches for interactive activities and content extraction', async () => {
+            (mockedStudyPlan.findOne as any) = jest
+                .fn()
+                .mockReturnValue({ lean: jest.fn().mockResolvedValue(null) });
+            const mockRoadmap = buildMockRoadmap({
+                currentLevel: undefined, // line 600 falsy
+                studyTimePerDay: undefined, // line 700 falsy
+                weeklyFocuses: [
+                    {
+                        weekNumber: 1,
+                        targetWeaknesses: [
+                            {
+                                skillName: 'w1',
+                                skillKey: 'k1',
+                                category: 'c1',
+                                severity: 'high',
+                                userAccuracy: undefined,
+                            },
+                        ], // line 610 falsy
+                        focusSkills: undefined, // line 685 falsy
+                        dailyFocuses: [
+                            {
+                                dayOfWeek: new Date().getDay(),
+                                focus: 'Daily Focus',
+                                targetSkills: undefined, // line 685 falsy
+                            },
+                        ],
+                    },
+                ],
+            });
+            mockedRoadmapService.getActiveRoadmap.mockResolvedValue(
+                mockRoadmap as any
+            );
+            mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
+                isBlocked: false,
+            });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null), // user is null, covers lines 599, 615 falsy
+            });
+            mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
+                { hasSkippedSessions: false, skippedContent: [] } as any
+            );
+
+            mockedStudyMemoService.getActiveMemoForToday.mockReturnValue({
+                memo: {
+                    materials: [{ refType: 'file', refId: 'file1' }],
+                },
+                dayItem: { focus: undefined }, // line 602, 697, 750 falsy
+            } as any);
+
+            mockedStudyMemoService.resolveMaterials.mockResolvedValue([
+                {
+                    refId: 'file1',
+                    resourceType: 'article',
+                    title: 'Title 1',
+                    content:
+                        'This is a long enough content to pass the hasUsableText check. '.repeat(
+                            10
+                        ), // needs valid content to enter the loop
+                },
+                {
+                    refId: 'file2',
+                    resourceType: 'video',
+                    title: 'Title 2',
+                    content:
+                        'This is a long enough content to pass the hasUsableText check. '.repeat(
+                            10
+                        ),
+                },
+            ] as any);
+
+            mockedDailyPlanAIService.generateDailyPlan.mockResolvedValue({
+                activities: [
+                    {
+                        activityType: 'learn',
+                        interactiveActivities: [
+                            { kind: 'unknown_kind', brief: 'brief' }, // line 643 fallback to 'Practice'
+                        ],
+                    },
+                ],
+            } as any);
+
+            mockedFilterDuplicateVocabulary.mockReturnValue([]); // line 735 uniqueWords.length === 0
+
+            mockedMaterialContentAIService.extractFromMaterial.mockResolvedValue(
+                {
+                    grammarGuide: { sections: [] },
+                    vocabulary: { words: [] },
+                } as any
+            );
+
+            (mockedStudyPlan.create as any) = jest
+                .fn()
+                .mockResolvedValue({ _id: 'new-session' });
+
+            await dailySessionService.getTodaySession('userId');
+
+            const createCall = (mockedStudyPlan.create as jest.Mock).mock
+                .calls[0][0];
+            expect(createCall).toBeDefined();
+
+            const learnActivity = createCall.planItems.find(
+                (p: any) =>
+                    p.activityType === 'learn' &&
+                    p.resources.some((r: any) => r.type === 'activity')
+            );
+            expect(learnActivity.resources[0].title).toBe('Practice exercise');
+        });
+
+        it('should handle targetWeaknesses undefined', async () => {
+            (mockedStudyPlan.findOne as any) = jest
+                .fn()
+                .mockReturnValue({ lean: jest.fn().mockResolvedValue(null) });
+            const mockRoadmap = buildMockRoadmap({
+                weeklyFocuses: [
+                    {
+                        weekNumber: 1,
+                        targetWeaknesses: undefined, // line 605 falsy
+                        dailyFocuses: [{ dayOfWeek: new Date().getDay() }],
+                    },
+                ],
+            });
+            mockedRoadmapService.getActiveRoadmap.mockResolvedValue(
+                mockRoadmap as any
+            );
+            mockedRoadmapService.checkRoadmapBlocked.mockResolvedValue({
+                isBlocked: false,
+            });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
+            mockedRoadmapCalibrationService.getSkippedSessionsContent.mockResolvedValue(
+                { hasSkippedSessions: false, skippedContent: [] } as any
+            );
+
+            mockedDailyPlanAIService.generateDailyPlan.mockResolvedValue({
+                activities: [
+                    {
+                        activityType: 'learn',
+                        interactiveActivities: [
+                            { kind: 'writing', brief: 'b' },
+                        ],
+                    },
+                ],
+            } as any);
+            (mockedStudyPlan.create as any) = jest
+                .fn()
+                .mockResolvedValue({ _id: 'new-session' });
+
+            await dailySessionService.getTodaySession('userId');
+            expect(mockedStudyPlan.create).toHaveBeenCalled();
         });
     });
 

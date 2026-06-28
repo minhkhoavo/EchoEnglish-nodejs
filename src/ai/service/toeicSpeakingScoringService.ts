@@ -89,7 +89,11 @@ class AIScoringService {
 
         const formattedText =
             await PromptTemplate.fromTemplate(templateString).format(inputData);
-        const model = googleGenAIClient.getModel();
+
+        const model = googleGenAIClient.getModel(
+            process.env.GEMINI_CHATBOT_CONSERVATION_MODEL ??
+                process.env.GEMINI_DEFAULT_MODEL
+        );
         const parser = new JsonOutputParser();
         let message:
             | string

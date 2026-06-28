@@ -21,6 +21,11 @@ export type GenerateOptions = {
     maxOutputTokens?: number;
 };
 
+export type InlineImage = {
+    data: string;
+    mimeType: string;
+};
+
 export class GoogleGenAIClient {
     private model: ChatGoogleGenerativeAI;
 
@@ -36,14 +41,41 @@ export class GoogleGenAIClient {
         });
     }
 
-    public getModel(): ChatGoogleGenerativeAI {
-        return this.model;
+    public getModel(model?: string): ChatGoogleGenerativeAI {
+        const defaultModel =
+            process.env.GEMINI_DEFAULT_MODEL ?? 'gemini-3.1-flash-lite';
+        return new ChatGoogleGenerativeAI({
+            model: model ?? defaultModel,
+            temperature: 0.2,
+            apiKey,
+            maxRetries: 4,
+        });
     }
 
-    async generate(text: string) {
+    async generate(text: string, images?: InlineImage[]) {
         // Invoke with a simple user message; LangChain typings vary between versions,
-        // using a plain object array is broadly compatible.
-        const res = await this.model.invoke([{ role: 'user', content: text }]);
+        // using a plain object array is broadly compatible. When images are
+        // provided we send a multimodal message (text + image_url blocks) so the
+        // model can "see" the photo (used e.g. to author Part 1 questions).
+        type ContentBlock =
+            | { type: 'text'; text: string }
+            | { type: 'image_url'; image_url: { url: string } };
+        const content: string | ContentBlock[] =
+            images && images.length
+                ? [
+                      { type: 'text', text },
+                      ...images.map(
+                          (img): ContentBlock => ({
+                              type: 'image_url',
+                              image_url: {
+                                  url: `data:${img.mimeType};base64,${img.data}`,
+                              },
+                          })
+                      ),
+                  ]
+                : text;
+
+        const res = await this.model.invoke([{ role: 'user', content }]);
 
         // The response shape can vary between langchain versions/providers.
         // Try common paths for the returned content.

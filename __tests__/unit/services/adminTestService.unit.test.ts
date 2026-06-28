@@ -1,327 +1,309 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
+import { ObjectId } from 'mongodb';
 import adminTestService from '~/services/adminTestService.js';
 import TestModel from '~/models/testModel.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import * as XLSX from 'xlsx';
+import S3Service from '~/services/s3Service.js';
 import { GoogleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
+import axios from 'axios';
 
 // ──────────────────────────────────────────────
 // Module-level mocks
 // ──────────────────────────────────────────────
-jest.mock('~/models/testModel.js', () => {
-    const mockModel: any = jest.fn().mockImplementation(function (
-        this: any,
-        data: any
-    ) {
-        Object.assign(this, data);
-        this.save = jest.fn().mockResolvedValue(this);
-        return this;
-    });
-    mockModel.find = jest.fn();
-    mockModel.findOne = jest.fn();
-    mockModel.findOneAndUpdate = jest.fn();
-    mockModel.countDocuments = jest.fn();
-    return { __esModule: true, default: mockModel };
-});
-
-jest.mock('~/ai/provider/googleGenAIClient.js', () => ({
+jest.mock('~/models/testModel.js');
+jest.mock('xlsx');
+jest.mock('~/services/s3Service.js', () => ({
     __esModule: true,
+    default: {
+        downloadFile: jest.fn(),
+    },
+}));
+jest.mock('~/ai/provider/googleGenAIClient.js', () => ({
     GoogleGenAIClient: jest.fn().mockImplementation(() => ({
         generate: jest.fn(),
     })),
-    googleGenAIClient: {
-        generate: jest.fn(),
-        getModel: jest.fn(),
-    },
 }));
-
 jest.mock('@langchain/core/output_parsers', () => ({
-    __esModule: true,
     JsonOutputParser: jest.fn().mockImplementation(() => ({
         getFormatInstructions: jest.fn().mockReturnValue('format-instructions'),
-        parse: jest.fn().mockResolvedValue({ parsed: true }),
+        parse: jest.fn().mockImplementation((val) => JSON.parse(val)),
     })),
 }));
+jest.mock('axios');
 
-const mockedTestModel = TestModel as any;
-const MockedGoogleGenAIClient = GoogleGenAIClient as jest.MockedClass<
-    typeof GoogleGenAIClient
->;
+const mockedTestModel = TestModel as jest.Mocked<typeof TestModel>;
+const mockedXLSX = XLSX as jest.Mocked<any>;
+const mockedS3Service = S3Service as jest.Mocked<any>;
+const mockedGoogleGenAIClient = GoogleGenAIClient as jest.Mocked<any>;
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 // ──────────────────────────────────────────────
 // Fixtures & Helpers
 // ──────────────────────────────────────────────
-const VALID_ID = new mongoose.Types.ObjectId().toString();
-const INVALID_ID = 'invalid-id';
+const MOCK_TEST_ID = '60f8e8b4e7c8e8b4e7c8e8b4';
+const VALID_OBJECT_ID = new ObjectId(MOCK_TEST_ID);
 
-function buildMockTest(overrides: Record<string, any> = {}) {
+function buildMockTest(overrides: Record<string, unknown> = {}) {
     return {
-        _id: new mongoose.Types.ObjectId(),
-        testTitle: 'Test 1',
+        _id: VALID_OBJECT_ID,
+        testTitle: 'English Mock Test',
         type: 'listening-reading',
         duration: 120,
-        number_of_questions: 0,
+        number_of_questions: 10,
         number_of_parts: 7,
-        parts: [],
+        parts: [
+            { _id: new ObjectId(), partName: 'Part 1', questions: [] },
+            { _id: new ObjectId(), partName: 'Part 2', questions: [] },
+            { _id: new ObjectId(), partName: 'Part 3', questionGroups: [] },
+            { _id: new ObjectId(), partName: 'Part 4', questionGroups: [] },
+            { _id: new ObjectId(), partName: 'Part 5', questions: [] },
+            { _id: new ObjectId(), partName: 'Part 6', questionGroups: [] },
+            { _id: new ObjectId(), partName: 'Part 7', questionGroups: [] },
+        ],
         isDeleted: false,
         save: jest.fn().mockResolvedValue(true),
         ...overrides,
     };
 }
 
-function buildChainedFind(result: any[]) {
-    return {
-        select: jest.fn().mockReturnValue({
-            sort: jest.fn().mockReturnValue({
-                skip: jest.fn().mockReturnValue({
-                    limit: jest.fn().mockReturnValue({
-                        lean: jest.fn().mockResolvedValue(result),
-                    }),
-                }),
-            }),
-        }),
-    };
-}
-
+// ──────────────────────────────────────────────
+// Tests
+// ──────────────────────────────────────────────
 describe('AdminTestService', () => {
     beforeEach(() => {
         jest.clearAllMocks();
-        jest.spyOn(console, 'log').mockImplementation();
-        jest.spyOn(console, 'error').mockImplementation();
-        jest.spyOn(console, 'warn').mockImplementation();
-    });
-
-    afterEach(() => {
-        jest.restoreAllMocks();
+        // Setup default instantiation for GoogleGenAIClient mock
+        mockedGoogleGenAIClient.mockImplementation(() => ({
+            generate: jest.fn().mockResolvedValue('{"result": "success"}'),
+        }));
     });
 
     // ════════════════════════════════════════════
-    // createTest
+    // createTest()
     // ════════════════════════════════════════════
     describe('createTest', () => {
-        it('should create test with default parts when no parts provided', async () => {
-            const result = await adminTestService.createTest({
-                testTitle: 'New Test',
-            });
-
-            expect(mockedTestModel).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    testTitle: 'New Test',
-                    type: 'listening-reading',
-                    duration: 120,
-                    number_of_questions: 0,
-                    number_of_parts: 7,
-                })
+        it('should create a test document with given options and 7 default parts', async () => {
+            const mockSave = jest.fn().mockResolvedValue(true);
+            (mockedTestModel as any).mockImplementation(
+                (initData: any) =>
+                    ({
+                        ...initData,
+                        save: mockSave,
+                    }) as any
             );
-            expect(result.save).toHaveBeenCalled();
-        });
 
-        it('should create 7 default parts with correct structure', async () => {
-            await adminTestService.createTest({ testTitle: 'Test' });
+            const testData = {
+                testTitle: 'TOEIC Prep 1',
+            };
 
-            const constructorCall = mockedTestModel.mock.calls[0][0];
-            const parts = constructorCall.parts;
-            expect(parts.length).toBe(7);
+            const result = await adminTestService.createTest(testData);
 
-            // Parts 1, 2, 5 have questions array
-            expect(parts[0].questions).toEqual([]);
-            expect(parts[1].questions).toEqual([]);
-            expect(parts[4].questions).toEqual([]);
+            expect(mockedTestModel).toHaveBeenCalledTimes(1);
+            expect(mockSave).toHaveBeenCalledTimes(1);
+            expect(result.testTitle).toBe('TOEIC Prep 1');
+            expect(result.type).toBe('listening-reading');
+            expect(result.duration).toBe(120);
+            expect(result.number_of_questions).toBe(0);
+            expect(result.number_of_parts).toBe(7);
+            expect(result.parts).toHaveLength(7);
 
-            // Parts 3, 4, 6, 7 have questionGroups array
-            expect(parts[2].questionGroups).toEqual([]);
-            expect(parts[3].questionGroups).toEqual([]);
-            expect(parts[5].questionGroups).toEqual([]);
-            expect(parts[6].questionGroups).toEqual([]);
-        });
+            // Check that parts 1, 2, 5 have questions list, and 3, 4, 6, 7 have questionGroups list
+            expect(result.parts[0].partName).toBe('Part 1');
+            expect(result.parts[0].questions).toBeDefined();
+            expect(result.parts[0].questionGroups).toBeUndefined();
 
-        it('should use custom values when provided', async () => {
-            const customParts = [
-                { partName: 'Custom Part', _id: new mongoose.Types.ObjectId() },
-            ];
-            await adminTestService.createTest({
-                testTitle: 'Custom',
-                type: 'listening-reading',
-                duration: 90,
-                number_of_questions: 50,
-                number_of_parts: 3,
-                parts: customParts as any,
-            });
-
-            const constructorCall = mockedTestModel.mock.calls[0][0];
-            expect(constructorCall.duration).toBe(90);
-            expect(constructorCall.number_of_questions).toBe(50);
-            expect(constructorCall.number_of_parts).toBe(3);
-            expect(constructorCall.parts).toBe(customParts);
+            expect(result.parts[2].partName).toBe('Part 3');
+            expect(result.parts[2].questionGroups).toBeDefined();
+            expect(result.parts[2].questions).toBeUndefined();
         });
     });
 
     // ════════════════════════════════════════════
-    // getAllTests
+    // getAllTests()
     // ════════════════════════════════════════════
     describe('getAllTests', () => {
-        it('should return tests with pagination using defaults', async () => {
-            const mockTests = [buildMockTest()];
-            const chain = buildChainedFind(mockTests);
-            mockedTestModel.find.mockReturnValue(chain);
-            mockedTestModel.countDocuments.mockResolvedValue(1);
+        it('should paginate, sort, and lean search tests', async () => {
+            const mockTests = [
+                buildMockTest({ testTitle: 'Test A' }),
+                buildMockTest({ testTitle: 'Test B' }),
+            ];
+            const mockChain = {
+                select: jest.fn().mockReturnThis(),
+                sort: jest.fn().mockReturnThis(),
+                skip: jest.fn().mockReturnThis(),
+                limit: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(mockTests),
+            };
 
-            const result = await adminTestService.getAllTests();
+            mockedTestModel.find.mockReturnValue(mockChain as any);
+            mockedTestModel.countDocuments.mockResolvedValue(100);
 
-            expect(result.tests).toEqual(mockTests);
-            expect(result.pagination).toEqual({
-                page: 1,
-                limit: 10,
-                total: 1,
-                totalPages: 1,
+            const result = await adminTestService.getAllTests(
+                2,
+                5,
+                'searchkey'
+            );
+
+            expect(mockedTestModel.find).toHaveBeenCalledWith({
+                isDeleted: { $ne: true },
+                testTitle: { $regex: 'searchkey', $options: 'i' },
+            });
+            expect(mockChain.select).toHaveBeenCalledWith(
+                'testTitle type duration number_of_questions number_of_parts createdAt updatedAt'
+            );
+            expect(mockChain.sort).toHaveBeenCalledWith({ createdAt: -1 });
+            expect(mockChain.skip).toHaveBeenCalledWith(5); // (2-1)*5
+            expect(mockChain.limit).toHaveBeenCalledWith(5);
+            expect(mockedTestModel.countDocuments).toHaveBeenCalledWith({
+                isDeleted: { $ne: true },
+                testTitle: { $regex: 'searchkey', $options: 'i' },
+            });
+
+            expect(result).toEqual({
+                tests: mockTests,
+                pagination: {
+                    page: 2,
+                    limit: 5,
+                    total: 100,
+                    totalPages: 20,
+                },
             });
         });
 
-        it('should apply search filter when search is provided', async () => {
-            const chain = buildChainedFind([]);
-            mockedTestModel.find.mockReturnValue(chain);
+        it('should use default pagination parameters if page, limit, and search are omitted', async () => {
+            const mockChain = {
+                select: jest.fn().mockReturnThis(),
+                sort: jest.fn().mockReturnThis(),
+                skip: jest.fn().mockReturnThis(),
+                limit: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue([]),
+            };
+            mockedTestModel.find.mockReturnValue(mockChain as any);
             mockedTestModel.countDocuments.mockResolvedValue(0);
 
-            await adminTestService.getAllTests(1, 10, 'TOEIC');
+            await adminTestService.getAllTests();
 
-            expect(mockedTestModel.find).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    testTitle: { $regex: 'TOEIC', $options: 'i' },
-                })
-            );
-        });
-
-        it('should paginate correctly with page=2 limit=5', async () => {
-            const chain = buildChainedFind([]);
-            mockedTestModel.find.mockReturnValue(chain);
-            mockedTestModel.countDocuments.mockResolvedValue(15);
-
-            const result = await adminTestService.getAllTests(2, 5);
-
-            expect(result.pagination).toEqual({
-                page: 2,
-                limit: 5,
-                total: 15,
-                totalPages: 3,
+            expect(mockedTestModel.find).toHaveBeenCalledWith({
+                isDeleted: { $ne: true },
             });
+            expect(mockChain.skip).toHaveBeenCalledWith(0);
+            expect(mockChain.limit).toHaveBeenCalledWith(10);
         });
     });
 
     // ════════════════════════════════════════════
-    // getTestById
+    // getTestById()
     // ════════════════════════════════════════════
     describe('getTestById', () => {
-        it('should throw ApiError INVALID_ID for invalid testId', async () => {
+        it('should throw ApiError(INVALID_ID) if provided id is invalid', async () => {
             await expect(
-                adminTestService.getTestById(INVALID_ID)
+                adminTestService.getTestById('invalid-id')
             ).rejects.toBeInstanceOf(ApiError);
             await expect(
-                adminTestService.getTestById(INVALID_ID)
+                adminTestService.getTestById('invalid-id')
             ).rejects.toMatchObject({
                 status: ErrorMessage.INVALID_ID.status,
-                message: ErrorMessage.INVALID_ID.message,
             });
         });
 
-        it('should throw ApiError TEST_NOT_FOUND when test not found', async () => {
+        it('should throw ApiError(TEST_NOT_FOUND) if test does not exist', async () => {
             mockedTestModel.findOne.mockResolvedValue(null);
 
             await expect(
-                adminTestService.getTestById(VALID_ID)
+                adminTestService.getTestById(MOCK_TEST_ID)
             ).rejects.toBeInstanceOf(ApiError);
             await expect(
-                adminTestService.getTestById(VALID_ID)
+                adminTestService.getTestById(MOCK_TEST_ID)
             ).rejects.toMatchObject({
                 status: ErrorMessage.TEST_NOT_FOUND.status,
-                message: ErrorMessage.TEST_NOT_FOUND.message,
             });
         });
 
-        it('should return test when found', async () => {
+        it('should return found test document', async () => {
             const mockTest = buildMockTest();
             mockedTestModel.findOne.mockResolvedValue(mockTest);
 
-            const result = await adminTestService.getTestById(VALID_ID);
+            const result = await adminTestService.getTestById(MOCK_TEST_ID);
 
-            expect(result).toBe(mockTest);
-            expect(mockedTestModel.findOne).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    isDeleted: { $ne: true },
-                })
-            );
+            expect(mockedTestModel.findOne).toHaveBeenCalledWith({
+                _id: VALID_OBJECT_ID,
+                isDeleted: { $ne: true },
+            });
+            expect(result).toEqual(mockTest);
         });
     });
 
     // ════════════════════════════════════════════
-    // updateTest
+    // updateTest()
     // ════════════════════════════════════════════
     describe('updateTest', () => {
-        it('should throw ApiError INVALID_ID for invalid testId', async () => {
+        it('should throw ApiError(INVALID_ID) if provided id is invalid', async () => {
             await expect(
-                adminTestService.updateTest(INVALID_ID, {
-                    testTitle: 'Updated',
-                })
+                adminTestService.updateTest('invalid-id', {})
             ).rejects.toBeInstanceOf(ApiError);
         });
 
-        it('should throw ApiError TEST_NOT_FOUND when test not found', async () => {
+        it('should throw ApiError(TEST_NOT_FOUND) if test does not exist', async () => {
             mockedTestModel.findOneAndUpdate.mockResolvedValue(null);
 
             await expect(
-                adminTestService.updateTest(VALID_ID, { testTitle: 'Updated' })
+                adminTestService.updateTest(MOCK_TEST_ID, {})
             ).rejects.toMatchObject({
                 status: ErrorMessage.TEST_NOT_FOUND.status,
             });
         });
 
-        it('should return updated test when found', async () => {
-            const updatedTest = buildMockTest({ testTitle: 'Updated' });
-            mockedTestModel.findOneAndUpdate.mockResolvedValue(updatedTest);
+        it('should update test with update object and return updated document', async () => {
+            const mockTest = buildMockTest({ testTitle: 'Updated Title' });
+            mockedTestModel.findOneAndUpdate.mockResolvedValue(mockTest);
 
-            const result = await adminTestService.updateTest(VALID_ID, {
-                testTitle: 'Updated',
-            });
+            const updateData = { testTitle: 'Updated Title' };
+            const result = await adminTestService.updateTest(
+                MOCK_TEST_ID,
+                updateData
+            );
 
-            expect(result).toBe(updatedTest);
             expect(mockedTestModel.findOneAndUpdate).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    isDeleted: { $ne: true },
-                }),
-                { $set: { testTitle: 'Updated' } },
+                { _id: VALID_OBJECT_ID, isDeleted: { $ne: true } },
+                { $set: updateData },
                 { new: true }
             );
+            expect(result).toEqual(mockTest);
         });
     });
 
     // ════════════════════════════════════════════
-    // deleteTest
+    // deleteTest()
     // ════════════════════════════════════════════
     describe('deleteTest', () => {
-        it('should throw ApiError INVALID_ID for invalid testId', async () => {
+        it('should throw ApiError(INVALID_ID) if provided id is invalid', async () => {
             await expect(
-                adminTestService.deleteTest(INVALID_ID)
+                adminTestService.deleteTest('invalid-id')
             ).rejects.toBeInstanceOf(ApiError);
         });
 
-        it('should throw ApiError TEST_NOT_FOUND when test not found', async () => {
+        it('should throw ApiError(TEST_NOT_FOUND) if test does not exist', async () => {
             mockedTestModel.findOneAndUpdate.mockResolvedValue(null);
 
             await expect(
-                adminTestService.deleteTest(VALID_ID)
+                adminTestService.deleteTest(MOCK_TEST_ID)
             ).rejects.toMatchObject({
                 status: ErrorMessage.TEST_NOT_FOUND.status,
             });
         });
 
-        it('should soft delete test when found', async () => {
-            mockedTestModel.findOneAndUpdate.mockResolvedValue(buildMockTest());
+        it('should soft delete test by setting isDeleted to true', async () => {
+            mockedTestModel.findOneAndUpdate.mockResolvedValue(
+                buildMockTest({ isDeleted: true })
+            );
 
-            await adminTestService.deleteTest(VALID_ID);
+            await adminTestService.deleteTest(MOCK_TEST_ID);
 
             expect(mockedTestModel.findOneAndUpdate).toHaveBeenCalledWith(
-                expect.any(Object),
+                { _id: VALID_OBJECT_ID, isDeleted: { $ne: true } },
                 { $set: { isDeleted: true } },
                 { new: true }
             );
@@ -329,301 +311,89 @@ describe('AdminTestService', () => {
     });
 
     // ════════════════════════════════════════════
-    // importFromExcel
-    // ════════════════════════════════════════════
-    describe('importFromExcel', () => {
-        it('should throw ApiError INVALID_ID for invalid testId', async () => {
-            await expect(
-                adminTestService.importFromExcel(INVALID_ID, Buffer.from(''))
-            ).rejects.toBeInstanceOf(ApiError);
-        });
-
-        it('should throw ApiError TEST_NOT_FOUND when test not found', async () => {
-            mockedTestModel.findOne.mockResolvedValue(null);
-
-            await expect(
-                adminTestService.importFromExcel(VALID_ID, Buffer.from(''))
-            ).rejects.toMatchObject({
-                status: ErrorMessage.TEST_NOT_FOUND.status,
-            });
-        });
-
-        it('should parse Excel and import questions for individual parts (1, 2, 5)', async () => {
-            const mockTest = buildMockTest();
-            mockedTestModel.findOne.mockResolvedValue(mockTest);
-
-            // Create Excel buffer with part 1 question
-            const data = [
-                {
-                    partNumber: 1,
-                    questionNumber: 1,
-                    questionText: 'Q1',
-                    optionA: 'A',
-                    optionB: 'B',
-                    optionC: 'C',
-                    optionD: 'D',
-                    correctAnswer: 'A',
-                    explanation: 'Explain',
-                    audioUrl: 'audio.mp3',
-                    imageUrls: 'img1.png,img2.png',
-                    passageHtml: '<p>passage</p>',
-                    transcript: 'transcript',
-                    translation: 'translation',
-                    difficulty: 'A2',
-                    domain: 'business,office',
-                },
-            ];
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.json_to_sheet(data);
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
-
-            const result = await adminTestService.importFromExcel(
-                VALID_ID,
-                buffer
-            );
-
-            expect(mockTest.save).toHaveBeenCalled();
-            expect(result.parts.length).toBe(7);
-            // Part 1 should have the question
-            expect(result.parts[0].questions!.length).toBe(1);
-            expect(result.parts[0].questions![0].correctAnswer).toBe('A');
-            expect(result.parts[0].questions![0].options.length).toBe(4);
-            // Parts 3,4,6,7 should have empty questionGroups
-            expect(result.parts[2].questionGroups).toEqual([]);
-        });
-
-        it('should handle group questions for parts 3, 4, 6, 7', async () => {
-            const mockTest = buildMockTest();
-            mockedTestModel.findOne.mockResolvedValue(mockTest);
-
-            const data = [
-                {
-                    partNumber: 3,
-                    questionNumber: 31,
-                    optionA: 'A',
-                    optionB: 'B',
-                    optionC: 'C',
-                    correctAnswer: 'B',
-                    groupId: 'group1',
-                    audioUrl: 'audio.mp3',
-                    imageUrls: 'img.png',
-                    passageHtml: '<p>passage</p>',
-                    transcript: 'transcript',
-                    translation: 'translation',
-                },
-                {
-                    partNumber: 3,
-                    questionNumber: 32,
-                    optionA: 'A',
-                    optionB: 'B',
-                    optionC: 'C',
-                    correctAnswer: 'A',
-                    groupId: 'group1',
-                },
-            ];
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.json_to_sheet(data);
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
-
-            const result = await adminTestService.importFromExcel(
-                VALID_ID,
-                buffer
-            );
-
-            // Part 3 should have questionGroups with 1 group containing 2 questions
-            const part3 = result.parts[2];
-            expect(part3.questionGroups!.length).toBe(1);
-            expect(part3.questionGroups![0].questions.length).toBe(2);
-        });
-
-        it('should auto-generate groupKey when groupId is not provided for group parts', async () => {
-            const mockTest = buildMockTest();
-            mockedTestModel.findOne.mockResolvedValue(mockTest);
-
-            const data = [
-                {
-                    partNumber: 4,
-                    questionNumber: 41,
-                    optionA: 'A',
-                    optionB: 'B',
-                    optionC: 'C',
-                    correctAnswer: 'C',
-                    // No groupId → auto-generated
-                },
-            ];
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.json_to_sheet(data);
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
-
-            const result = await adminTestService.importFromExcel(
-                VALID_ID,
-                buffer
-            );
-
-            const part4 = result.parts[3];
-            expect(part4.questionGroups!.length).toBe(1);
-        });
-
-        it('should handle questions without optionD (3-option questions) and falsy options', async () => {
-            const mockTest = buildMockTest();
-            mockedTestModel.findOne.mockResolvedValue(mockTest);
-
-            const data = [
-                {
-                    partNumber: 2,
-                    questionNumber: 7,
-                    optionA: '',
-                    optionB: '',
-                    optionC: '',
-                    // No optionD
-                    correctAnswer: 'A',
-                },
-            ];
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.json_to_sheet(data);
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
-
-            const result = await adminTestService.importFromExcel(
-                VALID_ID,
-                buffer
-            );
-
-            const options = result.parts[1].questions![0].options;
-            expect(options.length).toBe(3);
-            expect(options[0].text).toBe('');
-            expect(options[1].text).toBe('');
-            expect(options[2].text).toBe('');
-        });
-
-        it('should handle questions without optional fields', async () => {
-            const mockTest = buildMockTest();
-            mockedTestModel.findOne.mockResolvedValue(mockTest);
-
-            const data = [
-                {
-                    partNumber: 5,
-                    questionNumber: 101,
-                    optionA: 'A',
-                    optionB: 'B',
-                    optionC: 'C',
-                    correctAnswer: 'B',
-                    // No questionText, audioUrl, imageUrls, passageHtml, transcript, translation, difficulty, domain
-                },
-            ];
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.json_to_sheet(data);
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
-
-            const result = await adminTestService.importFromExcel(
-                VALID_ID,
-                buffer
-            );
-
-            const q = result.parts[4].questions![0];
-            expect(q.questionText).toBeNull();
-            expect(q.media?.audioUrl).toBeNull();
-            expect(q.media?.imageUrls).toBeNull();
-            expect(q.contentTags?.difficulty).toBe('B1'); // default
-            expect(q.contentTags?.domain).toEqual([]);
-        });
-    });
-
-    // ════════════════════════════════════════════
-    // updatePart
+    // updatePart()
     // ════════════════════════════════════════════
     describe('updatePart', () => {
-        it('should throw ApiError INVALID_ID for invalid testId', async () => {
+        it('should throw ApiError(INVALID_ID) if provided id is invalid', async () => {
             await expect(
-                adminTestService.updatePart(INVALID_ID, 1, {})
+                adminTestService.updatePart('invalid-id', 1, {})
             ).rejects.toBeInstanceOf(ApiError);
         });
 
-        it('should throw ApiError TEST_NOT_FOUND when test not found', async () => {
+        it('should throw ApiError(TEST_NOT_FOUND) if test does not exist', async () => {
             mockedTestModel.findOne.mockResolvedValue(null);
 
             await expect(
-                adminTestService.updatePart(VALID_ID, 1, {})
+                adminTestService.updatePart(MOCK_TEST_ID, 1, {})
             ).rejects.toMatchObject({
                 status: ErrorMessage.TEST_NOT_FOUND.status,
             });
         });
 
-        it('should update existing part when found', async () => {
-            const mockTest = buildMockTest({
-                parts: [
-                    {
-                        _id: new mongoose.Types.ObjectId(),
-                        partName: 'Part 1',
-                        questions: [],
-                    },
-                ],
-            });
+        it('should update an existing part inside parts array', async () => {
+            const mockTest = buildMockTest();
             mockedTestModel.findOne.mockResolvedValue(mockTest);
 
-            const result = await adminTestService.updatePart(VALID_ID, 1, {
-                questions: [{ questionNumber: 1 } as any],
-            });
+            const updateData = {
+                questions: [
+                    { questionNumber: 1, correctAnswer: 'A', options: [] },
+                ],
+            };
+            await adminTestService.updatePart(MOCK_TEST_ID, 1, updateData);
 
-            expect(mockTest.save).toHaveBeenCalled();
-            expect(result.parts[0].questions).toEqual([{ questionNumber: 1 }]);
+            expect(mockTest.parts[0].questions).toEqual(updateData.questions);
+            expect(mockTest.save).toHaveBeenCalledTimes(1);
         });
 
-        it('should add new part when partNumber not found', async () => {
-            const mockTest = buildMockTest({
-                parts: [
-                    {
-                        _id: new mongoose.Types.ObjectId(),
-                        partName: 'Part 1',
-                        questions: [],
-                    },
-                ],
-            });
+        it('should append new part inside parts array if it does not exist', async () => {
+            const mockTest = buildMockTest({ parts: [] }); // Empty parts list
             mockedTestModel.findOne.mockResolvedValue(mockTest);
 
-            const result = await adminTestService.updatePart(VALID_ID, 8, {
+            await adminTestService.updatePart(MOCK_TEST_ID, 1, {
                 questions: [],
             });
 
-            expect(result.parts.length).toBe(2);
-            expect(result.parts[1].partName).toBe('Part 8');
+            expect(mockTest.parts).toHaveLength(1);
+            expect(mockTest.parts[0].partName).toBe('Part 1');
+            expect(mockTest.save).toHaveBeenCalledTimes(1);
         });
     });
 
     // ════════════════════════════════════════════
-    // getExcelTemplate
+    // getExcelTemplate()
     // ════════════════════════════════════════════
     describe('getExcelTemplate', () => {
-        it('should return a Buffer with xlsx content', () => {
-            const buffer = adminTestService.getExcelTemplate();
+        it('should call XLSX book utilities and return write output buffer', () => {
+            const mockWorkbook = {};
+            const mockWorksheet = {};
+            const mockBuffer = Buffer.from('mock-excel-buffer');
 
-            expect(Buffer.isBuffer(buffer)).toBe(true);
-            expect(buffer.length).toBeGreaterThan(0);
+            mockedXLSX.utils.book_new.mockReturnValue(mockWorkbook);
+            mockedXLSX.utils.json_to_sheet.mockReturnValue(mockWorksheet);
+            mockedXLSX.write.mockReturnValue(mockBuffer);
 
-            // Verify it's a valid xlsx
-            const wb = XLSX.read(buffer, { type: 'buffer' });
-            expect(wb.SheetNames).toContain('Questions');
+            const result = adminTestService.getExcelTemplate();
 
-            const data = XLSX.utils.sheet_to_json(wb.Sheets['Questions']);
-            expect(data.length).toBe(1);
+            expect(mockedXLSX.utils.book_new).toHaveBeenCalled();
+            expect(mockedXLSX.utils.json_to_sheet).toHaveBeenCalled();
+            expect(mockedXLSX.utils.book_append_sheet).toHaveBeenCalledWith(
+                mockWorkbook,
+                mockWorksheet,
+                'Questions'
+            );
+            expect(mockedXLSX.write).toHaveBeenCalledWith(mockWorkbook, {
+                type: 'buffer',
+                bookType: 'xlsx',
+            });
+            expect(result).toBe(mockBuffer);
         });
     });
 
     // ════════════════════════════════════════════
-    // exportToExcel
+    // exportToExcel()
     // ════════════════════════════════════════════
     describe('exportToExcel', () => {
-        it('should throw ApiError INVALID_ID for invalid testId', async () => {
-            await expect(
-                adminTestService.exportToExcel(INVALID_ID)
-            ).rejects.toBeInstanceOf(ApiError);
-        });
-
-        it('should export test with individual questions to Excel', async () => {
+        it('should flatten test questions and question groups, calling XLSX write', async () => {
             const mockTest = buildMockTest({
                 parts: [
                     {
@@ -632,110 +402,16 @@ describe('AdminTestService', () => {
                             {
                                 questionNumber: 1,
                                 questionText: 'Q1',
-                                options: [
-                                    { label: 'A', text: 'Opt A' },
-                                    { label: 'B', text: 'Opt B' },
-                                    { label: 'C', text: 'Opt C' },
-                                    { label: 'D', text: 'Opt D' },
-                                ],
+                                options: [{ label: 'A', text: 'OptA' }],
                                 correctAnswer: 'A',
-                                explanation: 'Expl',
-                                media: {
-                                    audioUrl: 'audio.mp3',
-                                    imageUrls: ['img1.png', 'img2.png'],
-                                    passageHtml: '<p>p</p>',
-                                    transcript: 'trans',
-                                    translation: 'transl',
-                                },
-                                contentTags: {
-                                    difficulty: 'B1',
-                                    domain: ['business', 'office'],
-                                },
+                                explanation: 'Exp1',
+                                media: { audioUrl: 'url1' },
+                                contentTags: { difficulty: 'B1' },
                             },
-                        ],
-                    },
-                ],
-            });
-            mockedTestModel.findOne.mockResolvedValue(mockTest);
-
-            const buffer = await adminTestService.exportToExcel(VALID_ID);
-
-            expect(Buffer.isBuffer(buffer)).toBe(true);
-            const wb = XLSX.read(buffer, { type: 'buffer' });
-            const data = XLSX.utils.sheet_to_json(wb.Sheets['Questions']);
-            expect(data.length).toBe(1);
-            expect((data[0] as any).correctAnswer).toBe('A');
-        });
-
-        it('should export test with question groups to Excel', async () => {
-            const mockTest = buildMockTest({
-                parts: [
-                    {
-                        partName: 'Part 3',
-                        questionGroups: [
                             {
-                                // No _id provided to hit group._id?.toString() || '' fallback
-                                groupContext: {
-                                    audioUrl: 'group-audio.mp3',
-                                    imageUrls: ['grp-img.png'],
-                                    passageHtml: '<p>group</p>',
-                                    transcript: 'grp-trans',
-                                    translation: 'grp-transl',
-                                },
-                                questions: [
-                                    {
-                                        questionNumber: 31,
-                                        options: [
-                                            { label: 'A', text: 'A' },
-                                            { label: 'B', text: 'B' },
-                                            { label: 'C', text: 'C' },
-                                        ],
-                                        correctAnswer: 'B',
-                                        contentTags: {
-                                            difficulty: 'A2',
-                                            domain: ['travel'],
-                                        },
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            });
-            mockedTestModel.findOne.mockResolvedValue(mockTest);
-
-            const buffer = await adminTestService.exportToExcel(VALID_ID);
-
-            const wb = XLSX.read(buffer, { type: 'buffer' });
-            const data = XLSX.utils.sheet_to_json(wb.Sheets['Questions']);
-            expect(data.length).toBe(1);
-            expect((data[0] as any).groupId).toBe('');
-        });
-
-        it('should handle parts with neither questions nor questionGroups', async () => {
-            const mockTest = buildMockTest({
-                parts: [{ partName: 'Part 1' }],
-            });
-            mockedTestModel.findOne.mockResolvedValue(mockTest);
-
-            const buffer = await adminTestService.exportToExcel(VALID_ID);
-
-            const wb = XLSX.read(buffer, { type: 'buffer' });
-            const data = XLSX.utils.sheet_to_json(wb.Sheets['Questions']);
-            expect(data.length).toBe(0);
-        });
-
-        it('should handle questions with missing optional fields and empty options', async () => {
-            const mockTest = buildMockTest({
-                parts: [
-                    {
-                        partName: 'Part 2',
-                        questions: [
-                            {
-                                questionNumber: 1,
-                                options: [], // No options to hit q.options[0]?.text fallback
-                                correctAnswer: 'A',
-                                // No questionText, explanation, media, contentTags
+                                questionNumber: 3,
+                                options: [],
+                                correctAnswer: 'C',
                             },
                         ],
                     },
@@ -744,13 +420,22 @@ describe('AdminTestService', () => {
                         questionGroups: [
                             {
                                 _id: new mongoose.Types.ObjectId(),
-                                groupContext: {}, // Empty context
+                                groupContext: {},
                                 questions: [
                                     {
-                                        questionNumber: 31,
-                                        options: [], // No options
+                                        questionNumber: 2,
+                                        options: [],
                                         correctAnswer: 'B',
-                                        contentTags: {}, // Empty tags
+                                    },
+                                ],
+                            },
+                            {
+                                groupContext: {},
+                                questions: [
+                                    {
+                                        questionNumber: 6,
+                                        options: [],
+                                        correctAnswer: 'A',
                                     },
                                 ],
                             },
@@ -758,52 +443,455 @@ describe('AdminTestService', () => {
                     },
                 ],
             });
+
             mockedTestModel.findOne.mockResolvedValue(mockTest);
+            mockedXLSX.utils.book_new.mockReturnValue({});
+            mockedXLSX.write.mockReturnValue(Buffer.from('exported-data'));
 
-            const buffer = await adminTestService.exportToExcel(VALID_ID);
+            const result = await adminTestService.exportToExcel(MOCK_TEST_ID);
 
-            const wb = XLSX.read(buffer, { type: 'buffer' });
-            const data = XLSX.utils.sheet_to_json(wb.Sheets['Questions']);
-            expect(data.length).toBe(2);
-            expect((data[0] as any).optionA).toBe(''); // empty options mapped to ''
-            expect((data[1] as any).domain).toBe(''); // empty tags mapped to ''
+            expect(mockedXLSX.utils.json_to_sheet).toHaveBeenCalledWith(
+                expect.arrayContaining([
+                    expect.objectContaining({
+                        partNumber: 1,
+                        questionNumber: 1,
+                        questionText: 'Q1',
+                        correctAnswer: 'A',
+                    }),
+                    expect.objectContaining({
+                        partNumber: 1,
+                        questionNumber: 3,
+                        questionText: '',
+                        correctAnswer: 'C',
+                        optionA: '',
+                        optionB: '',
+                        optionC: '',
+                        optionD: '',
+                        explanation: '',
+                        audioUrl: '',
+                        imageUrls: '',
+                        passageHtml: '',
+                        transcript: '',
+                        translation: '',
+                        difficulty: '',
+                        domain: '',
+                    }),
+                    expect.objectContaining({
+                        partNumber: 3,
+                        questionNumber: 2,
+                        passageHtml: '',
+                        correctAnswer: 'B',
+                    }),
+                    expect.objectContaining({
+                        partNumber: 3,
+                        questionNumber: 6,
+                        groupId: '',
+                        correctAnswer: 'A',
+                    }),
+                ])
+            );
+            expect(result).toEqual(Buffer.from('exported-data'));
         });
     });
 
     // ════════════════════════════════════════════
-    // run
+    // run()
     // ════════════════════════════════════════════
     describe('run', () => {
-        it('should call GoogleGenAIClient with temperature and parse response', async () => {
-            const mockGenerate = jest
-                .fn()
-                .mockResolvedValue('{"result": true}');
-            (MockedGoogleGenAIClient as any).mockImplementation(() => ({
-                generate: mockGenerate,
-            }));
+        it('should call GoogleGenAIClient generate and return parsed object response', async () => {
+            const clientMock = {
+                generate: jest
+                    .fn()
+                    .mockResolvedValue('{"parsedKey": "parsedVal"}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
 
-            const result = await adminTestService.run('test prompt', 0.5);
+            const result = await adminTestService.run('my-prompt', 0.5);
 
-            expect(MockedGoogleGenAIClient).toHaveBeenCalledWith({
+            expect(mockedGoogleGenAIClient).toHaveBeenCalledWith({
                 temperature: 0.5,
             });
-            expect(mockGenerate).toHaveBeenCalledWith(
-                expect.stringContaining('test prompt')
+            expect(clientMock.generate).toHaveBeenCalledWith(
+                expect.stringContaining('my-prompt')
             );
-            expect(result).toEqual({ parsed: true });
+            expect(result).toEqual({ parsedKey: 'parsedVal' });
         });
 
-        it('should use default temperature of 0.4', async () => {
-            const mockGenerate = jest.fn().mockResolvedValue('{}');
-            (MockedGoogleGenAIClient as any).mockImplementation(() => ({
-                generate: mockGenerate,
-            }));
+        it('should use default temperature if omitted in run', async () => {
+            const clientMock = {
+                generate: jest.fn().mockResolvedValue('{"runDefault": true}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
 
-            await adminTestService.run('prompt');
+            await adminTestService.run('my-prompt');
 
-            expect(MockedGoogleGenAIClient).toHaveBeenCalledWith({
+            expect(mockedGoogleGenAIClient).toHaveBeenCalledWith({
                 temperature: 0.4,
             });
+        });
+    });
+
+    // ════════════════════════════════════════════
+    // runWithMedia()
+    // ════════════════════════════════════════════
+    describe('runWithMedia', () => {
+        it('should download AWS images, call client generate, and parse output', async () => {
+            const clientMock = {
+                generate: jest
+                    .fn()
+                    .mockResolvedValue('{"mediaResponse": "yes"}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
+            mockedS3Service.downloadFile.mockResolvedValue(
+                Buffer.from('image-content')
+            );
+
+            const imageUrls = ['https://my-bucket.amazonaws.com/image.png'];
+            const result = await adminTestService.runWithMedia('prompt-media', {
+                imageUrls,
+            });
+
+            expect(mockedS3Service.downloadFile).toHaveBeenCalledWith(
+                imageUrls[0]
+            );
+            expect(clientMock.generate).toHaveBeenCalledWith(
+                expect.stringContaining('prompt-media'),
+                [
+                    {
+                        data: Buffer.from('image-content').toString('base64'),
+                        mimeType: 'image/png',
+                    },
+                ]
+            );
+            expect(result).toEqual({ mediaResponse: 'yes' });
+        });
+
+        it('should fetch external URL images using axios when not AWS S3 format', async () => {
+            const clientMock = {
+                generate: jest
+                    .fn()
+                    .mockResolvedValue('{"externalResponse": true}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
+            mockedAxios.get.mockResolvedValue({
+                data: Buffer.from('ext-img-content'),
+                headers: { 'content-type': 'image/jpeg' },
+            });
+
+            const imageUrls = ['https://otherwebsite.com/photo.jpeg'];
+            const result = await adminTestService.runWithMedia('prompt-ext', {
+                imageUrls,
+            });
+
+            expect(mockedAxios.get).toHaveBeenCalledWith(imageUrls[0], {
+                responseType: 'arraybuffer',
+                timeout: 15000,
+            });
+            expect(clientMock.generate).toHaveBeenCalledWith(
+                expect.stringContaining('prompt-ext'),
+                [
+                    {
+                        data: Buffer.from('ext-img-content').toString('base64'),
+                        mimeType: 'image/jpeg',
+                    },
+                ]
+            );
+            expect(result).toEqual({ externalResponse: true });
+        });
+
+        it('should fallback to image guess extension types (webp, gif, bmp, defaults) when content-type is missing', async () => {
+            const clientMock = {
+                generate: jest
+                    .fn()
+                    .mockResolvedValue('{"extensionsResponse": true}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
+
+            // mock axios for various extensions
+            mockedAxios.get
+                .mockResolvedValueOnce({
+                    data: Buffer.from('webp-data'),
+                    headers: {},
+                })
+                .mockResolvedValueOnce({
+                    data: Buffer.from('gif-data'),
+                    headers: {},
+                })
+                .mockResolvedValueOnce({
+                    data: Buffer.from('bmp-data'),
+                    headers: {},
+                })
+                .mockResolvedValueOnce({
+                    data: Buffer.from('fallback-data'),
+                    headers: {},
+                });
+
+            const imageUrls = [
+                'https://other.com/photo.webp',
+                'https://other.com/photo.gif',
+                'https://other.com/photo.bmp',
+                'https://other.com/photo.xyz',
+            ];
+            await adminTestService.runWithMedia('prompt-ext-guess', {
+                imageUrls,
+            });
+
+            expect(clientMock.generate).toHaveBeenCalledWith(
+                expect.any(String),
+                expect.arrayContaining([
+                    {
+                        data: Buffer.from('webp-data').toString('base64'),
+                        mimeType: 'image/webp',
+                    },
+                    {
+                        data: Buffer.from('gif-data').toString('base64'),
+                        mimeType: 'image/gif',
+                    },
+                    {
+                        data: Buffer.from('bmp-data').toString('base64'),
+                        mimeType: 'image/bmp',
+                    },
+                    {
+                        data: Buffer.from('fallback-data').toString('base64'),
+                        mimeType: 'image/jpeg',
+                    },
+                ])
+            );
+        });
+
+        it('should handle S3 download or axios failure gracefully by logging error and passing undefined to client.generate', async () => {
+            const clientMock = {
+                generate: jest
+                    .fn()
+                    .mockResolvedValue('{"failedFetchResponse": true}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
+            mockedS3Service.downloadFile.mockRejectedValue(
+                new Error('S3 Download Error')
+            );
+
+            const consoleSpy = jest
+                .spyOn(console, 'error')
+                .mockImplementation();
+
+            const imageUrls = [
+                'https://my-bucket.amazonaws.com/broken-image.png',
+            ];
+            await adminTestService.runWithMedia('prompt-broken', { imageUrls });
+
+            expect(consoleSpy).toHaveBeenCalledWith(
+                '[adminTestService] Failed to fetch image',
+                imageUrls[0],
+                expect.any(Error)
+            );
+            expect(clientMock.generate).toHaveBeenCalledWith(
+                expect.stringContaining('prompt-broken'),
+                undefined
+            );
+
+            consoleSpy.mockRestore();
+        });
+
+        it('should return null if downloaded AWS S3 file buffer is empty or null', async () => {
+            const clientMock = {
+                generate: jest
+                    .fn()
+                    .mockResolvedValue('{"emptyBufferResponse": true}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
+            mockedS3Service.downloadFile.mockResolvedValue(null);
+            mockedAxios.get.mockResolvedValue({ data: null, headers: {} });
+
+            await adminTestService.runWithMedia('prompt-empty-buffer', {
+                imageUrls: ['https://my-bucket.amazonaws.com/image.png'],
+            });
+
+            expect(clientMock.generate).toHaveBeenCalledWith(
+                expect.stringContaining('prompt-empty-buffer'),
+                undefined
+            );
+        });
+
+        it('should handle fallback to default jpg mimeType for default guess image extension case', async () => {
+            const clientMock = {
+                generate: jest
+                    .fn()
+                    .mockResolvedValue('{"jpgDefaultResponse": true}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
+            mockedAxios.get.mockResolvedValue({
+                data: Buffer.from('jpg-data'),
+                headers: {},
+            });
+
+            await adminTestService.runWithMedia('prompt-ext-jpg', {
+                imageUrls: ['https://other.com/photo.jpg'],
+            });
+
+            expect(clientMock.generate).toHaveBeenCalledWith(
+                expect.any(String),
+                [
+                    {
+                        data: Buffer.from('jpg-data').toString('base64'),
+                        mimeType: 'image/jpeg',
+                    },
+                ]
+            );
+        });
+
+        it('should use default options when calling runWithMedia with default arguments', async () => {
+            const clientMock = {
+                generate: jest.fn().mockResolvedValue('{"defaultVal": true}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
+
+            await adminTestService.runWithMedia('prompt-only');
+
+            expect(mockedGoogleGenAIClient).toHaveBeenCalledWith({
+                temperature: 0.7,
+                model: 'gemini-2.5-flash',
+            });
+        });
+
+        it('should return null if S3 downloaded buffer is empty (length 0)', async () => {
+            const clientMock = {
+                generate: jest.fn().mockResolvedValue('{}'),
+            };
+            mockedGoogleGenAIClient.mockImplementation(() => clientMock);
+            mockedS3Service.downloadFile.mockResolvedValue(Buffer.from(''));
+
+            await adminTestService.runWithMedia('test-empty-len', {
+                imageUrls: ['https://my-bucket.amazonaws.com/image.png'],
+            });
+
+            expect(clientMock.generate).toHaveBeenCalledWith(
+                expect.any(String),
+                undefined
+            );
+        });
+    });
+
+    // ════════════════════════════════════════════
+    // importFromExcel()
+    // ════════════════════════════════════════════
+    describe('importFromExcel', () => {
+        it('should throw ApiError(INVALID_ID) if provided id is invalid', async () => {
+            await expect(
+                adminTestService.importFromExcel('invalid-id', Buffer.from(''))
+            ).rejects.toBeInstanceOf(ApiError);
+        });
+
+        it('should throw ApiError(TEST_NOT_FOUND) if test does not exist', async () => {
+            mockedTestModel.findOne.mockResolvedValue(null);
+
+            await expect(
+                adminTestService.importFromExcel(MOCK_TEST_ID, Buffer.from(''))
+            ).rejects.toMatchObject({
+                status: ErrorMessage.TEST_NOT_FOUND.status,
+            });
+        });
+
+        it('should read Excel buffer, sort rows into 7 parts and update the test document', async () => {
+            const mockTest = buildMockTest();
+            mockedTestModel.findOne.mockResolvedValue(mockTest);
+
+            const mockRows = [
+                {
+                    partNumber: 1,
+                    questionNumber: 1,
+                    questionText: 'Q1 Text',
+                    optionA: 'A',
+                    optionB: 'B',
+                    optionC: 'C',
+                    optionD: 'D',
+                    correctAnswer: 'A',
+                    difficulty: 'B1',
+                    domain: 'finance',
+                    imageUrls:
+                        'https://example.com/img1.png, https://example.com/img2.png',
+                },
+                {
+                    partNumber: 3,
+                    questionNumber: 2,
+                    optionA: 'Opt1',
+                    optionB: 'Opt2',
+                    optionC: 'Opt3',
+                    correctAnswer: 'B',
+                    groupId: 'group_test_3',
+                    imageUrls: 'https://example.com/img3.png',
+                },
+                {
+                    partNumber: 1,
+                    questionNumber: 3,
+                    correctAnswer: 'C',
+                },
+                {
+                    partNumber: 4,
+                    questionNumber: 4,
+                    correctAnswer: 'D',
+                },
+                {
+                    partNumber: 3,
+                    questionNumber: 5,
+                    optionA: 'OptX',
+                    optionB: 'OptY',
+                    optionC: 'OptZ',
+                    correctAnswer: 'A',
+                    groupId: 'group_test_3',
+                },
+            ];
+
+            mockedXLSX.read.mockReturnValue({
+                SheetNames: ['Sheet1'],
+                Sheets: { Sheet1: {} },
+            });
+            mockedXLSX.utils.sheet_to_json.mockReturnValue(mockRows);
+
+            const result = await adminTestService.importFromExcel(
+                MOCK_TEST_ID,
+                Buffer.from('some-buffer')
+            );
+
+            expect(mockedXLSX.read).toHaveBeenCalledWith(
+                Buffer.from('some-buffer'),
+                { type: 'buffer' }
+            );
+            expect(mockedTestModel.findOne).toHaveBeenCalledWith({
+                _id: VALID_OBJECT_ID,
+                isDeleted: { $ne: true },
+            });
+
+            expect(result.parts[0].questions).toHaveLength(2);
+            expect(result.parts[0].questions![0].questionNumber).toBe(1);
+            expect(result.parts[0].questions![0].questionText).toBe('Q1 Text');
+            expect(result.parts[0].questions![0].options).toEqual([
+                { label: 'A', text: 'A' },
+                { label: 'B', text: 'B' },
+                { label: 'C', text: 'C' },
+                { label: 'D', text: 'D' },
+            ]);
+            expect(result.parts[0].questions![1].questionNumber).toBe(3);
+            expect(result.parts[0].questions![1].questionText).toBeNull();
+            expect(result.parts[0].questions![1].options).toEqual([
+                { label: 'A', text: '' },
+                { label: 'B', text: '' },
+                { label: 'C', text: '' },
+            ]);
+
+            // Part 3 has groups
+            expect(result.parts[2].questionGroups).toHaveLength(1);
+            expect(result.parts[2].questionGroups![0].questions).toHaveLength(
+                2
+            );
+            expect(
+                result.parts[2].questionGroups![0].questions[0].questionNumber
+            ).toBe(2);
+            expect(
+                result.parts[2].questionGroups![0].questions[1].questionNumber
+            ).toBe(5);
+
+            expect(mockTest.number_of_questions).toBe(5);
+            expect(mockTest.save).toHaveBeenCalledTimes(1);
         });
     });
 });

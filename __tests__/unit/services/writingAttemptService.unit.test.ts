@@ -156,15 +156,6 @@ function buildMockAttempt(overrides: Record<string, any> = {}) {
 describe('WritingAttemptService', () => {
     let mockDb: any;
     let mockCollection: any;
-    let consoleLogSpy: jest.SpyInstance;
-
-    beforeAll(() => {
-        consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-    });
-
-    afterAll(() => {
-        consoleLogSpy.mockRestore();
-    });
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -712,10 +703,6 @@ describe('WritingAttemptService', () => {
             );
 
             // Verification of error question update
-            // Note: When scoreWriting throws, the error is caught inside the .map() callback
-            // and returned as { success: false, error, errorStack } (no aiResult key).
-            // Destructuring { question, aiResult, success } gives aiResult=undefined,
-            // so the else branch saves aiResult?.error || 'Unknown scoring error'.
             expect(mockCollection.updateOne).toHaveBeenCalledWith(
                 {
                     _id: mockAttempt._id,
@@ -726,8 +713,8 @@ describe('WritingAttemptService', () => {
                         'parts.$[part].questions.$[question].result': {
                             provider: 'toeicWritingScoringService',
                             scoredAt: expect.any(Date),
-                            error: 'Unknown scoring error',
-                            errorStack: undefined,
+                            error: 'AI Service Down',
+                            errorStack: expect.any(String),
                         },
                     },
                 },
@@ -976,10 +963,6 @@ describe('WritingAttemptService', () => {
                 mockAttempt._id.toString()
             );
 
-            // Note: When scoreWriting rejects with a string, it's caught inside .map()
-            // and returned as { success: false, error: String(reason), errorStack: '' }.
-            // Destructuring { question, aiResult, success } gives aiResult=undefined,
-            // so the else branch saves 'Unknown scoring error'.
             expect(mockCollection.updateOne).toHaveBeenCalledWith(
                 {
                     _id: mockAttempt._id,
@@ -990,7 +973,7 @@ describe('WritingAttemptService', () => {
                         'parts.$[part].questions.$[question].result': {
                             provider: 'toeicWritingScoringService',
                             scoredAt: expect.any(Date),
-                            error: 'Unknown scoring error',
+                            error: 'Severe custom string rejection reason',
                             errorStack: undefined,
                         },
                     },

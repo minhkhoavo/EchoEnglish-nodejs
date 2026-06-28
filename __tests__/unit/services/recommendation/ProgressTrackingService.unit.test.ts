@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import { progressTrackingService } from '~/services/recommendation/ProgressTrackingService.js';
 import { StudyPlan } from '~/models/studyPlanModel.js';
 import { roadmapService } from '~/services/recommendation/RoadmapService.js';
@@ -14,10 +14,19 @@ jest.mock('~/services/recommendation/RoadmapService.js', () => ({
         completeDailySession: jest.fn(),
     },
 }));
+jest.mock('~/services/recommendation/StudyMemoService.js', () => ({
+    studyMemoService: {
+        markActiveMemoDayDone: jest.fn(),
+    },
+}));
 
 const mockedStudyPlan = StudyPlan as jest.Mocked<typeof StudyPlan>;
 const mockedRoadmapService = roadmapService as jest.Mocked<
     typeof roadmapService
+>;
+import { studyMemoService } from '~/services/recommendation/StudyMemoService.js';
+const mockedStudyMemoService = studyMemoService as jest.Mocked<
+    typeof studyMemoService
 >;
 
 describe('ProgressTrackingService', () => {

@@ -28,6 +28,12 @@ learningPlanRouter.get(
     learningPlanController.checkMissedSessions.bind(learningPlanController)
 );
 
+// Record an inline activity's AI score → nudge competency (close the loop)
+learningPlanRouter.post(
+    '/activity-result',
+    learningPlanController.recordActivityResult.bind(learningPlanController)
+);
+
 // ==================== DAILY SESSION ====================
 learningPlanRouter.get(
     '/today',
@@ -66,6 +72,25 @@ learningPlanRouter.post(
 learningPlanRouter.post(
     '/sessions/:sessionId/practice-drill/complete',
     learningPlanController.completePracticeDrill.bind(learningPlanController)
+);
+
+// ==================== STUDY MEMO (USER-PROVIDED MATERIAL) ====================
+
+// Step A: analyze suitability + propose multi-day breakdown (no save)
+learningPlanRouter.post(
+    '/memos/analyze',
+    learningPlanController.analyzeMemo.bind(learningPlanController)
+);
+
+// Step B: confirm -> save memo (+ regenerate today if relevant)
+learningPlanRouter.post(
+    '/memos',
+    learningPlanController.createMemo.bind(learningPlanController)
+);
+
+learningPlanRouter.delete(
+    '/memos/:memoId',
+    learningPlanController.deleteMemo.bind(learningPlanController)
 );
 
 // ==================== MISTAKE TRACKING ====================

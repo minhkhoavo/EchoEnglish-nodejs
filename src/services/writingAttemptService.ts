@@ -347,7 +347,8 @@ export default class WritingAttemptService {
         // Process results and save to database
         for (const result of scoringResults) {
             if (result.status === 'fulfilled') {
-                const { question, aiResult, success } = result.value;
+                const { question, aiResult, success, error, errorStack } =
+                    result.value;
 
                 if (success && aiResult) {
                     // Process upgraded_text: convert \n to <br> for HTML rendering
@@ -406,6 +407,9 @@ export default class WritingAttemptService {
                 } else {
                     // Save error result
                     failedQuestionsCount += 1;
+                    const resultObj = aiResult as
+                        | Record<string, string>
+                        | undefined;
                     await db.collection('toeic_writing_results').updateOne(
                         {
                             _id: attemptObjectId,
@@ -418,9 +422,11 @@ export default class WritingAttemptService {
                                     provider: 'toeicWritingScoringService',
                                     scoredAt: new Date(),
                                     error:
-                                        aiResult?.error ||
+                                        error ||
+                                        resultObj?.error ||
                                         'Unknown scoring error',
-                                    errorStack: aiResult?.errorStack,
+                                    errorStack:
+                                        errorStack || resultObj?.errorStack,
                                 },
                             },
                         },

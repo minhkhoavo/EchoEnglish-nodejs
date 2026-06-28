@@ -208,6 +208,19 @@ const userSchema = new Schema(
 
             lastUpdated: { type: Date, default: Date.now },
         },
+        // User's personal library of curated resources (for study memos)
+        savedResources: [
+            {
+                resourceId: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Resource',
+                    required: true,
+                },
+                title: { type: String },
+                type: { type: String },
+                addedAt: { type: Date, default: Date.now },
+            },
+        ],
     },
     {
         collection: 'users',

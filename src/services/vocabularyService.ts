@@ -1,12 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Path to vocabulary JSON files
-const VOCABULARY_DIR = path.join(__dirname, '..', '..', 'vocabulary');
+const VOCABULARY_DIR = path.join(process.cwd(), 'vocabulary');
 
 export interface VocabularyWord {
     card_id: string;

@@ -10,7 +10,13 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ObjectId } from 'mongodb';
 import * as XLSX from 'xlsx';
 import { JsonOutputParser } from '@langchain/core/output_parsers';
-import { GoogleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
+import {
+    GoogleGenAIClient,
+    InlineImage,
+} from '~/ai/provider/googleGenAIClient.js';
+import S3Service from '~/services/s3Service.js';
+import axios from 'axios';
+import path from 'path';
 
 interface CreateTestDto {
     testTitle: string;
@@ -504,6 +510,98 @@ class AdminTestService {
             `${prompt}\n\n${formatInstructions}`
         );
         return (await parser.parse(response)) as T;
+    }
+
+    /**
+     * Like {@link run} but also attaches one or more images (referenced by URL)
+     * to the prompt so the model can "see" them — used to author questions from
+     * an uploaded photo (Part 1) where the image is the source of truth.
+     * Images may live on our S3 bucket or be plain external links; both work.
+     */
+    public async runWithMedia<T = unknown>(
+        prompt: string,
+        options: {
+            imageUrls?: string[];
+            temperature?: number;
+            model?: string;
+        } = {}
+    ): Promise<T> {
+        const {
+            imageUrls = [],
+            temperature = 0.7,
+            model = 'gemini-2.5-flash',
+        } = options;
+        const client = new GoogleGenAIClient({ temperature, model });
+        const parser = new JsonOutputParser();
+        const formatInstructions = parser.getFormatInstructions();
+
+        const images: InlineImage[] = [];
+        // Cap the number of images to keep requests bounded.
+        for (const url of imageUrls.slice(0, 4)) {
+            const img = await this.fetchInlineImage(url);
+            if (img) images.push(img);
+        }
+
+        const response = await client.generate(
+            `${prompt}\n\n${formatInstructions}`,
+            images.length ? images : undefined
+        );
+        return (await parser.parse(response)) as T;
+    }
+
+    private async fetchInlineImage(url: string): Promise<InlineImage | null> {
+        try {
+            let buffer: Buffer | null = null;
+            let mimeType = '';
+
+            if (url.includes('amazonaws.com')) {
+                buffer = await S3Service.downloadFile(url);
+            }
+
+            if (!buffer) {
+                const res = await axios.get<ArrayBuffer>(url, {
+                    responseType: 'arraybuffer',
+                    timeout: 15000,
+                });
+                buffer = Buffer.from(res.data);
+                const headerType = res.headers['content-type'];
+                if (typeof headerType === 'string') {
+                    mimeType = headerType.split(';')[0].trim();
+                }
+            }
+
+            if (!buffer || buffer.length === 0) return null;
+            if (!mimeType || !mimeType.startsWith('image/')) {
+                mimeType = this.guessImageMime(url);
+            }
+
+            return { data: buffer.toString('base64'), mimeType };
+        } catch (error) {
+            console.error(
+                '[adminTestService] Failed to fetch image',
+                url,
+                error
+            );
+            return null;
+        }
+    }
+
+    private guessImageMime(url: string): string {
+        const ext = path.extname(url.split('?')[0]).toLowerCase();
+        switch (ext) {
+            case '.png':
+                return 'image/png';
+            case '.webp':
+                return 'image/webp';
+            case '.gif':
+                return 'image/gif';
+            case '.bmp':
+                return 'image/bmp';
+            case '.jpg':
+            case '.jpeg':
+            default:
+                return 'image/jpeg';
+        }
     }
 }
 
