@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { contentModerationService } from '~/services/document-analyze/moderationService.js';
 import { googleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
-
 jest.mock('~/ai/provider/googleGenAIClient.js', () => ({
     googleGenAIClient: {
         getModel: jest.fn(),
