@@ -156,9 +156,15 @@ function buildMockAttempt(overrides: Record<string, any> = {}) {
 describe('WritingAttemptService', () => {
     let mockDb: any;
     let mockCollection: any;
+    let consoleLogSpy: jest.SpyInstance;
+    let consoleErrorSpy: jest.SpyInstance;
 
     beforeEach(() => {
         jest.clearAllMocks();
+        consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+        consoleErrorSpy = jest
+            .spyOn(console, 'error')
+            .mockImplementation(() => {});
 
         mockCollection = {
             findOne: jest.fn(),
@@ -173,6 +179,11 @@ describe('WritingAttemptService', () => {
         // Reset default active connection state
         (mongoose.connection as any).readyState = 1;
         (mongoose.connection as any).db = mockDb;
+    });
+
+    afterEach(() => {
+        if (consoleLogSpy) consoleLogSpy.mockRestore();
+        if (consoleErrorSpy) consoleErrorSpy.mockRestore();
     });
 
     // ──────────────────────────────────────────────
