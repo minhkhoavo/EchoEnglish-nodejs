@@ -4,6 +4,7 @@ import { User } from '~/models/userModel.js';
 import { TestResult } from '~/models/testResultModel.js';
 import { Payment } from '~/models/payment.js';
 import { Resource } from '~/models/resource.js';
+import mongoose from 'mongoose';
 
 // ──────────────────────────────────────────────
 // Module-level mocks
@@ -43,6 +44,10 @@ const mockedResource = Resource as jest.Mocked<typeof Resource>;
 describe('DashboardService', () => {
     beforeEach(() => {
         jest.clearAllMocks();
+    });
+
+    afterAll(async () => {
+        await mongoose.disconnect();
     });
 
     // ════════════════════════════════════════════

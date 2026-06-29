@@ -46,8 +46,20 @@ jest.mock('~/ai/tools/learnerProgressTools.js', () => ({
 }));
 jest.mock('~/ai/tools/navigationTools.js', () => ({ navigationTools: [] }));
 
-jest.mock('~/ai/provider/googleGenAIClient.js');
-
+jest.mock('~/ai/provider/googleGenAIClient.js', () => {
+    const mockGetModel = jest.fn().mockReturnValue({
+        bindTools: jest.fn(),
+        withConfig: jest.fn(),
+    });
+    return {
+        GoogleGenAIClient: jest.fn().mockImplementation(() => ({
+            getModel: mockGetModel,
+        })),
+        googleGenAIClient: {
+            getModel: mockGetModel,
+        },
+    };
+});
 describe('ChatbotAgent', () => {
     let agent: ChatbotAgent;
     let getSystemPromptSpy: jest.SpyInstance;

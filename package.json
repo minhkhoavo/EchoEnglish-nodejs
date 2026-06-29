@@ -18,9 +18,9 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "test:coverage": "jest --coverage",
+        "test": "jest --maxWorkers=3",
+        "test:watch": "jest --watch --maxWorkers=3",
+        "test:coverage": "jest --coverage --maxWorkers=3",
         "dev": "npx nodemon",
         "build": "rimraf ./dist && tsc && tsc-alias && copyfiles -u 1 \"src/**/*\" \"!src/**/*.ts\" dist",
         "start": "npx nodemon dist/index.js",
