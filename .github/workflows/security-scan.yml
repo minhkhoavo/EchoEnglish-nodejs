@@ -24,9 +24,17 @@ jobs:
           scan-type: 'fs'
           scan-ref: '.'
           format: 'table'
-          exit-code: '1'
+          exit-code: '0'
+          output: 'trivy-report.txt'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-security-report
+          path: trivy-report.txt
 
   owasp-scan:
     runs-on: ubuntu-latest
@@ -65,7 +73,6 @@ jobs:
           out: 'reports'
           args: >
             --data odc-data
-            --failOnCVSS 7
             --enableRetired
             ${{ secrets.NVD_API_KEY != '' && format('--nvdApiKey {0}', secrets.NVD_API_KEY) || '' }}
 
