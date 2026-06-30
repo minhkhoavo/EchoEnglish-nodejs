@@ -67,6 +67,8 @@ jobs:
           out: 'reports'
           args: >
             --enableRetired
+            --disablePnpmAudit
+            --disableYarnAudit
             ${{ secrets.NVD_API_KEY != '' && format('--nvdApiKey {0}', secrets.NVD_API_KEY) || '' }}
 
       - name: Upload OWASP Report
