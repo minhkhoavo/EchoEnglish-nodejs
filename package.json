@@ -131,12 +131,7 @@
         "router": {
             "path-to-regexp": "^8.4.2"
         },
-        "@langchain/core": {
-            "langsmith": "^0.6.0"
-        },
-        "langchain": {
-            "langsmith": "^0.6.0"
-        },
+        "langsmith": "^0.6.0",
         "engine.io": {
             "ws": "^8.21.0"
         },
@@ -148,8 +143,7 @@
         "overrides": {
             "@aws-sdk/core>fast-xml-parser": "^5.3.6",
             "router>path-to-regexp": "^8.4.2",
-            "@langchain/core>langsmith": "^0.6.0",
-            "langchain>langsmith": "^0.6.0",
+            "langsmith": "^0.6.0",
             "engine.io>ws": "^8.21.0",
             "socket.io-adapter>ws": "^8.21.0"
         }

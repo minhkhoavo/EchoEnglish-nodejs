@@ -73,6 +73,7 @@ jobs:
           path: '.'
           format: 'HTML'
           out: 'reports'
+          noupdate: 'false'
           args: >
             --data odc-data
             --enableRetired
