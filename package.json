@@ -83,12 +83,12 @@
         "@aws-sdk/client-s3": "^3.883.0",
         "@aws-sdk/s3-request-presigner": "^3.883.0",
         "@ffmpeg-installer/ffmpeg": "^1.1.0",
-        "@langchain/core": "^0.3.75",
+        "@langchain/core": "^0.3.80",
         "@langchain/google-genai": "^0.2.18",
         "@langchain/textsplitters": "^0.1.0",
         "@mozilla/readability": "^0.6.0",
         "adm-zip": "^0.5.17",
-        "axios": "^1.12.2",
+        "axios": "^1.18.1",
         "bcrypt": "^6.0.0",
         "bcryptjs": "^3.0.2",
         "cheerio": "^1.1.2",
@@ -102,16 +102,16 @@
         "jsdom": "^27.0.0",
         "jsonwebtoken": "^9.0.2",
         "langchain": "^0.3.37",
-        "lodash": "^4.17.21",
-        "mammoth": "^1.11.0",
+        "lodash": "^4.18.1",
+        "mammoth": "^1.12.0",
         "microsoft-cognitiveservices-speech-sdk": "^1.45.0",
         "moment-timezone": "^0.6.0",
         "mongodb": "^6.18.0",
-        "mongoose": "^8.17.2",
-        "multer": "^2.0.2",
+        "mongoose": "^8.22.1",
+        "multer": "^2.2.0",
         "node-cron": "^4.2.1",
         "node-wav": "^0.0.2",
-        "nodemailer": "^7.0.5",
+        "nodemailer": "^9.0.3",
         "p-limit": "^7.1.1",
         "pdf-parse": "^1.1.1",
         "qs": "^6.14.0",
@@ -120,9 +120,27 @@
         "stripe": "^18.5.0",
         "uuid": "^12.0.0",
         "vnpay": "^2.4.2",
-        "xlsx": "^0.18.5",
+        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz",
         "youtube-transcript-plus": "^2.0.0",
         "zod": "3.25.76"
+    },
+    "overrides": {
+        "@aws-sdk/core": {
+            "fast-xml-parser": "^5.3.6"
+        },
+        "router": {
+            "path-to-regexp": "^8.4.2"
+        },
+        "@langchain/core": {
+            "langsmith": "^0.6.0"
+        }
+    },
+    "pnpm": {
+        "overrides": {
+            "@aws-sdk/core>fast-xml-parser": "^5.3.6",
+            "router>path-to-regexp": "^8.4.2",
+            "@langchain/core>langsmith": "^0.6.0"
+        }
     },
     "lint-staged": {
         "*.{ts,js}": [
