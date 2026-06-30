@@ -3,6 +3,23 @@ import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 
 dotenv.config();
 
+// Monkey-patch ChatGoogleGenerativeAI to support Gemini 3.x models for multimodal inputs.
+// The older version of @langchain/google-genai checks model names with a hardcoded startsWith/includes.
+// Since gemini-3.1-flash-lite doesn't match gemini-1.5 or gemini-2, it fails client-side validation.
+Object.defineProperty(ChatGoogleGenerativeAI.prototype, '_isMultimodalModel', {
+    get() {
+        return (
+            this.model.includes('vision') ||
+            this.model.startsWith('gemini-1.5') ||
+            this.model.startsWith('gemini-2') ||
+            this.model.startsWith('gemini-3') || // Support gemini-3/3.1
+            (this.model.startsWith('gemma-3-') &&
+                !this.model.startsWith('gemma-3-1b'))
+        );
+    },
+    configurable: true,
+});
+
 const apiKey =
     process.env.GENAI_API_KEY ??
     process.env.GOOGLE_API_KEY ??
@@ -41,8 +58,15 @@ export class GoogleGenAIClient {
         });
     }
 
-    public getModel(): ChatGoogleGenerativeAI {
-        return this.model;
+    public getModel(model?: string): ChatGoogleGenerativeAI {
+        const defaultModel =
+            process.env.GEMINI_DEFAULT_MODEL ?? 'gemini-3.1-flash-lite';
+        return new ChatGoogleGenerativeAI({
+            model: model ?? defaultModel,
+            temperature: 0.2,
+            apiKey,
+            maxRetries: 4,
+        });
     }
 
     async generate(text: string, images?: InlineImage[]) {

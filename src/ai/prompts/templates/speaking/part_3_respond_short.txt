@@ -48,7 +48,7 @@ STRICTNESS POLICIES:
 - If the speaker fails to respond within the allotted window or pauses for most of the time, assign 0 for Completeness and Fluency.
 
 SCORING OUTPUT:
-- Compute overallScore as the arithmetic mean of the two sub-scores (pronunciation and intonationAndStress), then round to the nearest integer. 
+- Compute overallScore as the arithmetic mean of all the seven sub-scores (pronunciation, intonationAndStress, grammar, vocabulary, fluencyAndCohesion, relevance, and completeness), then round to the nearest integer. 
 For tie-breaking when the fractional part is exactly 0.5, round up. This reduces harshness compared to taking the minimum while still reflecting weaknesses in either dimension.
 - Feedback must cite evidence (e.g., incorrect tense, missing requested detail, intelligibility issues).
 

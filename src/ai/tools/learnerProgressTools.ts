@@ -517,13 +517,12 @@ const getCompetencyInsightsTool = tool(
             return JSON.stringify({
                 success: true,
                 hasInsights: true,
-                insights:
-                    profile.aiInsights?.map((i) => ({
-                        type: i.priority === 'high' ? 'weakness' : 'tip',
-                        title: i.title,
-                        description: i.description,
-                        action: i.actionText,
-                    })) || [],
+                insights: profile.aiInsights.map((i) => ({
+                    type: i.priority === 'high' ? 'weakness' : 'tip',
+                    title: i.title,
+                    description: i.description,
+                    action: i.actionText,
+                })),
                 scorePrediction: profile.scorePrediction
                     ? {
                           listening: profile.scorePrediction.listeningScore,

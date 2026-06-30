@@ -284,7 +284,7 @@ class PaymentService {
         ipAddr: string,
         request: Partial<PaymentType>
     ) => {
-        if (!request.tokens && request.tokens! <= 0)
+        if (!request.tokens || request.tokens <= 0)
             throw new ApiError(ErrorMessage.TOKEN_INVALID);
 
         let amount = request.tokens! * 1000;

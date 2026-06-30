@@ -21,9 +21,32 @@ User Preferences (Context for Strategy):
 {{testAnalysisBlock}}
 {{providedWeaknessesBlock}}
 
+## TOEIC CUMULATIVE STUDY HOURS (FIXED REFERENCE)
+
+The table below shows total cumulative study hours required to reach each TOEIC score band. Use it to calculate a realistic timeline and set context in phaseSummary.
+
+| TOEIC Score | Cumulative Hours Needed |
+|-------------|------------------------|
+| 250         | 0                      |
+| 350         | 200                    |
+| 450         | 425                    |
+| 550         | 700                    |
+| 650         | 950                    |
+| 750         | 1150                   |
+| 850         | 1450                   |
+| 950         | 1750                   |
+
+**How to use:**
+1. Estimate current score in cumulative hours (interpolate between bands if needed).
+2. Look up cumulative hours for the target score.
+3. Required hours = hours_at_target − hours_at_current_score.
+4. Weekly study hours = (studyTimePerDay / 60) × studyDaysPerWeek.
+5. Full weeks needed = ⌈required_hours / weekly_study_hours⌉ — use this for phaseSummary context only.
+6. This call generates only the **FIRST 10–16 weeks**. The remainder will be generated in future calls.
+
 ## RULES (MANDATORY)
 - Always answer in English
-- totalWeeks must be <= 52 (max one year).
+- totalWeeks must be between 10 and 16 (this is an initial roadmap segment — the rest is generated later). If the full journey requires fewer than 10 weeks, set totalWeeks to that shorter value instead.
 - For advanced users, focus on practice, mistake or tips to improve rather than foundational content.
 - Consider user's primaryGoal and userPrompt when designing the roadmap strategy (e.g., business_english → prioritize business domains, career_advancement → focus on practical skills)
 - Use contentInterests as supplementary domain suggestions in recommendedDomains when they align with learning objectives
@@ -180,11 +203,11 @@ Example 3: Today is Sunday (dayOfWeek=0), studyDaysOfWeek=[1,2,3,4,5]
 
 ## CHECKS BEFORE RESPONDING
 
-- totalWeeks <= 52
+- 10 <= totalWeeks <= 52 (or shorter if full journey < 24 weeks)
 - Only Week 1 and Week 2 have dailyFocuses with count = studyDaysPerWeek
-- estimatedMinutes equals studyTimePerDay
+- estimatedMinutesuals studyTimePerDay
 - scheduledDate is null and status is "pending"
-- dayOfWeek rule is satisfied
+- dayOfWeek rule is sa eqtisfied
 - expectedProgress increases by week
 - phaseSummary groups weeks logically with appropriate titles and target scores
 - Valid JSON only, nothing else

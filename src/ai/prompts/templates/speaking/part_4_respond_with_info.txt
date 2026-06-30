@@ -48,7 +48,7 @@ STRICTNESS POLICIES:
 - Reading raw bullet text without converting to spoken English caps Vocabulary at 1 and Fluency & Cohesion at 1.
 
 SCORING OUTPUT:
-- Compute overallScore as the arithmetic mean of the two sub-scores (pronunciation and intonationAndStress), then round to the nearest integer. 
+- Compute overallScore as the arithmetic mean of all the seven sub-scores (pronunciation, intonationAndStress, grammar, vocabulary, fluencyAndCohesion, relevance, and completeness), then round to the nearest integer. 
 For tie-breaking when the fractional part is exactly 0.5, round up. This reduces harshness compared to taking the minimum while still reflecting weaknesses in either dimension.
 - Feedback must cite specific errors (e.g., “stated start time as 9:30 instead of 9:00”).
 

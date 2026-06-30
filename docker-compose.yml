@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: echo-mongodb-local
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  # Automatically synchronize database from Remote Atlas to Local on startup
+  db-sync:
+    image: mongo:7.0
+    container_name: echo-db-sync
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    entrypoint: >
+      bash -c "
+        echo '=========================================';
+        echo '[DB-Sync] Waiting for local MongoDB to be ready...';
+        echo '=========================================';
+        until mongosh --host mongodb --eval 'db.runCommand({ping:1})' &>/dev/null; do
+          sleep 1;
+        done;
+        echo '[DB-Sync] Local MongoDB is ready!';
+
+        if [ -z \"$$MONGO_URI\" ]; then
+          echo '[DB-Sync] SKIPPED: MONGO_URI variable not found in .env';
+          exit 0;
+        fi;
+
+        echo '[DB-Sync] Exporting data from Remote Atlas (mongodump)...';
+        mongodump --uri=\"$$MONGO_URI\" --out=/tmp/dump;
+
+        echo '[DB-Sync] Restoring data into Local MongoDB (mongorestore)...';
+        mongorestore --host mongodb --drop /tmp/dump;
+
+        echo '[DB-Sync] Database sync completed successfully!';
+        echo '=========================================';
+      "
+
+volumes:
+  mongodb_data:
+    driver: local

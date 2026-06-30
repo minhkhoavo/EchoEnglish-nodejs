@@ -26,7 +26,7 @@ class VnPayService {
                 str.push(encodeURIComponent(key));
             }
         }
-        str.sort();
+        str.sort((a, b) => a.localeCompare(b));
         for (let i = 0; i < str.length; i++) {
             sorted[str[i]] = encodeURIComponent(String(obj[str[i]])).replace(
                 /%20/g,
@@ -56,7 +56,6 @@ class VnPayService {
         payment: Partial<PaymentType>,
         ipAddress: string
     ) => {
-        console.log(payment._id);
         const now = moment().tz('Asia/Ho_Chi_Minh');
         let params: Record<string, string | number> = {
             vnp_Version: '2.1.0',
@@ -136,15 +135,17 @@ class VnPayService {
                 await User.findByIdAndUpdate(payment.user, {
                     $inc: { credits: payment.tokens },
                 });
+                // Send notification to user
+                await notificationService.pushNotification(
+                    user._id.toString(),
+                    {
+                        title: 'Payment Successful',
+                        body: `You have successfully purchased ${payment.tokens} credits for ${payment.amount} VND`,
+                        type: NotificationType.PAYMENT,
+                        userIds: [user._id],
+                    }
+                );
             }
-
-            // Send notification to user
-            await notificationService.pushNotification(user._id.toString(), {
-                title: 'Payment Successful',
-                body: `You have successfully purchased ${payment.tokens} credits for ${payment.amount} VND`,
-                type: NotificationType.PAYMENT,
-                userIds: [user._id],
-            });
             const txnRef = payment._id
                 ? payment._id.toString()
                 : params.vnp_TxnRef;
@@ -153,7 +154,7 @@ class VnPayService {
             return {
                 success: true,
                 redirectUrl,
-                paymentId: payment._id.toString(),
+                paymentId: txnRef,
                 status: payment.status,
             };
         }

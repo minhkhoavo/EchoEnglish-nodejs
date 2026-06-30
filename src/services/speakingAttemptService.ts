@@ -90,6 +90,9 @@ export default class SpeakingAttemptService {
             submissionTimestamp: attempt.submissionTimestamp,
             createdAt: attempt.createdAt,
             parts: attempt.parts || [],
+            testTitle:
+                (attempt as AttemptDocument & { testTitle?: string })
+                    .testTitle || 'TOEIC Speaking Test',
         };
     }
 
@@ -188,7 +191,7 @@ export default class SpeakingAttemptService {
         }
 
         const now = new Date();
-        const attemptDoc: AttemptDocument = {
+        const attemptDoc: AttemptDocument & { testTitle: string } = {
             userId: this.toObjectId(userId),
             toeicSpeakingTestId: oid,
             submissionTimestamp: now,
@@ -198,6 +201,7 @@ export default class SpeakingAttemptService {
             parts,
             examMode,
             createdAt: now,
+            testTitle: test.testTitle || 'TOEIC Speaking Test',
         };
 
         const insert = await db
@@ -387,27 +391,42 @@ export default class SpeakingAttemptService {
 
                         const roundTo10 = (n: number) =>
                             Math.round(n / 10) * 10;
-                        const overall =
-                            scoreResult &&
-                            typeof scoreResult.overallScore === 'number'
-                                ? scoreResult.overallScore
-                                : undefined;
-                        let perQuestionScaled = 0;
-                        if (typeof overall === 'number' && !isNaN(overall)) {
-                            perQuestionScaled = roundTo10((overall / 35) * 200);
+
+                        // Fetch the fresh attempt document from DB to avoid race conditions
+                        const freshAttemptDoc = (await db
+                            .collection('toeic_speaking_results')
+                            .findOne({
+                                _id: attemptObjectId,
+                            })) as AttemptDocument | null;
+
+                        let totalRawScore = 0;
+                        if (
+                            freshAttemptDoc &&
+                            Array.isArray(freshAttemptDoc.parts)
+                        ) {
+                            for (const part of freshAttemptDoc.parts) {
+                                if (part && Array.isArray(part.questions)) {
+                                    for (const q of part.questions) {
+                                        const qResult = q.result as {
+                                            overallScore?: number;
+                                        } | null;
+                                        if (
+                                            qResult &&
+                                            typeof qResult.overallScore ===
+                                                'number' &&
+                                            !isNaN(qResult.overallScore)
+                                        ) {
+                                            totalRawScore +=
+                                                qResult.overallScore;
+                                        }
+                                    }
+                                }
+                            }
                         }
 
-                        // Fetch current totalScore
-                        const currentTotal =
-                            typeof attemptDoc?.totalScore === 'number'
-                                ? attemptDoc.totalScore
-                                : 0;
                         const newTotal = Math.max(
                             0,
-                            Math.min(
-                                200,
-                                Math.round(currentTotal + perQuestionScaled)
-                            )
+                            Math.min(200, roundTo10((totalRawScore / 35) * 200))
                         );
                         const overallPercentage = (newTotal / 200) * 100;
 
@@ -552,11 +571,48 @@ export default class SpeakingAttemptService {
             }
         }
 
-        return await db
+        const attempts = await db
             .collection('toeic_speaking_results')
             .find(query, { projection: { parts: 0 } })
             .sort({ createdAt: -1 })
             .toArray();
+
+        // Perform app-level join with sw_tests to get testTitle for backwards compatibility
+        const testIds = attempts
+            .filter((a) => !a.testTitle && a.toeicSpeakingTestId)
+            .map((a) => a.toeicSpeakingTestId);
+
+        if (testIds.length > 0) {
+            const tests = await db
+                .collection('sw_tests')
+                .find(
+                    { _id: { $in: testIds } },
+                    { projection: { _id: 1, testTitle: 1 } }
+                )
+                .toArray();
+
+            const testTitleMap = new Map<string, string>();
+            for (const test of tests) {
+                testTitleMap.set(test._id.toString(), test.testTitle);
+            }
+
+            for (const attempt of attempts) {
+                if (!attempt.testTitle) {
+                    const testIdStr = attempt.toeicSpeakingTestId?.toString?.();
+                    attempt.testTitle =
+                        (testIdStr && testTitleMap.get(testIdStr)) ||
+                        'TOEIC Speaking Test';
+                }
+            }
+        } else {
+            for (const attempt of attempts) {
+                if (!attempt.testTitle) {
+                    attempt.testTitle = 'TOEIC Speaking Test';
+                }
+            }
+        }
+
+        return attempts;
     }
 }
 

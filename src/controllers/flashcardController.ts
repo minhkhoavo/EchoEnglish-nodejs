@@ -4,7 +4,42 @@ import { ErrorMessage } from '~/enum/errorMessage.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
 import FlashCardService from '~/services/flashcardService.js';
+import { Flashcard } from '~/models/flashcardModel.js';
+import spacedRepetitionService from '~/services/spacedRepetitionService.js';
 class FlashcardController {
+    // Apply a spaced-repetition review result (remember/forgot) to a card.
+    public reviewFlashcard = async (req: Request, res: Response) => {
+        const userId = req.user?.id;
+        if (!userId) {
+            throw new ApiError(ErrorMessage.UNAUTHORIZED);
+        }
+        const { id } = req.params;
+        const { remember } = req.body;
+
+        const card = await Flashcard.findOne({ _id: id, createBy: userId });
+        if (!card) {
+            throw new ApiError(ErrorMessage.FLASHCARD_NOT_FOUND);
+        }
+
+        const schedule = spacedRepetitionService.calculateNextReview(
+            card.level_memory || 0,
+            { remember: !!remember }
+        );
+        card.level_memory = schedule.level_memory;
+        card.nextReviewDate = schedule.nextReviewDate;
+        card.lastReviewDate = new Date();
+        card.reviewCount = (card.reviewCount || 0) + 1;
+        await card.save();
+
+        return res.status(200).json(
+            new ApiResponse(SuccessMessage.UPDATE_FLASHCARD_SUCCESS, {
+                _id: card._id,
+                level_memory: card.level_memory,
+                nextReviewDate: card.nextReviewDate,
+            })
+        );
+    };
+
     public createFlashcard = async (req: Request, res: Response) => {
         const userId = req.user?.id;
         if (!userId) {

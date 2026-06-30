@@ -1,4 +1,4 @@
-﻿import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
+import mongoose, { Schema, model, InferSchemaType, Types } from 'mongoose';
 import { addBaseFields, setBaseOptions } from './baseEntity.js';
 
 export const FILE_DIFFICULTY_LABELS = [
@@ -111,7 +111,7 @@ const EmbeddingSchema = new Schema(
         vectorDimension: { type: Number },
         metadata: Schema.Types.Mixed,
     },
-    { _id: false }
+    { _id: false, suppressReservedKeysWarning: true }
 );
 
 const AnalysisSchema = new Schema(

@@ -1,4 +1,3 @@
- 
 import dictionaryService from '~/services/dictionaryService.js';
 import axios from 'axios';
 

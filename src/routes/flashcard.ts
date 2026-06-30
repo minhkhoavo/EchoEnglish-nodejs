@@ -11,6 +11,7 @@ router.post('/', FlashcardController.createFlashcard);
 router.post('/bulk', FlashcardController.bulkCreateFlashcards);
 router.put('/bulk', FlashcardController.bulkUpdateFlashcards);
 router.delete('/bulk', FlashcardController.bulkDeleteFlashcards);
+router.post('/:id/review', FlashcardController.reviewFlashcard);
 router.put('/:id', FlashcardController.updateFlashcard);
 router.delete('/:id', FlashcardController.deleteFlashcard);
 

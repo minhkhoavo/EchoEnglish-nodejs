@@ -106,6 +106,8 @@ interface DailyPlanOutput {
         minCorrectAnswers?: number; // Minimum correct answers to complete
         drillInstructions?: string; // Instructions for the practice drill
 
+        interactiveActivities?: Array<{ kind: string; brief: string }>;
+
         // Metadata
         targetWeakness: {
             skillKey: string;

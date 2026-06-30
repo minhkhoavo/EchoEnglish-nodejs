@@ -1,9 +1,8 @@
 // src/services/PromptManagerService.ts (Phiên bản mới)
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const currentDir = path.join(process.cwd(), 'src/ai/service');
 
 class PromptManagerService {
     private promptCache = new Map<string, string>();
@@ -15,7 +14,7 @@ class PromptManagerService {
 
         // Try speaking templates first
         let promptPath = path.join(
-            __dirname,
+            currentDir,
             '../prompts/templates/speaking',
             `${templateName}.txt`
         );
@@ -27,7 +26,7 @@ class PromptManagerService {
         } catch {
             // Try writing templates
             promptPath = path.join(
-                __dirname,
+                currentDir,
                 '../prompts/templates/writing',
                 `${templateName}.txt`
             );
@@ -60,7 +59,7 @@ class PromptManagerService {
         }
 
         const fullPath = path.join(
-            __dirname,
+            currentDir,
             '../prompts/templates',
             `${templatePath}.txt`
         );
@@ -89,7 +88,7 @@ class PromptManagerService {
 
     public async getSystemPrompt(promptName: string): Promise<string> {
         const promptPath = path.join(
-            __dirname,
+            currentDir,
             '../prompts/systems',
             `${promptName}.txt`
         );

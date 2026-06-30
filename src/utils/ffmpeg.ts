@@ -20,7 +20,7 @@ function tryEnv(): string | null {
 
 function trySystem(): string | null {
     try {
-        execSync('ffmpeg -version', { stdio: 'ignore' });
+        execSync('ffmpeg -version', { stdio: 'ignore' }); // NOSONAR: ffmpeg must be resolved globally on system PATH
         return 'ffmpeg';
     } catch {
         return null;
@@ -39,7 +39,9 @@ function tryFfmpegInstaller(): string | null {
 
 function tryFfmpegStatic(): string | null {
     try {
-        const cands = [mod, mod?.default].filter(Boolean) as string[];
+        const cands = [mod, (mod as { default?: string })?.default].filter(
+            Boolean
+        ) as string[];
         for (const c of cands) {
             if (fs.existsSync(c) && canRun(c)) return c;
         }

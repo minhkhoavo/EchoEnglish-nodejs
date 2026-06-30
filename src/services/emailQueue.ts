@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { OtpPurpose } from '~/enum/otpPurpose.js';
 
 interface EmailJob {
@@ -46,7 +47,7 @@ export class EmailQueue {
      * Add email job to queue
      */
     public addJob(email: string, otpCode: string, purpose: OtpPurpose): string {
-        const jobId = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
+        const jobId = `${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
 
         this.queue.push({
             id: jobId,
@@ -71,11 +72,16 @@ export class EmailQueue {
      * Start background queue processing
      */
     private startProcessing(): void {
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             if (!this.processing && this.queue.length > 0) {
                 this.processQueue();
             }
         }, 5000); // Check every 5 seconds
+
+        // Prevent the interval from keeping the Node process alive (important for Jest)
+        if (intervalId && typeof intervalId.unref === 'function') {
+            intervalId.unref();
+        }
     }
 
     /**
@@ -129,7 +135,10 @@ export class EmailQueue {
                     this.queue.push(this.queue.shift()!);
 
                     // Wait before next retry
-                    await new Promise((resolve) => setTimeout(resolve, 2000));
+                    await new Promise((resolve) => {
+                        const t = setTimeout(resolve, 2000);
+                        if (t && typeof t.unref === 'function') t.unref();
+                    });
                 }
             }
         }

@@ -12,6 +12,7 @@ import { weaknessDetectorService } from '../services/diagnosis/WeaknessDetectorS
 import { analysisEngineService } from '~/services/analysis/AnalysisEngineService.js';
 import { roadmapCalibrationService } from '~/services/recommendation/RoadmapCalibrationService.js';
 import { studyMemoService } from '../services/recommendation/StudyMemoService.js';
+import { User } from '../models/userModel.js';
 
 export class LearningPlanController {
     async getActiveRoadmap(req: Request, res: Response) {
@@ -322,14 +323,12 @@ export class LearningPlanController {
             session = await dailySessionService.regenerateTodaySession(userId);
         }
 
-        return res
-            .status(201)
-            .json(
-                new ApiResponse(SuccessMessage.CREATE_SUCCESS, {
-                    memo,
-                    session,
-                })
-            );
+        return res.status(201).json(
+            new ApiResponse(SuccessMessage.CREATE_SUCCESS, {
+                memo,
+                session,
+            })
+        );
     }
 
     async deleteMemo(req: Request, res: Response) {
@@ -352,6 +351,55 @@ export class LearningPlanController {
             message: SuccessMessage.GET_SUCCESS,
             data: result,
         });
+    }
+
+    // Close the learning loop (kept simple): record an inline activity's score
+    // as one AI insight. Since signals already read aiInsights, this alone feeds
+    // back into the next day's generation.
+    async recordActivityResult(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const { kind, targetSkill, score } = req.body as {
+            kind?: string;
+            targetSkill?: string;
+            score?: number;
+        };
+
+        if (typeof score !== 'number') {
+            throw new ApiError(ErrorMessage.INVALID_INPUT);
+        }
+        const clamped = Math.max(0, Math.min(100, Math.round(score)));
+
+        const user = await User.findById(userId).select('competencyProfile');
+        if (!user) {
+            throw new ApiError(ErrorMessage.USER_NOT_FOUND);
+        }
+        if (!user.competencyProfile) {
+            user.competencyProfile = {};
+        }
+        user.competencyProfile.aiInsights =
+            user.competencyProfile.aiInsights || [];
+
+        const label = (kind || 'activity').replace(/_/g, ' ');
+        user.competencyProfile.aiInsights.push({
+            title: `${label} activity: ${clamped}/100`,
+            description: `Scored ${clamped}/100${
+                targetSkill ? ` on ${targetSkill}` : ''
+            }.`,
+            actionText: targetSkill
+                ? `Practice ${targetSkill}`
+                : 'Keep practicing',
+            priority: clamped < 50 ? 'high' : clamped < 75 ? 'medium' : 'low',
+            createdAt: new Date(),
+        });
+        user.competencyProfile.lastUpdated = new Date();
+        user.markModified('competencyProfile');
+        await user.save();
+
+        return res.status(200).json(
+            new ApiResponse(SuccessMessage.UPDATE_SUCCESS, {
+                score: clamped,
+            })
+        );
     }
 }
 

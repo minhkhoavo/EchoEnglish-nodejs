@@ -231,47 +231,40 @@ class FlashCardService {
 
         // Get default category if needed
         let defaultCategoryId: string | undefined;
+        const hasMissingCategory = flashcards.some((f) => !f.category);
 
-        const results = [];
+        if (hasMissingCategory) {
+            const defaultCategory = await CategoryFlashcard.findOne({
+                createBy: userId,
+                is_default: true,
+            });
 
-        for (const flashcardData of flashcards) {
-            let categoryId: string | Types.ObjectId | undefined =
-                flashcardData.category;
-
-            if (!categoryId) {
-                if (!defaultCategoryId) {
-                    const defaultCategory = await CategoryFlashcard.findOne({
-                        createBy: userId,
-                        is_default: true,
-                    });
-
-                    if (!defaultCategory) {
-                        // Create default "Uncategorized" category for new users
-                        const newDefaultCategory = new CategoryFlashcard({
-                            name: 'Uncategorized',
-                            description: 'Default category for flashcards',
-                            color: '#6B7280',
-                            is_default: true,
-                            createBy: userId,
-                        });
-                        const savedCategory = await newDefaultCategory.save();
-                        defaultCategoryId = savedCategory._id.toString();
-                    } else {
-                        defaultCategoryId = defaultCategory._id.toString();
-                    }
-                }
-                categoryId = defaultCategoryId;
+            if (!defaultCategory) {
+                // Create default "Uncategorized" category for new users
+                const newDefaultCategory = new CategoryFlashcard({
+                    name: 'Uncategorized',
+                    description: 'Default category for flashcards',
+                    color: '#6B7280',
+                    is_default: true,
+                    createBy: userId,
+                });
+                const savedCategory = await newDefaultCategory.save();
+                defaultCategoryId = savedCategory._id.toString();
+            } else {
+                defaultCategoryId = defaultCategory._id.toString();
             }
+        }
 
-            // Set nextReviewDate to now so new cards are immediately available for review
-            const now = new Date();
-            now.setHours(0, 0, 0, 0);
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
 
-            const newFlashcard = new Flashcard({
+        const flashcardDocs = flashcards.map((flashcardData) => {
+            const categoryId = flashcardData.category || defaultCategoryId;
+            return {
                 front: flashcardData.front,
                 back: flashcardData.back,
                 category: categoryId,
-                difficulty: flashcardData.difficulty,
+                difficulty: flashcardData.difficulty || 'Medium',
                 tags: flashcardData.tags || [],
                 source: flashcardData.source || '',
                 phonetic: flashcardData.phonetic || '',
@@ -280,13 +273,23 @@ class FlashCardService {
                 nextReviewDate: now,
                 reviewCount: 0,
                 createBy: userId,
-            });
+            };
+        });
 
-            const savedFlashcard = await newFlashcard.save();
-            results.push(omit(savedFlashcard.toObject(), ['__v', 'createBy']));
+        let savedFlashcards = await Flashcard.insertMany(flashcardDocs);
+
+        if (!savedFlashcards) {
+            savedFlashcards = [];
+            for (const doc of flashcardDocs) {
+                const newFlashcard = new Flashcard(doc);
+                const saved = await newFlashcard.save();
+                savedFlashcards.push(saved);
+            }
         }
 
-        return results;
+        return savedFlashcards.map((fc) =>
+            omit(fc.toObject(), ['__v', 'createBy'])
+        );
     };
 
     // ============ Spaced Repetition Methods ============

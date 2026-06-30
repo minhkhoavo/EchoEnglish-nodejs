@@ -43,6 +43,18 @@ class SpeakingResultController {
                 .findOne(query);
             if (!doc) throw new ApiError(ErrorMessage.NOTFOUND);
 
+            if (!doc.testTitle && doc.toeicSpeakingTestId) {
+                const test = await db
+                    .collection('sw_tests')
+                    .findOne(
+                        { _id: doc.toeicSpeakingTestId },
+                        { projection: { testTitle: 1 } }
+                    );
+                doc.testTitle = test?.testTitle || 'TOEIC Speaking Test';
+            } else if (!doc.testTitle) {
+                doc.testTitle = 'TOEIC Speaking Test';
+            }
+
             res.status(200).json(new ApiResponse('OK', doc));
         } catch (err) {
             next(err);

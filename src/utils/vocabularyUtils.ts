@@ -26,15 +26,10 @@ export function mapScoreToLevel(score: number): PerformanceLevel {
 export type CEFREntry = Record<string, string>;
 
 export function resolveCefrPath(): string | null {
+    const root = process.cwd();
     const candidates = [
-        path.join(
-            process.cwd(),
-            'dist',
-            'resources',
-            'data',
-            'cefr_words.json'
-        ),
-        path.join(process.cwd(), 'src', 'resources', 'data', 'cefr_words.json'),
+        path.join(root, 'dist', 'resources', 'data', 'cefr_words.json'),
+        path.join(root, 'src', 'resources', 'data', 'cefr_words.json'),
     ];
     for (const p of candidates) {
         try {

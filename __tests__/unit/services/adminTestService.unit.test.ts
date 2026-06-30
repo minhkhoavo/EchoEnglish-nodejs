@@ -73,12 +73,24 @@ function buildMockTest(overrides: Record<string, unknown> = {}) {
 // Tests
 // ──────────────────────────────────────────────
 describe('AdminTestService', () => {
+    let consoleLogSpy: jest.SpyInstance;
+    let consoleErrorSpy: jest.SpyInstance;
+
     beforeEach(() => {
         jest.clearAllMocks();
+        consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+        consoleErrorSpy = jest
+            .spyOn(console, 'error')
+            .mockImplementation(() => {});
         // Setup default instantiation for GoogleGenAIClient mock
         mockedGoogleGenAIClient.mockImplementation(() => ({
             generate: jest.fn().mockResolvedValue('{"result": "success"}'),
         }));
+    });
+
+    afterEach(() => {
+        if (consoleLogSpy) consoleLogSpy.mockRestore();
+        if (consoleErrorSpy) consoleErrorSpy.mockRestore();
     });
 
     // ════════════════════════════════════════════

@@ -199,8 +199,7 @@ describe('VocabularyService', () => {
 
         it('should handle JSON parse errors or other fs errors gracefully and return []', () => {
             mockedFs.existsSync.mockReturnValue(true);
-            mockedFs.readdirSync.mockReturnValue(['bad.json'] as any);
-            mockedFs.readFileSync.mockImplementation(() => {
+            mockedFs.readdirSync.mockImplementation(() => {
                 throw new Error('Failed to read');
             });
 
@@ -209,7 +208,10 @@ describe('VocabularyService', () => {
                 .mockImplementation(() => {});
             const result = vocabularyService.getAllVocabularySets();
             expect(result).toEqual([]);
-            expect(consoleSpy).toHaveBeenCalled();
+            expect(consoleSpy).toHaveBeenCalledWith(
+                'Error reading vocabulary sets:',
+                expect.any(Error)
+            );
             consoleSpy.mockRestore();
         });
     });
@@ -426,6 +428,28 @@ describe('VocabularyService', () => {
             );
             expect(result.words).toHaveLength(3);
         });
+
+        it('should use cache if available in getVocabularyWords', async () => {
+            const originalNodeEnv = process.env.NODE_ENV;
+            process.env.NODE_ENV = 'production';
+            try {
+                mockedFs.existsSync.mockReturnValue(true);
+                (vocabularyService as any).cacheWordsBySet.set(
+                    'fruits-cached',
+                    mockCards
+                );
+
+                const result = await vocabularyService.getVocabularyWords(
+                    'fruits-cached',
+                    1,
+                    10
+                );
+                expect(result.words).toHaveLength(3);
+                expect(mockedFs.readFileSync).not.toHaveBeenCalled();
+            } finally {
+                process.env.NODE_ENV = originalNodeEnv;
+            }
+        });
     });
 
     // ──────────────────────────────────────────────
@@ -530,9 +554,7 @@ describe('VocabularyService', () => {
         });
 
         it('should handle errors during search gracefully and return []', () => {
-            mockedFs.readdirSync.mockReturnValue(['set1.json'] as any);
-            mockedFs.existsSync.mockReturnValue(true);
-            mockedFs.readFileSync.mockImplementation(() => {
+            mockedFs.readdirSync.mockImplementation(() => {
                 throw new Error('Disk error');
             });
 
@@ -541,7 +563,10 @@ describe('VocabularyService', () => {
                 .mockImplementation(() => {});
             const res = vocabularyService.searchVocabulary('cat');
             expect(res).toEqual([]);
-            expect(consoleSpy).toHaveBeenCalled();
+            expect(consoleSpy).toHaveBeenCalledWith(
+                'Error searching vocabulary:',
+                expect.any(Error)
+            );
             consoleSpy.mockRestore();
         });
 
@@ -593,8 +618,7 @@ describe('VocabularyService', () => {
         });
 
         it('should handle errors gracefully and return null', () => {
-            mockedFs.readdirSync.mockReturnValue(['set1.json'] as any);
-            mockedFs.readFileSync.mockImplementation(() => {
+            mockedFs.readdirSync.mockImplementation(() => {
                 throw new Error('Read error');
             });
 
@@ -603,7 +627,10 @@ describe('VocabularyService', () => {
                 .mockImplementation(() => {});
             const res = vocabularyService.getVocabularyWordById('c1');
             expect(res).toBeNull();
-            expect(consoleSpy).toHaveBeenCalled();
+            expect(consoleSpy).toHaveBeenCalledWith(
+                'Error getting vocabulary word:',
+                expect.any(Error)
+            );
             consoleSpy.mockRestore();
         });
 
@@ -665,6 +692,60 @@ describe('VocabularyService', () => {
             expect(res).toEqual([]);
             expect(consoleSpy).toHaveBeenCalled();
             consoleSpy.mockRestore();
+        });
+    });
+
+    // ──────────────────────────────────────────────
+    // Caching behavior in production environment
+    // ──────────────────────────────────────────────
+    describe('Caching behavior in production environment', () => {
+        let originalNodeEnv: string | undefined;
+
+        beforeAll(() => {
+            originalNodeEnv = process.env.NODE_ENV;
+        });
+
+        afterAll(() => {
+            process.env.NODE_ENV = originalNodeEnv;
+        });
+
+        beforeEach(() => {
+            process.env.NODE_ENV = 'production';
+            (vocabularyService as any).cacheAllSets = null;
+            (vocabularyService as any).cacheWordsBySet.clear();
+        });
+
+        it('should cache words by set and all sets in production mode', () => {
+            mockedFs.existsSync.mockReturnValue(true);
+            mockedFs.readdirSync.mockReturnValue(['cached_set.json'] as any);
+
+            const card = buildMockVocabularyWord({
+                card_id: 'c1',
+                group_name: 'Cached Group',
+                deck_name: 'Cached Deck',
+                group_id: 'cg1',
+                deck_id: 'cd1',
+            });
+
+            mockedFs.readFileSync.mockReturnValue(
+                JSON.stringify(buildMockVocabularyJSON([card]))
+            );
+
+            const sets1 = vocabularyService.getAllVocabularySets();
+            expect(sets1).toHaveLength(1);
+            expect(mockedFs.readFileSync).toHaveBeenCalledTimes(1);
+
+            mockedFs.readFileSync.mockClear();
+            const sets2 = vocabularyService.getAllVocabularySets();
+            expect(sets2).toEqual(sets1);
+            expect(mockedFs.readFileSync).not.toHaveBeenCalled();
+
+            mockedFs.readFileSync.mockClear();
+            const words = (vocabularyService as any).getOrLoadWordsBySet(
+                'cached_set'
+            );
+            expect(words).toHaveLength(1);
+            expect(mockedFs.readFileSync).not.toHaveBeenCalled();
         });
     });
 });

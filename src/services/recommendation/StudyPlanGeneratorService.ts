@@ -19,7 +19,8 @@ type LearningResource = {
         | 'article'
         | 'vocabulary_set'
         | 'personalized_guide'
-        | 'flashcard';
+        | 'flashcard'
+        | 'activity';
     title: string;
     description: string;
     estimatedTime: number;

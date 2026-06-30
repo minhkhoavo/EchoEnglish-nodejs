@@ -68,22 +68,11 @@ const PhonemeSuggestionDB: Record<string, string> = {
 const ERROR_THRESHOLD = 60; // AccuracyScore < threshold => error
 
 function resolveResourceIndexPath(): string | null {
+    const root = process.cwd();
     // Try dist path first, then src
     const candidates = [
-        path.join(
-            process.cwd(),
-            'dist',
-            'resources',
-            'data',
-            'ipa_resource_index.json'
-        ),
-        path.join(
-            process.cwd(),
-            'src',
-            'resources',
-            'data',
-            'ipa_resource_index.json'
-        ),
+        path.join(root, 'dist', 'resources', 'data', 'ipa_resource_index.json'),
+        path.join(root, 'src', 'resources', 'data', 'ipa_resource_index.json'),
     ];
     for (const p of candidates) {
         try {

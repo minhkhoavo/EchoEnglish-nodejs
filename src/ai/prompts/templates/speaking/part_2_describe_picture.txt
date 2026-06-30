@@ -59,7 +59,7 @@ STRICTNESS POLICIES:
 - If pronunciation or pacing data shows extended pauses (>2 seconds) or repeated decoding attempts, do not exceed 1 for Fluency & Cohesion.
 
 SCORING OUTPUT:
-- Compute overallScore as the arithmetic mean of the two sub-scores (pronunciation and intonationAndStress), then round to the nearest integer. 
+- Compute overallScore as the arithmetic mean of all the six sub-scores (pronunciation, intonationAndStress, grammar, vocabulary, fluencyAndCohesion, and taskCompletion), then round to the nearest integer. 
 For tie-breaking when the fractional part is exactly 0.5, round up. This reduces harshness compared to taking the minimum while still reflecting weaknesses in either dimension.
 - Reference concrete evidence (e.g., “omitted the woman in the foreground”, “mispronounced /r/ in ‘restaurant’ multiple times”) in feedback.
 

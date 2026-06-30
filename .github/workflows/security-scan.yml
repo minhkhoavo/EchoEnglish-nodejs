@@ -1,0 +1,78 @@
+name: Security Scan
+
+on:
+  push:
+    branches:
+      - feature/integrate-cicd
+      - feat/integrate-cicd
+      - fix/dependencies-security
+      - security/**
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner (FS scan)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
+
+  owasp-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Cache Dependency-Check Data
+        uses: actions/cache@v4
+        with:
+          path: odc-data
+          key: ${{ runner.os }}-dependency-check-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-dependency-check-
+
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'echoEnglish-nodejs'
+          path: '.'
+          format: 'HTML'
+          out: 'reports'
+          args: >
+            --data odc-data
+            --failOnCVSS 7
+            --enableRetired
+            ${{ secrets.NVD_API_KEY != '' && format('--nvdApiKey {0}', secrets.NVD_API_KEY) || '' }}
+
+      - name: Upload OWASP Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: owasp-dependency-check-report
+          path: reports

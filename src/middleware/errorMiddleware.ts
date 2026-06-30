@@ -3,6 +3,7 @@ import ApiResponse from '~/dto/response/apiResponse.js';
 import { ApiError } from './apiError.js';
 import mongoose from 'mongoose';
 import { ErrorMessage } from '~/enum/errorMessage.js';
+import multer from 'multer';
 
 /* Handler exception error */
 /* cách dùng: throw new ApiError(ErrorMessage.CATEGORY_NOT_FOUND); */
@@ -19,6 +20,21 @@ class ErrorMiddleware {
         // Lỗi do mình throw ra
         if (err instanceof ApiError) {
             return res.status(err.status).json(new ApiResponse(err.message));
+        }
+
+        if (err instanceof multer.MulterError) {
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                return res
+                    .status(400)
+                    .json(
+                        new ApiResponse(
+                            'File too large. Maximum allowed size is 30MB.'
+                        )
+                    );
+            }
+            return res
+                .status(400)
+                .json(new ApiResponse(`File upload error: ${err.message}`));
         }
 
         // Lỗi id không hợp lệ

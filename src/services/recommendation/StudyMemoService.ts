@@ -129,15 +129,22 @@ export class StudyMemoService {
 
         const weakSkills = profile?.skillMatrix
             ?.filter((s) => (s.currentAccuracy ?? 100) < 60)
-            .sort((a, b) => (a.currentAccuracy ?? 0) - (b.currentAccuracy ?? 0))
+            .sort(
+                (a, b) =>
+                    (a.currentAccuracy as number) -
+                    (b.currentAccuracy as number)
+            )
             .slice(0, 5)
-            .map((s) => ({ skill: s.skill, accuracy: s.currentAccuracy ?? 0 }));
+            .map((s) => ({
+                skill: s.skill,
+                accuracy: s.currentAccuracy as number,
+            }));
 
         const weakDomains = profile?.domainProficiency
             ?.filter((d) => (d.accuracy ?? 100) < 60)
-            .sort((a, b) => (a.accuracy ?? 0) - (b.accuracy ?? 0))
+            .sort((a, b) => (a.accuracy as number) - (b.accuracy as number))
             .slice(0, 5)
-            .map((d) => ({ domain: d.domain, accuracy: d.accuracy ?? 0 }));
+            .map((d) => ({ domain: d.domain, accuracy: d.accuracy as number }));
 
         const abilityNotes = profile?.aiInsights
             ?.slice(-5)
