@@ -5,7 +5,8 @@ on:
     branches:
       - feature/integrate-cicd
       - feat/integrate-cicd
-      - main
+      - fix/dependencies-security
+      - security/**
   pull_request:
     branches:
       - main
