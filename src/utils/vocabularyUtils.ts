@@ -1,5 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export function extractTranscript(transformed: unknown): string {
     const segs =
@@ -27,6 +31,7 @@ export type CEFREntry = Record<string, string>;
 
 export function resolveCefrPath(): string | null {
     const candidates = [
+        path.resolve(__dirname, '..', 'resources', 'data', 'cefr_words.json'),
         path.join(
             process.cwd(),
             'dist',
@@ -35,6 +40,22 @@ export function resolveCefrPath(): string | null {
             'cefr_words.json'
         ),
         path.join(process.cwd(), 'src', 'resources', 'data', 'cefr_words.json'),
+        path.join(
+            process.cwd(),
+            'echoEnglish-nodejs',
+            'dist',
+            'resources',
+            'data',
+            'cefr_words.json'
+        ),
+        path.join(
+            process.cwd(),
+            'echoEnglish-nodejs',
+            'src',
+            'resources',
+            'data',
+            'cefr_words.json'
+        ),
     ];
     for (const p of candidates) {
         try {

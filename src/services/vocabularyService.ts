@@ -1,8 +1,22 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Path to vocabulary JSON files
-const VOCABULARY_DIR = path.join(process.cwd(), 'vocabulary');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Path to vocabulary JSON files resolved relative to current file location, with fallbacks
+let VOCABULARY_DIR = path.resolve(__dirname, '..', '..', 'vocabulary');
+if (!fs.existsSync(VOCABULARY_DIR)) {
+    VOCABULARY_DIR = path.join(process.cwd(), 'vocabulary');
+}
+if (!fs.existsSync(VOCABULARY_DIR)) {
+    VOCABULARY_DIR = path.join(
+        process.cwd(),
+        'echoEnglish-nodejs',
+        'vocabulary'
+    );
+}
 
 export interface VocabularyWord {
     card_id: string;
@@ -62,10 +76,49 @@ interface VocabularyJSON {
 }
 
 class VocabularyService {
+    // Memory Cache for performance optimization
+    private cacheAllSets: VocabularySet[] | null = null;
+    private cacheWordsBySet = new Map<string, VocabularyWord[]>();
+
+    /**
+     * Helper to load vocabulary words by set with caching
+     */
+    private getOrLoadWordsBySet = (fileName: string): VocabularyWord[] => {
+        const isTest = process.env.NODE_ENV === 'test';
+        if (!isTest) {
+            const cached = this.cacheWordsBySet.get(fileName);
+            if (cached) {
+                return cached;
+            }
+        }
+
+        const filePath = path.join(VOCABULARY_DIR, `${fileName}.json`);
+        try {
+            if (!fs.existsSync(filePath)) {
+                return [];
+            }
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const jsonData: VocabularyJSON = JSON.parse(content);
+            const cards = jsonData.data?.cards || [];
+            if (!isTest) {
+                this.cacheWordsBySet.set(fileName, cards);
+            }
+            return cards;
+        } catch (error) {
+            console.error(`Error loading vocabulary set ${fileName}:`, error);
+            return [];
+        }
+    };
+
     /**
      * Get list of all available vocabulary sets
      */
     public getAllVocabularySets = (): VocabularySet[] => {
+        const isTest = process.env.NODE_ENV === 'test';
+        if (this.cacheAllSets && !isTest) {
+            return this.cacheAllSets;
+        }
+
         try {
             if (!fs.existsSync(VOCABULARY_DIR)) {
                 return [];
@@ -78,25 +131,17 @@ class VocabularyService {
             const sets: VocabularySet[] = [];
 
             for (const file of files) {
-                const filePath = path.join(VOCABULARY_DIR, file);
-                const jsonData: VocabularyJSON = JSON.parse(
-                    fs.readFileSync(filePath, 'utf-8')
-                );
+                const baseName = path.basename(file, '.json');
+                const words = this.getOrLoadWordsBySet(baseName);
 
-                if (
-                    jsonData.data &&
-                    jsonData.data.cards &&
-                    jsonData.data.cards.length > 0
-                ) {
-                    const firstCard = jsonData.data.cards[0];
+                if (words.length > 0) {
+                    const firstCard = words[0];
 
                     sets.push({
-                        fileName: path.basename(file, '.json'),
-                        name:
-                            firstCard.group_name ||
-                            path.basename(file, '.json'),
+                        fileName: baseName,
+                        name: firstCard.group_name || baseName,
                         description: firstCard.deck_name || '',
-                        wordCount: jsonData.data.cards.length,
+                        wordCount: words.length,
                         group_id: firstCard.group_id,
                         group_name: firstCard.group_name,
                         deck_id: firstCard.deck_id,
@@ -105,6 +150,9 @@ class VocabularyService {
                 }
             }
 
+            if (!isTest) {
+                this.cacheAllSets = sets;
+            }
             return sets;
         } catch (error) {
             console.error('Error reading vocabulary sets:', error);
@@ -136,20 +184,21 @@ class VocabularyService {
         };
     }> => {
         const filePath = path.join(VOCABULARY_DIR, `${fileName}.json`);
-
         if (!fs.existsSync(filePath)) {
             throw new Error('Vocabulary set not found');
         }
 
-        const jsonData: VocabularyJSON = JSON.parse(
-            fs.readFileSync(filePath, 'utf-8')
-        );
-
-        if (!jsonData.data || !jsonData.data.cards) {
-            throw new Error('Invalid vocabulary file format');
+        const cached = this.cacheWordsBySet.get(fileName);
+        if (!cached) {
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const jsonData = JSON.parse(content);
+            if (!jsonData.data || !jsonData.data.cards) {
+                throw new Error('Invalid vocabulary file format');
+            }
         }
 
-        let allWords = jsonData.data.cards;
+        const allWords = this.getOrLoadWordsBySet(fileName);
+        let filteredWords = [...allWords];
 
         // Filter by import status if userId is provided
         if (userId && importStatus !== 'all') {
@@ -176,21 +225,21 @@ class VocabularyService {
 
             // Filter words based on import status
             if (importStatus === 'imported') {
-                allWords = allWords.filter((word) =>
+                filteredWords = filteredWords.filter((word) =>
                     importedCardIds.has(word.card_id)
                 );
             } else if (importStatus === 'not-imported') {
-                allWords = allWords.filter(
+                filteredWords = filteredWords.filter(
                     (word) => !importedCardIds.has(word.card_id)
                 );
             }
         }
 
-        const totalWords = allWords.length;
+        const totalWords = filteredWords.length;
         const totalPages = Math.ceil(totalWords / limit);
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
-        const paginatedWords = allWords.slice(startIndex, endIndex);
+        const paginatedWords = filteredWords.slice(startIndex, endIndex);
 
         return {
             words: paginatedWords,
@@ -223,31 +272,24 @@ class VocabularyService {
             const searchLower = searchTerm.toLowerCase();
 
             for (const file of files) {
-                const filePath = path.join(VOCABULARY_DIR, file);
+                const baseName = path.basename(file, '.json');
+                const words = this.getOrLoadWordsBySet(baseName);
 
-                if (!fs.existsSync(filePath)) continue;
-
-                const jsonData: VocabularyJSON = JSON.parse(
-                    fs.readFileSync(filePath, 'utf-8')
+                const matchedWords = words.filter(
+                    (card) =>
+                        card.word.toLowerCase().includes(searchLower) ||
+                        card.translation?.vi
+                            ?.toLowerCase()
+                            .includes(searchLower) ||
+                        card.explanation?.vi
+                            ?.toLowerCase()
+                            .includes(searchLower) ||
+                        card.explanation?.en
+                            ?.toLowerCase()
+                            .includes(searchLower)
                 );
 
-                if (jsonData.data && jsonData.data.cards) {
-                    const matchedWords = jsonData.data.cards.filter(
-                        (card) =>
-                            card.word.toLowerCase().includes(searchLower) ||
-                            card.translation?.vi
-                                ?.toLowerCase()
-                                .includes(searchLower) ||
-                            card.explanation?.vi
-                                ?.toLowerCase()
-                                .includes(searchLower) ||
-                            card.explanation?.en
-                                ?.toLowerCase()
-                                .includes(searchLower)
-                    );
-
-                    results.push(...matchedWords);
-                }
+                results.push(...matchedWords);
             }
 
             return results;
@@ -268,17 +310,10 @@ class VocabularyService {
                 .filter((file) => file.endsWith('.json'));
 
             for (const file of files) {
-                const filePath = path.join(VOCABULARY_DIR, file);
-                const jsonData: VocabularyJSON = JSON.parse(
-                    fs.readFileSync(filePath, 'utf-8')
-                );
-
-                if (jsonData.data && jsonData.data.cards) {
-                    const word = jsonData.data.cards.find(
-                        (card) => card.card_id === cardId
-                    );
-                    if (word) return word;
-                }
+                const baseName = path.basename(file, '.json');
+                const words = this.getOrLoadWordsBySet(baseName);
+                const word = words.find((card) => card.card_id === cardId);
+                if (word) return word;
             }
 
             return null;
@@ -293,26 +328,7 @@ class VocabularyService {
      * @param fileName - Name of the JSON file (without .json extension)
      */
     public getVocabularyWordsBySet = (fileName: string): VocabularyWord[] => {
-        try {
-            const filePath = path.join(VOCABULARY_DIR, `${fileName}.json`);
-
-            if (!fs.existsSync(filePath)) {
-                return [];
-            }
-
-            const jsonData: VocabularyJSON = JSON.parse(
-                fs.readFileSync(filePath, 'utf-8')
-            );
-
-            if (!jsonData.data || !jsonData.data.cards) {
-                return [];
-            }
-
-            return jsonData.data.cards;
-        } catch (error) {
-            console.error('Error getting vocabulary words by set:', error);
-            return [];
-        }
+        return this.getOrLoadWordsBySet(fileName);
     };
 }
 
