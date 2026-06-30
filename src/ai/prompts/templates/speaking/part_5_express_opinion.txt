@@ -62,7 +62,7 @@ STRICTNESS POLICIES:
 - Extended silence (>3 seconds) or time expiration before a concluding statement lowers Fluency & Cohesion to ≤2.
 
 SCORING OUTPUT:
-- Compute overallScore as the arithmetic mean of the two sub-scores (pronunciation and intonationAndStress), then round to the nearest integer. 
+- Compute overallScore as the arithmetic mean of all the seven sub-scores (pronunciation, intonationAndStress, grammar, vocabulary, fluencyAndCohesion, relevance, and completeness), then round to the nearest integer. 
 For tie-breaking when the fractional part is exactly 0.5, round up. This reduces harshness compared to taking the minimum while still reflecting weaknesses in either dimension.
 - Feedback must cite explicit evidence (e.g., “only stated job is good but gave no reason”, “mispronounced /v/ in multiple keywords”).
 

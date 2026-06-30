@@ -1,22 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Path to vocabulary JSON files resolved relative to current file location, with fallbacks
-let VOCABULARY_DIR = path.resolve(__dirname, '..', '..', 'vocabulary');
-if (!fs.existsSync(VOCABULARY_DIR)) {
-    VOCABULARY_DIR = path.join(process.cwd(), 'vocabulary');
-}
-if (!fs.existsSync(VOCABULARY_DIR)) {
-    VOCABULARY_DIR = path.join(
-        process.cwd(),
-        'echoEnglish-nodejs',
-        'vocabulary'
-    );
-}
+// Path to vocabulary JSON files
+const VOCABULARY_DIR = path.join(process.cwd(), 'vocabulary');
 
 export interface VocabularyWord {
     card_id: string;

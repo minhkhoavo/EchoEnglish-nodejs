@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
+import multer from 'multer';
 import errorMiddleware from '~/middleware/errorMiddleware.js';
 import { ApiError } from '~/middleware/apiError.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
@@ -87,6 +88,41 @@ describe('Error Middleware', () => {
         expect(mockRes.json).toHaveBeenCalledWith(
             expect.objectContaining({
                 message: `${ErrorMessage.EMAIL_INVALID.message}, Some custom missing field error`,
+            })
+        );
+    });
+
+    it('should handle multer.MulterError for LIMIT_FILE_SIZE', () => {
+        const err = new multer.MulterError('LIMIT_FILE_SIZE');
+        errorMiddleware.handleError(
+            err,
+            mockReq as Request,
+            mockRes as Response,
+            mockNext
+        );
+
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                message: 'File too large. Maximum allowed size is 30MB.',
+            })
+        );
+    });
+
+    it('should handle other multer.MulterError', () => {
+        const err = new multer.MulterError('LIMIT_UNEXPECTED_FILE');
+        err.message = 'Unexpected field';
+        errorMiddleware.handleError(
+            err,
+            mockReq as Request,
+            mockRes as Response,
+            mockNext
+        );
+
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                message: 'File upload error: Unexpected field',
             })
         );
     });

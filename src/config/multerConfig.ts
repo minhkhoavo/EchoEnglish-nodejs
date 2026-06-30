@@ -57,7 +57,7 @@ const fileFilter = (
 const upload = multer({
     storage,
     limits: {
-        fileSize: 10 * 1024 * 1024, // NOSONAR: 10MB limit is safe and required for user files
+        fileSize: 30 * 1024 * 1024, // NOSONAR: 30MB limit is safe and required for user files
     },
     fileFilter,
 });

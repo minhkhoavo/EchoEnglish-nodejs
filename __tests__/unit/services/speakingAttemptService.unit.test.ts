@@ -691,7 +691,26 @@ describe('SpeakingAttemptService', () => {
 
                 const { attempt, capturedCallback } = await captureCallback();
 
-                mockCollection.findOne.mockResolvedValue(attempt);
+                mockCollection.findOne.mockReset();
+                mockCollection.findOne
+                    .mockResolvedValueOnce(attempt)
+                    .mockResolvedValueOnce({
+                        ...attempt,
+                        parts: [
+                            {
+                                ...attempt.parts[0],
+                                questions: [
+                                    {
+                                        ...attempt.parts[0].questions[0],
+                                        result: {
+                                            overallScore: score,
+                                            feedback: 'Good job',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    });
                 mockCollection.updateOne.mockClear();
                 mockCollection.updateOne.mockResolvedValue({});
                 mockedAiScoring.scoreRecording.mockResolvedValue({
@@ -768,6 +787,76 @@ describe('SpeakingAttemptService', () => {
                 }),
                 expect.any(Object)
             );
+        });
+
+        it('should handle missing freshAttemptDoc or non-array parts/questions when calculating total score', async () => {
+            const { aiScoringService } = await import(
+                '~/ai/service/toeicSpeakingScoringService.js'
+            );
+            const mockedAiScoring = aiScoringService as jest.Mocked<
+                typeof aiScoringService
+            >;
+
+            const { attempt, capturedCallback } = await captureCallback();
+
+            mockCollection.findOne.mockReset();
+            mockCollection.findOne
+                .mockResolvedValueOnce(attempt)
+                .mockResolvedValueOnce(null);
+
+            mockCollection.updateOne.mockClear();
+            mockCollection.updateOne.mockResolvedValue({});
+            mockedAiScoring.scoreRecording.mockResolvedValue({
+                overallScore: 30,
+                feedback: 'OK',
+            } as any);
+
+            await capturedCallback(null, {
+                recordingId: 'rec-cb',
+                analysisStatus: 'done',
+            });
+
+            expect(mockCollection.updateOne).toHaveBeenCalledWith(
+                { _id: attempt._id },
+                {
+                    $set: {
+                        totalScore: 0,
+                        level: 'Beginner',
+                    },
+                }
+            );
+
+            const attemptBadParts = {
+                ...attempt,
+                parts: null,
+            };
+            const attemptBadQuestion = {
+                ...attempt,
+                parts: [
+                    null,
+                    {
+                        partIndex: 1,
+                        questions: null,
+                    },
+                ],
+            };
+
+            mockCollection.findOne.mockReset();
+            mockCollection.findOne
+                .mockResolvedValueOnce(attempt)
+                .mockResolvedValueOnce(attemptBadParts)
+                .mockResolvedValueOnce(attempt)
+                .mockResolvedValueOnce(attemptBadQuestion);
+
+            await capturedCallback(null, {
+                recordingId: 'rec-cb',
+                analysisStatus: 'done',
+            });
+
+            await capturedCallback(null, {
+                recordingId: 'rec-cb',
+                analysisStatus: 'done',
+            });
         });
 
         it('should handle outer cbErr gracefully (log error, not rethrow)', async () => {
@@ -900,6 +989,71 @@ describe('SpeakingAttemptService', () => {
                 { projection: { parts: 0 } }
             );
         });
+
+        it('should join with sw_tests to resolve testTitle for attempts without it', async () => {
+            const testId1 = new Types.ObjectId();
+            const testId2 = new Types.ObjectId();
+            const mockAttempts = [
+                { _id: 'a1', toeicSpeakingTestId: testId1 },
+                {
+                    _id: 'a2',
+                    toeicSpeakingTestId: testId2,
+                    testTitle: 'Existing Title',
+                },
+                { _id: 'a3', toeicSpeakingTestId: new Types.ObjectId() },
+            ];
+
+            const mockAttemptsToArray = jest
+                .fn()
+                .mockResolvedValue(mockAttempts);
+            mockCollection.find.mockReturnValueOnce({
+                sort: jest
+                    .fn()
+                    .mockReturnValue({ toArray: mockAttemptsToArray }),
+            });
+
+            const mockTestsToArray = jest
+                .fn()
+                .mockResolvedValue([
+                    { _id: testId1, testTitle: 'Resolved Title 1' },
+                ]);
+            mockCollection.find.mockReturnValueOnce({
+                toArray: mockTestsToArray,
+            });
+
+            const result = await service.getAllSpeakingAttempts();
+
+            expect(mockCollection.find).toHaveBeenNthCalledWith(
+                2,
+                {
+                    _id: {
+                        $in: [testId1, mockAttempts[2].toeicSpeakingTestId],
+                    },
+                },
+                { projection: { _id: 1, testTitle: 1 } }
+            );
+
+            expect(result[0].testTitle).toBe('Resolved Title 1');
+            expect(result[1].testTitle).toBe('Existing Title');
+            expect(result[2].testTitle).toBe('TOEIC Speaking Test');
+        });
+
+        it('should fall back to default title for attempts without testTitle when testIds is empty', async () => {
+            const mockAttempts = [
+                { _id: 'a1' },
+                { _id: 'a2', testTitle: 'Already Set' },
+            ];
+
+            const mockToArray = jest.fn().mockResolvedValue(mockAttempts);
+            mockCollection.find.mockReturnValue({
+                sort: jest.fn().mockReturnValue({ toArray: mockToArray }),
+            });
+
+            const result = await service.getAllSpeakingAttempts();
+
+            expect(result[0].testTitle).toBe('TOEIC Speaking Test');
+            expect(result[1].testTitle).toBe('Already Set');
+        });
     });
 
     // ════════════════════════════════════════════
@@ -943,6 +1097,7 @@ describe('SpeakingAttemptService', () => {
                     submissionTimestamp: mockAttempt.submissionTimestamp,
                     createdAt: mockAttempt.createdAt,
                     parts: [],
+                    testTitle: 'TOEIC Speaking Test',
                 });
             });
 

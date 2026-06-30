@@ -678,6 +678,63 @@ describe('FlashCardService', () => {
                 createBy: MOCK_USER_ID,
             });
         });
+
+        it('should not look up or create default category if all cards have a category', async () => {
+            const cardsToCreate = [
+                { front: 'hi', category: MOCK_CATEGORY_ID as any },
+            ];
+
+            const mockSavedCard = {
+                _id: 'c1',
+                toObject: jest.fn().mockReturnValue({
+                    _id: 'c1',
+                    front: 'hi',
+                    __v: 0,
+                    createBy: MOCK_USER_ID,
+                }),
+                save: jest.fn().mockReturnThis(),
+            };
+            (mockedFlashcard as any).mockImplementationOnce(
+                () => mockSavedCard
+            );
+
+            const result = await flashcardService.bulkCreateFlashcards(
+                cardsToCreate,
+                MOCK_USER_ID
+            );
+
+            expect(mockedCategoryFlashcard.findOne).not.toHaveBeenCalled();
+            expect(result).toBeDefined();
+        });
+
+        it('should use Flashcard.insertMany when it successfully returns the saved cards', async () => {
+            const cardsToCreate = [
+                { front: 'hi', category: MOCK_CATEGORY_ID as any },
+            ];
+
+            const mockSavedCard = {
+                _id: 'c1',
+                toObject: jest.fn().mockReturnValue({
+                    _id: 'c1',
+                    front: 'hi',
+                    category: MOCK_CATEGORY_ID,
+                }),
+            };
+
+            (mockedFlashcard.insertMany as jest.Mock).mockResolvedValue([
+                mockSavedCard,
+            ] as any);
+
+            const result = await flashcardService.bulkCreateFlashcards(
+                cardsToCreate,
+                MOCK_USER_ID
+            );
+
+            expect(mockedFlashcard.insertMany).toHaveBeenCalled();
+            expect(result).toEqual([
+                { _id: 'c1', front: 'hi', category: MOCK_CATEGORY_ID },
+            ]);
+        });
     });
 
     // ──────────────────────────────────────────────

@@ -310,6 +310,33 @@ describe('GoogleGenAIClient', () => {
     });
 
     // ════════════════════════════════════════════
+    // _isMultimodalModel monkey-patch
+    // ════════════════════════════════════════════
+    describe('_isMultimodalModel monkey-patch', () => {
+        it('should correctly identify multimodal models', async () => {
+            const { ChatGoogleGenerativeAI } = await import(
+                '@langchain/google-genai'
+            );
+            const instance = Object.create(ChatGoogleGenerativeAI.prototype);
+
+            const testCases = [
+                { model: 'gemini-1.5-pro', expected: true },
+                { model: 'gemini-2.0-flash', expected: true },
+                { model: 'gemini-3.1-flash-lite', expected: true },
+                { model: 'some-vision-model', expected: true },
+                { model: 'gemma-3-2b', expected: true },
+                { model: 'gemma-3-1b', expected: false },
+                { model: 'gpt-4', expected: false },
+            ];
+
+            for (const { model, expected } of testCases) {
+                instance.model = model;
+                expect(instance._isMultimodalModel).toBe(expected);
+            }
+        });
+    });
+
+    // ════════════════════════════════════════════
     // Singleton export (googleGenAIClient)
     // ════════════════════════════════════════════
     describe('singleton googleGenAIClient', () => {

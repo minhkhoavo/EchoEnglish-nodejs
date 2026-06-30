@@ -1,9 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 type WordMistake = { word: string; phoneticTranscription: string };
 type ResourceLink = { name: string; url: string };
@@ -72,46 +68,11 @@ const PhonemeSuggestionDB: Record<string, string> = {
 const ERROR_THRESHOLD = 60; // AccuracyScore < threshold => error
 
 function resolveResourceIndexPath(): string | null {
+    const root = process.cwd();
     // Try dist path first, then src
     const candidates = [
-        path.resolve(
-            __dirname,
-            '..',
-            '..',
-            'resources',
-            'data',
-            'ipa_resource_index.json'
-        ),
-        path.join(
-            process.cwd(),
-            'dist',
-            'resources',
-            'data',
-            'ipa_resource_index.json'
-        ),
-        path.join(
-            process.cwd(),
-            'src',
-            'resources',
-            'data',
-            'ipa_resource_index.json'
-        ),
-        path.join(
-            process.cwd(),
-            'echoEnglish-nodejs',
-            'dist',
-            'resources',
-            'data',
-            'ipa_resource_index.json'
-        ),
-        path.join(
-            process.cwd(),
-            'echoEnglish-nodejs',
-            'src',
-            'resources',
-            'data',
-            'ipa_resource_index.json'
-        ),
+        path.join(root, 'dist', 'resources', 'data', 'ipa_resource_index.json'),
+        path.join(root, 'src', 'resources', 'data', 'ipa_resource_index.json'),
     ];
     for (const p of candidates) {
         try {
