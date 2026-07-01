@@ -49,6 +49,10 @@ interface LeanUser {
             currentAccuracy: number;
             proficiency: string;
         }>;
+        aiInsights?: Array<{
+            title: string;
+            description: string;
+        }>;
     };
     preferences?: {
         primaryGoal?: string;

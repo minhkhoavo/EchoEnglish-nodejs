@@ -292,6 +292,10 @@ export class DailySessionService {
                             currentAccuracy: number;
                             proficiency: string;
                         }>;
+                        aiInsights?: Array<{
+                            title: string;
+                            description: string;
+                        }>;
                     };
                     preferences?: {
                         preferredStudyTime?: string;
@@ -748,7 +752,10 @@ export class DailySessionService {
                         ),
                     aiInsights: (user?.competencyProfile?.aiInsights || [])
                         .slice(-3)
-                        .map((i) => `${i.title}: ${i.description}`),
+                        .map(
+                            (i: { title: string; description: string }) =>
+                                `${i.title}: ${i.description}`
+                        ),
                     interests: user?.preferences?.contentInterests || [],
                     // Real material so reading/writing can be grounded in the
                     // exact article the learner is studying.
