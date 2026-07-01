@@ -1,12 +1,13 @@
 # syntax=docker/dockerfile:1.7
 FROM node:20-alpine AS build
 WORKDIR /app
+ENV NPM_CONFIG_LEGACY_PEER_DEPS=true
 RUN --mount=type=cache,target=/var/cache/apk apk add --no-cache python3 make g++
 COPY package.json package-lock.json ./
-RUN --mount=type=cache,target=/root/.npm npm install --no-audit --no-fund
+RUN --mount=type=cache,target=/root/.npm npm install --no-audit --no-fund --legacy-peer-deps
 COPY . .
 RUN npm run build
-RUN npm prune --omit=dev
+RUN npm prune --omit=dev --legacy-peer-deps
 
 FROM node:20-alpine AS runner
 WORKDIR /app
