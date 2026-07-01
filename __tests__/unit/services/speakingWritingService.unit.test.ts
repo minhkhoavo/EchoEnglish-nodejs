@@ -32,11 +32,9 @@ describe('SpeakingWritingService', () => {
         mockToArray = jest.fn();
         mockSort = jest.fn().mockReturnValue({ toArray: mockToArray });
         mockFind = jest.fn().mockReturnValue({ sort: mockSort });
-        mockAggregate = jest
-            .fn()
-            .mockReturnValue({
-                sort: jest.fn().mockReturnValue({ toArray: mockToArray }),
-            });
+        mockAggregate = jest.fn().mockReturnValue({
+            sort: jest.fn().mockReturnValue({ toArray: mockToArray }),
+        });
 
         mockCollection = {
             findOne: jest.fn(),

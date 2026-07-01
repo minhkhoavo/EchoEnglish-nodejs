@@ -24,24 +24,18 @@ jest.mock('uuid', () => ({
 }));
 
 jest.mock('@aws-sdk/client-s3', () => ({
-    PutObjectCommand: jest
-        .fn()
-        .mockImplementation((params) => ({
-            ...params,
-            _type: 'PutObjectCommand',
-        })),
-    DeleteObjectCommand: jest
-        .fn()
-        .mockImplementation((params) => ({
-            ...params,
-            _type: 'DeleteObjectCommand',
-        })),
-    GetObjectCommand: jest
-        .fn()
-        .mockImplementation((params) => ({
-            ...params,
-            _type: 'GetObjectCommand',
-        })),
+    PutObjectCommand: jest.fn().mockImplementation((params) => ({
+        ...params,
+        _type: 'PutObjectCommand',
+    })),
+    DeleteObjectCommand: jest.fn().mockImplementation((params) => ({
+        ...params,
+        _type: 'DeleteObjectCommand',
+    })),
+    GetObjectCommand: jest.fn().mockImplementation((params) => ({
+        ...params,
+        _type: 'GetObjectCommand',
+    })),
 }));
 
 jest.mock('@aws-sdk/s3-request-presigner', () => ({
