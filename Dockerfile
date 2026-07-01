@@ -15,6 +15,9 @@ ENV NODE_ENV=production
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/src/ai/prompts ./src/ai/prompts
+COPY --from=build /app/src/resources ./src/resources
+COPY --from=build /app/vocabulary ./vocabulary
 USER node
 EXPOSE 4000
 CMD ["node", "dist/index.js"]
