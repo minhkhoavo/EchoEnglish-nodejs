@@ -358,8 +358,13 @@ export class AnalysisEngineService {
 
         // Part 2: Use questionFunction first (for aggregation), then questionForm
         if (part.includes('2') || part === 'part2') {
-            const questionFunction = (tags as Record<string, unknown>)
-                .questionFunction as string | undefined;
+            const questionFunction =
+                ((tags as Record<string, unknown>).questionFunction as
+                    | string
+                    | undefined) ||
+                ((tags as Record<string, unknown>).question_function as
+                    | string
+                    | undefined);
             const questionForm = (tags as Record<string, unknown>)
                 .questionForm as string | undefined;
 
@@ -582,8 +587,10 @@ export class AnalysisEngineService {
         if (skillTags.skillDetail) return String(skillTags.skillDetail);
 
         // Fallback to other skill properties
-        return skillTags.questionFunction
-            ? String(skillTags.questionFunction)
+        const questionFunction =
+            skillTags.questionFunction || skillTags.question_function;
+        return questionFunction
+            ? String(questionFunction)
             : skillTags.grammarPoint
               ? String(skillTags.grammarPoint)
               : skillTags.vocabPoint

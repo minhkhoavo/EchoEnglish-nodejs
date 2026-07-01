@@ -79,7 +79,7 @@ class TestController {
     };
 
     public findRandomQuestionIds = async (req: Request, res: Response) => {
-        const { skills, domains, limit } = req.body;
+        const { skills, domains, parts, limit } = req.body;
 
         // Validate input
         if (!skills && !domains) {
@@ -91,7 +91,7 @@ class TestController {
         }
 
         const questionIds = await TestService.findRandomQuestionIds(
-            { skills, domains },
+            { skills, domains, parts },
             limit || 10 // Default limit to 10 if not provided
         );
 

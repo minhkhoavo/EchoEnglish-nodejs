@@ -425,14 +425,68 @@ describe('TestService', () => {
             const matchStep = mockCollection.aggregate.mock.calls[0][0].find(
                 (step: any) => step.$match && step.$match.$or
             );
+            const expectedSkills = [
+                'Grammar',
+                '_grammar',
+                'Listening',
+                '_listening',
+            ];
             expect(matchStep.$match.$or).toContainEqual({
-                'skillTags.skills': { $in: skills },
+                'skillTags.skills': { $in: expectedSkills },
             });
             expect(matchStep.$match.$or).toContainEqual({
-                'skillTags.grammarPoint': { $in: skills },
+                'skillTags.grammarPoint': { $in: expectedSkills },
             });
 
             expect(res).toEqual(mockQIds.map((doc) => doc._id.toString()));
+        });
+
+        it('should add an additional part match step when parts filter is provided', async () => {
+            const mockQIds = [{ _id: new ObjectId() }];
+            mockCollection.aggregate.mockReturnValue({
+                toArray: jest.fn().mockResolvedValue(mockQIds),
+            });
+
+            await testService.findRandomQuestionIds(
+                { skills: ['verbTenseMood'], parts: ['5'] },
+                3
+            );
+
+            const pipeline = mockCollection.aggregate.mock.calls[0][0];
+            const partMatchStep = pipeline.find(
+                (step: any) => step.$match && step.$match['skillTags.part']
+            );
+            expect(partMatchStep.$match['skillTags.part']).toEqual({
+                $in: ['5'],
+            });
+
+            // The part match step must come after the skills/domains $or match,
+            // and before $sample.
+            const orMatchIndex = pipeline.findIndex(
+                (step: any) => step.$match && step.$match.$or
+            );
+            const partMatchIndex = pipeline.indexOf(partMatchStep);
+            const sampleIndex = pipeline.findIndex((step: any) => step.$sample);
+            expect(partMatchIndex).toBeGreaterThan(orMatchIndex);
+            expect(sampleIndex).toBeGreaterThan(partMatchIndex);
+        });
+
+        it('should not add a part match step when parts filter is empty', async () => {
+            const mockQIds = [{ _id: new ObjectId() }];
+            mockCollection.aggregate.mockReturnValue({
+                toArray: jest.fn().mockResolvedValue(mockQIds),
+            });
+
+            await testService.findRandomQuestionIds(
+                { skills: ['verbTenseMood'] },
+                3
+            );
+
+            const pipeline = mockCollection.aggregate.mock.calls[0][0];
+            const partMatchStep = pipeline.find(
+                (step: any) => step.$match && step.$match['skillTags.part']
+            );
+            expect(partMatchStep).toBeUndefined();
         });
 
         it('should construct pipeline with domains filter', async () => {
