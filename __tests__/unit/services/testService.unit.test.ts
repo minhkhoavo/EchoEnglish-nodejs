@@ -489,6 +489,30 @@ describe('TestService', () => {
             expect(partMatchStep).toBeUndefined();
         });
 
+        it('should normalize snake_case and camelCase skills correctly', async () => {
+            const mockQIds = [{ _id: new ObjectId() }];
+            mockCollection.aggregate.mockReturnValue({
+                toArray: jest.fn().mockResolvedValue(mockQIds),
+            });
+
+            await testService.findRandomQuestionIds(
+                { skills: ['snake_case', 'camelCase'] },
+                1
+            );
+
+            const pipeline = mockCollection.aggregate.mock.calls[0][0];
+            const matchStep = pipeline.find(
+                (step: any) => step.$match && step.$match.$or
+            );
+
+            // Just verify the required normalized skills are generated and added to the $in query
+            const orQueryStr = JSON.stringify(matchStep.$match.$or);
+            expect(orQueryStr).toContain('snake_case');
+            expect(orQueryStr).toContain('snakeCase');
+            expect(orQueryStr).toContain('camelCase');
+            expect(orQueryStr).toContain('camel_case');
+        });
+
         it('should construct pipeline with domains filter', async () => {
             const mockQIds = [{ _id: new ObjectId() }];
             mockCollection.aggregate.mockReturnValue({
