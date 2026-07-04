@@ -130,13 +130,10 @@ class AIScoringService {
                     `[AIScoringService] Attempt ${attempt} failed. Error:`,
                     error
                 );
-                if (attempt === maxRetries) {
-                    throw new Error(
-                        'AI model failed to process the request or return valid JSON after multiple attempts.'
-                    );
+                if (attempt < maxRetries) {
+                    // Wait 1 second before retrying
+                    await new Promise((resolve) => setTimeout(resolve, 1000));
                 }
-                // Wait 1 second before retrying
-                await new Promise((resolve) => setTimeout(resolve, 1000));
             }
         }
         throw new Error(

@@ -164,22 +164,23 @@ Evaluate and return JSON with:
         input: any,
         maxRetries = 3
     ): Promise<Record<string, unknown>> {
+        let lastError: unknown;
         for (let attempt = 1; attempt <= maxRetries; attempt++) {
             try {
                 const chain = model.pipe(parser);
                 return (await chain.invoke(input)) as Record<string, unknown>;
             } catch (error) {
+                lastError = error;
                 console.error(
                     `[ToeicWritingScoringService] Attempt ${attempt} failed. Error:`,
                     error
                 );
-                if (attempt === maxRetries) {
-                    throw error;
+                if (attempt < maxRetries) {
+                    await new Promise((resolve) => setTimeout(resolve, 1000));
                 }
-                await new Promise((resolve) => setTimeout(resolve, 1000));
             }
         }
-        throw new Error('AI scoring failed after multiple attempts');
+        throw lastError;
     }
 }
 

@@ -8,6 +8,7 @@ import {
     FeaturePricingType,
     FEATURE_PRICING_MAP,
     FEATURE_DESCRIPTION_MAP,
+    SPEECH_ASSESSMENT_CREDITS_PER_MINUTE,
 } from '~/enum/featurePricing.js';
 import notificationService from '~/services/notifications/notificationService.js';
 import { NotificationType } from '~/enum/notificationType.js';
@@ -63,6 +64,44 @@ class CreditsService {
             credits,
             finalDescription,
             featureType
+        );
+    }
+
+    /**
+     * Credits charged for a speech assessment, priced by audio length:
+     * 1 credit per minute, rounded up to the next whole minute (minimum 1).
+     */
+    public computeSpeechAssessmentCredits(durationSeconds: number): number {
+        const minutes = Math.ceil((durationSeconds || 0) / 60);
+        return Math.max(1, minutes) * SPEECH_ASSESSMENT_CREDITS_PER_MINUTE;
+    }
+
+    /**
+     * Deduct credits for a speech assessment based on its audio duration.
+     */
+    public async deductCreditsForSpeechAssessment(
+        userId: string,
+        durationSeconds: number
+    ): Promise<{
+        success: boolean;
+        creditsDeducted: number;
+        remainingCredits: number;
+        transactionId: string;
+    }> {
+        if (!userId) {
+            throw new ApiError(ErrorMessage.UNAUTHORIZED);
+        }
+
+        const credits = this.computeSpeechAssessmentCredits(durationSeconds);
+        const minutes = Math.max(1, Math.ceil((durationSeconds || 0) / 60));
+
+        return this.deductCredits(
+            userId,
+            credits,
+            `${this.generateDescription(
+                FeaturePricingType.SPEECH_ASSESSMENT
+            )} (${minutes} min)`,
+            FeaturePricingType.SPEECH_ASSESSMENT
         );
     }
 

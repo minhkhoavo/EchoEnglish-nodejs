@@ -1,8 +1,28 @@
 import ffmpeg from '~/utils/ffmpeg.js';
+import wav from 'node-wav';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import * as os from 'node:os';
+
+export async function getAudioDurationSeconds(
+    buffer: Buffer,
+    mimeType?: string
+): Promise<number> {
+    const isWav = /wav|wave/i.test(mimeType || '');
+    try {
+        const wavBuf = isWav ? buffer : await convertMp3ToWav(buffer);
+        const decoded = wav.decode(wavBuf);
+        const channel = decoded.channelData?.[0];
+        if (channel && decoded.sampleRate) {
+            return channel.length / decoded.sampleRate;
+        }
+    } catch {
+        console.warn('Failed to decode audio duration', { mimeType });
+        // Could not decode/convert; fall back to unknown duration.
+    }
+    return 0;
+}
 
 export async function convertMp3ToWav(buffer: Buffer): Promise<Buffer> {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'ffx-'));

@@ -27,6 +27,7 @@ describe('ToeicWritingScoringService', () => {
     let consoleLogSpy: jest.SpyInstance;
     let getTemplateSpy: jest.SpyInstance;
     let formatSpy: jest.Mock;
+    let setTimeoutSpy: jest.SpyInstance;
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -35,6 +36,13 @@ describe('ToeicWritingScoringService', () => {
             .spyOn(console, 'error')
             .mockImplementation(() => {});
         consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
+        setTimeoutSpy = jest
+            .spyOn(global, 'setTimeout')
+            .mockImplementation((cb: any) => {
+                cb();
+                return {} as any;
+            });
 
         mockInvoke = jest.fn();
         const mockModel = {
@@ -63,6 +71,7 @@ describe('ToeicWritingScoringService', () => {
         if (consoleErrorSpy) consoleErrorSpy.mockRestore();
         if (consoleLogSpy) consoleLogSpy.mockRestore();
         if (getTemplateSpy) getTemplateSpy.mockRestore();
+        if (setTimeoutSpy) setTimeoutSpy.mockRestore();
     });
 
     const mockContext: any = {
@@ -270,7 +279,7 @@ describe('ToeicWritingScoringService', () => {
         });
 
         it('should throw an error and log if LLM invocation fails', async () => {
-            mockInvoke.mockRejectedValueOnce(new Error('AI crash'));
+            mockInvoke.mockRejectedValue(new Error('AI crash'));
 
             await expect(
                 toeicWritingScoringService.scoreWriting(mockContext)

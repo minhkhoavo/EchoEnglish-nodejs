@@ -2,10 +2,12 @@
 import {
     convertMp3ToWav,
     makeAudioConfigFromPcm16kMonoWav,
+    getAudioDurationSeconds,
 } from '~/utils/audio-utils.js';
 import ffmpeg from '~/utils/ffmpeg.js';
 import * as fs from 'node:fs/promises';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
+import wav from 'node-wav';
 
 // Mock ffmpeg using factory to avoid top-level execution
 jest.mock('~/utils/ffmpeg.js', () => {
@@ -22,6 +24,14 @@ jest.mock('node:fs/promises', () => ({
     writeFile: jest.fn(),
     readFile: jest.fn(),
     rm: jest.fn(),
+}));
+
+// Mock node-wav
+jest.mock('node-wav', () => ({
+    __esModule: true,
+    default: {
+        decode: jest.fn(),
+    },
 }));
 
 // Mock Microsoft Speech SDK
@@ -210,6 +220,109 @@ describe('Audio Utils', () => {
             expect(sdk.AudioConfig.fromWavFileInput).toHaveBeenCalledWith(
                 badBuffer
             );
+        });
+    });
+
+    describe('getAudioDurationSeconds', () => {
+        let mockFfmpegChain: any;
+
+        beforeEach(() => {
+            mockFfmpegChain = {
+                input: jest.fn().mockReturnThis(),
+                noVideo: jest.fn().mockReturnThis(),
+                audioChannels: jest.fn().mockReturnThis(),
+                audioFrequency: jest.fn().mockReturnThis(),
+                audioCodec: jest.fn().mockReturnThis(),
+                outputOptions: jest.fn().mockReturnThis(),
+                save: jest.fn().mockReturnThis(),
+                on: jest.fn().mockImplementation(function (
+                    this: any,
+                    event: string,
+                    cb: any
+                ) {
+                    if (event === 'end') {
+                        setTimeout(() => cb(), 0);
+                    }
+                    return this;
+                }),
+            };
+            (ffmpeg as unknown as jest.Mock).mockReturnValue(mockFfmpegChain);
+            (fs.mkdtemp as jest.Mock).mockResolvedValue('/tmp/ffx-1234');
+            (fs.writeFile as jest.Mock).mockResolvedValue(undefined);
+            (fs.readFile as jest.Mock).mockResolvedValue(
+                Buffer.from('wav-data')
+            );
+            (fs.rm as jest.Mock).mockResolvedValue(undefined);
+        });
+
+        const mockWavData = {
+            sampleRate: 16000,
+            channelData: [
+                new Float32Array(32000), // 2 seconds
+            ],
+        };
+
+        it('should decode wav directly if mimeType is wav', async () => {
+            (wav.decode as jest.Mock).mockReturnValueOnce(mockWavData);
+            const duration = await getAudioDurationSeconds(
+                Buffer.from('wav-data'),
+                'audio/wav'
+            );
+            expect(duration).toBe(2);
+            expect(wav.decode).toHaveBeenCalled();
+        });
+
+        it('should convert mp3 to wav and decode if mimeType is not wav', async () => {
+            (wav.decode as jest.Mock).mockReturnValueOnce(mockWavData);
+            const duration = await getAudioDurationSeconds(
+                Buffer.from('mp3-data'),
+                'audio/mpeg'
+            );
+            expect(duration).toBe(2);
+            expect(wav.decode).toHaveBeenCalled();
+        });
+
+        it('should handle undefined mimeType and convert mp3 to wav', async () => {
+            (wav.decode as jest.Mock).mockReturnValueOnce(mockWavData);
+            const duration = await getAudioDurationSeconds(
+                Buffer.from('mp3-data'),
+                undefined
+            );
+            expect(duration).toBe(2);
+            expect(wav.decode).toHaveBeenCalled();
+        });
+
+        it('should return 0 when decoding fails', async () => {
+            (wav.decode as jest.Mock).mockImplementationOnce(() => {
+                throw new Error('decode error');
+            });
+            const duration = await getAudioDurationSeconds(
+                Buffer.from('wav-data'),
+                'audio/wav'
+            );
+            expect(duration).toBe(0);
+        });
+
+        it('should return 0 when channelData is empty or sampleRate is 0', async () => {
+            (wav.decode as jest.Mock).mockReturnValueOnce({
+                sampleRate: 16000,
+                channelData: [],
+            });
+            let duration = await getAudioDurationSeconds(
+                Buffer.from('wav-data'),
+                'audio/wav'
+            );
+            expect(duration).toBe(0);
+
+            (wav.decode as jest.Mock).mockReturnValueOnce({
+                sampleRate: 0,
+                channelData: [new Float32Array(32000)],
+            });
+            duration = await getAudioDurationSeconds(
+                Buffer.from('wav-data'),
+                'audio/wav'
+            );
+            expect(duration).toBe(0);
         });
     });
 });
