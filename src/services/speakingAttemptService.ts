@@ -26,7 +26,9 @@ interface TestPart {
     direction?: string;
     instruction?: string;
     instructions?: string;
-    narrator?: { text?: string };
+    narrator?: { text?: string; image?: string } | null;
+    image?: string;
+    imageUrl?: string;
     questions?: TestQuestion[];
 }
 interface AttemptQuestion {
@@ -43,6 +45,7 @@ interface AttemptPart {
     partTitle: string;
     partDirection?: string;
     partScenario?: string;
+    partImage?: string;
     questions: AttemptQuestion[];
 }
 
@@ -186,6 +189,8 @@ export default class SpeakingAttemptService {
                 partDirection:
                     p.direction || p.instruction || p.instructions || undefined,
                 partScenario: p.narrator?.text || undefined,
+                partImage:
+                    p.narrator?.image || p.image || p.imageUrl || undefined,
                 questions,
             });
         }
@@ -339,7 +344,10 @@ export default class SpeakingAttemptService {
                             | 'speaking_part5'
                             | 'speaking_part6',
                         referenceText: foundQuestion?.questionText,
-                        imageUrl: foundQuestion?.promptImage,
+                        imageUrl:
+                            foundQuestion?.promptImage ||
+                            attemptDoc?.parts?.[foundPartIndex]?.partImage ||
+                            undefined,
                         questionPrompt: foundQuestion?.questionText || '',
                         providedInfo:
                             attemptDoc?.parts?.[foundPartIndex]?.partScenario ||
@@ -351,6 +359,16 @@ export default class SpeakingAttemptService {
                                 result.recordingId,
                                 context
                             );
+
+                        if (
+                            scoreResult &&
+                            typeof scoreResult.overallScore === 'number'
+                        ) {
+                            scoreResult.overallScore = Math.round(
+                                scoreResult.overallScore
+                            );
+                        }
+
                         console.log(
                             '[speakingAttempt] AI scoring result:',
                             scoreResult
@@ -416,8 +434,9 @@ export default class SpeakingAttemptService {
                                                 'number' &&
                                             !isNaN(qResult.overallScore)
                                         ) {
-                                            totalRawScore +=
-                                                qResult.overallScore;
+                                            totalRawScore += Math.round(
+                                                qResult.overallScore
+                                            );
                                         }
                                     }
                                 }

@@ -120,16 +120,28 @@ class AIScoringService {
         } else {
             message = formattedText;
         }
-        try {
-            const chain = model.pipe(parser);
-            return await chain.invoke(message);
-        } catch (error) {
-            console.error('[AIScoringService] Chain invocation failed.', error);
-            throw new Error(
-                'AI model failed to process the request or return valid JSON.'
-            );
+        const maxRetries = 3;
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                const chain = model.pipe(parser);
+                return await chain.invoke(message);
+            } catch (error) {
+                console.error(
+                    `[AIScoringService] Attempt ${attempt} failed. Error:`,
+                    error
+                );
+                if (attempt === maxRetries) {
+                    throw new Error(
+                        'AI model failed to process the request or return valid JSON after multiple attempts.'
+                    );
+                }
+                // Wait 1 second before retrying
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
         }
+        throw new Error(
+            'AI model failed to process the request or return valid JSON after multiple attempts.'
+        );
     }
 }
-
 export const aiScoringService = new AIScoringService();
