@@ -230,6 +230,133 @@ export class DailySessionService {
                 contentInterests?: string[];
             };
         } | null;
+        const { planItems, sessionTitle, sessionDescription } =
+            await this.buildSessionPlan({
+                userId,
+                singleRoadmap,
+                roadmapStatus,
+                targetWeekNumber,
+                targetDailyFocus,
+                weekFocus,
+                today,
+            });
+
+        const newSession = await StudyPlan.create({
+            userId: singleRoadmap.userId,
+            roadmapRef: singleRoadmap._id,
+            testResultId: singleRoadmap.testResultId,
+            dayNumber: targetDailyFocus?.dayOfWeek || 1,
+            weekNumber: targetWeekNumber,
+            scheduledDate: today,
+            title: sessionTitle,
+            description: sessionDescription,
+            targetSkills: targetDailyFocus?.targetSkills || [],
+            targetDomains: targetDailyFocus?.suggestedDomains || [],
+            targetWeaknesses: weekFocus.targetWeaknesses,
+            planItems,
+            totalEstimatedTime: targetDailyFocus?.estimatedMinutes || 0,
+            status: 'upcoming',
+        });
+        return newSession;
+    }
+
+    /**
+     * Build the daily session plan (planItems + title/description) WITHOUT
+     * persisting it. Extracted verbatim from getTodaySession so the Playground
+     * can simulate a session dry-run. Production behavior is unchanged: pass
+     * dryRun=true only to skip the markDayInProgress write (used by the
+     * simulator so it never mutates a learner's memo state).
+     */
+    async buildSessionPlan(
+        params: {
+            userId: Schema.Types.ObjectId | string;
+            singleRoadmap: Roadmap;
+            roadmapStatus: {
+                isBlocked: boolean;
+                blockedDailyFocus?: DailyFocus;
+                currentWeek?: number;
+            };
+            targetWeekNumber: number;
+            targetDailyFocus?: DailyFocus;
+            weekFocus: WeeklyFocus;
+            today: Date;
+            // Playground-only: inline the pieces this method normally loads from
+            // Mongo so the simulator can run with zero DB reads / full param
+            // control. Undefined in production → unchanged DB-backed behavior.
+            simContext?: {
+                user?: {
+                    competencyProfile?: {
+                        currentCEFRLevel?: string;
+                        skillMatrix?: Array<{
+                            skill: string;
+                            currentAccuracy: number;
+                            proficiency: string;
+                        }>;
+                        aiInsights?: Array<{
+                            title: string;
+                            description: string;
+                        }>;
+                    };
+                    preferences?: {
+                        preferredStudyTime?: string;
+                        contentInterests?: string[];
+                    };
+                } | null;
+                availableResources?: Array<{
+                    _id: Schema.Types.ObjectId;
+                    type: string;
+                    title: string;
+                    description?: string;
+                    url?: string;
+                    labels?: { domain?: string; topic?: string[] };
+                }>;
+                skippedContent?: {
+                    hasSkippedSessions: boolean;
+                    skippedContent: Array<{
+                        focus: string;
+                        targetSkills: string[];
+                        suggestedDomains: string[];
+                    }>;
+                };
+            };
+        },
+        dryRun = false
+    ) {
+        const {
+            userId,
+            singleRoadmap,
+            roadmapStatus,
+            targetWeekNumber,
+            targetDailyFocus,
+            weekFocus,
+            today,
+            simContext,
+        } = params;
+
+        // Get user competency profile for context (or use the simulator override).
+        const user =
+            simContext?.user !== undefined
+                ? simContext.user
+                : ((await User.findById(userId)
+                      .select('competencyProfile preferences')
+                      .lean()) as {
+                      competencyProfile?: {
+                          currentCEFRLevel?: string;
+                          skillMatrix?: Array<{
+                              skill: string;
+                              currentAccuracy: number;
+                              proficiency: string;
+                          }>;
+                          aiInsights?: Array<{
+                              title: string;
+                              description: string;
+                          }>;
+                      };
+                      preferences?: {
+                          preferredStudyTime?: string;
+                          contentInterests?: string[];
+                      };
+                  } | null);
 
         // Prepare context for LLM
         const lowestSkills = user?.competencyProfile?.skillMatrix
@@ -239,17 +366,26 @@ export class DailySessionService {
 
         // Find available DB resources matching domains and skills
         // Nếu không có targetDailyFocus, dùng thông tin từ weekFocus
-        const availableResources = await this.findAvailableResources(
-            targetDailyFocus?.suggestedDomains ||
-                weekFocus.recommendedDomains ||
-                [],
-            targetDailyFocus?.targetSkills || weekFocus.focusSkills || []
-        );
+        const availableResources =
+            simContext?.availableResources !== undefined
+                ? [...simContext.availableResources]
+                : await this.findAvailableResources(
+                      targetDailyFocus?.suggestedDomains ||
+                          weekFocus.recommendedDomains ||
+                          [],
+                      targetDailyFocus?.targetSkills ||
+                          weekFocus.focusSkills ||
+                          []
+                  );
 
         // Get mistakes that need practice from current week (top N from stack)
         const mistakesToPractice = weekFocus.mistakes?.slice(0, 40) || [];
         const skippedContent =
-            await roadmapCalibrationService.getSkippedSessionsContent(userId);
+            simContext?.skippedContent !== undefined
+                ? simContext.skippedContent
+                : await roadmapCalibrationService.getSkippedSessionsContent(
+                      userId
+                  );
 
         // Resolve user-provided study material memo for today (highest priority).
         // Materials are prepended into availableResources so the LLM can pick them
@@ -320,11 +456,13 @@ export class DailySessionService {
             }
 
             // Lock today's memo day so regeneration stays put and completion advances it.
-            await studyMemoService.markDayInProgress(
-                singleRoadmap.roadmapId,
-                memoMatch.memo._id,
-                memoMatch.dayItem._id
-            );
+            if (!dryRun) {
+                await studyMemoService.markDayInProgress(
+                    singleRoadmap.roadmapId!,
+                    memoMatch.memo._id,
+                    memoMatch.dayItem._id
+                );
+            }
         }
 
         // Generate activities using AI with smart resource allocation
@@ -614,7 +752,10 @@ export class DailySessionService {
                         ),
                     aiInsights: (user?.competencyProfile?.aiInsights || [])
                         .slice(-3)
-                        .map((i) => `${i.title}: ${i.description}`),
+                        .map(
+                            (i: { title: string; description: string }) =>
+                                `${i.title}: ${i.description}`
+                        ),
                     interests: user?.preferences?.contentInterests || [],
                     // Real material so reading/writing can be grounded in the
                     // exact article the learner is studying.
@@ -793,29 +934,13 @@ export class DailySessionService {
                 : `No scheduled session today. General practice session for this week's focus. ${weekFocus.summary}`;
         }
 
-        const newSession = await StudyPlan.create({
-            userId: singleRoadmap.userId,
-            roadmapRef: singleRoadmap._id,
-            testResultId: singleRoadmap.testResultId,
-            dayNumber: targetDailyFocus?.dayOfWeek || 1,
-            weekNumber: targetWeekNumber,
-            scheduledDate: today,
-            title: sessionTitle,
-            description: sessionDescription,
-            targetSkills: targetDailyFocus?.targetSkills || [],
-            targetDomains: targetDailyFocus?.suggestedDomains || [],
-            targetWeaknesses: weekFocus.targetWeaknesses,
-            planItems,
-            totalEstimatedTime: targetDailyFocus?.estimatedMinutes || 0,
-            status: 'upcoming',
-        });
-        return newSession;
+        return { planItems, sessionTitle, sessionDescription };
     }
 
     /**
      * Find available DB resources matching domains and skills
      */
-    private async findAvailableResources(
+    async findAvailableResources(
         domains: string[],
         skills: string[]
     ): Promise<

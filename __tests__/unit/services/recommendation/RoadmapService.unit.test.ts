@@ -69,12 +69,10 @@ describe('RoadmapService', () => {
         };
 
         it('should generate roadmap with no testResult and no user preferences', async () => {
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
 
             mockedLearningPlanAIService.generateLearningRoadmap.mockResolvedValue(
                 {
@@ -110,12 +108,10 @@ describe('RoadmapService', () => {
 
         it('should generate roadmap using testResult and user preferences', async () => {
             const user = { preferences: { currentLevel: 'A2' } };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const testResult = {
                 totalScore: 450,
@@ -164,12 +160,10 @@ describe('RoadmapService', () => {
         it('should handle testResult missing in database gracefully', async () => {
             const testId = new Types.ObjectId();
             (mockedTestResult.findById as jest.Mock).mockResolvedValue(null);
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedLearningPlanAIService.generateLearningRoadmap.mockResolvedValue(
                 { totalWeeks: 1 } as any
             );
@@ -186,12 +180,10 @@ describe('RoadmapService', () => {
         it('should handle testResult without analysis gracefully', async () => {
             const testResult = { totalScore: 300 }; // no analysis
             (mockedTestResult.findById as any).mockResolvedValue(testResult);
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
             mockedLearningPlanAIService.generateLearningRoadmap.mockResolvedValue(
                 { totalWeeks: 1 } as any
             );
@@ -218,11 +210,9 @@ describe('RoadmapService', () => {
     describe('getActiveRoadmap', () => {
         it('should return active roadmap', async () => {
             (mockedRoadmap.findOne as any).mockReturnValue({
-                lean: jest
-                    .fn()
-                    .mockReturnValue({
-                        exec: jest.fn().mockResolvedValue({ _id: 'r1' }),
-                    }),
+                lean: jest.fn().mockReturnValue({
+                    exec: jest.fn().mockResolvedValue({ _id: 'r1' }),
+                }),
             });
             const result = await roadmapService.getActiveRoadmap('user1');
             expect(result).toEqual({ _id: 'r1' });
@@ -242,15 +232,11 @@ describe('RoadmapService', () => {
         });
 
         it('should iterate over active/draft roadmaps and update them', async () => {
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest
-                        .fn()
-                        .mockResolvedValue({
-                            preferences: { studyDaysOfWeek: [1, 2] },
-                        }),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockResolvedValue({
+                    preferences: { studyDaysOfWeek: [1, 2] },
+                }),
+            });
 
             const roadmap1 = {
                 updateDayOfWeekFromUserPreferences: jest.fn(),

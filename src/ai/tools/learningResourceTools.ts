@@ -3,77 +3,11 @@ import { z } from 'zod';
 import { Resource } from '~/models/resource.js';
 import testService from '~/services/testService.js';
 import { AVAILABLE_DOMAINS } from '~/enum/domain.js';
-// Available skills/tags in the system
+import { AVAILABLE_SKILLS as CATALOG_SKILLS } from '~/constants/toeicSkillCatalog.js';
+
 const AVAILABLE_SKILLS = {
-    // Part 1: Photographs
-    part1: [
-        'identifyActionInProgress',
-        'identifyStateCondition',
-        'identifySpatialRelationship',
-    ],
-    // Part 2: Question-Response
-    part2: [
-        'whQuestion',
-        'yesNo',
-        'tagQuestion',
-        'statement',
-        'alternative',
-        'negativeQuestion',
-        'informationSeeking',
-        'request',
-        'suggestion',
-        'offer',
-        'opinion',
-        'direct',
-        'indirect',
-    ],
-    // Parts 3 & 4: Conversations & Talks
-    part34: [
-        'mainTopic',
-        'purpose',
-        'problem',
-        'specificDetail',
-        'reasonCause',
-        'amountQuantity',
-        'inferSpeakerRole',
-        'inferLocation',
-        'inferImplication',
-        'inferFeelingAttitude',
-        'futureAction',
-        'recommendedAction',
-        'requestedAction',
-        'speakerIntent',
-        'connectToGraphic',
-    ],
-    // Part 5: Incomplete Sentences
-    part5: [
-        'wordForm',
-        'verbTenseMood',
-        'subjectVerbAgreement',
-        'pronoun',
-        'preposition',
-        'conjunction',
-        'relativeClause',
-        'comparativeSuperlative',
-        'participle',
-        'wordChoice',
-        'collocation',
-        'phrasalVerb',
-    ],
-    // Part 6: Text Completion
-    part6: ['grammar', 'vocabulary', 'sentenceInsertion', 'discourseConnector'],
-    // Part 7: Reading Comprehension
-    part7: [
-        'mainTopicPurpose',
-        'scanning',
-        'paraphrasing',
-        'inferImplication',
-        'inferAuthorPurpose',
-        'vocabularyInContext',
-        'sentenceInsertion',
-        'crossReference',
-    ],
-    // General skills
+    ...CATALOG_SKILLS,
+    // General skills (free-text, not backed by a specific DB field)
     general: [
         'reading comprehension',
         'listening',

@@ -235,19 +235,41 @@ class TestService {
         return response;
     }
 
+    private normalizeSkills(skills: string[]): string[] {
+        const normalized = new Set<string>();
+        for (const skill of skills) {
+            normalized.add(skill);
+            // Convert snake_case to camelCase
+            if (skill.includes('_')) {
+                const camel = skill.replace(/_([a-z0-9])/gi, (_, g) =>
+                    g.toUpperCase()
+                );
+                normalized.add(camel);
+            }
+            // Convert camelCase to snake_case
+            const snake = skill.replace(
+                /[A-Z0-9]/g,
+                (letter) => `_${letter.toLowerCase()}`
+            );
+            normalized.add(snake);
+        }
+        return Array.from(normalized);
+    }
+
     /**
      * Search and return an array of random question IDs based on skill or domain.
      * @param criteria - Search criteria
      * @param criteria.skills - Array of skills to search for
      * @param criteria.domains - Array of domains to search for
+     * @param criteria.parts - Array of TOEIC part numbers (as strings, e.g. "5") to restrict the search to
      * @param limit - Maximum number of question IDs to return
      * @returns An array of ObjectIds of questions
      */
     public async findRandomQuestionIds(
-        criteria: { skills?: string[]; domains?: string[] },
+        criteria: { skills?: string[]; domains?: string[]; parts?: string[] },
         limit: number = 10
     ): Promise<string[]> {
-        const { skills = [], domains = [] } = criteria;
+        const { skills = [], domains = [], parts = [] } = criteria;
 
         if (skills.length === 0 && domains.length === 0) {
             return [];
@@ -259,11 +281,13 @@ class TestService {
 
             const orConditions: Record<string, unknown>[] = [];
             if (skills.length > 0) {
-                const skillsQuery = { $in: skills };
+                const normalizedSkills = this.normalizeSkills(skills);
+                const skillsQuery = { $in: normalizedSkills };
                 orConditions.push(
                     { 'skillTags.skills': skillsQuery },
                     { 'skillTags.questionForm': skillsQuery },
                     { 'skillTags.questionFunction': skillsQuery },
+                    { 'skillTags.question_function': skillsQuery },
                     { 'skillTags.skillCategory': skillsQuery },
                     { 'skillTags.skillDetail': skillsQuery },
                     { 'skillTags.grammarPoint': skillsQuery },
@@ -275,7 +299,7 @@ class TestService {
                 orConditions.push({ 'contentTags.domain': { $in: domains } });
             }
 
-            const pipeline = [
+            const pipeline: Record<string, unknown>[] = [
                 { $unwind: '$parts' },
                 {
                     $project: {
@@ -297,9 +321,20 @@ class TestService {
                 { $replaceRoot: { newRoot: '$questionsList' } },
                 { $match: { _id: { $exists: true } } },
                 { $match: { $or: orConditions } },
-                { $sample: { size: limit } },
-                { $project: { _id: 1 } },
             ];
+
+            if (parts.length > 0) {
+                pipeline.push({ $match: { 'skillTags.part': { $in: parts } } });
+            }
+
+            pipeline.push(
+                // Some tests contain the same question _id more than once
+                // (e.g. duplicated part/question-group entries from data
+                // imports), which would otherwise let $sample pick — and
+                // this function return — the same question id twice.
+                { $group: { _id: '$_id' } },
+                { $sample: { size: limit } }
+            );
 
             const results = await collection.aggregate(pipeline).toArray();
             return results.map((doc) => doc._id.toString());

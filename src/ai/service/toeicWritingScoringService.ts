@@ -1,5 +1,6 @@
 import { PromptTemplate } from '@langchain/core/prompts';
 import { JsonOutputParser } from '@langchain/core/output_parsers';
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { imageUrlToDataUrl } from '~/utils/imageUtils.js';
 import { promptManagerService } from './PromptManagerService.js';
 import { googleGenAIClient } from '../provider/googleGenAIClient.js';
@@ -120,8 +121,7 @@ Evaluate and return JSON with:
                 );
 
                 // Create multimodal message with image
-                const chain = model.pipe(parser);
-                const result = await chain.invoke([
+                const input = [
                     {
                         role: 'user',
                         content: [
@@ -137,8 +137,8 @@ Evaluate and return JSON with:
                             },
                         ],
                     },
-                ]);
-                return result as Record<string, unknown>;
+                ];
+                return await this.invokeWithRetry(model, parser, input);
             } catch (imageError) {
                 console.error(
                     '[ToeicWritingScoringService] Image processing failed:',
@@ -150,13 +150,37 @@ Evaluate and return JSON with:
 
         // Text-only path (no image or image failed)
         try {
-            const chain = model.pipe(parser);
-            const result = await chain.invoke(formattedText);
-            return result as Record<string, unknown>;
+            return await this.invokeWithRetry(model, parser, formattedText);
         } catch (error) {
             console.error('[ToeicWritingScoringService] Scoring error:', error);
             throw new Error('AI scoring failed');
         }
+    }
+
+    private async invokeWithRetry(
+        model: ChatGoogleGenerativeAI,
+        parser: JsonOutputParser,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        input: any,
+        maxRetries = 3
+    ): Promise<Record<string, unknown>> {
+        let lastError: unknown;
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                const chain = model.pipe(parser);
+                return (await chain.invoke(input)) as Record<string, unknown>;
+            } catch (error) {
+                lastError = error;
+                console.error(
+                    `[ToeicWritingScoringService] Attempt ${attempt} failed. Error:`,
+                    error
+                );
+                if (attempt < maxRetries) {
+                    await new Promise((resolve) => setTimeout(resolve, 1000));
+                }
+            }
+        }
+        throw lastError;
     }
 }
 

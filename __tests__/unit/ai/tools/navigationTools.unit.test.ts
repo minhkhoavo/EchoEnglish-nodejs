@@ -77,7 +77,7 @@ describe('navigationTools', () => {
             findRandomQuestionIdsSpy.mockResolvedValue(['q1', 'q2'] as any);
             const result = await startPracticeDrillTool.invoke(
                 {
-                    skills: ['mainTopic', 'wordForm'],
+                    skills: ['main_topic', 'word_form'],
                     domains: ['business'],
                     questionCount: 5,
                 },
@@ -85,7 +85,7 @@ describe('navigationTools', () => {
             );
 
             expect(findRandomQuestionIdsSpy).toHaveBeenCalledWith(
-                { skills: ['mainTopic', 'wordForm'], domains: ['business'] },
+                { skills: ['main_topic', 'word_form'], domains: ['business'] },
                 5
             );
             const parsed = JSON.parse(result);
@@ -96,7 +96,7 @@ describe('navigationTools', () => {
         it('should start practice drill with only reading skills', async () => {
             findRandomQuestionIdsSpy.mockResolvedValue(['q1'] as any);
             const result = await startPracticeDrillTool.invoke(
-                { skills: ['wordForm'] },
+                { skills: ['word_form'] },
                 { configurable: { userId: 'user-1' } }
             );
             const parsed = JSON.parse(result);
@@ -106,7 +106,7 @@ describe('navigationTools', () => {
         it('should start practice drill with only listening skills', async () => {
             findRandomQuestionIdsSpy.mockResolvedValue(['q1'] as any);
             const result = await startPracticeDrillTool.invoke(
-                { skills: ['mainTopic'] },
+                { skills: ['main_topic'] },
                 { configurable: { userId: 'user-1' } }
             );
             const parsed = JSON.parse(result);
@@ -117,12 +117,12 @@ describe('navigationTools', () => {
             findRandomQuestionIdsSpy.mockResolvedValue([]);
 
             const result = await startPracticeDrillTool.invoke(
-                { skills: ['mainTopic'] },
+                { skills: ['main_topic'] },
                 { configurable: { userId: 'user-1' } }
             );
 
             expect(findRandomQuestionIdsSpy).toHaveBeenCalledWith(
-                { skills: ['mainTopic'] },
+                { skills: ['main_topic'] },
                 10
             );
 
@@ -141,7 +141,7 @@ describe('navigationTools', () => {
             );
 
             expect(findRandomQuestionIdsSpy).toHaveBeenCalledWith(
-                { skills: ['wordForm', 'verbTenseMood', 'mainTopic'] },
+                { skills: ['word_form', 'verb_tense_mood', 'main_topic'] },
                 10
             );
 
@@ -155,7 +155,7 @@ describe('navigationTools', () => {
             findRandomQuestionIdsSpy.mockResolvedValue(['q1', 'q2']);
 
             const result = await startPracticeDrillTool.invoke(
-                { skills: ['identifyActionInProgress'] },
+                { skills: ['identify_action_in_progress'] },
                 { configurable: { userId: 'user-1' } }
             );
             const parsed = JSON.parse(result);
@@ -166,7 +166,7 @@ describe('navigationTools', () => {
             findRandomQuestionIdsSpy.mockResolvedValue(['q1', 'q2']);
 
             const result = await startPracticeDrillTool.invoke(
-                { skills: ['wordForm'] },
+                { skills: ['word_form'] },
                 { configurable: { userId: 'user-1' } }
             );
             const parsed = JSON.parse(result);

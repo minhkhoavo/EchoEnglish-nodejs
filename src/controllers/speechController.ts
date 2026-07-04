@@ -10,6 +10,7 @@ import SpeechProsodyService from '~/services/speech-analyze/speechProsodyService
 import PronunciationSummaryService from '~/services/speech-analyze/pronunciationSummaryService.js';
 import VocabularyService from '~/services/speech-analyze/vocabularyService.js';
 import creditsService from '~/services/payment/creditsService.js';
+import { getAudioDurationSeconds } from '~/utils/audio-utils.js';
 import notificationService from '~/services/notifications/notificationService.js';
 import { NotificationType } from '~/enum/notificationType.js';
 import { User } from '~/models/userModel.js';
@@ -265,9 +266,15 @@ class SpeechController {
         const userId = req.user?.id as string;
         const folder = userId || undefined;
 
-        await creditsService.deductCreditsForFeature(
+        // Speech assessment is billed by audio length: 1 credit per minute
+        // (rounded up, minimum 1). Determine duration before charging.
+        const durationSeconds = await getAudioDurationSeconds(
+            req.file.buffer,
+            mimeType
+        );
+        await creditsService.deductCreditsForSpeechAssessment(
             userId,
-            'speech_assessment'
+            durationSeconds
         );
 
         const result = await createRecordingAndStartAnalysisHelper({

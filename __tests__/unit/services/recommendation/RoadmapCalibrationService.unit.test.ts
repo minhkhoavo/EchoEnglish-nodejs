@@ -128,12 +128,10 @@ describe('RoadmapCalibrationService', () => {
             (mockedRoadmap.findOne as any).mockResolvedValue(
                 buildMockRoadmap()
             );
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
 
             const result =
                 await roadmapCalibrationService.checkMissedSessions('user1');
@@ -147,12 +145,10 @@ describe('RoadmapCalibrationService', () => {
             }); // no dailyFocuses
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
             const user = { preferences: { studyDaysOfWeek: [1, 2, 3, 4, 5] } };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const result =
                 await roadmapCalibrationService.checkMissedSessions('user1');
@@ -183,12 +179,10 @@ describe('RoadmapCalibrationService', () => {
             });
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
             const user = { preferences: { studyDaysOfWeek: [1, 2, 3, 4, 5] } };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const result =
                 await roadmapCalibrationService.checkMissedSessions('user1');
@@ -203,12 +197,10 @@ describe('RoadmapCalibrationService', () => {
             const roadmap = buildMockRoadmap();
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
             const user = { preferences: { studyDaysOfWeek: [1, 2, 3, 4, 5] } };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
             (mockedRoadmap.findOneAndUpdate as any).mockResolvedValue(roadmap);
 
             const result =
@@ -503,12 +495,10 @@ describe('RoadmapCalibrationService', () => {
                 preferences: { studyDaysOfWeek: [1, 2, 3, 4, 5] },
                 competencyProfile: { skillMatrix: [] },
             };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const mockLlmClient = {
                 getModel: jest.fn().mockReturnValue({
@@ -580,12 +570,10 @@ describe('RoadmapCalibrationService', () => {
             });
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
             const user = { preferences: { studyDaysOfWeek: [1, 2, 3, 4, 5] } };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const mockLlmClient = {
                 getModel: jest.fn().mockReturnValue({
@@ -787,12 +775,10 @@ describe('RoadmapCalibrationService', () => {
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
 
             const user = { preferences: { studyDaysOfWeek: [1, 2, 3] } };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const result =
                 await roadmapCalibrationService.checkAndProgressWeek('r1');
@@ -824,12 +810,10 @@ describe('RoadmapCalibrationService', () => {
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
 
             const user = { preferences: { studyDaysOfWeek: [1, 2, 3] } };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const result =
                 await roadmapCalibrationService.checkAndProgressWeek('r1');
@@ -855,12 +839,10 @@ describe('RoadmapCalibrationService', () => {
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
 
             const user = { preferences: { primaryGoal: 'TOEIC 800' } }; // missing studyDaysOfWeek
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const result =
                 await roadmapCalibrationService.checkAndProgressWeek('r1');
@@ -885,12 +867,10 @@ describe('RoadmapCalibrationService', () => {
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
 
             const user = {}; // missing preferences entirely
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             const result =
                 await roadmapCalibrationService.checkAndProgressWeek('r1');
@@ -908,12 +888,10 @@ describe('RoadmapCalibrationService', () => {
             });
             (mockedRoadmap.findOne as any).mockResolvedValue(roadmap);
 
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(null),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(null),
+            });
 
             await expect(
                 roadmapCalibrationService.checkAndProgressWeek('r1')
@@ -950,12 +928,10 @@ describe('RoadmapCalibrationService', () => {
                 ],
             });
             const user = { preferences: { studyDaysOfWeek: [1, 2, 3] } };
-            (mockedUser.findById as any) = jest
-                .fn()
-                .mockReturnValue({
-                    select: jest.fn().mockReturnThis(),
-                    lean: jest.fn().mockResolvedValue(user),
-                });
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue(user),
+            });
 
             await roadmapCalibrationService.generateDailyFocusesForWeek(
                 roadmap,

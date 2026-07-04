@@ -75,60 +75,60 @@ const ROUTE_MAP: Record<
 const AVAILABLE_SKILLS = {
     listening: {
         part1: [
-            'identifyActionInProgress',
-            'identifyStateCondition',
-            'identifySpatialRelationship',
+            'identify_action_in_progress',
+            'identify_state_condition',
+            'identify_spatial_relationship',
         ],
         part2: [
-            'whQuestion',
-            'yesNo',
-            'tagQuestion',
+            'wh_question',
+            'yes_no',
+            'tag_question',
             'statement',
             'alternative',
-            'informationSeeking',
+            'information_seeking',
             'request',
             'suggestion',
         ],
         part34: [
-            'mainTopic',
+            'main_topic',
             'purpose',
             'problem',
-            'specificDetail',
-            'reasonCause',
-            'inferSpeakerRole',
-            'inferLocation',
-            'inferImplication',
-            'futureAction',
-            'speakerIntent',
+            'specific_detail',
+            'reason_cause',
+            'infer_speaker_role',
+            'infer_location',
+            'infer_implication',
+            'future_action',
+            'speaker_intent',
         ],
     },
     reading: {
         part5: [
-            'wordForm',
-            'verbTenseMood',
-            'subjectVerbAgreement',
+            'word_form',
+            'verb_tense_mood',
+            'subject_verb_agreement',
             'pronoun',
             'preposition',
             'conjunction',
-            'relativeClause',
-            'wordChoice',
+            'relative_clause',
+            'word_choice',
             'collocation',
-            'phrasalVerb',
+            'phrasal_verb',
         ],
         part6: [
             'grammar',
             'vocabulary',
-            'sentenceInsertion',
-            'discourseConnector',
+            'sentence_insertion',
+            'discourse_connector',
         ],
         part7: [
-            'mainTopicPurpose',
+            'main_topic_purpose',
             'scanning',
             'paraphrasing',
-            'inferImplication',
-            'inferAuthorPurpose',
-            'vocabularyInContext',
-            'crossReference',
+            'infer_implication',
+            'infer_author_purpose',
+            'vocabulary_in_context',
+            'cross_reference',
         ],
     },
 };
@@ -222,7 +222,11 @@ const startPracticeDrillTool = tool(
 
             // If no criteria provided, do general practice
             if (!criteria.skills && !criteria.domains) {
-                criteria.skills = ['wordForm', 'verbTenseMood', 'mainTopic']; // Default skills
+                criteria.skills = [
+                    'word_form',
+                    'verb_tense_mood',
+                    'main_topic',
+                ]; // Default skills
             }
 
             // Find random questions matching criteria
@@ -299,14 +303,14 @@ const startPracticeDrillTool = tool(
 
 AVAILABLE SKILLS (by part):
 **Listening:**
-- Part 1: identifyActionInProgress, identifyStateCondition, identifySpatialRelationship
-- Part 2: whQuestion, yesNo, tagQuestion, informationSeeking, request, suggestion
-- Part 3/4: mainTopic, purpose, problem, specificDetail, reasonCause, inferSpeakerRole, inferLocation, inferImplication, futureAction, speakerIntent
+- Part 1: ${AVAILABLE_SKILLS.listening.part1.join(', ')}
+- Part 2: ${AVAILABLE_SKILLS.listening.part2.join(', ')}
+- Part 3/4: ${AVAILABLE_SKILLS.listening.part34.join(', ')}
 
 **Reading:**
-- Part 5: wordForm, verbTenseMood, subjectVerbAgreement, pronoun, preposition, conjunction, relativeClause, wordChoice, collocation, phrasalVerb
-- Part 6: grammar, vocabulary, sentenceInsertion, discourseConnector
-- Part 7: mainTopicPurpose, scanning, paraphrasing, inferImplication, inferAuthorPurpose, vocabularyInContext, crossReference
+- Part 5: ${AVAILABLE_SKILLS.reading.part5.join(', ')}
+- Part 6: ${AVAILABLE_SKILLS.reading.part6.join(', ')}
+- Part 7: ${AVAILABLE_SKILLS.reading.part7.join(', ')}
 
 AVAILABLE DOMAINS (content areas):
 business, office, finance, technology, education, healthcare, travel, hospitality, manufacturing, marketing, retail, news
@@ -318,7 +322,7 @@ Returns a URL with question IDs for the NAVIGATE action.`,
                 .array(z.string())
                 .optional()
                 .describe(
-                    'TOEIC skills to practice (e.g., ["wordForm", "verbTenseMood"])'
+                    'TOEIC skills to practice (e.g., ["word_form", "verb_tense_mood"])'
                 ),
             domains: z
                 .array(z.string())

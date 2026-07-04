@@ -45,13 +45,14 @@ export type InlineImage = {
 
 export class GoogleGenAIClient {
     private model: ChatGoogleGenerativeAI;
+    private readonly modelName: string;
 
     constructor(opts?: GenerateOptions) {
         const defaultModel =
             process.env.GEMINI_DEFAULT_MODEL ?? 'gemini-3.1-flash-lite';
-        const modelName = opts?.model ?? defaultModel;
+        this.modelName = opts?.model ?? defaultModel;
         this.model = new ChatGoogleGenerativeAI({
-            model: modelName,
+            model: this.modelName,
             temperature: opts?.temperature ?? 0.2,
             apiKey,
             maxRetries: 4,
@@ -59,13 +60,12 @@ export class GoogleGenAIClient {
     }
 
     public getModel(model?: string): ChatGoogleGenerativeAI {
-        const defaultModel =
-            process.env.GEMINI_DEFAULT_MODEL ?? 'gemini-3.1-flash-lite';
         return new ChatGoogleGenerativeAI({
-            model: model ?? defaultModel,
+            model: model ?? this.modelName,
             temperature: 0.2,
             apiKey,
             maxRetries: 4,
+            json: true,
         });
     }
 

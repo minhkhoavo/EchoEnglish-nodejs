@@ -77,21 +77,23 @@ CANDIDATE'S PERFORMANCE DATA:
 EVALUATION TASK:
 Check whether the candidate located the correct details in the materials, conveyed them accurately, and spoke intelligibly. Apply ETS criteria strictly for every sub-score and the overall rating.
 
+CRITICAL: Your output MUST be ONLY a single, valid JSON object matching the structure below. Do NOT wrap the response in markdown code blocks like ```json ... ```, and do NOT include any conversational introduction, explanation, or conversational prefix or suffix.
+
 REQUIRED JSON OUTPUT STRUCTURE:
 {{
   "scores": {{
-    "pronunciation": <score 0-3>,
-    "intonationAndStress": <score 0-3>,
-    "grammar": <score 0-3>,
-    "vocabulary": <score 0-3>,
-    "fluencyAndCohesion": <score 0-3>,
-    "relevance": <score 0-3>,
-    "completeness": <score 0-3>
+    "pronunciation": <integer from 0 to 3>,
+    "intonationAndStress": <integer from 0 to 3>,
+    "grammar": <integer from 0 to 3>,
+    "vocabulary": <integer from 0 to 3>,
+    "fluencyAndCohesion": <integer from 0 to 3>,
+    "relevance": <integer from 0 to 3>,
+    "completeness": <integer from 0 to 3>
   }},
-  "overallScore": <final score 0-3>,
+  "overallScore": <integer from 0 to 3>,
   "feedback": {{
-    "summary": "<A concise summary of the performance>",
-    "strengths": "<A list of strengths, up to 5 brief items>",
-    "areasForImprovement": "<A list of advice, up to 5 brief items>"
+    "summary": "<string: a concise summary of the performance>",
+    "strengths": "<string: a list of strengths, up to 5 brief items>",
+    "areasForImprovement": "<string: a list of advice, up to 5 brief items>"
   }}
 }}

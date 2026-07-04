@@ -1346,4 +1346,71 @@ describe('DailySessionService', () => {
             expect(result._id).toBe('completed');
         });
     });
+
+    describe('buildSessionPlan direct coverage for simContext and dryRun', () => {
+        it('should use simContext and bypass markDayInProgress when dryRun is true', async () => {
+            const mockAIPlan = { activities: [] };
+            mockedDailyPlanAIService.generateDailyPlan.mockResolvedValue(
+                mockAIPlan as any
+            );
+            mockedStudyMemoService.getActiveMemoForToday.mockReturnValue({
+                memo: {
+                    _id: 'memoId',
+                    materials: [{ refType: 'file', refId: 'refId' }],
+                },
+                dayItem: { _id: 'dayId', focus: 'Test focus' },
+            } as any);
+            mockedStudyMemoService.resolveMaterials.mockResolvedValue([
+                {
+                    refId: 'refId',
+                    resourceType: 'article',
+                    title: 'A',
+                    description: 'B',
+                    url: 'C',
+                    labels: {},
+                    content:
+                        '<p>Some long text to bypass hasUsableText '.repeat(5) +
+                        '</p>',
+                },
+            ] as any);
+
+            const result = await dailySessionService.buildSessionPlan(
+                {
+                    userId: 'userId',
+                    singleRoadmap: { roadmapId: 'roadmapId' } as any,
+                    roadmapStatus: { isBlocked: false },
+                    targetWeekNumber: 1,
+                    targetDailyFocus: {
+                        focus: 'Test',
+                        targetSkills: [],
+                        suggestedDomains: [],
+                    } as any,
+                    weekFocus: {
+                        title: 'W',
+                        focusSkills: [],
+                        recommendedDomains: [],
+                    } as any,
+                    today: new Date(),
+                    simContext: {
+                        user: { competencyProfile: { skillMatrix: [] } } as any,
+                        availableResources: [],
+                        skippedContent: {
+                            hasSkippedSessions: false,
+                            skippedContent: [],
+                        },
+                    },
+                },
+                true
+            ); // dryRun = true
+
+            expect(mockedUser.findById).not.toHaveBeenCalled();
+            expect(
+                mockedRoadmapCalibrationService.getSkippedSessionsContent
+            ).not.toHaveBeenCalled();
+            expect(
+                mockedStudyMemoService.markDayInProgress
+            ).not.toHaveBeenCalled();
+            expect(result).toBeDefined();
+        });
+    });
 });

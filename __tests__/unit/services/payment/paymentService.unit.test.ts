@@ -100,12 +100,10 @@ describe('PaymentService', () => {
         });
         (mockedPayment.find as any) = mockMongooseFind([{ _id: 'payment-1' }]);
         (mockedPayment.countDocuments as any) = jest.fn().mockResolvedValue(1);
-        (mockedPayment.create as any) = jest
-            .fn()
-            .mockResolvedValue({
-                _id: 'mock-transaction-id',
-                status: PaymentStatus.SUCCEEDED,
-            });
+        (mockedPayment.create as any) = jest.fn().mockResolvedValue({
+            _id: 'mock-transaction-id',
+            status: PaymentStatus.SUCCEEDED,
+        });
         (mockedPayment as any).mockImplementation((data: any) => ({
             ...data,
             save: jest.fn().mockResolvedValue(true),

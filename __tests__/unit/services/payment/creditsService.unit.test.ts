@@ -8,6 +8,8 @@ import notificationService from '~/services/notifications/notificationService.js
 import {
     FEATURE_PRICING_MAP,
     FEATURE_DESCRIPTION_MAP,
+    FeaturePricingType,
+    SPEECH_ASSESSMENT_CREDITS_PER_MINUTE,
 } from '~/enum/featurePricing.js';
 
 jest.mock('~/models/userModel.js');
@@ -464,6 +466,111 @@ describe('CreditsService', () => {
                 currentCredits: 0,
                 featureType: 'FEAT',
             });
+        });
+    });
+
+    describe('computeSpeechAssessmentCredits', () => {
+        it('should return minimum 1 credit for 0 duration or falsy values', () => {
+            expect(creditsService.computeSpeechAssessmentCredits(0)).toBe(
+                SPEECH_ASSESSMENT_CREDITS_PER_MINUTE
+            );
+            expect(
+                creditsService.computeSpeechAssessmentCredits(null as any)
+            ).toBe(SPEECH_ASSESSMENT_CREDITS_PER_MINUTE);
+        });
+
+        it('should round up duration to next whole minute', () => {
+            // 30s -> 1 min -> 1 credit
+            expect(creditsService.computeSpeechAssessmentCredits(30)).toBe(
+                SPEECH_ASSESSMENT_CREDITS_PER_MINUTE
+            );
+            // 60s -> 1 min -> 1 credit
+            expect(creditsService.computeSpeechAssessmentCredits(60)).toBe(
+                SPEECH_ASSESSMENT_CREDITS_PER_MINUTE
+            );
+            // 61s -> 2 min -> 2 credits
+            expect(creditsService.computeSpeechAssessmentCredits(61)).toBe(
+                2 * SPEECH_ASSESSMENT_CREDITS_PER_MINUTE
+            );
+            // 120s -> 2 min -> 2 credits
+            expect(creditsService.computeSpeechAssessmentCredits(120)).toBe(
+                2 * SPEECH_ASSESSMENT_CREDITS_PER_MINUTE
+            );
+        });
+    });
+
+    describe('deductCreditsForSpeechAssessment', () => {
+        it('should throw UNAUTHORIZED if userId is empty', async () => {
+            await expect(
+                creditsService.deductCreditsForSpeechAssessment('', 30)
+            ).rejects.toMatchObject({
+                status: ErrorMessage.UNAUTHORIZED.status,
+                message: ErrorMessage.UNAUTHORIZED.message,
+            });
+        });
+
+        it('should successfully deduct credits for speech assessment and format description', async () => {
+            const deductSpy = jest
+                .spyOn(creditsService, 'deductCredits')
+                .mockResolvedValueOnce({
+                    success: true,
+                    creditsDeducted: 3 * SPEECH_ASSESSMENT_CREDITS_PER_MINUTE,
+                    remainingCredits: 97,
+                    transactionId: 'txn-id',
+                });
+
+            const res = await creditsService.deductCreditsForSpeechAssessment(
+                'user-id',
+                125 // 3 mins
+            );
+
+            expect(res).toEqual({
+                success: true,
+                creditsDeducted: 3 * SPEECH_ASSESSMENT_CREDITS_PER_MINUTE,
+                remainingCredits: 97,
+                transactionId: 'txn-id',
+            });
+
+            expect(deductSpy).toHaveBeenCalledWith(
+                'user-id',
+                3 * SPEECH_ASSESSMENT_CREDITS_PER_MINUTE,
+                expect.stringContaining('(3 min)'),
+                FeaturePricingType.SPEECH_ASSESSMENT
+            );
+
+            deductSpy.mockRestore();
+        });
+
+        it('should handle undefined duration seconds by falling back to 0', async () => {
+            const deductSpy = jest
+                .spyOn(creditsService, 'deductCredits')
+                .mockResolvedValueOnce({
+                    success: true,
+                    creditsDeducted: SPEECH_ASSESSMENT_CREDITS_PER_MINUTE,
+                    remainingCredits: 99,
+                    transactionId: 'txn-id',
+                });
+
+            const res = await creditsService.deductCreditsForSpeechAssessment(
+                'user-id',
+                undefined as any
+            );
+
+            expect(res).toEqual({
+                success: true,
+                creditsDeducted: SPEECH_ASSESSMENT_CREDITS_PER_MINUTE,
+                remainingCredits: 99,
+                transactionId: 'txn-id',
+            });
+
+            expect(deductSpy).toHaveBeenCalledWith(
+                'user-id',
+                SPEECH_ASSESSMENT_CREDITS_PER_MINUTE,
+                expect.stringContaining('(1 min)'),
+                FeaturePricingType.SPEECH_ASSESSMENT
+            );
+
+            deductSpy.mockRestore();
         });
     });
 });

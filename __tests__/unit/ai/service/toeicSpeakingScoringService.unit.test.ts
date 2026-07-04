@@ -35,6 +35,7 @@ describe('ToeicSpeakingScoringService (AIScoringService)', () => {
     let consoleErrorSpy: jest.SpyInstance;
     let getTemplateSpy: jest.SpyInstance;
     let formatSpy: jest.Mock;
+    let setTimeoutSpy: jest.SpyInstance;
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -42,6 +43,13 @@ describe('ToeicSpeakingScoringService (AIScoringService)', () => {
         consoleErrorSpy = jest
             .spyOn(console, 'error')
             .mockImplementation(() => {});
+
+        setTimeoutSpy = jest
+            .spyOn(global, 'setTimeout')
+            .mockImplementation((cb: any) => {
+                cb();
+                return {} as any;
+            });
 
         mockInvoke = jest.fn();
         const mockModel = {
@@ -73,6 +81,7 @@ describe('ToeicSpeakingScoringService (AIScoringService)', () => {
     afterEach(() => {
         if (consoleErrorSpy) consoleErrorSpy.mockRestore();
         if (getTemplateSpy) getTemplateSpy.mockRestore();
+        if (setTimeoutSpy) setTimeoutSpy.mockRestore();
     });
 
     const mockContext: any = {
@@ -236,16 +245,24 @@ describe('ToeicSpeakingScoringService (AIScoringService)', () => {
             (
                 RecordingService.getRecordingSummary as jest.Mock
             ).mockResolvedValueOnce(mockSummary);
-            mockInvoke.mockRejectedValueOnce(new Error('crash'));
+            mockInvoke.mockRejectedValue(new Error('crash'));
 
             await expect(
                 aiScoringService.scoreRecording('rec1', mockContext)
             ).rejects.toThrow(
-                'AI model failed to process the request or return valid JSON.'
+                'AI model failed to process the request or return valid JSON after multiple attempts.'
             );
 
             expect(consoleErrorSpy).toHaveBeenCalledWith(
-                '[AIScoringService] Chain invocation failed.',
+                '[AIScoringService] Attempt 1 failed. Error:',
+                expect.any(Error)
+            );
+            expect(consoleErrorSpy).toHaveBeenCalledWith(
+                '[AIScoringService] Attempt 2 failed. Error:',
+                expect.any(Error)
+            );
+            expect(consoleErrorSpy).toHaveBeenCalledWith(
+                '[AIScoringService] Attempt 3 failed. Error:',
                 expect.any(Error)
             );
         });
