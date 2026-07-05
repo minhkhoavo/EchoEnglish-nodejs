@@ -800,7 +800,8 @@ describe('TestResultService', () => {
                     testTitle: 'Test A',
                     testType: 'listening-reading',
                     partsKey: 'full',
-                    score: 80, // score * 5 = 400
+                    score: 80,
+                    totalScore: 400,
                     totalQuestions: 100,
                     duration: 120,
                     completedAt: new Date('2026-06-10T10:00:00Z'),
@@ -810,7 +811,8 @@ describe('TestResultService', () => {
                     testTitle: 'Test B',
                     testType: 'listening-reading',
                     partsKey: 'part1-part2',
-                    score: 90, // score * 5 = 450 (should count towards highestScore, but not averageScore because partsKey is not full)
+                    score: 90,
+                    totalScore: 450, // should count towards highestScore, but not averageScore because partsKey is not full
                     totalQuestions: 100,
                     duration: 120,
                     completedAt: new Date('2026-06-11T10:00:00Z'),
@@ -822,8 +824,8 @@ describe('TestResultService', () => {
             const result = await testResultService.getUserStats(userId);
 
             expect(result.listeningReadingTests).toBe(2);
-            expect(result.averageScore).toBe(400); // 80 * 5
-            expect(result.highestScore).toBe(450); // 90 * 5
+            expect(result.averageScore).toBe(400);
+            expect(result.highestScore).toBe(450);
             expect(result.recentTests).toHaveLength(2);
             // Verify recent tests sorted descending by completedAt (Test B then Test A)
             expect(result.recentTests[0].testTitle).toBe('Test B');

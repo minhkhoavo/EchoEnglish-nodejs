@@ -65,7 +65,6 @@ export class GoogleGenAIClient {
             temperature: 0.2,
             apiKey,
             maxRetries: 4,
-            json: true,
         });
     }
 

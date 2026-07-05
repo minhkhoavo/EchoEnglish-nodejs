@@ -465,18 +465,18 @@ class TestResultService {
                 fullModeResults.length > 0
                     ? Math.round(
                           fullModeResults.reduce(
-                              (sum, result) => sum + result.score * 5,
+                              (sum, result) => sum + result.totalScore,
                               0
                           ) / fullModeResults.length
                       )
                     : 0;
 
-            // Calculate highest score (score * 5 for listening-reading tests)
+            // Calculate highest score using the actual scaled TOEIC score
             const highestScore =
                 listeningReadingTests.length > 0
                     ? Math.max(
                           ...listeningReadingTests.map(
-                              (result) => result.score * 5
+                              (result) => result.totalScore
                           )
                       )
                     : 0;
