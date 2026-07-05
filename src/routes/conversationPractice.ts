@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import ConversationPracticeController from '~/controllers/conversationPracticeController.js';
+import { oneRequestPerSecond } from '~/middleware/rateLimiter.js';
 
 const router = Router();
+
+router.use(oneRequestPerSecond);
 
 /**
  * GET /conversation-practice/topics

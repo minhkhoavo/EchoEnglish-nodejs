@@ -1,8 +1,11 @@
 import { Router } from 'express';
 import ChatbotAgentController from '~/controllers/chatbotController.js';
 import { uploadSingleImage } from '~/config/multerConfig.js';
+import { oneRequestPerSecond } from '~/middleware/rateLimiter.js';
 
 const router = Router();
+
+router.use(oneRequestPerSecond);
 
 router.post(
     '/run',

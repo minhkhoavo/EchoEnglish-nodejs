@@ -118,6 +118,9 @@ export class CompetencyProfileController {
                             updatedUser?.competencyProfile?.scorePrediction,
                         skillsMap:
                             updatedUser?.competencyProfile?.skillsMap || [],
+                        domainProficiency:
+                            updatedUser?.competencyProfile?.domainProficiency ||
+                            [],
                         lastUpdated:
                             updatedUser?.competencyProfile?.lastUpdated,
                     })
@@ -129,6 +132,8 @@ export class CompetencyProfileController {
                     aiInsights: user.competencyProfile?.aiInsights || [],
                     scorePrediction: user.competencyProfile?.scorePrediction,
                     skillsMap: user.competencyProfile?.skillsMap || [],
+                    domainProficiency:
+                        user.competencyProfile?.domainProficiency || [],
                     lastUpdated: user.competencyProfile?.lastUpdated,
                 })
             );

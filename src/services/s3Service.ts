@@ -103,9 +103,15 @@ class S3Service {
                 Key: key,
             });
 
-            const signedUrl = await getSignedUrl(this.s3Client, command, {
-                expiresIn,
-            });
+            /* eslint-disable @typescript-eslint/no-explicit-any */
+            const signedUrl = await getSignedUrl(
+                this.s3Client as any,
+                command as any,
+                {
+                    expiresIn,
+                }
+            );
+            /* eslint-enable @typescript-eslint/no-explicit-any */
             return signedUrl;
         } catch (error) {
             console.error('ApiError generating presigned URL:', error);
