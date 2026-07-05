@@ -57,14 +57,19 @@ jest.mock('microsoft-cognitiveservices-speech-sdk', () => {
 
 describe('Audio Utils', () => {
     let consoleLogSpy: jest.SpyInstance;
+    let consoleWarnSpy: jest.SpyInstance;
 
     beforeEach(() => {
         jest.clearAllMocks();
         consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+        consoleWarnSpy = jest
+            .spyOn(console, 'warn')
+            .mockImplementation(() => {});
     });
 
     afterEach(() => {
-        consoleLogSpy.mockRestore();
+        if (consoleLogSpy) consoleLogSpy.mockRestore();
+        if (consoleWarnSpy) consoleWarnSpy.mockRestore();
     });
 
     describe('convertMp3ToWav', () => {

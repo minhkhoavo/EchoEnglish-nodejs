@@ -39,6 +39,7 @@
         "@types/cheerio": "^0.22.35",
         "@types/cors": "^2.8.19",
         "@types/express": "^5.0.3",
+        "@types/express-rate-limit": "^6.0.2",
         "@types/fluent-ffmpeg": "^2.1.27",
         "@types/jest": "^30.0.0",
         "@types/jsdom": "^21.1.7",
