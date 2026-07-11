@@ -205,6 +205,34 @@ describe('RoadmapService', () => {
                 })
             );
         });
+
+        it('should handle user as an array gracefully', async () => {
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue([]),
+            });
+            mockedLearningPlanAIService.generateLearningRoadmap.mockResolvedValue(
+                { totalWeeks: 1 } as any
+            );
+            (mockedRoadmap.create as any).mockResolvedValue({ _id: 'r1' });
+
+            await roadmapService.generateRoadmap('user1', defaultInput);
+            expect(mockedRoadmap.create).toHaveBeenCalled();
+        });
+
+        it('should handle user preferences missing gracefully', async () => {
+            (mockedUser.findById as any) = jest.fn().mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                lean: jest.fn().mockResolvedValue({ preferences: null }),
+            });
+            mockedLearningPlanAIService.generateLearningRoadmap.mockResolvedValue(
+                { totalWeeks: 1 } as any
+            );
+            (mockedRoadmap.create as any).mockResolvedValue({ _id: 'r1' });
+
+            await roadmapService.generateRoadmap('user1', defaultInput);
+            expect(mockedRoadmap.create).toHaveBeenCalled();
+        });
     });
 
     describe('getActiveRoadmap', () => {
@@ -359,6 +387,27 @@ describe('RoadmapService', () => {
                 expect.any(Object),
                 expect.any(Object)
             );
+        });
+
+        it('should update successfully with skipped status', async () => {
+            (mockedRoadmap.findOneAndUpdate as any).mockResolvedValue({
+                _id: 'r1',
+            });
+            await roadmapService.updateDailyFocusStatus('r1', 1, 2, 'skipped');
+            expect(mockedRoadmap.findOneAndUpdate).toHaveBeenCalled();
+        });
+
+        it('should update successfully with in-progress status (non-terminal)', async () => {
+            (mockedRoadmap.findOneAndUpdate as any).mockResolvedValue({
+                _id: 'r1',
+            });
+            await roadmapService.updateDailyFocusStatus(
+                'r1',
+                1,
+                2,
+                'in-progress'
+            );
+            expect(mockedRoadmap.findOneAndUpdate).toHaveBeenCalled();
         });
 
         it('should throw ApiError if roadmap not found', async () => {

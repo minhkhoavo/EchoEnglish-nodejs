@@ -252,7 +252,7 @@ class TestResultService {
             const part = testData.parts[partIdx];
 
             //(Part 1,2,5)
-            if (part.questions) {
+            if (part.questions && part.questions.length > 0) {
                 // inner loop over part.questions
                 for (let qIdx = 0; qIdx < part.questions.length; qIdx++) {
                     const question = part.questions[qIdx];
@@ -270,7 +270,7 @@ class TestResultService {
                     questionNumber++;
                 }
                 // (Part 3,4,6,7)
-            } else if (part.questionGroups) {
+            } else if (part.questionGroups && part.questionGroups.length > 0) {
                 // loop over groups
                 for (let gIdx = 0; gIdx < part.questionGroups.length; gIdx++) {
                     const group = part.questionGroups[gIdx];

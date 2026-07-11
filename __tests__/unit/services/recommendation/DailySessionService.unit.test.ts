@@ -84,6 +84,9 @@ jest.mock('~/services/testService.js', () => ({
 import { studyMemoService } from '~/services/recommendation/StudyMemoService.js';
 import { materialContentAIService } from '~/ai/service/materialContentAIService.js';
 import { filterDuplicateVocabulary } from '~/utils/vocabularyDedup.js';
+import { acquireLock, releaseLock } from '~/utils/requestLock.js';
+import { ApiError } from '~/middleware/apiError.js';
+import { ErrorMessage } from '~/enum/errorMessage.js';
 
 const mockedStudyMemoService = studyMemoService as jest.Mocked<
     typeof studyMemoService
@@ -1288,6 +1291,23 @@ describe('DailySessionService', () => {
 
             await dailySessionService.getTodaySession('userId');
             expect(mockedStudyPlan.create).toHaveBeenCalled();
+        });
+
+        it('should throw ApiError if lock cannot be acquired', async () => {
+            const userId = 'userId-lock-fail';
+            const lockKey = `daily-session:${userId}`;
+            acquireLock(lockKey);
+            try {
+                await expect(
+                    dailySessionService.getTodaySession(userId)
+                ).rejects.toThrow(
+                    new ApiError(
+                        ErrorMessage.DAILY_SESSION_GENERATION_IN_PROGRESS
+                    )
+                );
+            } finally {
+                releaseLock(lockKey);
+            }
         });
     });
 

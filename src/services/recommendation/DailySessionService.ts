@@ -14,6 +14,9 @@ import {
     filterDuplicateVocabulary,
 } from '../../utils/vocabularyDedup.js';
 import testService from '../../services/testService.js';
+import { ApiError } from '../../middleware/apiError.js';
+import { ErrorMessage } from '../../enum/errorMessage.js';
+import { acquireLock, releaseLock } from '../../utils/requestLock.js';
 
 interface WeeklyFocus {
     weekNumber: number;
@@ -66,6 +69,22 @@ interface DailyFocus {
 
 export class DailySessionService {
     async getTodaySession(userId: Schema.Types.ObjectId | string) {
+        const lockKey = `daily-session:${userId}`;
+        if (!acquireLock(lockKey)) {
+            throw new ApiError(
+                ErrorMessage.DAILY_SESSION_GENERATION_IN_PROGRESS
+            );
+        }
+        try {
+            return await this.getTodaySessionInternal(userId);
+        } finally {
+            releaseLock(lockKey);
+        }
+    }
+
+    private async getTodaySessionInternal(
+        userId: Schema.Types.ObjectId | string
+    ) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         // today.setDate(today.getDate() + 15);
@@ -209,7 +228,6 @@ export class DailySessionService {
                 `Updated daily focus status to in-progress for dayOfWeek ${targetDailyFocus.dayOfWeek}, week ${targetWeekNumber}`
             );
         }
-        // Get user competency profile for context
         const { planItems, sessionTitle, sessionDescription } =
             await this.buildSessionPlan({
                 userId,

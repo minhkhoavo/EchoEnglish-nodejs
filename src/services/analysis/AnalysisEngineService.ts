@@ -66,7 +66,10 @@ export class AnalysisEngineService {
                     .replace(/\s+/g, '')
                     .toLowerCase();
 
-                if (Array.isArray(part.questions)) {
+                if (
+                    Array.isArray(part.questions) &&
+                    part.questions.length > 0
+                ) {
                     for (const q of part.questions) {
                         if (answeredQuestionNumbers.has(q.questionNumber)) {
                             metadata.push({
@@ -84,7 +87,10 @@ export class AnalysisEngineService {
                             });
                         }
                     }
-                } else if (Array.isArray(part.questionGroups)) {
+                } else if (
+                    Array.isArray(part.questionGroups) &&
+                    part.questionGroups.length > 0
+                ) {
                     for (const group of part.questionGroups) {
                         if (Array.isArray(group.questions)) {
                             for (const q of group.questions) {

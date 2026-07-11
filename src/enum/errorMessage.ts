@@ -191,9 +191,19 @@ export const ErrorMessage = {
 
     /* Roadmap */
     ROADMAP_NOT_FOUND: { message: 'Roadmap not found', status: 404 },
+    ROADMAP_GENERATION_IN_PROGRESS: {
+        message:
+            'A roadmap generation is already in progress for this user. Please wait for it to finish.',
+        status: 409,
+    },
 
     /* Learning Plan / Session */
     SESSION_NOT_FOUND: { message: 'Session not found', status: 404 },
+    DAILY_SESSION_GENERATION_IN_PROGRESS: {
+        message:
+            'A daily session generation is already in progress for this user. Please wait for it to finish.',
+        status: 409,
+    },
     PLAN_ITEM_NOT_FOUND: { message: 'Plan item not found', status: 404 },
     RESOURCE_IN_ITEM_NOT_FOUND: {
         message: 'Resource not found in plan item',
