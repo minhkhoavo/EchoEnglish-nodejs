@@ -210,26 +210,6 @@ export class DailySessionService {
             );
         }
         // Get user competency profile for context
-        const user = (await User.findById(userId)
-            .select('competencyProfile preferences')
-            .lean()) as {
-            competencyProfile?: {
-                currentCEFRLevel?: string;
-                skillMatrix?: Array<{
-                    skill: string;
-                    currentAccuracy: number;
-                    proficiency: string;
-                }>;
-                aiInsights?: Array<{
-                    title: string;
-                    description: string;
-                }>;
-            };
-            preferences?: {
-                preferredStudyTime?: string;
-                contentInterests?: string[];
-            };
-        } | null;
         const { planItems, sessionTitle, sessionDescription } =
             await this.buildSessionPlan({
                 userId,
@@ -326,7 +306,6 @@ export class DailySessionService {
             userId,
             singleRoadmap,
             roadmapStatus,
-            targetWeekNumber,
             targetDailyFocus,
             weekFocus,
             today,

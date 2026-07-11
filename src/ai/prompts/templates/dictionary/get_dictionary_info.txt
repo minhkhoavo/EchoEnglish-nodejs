@@ -1,0 +1,15 @@
+Act as an English-{{destinationLanguage}} dictionary. Provide a JSON response for the English word "{{word}}". 
+The JSON must have this exact structure:
+{
+    "destinationText": "{{destinationLanguage}} meaning of the word (Provide ONLY the primary, most common meaning. Keep it very concise. DO NOT list multiple synonyms. DO NOT wrap the text in quotes)",
+    "phonetic": "IPA phonetic transcription (e.g., /həˈloʊ/)",
+    "definitions": [
+        {
+            "partOfSpeech": "noun/verb/adjective etc.",
+            "definition": "English definition",
+            "example": "An English example sentence",
+            "synonyms": ["synonym1", "synonym2"]
+        }
+    ]
+}
+Return ONLY the raw JSON string. Do not use markdown blocks like ```json.

@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-
 // Mock dotenv.config() globally so it doesn't log during unit tests
 jest.mock('dotenv', () => {
     const actual = jest.requireActual('dotenv');

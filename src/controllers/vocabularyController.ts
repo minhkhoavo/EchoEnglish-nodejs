@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import ApiResponse from '../dto/response/apiResponse.js';
 import vocabularyService from '../services/vocabularyService.js';
 import FlashCardService from '../services/flashcardService.js';
-import dictionaryService from '../services/dictionaryService.js';
+
 import { SuccessMessage } from '../enum/successMessage.js';
 import { ApiError } from '../middleware/apiError.js';
 
@@ -274,28 +274,6 @@ class VocabularyController {
                     flashcards,
                 }
             )
-        );
-    };
-
-    /**
-     * Get phonetics for a word (auto-fill helper)
-     * GET /vocabulary/phonetics/:word
-     */
-    public getPhonetics = async (req: Request, res: Response) => {
-        const { word } = req.params;
-
-        if (!word || word.trim().length === 0) {
-            throw new ApiError({ message: 'Word parameter is required' });
-        }
-
-        const phonetics = await dictionaryService.getPhonetics(word);
-
-        return res.status(200).json(
-            new ApiResponse('Phonetics retrieved successfully', {
-                word,
-                phonetics,
-                formatted: dictionaryService.getFirstPhonetic(phonetics),
-            })
         );
     };
 }

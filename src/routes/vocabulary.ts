@@ -15,9 +15,6 @@ router.get('/search', VocabularyController.searchWords);
 // Get a specific word by card_id
 router.get('/words/:cardId', VocabularyController.getWordById);
 
-// Get phonetics for auto-fill
-router.get('/phonetics/:word', VocabularyController.getPhonetics);
-
 // Import vocabulary word to personal flashcards
 router.post('/import', VocabularyController.importToFlashcard);
 

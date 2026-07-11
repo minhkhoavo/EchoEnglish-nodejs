@@ -3,42 +3,33 @@ import ApiResponse from '~/dto/response/apiResponse.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { SuccessMessage } from '~/enum/successMessage.js';
 import { ApiError } from '~/middleware/apiError.js';
-import { translateService } from '~/ai/service/translateService.js';
+import dictionaryService from '~/services/dictionaryService.js';
 
 class TranslateController {
     public translate = async (req: Request, res: Response) => {
         const { sourceText, destinationLanguage = 'vi' } = req.body;
         try {
-            const url = `https://ftapi.pythonanywhere.com/translate?dl=${encodeURIComponent(destinationLanguage)}&text=${encodeURIComponent(sourceText)}`;
-            const response = await fetch(url);
-            const result = await response.json();
-
-            return res.status(200).json(
-                new ApiResponse(SuccessMessage.TRANSLATE_SUCCESS, {
-                    destinationText: result['destination-text'],
-                })
-            );
-        } catch {
-            console.error('Free API translation failed, falling back to AI');
-
-            const translation = await translateService.translateWithAI(
+            const translation = await dictionaryService.translateTextWithAI(
                 sourceText,
-                destinationLanguage
+                destinationLanguage as 'vi' | 'en'
             );
             return res.status(200).json(
                 new ApiResponse(SuccessMessage.TRANSLATE_SUCCESS, {
                     destinationText: translation,
-                    fallback: true,
                 })
             );
+        } catch (error) {
+            console.error('AI translation failed', error);
+            throw new ApiError({ message: 'AI translation service failed' });
         }
     };
 
-    public dictionaryWithFreeTranslateAPI = async (
-        req: Request,
-        res: Response
-    ) => {
-        const { word, destinationLanguage = 'vi' } = req.body;
+    public getDictionaryInfo = async (req: Request, res: Response) => {
+        const word = req.body?.word || req.params?.word || req.query?.word;
+        const destinationLanguage =
+            req.body?.destinationLanguage ||
+            req.query?.destinationLanguage ||
+            'vi';
 
         // Kiểm tra chỉ nhập 1 từ
         if (
@@ -49,31 +40,18 @@ class TranslateController {
             throw new ApiError(ErrorMessage.INPUT_MUST_BE_SINGLE_WORD);
         }
 
-        const url = `https://ftapi.pythonanywhere.com/translate?dl=${encodeURIComponent(destinationLanguage)}&text=${encodeURIComponent(word)}`;
-        const response = await fetch(url);
-        const result = await response.json();
+        const result = await dictionaryService.getDictionaryInfoWithAI(
+            word,
+            destinationLanguage as string
+        );
 
-        // Trả về các trường cần thiết
         return res.status(200).json(
             new ApiResponse(SuccessMessage.TRANSLATE_SUCCESS, {
-                sourceText: result['source-text'],
-                destinationText: result['destination-text'],
-                pronunciation: {
-                    sourcePhonetic:
-                        result['pronunciation']?.['source-text-phonetic'],
-                    sourceAudio: result['pronunciation']?.['source-text-audio'],
-                    destinationAudio:
-                        result['pronunciation']?.['destination-text-audio'],
-                },
-
-                definitions: Array.isArray(result['definitions'])
-                    ? result['definitions'].map((def) => ({
-                          partOfSpeech: def['part-of-speech'],
-                          definition: def['definition'],
-                          example: def['example'],
-                          synonyms: def['synonyms']?.[''] || [],
-                      }))
-                    : [],
+                // Unified fields for Dictionary Lookup
+                sourceText: result.sourceText,
+                destinationText: result.destinationText,
+                pronunciation: result.pronunciation,
+                definitions: result.definitions,
             })
         );
     };

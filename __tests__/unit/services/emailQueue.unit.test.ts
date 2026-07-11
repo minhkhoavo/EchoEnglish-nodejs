@@ -161,7 +161,7 @@ describe('EmailQueue', () => {
 
             const originalSetTimeout = global.setTimeout;
             (global as any).setTimeout = jest.fn((cb, ms) => {
-                const timerId = originalSetTimeout(cb, ms);
+                originalSetTimeout(cb, ms);
                 // Return a fake ID without unref
                 return 12345;
             });
