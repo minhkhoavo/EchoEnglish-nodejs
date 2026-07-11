@@ -15,6 +15,7 @@ jest.mock('~/models/roadmapModel.js', () => ({
         find: jest.fn(),
         create: jest.fn(),
         findOneAndUpdate: jest.fn(),
+        deleteOne: jest.fn(),
     },
 }));
 jest.mock('~/models/testResultModel.js', () => ({
@@ -414,6 +415,30 @@ describe('RoadmapService', () => {
             (mockedRoadmap.findOneAndUpdate as any).mockResolvedValue(null);
             await expect(
                 roadmapService.updateDailyFocusStatus('r1', 1, 2, 'completed')
+            ).rejects.toThrow(ApiError);
+        });
+    });
+
+    describe('deleteRoadmap', () => {
+        it('should delete roadmap successfully', async () => {
+            (mockedRoadmap.deleteOne as any).mockResolvedValue({
+                deletedCount: 1,
+            });
+            await expect(
+                roadmapService.deleteRoadmap('user1', 'roadmap1')
+            ).resolves.not.toThrow();
+            expect(mockedRoadmap.deleteOne).toHaveBeenCalledWith({
+                roadmapId: 'roadmap1',
+                userId: 'user1',
+            });
+        });
+
+        it('should throw ApiError if roadmap not found to delete', async () => {
+            (mockedRoadmap.deleteOne as any).mockResolvedValue({
+                deletedCount: 0,
+            });
+            await expect(
+                roadmapService.deleteRoadmap('user1', 'roadmap1')
             ).rejects.toThrow(ApiError);
         });
     });

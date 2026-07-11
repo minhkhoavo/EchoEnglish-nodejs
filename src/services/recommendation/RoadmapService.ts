@@ -127,6 +127,16 @@ export class RoadmapService {
         return roadmap;
     }
 
+    async deleteRoadmap(
+        userId: Schema.Types.ObjectId | string,
+        roadmapId: string
+    ): Promise<void> {
+        const result = await Roadmap.deleteOne({ roadmapId, userId });
+        if (result.deletedCount === 0) {
+            throw new ApiError(ErrorMessage.ROADMAP_NOT_FOUND);
+        }
+    }
+
     async updateRoadmapScheduleFromUserPreferences(
         userId: Types.ObjectId
     ): Promise<void> {

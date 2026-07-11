@@ -26,6 +26,19 @@ export class LearningPlanController {
         return res.status(200).json(new ApiResponse('Success', roadmap));
     }
 
+    async deleteRoadmap(req: Request, res: Response) {
+        const userId = req.user?.id as string;
+        const { roadmapId } = req.params;
+
+        await roadmapService.deleteRoadmap(userId, roadmapId);
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(SuccessMessage.DELETE_SUCCESS, { roadmapId })
+            );
+    }
+
     async generateRoadmap(req: Request, res: Response) {
         const userId = req.user?.id;
         if (!userId) {

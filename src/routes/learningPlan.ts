@@ -17,6 +17,12 @@ learningPlanRouter.get(
     learningPlanController.getActiveRoadmap.bind(learningPlanController)
 );
 
+// Delete a roadmap
+learningPlanRouter.delete(
+    '/roadmap/:roadmapId',
+    learningPlanController.deleteRoadmap.bind(learningPlanController)
+);
+
 // Generate new roadmap
 learningPlanRouter.post(
     '/generate',

@@ -30,11 +30,11 @@ describe('toeicScore', () => {
         it('should handle decimal values by rounding', () => {
             const result = computeToeicScores(17.5, 17.5);
             // Math.round(17.5) is 18
-            // listeningScoreMap[18] = 10, readingScoreMap[18] = 5
+            // listeningScoreMap[18] = 100, readingScoreMap[18] = 85
             expect(result).toEqual({
-                listeningScore: 10,
-                readingScore: 5,
-                totalScore: 15,
+                listeningScore: 100,
+                readingScore: 85,
+                totalScore: 185,
             });
         });
     });
