@@ -1,0 +1,3 @@
+Dịch đoạn text sau sang tiếng Việt một cách chính xác, tự nhiên và dễ hiểu. Chỉ trả về kết quả dịch, không thêm bất kỳ giải thích nào khác. TUYỆT ĐỐI KHÔNG BAO BỌC KẾT QUẢ DỊCH BẰNG DẤU NGOẶC KÉP ("").
+Text cần dịch: "{{sourceText}}"
+Bản dịch tiếng Việt:

@@ -1,11 +1,20 @@
 import dictionaryService from '~/services/dictionaryService.js';
-import axios from 'axios';
+import { googleGenAIClient } from '~/ai/provider/googleGenAIClient.js';
+import { ApiError } from '~/middleware/apiError.js';
+import fs from 'fs';
 
 // ──────────────────────────────────────────────
 // Module-level mocks
 // ──────────────────────────────────────────────
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+jest.mock('~/ai/provider/googleGenAIClient.js', () => ({
+    googleGenAIClient: {
+        getModel: jest.fn().mockReturnValue({
+            invoke: jest.fn(),
+        }),
+    },
+}));
+
+jest.mock('fs');
 
 // ──────────────────────────────────────────────
 // Tests
@@ -13,212 +22,300 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 describe('DictionaryService', () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        // Mock prompt template reading based on file path
+        (fs.readFileSync as jest.Mock).mockImplementation((pathStr: string) => {
+            if (pathStr.includes('translate_to_')) {
+                return 'Translate "{{sourceText}}"';
+            }
+            return 'Act as dictionary for "{{word}}" in "{{destinationLanguage}}"';
+        });
     });
 
     // ════════════════════════════════════════════
-    // getPhonetics()
+    // translateTextWithAI()
     // ════════════════════════════════════════════
-    describe('getPhonetics', () => {
-        const MOCK_API_RESPONSE = {
-            'source-language': 'en',
-            'source-text': 'friend',
-            'destination-language': 'vi',
-            'destination-text': 'bạn',
-            pronunciation: {
-                'source-text-phonetic': 'frend',
-                'source-text-audio': 'https://example.com/audio/friend.mp3',
-                'destination-text-audio': 'https://example.com/audio/ban.mp3',
-            },
-        };
-
-        it('should trim and lowercase the search word', async () => {
-            mockedAxios.get.mockResolvedValue({ data: MOCK_API_RESPONSE });
-
-            await dictionaryService.getPhonetics('  FrIeNd  ');
-
-            expect(mockedAxios.get).toHaveBeenCalledWith(
-                'https://ftapi.pythonanywhere.com/translate',
-                expect.objectContaining({
-                    params: expect.objectContaining({
-                        text: 'friend',
-                    }),
-                })
-            );
+    describe('translateTextWithAI', () => {
+        it('should throw ApiError if sourceText is empty', async () => {
+            await expect(
+                dictionaryService.translateTextWithAI('   ', 'vi')
+            ).rejects.toThrow(ApiError);
         });
 
-        it('should perform GET request with appropriate query parameters and timeout', async () => {
-            mockedAxios.get.mockResolvedValue({ data: MOCK_API_RESPONSE });
-
-            await dictionaryService.getPhonetics('hello');
-
-            expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-            expect(mockedAxios.get).toHaveBeenCalledWith(
-                'https://ftapi.pythonanywhere.com/translate',
-                {
-                    params: {
-                        sl: 'en',
-                        dl: 'en',
-                        text: 'hello',
-                    },
-                    timeout: 5000,
-                }
-            );
+        it('should throw ApiError if destinationLanguage is invalid', async () => {
+            await expect(
+                dictionaryService.translateTextWithAI('hello', 'fr' as 'vi')
+            ).rejects.toThrow(ApiError);
         });
 
-        it('should extract phonetic text and audio URL from API response', async () => {
-            mockedAxios.get.mockResolvedValue({ data: MOCK_API_RESPONSE });
-
-            const result = await dictionaryService.getPhonetics('friend');
-
-            expect(result).toEqual([
-                {
-                    text: 'frend',
-                    audio: 'https://example.com/audio/friend.mp3',
-                },
-            ]);
-        });
-
-        it('should return an empty array if API returns null/undefined data', async () => {
-            mockedAxios.get.mockResolvedValue({ data: null });
-
-            const result = await dictionaryService.getPhonetics('friend');
-
-            expect(result).toEqual([]);
-        });
-
-        it('should return an empty array if pronunciation data is missing in API response', async () => {
-            mockedAxios.get.mockResolvedValue({
-                data: {
-                    'source-text': 'friend',
-                    pronunciation: {},
-                },
+        it('should return translation from AI for valid input', async () => {
+            const mockModelInvoke = jest.fn().mockResolvedValue('xin chào');
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
             });
 
-            const result = await dictionaryService.getPhonetics('friend');
+            const result = await dictionaryService.translateTextWithAI(
+                'hello',
+                'vi'
+            );
 
-            expect(result).toEqual([]);
+            expect(result).toBe('xin chào');
+            expect(mockModelInvoke).toHaveBeenCalledWith(
+                expect.stringContaining('hello')
+            );
         });
 
-        it('should return an empty array and suppress logs if API returns a 404 response', async () => {
+        it('should strip quotes from translation if present', async () => {
+            const mockModelInvoke = jest.fn().mockResolvedValue('"xin chào"');
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
+
+            const result = await dictionaryService.translateTextWithAI(
+                'hello',
+                'vi'
+            );
+
+            expect(result).toBe('xin chào');
+        });
+
+        it('should return translation from AI when result is an object with content property', async () => {
+            const mockModelInvoke = jest
+                .fn()
+                .mockResolvedValue({ content: 'xin chào object' });
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
+
+            const result = await dictionaryService.translateTextWithAI(
+                'hello',
+                'vi'
+            );
+
+            expect(result).toBe('xin chào object');
+        });
+
+        it('should throw an error if AI returns an object without content', async () => {
             const consoleErrorSpy = jest
                 .spyOn(console, 'error')
                 .mockImplementation();
-            const error404 = {
-                response: { status: 404 },
-                message: 'Request failed with status code 404',
-            };
-            mockedAxios.get.mockRejectedValue(error404);
+            const mockModelInvoke = jest.fn().mockResolvedValue({});
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
+
+            await expect(
+                dictionaryService.translateTextWithAI('hello', 'vi')
+            ).rejects.toThrow(
+                'AI translation service failed. Please try again.'
+            );
+
+            consoleErrorSpy.mockRestore();
+        });
+
+        it('should throw an error if AI returns empty translation', async () => {
+            const consoleErrorSpy = jest
+                .spyOn(console, 'error')
+                .mockImplementation();
+            const mockModelInvoke = jest.fn().mockResolvedValue('   ');
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
+
+            await expect(
+                dictionaryService.translateTextWithAI('hello', 'en')
+            ).rejects.toThrow(
+                'AI translation service failed. Please try again.'
+            );
+
+            consoleErrorSpy.mockRestore();
+        });
+    });
+
+    // ════════════════════════════════════════════
+    // getDictionaryInfoWithAI()
+    // ════════════════════════════════════════════
+    describe('getDictionaryInfoWithAI', () => {
+        it('should return default result if word is empty', async () => {
+            const result =
+                await dictionaryService.getDictionaryInfoWithAI('   ');
+            expect(result.sourceText).toBe('');
+            expect(result.destinationText).toBe('');
+            expect(result.definitions).toEqual([]);
+            expect(result.pronunciation.sourcePhonetic).toBeNull();
+        });
+
+        it('should fetch dictionary info using AI and parse JSON correctly', async () => {
+            const mockJson = JSON.stringify({
+                destinationText: 'xin chào',
+                phonetic: 'həˈloʊ',
+                definitions: [{ definition: 'greeting' }],
+            });
+            const mockModelInvoke = jest
+                .fn()
+                .mockResolvedValue(`\`\`\`json\n${mockJson}\n\`\`\``);
+
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
+
+            const result = await dictionaryService.getDictionaryInfoWithAI(
+                '  Hello  ',
+                'vi'
+            );
+
+            expect(result.sourceText).toBe('hello');
+            expect(result.destinationText).toBe('xin chào');
+            expect(result.pronunciation.sourcePhonetic).toBe('/həˈloʊ/');
+            expect(result.definitions).toEqual([{ definition: 'greeting' }]);
+
+            // Check if prompt was replaced
+            expect(mockModelInvoke).toHaveBeenCalledWith(
+                expect.stringContaining('hello')
+            );
+        });
+
+        it('should handle AI returning string with slashes already in phonetic', async () => {
+            const mockJson = JSON.stringify({
+                destinationText: 'bạn',
+                phonetic: '/frend/',
+                definitions: [],
+            });
+            const mockModelInvoke = jest.fn().mockResolvedValue(mockJson);
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
 
             const result =
-                await dictionaryService.getPhonetics('nonexistentword');
+                await dictionaryService.getDictionaryInfoWithAI('friend');
 
-            expect(result).toEqual([]);
-            expect(consoleErrorSpy).not.toHaveBeenCalled();
-
-            consoleErrorSpy.mockRestore();
+            expect(result.pronunciation.sourcePhonetic).toBe('/frend/');
         });
 
-        it('should log the API error message and return an empty array for other axios errors', async () => {
+        it('should strip quotes from finalDestinationText if present', async () => {
+            const mockJson = JSON.stringify({
+                destinationText: '"xin chào"',
+                phonetic: 'həˈloʊ',
+                definitions: [],
+            });
+            const mockModelInvoke = jest.fn().mockResolvedValue(mockJson);
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
+
+            const result =
+                await dictionaryService.getDictionaryInfoWithAI('hello');
+
+            expect(result.destinationText).toBe('xin chào');
+        });
+
+        it('should handle AI returning an object with content property', async () => {
+            const mockJson = JSON.stringify({
+                destinationText: 'xin chào object',
+                phonetic: 'həˈloʊ',
+                definitions: [],
+            });
+            const mockModelInvoke = jest
+                .fn()
+                .mockResolvedValue({ content: mockJson });
+
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
+
+            const result = await dictionaryService.getDictionaryInfoWithAI(
+                'hello',
+                'vi'
+            );
+
+            expect(result.destinationText).toBe('xin chào object');
+        });
+
+        it('should handle AI returning an object without content property', async () => {
             const consoleErrorSpy = jest
                 .spyOn(console, 'error')
                 .mockImplementation();
-            const error500 = {
-                response: { status: 500 },
-                message: 'Internal Server Error',
-            };
-            mockedAxios.get.mockRejectedValue(error500);
+            const mockModelInvoke = jest.fn().mockResolvedValue({}); // result.content is undefined -> fallback to '' -> JSON parse throws
 
-            const result = await dictionaryService.getPhonetics('hello');
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
 
-            expect(result).toEqual([]);
-            expect(consoleErrorSpy).toHaveBeenCalledWith(
-                'Dictionary API error for "hello":',
-                'Internal Server Error'
+            const result = await dictionaryService.getDictionaryInfoWithAI(
+                'hello',
+                'vi'
             );
 
+            expect(result.destinationText).toBe('');
             consoleErrorSpy.mockRestore();
         });
 
-        it('should fall back to "Unknown error" when logging axios error without a message property', async () => {
+        it('should handle JSON response with missing optional fields', async () => {
+            const mockJson = JSON.stringify({}); // empty object
+            const mockModelInvoke = jest.fn().mockResolvedValue(mockJson);
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
+
+            const result =
+                await dictionaryService.getDictionaryInfoWithAI('friend');
+
+            expect(result.destinationText).toBe('');
+            expect(result.pronunciation.sourcePhonetic).toBeNull();
+            expect(result.definitions).toEqual([]);
+        });
+
+        it('should return default format and log error if AI invocation fails', async () => {
             const consoleErrorSpy = jest
                 .spyOn(console, 'error')
                 .mockImplementation();
-            const errorNoMsg = {
-                response: { status: 500 },
-            };
-            mockedAxios.get.mockRejectedValue(errorNoMsg);
 
-            const result = await dictionaryService.getPhonetics('hello');
+            const mockModelInvoke = jest
+                .fn()
+                .mockRejectedValue(new Error('AI down'));
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
 
-            expect(result).toEqual([]);
+            const result =
+                await dictionaryService.getDictionaryInfoWithAI('hello');
+
+            expect(result.sourceText).toBe('hello');
+            expect(result.destinationText).toBe('');
+            expect(result.pronunciation.sourcePhonetic).toBeNull();
+            expect(result.definitions).toEqual([]);
+
             expect(consoleErrorSpy).toHaveBeenCalledWith(
-                'Dictionary API error for "hello":',
-                'Unknown error'
+                'AI failed to generate dictionary info for "hello":',
+                expect.any(Error)
             );
 
             consoleErrorSpy.mockRestore();
         });
 
-        it('should log a generic error message and return an empty array for non-axios exceptions', async () => {
+        it('should handle JSON parsing error and return default format', async () => {
             const consoleErrorSpy = jest
                 .spyOn(console, 'error')
                 .mockImplementation();
-            const errorObj = new Error('Network Failure');
-            mockedAxios.get.mockRejectedValue(errorObj);
 
-            const result = await dictionaryService.getPhonetics('hello');
+            const mockModelInvoke = jest
+                .fn()
+                .mockResolvedValue('invalid json response');
+            (googleGenAIClient.getModel as jest.Mock).mockReturnValue({
+                invoke: mockModelInvoke,
+            });
 
-            expect(result).toEqual([]);
+            const result =
+                await dictionaryService.getDictionaryInfoWithAI('hello');
+
+            expect(result.sourceText).toBe('hello');
+            expect(result.destinationText).toBe('');
+
             expect(consoleErrorSpy).toHaveBeenCalledWith(
-                'Error fetching phonetics for "hello":',
-                errorObj
+                'AI failed to generate dictionary info for "hello":',
+                expect.any(Error)
             );
 
             consoleErrorSpy.mockRestore();
-        });
-    });
-
-    // ════════════════════════════════════════════
-    // formatPhonetic()
-    // ════════════════════════════════════════════
-    describe('formatPhonetic', () => {
-        it('should wrap unwrapped phonetic text with forward slashes', () => {
-            expect(dictionaryService.formatPhonetic('frend')).toBe('/frend/');
-        });
-
-        it('should not wrap phonetic text that already starts with a forward slash', () => {
-            expect(dictionaryService.formatPhonetic('/frend/')).toBe('/frend/');
-            expect(dictionaryService.formatPhonetic('/frend')).toBe('/frend');
-        });
-
-        it('should not wrap phonetic text that starts with a bracket', () => {
-            expect(dictionaryService.formatPhonetic('[frend]')).toBe('[frend]');
-            expect(dictionaryService.formatPhonetic('[frend')).toBe('[frend');
-        });
-
-        it('should trim whitespace before formatting', () => {
-            expect(dictionaryService.formatPhonetic('  frend  ')).toBe(
-                '/frend/'
-            );
-        });
-    });
-
-    // ════════════════════════════════════════════
-    // getFirstPhonetic()
-    // ════════════════════════════════════════════
-    describe('getFirstPhonetic', () => {
-        it('should return empty string if the phonetics array is empty', () => {
-            expect(dictionaryService.getFirstPhonetic([])).toBe('');
-        });
-
-        it('should return formatted phonetic string of the first element in phonetics array', () => {
-            const phonetics = [
-                { text: 'frend', audio: 'audio-url' },
-                { text: 'second-phonetic', audio: 'another-url' },
-            ];
-            expect(dictionaryService.getFirstPhonetic(phonetics)).toBe(
-                '/frend/'
-            );
         });
     });
 });

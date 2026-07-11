@@ -1,0 +1,3 @@
+Translate the following text to English accurately, naturally and clearly. Only return the translation result, do not add any other explanation. Do NOT wrap the translation in quotes.
+Text to translate: "{{sourceText}}"
+English translation:
