@@ -1,0 +1,176 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Adaptive Learning Loop" id="adaptive-loop">
+    <mxGraphModel dx="2026" dy="850" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1680" pageHeight="1000" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bg" parent="1" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#F6F8FC;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="920" width="1600" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="header" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#1F3A5F;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="82" width="1520" x="80" y="72" as="geometry" />
+        </mxCell>
+        <mxCell id="hTitle" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontColor=#FFFFFF;fontSize=22;fontStyle=1;spacingLeft=8;" value="Vòng lặp học thích ứng - càng học, lộ trình càng khớp" vertex="1">
+          <mxGeometry height="34" width="1200" x="118" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="hSub" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontColor=#AFC4E0;fontSize=14;spacingLeft=8;" value="Học → Đo lường → Hiệu chỉnh → Cá nhân hóa lại  ·  luồng quá trình &amp; điểm mạnh cốt lõi ở mỗi bước" vertex="1">
+          <mxGeometry height="22" width="1000" x="118" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="p0" parent="1" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#DFF0E0;strokeColor=none;fontColor=#3B7D45;fontSize=13;fontStyle=1;" value="① Đầu vào" vertex="1">
+          <mxGeometry height="72" width="120" x="100" y="204" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CFE0D2;fontColor=#2C3E50;fontSize=14;fontStyle=1;" value="🎯  Test đầu vào&lt;br&gt;Phân tích chuyên sâu&lt;div&gt;Đánh giá trình độ thật&lt;/div&gt;" vertex="1">
+          <mxGeometry height="84" width="280" x="260" y="198" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CFE0D2;fontColor=#2C3E50;fontSize=14;fontStyle=1;" value="AI tạo lộ trình&lt;br&gt;riêng cho từng người" vertex="1">
+          <mxGeometry height="84" width="280" x="620" y="198" as="geometry" />
+        </mxCell>
+        <mxCell id="nA" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#EDF7ED;strokeColor=#7BB587;fontColor=#2F6B3E;fontSize=14;fontStyle=1;align=left;verticalAlign=top;spacingLeft=16;spacingTop=12;spacingRight=10;" value="KHÔNG dựng sẵn cả lộ trình" vertex="1">
+          <mxGeometry height="184" width="644" x="960" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="wk1" parent="1" style="rounded=1;arcSize=22;whiteSpace=wrap;html=1;fillColor=#CDEBD4;strokeColor=#5FA46E;fontColor=#2F6B3E;fontSize=12;fontStyle=1;" value="Tuần 1,2&lt;br&gt;đã sinh chi tiết" vertex="1">
+          <mxGeometry height="46" width="112" x="984" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="wk2" parent="1" style="rounded=1;arcSize=22;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B9C9D6;fontColor=#8090A0;fontSize=12;dashed=1;" value="Tuần 2&#xa;chờ sinh" vertex="1">
+          <mxGeometry height="46" width="112" x="1112" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="wk3" parent="1" style="rounded=1;arcSize=22;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B9C9D6;fontColor=#8090A0;fontSize=12;dashed=1;" value="Tuần 3&#xa;chờ sinh" vertex="1">
+          <mxGeometry height="46" width="112" x="1240" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="wk4" parent="1" style="rounded=1;arcSize=22;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B9C9D6;fontColor=#8090A0;fontSize=12;dashed=1;" value="Tuần …&#xa;chờ sinh" vertex="1">
+          <mxGeometry height="46" width="112" x="1368" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="wk5" parent="1" style="rounded=1;arcSize=22;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B9C9D6;fontColor=#8090A0;fontSize=12;dashed=1;" value="Tuần N&#xa;chờ sinh" vertex="1">
+          <mxGeometry height="46" width="80" x="1496" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="ewk12" edge="1" parent="1" source="wk1" style="edgeStyle=none;html=1;endArrow=block;endFill=1;endSize=5;strokeColor=#9DB2CC;strokeWidth=1.5;" target="wk2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ewk23" edge="1" parent="1" source="wk2" style="edgeStyle=none;html=1;endArrow=block;endFill=1;endSize=5;strokeColor=#9DB2CC;strokeWidth=1.5;" target="wk3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ewk34" edge="1" parent="1" source="wk3" style="edgeStyle=none;html=1;endArrow=block;endFill=1;endSize=5;strokeColor=#9DB2CC;strokeWidth=1.5;" target="wk4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ewk45" edge="1" parent="1" source="wk4" style="edgeStyle=none;html=1;endArrow=block;endFill=1;endSize=5;strokeColor=#9DB2CC;strokeWidth=1.5;" target="wk5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wkLoop" edge="1" parent="1" source="wk2" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=1;endArrow=block;endFill=1;endSize=6;strokeColor=#5FA46E;strokeWidth=2;dashed=1;fontColor=#2F6B3E;fontSize=11;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="wk1" value="↻ điều chỉnh rồi mới sinh">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1168" y="278" />
+              <mxPoint x="1040" y="278" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nACap" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontColor=#3B6B45;fontSize=12;spacingLeft=4;" value="Chỉ tuần sắp học mới tạo nội dung chi tiết → mỗi tuần được hiệu chỉnh liên tục theo tiến độ thật trước khi sinh.&amp;nbsp;&lt;div&gt;Mỗi người một lộ trình riêng.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="44" width="600" x="984" y="302" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t1t2" edge="1" parent="1" source="t1" style="edgeStyle=none;html=1;strokeColor=#9DB2CC;strokeWidth=2;endArrow=block;endFill=1;endSize=6;" target="t2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_nA" edge="1" parent="1" source="t2" style="edgeStyle=none;html=1;strokeColor=#7BB587;strokeWidth=1.5;dashed=1;endArrow=none;" target="nA">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" parent="1" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#E3EEFB;strokeColor=none;fontColor=#2E5A8C;fontSize=13;fontStyle=1;" value="② Học mỗi ngày&#xa;(vòng lặp)" vertex="1">
+          <mxGeometry height="200" width="120" x="100" y="452" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FDF4E3;strokeColor=#E1A33A;fontColor=#8A6516;fontSize=12;align=left;verticalAlign=middle;spacingLeft=12;spacingRight=8;" value="Có ưu tiên nội dung quan trọng/ nội dung có thể skip" vertex="1">
+          <mxGeometry height="66" width="280" x="80" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF2FB;strokeColor=#3B82C4;fontColor=#2E5A8C;fontSize=12;align=left;verticalAlign=middle;spacingLeft=12;spacingRight=8;" value="Cascading Progress&lt;br&gt;Tính theo tầng từ gốc → số liệu tiến độ luôn khớp, không lệch." vertex="1">
+          <mxGeometry height="66" width="280" x="620" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBDBF0;fontColor=#2C3E50;fontSize=14;fontStyle=1;" value="Buổi học hôm nay&lt;br&gt;AI chọn nội dung phù hợp" vertex="1">
+          <mxGeometry height="88" width="280" x="260" y="464" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBDBF0;fontColor=#2C3E50;fontSize=14;fontStyle=1;" value="Học + Tracking&lt;br&gt;Đo tiến độ chi tiết" vertex="1">
+          <mxGeometry height="88" width="280" x="620" y="464" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBDBF0;fontColor=#2C3E50;fontSize=14;fontStyle=1;" value="Cập nhật hồ sơ năng lực" vertex="1">
+          <mxGeometry height="88" width="280" x="980" y="464" as="geometry" />
+        </mxCell>
+        <mxCell id="e_n5" edge="1" parent="1" source="n5" style="edgeStyle=none;html=1;strokeColor=#E1A33A;strokeWidth=1.5;dashed=1;endArrow=none;" target="d1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_n4" edge="1" parent="1" source="n4" style="edgeStyle=none;html=1;strokeColor=#3B82C4;strokeWidth=1.5;dashed=1;endArrow=none;" target="d2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hub" parent="1" style="rounded=1;arcSize=40;whiteSpace=wrap;html=1;fillColor=#FFF6E0;strokeColor=#E7C874;fontColor=#8A6D1E;fontSize=14;fontStyle=1;" value="💡  Hồ sơ năng lực học viên&#xa;điểm mạnh / yếu từng kỹ năng" vertex="1">
+          <mxGeometry height="72" width="280" x="620" y="632" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF6E0;strokeColor=#E7C874;fontColor=#8A6D1E;fontSize=12;align=left;verticalAlign=middle;spacingLeft=12;spacingRight=8;" value="③ Vòng phản hồi năng lực thật&#xa;Chỉnh theo hiệu suất, không theo lịch: yếu → nhẹ đi; giỏi lên → bỏ nội dung thừa." vertex="1">
+          <mxGeometry height="80" width="340" x="1132" y="624" as="geometry" />
+        </mxCell>
+        <mxCell id="e_n3" edge="1" parent="1" source="n3" style="edgeStyle=none;html=1;strokeColor=#E7C874;strokeWidth=1.5;dashed=1;endArrow=none;" target="hub">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d1d2" edge="1" parent="1" source="d1" style="edgeStyle=none;html=1;strokeColor=#6C9BD1;strokeWidth=2;endArrow=block;endFill=1;endSize=6;" target="d2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d2d3" edge="1" parent="1" source="d2" style="edgeStyle=none;html=1;strokeColor=#6C9BD1;strokeWidth=2;endArrow=block;endFill=1;endSize=6;" target="d3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d3hub" edge="1" parent="1" source="d3" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=1;strokeColor=#6C9BD1;strokeWidth=2;endArrow=block;endFill=1;endSize=6;" target="hub">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1120" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_hubd1" edge="1" parent="1" source="hub" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=1;strokeColor=#E1A33A;strokeWidth=2.5;endArrow=block;endFill=1;endSize=7;fontColor=#B27F1E;fontSize=12;fontStyle=1;" target="d1" value="cá nhân hóa lại mỗi ngày">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_t2d1" edge="1" parent="1" source="t2" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=1;strokeColor=#9DB2CC;strokeWidth=2;endArrow=block;endFill=1;endSize=6;fontColor=#7A8798;fontSize=11;" target="d1" value="lộ trình">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="330" />
+              <mxPoint x="400" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2" parent="1" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#F0E8F8;strokeColor=none;fontColor=#6E479B;fontSize=13;fontStyle=1;" value="③ Hiệu chỉnh&#xa;khi lỡ nhịp" vertex="1">
+          <mxGeometry height="150" width="120" x="100" y="774" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D9C6EC;fontColor=#5E3A88;fontSize=14;fontStyle=1;" value="Bỏ lỡ buổi học?" vertex="1">
+          <mxGeometry height="150" width="200" x="260" y="774" as="geometry" />
+        </mxCell>
+        <mxCell id="r2a" parent="1" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D9C6EC;fontColor=#2C3E50;fontSize=13;" value="Lỡ ÍT  →  bù nhẹ vào hôm sau" vertex="1">
+          <mxGeometry height="58" width="360" x="540" y="784" as="geometry" />
+        </mxCell>
+        <mxCell id="r2b" parent="1" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D9C6EC;fontColor=#2C3E50;fontSize=13;" value="Lỡ NHIỀU  →&amp;nbsp; AI tái tạo cả tuần&lt;br&gt;(giữ nguyên phần đã học)" vertex="1">
+          <mxGeometry height="58" width="360" x="540" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F5EFFA;strokeColor=#8A63B8;fontColor=#5E3A88;fontSize=12;align=left;verticalAlign=middle;spacingLeft=12;spacingRight=8;" value="① Thích nghi theo mức gián đoạn&#xa;Lỡ ít → xử lý nhẹ; lỡ nhiều → AI tái tạo tuần. Không phản ứng một kiểu, không phí AI cho việc nhỏ." vertex="1">
+          <mxGeometry height="66" width="340" x="960" y="774" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F5EFFA;strokeColor=#8A63B8;fontColor=#5E3A88;fontSize=12;align=left;verticalAlign=middle;spacingLeft=12;spacingRight=8;" value="② Không mất tiến độ đã hoàn thành&#xa;Tái tạo tuần vẫn giữ nguyên buổi đã học, AI xây tiếp — không &quot;xoá làm lại từ đầu&quot;." vertex="1">
+          <mxGeometry height="66" width="340" x="960" y="852" as="geometry" />
+        </mxCell>
+        <mxCell id="e_r1a" edge="1" parent="1" source="r1" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=1;strokeColor=#A57FCB;strokeWidth=2;endArrow=block;endFill=1;endSize=6;fontColor=#6E479B;fontSize=11;" target="r2a" value="≤ 2 buổi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_r1b" edge="1" parent="1" source="r1" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=1;strokeColor=#A57FCB;strokeWidth=2;endArrow=block;endFill=1;endSize=6;fontColor=#6E479B;fontSize=11;" target="r2b" value="&gt; 2 buổi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_n1" edge="1" parent="1" source="n1" style="edgeStyle=none;html=1;strokeColor=#8A63B8;strokeWidth=1.5;dashed=1;endArrow=none;" target="r2a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_n2" edge="1" parent="1" source="n2" style="edgeStyle=none;html=1;strokeColor=#8A63B8;strokeWidth=1.5;dashed=1;endArrow=none;" target="r2b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_r2d1" edge="1" parent="1" source="r2a" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=1;strokeColor=#A57FCB;strokeWidth=2;endArrow=block;endFill=1;endSize=6;fontColor=#6E479B;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.511;entryY=0.958;entryDx=0;entryDy=0;entryPerimeter=0;" target="hub" value="lộ trình được điều chỉnh">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="749" />
+              <mxPoint x="788" y="749" />
+              <mxPoint x="788" y="757" />
+              <mxPoint x="763" y="757" />
+            </Array>
+            <mxPoint x="763" y="713" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

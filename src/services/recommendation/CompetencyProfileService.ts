@@ -1,6 +1,7 @@
 import { Schema } from 'mongoose';
 import { User } from '../../models/userModel.js';
 import { TestResult } from '../../models/testResultModel.js';
+import { humanizeLabel } from '../../utils/textFormat.js';
 interface AIInsight {
     title: string;
     description: string;
@@ -140,10 +141,10 @@ export class CompetencyProfileService {
 
         if (weakestSkills.length > 0) {
             const weakestSkill = weakestSkills[0];
+            const skillLabel = humanizeLabel(weakestSkill.skill);
             insights.push({
-                title: `Priority Weakness: ${weakestSkill.skill}`,
-                description: `Your accuracy in ${weakestSkill.skill} is ${weakestSkill.currentAccuracy}%. This skill is crucial for achieving high scores.`,
-                actionText: `Start ${weakestSkill.skill} Training`,
+                title: `Priority Weakness: ${skillLabel}`,
+                description: `Your accuracy in ${skillLabel} is ${Math.round(weakestSkill.currentAccuracy)}%. This skill is crucial for achieving high scores.`,
                 priority: 'high',
             });
         }
@@ -152,15 +153,17 @@ export class CompetencyProfileService {
         const weakGrammar = competencyProfile.skillMatrix
             ?.filter(
                 (s) =>
-                    s.skill.includes('grammar') || s.skill.includes('word_form')
+                    s.skill.toLowerCase().includes('grammar') ||
+                    s.skill.toLowerCase().includes('word_form') ||
+                    s.skill.toLowerCase().includes('wordform')
             )
             .find((s) => s.currentAccuracy < 70);
 
         if (weakGrammar) {
+            const skillLabel = humanizeLabel(weakGrammar.skill);
             insights.push({
-                title: `Grammar Gap: ${weakGrammar.skill}`,
-                description: `You frequently struggle with ${weakGrammar.skill}. Focus on strengthening this fundamental grammar point.`,
-                actionText: 'Practice Grammar',
+                title: `Grammar Gap: ${skillLabel}`,
+                description: `You frequently struggle with ${skillLabel}. Focus on strengthening this fundamental grammar point.`,
                 priority: 'medium',
             });
         }
@@ -171,10 +174,10 @@ export class CompetencyProfileService {
             .sort((a, b) => a.accuracy - b.accuracy)[0];
 
         if (weakestDomain) {
+            const domainLabel = humanizeLabel(weakestDomain.domain);
             insights.push({
-                title: `Content Area: ${weakestDomain.domain} Vocabulary`,
-                description: `Your error rate on ${weakestDomain.domain} topics is significantly higher than other domains.`,
-                actionText: 'Build Vocabulary',
+                title: `Content Area: ${domainLabel} Vocabulary`,
+                description: `Your error rate on ${domainLabel} topics is significantly higher than other domains.`,
                 priority: 'medium',
             });
         }

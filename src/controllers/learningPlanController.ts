@@ -13,6 +13,7 @@ import { analysisEngineService } from '~/services/analysis/AnalysisEngineService
 import { roadmapCalibrationService } from '~/services/recommendation/RoadmapCalibrationService.js';
 import { studyMemoService } from '../services/recommendation/StudyMemoService.js';
 import { User } from '../models/userModel.js';
+import { humanizeLabel } from '../utils/textFormat.js';
 
 export class LearningPlanController {
     async getActiveRoadmap(req: Request, res: Response) {
@@ -392,15 +393,17 @@ export class LearningPlanController {
         user.competencyProfile.aiInsights =
             user.competencyProfile.aiInsights || [];
 
-        const label = (kind || 'activity').replace(/_/g, ' ');
+        const kindLabel = humanizeLabel(kind || 'practice');
+        const skillLabel = targetSkill ? humanizeLabel(targetSkill) : null;
+
+        const title = `${kindLabel} Activity: ${clamped}/100`;
+        const description = skillLabel
+            ? `You scored ${clamped}/100 on ${skillLabel} during this ${kindLabel.toLowerCase()} activity.`
+            : `You scored ${clamped}/100 on this ${kindLabel.toLowerCase()} activity.`;
+
         user.competencyProfile.aiInsights.push({
-            title: `${label} activity: ${clamped}/100`,
-            description: `Scored ${clamped}/100${
-                targetSkill ? ` on ${targetSkill}` : ''
-            }.`,
-            actionText: targetSkill
-                ? `Practice ${targetSkill}`
-                : 'Keep practicing',
+            title,
+            description,
             priority: clamped < 50 ? 'high' : clamped < 75 ? 'medium' : 'low',
             createdAt: new Date(),
         });
