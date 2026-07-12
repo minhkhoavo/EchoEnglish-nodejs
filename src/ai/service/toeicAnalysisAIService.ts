@@ -1,6 +1,7 @@
 import { GoogleGenAIClient } from '../provider/googleGenAIClient.js';
 import { promptManagerService } from './PromptManagerService.js';
 import { JsonOutputParser } from '@langchain/core/output_parsers';
+import { AVAILABLE_DOMAINS } from '../../enum/domain.js';
 
 interface WeaknessInsightInput {
     skillName: string;
@@ -382,13 +383,20 @@ class ToeicAnalysisAIService {
                 parsed.topWeaknesses.forEach(
                     (weakness: Record<string, unknown>) => {
                         const desc = String(weakness.description || '');
-                        // Extract domain mentions from description
-                        const domainMatches = desc.match(
-                            /\b(business|travel|daily life|workplace|education|technology)\b/gi
+                        // Extract domain mentions from description using dynamic enum list
+                        const domainPatterns = AVAILABLE_DOMAINS.map((d) =>
+                            d.replace(/_/g, '[_\\s]')
+                        ).join('|');
+                        const domainRegex = new RegExp(
+                            `\\b(${domainPatterns})\\b`,
+                            'gi'
                         );
+                        const domainMatches = desc.match(domainRegex);
                         if (domainMatches) {
                             domainMatches.forEach((domain) => {
-                                const normalized = domain.toLowerCase();
+                                const normalized = domain
+                                    .toLowerCase()
+                                    .replace(/\s+/g, '_');
                                 if (!weakDomains.includes(normalized)) {
                                     weakDomains.push(normalized);
                                 }

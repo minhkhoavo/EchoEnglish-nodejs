@@ -160,7 +160,7 @@ export class DailySessionService {
                 return null;
             }
 
-            shouldUpdateStatus = true; // Cập nhật status cho isCritical
+            shouldUpdateStatus = true;
         } else {
             console.log('Roadmap is not blocked, generating session for today');
             const todayDayOfWeek = today.getDay();
@@ -185,7 +185,7 @@ export class DailySessionService {
             }) as DailyFocus | undefined;
 
             if (targetDailyFocus) {
-                // Find dailyFocus for today → only update status if not completed/skipped
+                // Find dailyFocus for today -> only update status if not completed/skipped
                 if (
                     targetDailyFocus.status !== 'completed' &&
                     targetDailyFocus.status !== 'skipped'
@@ -216,7 +216,7 @@ export class DailySessionService {
             return null;
         }
 
-        // Chỉ update status nếu shouldUpdateStatus = true
+        // Only update status if shouldUpdateStatus = true
         if (shouldUpdateStatus && targetDailyFocus) {
             await roadmapService.updateDailyFocusStatus(
                 singleRoadmap.roadmapId,
@@ -359,10 +359,10 @@ export class DailySessionService {
         const lowestSkills = user?.competencyProfile?.skillMatrix
             ?.filter((s) => s.currentAccuracy < 60)
             .sort((a, b) => a.currentAccuracy - b.currentAccuracy)
-            .slice(0, 3);
+            .slice(0, 5);
 
         // Find available DB resources matching domains and skills
-        // Nếu không có targetDailyFocus, dùng thông tin từ weekFocus
+        // If don't have targetDailyFocus, use weekFocus
         const availableResources =
             simContext?.availableResources !== undefined
                 ? [...simContext.availableResources]

@@ -286,7 +286,7 @@ export class RoadmapCalibrationService {
             };
         }
 
-        // Kiểm tra xem tất cả dailyFocus đã hoàn thành chưa
+        // Find if all dailyFocuses are completed or skipped
         const allCompleted = activeWeek.dailyFocuses.every(
             (daily: { status: string }) =>
                 daily.status === 'completed' || daily.status === 'skipped'
