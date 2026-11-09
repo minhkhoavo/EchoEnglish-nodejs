@@ -1,12 +1,9 @@
-import { DailyFacts } from '../etl/models.js';
-import { LearningEvent } from '../events/eventModel.js';
 import { localDayHour } from '../etl/clean.js';
 import { User } from '../../models/userModel.js';
 import { Payment } from '../../models/payment.js';
 import { TransactionType } from '../../enum/transactionType.js';
 import { PaymentStatus } from '../../enum/paymentStatus.js';
 import {
-    FactRow,
     SignupRow,
     activationRate,
     activeDaysByUser,
@@ -18,13 +15,50 @@ import {
     studyTime,
     unitEconomics,
 } from './kpi.js';
+import {
+    AnalyticsSource,
+    backendFromEnv,
+    clickhouseSource,
+    mongoSource,
+} from './sources.js';
 
 const MAX_WINDOW_DAYS = 90;
 
 export class KpiService {
+    constructor(
+        /** Injected for tests; default picks the backend from RECSYS_ANALYTICS_BACKEND. */
+        private readonly sourceFor: () => AnalyticsSource = () =>
+            backendFromEnv() === 'clickhouse' ? clickhouseSource() : mongoSource
+    ) {}
+
+    /**
+     * Run against the configured source; if the warehouse is unavailable, answer from Mongo and
+     * SAY SO (`backend` + `fallbackReason`) instead of failing or silently mixing backends.
+     */
+    private async withSource<T>(
+        run: (src: AnalyticsSource) => Promise<T>
+    ): Promise<T & { backend: string; fallbackReason?: string }> {
+        const src = this.sourceFor();
+        try {
+            return { ...(await run(src)), backend: src.name };
+        } catch (err) {
+            if (src.name === 'mongo') throw err;
+            const fallbackReason = (err as Error).message.slice(0, 200);
+            console.error(
+                '[recsys] warehouse KPI read failed:',
+                fallbackReason
+            );
+            return {
+                ...(await run(mongoSource)),
+                backend: 'mongo',
+                fallbackReason,
+            };
+        }
+    }
+
     /**
      * Platform KPI overview for [today-windowDays, today]. Reads only gold facts + users +
-     * payments (never raw events) so it stays cheap. At > ~50k MAU move this to a warehouse (Phase 3).
+     * payments (never raw events) so it stays cheap.
      */
     async overview(opts: { windowDays?: number; now?: Date } = {}) {
         const now = opts.now ?? new Date();
@@ -38,128 +72,80 @@ export class KpiService {
         // retention needs facts up to 30 days AFTER signup → load a longer fact history
         const factsFrom = addDays(today, -(windowDays + 30));
 
-        const [facts, users, purchases] = await Promise.all([
-            DailyFacts.find({ day: { $gte: factsFrom } })
-                .select(
-                    'userId day learningActions studySeconds creditsSpent aiCostUsd lastTestScore'
-                )
-                .lean<
-                    Array<
-                        Omit<FactRow, 'userId'> & {
-                            userId: { toString(): string };
-                        }
-                    >
-                >(),
-            User.find({ createdAt: { $gte: fromDate } })
-                .select('_id createdAt')
-                .lean<
-                    Array<{ _id: { toString(): string }; createdAt: Date }>
-                >(),
-            Payment.find({
-                type: TransactionType.PURCHASE,
-                status: PaymentStatus.SUCCEEDED,
-                createdAt: { $gte: fromDate },
-            })
-                .select('user amount tokens')
-                .lean<
-                    Array<{
-                        user: { toString(): string };
-                        amount?: number;
-                        tokens?: number;
-                    }>
-                >(),
-        ]);
+        return this.withSource(async (src) => {
+            const [rows, users, purchases] = await Promise.all([
+                src.facts(factsFrom),
+                User.find({ createdAt: { $gte: fromDate } })
+                    .select('_id createdAt')
+                    .lean<
+                        Array<{ _id: { toString(): string }; createdAt: Date }>
+                    >(),
+                Payment.find({
+                    type: TransactionType.PURCHASE,
+                    status: PaymentStatus.SUCCEEDED,
+                    createdAt: { $gte: fromDate },
+                })
+                    .select('user amount tokens')
+                    .lean<
+                        Array<{
+                            user: { toString(): string };
+                            amount?: number;
+                            tokens?: number;
+                        }>
+                    >(),
+            ]);
+            // Users/payments live in Mongo with real ids; map them into the source's key space.
+            const keys = await src.keys([
+                ...new Set([
+                    ...users.map((u) => u._id.toString()),
+                    ...purchases.map((p) => p.user.toString()),
+                ]),
+            ]);
+            const key = (id: string) => keys.get(id) ?? id;
 
-        const rows: FactRow[] = facts.map((f) => ({
-            ...f,
-            userId: f.userId.toString(),
-        }));
-        const inWindow = rows.filter((r) => r.day >= from);
-        const active = activeDaysByUser(rows);
-        const signups: SignupRow[] = users.map((u) => ({
-            userId: u._id.toString(),
-            day: localDayHour(u.createdAt).day,
-        }));
-        const usdToVnd = Number(process.env.RECSYS_USD_VND ?? 25_000);
+            const inWindow = rows.filter((r) => r.day >= from);
+            const active = activeDaysByUser(rows);
+            const signups: SignupRow[] = users.map((u) => ({
+                userId: key(u._id.toString()),
+                day: localDayHour(u.createdAt).day,
+            }));
+            const usdToVnd = Number(process.env.RECSYS_USD_VND ?? 25_000);
 
-        return {
-            window: { from, to: today, days: windowDays },
-            users: activeUserCounts(rows, today),
-            activation7d: activationRate(signups, active, today, 7),
-            retention: {
-                d1: dayNRetention(signups, active, today, 1),
-                d7: dayNRetention(signups, active, today, 7),
-                d30: dayNRetention(signups, active, today, 30),
-            },
-            studyTime: studyTime(inWindow),
-            scoreGain: scoreGain(
-                rows.filter((r) => r.day >= addDays(today, -56))
-            ), // 8-week horizon
-            unitEconomics: unitEconomics(inWindow, {
-                usdToVnd,
-                purchases: purchases.map((p) => ({
-                    userId: p.user.toString(),
-                    amountVnd: p.amount ?? 0,
-                    credits: p.tokens ?? 0,
-                })),
-            }),
-        };
+            return {
+                window: { from, to: today, days: windowDays },
+                users: activeUserCounts(rows, today),
+                activation7d: activationRate(signups, active, today, 7),
+                retention: {
+                    d1: dayNRetention(signups, active, today, 1),
+                    d7: dayNRetention(signups, active, today, 7),
+                    d30: dayNRetention(signups, active, today, 30),
+                },
+                studyTime: studyTime(inWindow),
+                scoreGain: scoreGain(
+                    rows.filter((r) => r.day >= addDays(today, -56))
+                ), // 8-week horizon
+                unitEconomics: unitEconomics(inWindow, {
+                    usdToVnd,
+                    purchases: purchases.map((p) => ({
+                        userId: key(p.user.toString()),
+                        amountVnd: p.amount ?? 0,
+                        credits: p.tokens ?? 0,
+                    })),
+                }),
+            };
+        });
     }
 
-    /** Recommendation experiment read-out by variant (consenting users only). */
+    /** Recommendation experiment read-out by variant × mode (consenting users only). */
     async experiments(opts: { windowDays?: number; now?: Date } = {}) {
         const now = opts.now ?? new Date();
         const since = new Date(
             now.getTime() -
                 Math.min(MAX_WINDOW_DAYS, opts.windowDays ?? 14) * 86_400_000
         );
-        // Group by variant AND mode: cold-start lists ignore the variant (mode absent on
-        // legacy rows → 'unknown'), so mixing them would dilute any real difference.
-        const key = {
-            v: '$props.variant',
-            m: { $ifNull: ['$props.mode', 'unknown'] },
-        };
-        const imps = await LearningEvent.aggregate<{
-            _id: { v: string; m: string };
-            impressions: number;
-            users: string[];
-        }>([
-            { $match: { type: 'rec_impression', occurredAt: { $gte: since } } },
-            {
-                $group: {
-                    _id: key,
-                    impressions: { $sum: 1 },
-                    users: { $addToSet: '$userId' },
-                },
-            },
-        ]);
-        const outcomes = await LearningEvent.aggregate<{
-            _id: { v: string; m: string; t: string };
-            n: number;
-        }>([
-            {
-                $match: {
-                    type: { $in: ['rec_click', 'rec_complete', 'rec_dismiss'] },
-                    occurredAt: { $gte: since },
-                },
-            },
-            { $group: { _id: { ...key, t: '$type' }, n: { $sum: 1 } } },
-        ]);
-        const get = (v: string, m: string, t: string) =>
-            outcomes.find(
-                (o) => o._id.v === v && o._id.m === m && o._id.t === t
-            )?.n ?? 0;
-        return experimentReadout(
-            imps.map((i) => ({
-                variant: i._id.v,
-                mode: i._id.m,
-                impressions: i.impressions,
-                users: i.users.length,
-                clicks: get(i._id.v, i._id.m, 'rec_click'),
-                completes: get(i._id.v, i._id.m, 'rec_complete'),
-                dismisses: get(i._id.v, i._id.m, 'rec_dismiss'),
-            }))
-        );
+        return this.withSource(async (src) => ({
+            variants: experimentReadout(await src.variantRows(since)),
+        }));
     }
 }
 

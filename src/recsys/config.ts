@@ -53,6 +53,8 @@ export const recsysConfig = {
         topicRetentionHours: () =>
             num(process.env.RECSYS_STREAM_RETENTION_HOURS, 168),
     },
+    /** Where KPI inputs are read from: 'mongo' (default) or 'clickhouse' (dbt marts). */
+    analyticsBackend: () => process.env.RECSYS_ANALYTICS_BACKEND ?? 'mongo',
     clickhouse: {
         enabled: () => process.env.RECSYS_CLICKHOUSE_ENABLED === 'true',
         url: () => process.env.RECSYS_CLICKHOUSE_URL ?? 'http://localhost:8123',
