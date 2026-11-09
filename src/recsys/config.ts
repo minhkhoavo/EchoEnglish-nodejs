@@ -53,6 +53,17 @@ export const recsysConfig = {
         topicRetentionHours: () =>
             num(process.env.RECSYS_STREAM_RETENTION_HOURS, 168),
     },
+    clickhouse: {
+        enabled: () => process.env.RECSYS_CLICKHOUSE_ENABLED === 'true',
+        url: () => process.env.RECSYS_CLICKHOUSE_URL ?? 'http://localhost:8123',
+        database: () => process.env.RECSYS_CLICKHOUSE_DB ?? 'echo',
+        username: () => process.env.RECSYS_CLICKHOUSE_USER ?? 'default',
+        password: () => process.env.RECSYS_CLICKHOUSE_PASSWORD ?? '',
+        /** Event rows older than this are dropped by ClickHouse TTL (days). */
+        retentionDays: () =>
+            num(process.env.RECSYS_CLICKHOUSE_RETENTION_DAYS, 400),
+        loaderBatchMs: 2000,
+    },
     /** Default data region for learners without an explicit residency tag. */
     defaultRegion: () => process.env.RECSYS_DEFAULT_REGION ?? 'vn',
 

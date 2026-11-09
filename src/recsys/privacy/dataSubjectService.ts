@@ -6,6 +6,12 @@ import { Consent, ConsentLedger } from './consentModel.js';
 import { consentService } from './consentService.js';
 import { recommenderService } from '../engine/recommender.js';
 import { RecExposure } from '../engine/exposureModel.js';
+import { recsysConfig } from '../config.js';
+import { pseudonymise, requirePseudonymSalt } from '../stream/pseudonym.js';
+import { markWarehouseDeleted, recordTombstones } from '../stream/erasure.js';
+import { knownRegions } from '../stream/regions.js';
+import { createWarehouse, Warehouse } from '../warehouse/clickhouse.js';
+import { eraseFromWarehouse } from '../warehouse/erasure.js';
 
 const EXPORT_EVENT_CAP = 20_000;
 
@@ -15,7 +21,55 @@ const EXPORT_EVENT_CAP = 20_000;
  * respond / 10 days to execute; erasure 2 / 20 (see 03-architecture.md §8) — these endpoints
  * execute immediately, so the SLA is met by construction.
  */
+export type WarehouseErasure = 'deleted' | 'failed' | 'not_enabled';
+
 export class DataSubjectService {
+    constructor(
+        private readonly openWarehouse: () => Promise<Warehouse> = () =>
+            createWarehouse()
+    ) {}
+
+    /**
+     * Phase 3 downstream copies. Tombstones are written FIRST so the exporter/loader stop
+     * handling this subject before the Mongo rows disappear; the warehouse delete follows. If it
+     * fails the tombstone stays `warehousePending` and the loader's sweep retries it.
+     */
+    private async propagateErasure(userId: string): Promise<{
+        tombstones: number;
+        warehouse: WarehouseErasure;
+    }> {
+        let salt: string;
+        try {
+            salt = requirePseudonymSalt();
+        } catch {
+            return { tombstones: 0, warehouse: 'not_enabled' }; // nothing was ever exported
+        }
+        const entries = knownRegions().map((region) => ({
+            region,
+            pseudonym: pseudonymise(userId, region, salt),
+        }));
+        await recordTombstones(entries);
+        if (!recsysConfig.clickhouse.enabled())
+            return { tombstones: entries.length, warehouse: 'not_enabled' };
+        const pseudonyms = entries.map((e) => e.pseudonym);
+        try {
+            const wh = await this.openWarehouse();
+            try {
+                await eraseFromWarehouse(wh, pseudonyms);
+            } finally {
+                await wh.close();
+            }
+            await markWarehouseDeleted(pseudonyms);
+            return { tombstones: entries.length, warehouse: 'deleted' };
+        } catch (err) {
+            console.error(
+                '[recsys] warehouse erase failed (will retry):',
+                (err as Error).message
+            );
+            return { tombstones: entries.length, warehouse: 'failed' };
+        }
+    }
+
     async exportUserData(userId: string) {
         const uid = new Types.ObjectId(userId);
         const [
@@ -67,6 +121,7 @@ export class DataSubjectService {
      */
     async eraseUserData(userId: string) {
         const uid = new Types.ObjectId(userId);
+        const downstream = await this.propagateErasure(userId);
         const [events, clean, facts, mastery, features, exposure] =
             await Promise.all([
                 LearningEvent.deleteMany({ userId: uid }),
@@ -89,6 +144,7 @@ export class DataSubjectService {
                 recommendationState: exposure.deletedCount,
             },
             consentWithdrawn: true,
+            downstream,
         };
     }
 }

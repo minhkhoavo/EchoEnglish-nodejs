@@ -8,6 +8,15 @@ export interface RegionService {
     resolve(userIds: string[]): Promise<Map<string, string>>;
 }
 
+/** Regions this deployment knows about (RECSYS_REGIONS, comma separated). */
+export function knownRegions(): string[] {
+    const fromEnv = (process.env.RECSYS_REGIONS ?? '')
+        .split(',')
+        .map((r) => r.trim().toLowerCase())
+        .filter(Boolean);
+    return fromEnv.length ? fromEnv : [recsysConfig.defaultRegion()];
+}
+
 export const regionService: RegionService = {
     async resolve(userIds) {
         const region = recsysConfig.defaultRegion();

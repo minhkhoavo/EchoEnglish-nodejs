@@ -30,6 +30,7 @@
         "format:check": "prettier --check .",
         "format": "prettier --write .",
         "recsys:eval": "tsx src/recsys/eval/cli.ts",
+        "recsys:loader": "tsx scripts/ops/recsys-loader.ts",
         "prepare": "husky"
     },
     "devDependencies": {

@@ -12,6 +12,8 @@ const schema = new Schema(
         pseudonym: { type: String, required: true },
         region: { type: String, required: true },
         at: { type: Date, required: true },
+        /** True until a warehouse DELETE for this pseudonym is known to have succeeded. */
+        warehousePending: { type: Boolean, default: true },
     },
     { collection: 'recsys_erasure_tombstones', versionKey: false }
 );
@@ -31,7 +33,9 @@ export async function recordTombstones(
         entries.map((e) => ({
             updateOne: {
                 filter: { pseudonym: e.pseudonym },
-                update: { $set: { region: e.region, at } },
+                update: {
+                    $set: { region: e.region, at, warehousePending: true },
+                },
                 upsert: true,
             },
         })),
@@ -51,13 +55,26 @@ export async function loadTombstones(
     return new Map(rows.map((r) => [r.pseudonym, r.at]));
 }
 
-/** Tombstones created since `since` (the loader re-applies warehouse deletes for these). */
+/**
+ * Tombstones whose warehouse delete must (re)run: those younger than `since` (race window with
+ * in-flight inserts) and any whose last delete failed (warehouse outage).
+ */
 export async function recentTombstones(
     since: Date
 ): Promise<Array<{ pseudonym: string; region: string; at: Date }>> {
-    return ErasureTombstone.find({ at: { $gte: since } }).lean<
-        Array<{ pseudonym: string; region: string; at: Date }>
-    >();
+    return ErasureTombstone.find({
+        $or: [{ at: { $gte: since } }, { warehousePending: true }],
+    }).lean<Array<{ pseudonym: string; region: string; at: Date }>>();
+}
+
+export async function markWarehouseDeleted(
+    pseudonyms: string[]
+): Promise<void> {
+    if (pseudonyms.length === 0) return;
+    await ErasureTombstone.updateMany(
+        { pseudonym: { $in: pseudonyms } },
+        { $set: { warehousePending: false } }
+    );
 }
 
 /** An event is suppressed if it occurred at or before the erasure of its (pseudonymous) subject. */
