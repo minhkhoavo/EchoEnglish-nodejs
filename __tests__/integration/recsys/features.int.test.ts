@@ -131,6 +131,12 @@ it('cursor is the silver _id: a late/re-queued event with an OLD receivedAt is s
     // A rejected event re-queued per the runbook lands in silver LATER but keeps its original,
     // older receivedAt. A receivedAt cursor would skip it forever; the _id cursor must not.
     await CleanEvent.create({
+        // Explicitly "inserted later" than the cursor: the property under test is that an old
+        // receivedAt does not matter, not that the wall clock is monotonic (it is an operational
+        // assumption of the _id cursors, documented in 03-architecture §12.3).
+        _id: mongoose.Types.ObjectId.createFromTime(
+            Math.floor(Date.now() / 1000) + 5
+        ),
         eventId: randomUUID(),
         rawId: new mongoose.Types.ObjectId(),
         userId: uid,

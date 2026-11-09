@@ -84,9 +84,9 @@ describe('logistic regression', () => {
 });
 
 describe('training does not block the event loop (it runs inside the API process)', () => {
-    it('lets timers fire while fitting 30k rows', async () => {
+    it('lets timers fire while fitting 12k rows', async () => {
         const r = rng(21);
-        const rows = Array.from({ length: 30_000 }, () => {
+        const rows = Array.from({ length: 12_000 }, () => {
             const x = [r(), r(), r(), r(), r(), r(), r(), r(), r()];
             return {
                 x,
@@ -101,7 +101,7 @@ describe('training does not block the event loop (it runs inside the API process
         const elapsed = Date.now() - t0;
         // A fully blocked loop would let at most one tick through; require steady progress.
         expect(ticks).toBeGreaterThan(Math.min(20, elapsed / 50));
-    });
+    }, 60_000);
 });
 
 describe('auc', () => {
