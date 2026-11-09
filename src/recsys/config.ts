@@ -28,10 +28,34 @@ export const recsysConfig = {
     leaseTtlMs: 4 * 60 * 1000,
     /** Vietnam has no DST; day buckets are computed at UTC+7. */
     tzOffsetMinutes: 7 * 60,
-    /** Salt for pseudonymised analytics exports. */
-    pseudonymSalt: () => process.env.RECSYS_PSEUDONYM_SALT ?? 'dev-only-salt',
+    /** Secret for pseudonymised analytics exports. No default: exports fail closed without it. */
+    pseudonymSalt: () => process.env.RECSYS_PSEUDONYM_SALT,
     /** Smallest cohort that analytics endpoints will return (k-anonymity). */
     minCohortSize: 5,
+    /**
+     * Phase 3 (scale) paths. Every flag defaults to OFF; MongoDB stays the system of record.
+     * See docs/recommendation/TASKS.md (T3.x) for scope and the status of each piece.
+     */
+    stream: {
+        enabled: () => process.env.RECSYS_STREAM_ENABLED === 'true',
+        brokers: () =>
+            (process.env.RECSYS_STREAM_BROKERS ?? '')
+                .split(',')
+                .map((b) => b.trim())
+                .filter(Boolean),
+        /** Base topic; the data region is appended (`<base>.<region>`). */
+        topicBase: () =>
+            process.env.RECSYS_STREAM_TOPIC ?? 'echo.learning_events.v1',
+        clientId: () => process.env.RECSYS_STREAM_CLIENT_ID ?? 'echo-recsys',
+        batchSize: () => num(process.env.RECSYS_STREAM_BATCH, 1000),
+        maxBatchesPerRun: 20,
+        /** Topic retention the broker must be configured with (Kafka cannot delete single records). */
+        topicRetentionHours: () =>
+            num(process.env.RECSYS_STREAM_RETENTION_HOURS, 168),
+    },
+    /** Default data region for learners without an explicit residency tag. */
+    defaultRegion: () => process.env.RECSYS_DEFAULT_REGION ?? 'vn',
+
     /** Data-quality thresholds (see etl/dataQuality.ts). */
     dq: {
         maxRejectRate: 0.05,

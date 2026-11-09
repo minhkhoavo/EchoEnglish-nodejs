@@ -132,5 +132,9 @@
             "prettier --write",
             "eslint --fix"
         ]
+    },
+    "optionalDependencies": {
+        "@clickhouse/client": "^1.25.0",
+        "@confluentinc/kafka-javascript": "^1.11.0"
     }
 }
