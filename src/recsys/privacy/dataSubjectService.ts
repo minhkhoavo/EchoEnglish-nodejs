@@ -6,6 +6,7 @@ import { Consent, ConsentLedger } from './consentModel.js';
 import { consentService } from './consentService.js';
 import { recommenderService } from '../engine/recommender.js';
 import { RecExposure } from '../engine/exposureModel.js';
+import { FeatureSnapshot } from '../featurestore/snapshotModel.js';
 import { recsysConfig } from '../config.js';
 import { pseudonymise, requirePseudonymSalt } from '../stream/pseudonym.js';
 import { markWarehouseDeleted, recordTombstones } from '../stream/erasure.js';
@@ -81,6 +82,7 @@ export class DataSubjectService {
             ledger,
             eventCount,
             exposure,
+            snapshots,
         ] = await Promise.all([
             LearningEvent.find({ userId: uid })
                 .sort({ occurredAt: -1 })
@@ -100,6 +102,10 @@ export class DataSubjectService {
                 .lean(),
             LearningEvent.countDocuments({ userId: uid }),
             RecExposure.find({ userId: uid }).select('-_id').lean(),
+            FeatureSnapshot.find({ userId: uid })
+                .sort({ asOf: 1 })
+                .select('-_id -userId')
+                .lean(),
         ]);
         return {
             exportedAt: new Date().toISOString(),
@@ -109,6 +115,7 @@ export class DataSubjectService {
             skillMastery: mastery,
             features,
             recommendationState: exposure,
+            featureSnapshots: snapshots,
             consent,
             consentHistory: ledger,
         };
@@ -122,7 +129,7 @@ export class DataSubjectService {
     async eraseUserData(userId: string) {
         const uid = new Types.ObjectId(userId);
         const downstream = await this.propagateErasure(userId);
-        const [events, clean, facts, mastery, features, exposure] =
+        const [events, clean, facts, mastery, features, exposure, snapshots] =
             await Promise.all([
                 LearningEvent.deleteMany({ userId: uid }),
                 CleanEvent.deleteMany({ userId: uid }),
@@ -130,6 +137,7 @@ export class DataSubjectService {
                 SkillMastery.deleteMany({ userId: uid }),
                 LearnerFeatures.deleteMany({ userId: uid }),
                 RecExposure.deleteMany({ userId: uid }),
+                FeatureSnapshot.deleteMany({ userId: uid }),
             ]);
         await consentService.withdrawAll(userId);
         recommenderService.clearCache();
@@ -142,6 +150,7 @@ export class DataSubjectService {
                 skillMastery: mastery.deletedCount,
                 features: features.deletedCount,
                 recommendationState: exposure.deletedCount,
+                featureSnapshots: snapshots.deletedCount,
             },
             consentWithdrawn: true,
             downstream,

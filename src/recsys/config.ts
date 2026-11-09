@@ -66,6 +66,14 @@ export const recsysConfig = {
             num(process.env.RECSYS_CLICKHOUSE_RETENTION_DAYS, 400),
         loaderBatchMs: 2000,
     },
+    featureStore: {
+        /** Append point-in-time snapshots of learner features (needed for retraining). */
+        snapshotsEnabled: () => process.env.RECSYS_FEATURE_SNAPSHOTS === 'true',
+        /** A new snapshot is written only if the latest one is older than this. */
+        snapshotMinIntervalMin: 60,
+        retentionDays: () =>
+            num(process.env.RECSYS_SNAPSHOT_RETENTION_DAYS, 120),
+    },
     /** Default data region for learners without an explicit residency tag. */
     defaultRegion: () => process.env.RECSYS_DEFAULT_REGION ?? 'vn',
 

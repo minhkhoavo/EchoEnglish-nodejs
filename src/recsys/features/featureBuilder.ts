@@ -17,6 +17,7 @@ import {
 } from './mastery.js';
 import { CardLike, cardRetention } from './retention.js';
 import { recsysConfig } from '../config.js';
+import { featureStore } from '../featurestore/store.js';
 
 const DAY_MS = 86_400_000;
 const dayKey = (d: Date) => localDayHour(d).day;
@@ -312,6 +313,17 @@ export class FeatureBuilder {
             },
             { upsert: true }
         );
+        if (recsysConfig.featureStore.snapshotsEnabled()) {
+            // Offline copy for point-in-time training joins; must never break serving features.
+            await featureStore
+                .snapshot(features, now)
+                .catch((e) =>
+                    console.error(
+                        '[recsys] feature snapshot failed:',
+                        (e as Error).message
+                    )
+                );
+        }
         return features;
     }
 
