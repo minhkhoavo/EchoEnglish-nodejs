@@ -12,6 +12,7 @@ import { checkHealth } from '../analytics/healthService.js';
 import { exposureService } from '../engine/exposureService.js';
 import { ModelError, modelRegistry } from '../learning/registry.js';
 import { retrainService } from '../learning/retrain.js';
+import { RegionError, regionService } from '../stream/regions.js';
 
 const uid = (req: Request): string => {
     const id = req.user?.id;
@@ -210,6 +211,27 @@ class RecsysController {
                 .json(new ApiResponse('OK', { retired: true }));
         } catch (e) {
             throw modelErr(e);
+        }
+    };
+
+    /** PUT /admin/recsys/learners/:userId/region  { region }  — residency tag (affects FUTURE exports). */
+    setRegion = async (req: Request, res: Response) => {
+        try {
+            await regionService.set(
+                String(req.params.userId),
+                String(req.body?.region ?? ''),
+                'admin'
+            );
+            return res
+                .status(200)
+                .json(
+                    new ApiResponse('OK', {
+                        region: String(req.body.region).trim().toLowerCase(),
+                    })
+                );
+        } catch (e) {
+            if (e instanceof RegionError) throw bad(e.message);
+            throw e;
         }
     };
 

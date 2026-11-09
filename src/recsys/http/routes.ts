@@ -62,4 +62,10 @@ router.post(
     controller.retireModel
 );
 
+router.put(
+    '/admin/recsys/learners/:userId/region',
+    hasAuthority(Role.ADMIN),
+    controller.setRegion
+);
+
 export default router;

@@ -10,7 +10,7 @@ import { FeatureSnapshot } from '../featurestore/snapshotModel.js';
 import { recsysConfig } from '../config.js';
 import { pseudonymise, requirePseudonymSalt } from '../stream/pseudonym.js';
 import { markWarehouseDeleted, recordTombstones } from '../stream/erasure.js';
-import { knownRegions } from '../stream/regions.js';
+import { LearnerRegion, knownRegions } from '../stream/regions.js';
 import { createWarehouse, Warehouse } from '../warehouse/clickhouse.js';
 import { eraseFromWarehouse } from '../warehouse/erasure.js';
 
@@ -83,6 +83,7 @@ export class DataSubjectService {
             eventCount,
             exposure,
             snapshots,
+            region,
         ] = await Promise.all([
             LearningEvent.find({ userId: uid })
                 .sort({ occurredAt: -1 })
@@ -106,6 +107,9 @@ export class DataSubjectService {
                 .sort({ asOf: 1 })
                 .select('-_id -userId')
                 .lean(),
+            LearnerRegion.findOne({ userId: uid })
+                .select('-_id -userId')
+                .lean(),
         ]);
         return {
             exportedAt: new Date().toISOString(),
@@ -116,6 +120,7 @@ export class DataSubjectService {
             features,
             recommendationState: exposure,
             featureSnapshots: snapshots,
+            dataRegion: region,
             consent,
             consentHistory: ledger,
         };
@@ -138,6 +143,7 @@ export class DataSubjectService {
                 LearnerFeatures.deleteMany({ userId: uid }),
                 RecExposure.deleteMany({ userId: uid }),
                 FeatureSnapshot.deleteMany({ userId: uid }),
+                LearnerRegion.deleteMany({ userId: uid }),
             ]);
         await consentService.withdrawAll(userId);
         recommenderService.clearCache();
