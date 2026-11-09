@@ -52,8 +52,24 @@ Legend: ✅ done in this branch (code + tests) · 📝 documented only · ⏭ la
 BullMQ + Redis for pipeline jobs · FSRS via `ts-fsrs` (shadow mode first) · learned ranker / contextual bandit · GrowthBook · Terraform · front-end consent UI · weekly KPI review ritual.
 Triggers: see `03-architecture.md` §10.
 
-## Phase 3 — Scale (months 5–12) ⏭
-Redpanda/Kafka + ClickHouse + dbt · content embeddings · multi-region data residency · feature store (Feast or in-house) · automated model retraining.
+## Phase 3 — Scale ⏭ → 🚧 in progress
+> **Status of intent.** None of the §10 triggers in `03-architecture.md` has fired (no volume, no stakeholder BI need, no ≥100k labelled impressions). Phase 3 is therefore **built ahead of triggers at the owner's request and stays dormant behind flags that default to off**. MongoDB remains the system of record; `deploy.yaml` and the production compose are untouched; Redpanda/ClickHouse live in a separate opt-in compose overlay with pinned tags. **Phase 2 (BullMQ, FSRS, GrowthBook, Terraform) is still open** — Phase 3 only pulls forward the minimum trainable model that retraining needs.
+
+Legend for this table: **Built** = code + tests in this branch. **Verified live** = additionally exercised once against a real server in Docker (opt-in test, skipped by default). **Design only** = documented, no code.
+
+| ID | Item | Acceptance criteria | Flag | Status |
+| --- | --- | --- | --- | --- |
+| T3.0 | Smoke test of infra images | Redpanda v25.2.1 and ClickHouse 25.8 start on the 2.9 GB dev VM; Kafka client round-trips a message | — | ✅ done (client: `@confluentinc/kafka-javascript` — kafkajs last published Feb 2023) |
+| T3.1 | Stream exporter (Mongo silver → Redpanda) | Cursor-resumable, at-least-once, key = pseudonym; skips behavioural events without current analytics consent; broker down ⇒ no data loss and no request impact; lazy-imported client; fails closed without a real pseudonym salt | `RECSYS_STREAM_ENABLED` | ⏭ |
+| T3.2 | ClickHouse sink + loader | Idempotent on `eventId` (ReplacingMergeTree); erase propagates to ClickHouse and a tombstone table blocks late-arriving events of erased users; topic retention bounded and documented | `RECSYS_CLICKHOUSE_ENABLED` | ⏭ |
+| T3.3 | KPI backend switch | Same KPI numbers from Mongo and ClickHouse on the same seed data (parity test); Mongo stays the default | `RECSYS_ANALYTICS_BACKEND` | ⏭ |
+| T3.4 | dbt project (staging → marts) | SQL models + tests; compiled SQL executed against real ClickHouse. **If dbt itself cannot be installed here, the report will say dbt never ran.** | — | ⏭ |
+| T3.5 | Feature store (in-house) | Feature registry; daily point-in-time snapshots; `getHistoricalFeatures` returns values *as of* each timestamp (no leakage, tested); included in export + erase | `RECSYS_FEATURE_SNAPSHOTS` | ⏭ |
+| T3.6 | Learned ranker + automated retraining | Trains a logistic model on logged impressions joined to snapshot features; position used in training and dropped at serving; min-data gate; offline gate vs champion; registry with champion/challenger; auto-promotion can only reach a small challenger allocation; separate experiment layer (existing control/srs_heavy assignments do not move); synthetic-data models are never servable | `RECSYS_RETRAIN_ENABLED` | ⏭ |
+| T3.7 | Content embeddings | Offline generation only (via `attachAiUsage`), content-hash staleness, similarity candidate generator; deterministic provider in tests; control-variant metrics unchanged | `RECSYS_EMBEDDINGS_ENABLED` | ⏭ |
+| T3.8 | Data residency — **code-level only** | Per-user region tag, region-keyed sink routing, refusal of cross-region writes. **Not built:** separate Atlas clusters, regional deployments, DNS/traffic routing, Terraform (design only) | `RECSYS_REGIONS_JSON` | ⏭ |
+| T3.9 | Overlay, runbook, docs | `docker-compose.analytics.yml` overlay (pinned tags), architecture/ops/deploy docs updated with Phase 3, triggers and rollback | — | ⏭ |
+| T3.10 | Design only | Managed Redpanda/ClickHouse sizing, Metabase/Grafana dashboards, Feast, multi-region infrastructure, Terraform | — | 📝 |
 
 ## Top risks
 | Risk | Likelihood | Impact | Mitigation |
