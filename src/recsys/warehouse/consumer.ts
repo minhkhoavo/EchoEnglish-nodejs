@@ -1,6 +1,7 @@
 import { recsysConfig } from '../config.js';
 import { Warehouse } from './clickhouse.js';
 import { loadBatch } from './loader.js';
+import { kafkaClientConfig } from '../stream/kafkaConfig.js';
 import { sweepRecentTombstones } from './erasure.js';
 
 export interface LoaderHandle {
@@ -23,10 +24,10 @@ export async function runLoader(opts: {
     const { KafkaJS } = await import('@confluentinc/kafka-javascript');
     const topic = `${recsysConfig.stream.topicBase()}.${opts.region}`;
     const kafka = new KafkaJS.Kafka({
-        kafkaJS: {
+        kafkaJS: kafkaClientConfig(
             brokers,
-            clientId: `${recsysConfig.stream.clientId()}-loader`,
-        },
+            `${recsysConfig.stream.clientId()}-loader`
+        ),
     });
     const consumer = kafka.consumer({
         kafkaJS: {
