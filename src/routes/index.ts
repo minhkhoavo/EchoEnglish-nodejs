@@ -24,6 +24,7 @@ import conversationPracticeRouter from './conversationPractice.js';
 import vocabularyRouter from './vocabulary.js';
 import reviewRouter from './review.js';
 import playgroundRouter from './playground.js';
+import recsysRouter from '~/recsys/http/routes.js';
 
 const apiRouter = Router();
 
@@ -53,5 +54,7 @@ apiRouter.use('/conversation-practice', conversationPracticeRouter);
 apiRouter.use('/vocabulary', vocabularyRouter);
 apiRouter.use('/reviews', reviewRouter);
 apiRouter.use('/playground', playgroundRouter);
+// Recommendation platform: /events, /privacy, /recommendations, /admin/recsys
+apiRouter.use('/', recsysRouter);
 
 export default apiRouter;

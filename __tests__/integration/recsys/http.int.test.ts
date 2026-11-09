@@ -1,0 +1,348 @@
+import express from 'express';
+import request from 'supertest';
+import mongoose from 'mongoose';
+import {
+    startMongo,
+    stopMongo,
+    clearDb,
+    syncIndexes,
+} from '../../helpers/mongo.js';
+import recsysRouter from '~/recsys/http/routes.js';
+import { LearningEvent } from '~/recsys/events/eventModel.js';
+import { Consent, ConsentLedger } from '~/recsys/privacy/consentModel.js';
+import {
+    CleanEvent,
+    DailyFacts,
+    PipelineRun,
+    PipelineLock,
+} from '~/recsys/etl/models.js';
+import {
+    SkillMastery,
+    LearnerFeatures,
+} from '~/recsys/features/featureModels.js';
+import { consentService } from '~/recsys/privacy/consentService.js';
+import { recommenderService } from '~/recsys/engine/recommender.js';
+import { pipelineService } from '~/recsys/etl/pipeline.js';
+import { featureBuilder } from '~/recsys/features/featureBuilder.js';
+import { eventService } from '~/recsys/events/eventService.js';
+import ErrorMiddleware from '~/middleware/errorMiddleware.js';
+import { randomUUID } from 'node:crypto';
+
+jest.setTimeout(120_000);
+const userId = new mongoose.Types.ObjectId().toString();
+
+function appFor(user: { id: string; scope: string } | null) {
+    const app = express();
+    app.use(express.json());
+    app.use((req, _res, next) => {
+        if (user)
+            (req as unknown as { user: unknown }).user = {
+                ...user,
+                email: 'x@y.z',
+            };
+        next();
+    });
+    app.use('/', recsysRouter);
+    app.use(ErrorMiddleware.handleError);
+    return app;
+}
+const userApp = () => appFor({ id: userId, scope: 'USER' });
+const adminApp = () => appFor({ id: userId, scope: 'ADMIN' });
+const view = (over: Record<string, unknown> = {}) => ({
+    eventId: randomUUID(),
+    schemaVersion: 1,
+    type: 'resource_viewed',
+    occurredAt: new Date().toISOString(),
+    props: { resourceId: 'a'.repeat(24), dwellSec: 20 },
+    ...over,
+});
+
+beforeAll(async () => {
+    process.env.RECSYS_ENABLED = 'true';
+    jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    await startMongo();
+    await syncIndexes(
+        LearningEvent,
+        Consent,
+        ConsentLedger,
+        CleanEvent,
+        DailyFacts,
+        PipelineRun,
+        PipelineLock,
+        SkillMastery,
+        LearnerFeatures
+    );
+});
+afterAll(stopMongo);
+beforeEach(async () => {
+    await clearDb();
+    consentService.clearCache();
+    recommenderService.clearCache();
+});
+
+describe('consent API', () => {
+    it('defaults to nothing granted and updates per purpose with a ledger', async () => {
+        const a = userApp();
+        expect((await request(a).get('/privacy/consent')).body.data).toEqual({
+            analytics: false,
+            personalization: false,
+            research: false,
+        });
+        const put = await request(a)
+            .put('/privacy/consent')
+            .send({ analytics: true });
+        expect(put.status).toBe(200);
+        expect(put.body.data).toMatchObject({
+            analytics: true,
+            personalization: false,
+        });
+        expect(await ConsentLedger.countDocuments({ userId })).toBe(1);
+        expect((await request(a).put('/privacy/consent').send({})).status).toBe(
+            400
+        );
+        const w = await request(a).post('/privacy/consent/withdraw');
+        expect(w.body.data.analytics).toBe(false);
+        expect(await ConsentLedger.countDocuments({ userId })).toBe(2);
+    });
+});
+
+describe('POST /events/batch', () => {
+    it('401 without a principal', async () => {
+        const res = await request(appFor(null))
+            .post('/events/batch')
+            .send({ events: [] });
+        expect(res.status).toBe(401);
+    });
+    it('400 for non-array and oversize batches', async () => {
+        expect(
+            (
+                await request(userApp())
+                    .post('/events/batch')
+                    .send({ events: 'x' })
+            ).status
+        ).toBe(400);
+        const big = Array.from({ length: 101 }, () => view());
+        expect(
+            (
+                await request(userApp())
+                    .post('/events/batch')
+                    .send({ events: big })
+            ).status
+        ).toBe(400);
+    });
+    it('drops behavioural events without consent, accepts after, and ignores a spoofed userId', async () => {
+        const a = userApp();
+        const r1 = await request(a)
+            .post('/events/batch')
+            .send({ events: [view()] });
+        expect(r1.body.data).toMatchObject({
+            accepted: 0,
+            droppedNoConsent: 1,
+        });
+        await request(a).put('/privacy/consent').send({ analytics: true });
+        const spoof = view({
+            userId: new mongoose.Types.ObjectId().toString(),
+        });
+        const r2 = await request(a)
+            .post('/events/batch')
+            .send({ events: [view(), spoof] });
+        expect(r2.body.data.accepted).toBe(1);
+        expect(r2.body.data.rejected).toHaveLength(1); // strict envelope rejects the userId field
+        const stored = await LearningEvent.findOne().lean<{
+            userId: { toString(): string };
+        }>();
+        expect(stored!.userId.toString()).toBe(userId);
+    });
+});
+
+describe('GET /recommendations', () => {
+    it('returns a cold-start list for a brand-new learner (starter diagnostic first)', async () => {
+        const res = await request(userApp()).get('/recommendations?limit=5');
+        expect(res.status).toBe(200);
+        expect(res.body.data.mode).toBe('cold_start');
+        expect(res.body.data.items[0].id).toBe('mock_test:starter');
+        expect(res.body.data.items[0].reason.text.vi.length).toBeGreaterThan(
+            10
+        );
+        expect(['control', 'srs_heavy']).toContain(res.body.data.variant);
+    });
+
+    it('closed loop: events → ETL → features → personalised recs → impressions logged', async () => {
+        const a = userApp();
+        await request(a)
+            .put('/privacy/consent')
+            .send({ analytics: true, personalization: true });
+        const weak = Array.from({ length: 12 }, () => ({
+            type: 'question_answered' as const,
+            props: {
+                skillKey: 'p5.wordform',
+                correct: false,
+                origin: 'drill',
+                timeMs: 9000,
+            },
+        }));
+        const strong = Array.from({ length: 12 }, () => ({
+            type: 'question_answered' as const,
+            props: {
+                skillKey: 'p2.whquestion',
+                correct: true,
+                origin: 'drill',
+                timeMs: 5000,
+            },
+        }));
+        await eventService.emitManyAsync(userId, [
+            ...weak,
+            ...strong,
+            {
+                type: 'test_submitted' as const,
+                props: {
+                    testId: 'b'.repeat(24),
+                    totalScore: 600,
+                    correct: 100,
+                    total: 200,
+                    durationSec: 7000,
+                },
+            },
+        ]);
+        await pipelineService.runOnce({
+            afterFacts: (ids) => featureBuilder.buildMany(ids),
+        });
+
+        const res = await request(a).get(
+            '/recommendations?limit=5&refresh=true'
+        );
+        expect(res.body.data.mode).toBe('personalized');
+        const ids = res.body.data.items.map((i: { id: string }) => i.id);
+        expect(ids).toContain('skill_drill:p5.wordform');
+        expect(ids).not.toContain('skill_drill:p2.whquestion'); // strong skill is not drilled
+        const top = res.body.data.items.find(
+            (i: { id: string }) => i.id === 'skill_drill:p5.wordform'
+        );
+        expect(top.reason.code).toBe('weak_skill');
+
+        await new Promise((r) => setTimeout(r, 300)); // impressions are fire-and-forget
+        const imps = await LearningEvent.countDocuments({
+            type: 'rec_impression',
+        });
+        expect(imps).toBe(res.body.data.items.length);
+    });
+
+    it('anti-repetition loop: shown + dismissed items are not served again', async () => {
+        const a = userApp();
+        await request(a).put('/privacy/consent').send({ analytics: true });
+        const first = (await request(a).get('/recommendations?refresh=true'))
+            .body.data;
+        const target = first.items[0];
+        await request(a)
+            .post('/events/batch')
+            .send({
+                events: [
+                    view({
+                        type: 'rec_dismiss',
+                        props: {
+                            recId: first.recId,
+                            itemType: target.type,
+                            itemRef: target.ref,
+                            variant: first.variant,
+                            reason: 'seen',
+                        },
+                    }),
+                ],
+            });
+        const second = (await request(a).get('/recommendations?refresh=true'))
+            .body.data;
+        expect(second.items.map((i: { id: string }) => i.id)).not.toContain(
+            target.id
+        );
+    });
+});
+
+describe('privacy: export and erasure', () => {
+    it('exports then erases everything and withdraws consent (ledger retained)', async () => {
+        const a = userApp();
+        await request(a)
+            .put('/privacy/consent')
+            .send({ analytics: true, personalization: true });
+        await request(a)
+            .post('/events/batch')
+            .send({ events: [view()] });
+        await eventService.emitManyAsync(userId, [
+            {
+                type: 'question_answered' as const,
+                props: {
+                    skillKey: 'p5.wordform',
+                    correct: true,
+                    origin: 'drill',
+                },
+            },
+        ]);
+        await pipelineService.runOnce({
+            afterFacts: (ids) => featureBuilder.buildMany(ids),
+        });
+
+        const exp = await request(a).get('/privacy/export');
+        expect(exp.body.data.events.length).toBe(2);
+        expect(exp.body.data.dailyFacts.length).toBe(1);
+        expect(exp.body.data.skillMastery.length).toBe(1);
+        expect(exp.body.data.consentHistory.length).toBe(2);
+
+        const del = await request(a).delete('/privacy/data');
+        expect(del.body.data.deleted).toMatchObject({
+            events: 2,
+            dailyFacts: 1,
+            skillMastery: 1,
+            features: 1,
+        });
+        for (const M of [
+            LearningEvent,
+            CleanEvent,
+            DailyFacts,
+            SkillMastery,
+            LearnerFeatures,
+        ]) {
+            expect(await M.countDocuments({ userId })).toBe(0);
+        }
+        expect((await request(a).get('/privacy/consent')).body.data).toEqual({
+            analytics: false,
+            personalization: false,
+            research: false,
+        });
+        expect(
+            await ConsentLedger.countDocuments({ userId })
+        ).toBeGreaterThanOrEqual(2); // proof retained
+    });
+
+    it("erasing one user does not touch another user's data", async () => {
+        const other = new mongoose.Types.ObjectId().toString();
+        await eventService.emitManyAsync(other, [
+            {
+                type: 'question_answered' as const,
+                props: { skillKey: 'a', correct: true, origin: 'drill' },
+            },
+        ]);
+        await request(userApp()).delete('/privacy/data');
+        expect(await LearningEvent.countDocuments({ userId: other })).toBe(1);
+    });
+});
+
+describe('admin endpoints', () => {
+    it('are forbidden for normal users and available to admins', async () => {
+        for (const path of [
+            '/admin/recsys/kpis',
+            '/admin/recsys/experiments',
+            '/admin/recsys/pipeline',
+        ]) {
+            expect((await request(userApp()).get(path)).status).toBe(403);
+            expect((await request(adminApp()).get(path)).status).toBe(200);
+        }
+    });
+    it('KPI overview works on an empty database (no NaN, suppressed cohorts)', async () => {
+        const res = await request(adminApp()).get(
+            '/admin/recsys/kpis?windowDays=30'
+        );
+        expect(res.status).toBe(200);
+        expect(res.body.data.users).toMatchObject({ dau: 0, mau: 0 });
+        expect(res.body.data.activation7d.rate).toBeNull();
+        expect(JSON.stringify(res.body.data)).not.toMatch(/NaN|Infinity/);
+    });
+});
