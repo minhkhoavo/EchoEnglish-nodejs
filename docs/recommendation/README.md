@@ -40,7 +40,7 @@ First two weeks of production are **measurement only** (baselines); targets are 
 
 | # | Decision | Reason | Alternative rejected (for now) |
 | --- | --- | --- | --- |
-| D1 | MVP stays on MongoDB; raw events in a **regular collection with TTL + userId index**, not a time-series collection | Right-to-erasure must delete by `userId`; MongoDB time-series deletes must filter on the `metaField` only and cannot run in transactions ([docs](https://mongodb.com/docs/v5.0/core/timeseries/timeseries-limitations)); re-verify limits on the Mongo version you run | Time-series collection; ClickHouse now |
+| D1 | MVP stays on MongoDB; raw events go in a **regular collection** (unique `eventId` index for idempotency, `userId` index for export/erasure, TTL on `receivedAt` for retention) — **not** a time-series collection | Per the current MongoDB manual, time-series collections do not support unique indexes, only allow updates that match/modify the `metaField`, cannot be written in transactions, and have no change streams ([limitations](https://www.mongodb.com/docs/manual/core/timeseries/timeseries-limitations/)). We need idempotent inserts and an in-place `processing` status, so they do not fit | Time-series collection; ClickHouse now |
 | D2 | Pipeline = in-process micro-batch worker with a **Mongo lease + watermark** (multi-instance safe, retryable, idempotent) | Gives retries and no duplicate runs without Redis | BullMQ now; Kafka |
 | D3 | Recommender = deterministic hybrid (mastery model + forgetting-curve + content tags + weighted ranker), **no LLM call per request**, template explanations | Gemini free-tier quotas in `.env.example` are ≤ 30 RPM / 20 RPD for some models; latency and cost must be flat | LLM re-ranking; learned ranker (needs data first) |
 | D4 | SRS: keep Leitner fields working; prioritise reviews by **estimated retrievability** (power-law forgetting curve calibrated to Leitner intervals). **[Phase 2]** FSRS via `ts-fsrs` after ≥ 30 days of review logs are collected (`flashcard_reviewed` carries `prevLevel/newLevel/latency`) | FSRS needs review history to fit; no schema break now | Big-bang FSRS migration |
@@ -79,4 +79,4 @@ First two weeks of production are **measurement only** (baselines); targets are 
 | `05-deployment.md` | Environments, CI/CD, rollout/rollback |
 | `06-operations.md` | Monitoring, alerting, cost tracking, incident handling, KPI iteration |
 
-Code lives in `src/recsys/` (see the code map in `03-architecture.md` §9).
+Code lives in `src/recsys/` (see the code map in `03-architecture.md` §9). Run `npm run recsys:eval` for the offline evaluation report; `npx jest __tests__/unit/recsys __tests__/integration` for the platform test suites.
