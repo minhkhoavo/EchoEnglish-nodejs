@@ -1,6 +1,6 @@
 # EchoEnglish Recommendation Platform — Overview & Recommendation
 
-> Status: MVP slice implemented on branch `feat/recommendation-platform`. Everything marked **[Phase 2]** / **[Phase 3]** is design only.
+> Status: MVP slice **and Phase 3 (Scale)** implemented on branch `feat/recommendation-platform`. **Phase 3 was built ahead of its own triggers and is dormant behind flags that default to off** (see `03-architecture.md` §12). **Phase 2** (BullMQ + Redis, FSRS, GrowthBook, Terraform) is **still open / design only**.
 > Date: 2026-11-09 · Owner decisions: delegated to engineering (all decisions below were made by the engineering lead and are open to challenge).
 
 ## 1. Business case in one page
@@ -56,9 +56,12 @@ First two weeks of production are **measurement only** (baselines); targets are 
 | ETL | bronze→silver→gold, DQ checks, lineage, lease/watermark, scheduler | BullMQ+Redis (P2), Redpanda + ClickHouse + dbt (P3) |
 | Recommender | Mastery (Elo-style), forgetting-curve, candidates, ranker, guardrails, cold start, explanations, feedback loop, A/B, offline replay eval | Learned ranker/bandit (P2), FSRS (P2), embeddings for content (P3) |
 | Analytics | KPI service + admin endpoints | Metabase/Grafana dashboards on ClickHouse (P3) |
-| Infra | CI, SHA-tagged deploy + rollback script, monitoring compose overlay, k6 test | Terraform, managed Redis, ClickHouse Cloud (P2/P3) |
+| Infra | CI, SHA-tagged deploy + rollback script, k6 test (not executed) | Terraform, managed Redis (P2); managed Redpanda/ClickHouse, multi-region infrastructure (design only) |
+| **Phase 3 (flagged, off by default)** | Stream exporter → Redpanda; ClickHouse sink/loader with erase propagation; dbt marts; KPI backend switch with Mongo fallback; feature store (point-in-time); learned ranker + retraining + challenger layer + harm guard; content embeddings; code-level residency | Production sizing, regional infrastructure, Metabase/Grafana, Feast |
 
 **Not done / needs real users or legal sign-off** — see §4 and `06-operations.md`.
+
+**What Phase 3 does and does not prove.** Verified against real servers: Redpanda, ClickHouse and dbt (Mongo and ClickHouse+dbt produce identical KPIs on the same events). **Not** verified: the learned ranker on real data (only synthetic), the Gemini embedding provider (never called), secured Kafka (TLS/SASL), production capacity. Every Phase 3 threshold is a judgement call to retune on real data. No §10 trigger has fired, so the right production default is to leave all Phase 3 flags off until one does.
 
 ## 4. Assumptions to validate
 

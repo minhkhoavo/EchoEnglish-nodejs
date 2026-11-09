@@ -51,13 +51,32 @@ Default-off consent; ledger entry per change; behavioural events dropped without
 * No real-user validation of reason copy, consent wording, or recommendation usefulness (README §4/§6).
 * Real-data replay evaluation requires production logs.
 * Full existing suite status: **not completed.** The first attempt had a jest worker SIGKILLed by the OS and the second run was stopped by the harness for low memory (2.9 GB VM). Only the suites for files I touched were run (all green, 647 tests); `DailySessionService` passed (28/28) when re-run in isolation. Run the full suite on CI (`ci.yml / full-suite`) or a larger machine before making CI a required check.
-* Repo-wide `tsc` has 53 pre-existing errors (controllers); new code adds none (`scripts/ci/typecheck-recsys.sh`).
+* Repo-wide `tsc` has 53 pre-existing errors (controllers); new code adds none (`scripts/ci/typecheck-recsys.sh`, which now type-checks src, the test tree and ops scripts in three passes — earlier it silently skipped tests and scripts).
+
+## 6b. Phase 3 tests
+| Layer | What it proves | Where |
+| --- | --- | --- |
+| Default suite (CI) | exporter cursor/lease/at-least-once, consent + tombstone gating, pseudonym guard, loader (invalid / foreign-region / erased), erase propagation + retry, feature-store point-in-time join (no future leakage), trainer (gates, position bias, user-level split), registry rules (caps, synthetic never servable, one DB read per TTL), serving (flag off ⇒ untouched, no reshuffling of control/srs_heavy, kill switch, registry failure degrades), harm guard, embeddings indexer/semantic/engine wiring, residency routing, KPI backend fallback, Kafka config | `__tests__/unit/recsys`, `__tests__/integration/recsys` — **234 tests in 22 suites** pass (3 consecutive runs with 2 workers) |
+| Performance (CI, serial step) | P1–P4 budgets, unchanged by Phase 3 (p50 14 ms / p95 17.9 ms, 720 events/s) | `integration/recsys/performance` |
+| **Live, opt-in** | exporter → real Redpanda (topic created with `retention.ms=604800000`, verified with `rpk`); real ClickHouse schema, idempotent re-delivery, `FINAL` dedup, tombstone block, real `DELETE`; the full chain Mongo → exporter → Redpanda → loader → ClickHouse → erase; **KPI parity** Mongo vs ClickHouse+dbt on identical events (overview and experiment read-out; non-trivial values: 6/6 activation, D1/D7 retention, median score gain 60 with the partial test excluded) | `__tests__/live` — 5 tests, skipped unless `RECSYS_LIVE_KAFKA` / `RECSYS_LIVE_CLICKHOUSE` are set |
+| Offline eval regression guard | control NDCG@5 0.588 / P@3 0.925 **byte-identical** to the pre-Phase-3 baseline after every engine commit | `npm run recsys:eval` |
+| dbt | 12 models/tests pass against real ClickHouse | `scripts/ops/run-dbt.sh build` |
+
+**Process-level smoke (manual, run once, not automated):** `recsys-loader.ts --init` created the tables; `recsys-loader.ts` as a real process consumed 6 exported events from Redpanda into ClickHouse and its consumer disconnected on SIGTERM; `recsys-embed.ts` (hash provider) embedded 2 resources, then skipped both on the second run. Not run as processes: `run-dbt.sh` inside CI, the cron registration in `scheduler.ts` (the exporter/retrain schedules are plain `node-cron` calls that were type-checked and exercised only through the services they call).
+
+Bugs these tests caught that unit tests with mocks would not have: `CREATE DATABASE` failing because the client sent a non-existent default database; a `toString(day) AS day` alias shadowing the column in `WHERE`; GROUP BY row order differing between Mongo and ClickHouse (flaky parity test → deterministic ordering added); Mongoose dropping an empty `segments: {}` so serving threw and silently fell back for everyone; gradient descent failing to separate collinear position/popularity effects (replaced by IRLS).
+
+**Phase 3 known gaps:** the trainer has only seen synthetic data; the Gemini embedding provider was never executed; TLS/SASL never tested against a secured broker; loader consumer-group rebalancing and throughput were not stress-tested; no ClickHouse capacity measurement; the earlier full-suite and k6 gaps above still stand. Three runs failed transiently under 2-worker load on the 2.9 GB VM (two performance budgets, then two unrelated suites) and **could not be reproduced** in five subsequent runs — suspected memory/CPU contention, not a confirmed cause.
 
 ## 7. How to run
 ```bash
 npx jest __tests__/unit/recsys                    # fast, pure
 npx jest __tests__/integration                    # real MongoDB (first run downloads mongod ~80 MB)
 npm run recsys:eval                               # offline evaluation table
+# live (opt-in, needs Docker; one container at a time on a 2.9 GB VM):
+docker compose -f docker-compose.analytics.yml up -d redpanda clickhouse
+RECSYS_LIVE_KAFKA=localhost:19092 RECSYS_LIVE_CLICKHOUSE=http://localhost:18123 npx jest __tests__/live --maxWorkers=1
+docker compose -f docker-compose.analytics.yml down -v
 bash scripts/ci/typecheck-recsys.sh               # typecheck guard
 k6 run -e BASE_URL=... -e TOKENS_FILE=tokens.json loadtest/recsys.k6.js
 ```

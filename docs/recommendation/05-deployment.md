@@ -50,5 +50,25 @@ Changes made to the existing pipeline (`deploy.yaml`): immutable **SHA tags** (r
 | Buggy ETL logic | fix, bump `pipelineVersion`, `pipelineService.rebuildUser()` / re-run from silver; gold is replace-not-increment | gold rebuilt |
 | Wrong data collected | `DELETE /privacy/data` per user or targeted `deleteMany` by `type/occurredAt` (bronze is a regular collection) | derived data rebuilt |
 
+## 5b. Phase 3 rollout (all optional, all off by default)
+`deploy.yaml` and the production compose are **not** modified by Phase 3. The overlay `docker-compose.analytics.yml` (pinned: Redpanda `v25.2.1`, ClickHouse `25.8`) is for dev/staging; production brokers/warehouse are a separate decision (managed or 2–3 VMs sized from observed volume — not decided here).
+
+Order, each step independently reversible; stop at any point:
+1. **Secrets first.** Set `RECSYS_PSEUDONYM_SALT` (≥ 16 chars, secret, never rotated casually — rotating changes every pseudonym; keep the old one to erase old data). Without it every export is refused.
+2. **Feature snapshots** — `RECSYS_FEATURE_SNAPSHOTS=true`. Needed ≥ 2–4 weeks before retraining is useful. Rollback: flag off (data TTLs out).
+3. **Stream + warehouse** — create ClickHouse schema and run the loader as its own process: `RECSYS_LOADER_REGION=vn npx tsx scripts/ops/recsys-loader.ts --init`, then `npm run recsys:loader` (needs `MONGO_URI` for tombstones). Set `RECSYS_STREAM_BROKERS`, `RECSYS_STREAM_TLS/SASL_*`, then `RECSYS_STREAM_ENABLED=true` on **one** instance (the Mongo lease makes extra instances harmless). Topics are created on first connect with `retention.ms` = `RECSYS_STREAM_RETENTION_HOURS`. Rollback: flag off; the cursor is kept, so re-enabling resumes without loss.
+4. **dbt** — `DBT_CH_HOST=… DBT_CH_USER=… DBT_CH_PASSWORD=… scripts/ops/run-dbt.sh build` (pinned container; schedule it every 15–60 min from cron/CI). Marts are tables rebuilt from `events`, so a bad run is fixed by re-running.
+5. **KPI cut-over** — `RECSYS_ANALYTICS_BACKEND=clickhouse` only after comparing both backends for a week (`/admin/recsys/kpis` reports `backend` and any `fallbackReason`). Rollback: unset (default `mongo`).
+6. **Embeddings** — `npm run recsys:embed` (try `RECSYS_EMBEDDINGS_PROVIDER=hash` first; it costs nothing), then `RECSYS_EMBEDDINGS_ENABLED=true`. Calibrate `RECSYS_SEMANTIC_MIN`. No behaviour changes until a learned model weights the signal.
+7. **Retraining** — `RECSYS_RETRAIN_ENABLED=true` only once the logs hold enough impressions (defaults 20 000 impressions / 500 clicks). First `POST /admin/recsys/models/retrain {"dryRun":true}` and read the report. A passing model auto-activates at ≤ 5 %; raise with `POST /admin/recsys/models/:v/activate {"allocationPct":N}` (≤ 50) only after reading `/admin/recsys/experiments`. Rollback: `POST …/retire`, or `RECSYS_FORCE_VARIANT=control`, or flag off.
+
+| Phase 3 failure | Action | Data impact |
+| --- | --- | --- |
+| Exporter misbehaving | `RECSYS_STREAM_ENABLED=false` | none; cursor retained |
+| Wrong data reached the warehouse | `DELETE FROM events WHERE …`, fix, re-run dbt; or rewind `recsys_stream_state.cursorId` to re-export (loader dedups) | warehouse only |
+| Warehouse down | nothing — KPI endpoints answer from Mongo and say so; exporter retries; failed erase deletes stay `warehousePending` and are retried by the loader sweep | none |
+| Bad learned model | retire it (above); guard also auto-retires on significant CTR harm | none |
+| Pseudonym secret leaked | rotate, re-export, erase old pseudonyms (tombstones cover old ones only if computed with the old secret — keep it for erasure) | warehouse rebuilt |
+
 ## 6. Migration from the current stack
 No data migration is required: all new collections; existing collections are read-only inputs. Flashcard scheduling is unchanged (Leitner). Backfill option: seed `question_answered` history from existing `testresults` via a one-off script (Phase 1.1; not needed for launch — mastery warms up from new answers, and cold start covers the gap).

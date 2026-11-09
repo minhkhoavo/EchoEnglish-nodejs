@@ -204,6 +204,13 @@ src/recsys/
   analytics/ kpi · kpiService · healthService
   http/      routes · recsysController
   scheduler.ts
+  stream/    pseudonym · wire · erasure · regions · kafkaConfig · producer · exporter      (Phase 3)
+  warehouse/ schema · clickhouse · loader · erasure · consumer                              (Phase 3)
+  featurestore/ registry · snapshotModel · store                                            (Phase 3)
+  learning/  logreg · model · train · dataset · registry · retrain                          (Phase 3)
+  embeddings/ provider · store · indexer · semantic                                         (Phase 3)
+  analytics/sources.ts  (Mongo / ClickHouse KPI inputs)
+  analytics/dbt/ (repo root) staging + marts, run via scripts/ops/run-dbt.sh
 hooks in existing code (additive, fail-safe): testResultService · flashcardService · creditsService · speechController · googleGenAIClient · authMiddleware
 ```
 
@@ -216,6 +223,8 @@ API: `POST /events/batch` · `POST /recommendations/feedback` · `GET|PUT /priva
 > **Existing bug found (not fixed here):** `DailySessionService.findAvailableResources` filters `labels.domain` with `.toUpperCase()`, but the `Domain` enum and `Resource` schema are lower-case, so the domain filter likely matches nothing. The new code matches both casings.
 
 ## 10. Infrastructure decisions, options and triggers
+
+> **Update:** none of the **P3** triggers below has fired. Phase 3 (§12) was nevertheless built ahead of its triggers at the owner's request. It is **dormant behind flags that default to off**, MongoDB remains the system of record, and nothing in §12 is required to run the product.
 
 | Concern | MVP decision | Options considered | Why MVP choice | **Trigger to move** → Phase |
 | --- | --- | --- | --- | --- |
@@ -237,3 +246,75 @@ BullMQ production requirements (when adopted): Redis `maxmemory-policy=noevictio
 * **AI cost:** the recommender adds **0 LLM calls**. Per-learner LLM cost is now *measured* (`ai_usage`), enabling a margin guardrail (target: AI cost ≤ 3% of ARPU — to validate).
 * **Compute:** ≈ 6 ms CPU per recommendation (plain Node, 300 candidates; ≈ 14 ms p50 under Jest instrumentation) + a few indexed reads; ETL ≈ 700 events/s on the dev VM (measured, in-memory DB).
 * **Phase 2 adds:** one small managed Redis (BullMQ) and CI minutes; **Phase 3 adds:** ClickHouse + Redpanda (managed or 2–3 VMs) — size from observed event volume at that time.
+
+## 12. Phase 3 (Scale) — built ahead of triggers, dormant behind flags
+
+### 12.1 What exists, and how it was verified
+Legend: **Live** = exercised against a real server in Docker (opt-in tests in `__tests__/live`, skipped by default). **Tests** = automated tests against in-memory MongoDB / fakes only. **Design** = documented, not built.
+
+| Piece | Code | Verification |
+| --- | --- | --- |
+| Stream exporter (Mongo silver → Kafka-protocol topic) | `src/recsys/stream/` | **Live** (Redpanda v25.2.1, client `@confluentinc/kafka-javascript` 1.11.0) + Tests |
+| ClickHouse sink + loader + erase propagation | `src/recsys/warehouse/` | **Live** (ClickHouse 25.8.33.6, `@clickhouse/client` 1.25.0) + Tests |
+| dbt project (staging view + `learner_daily_facts` mart + tests) | `analytics/dbt/` | **Live**: `dbt build` 12/12 pass (dbt-core 1.12.6, dbt-clickhouse 1.10.3, in a pinned container) |
+| KPI backend switch (Mongo ⇄ ClickHouse) | `analytics/sources.ts`, `kpiService.ts` | **Live parity test**: identical overview + experiment read-outs on the same events; Tests for fallback |
+| Feature store (registry, point-in-time snapshots) | `src/recsys/featurestore/` | Tests (incl. no-future-leakage) |
+| Learned ranker + retraining + registry + challenger layer + harm guard | `src/recsys/learning/` | Tests on **synthetic** rows only — never run on production data (none exists yet) |
+| Content embeddings (indexer, store, semantic signal) | `src/recsys/embeddings/` | Tests with the **lexical-hash provider only**. The Gemini provider path was **never executed** (no API key in the dev environment) |
+| Data residency — code level | `stream/regions.ts` | Tests |
+| Kafka TLS/SASL settings | `stream/kafkaConfig.ts` | Config builder unit-tested; **not exercised against a secured broker** |
+
+### 12.2 Data flow
+```
+Mongo bronze → silver (existing ETL) ──► StreamExporter (cron 1 min, lease, cursor on silver _id)
+   consent + tombstone gate, region lookup, HMAC pseudonym ──► topic  echo.learning_events.v1.<region>  (bounded retention)
+                                                                    │
+                         WarehouseLoader  (own process: npm run recsys:loader, one per region)
+        parse → drop invalid / foreign-region / erased → insert (ReplacingMergeTree on event_id)
+                                                                    ▼
+                         ClickHouse  events ──dbt──► stg_events (view) ──► learner_daily_facts (mart)
+                                                                    ▼
+                         KpiService (RECSYS_ANALYTICS_BACKEND=clickhouse; falls back to Mongo, reporting why)
+```
+Delivery is **at-least-once end to end**: the exporter advances its cursor only after the broker acknowledges; the loader commits offsets only after the insert; duplicates collapse on `event_id`. Nothing in this chain sits on a request path, and a broker or warehouse outage cannot affect the API (the cursor simply waits).
+
+### 12.3 Privacy controls on the new copies of data (the part most likely to go wrong)
+* **Pseudonymised, not anonymous.** The wire format never carries the raw user id; `u = HMAC-SHA256(secret, "<region>:<userId>")[:32]`. Exports **fail closed** unless `RECSYS_PSEUDONYM_SALT` is a real secret (≥ 16 chars, not a known placeholder). The pseudonym is region-scoped so records cannot be joined across residency regions. Props may still contain personal data; treat the warehouse as personal data.
+* **Consent at export time.** Behavioural events are exported only while analytics consent is currently granted (withdrawal stops future exports; already-exported history is removed only by erasure — counsel to confirm that this satisfies withdrawal).
+* **Erasure reaches every copy.** `DELETE /privacy/data` (1) writes **tombstones** for the user's pseudonym in **every** known region (a learner who moved regions is covered), (2) deletes from Mongo, (3) runs a synchronous ClickHouse `DELETE`. The response reports `downstream.warehouse = deleted | failed | not_enabled` truthfully.
+* **Race with in-flight data.** Kafka cannot delete a single record and a loader may be mid-batch when an erase runs. Both exporter and loader refuse any event that occurred at or before the tombstone; the loader's periodic sweep re-applies the delete for tombstones younger than 1 h **and for any whose delete failed** (`warehousePending`), so a warehouse outage during an erase self-heals. Tombstones carry only pseudonyms and have **no TTL** (expiring them would let later service events of an erased user flow again without fresh consent). After erasure, new events are exported only if the user grants analytics consent again.
+* **Topic retention is bounded** (`RECSYS_STREAM_RETENTION_HOURS`, default 168 h, set when the topic is created — verified on a real broker: `retention.ms = 604800000`). Existing topics are left as they are; Kafka cannot honour per-record deletion, which is why tombstones exist.
+* **Feature snapshots and region tags are included in export and erase.** Embeddings describe *content*, not people, so there is nothing to erase.
+* **Transport.** Dev overlay is plaintext. A real broker needs TLS + SASL (`RECSYS_STREAM_TLS`, `RECSYS_STREAM_SASL_*`); ClickHouse over HTTPS via the URL. **Not verified against secured endpoints.**
+
+### 12.4 Feature store
+In-house, deliberately small. `featurestore/registry.ts` lists the flat learner features (15, versioned). `featureBuilder.build()` appends an immutable snapshot to `learner_feature_snapshots` when `RECSYS_FEATURE_SNAPSHOTS=true`, at most once per hour per learner (TTL 120 d). `getHistoricalFeatures([{userId, t}])` returns, per row, the newest snapshot with `asOf ≤ t` and not older than 72 h — **never a later one** (tested with snapshots on both sides of the timestamp). The online store stays `learner_features`. Feast was rejected: one table and one join do not justify another system.
+
+### 12.5 Learned ranker and automated retraining
+```
+rec_impression{signals, position, recId}  +  rec_click  ──join (recId,itemRef)──►  labelled rows
+                         │ as-of join to feature snapshots → learner segment (new / established)
+                         ▼
+ trainRanker: user-level 80/20 split → IRLS logistic regression (signals + position)
+   gates: ≥ minRows impressions, ≥ minPositives clicks, holdout ≥ 50 clicks, AUC lift over control ≥ minAucLift
+   per-segment weights adopted only if they beat the global weights on that segment's holdout
+                         ▼
+ weights → existing WeightSet (negative → 0, normalised to 1; position coefficient DROPPED)
+                         ▼
+ rec_models registry:  rejected | candidate → active(≤5% auto) → retired
+```
+* **No engine change.** A model is just a `WeightSet`, so the ranker, guardrails and explanations are untouched; offline eval output is byte-identical to the pre-Phase-3 baseline (checked after every engine commit).
+* **Position bias.** Position is a *training covariate* (so a signal that merely correlates with top slots is not credited — tested with collinear data) and is not part of serving weights. Logged impressions only contain items that were *shown*, so offline lift is a pointwise (AUC) estimate under selection bias; the online experiment is the real test.
+* **Serving.** A separate hash layer (`rec_learned_layer_v1`) routes `allocationPct`% of users to `variant=learned`; everyone else keeps their original `control`/`srs_heavy` assignment (tested: no reshuffling). Auto-activation is hard-capped at **5 %**; only an admin may raise it, to at most **50 %**. The registry read is cached (60 s) and any failure degrades to the default path. `RECSYS_FORCE_VARIANT` overrides everything.
+* **Safety rails.** Models trained on synthetic data are `rejected` and cannot be activated even by an admin. A new model replaces the live one only if its lift is higher. A daily guard auto-**retires** the live model if its personalised-mode CTR is significantly worse than control (z ≤ −1.96 with ≥ 1000 impressions). Automatic actions can shrink exposure; only a human can grow it.
+* **Not validated.** All thresholds (`RECSYS_RETRAIN_MIN_*`, 5 % challenger) are judgement calls. The trainer has only ever seen synthetic rows. Expect to retune once real impressions exist.
+
+### 12.6 Content embeddings
+Offline only (`npm run recsys:embed`): resources are embedded from title + summary + trusted labels; unchanged content is skipped by hash (provider name is part of the hash), a per-run cap bounds cost, and cost is reported per run (job-level; no learner is involved, so it is not an `ai_usage` event). The model name is read from `GENAI_EMBEDDING_MODEL` (default `gemini-embedding-001`) — the same setting the document-analysis service already uses. Serving: a learner's recently *completed* resources form a centroid; each candidate resource gets `signals.semantic` = cosine similarity, and a resource at or above `RECSYS_SEMANTIC_MIN` can qualify on similarity alone with the reason `similar_to_completed`. `semantic` has weight **0 in every shipped variant**, so the signal changes nothing until a learned model assigns it weight. **`RECSYS_SEMANTIC_MIN=0.75` is uncalibrated and model-specific** (the lexical-hash baseline scores genuinely related texts around 0.57); recalibrate on the real catalogue whenever the model changes.
+
+### 12.7 Data residency — scope boundary
+**Built (code):** a persisted per-learner region tag (`learner_regions`, validated against `RECSYS_REGIONS`; unknown/stale tags fall back to the default region so data is never routed to a sink that is no longer configured), region-keyed topic / consumer group / pseudonym scope, and a loader that **refuses messages tagged for another region**. Admin endpoint: `PUT /admin/recsys/learners/:userId/region`.
+**Not built (infrastructure, design only):** separate MongoDB clusters per region, regional API deployments and traffic routing, per-region ClickHouse clusters (a regional deployment points its loader at its own ClickHouse via env), DNS, Terraform. Changing a learner's region affects *future* exports only; history is not migrated (erase covers all regions). No new learners get a region automatically — assignment at signup needs a product/legal decision.
+
+### 12.8 Sizing and cost (design, from measured per-row sizes in §3)
+Bronze ≈ 527 B/event, silver ≈ 462 B, gold ≈ 1.2 KB/user-day (Mongo, incl. indexes). ClickHouse compresses columnar data typically several-fold; **measure on real data before buying capacity**. Dev overlay limits (Redpanda 900 MB, ClickHouse 1.2 GB) were verified on a 2.9 GB VM running one at a time (with both running, ~1.5 GB of the 2.9 GB was still available). Production sizing: managed Redpanda/ClickHouse or 2–3 VMs from observed event rate — **not decided**; no vendor prices are quoted because none were verified.
