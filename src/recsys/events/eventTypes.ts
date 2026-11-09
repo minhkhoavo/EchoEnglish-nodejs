@@ -109,19 +109,21 @@ export const eventPropsSchemas = {
         itemType: z.string().min(1).max(40),
         itemRef: z.string().max(80).optional(),
         position: z.number().int().min(0).max(50).optional(),
-        variant: z.string().max(40).optional(),
+        /** Echo of the variant returned with the recommendation (needed for A/B read-outs). */
+        variant: z.string().min(1).max(40),
     }),
     rec_complete: z.object({
         recId: z.string().min(1).max(64),
         itemType: z.string().min(1).max(40),
         itemRef: z.string().max(80).optional(),
-        variant: z.string().max(40).optional(),
+        variant: z.string().min(1).max(40),
         outcome: score.optional(),
     }),
     rec_dismiss: z.object({
         recId: z.string().min(1).max(64),
         itemType: z.string().min(1).max(40),
         itemRef: z.string().max(80).optional(),
+        variant: z.string().min(1).max(40),
         reason: z
             .enum(['too_easy', 'too_hard', 'not_relevant', 'seen'])
             .optional(),

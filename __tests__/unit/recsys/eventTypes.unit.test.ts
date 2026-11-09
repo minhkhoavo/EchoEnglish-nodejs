@@ -87,4 +87,22 @@ describe('event contract v1', () => {
             expect(CLIENT_ALLOWED_TYPES.has(t)).toBe(false);
         }
     });
+
+    it('rec feedback events must echo the variant so A/B read-outs never lose outcomes', () => {
+        for (const type of [
+            'rec_click',
+            'rec_complete',
+            'rec_dismiss',
+        ] as const) {
+            const props = { recId: 'r1', itemType: 'resource', itemRef: 'x' };
+            expect(validateEvent({ ...base(), type, props }).ok).toBe(false);
+            expect(
+                validateEvent({
+                    ...base(),
+                    type,
+                    props: { ...props, variant: 'control' },
+                }).ok
+            ).toBe(true);
+        }
+    });
 });
