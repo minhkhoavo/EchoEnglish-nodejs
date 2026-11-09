@@ -26,6 +26,7 @@ const featureSchema = new Schema(
         timing: { type: Schema.Types.Mixed },
         engagement: { type: Schema.Types.Mixed },
         skills: { type: Schema.Types.Mixed },
+        daysSince: { type: Schema.Types.Mixed },
     },
     { collection: 'learner_features', versionKey: false }
 );
@@ -69,6 +70,12 @@ export interface LearnerFeatureSet {
         overdueMax: number;
     };
     timing: { bestHours: number[] };
+    /** Days since last test / pronunciation / vocab capture; null = none in the 30-day window. */
+    daysSince: {
+        test: number | null;
+        pronunciation: number | null;
+        vocab: number | null;
+    };
     engagement: {
         recImpressions30: number;
         recCtr30: number | null;

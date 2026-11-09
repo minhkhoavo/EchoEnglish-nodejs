@@ -25,6 +25,26 @@ const addDays = (day: string, delta: number) =>
         .toISOString()
         .slice(0, 10);
 
+/** Days between `today` and the most recent day where `pick(row) > 0`; null if none. */
+function daysSinceLast(
+    rows: DailyFactsData[],
+    today: string,
+    pick: (r: DailyFactsData) => number
+): number | null {
+    const last = rows
+        .filter((r) => pick(r) > 0)
+        .map((r) => r.day)
+        .sort()
+        .pop();
+    return last
+        ? Math.round(
+              (Date.parse(`${today}T00:00:00Z`) -
+                  Date.parse(`${last}T00:00:00Z`)) /
+                  DAY_MS
+          )
+        : null;
+}
+
 const ratio = (a: number, b: number): number | null => (b > 0 ? a / b : null);
 
 /** Consecutive active days ending today, or yesterday (a learner is not "broken" until the day is over). */
@@ -146,6 +166,15 @@ export function computeFeatures(i: FeatureInput): LearnerFeatureSet {
             overdueMax: rets.reduce((a, r) => Math.max(a, r.overdueDays), 0),
         },
         timing: { bestHours },
+        daysSince: {
+            test: daysSinceLast(f30, today, (r) => r.testsSubmitted),
+            pronunciation: daysSinceLast(
+                f30,
+                today,
+                (r) => r.pronunciationAttempts
+            ),
+            vocab: daysSinceLast(f30, today, (r) => r.vocabCaptured),
+        },
         engagement: {
             recImpressions30: imp,
             recCtr30: ratio(sum(f30, 'recClicks'), imp),
