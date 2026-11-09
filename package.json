@@ -29,6 +29,7 @@
         "lint:fix": "eslint . --fix",
         "format:check": "prettier --check .",
         "format": "prettier --write .",
+        "recsys:eval": "tsx src/recsys/eval/cli.ts",
         "prepare": "husky"
     },
     "devDependencies": {
