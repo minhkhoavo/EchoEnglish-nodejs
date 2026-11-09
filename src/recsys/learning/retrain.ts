@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { PipelineLock } from '../etl/models.js';
 import { recsysConfig } from '../config.js';
 import { kpiService } from '../analytics/kpiService.js';
-import { ModelDoc, modelRegistry } from './registry.js';
+import { ModelDoc, ModelError, modelRegistry } from './registry.js';
 import { TrainReport, TrainingRow, trainRanker } from './train.js';
 import { loadTrainingRows } from './dataset.js';
 
@@ -88,9 +88,7 @@ export class RetrainService {
             let activated = false;
             let reason: string | undefined;
             if (doc.status === 'candidate') {
-                const live = await modelRegistry.getActive(
-                    now.getTime() + 1e12
-                ); // bypass cache
+                const live = await modelRegistry.fetchActive();
                 const liveLift = (live?.metrics?.lift ?? null) as number | null;
                 if (
                     live &&
@@ -127,9 +125,7 @@ export class RetrainService {
     async guard(
         now = new Date()
     ): Promise<{ retired: boolean; reason?: string }> {
-        const live: ModelDoc | null = await modelRegistry.getActive(
-            now.getTime() + 1e12
-        );
+        const live: ModelDoc | null = await modelRegistry.fetchActive();
         if (!live) return { retired: false };
         const { variants } = await kpiService.experiments({
             windowDays: 7,
@@ -142,7 +138,14 @@ export class RetrainService {
             return { retired: false };
         if (row.zVsControl <= -1.96) {
             const reason = `auto-retired: CTR z=${row.zVsControl} vs control over ${row.impressions} impressions`;
-            await modelRegistry.retire(live.version, reason, now);
+            try {
+                await modelRegistry.retire(live.version, reason, now);
+            } catch (e) {
+                // Another instance (or an admin) retired it first: the goal is already met.
+                if (e instanceof ModelError && e.code === 'not_found')
+                    return { retired: false };
+                throw e;
+            }
             return { retired: true, reason };
         }
         return { retired: false };

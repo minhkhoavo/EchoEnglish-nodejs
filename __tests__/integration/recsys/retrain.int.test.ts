@@ -359,6 +359,81 @@ describe('serving', () => {
     });
 });
 
+describe('registry cache is not poisoned by background jobs', () => {
+    it('after guard(), a retire done elsewhere is visible within one TTL (not decades later)', async () => {
+        await retrainService.run({ force: true, rows: GOOD });
+        await modelRegistry.getActive(); // warm the cache with the live model
+        await retrainService.guard(); // background read must not extend the cache
+        // another instance retires the model directly in the database
+        await RecModel.updateOne(
+            { version: 1 },
+            { $set: { status: 'retired' } }
+        );
+        expect(await modelRegistry.getActive(Date.now() + 61_000)).toBeNull();
+    });
+
+    it('retrain() reads the live model fresh and leaves the cache TTL alone', async () => {
+        await retrainService.run({ force: true, rows: GOOD });
+        await RecModel.updateOne(
+            { version: 1 },
+            { $set: { status: 'retired' } }
+        );
+        await retrainService.run({ force: true, rows: GOOD }); // would otherwise compare against a ghost
+        modelRegistry.clearCache();
+        expect(
+            await modelRegistry.getActive(Date.now() + 61_000)
+        ).not.toBeNull(); // v2 went live
+    });
+
+    it('guard() treats a model already retired by someone else as done, not as a crash', async () => {
+        await retrainService.run({ force: true, rows: GOOD });
+        const spy = jest
+            .spyOn(modelRegistry, 'retire')
+            .mockRejectedValue(new ModelError('not_found', 'gone'));
+        const evidence = async (variant: string, ctr: number) => {
+            const docs: Array<Record<string, unknown>> = [];
+            const r = rng(variant.length * 31);
+            for (let i = 0; i < 1500; i++) {
+                const u = new mongoose.Types.ObjectId();
+                const base = {
+                    schemaVersion: 1,
+                    userId: u,
+                    source: 'server',
+                    occurredAt: new Date(),
+                    receivedAt: new Date(),
+                    processing: { status: 'pending' },
+                };
+                const props = {
+                    recId: `${variant}${i}`,
+                    itemType: 'resource',
+                    variant,
+                    mode: 'personalized',
+                };
+                docs.push({
+                    ...base,
+                    eventId: randomUUID(),
+                    type: 'rec_impression',
+                    props: { ...props, position: 0 },
+                });
+                if (r() < ctr)
+                    docs.push({
+                        ...base,
+                        eventId: randomUUID(),
+                        type: 'rec_click',
+                        props,
+                    });
+            }
+            await LearningEvent.insertMany(docs);
+        };
+        await evidence('control', 0.25);
+        await evidence('learned', 0.08);
+        await expect(retrainService.guard()).resolves.toEqual({
+            retired: false,
+        });
+        spy.mockRestore();
+    });
+});
+
 describe('harm guard', () => {
     const seed = async (variant: string, ctr: number, n: number) => {
         const docs: Array<Record<string, unknown>> = [];

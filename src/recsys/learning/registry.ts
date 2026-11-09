@@ -186,11 +186,17 @@ export class ModelRegistry {
     /** Cached lookup used on the request path: at most one DB read per TTL, never per request. */
     async getActive(now = Date.now()): Promise<ModelDoc | null> {
         if (cache && cache.exp > now) return cache.value;
-        const value = await RecModel.findOne({
-            status: 'active',
-        }).lean<ModelDoc | null>();
+        const value = await this.fetchActive();
         cache = { exp: now + TTL_MS, value };
         return value;
+    }
+
+    /**
+     * Uncached read for background jobs. It must NOT touch the cache: a job that needs the truth
+     * (retrain, guard) must not extend or poison what the request path sees.
+     */
+    fetchActive(): Promise<ModelDoc | null> {
+        return RecModel.findOne({ status: 'active' }).lean<ModelDoc | null>();
     }
 
     clearCache() {
