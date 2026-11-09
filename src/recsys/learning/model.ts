@@ -35,11 +35,12 @@ export function toWeightSet(coef: number[]): WeightSet | null {
 export interface LearnedModelPayload {
     algo: 'logreg-v1';
     global: WeightSet;
-    segments: Partial<Record<Segment, WeightSet>>;
+    /** May be absent after a Mongo round trip (empty objects are minimised away). */
+    segments?: Partial<Record<Segment, WeightSet>>;
 }
 
 export function weightsFor(m: LearnedModelPayload, seg: Segment): WeightSet {
-    return m.segments[seg] ?? m.global;
+    return m.segments?.[seg] ?? m.global;
 }
 
 export const POSITION_CAP = 10;

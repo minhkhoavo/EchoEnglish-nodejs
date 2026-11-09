@@ -105,6 +105,12 @@ describe('weights conversion', () => {
         expect(toWeightSet(SIGNAL_KEYS.map(() => -1))).toBeNull();
         expect(toWeightSet(SIGNAL_KEYS.map(() => 0))).toBeNull();
     });
+    it('tolerates a payload whose empty `segments` was dropped by a Mongo round trip', () => {
+        const g = toWeightSet(SIGNAL_KEYS.map(() => 1))!;
+        expect(
+            weightsFor({ algo: 'logreg-v1', global: g } as never, 'established')
+        ).toBe(g);
+    });
     it('falls back to the global weights for a missing segment', () => {
         const g = toWeightSet(SIGNAL_KEYS.map(() => 1))!;
         expect(

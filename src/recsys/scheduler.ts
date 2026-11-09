@@ -4,6 +4,7 @@ import { featureBuilder } from './features/featureBuilder.js';
 import { recsysConfig } from './config.js';
 import { StreamExporter } from './stream/exporter.js';
 import { createKafkaProducer, StreamProducer } from './stream/producer.js';
+import { retrainService } from './learning/retrain.js';
 import { PseudonymConfigError } from './stream/pseudonym.js';
 
 let started = false;
@@ -39,6 +40,7 @@ export function startRecsysScheduler(): void {
         }
     });
     startStreamExporter();
+    startRetraining();
     console.log('[recsys] scheduler started');
 }
 
@@ -71,4 +73,34 @@ function startStreamExporter(): void {
         }
     });
     console.log('[recsys] stream exporter scheduled');
+}
+
+/**
+ * Phase 3: weekly retraining (Sun 03:00 UTC+7 ≈ Sat 20:00 UTC) and a daily harm guard.
+ * Off unless RECSYS_RETRAIN_ENABLED=true. Training can only create a small challenger.
+ */
+function startRetraining(): void {
+    if (!recsysConfig.retrain.enabled()) return;
+    cron.schedule('0 20 * * 6', async () => {
+        try {
+            const r = await retrainService.run();
+            console.log(
+                `[recsys] retrain ${r.status}${r.version ? ` v${r.version}` : ''} activated=${r.activated}${r.reason ? ` (${r.reason})` : ''}`
+            );
+        } catch (err) {
+            console.error('[recsys] retrain crashed:', (err as Error).message);
+        }
+    });
+    cron.schedule('30 20 * * *', async () => {
+        try {
+            const g = await retrainService.guard();
+            if (g.retired) console.warn(`[recsys] ${g.reason}`);
+        } catch (err) {
+            console.error(
+                '[recsys] model guard crashed:',
+                (err as Error).message
+            );
+        }
+    });
+    console.log('[recsys] retraining scheduled');
 }

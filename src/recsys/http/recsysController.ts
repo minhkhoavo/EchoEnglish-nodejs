@@ -10,6 +10,8 @@ import { PipelineRun } from '../etl/models.js';
 import { recsysConfig } from '../config.js';
 import { checkHealth } from '../analytics/healthService.js';
 import { exposureService } from '../engine/exposureService.js';
+import { ModelError, modelRegistry } from '../learning/registry.js';
+import { retrainService } from '../learning/retrain.js';
 
 const uid = (req: Request): string => {
     const id = req.user?.id;
@@ -19,6 +21,19 @@ const uid = (req: Request): string => {
 const bad = (message: string) => new ApiError({ message, status: 400 });
 const platformSource = (v: unknown) =>
     v === 'ios' || v === 'android' ? v : 'web';
+
+const modelErr = (e: unknown) => {
+    if (!(e instanceof ModelError)) return e;
+    return new ApiError({
+        message: e.message,
+        status: e.code === 'not_found' ? 404 : 400,
+    });
+};
+const versionParam = (req: Request) => {
+    const v = Number(req.params.version);
+    if (!Number.isInteger(v) || v < 1) throw bad('invalid model version');
+    return v;
+};
 
 class RecsysController {
     /** POST /events/batch  { events: [...] }  (client behavioural events only) */
@@ -153,6 +168,50 @@ class RecsysController {
         res
             .status(200)
             .json(new ApiResponse('OK', await kpiService.experiments()));
+
+    /** GET /admin/recsys/models */
+    models = async (_req: Request, res: Response) =>
+        res.status(200).json(new ApiResponse('OK', await modelRegistry.list()));
+
+    /** POST /admin/recsys/models/retrain  { dryRun?: boolean } */
+    retrain = async (req: Request, res: Response) =>
+        res.status(200).json(
+            new ApiResponse(
+                'OK',
+                await retrainService.run({
+                    force: true,
+                    dryRun: req.body?.dryRun === true,
+                })
+            )
+        );
+
+    /** POST /admin/recsys/models/:version/activate  { allocationPct } (admin may go up to 50%) */
+    activateModel = async (req: Request, res: Response) => {
+        try {
+            const m = await modelRegistry.activate(
+                versionParam(req),
+                Number(req.body?.allocationPct),
+                'admin'
+            );
+            return res.status(200).json(new ApiResponse('OK', m));
+        } catch (e) {
+            throw modelErr(e);
+        }
+    };
+
+    retireModel = async (req: Request, res: Response) => {
+        try {
+            await modelRegistry.retire(
+                versionParam(req),
+                String(req.body?.reason ?? 'retired by admin')
+            );
+            return res
+                .status(200)
+                .json(new ApiResponse('OK', { retired: true }));
+        } catch (e) {
+            throw modelErr(e);
+        }
+    };
 
     health = async (_req: Request, res: Response) => {
         const report = await checkHealth();

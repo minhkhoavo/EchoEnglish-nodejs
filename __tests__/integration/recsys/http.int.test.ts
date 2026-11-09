@@ -28,6 +28,8 @@ import { featureBuilder } from '~/recsys/features/featureBuilder.js';
 import { eventService } from '~/recsys/events/eventService.js';
 import ErrorMiddleware from '~/middleware/errorMiddleware.js';
 import { randomUUID } from 'node:crypto';
+import { RecModel, modelRegistry } from '~/recsys/learning/registry.js';
+import { retrainService } from '~/recsys/learning/retrain.js';
 
 jest.setTimeout(120_000);
 const userId = new mongoose.Types.ObjectId().toString();
@@ -428,5 +430,68 @@ describe('admin endpoints', () => {
         expect(res.body.data.users).toMatchObject({ dau: 0, mau: 0 });
         expect(res.body.data.activation7d.rate).toBeNull();
         expect(JSON.stringify(res.body.data)).not.toMatch(/NaN|Infinity/);
+    });
+});
+
+describe('model admin endpoints', () => {
+    beforeEach(async () => {
+        await RecModel.deleteMany({});
+        modelRegistry.clearCache();
+    });
+    it('are admin-only', async () => {
+        expect(
+            (await request(userApp()).get('/admin/recsys/models')).status
+        ).toBe(403);
+        expect(
+            (
+                await request(userApp())
+                    .post('/admin/recsys/models/retrain')
+                    .send({})
+            ).status
+        ).toBe(403);
+        expect(
+            (
+                await request(userApp())
+                    .post('/admin/recsys/models/1/activate')
+                    .send({ allocationPct: 5 })
+            ).status
+        ).toBe(403);
+        expect(
+            (await request(adminApp()).get('/admin/recsys/models')).status
+        ).toBe(200);
+    });
+    it('retrain on an empty log is a safe no-op that registers a rejected model', async () => {
+        const res = await request(adminApp())
+            .post('/admin/recsys/models/retrain')
+            .send({});
+        expect(res.status).toBe(200);
+        expect(res.body.data).toMatchObject({
+            status: 'trained',
+            activated: false,
+        });
+        const list = await request(adminApp()).get('/admin/recsys/models');
+        expect(list.body.data[0]).toMatchObject({
+            status: 'rejected',
+            version: 1,
+        });
+    });
+    it('maps registry errors to 4xx and never serves a rejected model', async () => {
+        await retrainService
+            .run({ force: true, rows: [] })
+            .catch(() => undefined);
+        await request(adminApp()).post('/admin/recsys/models/retrain').send({});
+        const nf = await request(adminApp())
+            .post('/admin/recsys/models/99/activate')
+            .send({ allocationPct: 5 });
+        expect(nf.status).toBe(404);
+        const bad = await request(adminApp())
+            .post('/admin/recsys/models/abc/activate')
+            .send({ allocationPct: 5 });
+        expect(bad.status).toBe(400);
+        const rejected = await request(adminApp())
+            .post('/admin/recsys/models/1/activate')
+            .send({ allocationPct: 5 });
+        expect(rejected.status).toBe(400);
+        expect(rejected.body.message).toMatch(/rejected/);
     });
 });

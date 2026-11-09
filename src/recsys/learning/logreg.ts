@@ -50,7 +50,6 @@ export function trainLogReg(
     if (rows.length === 0) throw new Error('no training rows');
     const d = rows[0].x.length;
     const { l2 = 1e-2, maxIter = 30 } = opts;
-    const n = rows.length;
     const dim = d + 1; // last entry = intercept
     let beta = new Array<number>(dim).fill(0);
     for (let it = 0; it < maxIter; it++) {

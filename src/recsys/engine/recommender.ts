@@ -16,7 +16,9 @@ import {
     GuardrailConfig,
 } from './guardrails.js';
 import { explain } from './explain.js';
-import { assignVariant } from './experiments.js';
+import { assignVariant, bucket, LEARNED_LAYER } from './experiments.js';
+import { modelRegistry } from '../learning/registry.js';
+import { segmentOf, weightsFor } from '../learning/model.js';
 import { LearnerFeatureSet } from '../features/featureModels.js';
 import { LearnerFeatures } from '../features/featureModels.js';
 import { LearningEvent } from '../events/eventModel.js';
@@ -272,7 +274,7 @@ export class RecommenderService {
             popularity,
             availableMinutes: profile.studyMinutesPerDay,
         };
-        const variant = VARIANTS[assignVariant(userId)] ?? VARIANTS.control;
+        const { variant, algo } = await this.chooseVariant(userId, features);
         const built = buildRecommendations(ctx, variant, limit);
         const { suppressed: _s, signalsById, ...body } = built;
         void _s;
@@ -280,6 +282,7 @@ export class RecommenderService {
             recId: randomUUID(),
             generatedAt: now.toISOString(),
             ...body,
+            ...(algo ? { algo } : {}),
         };
         cache.set(key, { exp: now.getTime() + CACHE_TTL_MS, value: response });
 
@@ -320,6 +323,45 @@ export class RecommenderService {
             );
         }
         return response;
+    }
+
+    /**
+     * Control/srs_heavy by hash bucket, except for the small share of users routed to the live
+     * learned model (own hash layer). Disabled flag, kill switch or any registry failure ⇒ the
+     * default path; the request never depends on the registry being healthy.
+     */
+    private async chooseVariant(
+        userId: string,
+        features: LearnerFeatureSet | null
+    ): Promise<{ variant: Variant; algo?: string }> {
+        const fallback = {
+            variant: VARIANTS[assignVariant(userId)] ?? VARIANTS.control,
+        };
+        if (process.env.RECSYS_FORCE_VARIANT || !recsysConfig.retrain.enabled())
+            return fallback;
+        try {
+            const m = await modelRegistry.getActive();
+            if (
+                m &&
+                m.payload &&
+                m.status === 'active' &&
+                m.dataSource === 'production' &&
+                bucket(userId, LEARNED_LAYER) * 100 < m.allocationPct
+            )
+                return {
+                    variant: {
+                        name: 'learned',
+                        weights: weightsFor(m.payload, segmentOf(features)),
+                    },
+                    algo: `${m.algo}:v${m.version}`,
+                };
+        } catch (err) {
+            console.error(
+                '[recsys] model registry unavailable:',
+                (err as Error).message
+            );
+        }
+        return fallback;
     }
 
     /** Drop this user's cached lists (call after feedback so the next fetch reflects it). */

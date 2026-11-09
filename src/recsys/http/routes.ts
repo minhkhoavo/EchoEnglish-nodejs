@@ -44,4 +44,22 @@ router.get(
     controller.pipeline
 );
 
+router.get('/admin/recsys/models', hasAuthority(Role.ADMIN), controller.models);
+router.post(
+    '/admin/recsys/models/retrain',
+    hasAuthority(Role.ADMIN),
+    perUser(5, 3_600_000),
+    controller.retrain
+);
+router.post(
+    '/admin/recsys/models/:version/activate',
+    hasAuthority(Role.ADMIN),
+    controller.activateModel
+);
+router.post(
+    '/admin/recsys/models/:version/retire',
+    hasAuthority(Role.ADMIN),
+    controller.retireModel
+);
+
 export default router;

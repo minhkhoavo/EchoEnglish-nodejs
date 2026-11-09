@@ -19,6 +19,13 @@ export const RANKER_EXPERIMENT: ExperimentDef = {
     ],
 };
 
+/**
+ * Separate hash layer for the learned ranker. Users whose layer bucket falls under the model's
+ * allocation get `learned`; everyone else keeps their existing control/srs_heavy assignment, so
+ * adding or removing a model never reshuffles the original experiment.
+ */
+export const LEARNED_LAYER = 'rec_learned_layer_v1';
+
 /** Uniform value in [0,1) derived from sha256(experiment:user). */
 export function bucket(userId: string, experimentKey: string): number {
     const h = createHash('sha256')
