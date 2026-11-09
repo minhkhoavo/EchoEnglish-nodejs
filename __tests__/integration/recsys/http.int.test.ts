@@ -227,6 +227,20 @@ describe('GET /recommendations', () => {
             type: 'rec_impression',
         });
         expect(imps).toBe(res.body.data.items.length);
+
+        // training signals are logged per impression but never exposed to clients
+        const logged = await LearningEvent.find({
+            type: 'rec_impression',
+        }).lean<
+            Array<{
+                props: { itemRef?: string; signals?: Record<string, number> };
+            }>
+        >();
+        expect(logged.every((e) => e.props.signals !== undefined)).toBe(true);
+        expect(
+            logged.some((e) => Object.keys(e.props.signals ?? {}).length > 0)
+        ).toBe(true);
+        expect(JSON.stringify(res.body.data)).not.toContain('"signals"');
     });
 
     it('dismissals are honoured WITHOUT any consent (functional state), while analytics stays empty', async () => {

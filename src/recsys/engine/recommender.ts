@@ -43,6 +43,8 @@ export function buildRecommendations(
     guard: GuardrailConfig = { ...DEFAULT_GUARDRAILS, limit }
 ): Omit<RecommendationResponse, 'recId' | 'generatedAt'> & {
     suppressed: Array<{ id: string; rule: string }>;
+    /** Ranking signals per item id, for impression logging only (never returned to clients). */
+    signalsById: Record<string, Record<string, number>>;
 } {
     const mode = decideMode(ctx);
     const candidates = generateCandidates(ctx);
@@ -86,6 +88,16 @@ export function buildRecommendations(
         totalMinutes: items.reduce((a, i) => a + i.estMinutes, 0),
         items,
         suppressed,
+        signalsById: Object.fromEntries(
+            selected.map((c) => [
+                c.id,
+                Object.fromEntries(
+                    Object.entries(c.signals).filter(
+                        ([, v]) => typeof v === 'number' && v > 0
+                    )
+                ),
+            ])
+        ),
     };
 }
 
@@ -262,7 +274,7 @@ export class RecommenderService {
         };
         const variant = VARIANTS[assignVariant(userId)] ?? VARIANTS.control;
         const built = buildRecommendations(ctx, variant, limit);
-        const { suppressed: _s, ...body } = built;
+        const { suppressed: _s, signalsById, ...body } = built;
         void _s;
         const response: RecommendationResponse = {
             recId: randomUUID(),
@@ -302,6 +314,7 @@ export class RecommenderService {
                         mode: response.mode,
                         algo: response.algo,
                         ...(it.skillKey ? { skillKey: it.skillKey } : {}),
+                        signals: signalsById[it.id] ?? {},
                     },
                 }))
             );

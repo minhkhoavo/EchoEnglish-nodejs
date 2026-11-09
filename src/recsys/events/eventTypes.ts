@@ -107,6 +107,14 @@ export const eventPropsSchemas = {
         mode: z.enum(['personalized', 'cold_start']).optional(),
         algo: z.string().max(40).optional(),
         skillKey: skillKey.optional(),
+        /**
+         * Ranking signals the item had when shown (each in [0,1]); the training set for the
+         * learned ranker. Optional so legacy events and clients stay valid.
+         */
+        signals: z
+            .record(z.number().min(0).max(1))
+            .refine((o) => Object.keys(o).length <= 12, 'too many signals')
+            .optional(),
     }),
     rec_click: z.object({
         recId: z.string().min(1).max(64),

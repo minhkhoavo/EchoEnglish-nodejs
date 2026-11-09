@@ -140,3 +140,30 @@ describe('event contract v1', () => {
         expect(bad.ok).toBe(false);
     });
 });
+
+describe('rec_impression signals (training field)', () => {
+    const imp = (extra: Record<string, unknown>) =>
+        validateEvent({
+            ...base(),
+            type: 'rec_impression',
+            props: {
+                recId: 'r',
+                itemType: 'resource',
+                position: 0,
+                variant: 'control',
+                ...extra,
+            },
+        });
+    it('is optional (legacy events stay valid)', () => {
+        expect(imp({}).ok).toBe(true);
+    });
+    it('accepts in-range signals and rejects out-of-range or oversized maps', () => {
+        expect(imp({ signals: { need: 0.4, srs: 1 } }).ok).toBe(true);
+        expect(imp({ signals: { need: 1.5 } }).ok).toBe(false);
+        expect(imp({ signals: { need: -0.1 } }).ok).toBe(false);
+        const big = Object.fromEntries(
+            Array.from({ length: 13 }, (_, i) => [`s${i}`, 0.1])
+        );
+        expect(imp({ signals: big }).ok).toBe(false);
+    });
+});
