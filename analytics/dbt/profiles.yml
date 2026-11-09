@@ -1,0 +1,13 @@
+# Connection comes from the environment so no secret is committed.
+echo_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      schema: "{{ env_var('DBT_CH_DATABASE', 'echo') }}"
+      host: "{{ env_var('DBT_CH_HOST', 'localhost') }}"
+      port: "{{ env_var('DBT_CH_PORT', '8123') | as_number }}"
+      user: "{{ env_var('DBT_CH_USER', 'default') }}"
+      password: "{{ env_var('DBT_CH_PASSWORD', '') }}"
+      secure: false
+      threads: 2
