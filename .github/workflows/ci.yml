@@ -41,8 +41,12 @@ jobs:
           path: ~/.cache/mongodb-binaries
           key: mongodb-binaries-7.0.24
 
-      - name: Unit + integration + data-quality + performance tests
-        run: npx jest __tests__/unit/recsys __tests__/integration --maxWorkers=2 --ci
+      - name: Unit + integration + data-quality tests
+        run: npx jest __tests__/unit/recsys __tests__/integration --testPathIgnorePatterns performance --maxWorkers=2 --ci
+
+      # Latency budgets are meaningless under CPU contention, so they run alone and serially.
+      - name: Performance budgets (serial)
+        run: npx jest __tests__/integration/recsys/performance --runInBand --ci
 
       - name: Offline recommendation evaluation (regression guard)
         run: npm run recsys:eval
