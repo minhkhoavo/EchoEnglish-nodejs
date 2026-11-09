@@ -49,16 +49,28 @@ export function topicKeywordsForSkill(skillKey: string): string[] {
     return part ? (PART_TOPICS[part] ?? []) : [];
 }
 
+/** Lower-case once; callers in hot loops should cache the result per resource / skill. */
+export const lowerAll = (xs: readonly string[] | undefined): string[] =>
+    (xs ?? []).map((x) => x.toLowerCase());
+
+/** Core matcher on pre-lowercased inputs (no allocations in the loop). */
+export function topicMatchLC(topicsLC: string[], keywordsLC: string[]): number {
+    if (keywordsLC.length === 0 || topicsLC.length === 0) return 0;
+    let hits = 0;
+    for (const k of keywordsLC) {
+        for (const t of topicsLC) {
+            if (t.includes(k) || k.includes(t)) {
+                hits++;
+                break;
+            }
+        }
+    }
+    return Math.min(1, hits / Math.min(2, keywordsLC.length));
+}
+
 /** 0..1: share of the wanted keywords present in the resource's topics (case-insensitive). */
 export function topicMatch(resource: ResourceLike, keywords: string[]): number {
-    const topics = (resource.labels?.topic ?? []).map((t) => t.toLowerCase());
-    if (keywords.length === 0 || topics.length === 0) return 0;
-    const hits = keywords.filter((k) =>
-        topics.some(
-            (t) => t.includes(k.toLowerCase()) || k.toLowerCase().includes(t)
-        )
-    ).length;
-    return Math.min(1, hits / Math.min(2, keywords.length));
+    return topicMatchLC(lowerAll(resource.labels?.topic), lowerAll(keywords));
 }
 
 export function domainMatch(

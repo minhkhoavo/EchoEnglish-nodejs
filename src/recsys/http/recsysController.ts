@@ -8,6 +8,7 @@ import { recommenderService } from '../engine/recommender.js';
 import { kpiService } from '../analytics/kpiService.js';
 import { PipelineRun } from '../etl/models.js';
 import { recsysConfig } from '../config.js';
+import { checkHealth } from '../analytics/healthService.js';
 
 const uid = (req: Request): string => {
     const id = req.user?.id;
@@ -109,6 +110,13 @@ class RecsysController {
         res
             .status(200)
             .json(new ApiResponse('OK', await kpiService.experiments()));
+
+    health = async (_req: Request, res: Response) => {
+        const report = await checkHealth();
+        return res
+            .status(report.status === 'down' ? 503 : 200)
+            .json(new ApiResponse(report.status, report));
+    };
 
     pipeline = async (_req: Request, res: Response) => {
         const runs = await PipelineRun.find()

@@ -9,10 +9,10 @@ import {
     parseCefr,
 } from './cefr.js';
 import {
-    domainMatch,
     estimateResourceMinutes,
+    lowerAll,
     topicKeywordsForSkill,
-    topicMatch,
+    topicMatchLC,
 } from './contentTags.js';
 
 export const TARGET_MASTERY = 0.8;
@@ -157,16 +157,24 @@ function resourceCandidates(
     cefr: Cefr | undefined
 ): Candidate[] {
     const out: Candidate[] = [];
+    // Hot loop (resources × weak skills): lower-case keywords once per skill, topics once per resource.
+    const wanted = weak.map((w) => ({
+        w,
+        kw: lowerAll(topicKeywordsForSkill(w.skillKey)),
+    }));
+    const interestsLC = new Set(lowerAll(ctx.profile.interests));
     for (const r of ctx.resources) {
         if (r.suitableForLearners === false) continue;
         const id = r._id.toString();
         const rc = parseCefr(r.labels?.cefr);
         const fit = cefrFit(cefr, rc);
-        const interested = domainMatch(r, ctx.profile.interests);
+        const domain = r.labels?.domain?.toLowerCase();
+        const interested = !!domain && interestsLC.has(domain);
+        const topicsLC = lowerAll(r.labels?.topic);
         let bestNeed = 0;
         let bestSkill: WeakSkill | undefined;
-        for (const w of weak) {
-            const m = topicMatch(r, topicKeywordsForSkill(w.skillKey));
+        for (const { w, kw } of wanted) {
+            const m = topicMatchLC(topicsLC, kw);
             if (m > 0 && w.need * m > bestNeed) {
                 bestNeed = w.need * m;
                 bestSkill = w;
