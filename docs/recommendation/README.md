@@ -61,7 +61,7 @@ First two weeks of production are **measurement only** (baselines); targets are 
 
 **Not done / needs real users or legal sign-off** — see §4 and `06-operations.md`.
 
-**What Phase 3 does and does not prove.** Verified against real servers: Redpanda, ClickHouse and dbt (Mongo and ClickHouse+dbt produce identical KPIs on the same events). **Not** verified: the learned ranker on real data (only synthetic), the Gemini embedding provider (never called), secured Kafka (TLS/SASL), production capacity. Every Phase 3 threshold is a judgement call to retune on real data. No §10 trigger has fired, so the right production default is to leave all Phase 3 flags off until one does.
+**What Phase 3 does and does not prove.** Verified against real servers: Redpanda, ClickHouse and dbt (Mongo and ClickHouse+dbt produce identical KPIs on the same events). Also verified live: a secured broker (SASL/SCRAM over TLS) and dev-VM throughput. **Not** verified, because the inputs do not exist yet: the learned ranker on real data (only synthetic), the Gemini embedding provider (never called — no API key), ClickHouse over HTTPS, production capacity, regional infrastructure. Every Phase 3 threshold is a judgement call to retune on real data. No §10 trigger has fired, so the right production default is to leave all Phase 3 flags off until one does.
 
 ## 4. Assumptions to validate
 

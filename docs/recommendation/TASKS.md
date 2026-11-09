@@ -52,7 +52,7 @@ Legend: ✅ done in this branch (code + tests) · 📝 documented only · ⏭ la
 BullMQ + Redis for pipeline jobs · FSRS via `ts-fsrs` (shadow mode first) · learned ranker / contextual bandit · GrowthBook · Terraform · front-end consent UI · weekly KPI review ritual.
 Triggers: see `03-architecture.md` §10.
 
-## Phase 3 — Scale ✅ built (flagged, dormant) — see caveats
+## Phase 3 — Scale: ✅ built and verified as far as this environment allows; ⛔ 3 follow-ups blocked on external inputs
 > **Status of intent.** None of the §10 triggers in `03-architecture.md` has fired (no volume, no stakeholder BI need, no ≥100k labelled impressions). Phase 3 is therefore **built ahead of triggers at the owner's request and stays dormant behind flags that default to off**. MongoDB remains the system of record; `deploy.yaml` and the production compose are untouched; Redpanda/ClickHouse live in a separate opt-in compose overlay with pinned tags. **Phase 2 (BullMQ, FSRS, GrowthBook, Terraform) is still open** — Phase 3 only pulls forward the minimum trainable model that retraining needs.
 
 Legend: **Verified live** = exercised against a real server in Docker (opt-in tests, skipped by default). **Built** = code + automated tests (in-memory MongoDB / fakes). **Design only** = documented, no code.
@@ -60,7 +60,7 @@ Legend: **Verified live** = exercised against a real server in Docker (opt-in te
 | ID | Item | Acceptance criteria | Flag | Status |
 | --- | --- | --- | --- | --- |
 | T3.0 | Smoke test of infra images | Redpanda v25.2.1 and ClickHouse 25.8 start on the 2.9 GB dev VM; Kafka client round-trips a message | — | ✅ done (client: `@confluentinc/kafka-javascript` — kafkajs last published Feb 2023) |
-| T3.1 | Stream exporter (Mongo silver → Redpanda) | Cursor-resumable, at-least-once, key = pseudonym; consent + erasure gating; broker down ⇒ no loss, no request impact; lazy client; fails closed without a real salt | `RECSYS_STREAM_ENABLED` | ✅ **Verified live** (+ TLS/SASL settings: built, **not verified against a secured broker**) |
+| T3.1 | Stream exporter (Mongo silver → Redpanda) | Cursor-resumable, at-least-once, key = pseudonym; consent + erasure gating; broker down ⇒ no loss, no request impact; lazy client; fails closed without a real salt | `RECSYS_STREAM_ENABLED` | ✅ **Verified live**, including a secured broker (SASL/SCRAM over TLS) |
 | T3.2 | ClickHouse sink + loader | Idempotent on `eventId`; erase propagates + tombstones block late events; failed deletes retried; bounded topic retention | `RECSYS_CLICKHOUSE_ENABLED` | ✅ **Verified live** (incl. real `DELETE`, retention check with `rpk`, loader as a real process) |
 | T3.3 | KPI backend switch | Same KPIs from Mongo and ClickHouse on the same data; Mongo default; explicit fallback | `RECSYS_ANALYTICS_BACKEND` | ✅ **Verified live** (parity test; fallback tested) |
 | T3.4 | dbt project | Models + tests; run against real ClickHouse (mart covers the KPI-relevant subset of `aggregateDay` only) | — | ✅ **dbt itself ran**: `dbt build` 12/12 (dbt-core 1.12.6, dbt-clickhouse 1.10.3, pinned container). Not run in CI |
@@ -71,16 +71,16 @@ Legend: **Verified live** = exercised against a real server in Docker (opt-in te
 | T3.9 | Overlay, runbook, docs | Compose overlay (pinned tags); architecture §12, deployment §5b, operations §4b, testing §6b | — | ✅ Done |
 | T3.10 | Design only | Managed Redpanda/ClickHouse sizing, Metabase/Grafana dashboards, Feast, multi-region infrastructure, Terraform | — | 📝 |
 
-### Phase 3 follow-ups (new)
-| ID | Task | Est | Status |
-| --- | --- | --- | --- |
-| T3.11 | Verify Kafka TLS/SASL and ClickHouse HTTPS against a secured staging cluster | 1 | ⏭ |
-| T3.12 | Run the Gemini embedding provider on the real catalogue; calibrate `RECSYS_SEMANTIC_MIN`; cost-check one run | 1 | ⏭ |
-| T3.13 | First real retrain (dry run) once ≥ 20k personalised impressions exist; retune thresholds | 1 | ⏭ (needs data) |
-| T3.14 | Capacity test: loader throughput + ClickHouse sizing on real volume; consumer-group rebalance behaviour | 2 | ⏭ |
-| T3.15 | Schedule `run-dbt.sh` in CI/cron and add the alert rules from operations §4b | 1 | ⏭ |
-| T3.16 | Region assignment at signup (product + legal decision) and regional infrastructure | external | ⏭ |
-| T3.17 | Make the stream exporter + loader health part of `/admin/recsys/health` | 1 | ⏭ |
+### Phase 3 follow-ups
+| ID | Task | Status |
+| --- | --- | --- |
+| T3.11 | Kafka TLS/SASL against a secured broker | ✅ **Verified live** (SASL/SCRAM-SHA-256 over TLS, private CA; refusals tested). Found and fixed a real defect on the way (object-form `ssl` is rejected by the client). **Still untested: ClickHouse over HTTPS.** |
+| T3.12 | Run the Gemini embedding provider on the real catalogue; calibrate `RECSYS_SEMANTIC_MIN`; cost-check one run | ⛔ **Blocked: needs a Gemini API key and the real catalogue** (neither exists in the dev environment) |
+| T3.13 | First real retrain (dry run) once ≥ 20k personalised impressions exist; retune thresholds | ⛔ **Blocked: needs production data** (and consented users, hence the front-end consent UI, T1.16) |
+| T3.14 | Capacity: loader throughput + storage | 🟡 **Measured on the dev VM** (≈ 930 events/s end to end, 84 B/event compressed; `npm run recsys:bench`). Production capacity, rebalancing and long runs **not** measured |
+| T3.15 | Schedule `run-dbt.sh` + alert rules | 🟡 Health-based alerts **built** (operations §4b); **scheduled dbt job not built** (needs a deployment target) |
+| T3.16 | Region assignment at signup and regional infrastructure | ⛔ **Blocked: product + legal decision, and real infrastructure** |
+| T3.17 | Exporter / erasure / live-model state in `/admin/recsys/health` | ✅ Built + tested |
 
 ## Top risks
 | Risk | Likelihood | Impact | Mitigation |

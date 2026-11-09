@@ -262,7 +262,8 @@ Legend: **Live** = exercised against a real server in Docker (opt-in tests in `_
 | Learned ranker + retraining + registry + challenger layer + harm guard | `src/recsys/learning/` | Tests on **synthetic** rows only — never run on production data (none exists yet) |
 | Content embeddings (indexer, store, semantic signal) | `src/recsys/embeddings/` | Tests with the **lexical-hash provider only**. The Gemini provider path was **never executed** (no API key in the dev environment) |
 | Data residency — code level | `stream/regions.ts` | Tests |
-| Kafka TLS/SASL settings | `stream/kafkaConfig.ts` | Config builder unit-tested; **not exercised against a secured broker** |
+| Kafka TLS/SASL settings (incl. private CA) | `stream/kafkaConfig.ts` | **Live** against a secured Redpanda (SASL/SCRAM-SHA-256 over TLS, private CA): works; wrong password, plaintext client and untrusted CA are refused. ClickHouse over HTTPS **not** tested |
+| Health report: exporter backlog/errors, pending warehouse erasures, live model | `analytics/healthService.ts` | Tests |
 
 ### 12.2 Data flow
 ```
@@ -286,7 +287,7 @@ Delivery is **at-least-once end to end**: the exporter advances its cursor only 
 * **Topic retention is bounded** (`RECSYS_STREAM_RETENTION_HOURS`, default 168 h, set when the topic is created — verified on a real broker: `retention.ms = 604800000`). Existing topics are left as they are; Kafka cannot honour per-record deletion, which is why tombstones exist.
 * **Operational assumption: `_id` cursors need sane clocks.** The mastery updater and the stream exporter resume from the silver `_id` (insertion order). ObjectIds are monotonic within one process and across instances whose clocks agree to within the pipeline tick (2 min); a backwards clock step could make a later-inserted row sort before the cursor and be skipped. Run NTP on every instance. A mastery test that relies on wall-clock ordering failed twice in roughly a dozen 2-worker runs on the dev VM and never in 40 isolated repetitions; the cause was **not** established (a clock step is a hypothesis, not a finding), and the test now sets an explicit later `_id` so it no longer depends on it.
 * **Feature snapshots and region tags are included in export and erase.** Embeddings describe *content*, not people, so there is nothing to erase.
-* **Transport.** Dev overlay is plaintext. A real broker needs TLS + SASL (`RECSYS_STREAM_TLS`, `RECSYS_STREAM_SASL_*`); ClickHouse over HTTPS via the URL. **Not verified against secured endpoints.**
+* **Transport.** Dev overlay is plaintext. A real broker needs TLS + SASL (`RECSYS_STREAM_TLS`, `RECSYS_STREAM_SASL_*`, and `RECSYS_STREAM_TLS_CA_FILE` for a private CA — passed to the client as `ssl.ca.location`, because the Confluent client accepts only a boolean `ssl` inside its `kafkaJS` block). **Verified live** against a secured Redpanda (SASL/SCRAM-SHA-256 over TLS, self-signed CA); a wrong password, a plaintext client and an untrusted CA were each refused. ClickHouse over HTTPS (URL `https://…`) was **not** tested.
 
 ### 12.4 Feature store
 In-house, deliberately small. `featurestore/registry.ts` lists the flat learner features (15, versioned). `featureBuilder.build()` appends an immutable snapshot to `learner_feature_snapshots` when `RECSYS_FEATURE_SNAPSHOTS=true`, at most once per hour per learner (TTL 120 d). `getHistoricalFeatures([{userId, t}])` returns, per row, the newest snapshot with `asOf ≤ t` and not older than 72 h — **never a later one** (tested with snapshots on both sides of the timestamp). The online store stays `learner_features`. Feast was rejected: one table and one join do not justify another system.
@@ -319,5 +320,16 @@ Offline only (`npm run recsys:embed`): resources are embedded from title + summa
 **Built (code):** a persisted per-learner region tag (`learner_regions`, validated against `RECSYS_REGIONS`; unknown/stale tags fall back to the default region so data is never routed to a sink that is no longer configured), region-keyed topic / consumer group / pseudonym scope, and a loader that **refuses messages tagged for another region**. Admin endpoint: `PUT /admin/recsys/learners/:userId/region`.
 **Not built (infrastructure, design only):** separate MongoDB clusters per region, regional API deployments and traffic routing, per-region ClickHouse clusters (a regional deployment points its loader at its own ClickHouse via env), DNS, Terraform. Changing a learner's region affects *future* exports only; history is not migrated (erase covers all regions). No new learners get a region automatically — assignment at signup needs a product/legal decision.
 
-### 12.8 Sizing and cost (design, from measured per-row sizes in §3)
-Bronze ≈ 527 B/event, silver ≈ 462 B, gold ≈ 1.2 KB/user-day (Mongo, incl. indexes). ClickHouse compresses columnar data typically several-fold; **measure on real data before buying capacity**. Dev overlay limits (Redpanda 900 MB, ClickHouse 1.2 GB) were verified on a 2.9 GB VM running one at a time (with both running, ~1.5 GB of the 2.9 GB was still available). Production sizing: managed Redpanda/ClickHouse or 2–3 VMs from observed event rate — **not decided**; no vendor prices are quoted because none were verified.
+### 12.8 Sizing and cost
+**Measured on the 2.9 GB / 2-vCPU dev VM** with Redpanda, ClickHouse, MongoDB and Node all sharing it (`npm run recsys:bench -- 150000 5000`, real services; **this is not production capacity**):
+
+| Measure | Result |
+| --- | --- |
+| Exporter (Mongo silver → Redpanda) | ≈ 3 800 events/s |
+| Exporter + loader end to end (Redpanda → ClickHouse) | ≈ 930 events/s; the loader is the slower stage (≈ 1 200/s once the exporter is done) |
+| Expected load (10M events/month, `README` §4) | ≈ 4 events/s average → roughly two orders of magnitude of headroom on this VM; peaks and concurrency were **not** modelled |
+| ClickHouse storage | 84 B/event compressed (2.16× vs uncompressed); `props` is a JSON string, so a typed-column design would compress better |
+| MongoDB silver storage in the same run | 232 B/event incl. indexes (earlier §3 measurement: 462 B with larger props — the figure depends on the props mix) |
+
+Not measured: ClickHouse query latency at scale, consumer-group rebalances, multi-partition ordering under failure, sustained multi-hour runs, network latency to managed services. One known cost in the exporter: consent is looked up per distinct user per batch (cached 60 s) — fine at this size, batch it before it becomes the bottleneck at much higher user counts.
+Dev overlay limits (Redpanda 900 MB, ClickHouse 1.2 GB) were verified on the 2.9 GB VM (with both running, ~1.5 GB of the 2.9 GB was still available). Production sizing: managed Redpanda/ClickHouse or 2–3 VMs from observed event rate — **not decided**; no vendor prices are quoted because none were verified.

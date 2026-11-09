@@ -41,7 +41,7 @@
 **4.10 Retraining.** `GET /admin/recsys/models` lists versions with `status`, `metrics.lift`, `counts`, `reasons`. A `rejected` model with data-gate reasons is normal until enough logs accumulate. Weekly cron (Sat 20:00 UTC) trains; daily 20:30 UTC guard retires a significantly worse live model (look for `auto-retired` in logs and `retiredReason`). **Never** raise allocation without reading the `learned` vs `control` rows in `/admin/recsys/experiments` (personalised mode).
 **4.11 Embedding job.** Exit code 1 ⇒ at least one failed batch (quota). Re-run: unchanged items are skipped. Track `estTokens` per run for cost.
 
-**Alerts to add when Phase 3 is enabled:** stream cursor age > 15 min; `lastError` non-empty > 10 min; loader group lag > 10 000; tombstones with `warehousePending=true` older than 10 min; KPI `fallbackReason` present > 30 min; active model `auto-retired`; dbt job failure.
+**Alerting.** `GET /admin/recsys/health` and `scripts/ops/recsys-health.ts` now include a `phase3` section when the matching flag is on and **degrade** on: an exporter `lastError`; silver events waiting while the cursor has been idle > 15 min; any warehouse erasure pending > 10 min. Point the existing uptime monitor at it. **Still to wire up (not built):** loader consumer-group lag (needs `rpk`/broker metrics), KPI `fallbackReason` present > 30 min, an `auto-retired` model, and a scheduled dbt job with failure alerting.
 
 ## 5. Iterating on KPIs (operating cadence)
 * **Weekly (30 min):** KPI overview (activation, D1/D7/D30, study time, score gain, credit spend, AI cost); top-10 recommendations by impressions with dismiss reasons; DQ trend.
