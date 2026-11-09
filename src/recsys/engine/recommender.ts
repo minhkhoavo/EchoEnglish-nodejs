@@ -19,6 +19,11 @@ import { explain } from './explain.js';
 import { assignVariant, bucket, LEARNED_LAYER } from './experiments.js';
 import { modelRegistry } from '../learning/registry.js';
 import { segmentOf, weightsFor } from '../learning/model.js';
+import { providerNameFromEnv } from '../embeddings/provider.js';
+import {
+    buildSemanticContext,
+    SemanticContext,
+} from '../embeddings/semantic.js';
 import { LearnerFeatureSet } from '../features/featureModels.js';
 import { LearnerFeatures } from '../features/featureModels.js';
 import { LearningEvent } from '../events/eventModel.js';
@@ -111,6 +116,11 @@ export interface RecDeps {
     loadExposure(userId: string, now: Date): Promise<ExposureMap>;
     loadPopularity(): Promise<Map<string, number>>;
     hasPersonalizationConsent(userId: string): Promise<boolean>;
+    /** Optional: embedding similarity to what the learner finished (flagged; null = unavailable). */
+    loadSemantic?(
+        resources: ResourceLike[],
+        exposure: ExposureMap
+    ): Promise<SemanticContext | null>;
 }
 
 const DAY_MS = 86_400_000;
@@ -216,6 +226,11 @@ export const mongoDeps: RecDeps = {
 
     hasPersonalizationConsent: (userId) =>
         consentService.has(userId, 'personalization'),
+
+    async loadSemantic(resources, exposure) {
+        if (!recsysConfig.embeddings.enabled()) return null;
+        return buildSemanticContext(resources, exposure, providerNameFromEnv());
+    },
 };
 
 const CACHE_TTL_MS = 120_000;
@@ -263,6 +278,17 @@ export class RecommenderService {
             };
         }
 
+        // Optional signal: any failure just means "no semantic context", never a failed request.
+        const semantic = this.deps.loadSemantic
+            ? await this.deps.loadSemantic(resources, exposure).catch((e) => {
+                  console.error(
+                      '[recsys] semantic context failed:',
+                      (e as Error).message
+                  );
+                  return null;
+              })
+            : null;
+
         const ctx: RecContext = {
             userId,
             now,
@@ -273,6 +299,7 @@ export class RecommenderService {
             resources,
             popularity,
             availableMinutes: profile.studyMinutesPerDay,
+            semantic,
         };
         const { variant, algo } = await this.chooseVariant(userId, features);
         const built = buildRecommendations(ctx, variant, limit);

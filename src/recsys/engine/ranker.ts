@@ -17,6 +17,7 @@ const control: WeightSet = {
     habit: 0.1,
     explore: 0.05,
     popularity: 0.03,
+    semantic: 0,
 };
 
 export const VARIANTS: Record<string, Variant> = {
@@ -31,6 +32,7 @@ export const VARIANTS: Record<string, Variant> = {
             interest: 0.08,
             explore: 0.04,
             popularity: 0.02,
+            semantic: 0,
         },
     },
     /** Offline-evaluation baseline only; never served. */
@@ -44,6 +46,7 @@ export const VARIANTS: Record<string, Variant> = {
             habit: 0,
             explore: 0,
             popularity: 1,
+            semantic: 0,
         },
     },
 };
@@ -57,6 +60,7 @@ export const COLD_START_WEIGHTS: WeightSet = {
     habit: 0.15,
     explore: 0,
     popularity: 0.1,
+    semantic: 0,
 };
 
 const DAY_MS = 86_400_000;

@@ -1,3 +1,4 @@
+import { recsysConfig } from '../config.js';
 import { Candidate, RecContext, ResourceLike } from './types.js';
 import {
     isActionableSkill,
@@ -171,6 +172,7 @@ function resourceCandidates(
         kw: lowerAll(topicKeywordsForSkill(w.skillKey)),
     }));
     const interestsLC = new Set(lowerAll(ctx.profile.interests));
+    const semanticMin = recsysConfig.embeddings.semanticMin();
     for (const r of ctx.resources) {
         if (r.suitableForLearners === false) continue;
         const id = r._id.toString();
@@ -189,10 +191,13 @@ function resourceCandidates(
             }
         }
         const pop = ctx.popularity.get(id) ?? 0;
+        const sem = ctx.semantic?.sim.get(id) ?? 0;
         // Level fit alone is a weak reason: it only qualifies a resource in cold start
         // (no weak skills known). Otherwise we need a skill, interest or popularity signal.
         const levelOnlyOk = weak.length === 0 && fit === 1;
-        if (!bestSkill && !interested && pop === 0 && !levelOnlyOk) continue;
+        const similar = sem >= semanticMin;
+        if (!bestSkill && !interested && pop === 0 && !levelOnlyOk && !similar)
+            continue;
         out.push({
             id: `resource:${id}`,
             type: 'resource',
@@ -206,6 +211,7 @@ function resourceCandidates(
                 interest: interested ? 1 : 0,
                 levelFit: fit,
                 popularity: pop,
+                ...(sem > 0 ? { semantic: sem } : {}),
             },
             reason: bestSkill
                 ? {
@@ -224,12 +230,20 @@ function resourceCandidates(
                             cefr: rc ?? '',
                         },
                     }
-                  : pop > 0.3
+                  : similar
                     ? {
-                          code: 'popular_for_level',
-                          params: { cefr: cefr ?? '' },
+                          code: 'similar_to_completed',
+                          params: { title: ctx.semantic?.seedTitle ?? '' },
                       }
-                    : { code: 'level_fit', params: { cefr: rc ?? cefr ?? '' } },
+                    : pop > 0.3
+                      ? {
+                            code: 'popular_for_level',
+                            params: { cefr: cefr ?? '' },
+                        }
+                      : {
+                            code: 'level_fit',
+                            params: { cefr: rc ?? cefr ?? '' },
+                        },
             action: { screen: 'resource', resourceId: id },
         });
     }

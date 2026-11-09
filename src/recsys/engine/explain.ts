@@ -69,6 +69,16 @@ const TEMPLATES: Record<ReasonFact['code'], Template> = {
         vi: (p) =>
             `Được nhiều học viên cùng trình độ${p.cefr ? ` (${p.cefr})` : ''} yêu thích.`,
     },
+    similar_to_completed: {
+        en: (p) =>
+            p.title
+                ? `Similar to "${p.title}", which you finished recently.`
+                : 'Similar to content you finished recently.',
+        vi: (p) =>
+            p.title
+                ? `Tương tự "${p.title}" mà bạn vừa hoàn thành.`
+                : 'Tương tự nội dung bạn vừa hoàn thành.',
+    },
     welcome_back: {
         en: (p) =>
             `Welcome back! Start with a quick review of ${p.count} cards to refresh what you learned.`,

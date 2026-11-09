@@ -89,6 +89,23 @@ export const recsysConfig = {
         trainingWindowDays: () =>
             num(process.env.RECSYS_RETRAIN_WINDOW_DAYS, 60),
     },
+    embeddings: {
+        /** Use embedding similarity as a ranking signal (requires an indexed catalogue). */
+        enabled: () => process.env.RECSYS_EMBEDDINGS_ENABLED === 'true',
+        /** 'gemini' (production) or 'hash' (lexical hashing baseline, no external call). */
+        provider: () => process.env.RECSYS_EMBEDDINGS_PROVIDER ?? 'gemini',
+        /** Same variable the document-analysis service already uses; default copied from there. */
+        model: () =>
+            process.env.GENAI_EMBEDDING_MODEL ?? 'gemini-embedding-001',
+        /**
+         * Similarity needed for a resource to qualify on that signal alone. Model-specific and
+         * UNCALIBRATED: re-tune on the real catalogue whenever the embedding model changes.
+         */
+        semanticMin: () => num(process.env.RECSYS_SEMANTIC_MIN, 0.75),
+        batchSize: 50,
+        /** Upper bound of resources embedded per job run (cost guard). */
+        maxPerRun: () => num(process.env.RECSYS_EMBEDDINGS_MAX_PER_RUN, 500),
+    },
     /** Default data region for learners without an explicit residency tag. */
     defaultRegion: () => process.env.RECSYS_DEFAULT_REGION ?? 'vn',
 

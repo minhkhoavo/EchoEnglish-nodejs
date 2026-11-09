@@ -19,6 +19,7 @@ export type ReasonCode =
     | 'habit_vocab'
     | 'starter_diagnostic'
     | 'popular_for_level'
+    | 'similar_to_completed'
     | 'welcome_back';
 
 export interface ReasonFact {
@@ -35,6 +36,8 @@ export interface Signals {
     habit?: number;
     explore?: number;
     popularity?: number;
+    /** Embedding similarity to what the learner finished (0 unless embeddings are enabled). */
+    semantic?: number;
 }
 
 export interface Candidate {
@@ -94,6 +97,8 @@ export interface RecContext {
     resources: ResourceLike[];
     popularity: Map<string, number>;
     availableMinutes: number;
+    /** Per-resource similarity to the learner's completed resources; absent unless enabled. */
+    semantic?: { sim: Map<string, number>; seedTitle?: string } | null;
 }
 
 export type WeightSet = Required<Signals>;
