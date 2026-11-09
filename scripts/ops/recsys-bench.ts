@@ -48,7 +48,7 @@ const SKILLS = [
     'p3.detail',
     'p2.whquestion',
 ];
-const mk = (i: number) => {
+const mk = () => {
     const u = users[Math.floor(r() * USERS)];
     const x = r();
     const at = new Date(Date.now() - Math.floor(r() * 6 * 86_400_000));
@@ -114,7 +114,7 @@ const mk = (i: number) => {
 let t0 = process.hrtime.bigint();
 for (let i = 0; i < N; i += 5000)
     await CleanEvent.insertMany(
-        Array.from({ length: Math.min(5000, N - i) }, (_, k) => mk(i + k)),
+        Array.from({ length: Math.min(5000, N - i) }, () => mk()),
         { ordered: false }
     );
 const seedMs = ms(t0);
