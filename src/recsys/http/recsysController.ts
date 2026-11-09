@@ -222,13 +222,11 @@ class RecsysController {
                 String(req.body?.region ?? ''),
                 'admin'
             );
-            return res
-                .status(200)
-                .json(
-                    new ApiResponse('OK', {
-                        region: String(req.body.region).trim().toLowerCase(),
-                    })
-                );
+            return res.status(200).json(
+                new ApiResponse('OK', {
+                    region: String(req.body.region).trim().toLowerCase(),
+                })
+            );
         } catch (e) {
             if (e instanceof RegionError) throw bad(e.message);
             throw e;

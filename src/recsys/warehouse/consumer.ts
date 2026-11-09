@@ -23,11 +23,13 @@ export async function runLoader(opts: {
         throw new Error('RECSYS_STREAM_BROKERS is not configured');
     const { KafkaJS } = await import('@confluentinc/kafka-javascript');
     const topic = `${recsysConfig.stream.topicBase()}.${opts.region}`;
+    const settings = kafkaClientConfig(
+        brokers,
+        `${recsysConfig.stream.clientId()}-loader`
+    );
     const kafka = new KafkaJS.Kafka({
-        kafkaJS: kafkaClientConfig(
-            brokers,
-            `${recsysConfig.stream.clientId()}-loader`
-        ),
+        kafkaJS: settings.kafkaJS,
+        ...settings.extra,
     });
     const consumer = kafka.consumer({
         kafkaJS: {

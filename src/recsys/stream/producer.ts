@@ -25,8 +25,10 @@ export async function createKafkaProducer(
     if (brokers.length === 0)
         throw new Error('RECSYS_STREAM_BROKERS is not configured');
     const { KafkaJS } = await import('@confluentinc/kafka-javascript');
+    const settings = kafkaClientConfig(brokers, clientId);
     const kafka = new KafkaJS.Kafka({
-        kafkaJS: kafkaClientConfig(brokers, clientId),
+        kafkaJS: settings.kafkaJS,
+        ...settings.extra,
     });
     // Redpanda does not auto-create topics, and Kafka cannot delete single records, so every
     // topic is created with an explicit, bounded retention (existing topics are left as they are).
