@@ -74,6 +74,21 @@ export const recsysConfig = {
         retentionDays: () =>
             num(process.env.RECSYS_SNAPSHOT_RETENTION_DAYS, 120),
     },
+    retrain: {
+        enabled: () => process.env.RECSYS_RETRAIN_ENABLED === 'true',
+        /** Minimum logged impressions / clicks before any model may be trained. */
+        minRows: () => num(process.env.RECSYS_RETRAIN_MIN_IMPRESSIONS, 20_000),
+        minPositives: () => num(process.env.RECSYS_RETRAIN_MIN_CLICKS, 500),
+        /** Required AUC improvement over the control weights on held-out USERS. */
+        minAucLift: () => num(process.env.RECSYS_RETRAIN_MIN_AUC_LIFT, 0.01),
+        /** Share of users served the learned model when it first goes live. Hard-capped. */
+        challengerPct: () =>
+            Math.min(5, num(process.env.RECSYS_CHALLENGER_PCT, 5)),
+        /** Admin can raise the allocation, never beyond this. */
+        maxAllocationPct: 50,
+        trainingWindowDays: () =>
+            num(process.env.RECSYS_RETRAIN_WINDOW_DAYS, 60),
+    },
     /** Default data region for learners without an explicit residency tag. */
     defaultRegion: () => process.env.RECSYS_DEFAULT_REGION ?? 'vn',
 
