@@ -34,7 +34,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/echo-english:latest
+          # Immutable SHA tag (rollback target) + moving `latest` (kept for compatibility).
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/echo-english:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/echo-english:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/echo-english:cache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/echo-english:cache,mode=max
 
@@ -44,12 +47,13 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          IMAGE_TAG: ${{ github.sha }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
           port: 22
-          envs: DOCKER_USERNAME,DOCKER_TOKEN
+          envs: DOCKER_USERNAME,DOCKER_TOKEN,IMAGE_TAG
           script_stop: true
           command_timeout: 15m
           script: |
@@ -57,18 +61,38 @@ jobs:
             echo "Login Docker registry..."
             echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
             
-            IMAGE_NAME=${DOCKER_USERNAME}/echo-english:latest
-            echo "Pulling $IMAGE_NAME..."
+            REPO=${DOCKER_USERNAME}/echo-english
+            IMAGE_NAME=${REPO}:${IMAGE_TAG}
+            PREV_IMAGE=$(docker inspect -f '{{.Config.Image}}' echo-english 2>/dev/null || true)
+            echo "Pulling $IMAGE_NAME (previous: ${PREV_IMAGE:-none})..."
             docker pull "$IMAGE_NAME"
 
+            start_container() {
+              docker stop echo-english || true
+              docker rm echo-english || true
+              docker run -d --name echo-english \
+                --restart unless-stopped \
+                --env-file /home/apps/EchoEnglish/.env \
+                -p 4000:4000 \
+                "$1"
+            }
+
+            is_up() {
+              for i in $(seq 1 10); do
+                code=$(curl -s -o /dev/null --max-time 5 -w '%{http_code}' http://localhost:4000/ || true)
+                # any HTTP status (e.g. 401 from the auth gate) proves the process is serving
+                if [ -n "$code" ] && [ "$code" != "000" ]; then return 0; fi
+                sleep 3
+              done
+              return 1
+            }
+
             echo "Restarting container..."
-            docker stop echo-english || true
-            docker rm echo-english || true
-            
-            docker run -d --name echo-english \
-              --restart unless-stopped \
-              --env-file /home/apps/EchoEnglish/.env \
-              -p 4000:4000 \
-              "$IMAGE_NAME"
+            start_container "$IMAGE_NAME"
+            if ! is_up; then
+              echo "New release is not responding - rolling back to ${PREV_IMAGE:-<none>}" >&2
+              if [ -n "$PREV_IMAGE" ]; then start_container "$PREV_IMAGE"; is_up || true; fi
+              exit 1
+            fi
 
             docker image prune -f
