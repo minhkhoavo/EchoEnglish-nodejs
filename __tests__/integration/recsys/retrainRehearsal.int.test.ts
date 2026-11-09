@@ -237,7 +237,6 @@ it('logs → features → training → registry works end to end on production-p
     const g = live.payload!.global;
     // it found the hidden preference rather than control's need/srs emphasis
     expect(g.levelFit + g.interest + g.popularity).toBeGreaterThan(0.6);
-    // eslint-disable-next-line no-console
     console.log(
         'REHEARSAL',
         JSON.stringify({
