@@ -187,6 +187,31 @@ maybe('LIVE KPI parity (Mongo vs ClickHouse+dbt)', () => {
                     occurredAt: at(0),
                     props: { feature: 'chat', credits: 3 },
                 },
+                // the remaining study-time branches (fractional values exercise Math.round parity)
+                {
+                    type: 'resource_viewed' as const,
+                    occurredAt: at(0),
+                    props: {
+                        resourceId: 'd'.repeat(24),
+                        dwellSec: 40.5 + i,
+                        completed: i % 2 === 0,
+                    },
+                },
+                {
+                    type: 'pronunciation_scored' as const,
+                    occurredAt: at(0),
+                    props: { accuracy: 80, durationSec: 12.5 },
+                },
+                {
+                    type: 'writing_scored' as const,
+                    occurredAt: at(0),
+                    props: { score: 70, durationSec: 90.25 },
+                },
+                {
+                    type: 'vocab_captured' as const,
+                    occurredAt: at(0),
+                    props: { source: 'manual' as const, termCount: 2 },
+                },
                 // recommendation funnel (behavioural, consented)
                 ...Array.from({ length: 3 }, () => ({
                     type: 'rec_impression' as const,

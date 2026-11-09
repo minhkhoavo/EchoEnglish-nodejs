@@ -256,7 +256,7 @@ Legend: **Live** = exercised against a real server in Docker (opt-in tests in `_
 | --- | --- | --- |
 | Stream exporter (Mongo silver → Kafka-protocol topic) | `src/recsys/stream/` | **Live** (Redpanda v25.2.1, client `@confluentinc/kafka-javascript` 1.11.0) + Tests |
 | ClickHouse sink + loader + erase propagation | `src/recsys/warehouse/` | **Live** (ClickHouse 25.8.33.6, `@clickhouse/client` 1.25.0) + Tests |
-| dbt project (staging view + `learner_daily_facts` mart + tests) | `analytics/dbt/` | **Live**: `dbt build` 12/12 pass (dbt-core 1.12.6, dbt-clickhouse 1.10.3, in a pinned container) |
+| dbt project (staging view + `learner_daily_facts` mart + tests; the mart mirrors only the KPI-relevant subset of `aggregateDay`) | `analytics/dbt/` | **Live**: `dbt build` 12/12 pass (dbt-core 1.12.6, dbt-clickhouse 1.10.3, in a pinned container) |
 | KPI backend switch (Mongo ⇄ ClickHouse) | `analytics/sources.ts`, `kpiService.ts` | **Live parity test**: identical overview + experiment read-outs on the same events; Tests for fallback |
 | Feature store (registry, point-in-time snapshots) | `src/recsys/featurestore/` | Tests (incl. no-future-leakage) |
 | Learned ranker + retraining + registry + challenger layer + harm guard | `src/recsys/learning/` | Tests on **synthetic** rows only — never run on production data (none exists yet) |

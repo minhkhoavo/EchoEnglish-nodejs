@@ -1,6 +1,10 @@
 {{ config(engine='MergeTree()', order_by='(day, user_pseudo)') }}
-{# SQL twin of src/recsys/etl/aggregate.ts (aggregateDay). Keep the two in lock-step: the
-   Mongo-vs-ClickHouse parity test in __tests__/live compares their KPI output. #}
+{# SQL mirror of the KPI-RELEVANT subset of src/recsys/etl/aggregate.ts (aggregateDay): learning
+   actions, study seconds (all five study-time branches), sessions, questions answered/correct,
+   flashcards, tests, credits, AI cost, recommendation counters and the last full-test score.
+   NOT computed here (not needed by any KPI): vocab/term counts, resource view/completion counts,
+   pronunciation accuracy sums, per-skill counts, active-hour histogram. Keep the shared columns
+   in lock-step: the Mongo-vs-ClickHouse parity test in __tests__/live compares their KPI output. #}
 with e as (
     select * from {{ ref('stg_events') }}
 ),
