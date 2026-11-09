@@ -268,6 +268,48 @@ describe('training data comes from logs joined to the feature store AS OF impres
     });
 });
 
+describe('click join is not fooled by identical itemRef across item types', () => {
+    it('labels only the item type that was clicked (pronunciation vs vocab both use ref "daily")', async () => {
+        const u = new mongoose.Types.ObjectId();
+        const t = new Date('2026-03-10T10:00:00Z');
+        const mk = (type: string, props: Record<string, unknown>) => ({
+            eventId: randomUUID(),
+            schemaVersion: 1,
+            type,
+            userId: u,
+            source: 'server',
+            occurredAt: t,
+            receivedAt: t,
+            props,
+            processing: { status: 'pending' },
+        });
+        const base = {
+            recId: 'R',
+            itemRef: 'daily',
+            variant: 'control',
+            mode: 'personalized',
+        };
+        await LearningEvent.insertMany([
+            mk('rec_impression', {
+                ...base,
+                itemType: 'pronunciation_practice',
+                position: 0,
+                signals: { habit: 0.5 },
+            }),
+            mk('rec_impression', {
+                ...base,
+                itemType: 'vocab_capture',
+                position: 1,
+                signals: { habit: 0.4 },
+            }),
+            mk('rec_click', { ...base, itemType: 'vocab_capture' }),
+        ]);
+        const rows = await loadTrainingRows(new Date('2026-03-01T00:00:00Z'));
+        const by = Object.fromEntries(rows.map((x) => [x.position, x.clicked]));
+        expect(by).toEqual({ 0: false, 1: true });
+    });
+});
+
 describe('serving', () => {
     const deps: RecDeps = {
         loadFeatures: async () =>

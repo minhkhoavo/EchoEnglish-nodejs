@@ -52,7 +52,7 @@ Legend: ✅ done in this branch (code + tests) · 📝 documented only · ⏭ la
 BullMQ + Redis for pipeline jobs · FSRS via `ts-fsrs` (shadow mode first) · learned ranker / contextual bandit · GrowthBook · Terraform · front-end consent UI · weekly KPI review ritual.
 Triggers: see `03-architecture.md` §10.
 
-## Phase 3 — Scale: ✅ built and verified as far as this environment allows; ⛔ 3 follow-ups blocked on external inputs
+## Phase 3 — Scale: ✅ built and verified as far as this environment allows; what remains needs real inputs (Gemini key + catalogue, production data, a second region)
 > **Status of intent.** None of the §10 triggers in `03-architecture.md` has fired (no volume, no stakeholder BI need, no ≥100k labelled impressions). Phase 3 is therefore **built ahead of triggers at the owner's request and stays dormant behind flags that default to off**. MongoDB remains the system of record; `deploy.yaml` and the production compose are untouched; Redpanda/ClickHouse live in a separate opt-in compose overlay with pinned tags. **Phase 2 (BullMQ, FSRS, GrowthBook, Terraform) is still open** — Phase 3 only pulls forward the minimum trainable model that retraining needs.
 
 Legend: **Verified live** = exercised against a real server in Docker (opt-in tests, skipped by default). **Built** = code + automated tests (in-memory MongoDB / fakes). **Design only** = documented, no code.
@@ -75,11 +75,11 @@ Legend: **Verified live** = exercised against a real server in Docker (opt-in te
 | ID | Task | Status |
 | --- | --- | --- |
 | T3.11 | Kafka TLS/SASL and ClickHouse HTTPS against secured endpoints | ✅ **Verified live**: Redpanda with SASL/SCRAM-SHA-256 over TLS (private CA) and ClickHouse over HTTPS (private CA); wrong password, plaintext client and untrusted CA are refused. Found and fixed a real defect on the way (the client rejects object-form `ssl`). Used self-signed test CAs on localhost — **not** a managed/production endpoint |
-| T3.12 | Run the Gemini embedding provider on the real catalogue; calibrate `RECSYS_SEMANTIC_MIN`; cost-check one run | ⛔ **Blocked: needs a Gemini API key and the real catalogue** (neither exists in the dev environment) |
-| T3.13 | First real retrain (dry run) once ≥ 20k personalised impressions exist; retune thresholds | ⛔ **Blocked: needs production data** (and consented users, hence the front-end consent UI, T1.16) |
+| T3.12 | Run the Gemini embedding provider on the real catalogue; calibrate `RECSYS_SEMANTIC_MIN`; cost-check one run | 🟡 Wrapper tested with the client mocked (model/key selection, normalisation, error paths: 7 tests). **The real API call is unverified and the threshold uncalibrated — needs a Gemini API key and the real catalogue (absent here)** |
+| T3.13 | First real retrain (dry run) once ≥ 20k personalised impressions exist; retune thresholds | 🟡 **Rehearsed end to end** on logs produced by the real recommender + event path (6 000 impressions, simulated learners): trained, gated, activated only as a 5 % challenger; the rehearsal found and fixed a label-join bug (identical `itemRef` across item types). **A retrain on real learners is blocked: no production data** (needs the consent UI, T1.16) |
 | T3.14 | Capacity: loader throughput + storage | 🟡 **Measured on the dev VM** (≈ 930 events/s end to end, 84 B/event compressed; `npm run recsys:bench`). Production capacity, rebalancing and long runs **not** measured |
-| T3.15 | Schedule `run-dbt.sh` + alert rules | 🟡 Health-based alerts **built** (operations §4b); **scheduled dbt job not built** (needs a deployment target) |
-| T3.16 | Region assignment at signup and regional infrastructure | ⛔ **Blocked: product + legal decision, and real infrastructure** |
+| T3.15 | Schedule `run-dbt.sh` + alert rules | ✅ Health-based alerts built (operations §4b); scheduled job built as `.github/workflows/analytics-dbt.yml` (hourly, **inert until** repo variable `RECSYS_DBT_ENABLED=true` and the `DBT_CH_*` secrets are set; the runner must reach ClickHouse). **Not yet run on GitHub** |
+| T3.16 | Region assignment at signup and regional infrastructure | 🟡 **Decision made (D8):** server-assigned, implicit default `vn`, admin-changeable, no user choice; runbook for adding a region written (design). **Regional infrastructure not built** — no second region or cloud provider exists; counsel to confirm the decision |
 | T3.17 | Exporter / erasure / live-model state in `/admin/recsys/health` | ✅ Built + tested |
 
 ## Top risks

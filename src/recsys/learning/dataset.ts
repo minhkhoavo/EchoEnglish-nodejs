@@ -7,11 +7,19 @@ import { TrainingRow } from './train.js';
 /** Newest impressions only: ~9 parameters need far fewer rows, and training runs in the API process. */
 const MAX_ROWS = 200_000;
 
+/**
+ * (recId, itemType, itemRef): itemRef alone is ambiguous — pronunciation_practice and
+ * vocab_capture both use ref "daily", so a click on one would label the other too.
+ */
+const joinKey = (p: { recId: string; itemType: string; itemRef?: string }) =>
+    `${p.recId}|${p.itemType}|${p.itemRef ?? ''}`;
+
 interface ImpRow {
     userId: Types.ObjectId;
     occurredAt: Date;
     props: {
         recId: string;
+        itemType: string;
         itemRef?: string;
         position: number;
         signals: Record<string, number>;
@@ -20,7 +28,7 @@ interface ImpRow {
 
 /**
  * Impressions (personalised lists only — cold-start lists ignore the variant) joined to clicks
- * by (recId, itemRef), and to the learner's features AS OF the impression via the feature store
+ * by (recId, itemType, itemRef), and to the learner's features AS OF the impression via the feature store
  * (so the segment is what the ranker would have known then, never a later value).
  */
 export async function loadTrainingRows(
@@ -36,7 +44,7 @@ export async function loadTrainingRows(
         .sort({ occurredAt: 1 })
         .limit(limit)
         .select(
-            'userId occurredAt props.recId props.itemRef props.position props.signals'
+            'userId occurredAt props.recId props.itemType props.itemRef props.position props.signals'
         )
         .lean<ImpRow[]>();
     if (imps.length === 0) return [];
@@ -45,11 +53,13 @@ export async function loadTrainingRows(
         type: 'rec_click',
         occurredAt: { $gte: since },
     })
-        .select('props.recId props.itemRef')
-        .lean<Array<{ props: { recId: string; itemRef?: string } }>>();
-    const clicked = new Set(
-        clicks.map((c) => `${c.props.recId}|${c.props.itemRef ?? ''}`)
-    );
+        .select('props.recId props.itemType props.itemRef')
+        .lean<
+            Array<{
+                props: { recId: string; itemType: string; itemRef?: string };
+            }>
+        >();
+    const clicked = new Set(clicks.map((c) => joinKey(c.props)));
 
     const joined = await featureStore.getHistoricalFeatures(
         imps.map((i) => ({ userId: i.userId.toString(), t: i.occurredAt }))
@@ -65,7 +75,7 @@ export async function loadTrainingRows(
             signals: i.props.signals,
             position: i.props.position,
             segment,
-            clicked: clicked.has(`${i.props.recId}|${i.props.itemRef ?? ''}`),
+            clicked: clicked.has(joinKey(i.props)),
         };
     });
 }
