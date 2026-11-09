@@ -81,23 +81,38 @@ const aucOf = (rows: TrainingRow[], w: WeightSet) =>
         rows.map((r) => (r.clicked ? 1 : 0))
     );
 
-const fit = (rows: TrainingRow[]): WeightSet | null => {
-    const m = trainLogReg(
-        rows.map((r) => ({
-            x: featureVector(r.signals, r.position),
-            y: r.clicked ? (1 as const) : (0 as const),
-        }))
-    );
+const yieldToEventLoop = () => new Promise<void>((r) => setImmediate(r));
+
+const fit = async (rows: TrainingRow[]): Promise<WeightSet | null> => {
+    // Built in yielded chunks: training runs inside the API process.
+    const labelled: Array<{ x: number[]; y: 0 | 1 }> = [];
+    for (let i = 0; i < rows.length; i += 20_000) {
+        for (const r of rows.slice(i, i + 20_000))
+            labelled.push({
+                x: featureVector(r.signals, r.position),
+                y: r.clicked ? 1 : 0,
+            });
+        await yieldToEventLoop();
+    }
+    const m = await trainLogReg(labelled);
     return toWeightSet(coefToSignalCoef(m.w));
 };
 
-export function trainRanker(
+export async function trainRanker(
     rows: TrainingRow[],
     th: Thresholds = defaultThresholds()
-): TrainReport {
+): Promise<TrainReport> {
     const reasons: string[] = [];
-    const train = rows.filter((r) => !isHoldout(r.userId));
-    const hold = rows.filter((r) => isHoldout(r.userId));
+    // One hash per distinct learner, not per row (a SHA-256 per row blocked the loop for ~1 s).
+    const holdByUser = new Map<string, boolean>();
+    const inHoldout = (u: string) => {
+        let v = holdByUser.get(u);
+        if (v === undefined) holdByUser.set(u, (v = isHoldout(u)));
+        return v;
+    };
+    const train: TrainingRow[] = [];
+    const hold: TrainingRow[] = [];
+    for (const r of rows) (inHoldout(r.userId) ? hold : train).push(r);
     const positives = rows.filter((r) => r.clicked).length;
     const holdPos = hold.filter((r) => r.clicked).length;
     const report: TrainReport = {
@@ -124,7 +139,7 @@ export function trainRanker(
         reasons.push(`only ${positives} clicks (< ${th.minPositives})`);
     if (reasons.length) return report; // data gate first: never fit on a handful of rows
 
-    const global = fit(train);
+    const global = await fit(train);
     if (!global) {
         reasons.push('no positive signal weight was learned');
         return report;
@@ -135,7 +150,7 @@ export function trainRanker(
         const ho = hold.filter((r) => r.segment === seg);
         const trPos = tr.filter((r) => r.clicked).length;
         if (trPos < th.minSegmentPositives || ho.length === 0) continue;
-        const w = fit(tr);
+        const w = await fit(tr);
         if (!w) continue;
         const aucSeg = aucOf(ho, w);
         const aucGlob = aucOf(ho, global);

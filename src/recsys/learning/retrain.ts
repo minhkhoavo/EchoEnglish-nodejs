@@ -73,7 +73,7 @@ export class RetrainService {
                             recsysConfig.retrain.trainingWindowDays() * DAY_MS
                     )
                 ));
-            const report = trainRanker(rows);
+            const report = await trainRanker(rows);
             if (opts.dryRun)
                 return {
                     status: 'skipped',

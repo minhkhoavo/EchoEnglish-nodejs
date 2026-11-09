@@ -4,7 +4,8 @@ import { featureStore } from '../featurestore/store.js';
 import { Segment, segmentFromQuestions } from './model.js';
 import { TrainingRow } from './train.js';
 
-const MAX_ROWS = 500_000;
+/** Newest impressions only: ~9 parameters need far fewer rows, and training runs in the API process. */
+const MAX_ROWS = 200_000;
 
 interface ImpRow {
     userId: Types.ObjectId;

@@ -54,7 +54,7 @@ function makeRows(
 }
 
 describe('logistic regression', () => {
-    it('recovers the direction and relative size of true coefficients', () => {
+    it('recovers the direction and relative size of true coefficients', async () => {
         const r = rng(3);
         const rows = Array.from({ length: 4000 }, () => {
             const x = [r(), r(), r()];
@@ -65,20 +65,43 @@ describe('logistic regression', () => {
                     : 0) as 0 | 1,
             };
         });
-        const m = trainLogReg(rows);
+        const m = await trainLogReg(rows);
         expect(m.w[0]).toBeGreaterThan(1);
         expect(Math.abs(m.w[1])).toBeLessThan(0.5);
         expect(m.w[2]).toBeLessThan(-0.5);
     });
-    it('is deterministic', () => {
+    it('is deterministic', async () => {
         const rows = [
             { x: [0.1, 0.9], y: 1 as const },
             { x: [0.8, 0.2], y: 0 as const },
             { x: [0.4, 0.6], y: 1 as const },
         ];
-        expect(trainLogReg(rows)).toEqual(trainLogReg(rows));
+        expect(await trainLogReg(rows)).toEqual(await trainLogReg(rows));
     });
-    it('throws on empty input', () => expect(() => trainLogReg([])).toThrow());
+    it('rejects on empty input', async () => {
+        await expect(trainLogReg([])).rejects.toThrow();
+    });
+});
+
+describe('training does not block the event loop (it runs inside the API process)', () => {
+    it('lets timers fire while fitting 30k rows', async () => {
+        const r = rng(21);
+        const rows = Array.from({ length: 30_000 }, () => {
+            const x = [r(), r(), r(), r(), r(), r(), r(), r(), r()];
+            return {
+                x,
+                y: (r() < sigmoid(-1 + 2 * x[0] - x[1]) ? 1 : 0) as 0 | 1,
+            };
+        });
+        let ticks = 0;
+        const timer = setInterval(() => ticks++, 1);
+        const t0 = Date.now();
+        await trainLogReg(rows);
+        clearInterval(timer);
+        const elapsed = Date.now() - t0;
+        // A fully blocked loop would let at most one tick through; require steady progress.
+        expect(ticks).toBeGreaterThan(Math.min(20, elapsed / 50));
+    });
 });
 
 describe('auc', () => {
@@ -129,15 +152,15 @@ describe('trainRanker', () => {
     const truth = (s: Record<string, number>) =>
         sigmoid(-2.2 + 4 * s.explore + 2.5 * s.habit);
 
-    it('refuses to train on too little data (data gate runs before any fitting)', () => {
-        const rep = trainRanker(makeRows(300, truth), TH);
+    it('refuses to train on too little data (data gate runs before any fitting)', async () => {
+        const rep = await trainRanker(makeRows(300, truth), TH);
         expect(rep.gatePassed).toBe(false);
         expect(rep.payload).toBeNull();
         expect(rep.reasons.join()).toMatch(/impressions/);
     });
 
-    it('learns weights that beat control on held-out USERS and passes the gate', () => {
-        const rep = trainRanker(
+    it('learns weights that beat control on held-out USERS and passes the gate', async () => {
+        const rep = await trainRanker(
             makeRows(12000, (s) => truth(s)),
             TH
         );
@@ -149,9 +172,9 @@ describe('trainRanker', () => {
         expect(g.need).toBeLessThan(0.1);
     });
 
-    it('rejects a model that does not beat control (truth == control-like signals)', () => {
+    it('rejects a model that does not beat control (truth == control-like signals)', async () => {
         // clicks depend on `need`+`srs`, which control already weights heavily → lift below threshold
-        const rep = trainRanker(
+        const rep = await trainRanker(
             makeRows(12000, (s) => sigmoid(-2 + 3 * s.need + 2.2 * s.srs)),
             { ...TH, minAucLift: 0.05 }
         );
@@ -159,14 +182,14 @@ describe('trainRanker', () => {
         expect(rep.reasons.join()).toMatch(/AUC lift/);
     });
 
-    it('does not credit a signal that merely correlates with position (position bias)', () => {
+    it('does not credit a signal that merely correlates with position (position bias)', async () => {
         // clicks depend on srs and (strongly) on position; popularity is high exactly where position is low
         const rows = makeRows(
             15000,
             (s, pos) => sigmoid(-0.5 + 3 * s.srs - 2.5 * positionFeature(pos)),
             { popByPos: true }
         );
-        const g = trainRanker(rows, TH).payload!.global;
+        const g = (await trainRanker(rows, TH)).payload!.global;
         expect(g.srs).toBeGreaterThan(0.7);
         expect(g.popularity).toBeLessThan(0.12);
     });

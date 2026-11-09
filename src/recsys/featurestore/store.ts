@@ -56,9 +56,18 @@ export class FeatureStore {
     ): Promise<JoinedRow[]> {
         const maxAge = (opts.maxAgeHours ?? 72) * 60 * MIN;
         const ids = [...new Set(rows.map((r) => r.userId))];
+        // Bound by time as well: only snapshots that could qualify for some row are read.
+        let lo = Infinity;
+        let hi = -Infinity;
+        for (const r of rows) {
+            lo = Math.min(lo, r.t.getTime());
+            hi = Math.max(hi, r.t.getTime());
+        }
+        if (rows.length === 0) return [];
         const snaps = await FeatureSnapshot.find({
             userId: { $in: ids.map((i) => new Types.ObjectId(i)) },
             registryVersion: REGISTRY_VERSION,
+            asOf: { $gte: new Date(lo - maxAge), $lte: new Date(hi) },
         })
             .sort({ asOf: 1 })
             .select('userId asOf values')

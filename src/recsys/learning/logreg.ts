@@ -15,6 +15,9 @@ export interface TrainOptions {
 
 const sigmoid = (z: number) => 1 / (1 + Math.exp(-z));
 
+const YIELD_EVERY = 2048;
+const yieldToEventLoop = () => new Promise<void>((r) => setImmediate(r));
+
 /** Solve A x = b (A symmetric positive definite, small) by Gaussian elimination with pivoting. */
 function solve(A: number[][], b: number[]): number[] {
     const n = b.length;
@@ -43,10 +46,10 @@ function solve(A: number[][], b: number[]): number[] {
  * descent because ranking signals are strongly correlated with position, and Newton separates
  * collinear effects reliably in a handful of iterations (dimension is < 12).
  */
-export function trainLogReg(
+export async function trainLogReg(
     rows: LabelledRow[],
     opts: TrainOptions = {}
-): LogReg {
+): Promise<LogReg> {
     if (rows.length === 0) throw new Error('no training rows');
     const d = rows[0].x.length;
     const { l2 = 1e-2, maxIter = 30 } = opts;
@@ -57,7 +60,10 @@ export function trainLogReg(
         const H = Array.from({ length: dim }, () =>
             new Array<number>(dim).fill(0)
         );
-        for (const r of rows) {
+        for (let ri = 0; ri < rows.length; ri++) {
+            // Yield to the event loop every chunk: training runs inside the API process.
+            if (ri > 0 && ri % YIELD_EVERY === 0) await yieldToEventLoop();
+            const r = rows[ri];
             let z = beta[d];
             for (let j = 0; j < d; j++) z += beta[j] * r.x[j];
             const p = sigmoid(z);
