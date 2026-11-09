@@ -12,6 +12,7 @@ import {
     SubmittedAnswer,
 } from './lr-analyze/metricsCalculatorService.js';
 import computeToeicScores from '../utils/toeicScore.js';
+import { emitTestSubmitted } from '../recsys/events/emitters.js';
 
 interface TestQuestion {
     correctAnswer?: string;
@@ -195,6 +196,17 @@ class TestResultService {
             });
 
             await testResult.save();
+
+            // Learning-signal event emission (fail-safe, no-op unless RECSYS_ENABLED).
+            void emitTestSubmitted({
+                userId,
+                testId: requestData.testId,
+                answers: processedAnswers,
+                totalScore: toeic.totalScore,
+                listeningScore: toeic.listeningScore,
+                readingScore: toeic.readingScore,
+                durationSec: requestData.duration,
+            });
 
             const percentage = Math.round((score / totalQuestions) * 100);
 

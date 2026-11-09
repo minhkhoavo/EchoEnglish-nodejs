@@ -14,6 +14,7 @@ import { getAudioDurationSeconds } from '~/utils/audio-utils.js';
 import notificationService from '~/services/notifications/notificationService.js';
 import { NotificationType } from '~/enum/notificationType.js';
 import { User } from '~/models/userModel.js';
+import { emitPronunciationScored } from '~/recsys/events/emitters.js';
 // Helper orchestrator functions for recording + analysis
 export async function createRecordingAndStartAnalysisHelper(
     params: {
@@ -164,6 +165,12 @@ export async function createRecordingAndStartAnalysisHelper(
                     analysisStatus: 'done',
                     analysis: finalPayload,
                 });
+
+                emitPronunciationScored(
+                    userId,
+                    parsed,
+                    (metadata?.duration as number) || undefined
+                );
 
                 const user = await User.findById(userId);
                 if (user) {

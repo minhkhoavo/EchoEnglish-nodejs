@@ -12,6 +12,7 @@ import {
 } from '~/enum/featurePricing.js';
 import notificationService from '~/services/notifications/notificationService.js';
 import { NotificationType } from '~/enum/notificationType.js';
+import { emitCreditSpent } from '~/recsys/events/emitters.js';
 
 class CreditsService {
     public getFeaturePrice(featureType: string): number {
@@ -155,6 +156,8 @@ class CreditsService {
             amount: 0,
             status: PaymentStatus.SUCCEEDED,
         });
+
+        emitCreditSpent(user._id.toString(), featureType, credits);
 
         // Send notification to user
         await notificationService.pushNotification(user._id.toString(), {

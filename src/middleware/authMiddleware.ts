@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from './apiError.js';
+import { bindUser } from '../recsys/events/aiUsageTracker.js';
 
 const SECRET_KEY = process.env.JWT_SECRETKEY!;
 
@@ -68,6 +69,7 @@ export function authenticateJWT(
             email: decoded.sub || '',
             scope: decoded.scope || '',
         };
+        bindUser(req.user.id); // lets AI-usage tracking attribute LLM cost to this learner
         next();
     } catch (err) {
         console.error('JWT verification error:', err);
