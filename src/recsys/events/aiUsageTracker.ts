@@ -18,8 +18,12 @@ interface AiContext {
 }
 export const aiContext = new AsyncLocalStorage<AiContext>();
 
-export function bindUser(userId: string | undefined): void {
-    if (userId) aiContext.enterWith({ userId });
+/**
+ * Run `next` inside a request-scoped context carrying the user. `run` (not `enterWith`) scopes
+ * the store to exactly this callback chain, so attribution cannot leak across requests.
+ */
+export function runWithUser<T>(userId: string | undefined, next: () => T): T {
+    return userId ? aiContext.run({ userId }, next) : next();
 }
 
 /** Tag everything inside `fn` with a feature name (e.g. 'daily_plan') for cost attribution. */

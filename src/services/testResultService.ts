@@ -202,10 +202,15 @@ class TestResultService {
                 userId,
                 testId: requestData.testId,
                 answers: processedAnswers,
+                testDefinition: testDataResult,
+                full: partsKey === 'full',
                 totalScore: toeic.totalScore,
                 listeningScore: toeic.listeningScore,
                 readingScore: toeic.readingScore,
-                durationSec: requestData.duration,
+                durationSec:
+                    typeof requestData.duration === 'number'
+                        ? requestData.duration / 1000 // request is in milliseconds
+                        : undefined,
             });
 
             const percentage = Math.round((score / totalQuestions) * 100);

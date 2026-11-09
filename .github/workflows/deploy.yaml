@@ -77,11 +77,13 @@ jobs:
                 "$1"
             }
 
+            # Probe from INSIDE the container (no dependency on curl on the host).
+            # Any HTTP status (e.g. 401 from the auth gate) proves the process is serving.
             is_up() {
               for i in $(seq 1 10); do
-                code=$(curl -s -o /dev/null --max-time 5 -w '%{http_code}' http://localhost:4000/ || true)
-                # any HTTP status (e.g. 401 from the auth gate) proves the process is serving
-                if [ -n "$code" ] && [ "$code" != "000" ]; then return 0; fi
+                if docker exec echo-english node -e "require('http').get({host:'127.0.0.1',port:process.env.PORT||4000,path:'/',timeout:4000},r=>{r.resume();process.exit(0)}).on('error',()=>process.exit(1)).on('timeout',function(){this.destroy();process.exit(1)})" >/dev/null 2>&1; then
+                  return 0
+                fi
                 sleep 3
               done
               return 1
@@ -95,4 +97,10 @@ jobs:
               exit 1
             fi
 
+            # Retention: SHA-tagged images are never "dangling", so prune would not reclaim them.
+            # Keep the 4 most recent distinct images (current + previous + 2 spare), remove the rest.
             docker image prune -f
+            KEEP=$(docker images "$REPO" --format '{{.ID}}' | awk '!seen[$0]++' | head -4)
+            for id in $(docker images "$REPO" --format '{{.ID}}' | awk '!seen[$0]++'); do
+              echo "$KEEP" | grep -q "$id" || docker rmi "$id" || true
+            done

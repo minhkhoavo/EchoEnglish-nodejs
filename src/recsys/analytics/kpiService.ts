@@ -113,22 +113,28 @@ export class KpiService {
             now.getTime() -
                 Math.min(MAX_WINDOW_DAYS, opts.windowDays ?? 14) * 86_400_000
         );
+        // Group by variant AND mode: cold-start lists ignore the variant (mode absent on
+        // legacy rows → 'unknown'), so mixing them would dilute any real difference.
+        const key = {
+            v: '$props.variant',
+            m: { $ifNull: ['$props.mode', 'unknown'] },
+        };
         const imps = await LearningEvent.aggregate<{
-            _id: string;
+            _id: { v: string; m: string };
             impressions: number;
             users: string[];
         }>([
             { $match: { type: 'rec_impression', occurredAt: { $gte: since } } },
             {
                 $group: {
-                    _id: '$props.variant',
+                    _id: key,
                     impressions: { $sum: 1 },
                     users: { $addToSet: '$userId' },
                 },
             },
         ]);
         const outcomes = await LearningEvent.aggregate<{
-            _id: { v: string; t: string };
+            _id: { v: string; m: string; t: string };
             n: number;
         }>([
             {
@@ -137,23 +143,21 @@ export class KpiService {
                     occurredAt: { $gte: since },
                 },
             },
-            {
-                $group: {
-                    _id: { v: '$props.variant', t: '$type' },
-                    n: { $sum: 1 },
-                },
-            },
+            { $group: { _id: { ...key, t: '$type' }, n: { $sum: 1 } } },
         ]);
-        const get = (v: string, t: string) =>
-            outcomes.find((o) => o._id.v === v && o._id.t === t)?.n ?? 0;
+        const get = (v: string, m: string, t: string) =>
+            outcomes.find(
+                (o) => o._id.v === v && o._id.m === m && o._id.t === t
+            )?.n ?? 0;
         return experimentReadout(
             imps.map((i) => ({
-                variant: i._id,
+                variant: i._id.v,
+                mode: i._id.m,
                 impressions: i.impressions,
                 users: i.users.length,
-                clicks: get(i._id, 'rec_click'),
-                completes: get(i._id, 'rec_complete'),
-                dismisses: get(i._id, 'rec_dismiss'),
+                clicks: get(i._id.v, i._id.m, 'rec_click'),
+                completes: get(i._id.v, i._id.m, 'rec_complete'),
+                dismisses: get(i._id.v, i._id.m, 'rec_dismiss'),
             }))
         );
     }

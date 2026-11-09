@@ -9,6 +9,7 @@ import { kpiService } from '../analytics/kpiService.js';
 import { PipelineRun } from '../etl/models.js';
 import { recsysConfig } from '../config.js';
 import { checkHealth } from '../analytics/healthService.js';
+import { exposureService } from '../engine/exposureService.js';
 
 const uid = (req: Request): string => {
     const id = req.user?.id;
@@ -93,6 +94,48 @@ class RecsysController {
             refresh: req.query.refresh === 'true',
         });
         return res.status(200).json(new ApiResponse('OK', data));
+    };
+
+    /**
+     * POST /recommendations/feedback
+     * { recId, itemType, itemRef, action: click|complete|dismiss, variant, mode?, reason?, outcome? }
+     * Updates the functional repetition guard (always) and emits the analytics event (consent-gated).
+     */
+    feedback = async (req: Request, res: Response) => {
+        const b = req.body ?? {};
+        const action = b.action as 'click' | 'complete' | 'dismiss';
+        if (!['click', 'complete', 'dismiss'].includes(action))
+            throw bad('action must be click|complete|dismiss');
+        if (typeof b.itemType !== 'string' || typeof b.itemRef !== 'string')
+            throw bad('itemType and itemRef are required');
+        if (typeof b.recId !== 'string' || typeof b.variant !== 'string')
+            throw bad('recId and variant are required');
+        const userId = uid(req);
+        await exposureService.recordFeedback(
+            userId,
+            `${b.itemType}:${b.itemRef}`,
+            action,
+            { reason: typeof b.reason === 'string' ? b.reason : undefined }
+        );
+        recommenderService.invalidate(userId);
+        const type =
+            action === 'click'
+                ? 'rec_click'
+                : action === 'complete'
+                  ? 'rec_complete'
+                  : 'rec_dismiss';
+        await eventService.emitAsync(userId, type, {
+            recId: b.recId,
+            itemType: b.itemType,
+            itemRef: b.itemRef,
+            variant: b.variant,
+            ...(b.mode ? { mode: b.mode } : {}),
+            ...(action === 'dismiss' && b.reason ? { reason: b.reason } : {}),
+            ...(action === 'complete' && typeof b.outcome === 'number'
+                ? { outcome: b.outcome }
+                : {}),
+        });
+        return res.status(200).json(new ApiResponse('Feedback recorded'));
     };
 
     kpis = async (req: Request, res: Response) => {

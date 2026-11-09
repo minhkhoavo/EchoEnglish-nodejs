@@ -105,4 +105,38 @@ describe('event contract v1', () => {
             ).toBe(true);
         }
     });
+
+    it('test_submitted defaults to full and accepts an explicit partial flag; rec events accept mode', () => {
+        const props = { testId: 'a'.repeat(24), correct: 1, total: 2 };
+        const d = validateEvent({ ...base(), type: 'test_submitted', props });
+        expect(d.ok && d.event.props.full).toBe(true);
+        const p = validateEvent({
+            ...base(),
+            type: 'test_submitted',
+            props: { ...props, full: false },
+        });
+        expect(p.ok && p.event.props.full).toBe(false);
+        const ok = validateEvent({
+            ...base(),
+            type: 'rec_click',
+            props: {
+                recId: 'r',
+                itemType: 'resource',
+                variant: 'control',
+                mode: 'cold_start',
+            },
+        });
+        expect(ok.ok).toBe(true);
+        const bad = validateEvent({
+            ...base(),
+            type: 'rec_click',
+            props: {
+                recId: 'r',
+                itemType: 'resource',
+                variant: 'control',
+                mode: 'x',
+            },
+        });
+        expect(bad.ok).toBe(false);
+    });
 });

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { randomUUID } from 'node:crypto';
 import {
     startMongo,
     stopMongo,
@@ -117,4 +118,37 @@ it('build() persists a full feature set including SRS stats from flashcards', as
     }>();
     expect(stored!.pipelineVersion).toBeDefined();
     expect(stored!.skills).toHaveLength(1);
+});
+
+it('cursor is the silver _id: a late/re-queued event with an OLD receivedAt is still applied once', async () => {
+    await eventService.emitManyAsync(uid, [
+        answer('p5.wordform', true),
+        answer('p5.wordform', true),
+    ]);
+    await pipelineService.runOnce();
+    expect(await featureBuilder.updateMastery(uid)).toBe(2);
+
+    // A rejected event re-queued per the runbook lands in silver LATER but keeps its original,
+    // older receivedAt. A receivedAt cursor would skip it forever; the _id cursor must not.
+    await CleanEvent.create({
+        eventId: randomUUID(),
+        rawId: new mongoose.Types.ObjectId(),
+        userId: uid,
+        type: 'question_answered',
+        occurredAt: new Date(),
+        receivedAt: new Date(Date.now() - 3 * 86_400_000),
+        day: '2026-03-01',
+        hour: 9,
+        props: { skillKey: 'p5.wordform', correct: false, origin: 'drill' },
+        clamped: [],
+        pipelineVersion: 'x',
+        runId: 'r',
+    });
+    expect(await featureBuilder.updateMastery(uid)).toBe(1);
+    expect(await featureBuilder.updateMastery(uid)).toBe(0); // and only once
+    const m = await SkillMastery.findOne({
+        userId: uid,
+        skillKey: 'p5.wordform',
+    }).lean<{ n: number }>();
+    expect(m!.n).toBe(3);
 });

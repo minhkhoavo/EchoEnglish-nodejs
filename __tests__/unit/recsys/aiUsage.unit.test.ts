@@ -2,7 +2,7 @@ import {
     aiContext,
     AiUsageCallback,
     attachAiUsage,
-    bindUser,
+    runWithUser,
     computeCostUsd,
     extractUsage,
     loadRates,
@@ -109,8 +109,60 @@ describe('AI usage tracking', () => {
         expect(() => attachAiUsage(Object.freeze({}), 'm')).not.toThrow();
     });
 
-    it('bindUser ignores empty ids', () => {
-        expect(() => bindUser(undefined)).not.toThrow();
+    it('runWithUser scopes the store to the callback only (no leakage after it returns)', () => {
+        expect(aiContext.getStore()).toBeUndefined();
+        const seen = runWithUser('u-1', () => aiContext.getStore()?.userId);
+        expect(seen).toBe('u-1');
+        expect(aiContext.getStore()).toBeUndefined();
+        expect(
+            runWithUser(undefined, () => aiContext.getStore())
+        ).toBeUndefined();
+    });
+
+    it('concurrent requests keep their own user across awaits (no cross-request attribution)', async () => {
+        const read = (id: string, delay: number) =>
+            runWithUser(id, async () => {
+                await new Promise((r) => setTimeout(r, delay));
+                return aiContext.getStore()?.userId;
+            });
+        const [a, b, c] = await Promise.all([
+            read('A', 30),
+            read('B', 5),
+            read('C', 15),
+        ]);
+        expect([a, b, c]).toEqual(['A', 'B', 'C']);
+    });
+});
+
+describe('authMiddleware binds the user for AI attribution (through Express)', () => {
+    it('handlers downstream of authenticateJWT see the authenticated user, per request', async () => {
+        process.env.JWT_SECRETKEY = 'test-secret';
+        const express = (await import('express')).default;
+        const request = (await import('supertest')).default;
+        const jwt = (await import('jsonwebtoken')).default;
+        const { authenticateJWT } =
+            await import('~/middleware/authMiddleware.js');
+
+        const app = express();
+        app.use(authenticateJWT);
+        app.get('/who', async (req, res) => {
+            await new Promise((r) =>
+                setTimeout(r, Number(req.query.delay ?? 0))
+            );
+            res.json({ ctx: aiContext.getStore()?.userId, req: req.user?.id });
+        });
+        const tok = (userId: string) =>
+            jwt.sign({ userId, sub: 'x@y.z', scope: 'USER' }, 'test-secret');
+        const [r1, r2] = await Promise.all([
+            request(app)
+                .get('/who?delay=40')
+                .set('Authorization', `Bearer ${tok('user-1')}`),
+            request(app)
+                .get('/who?delay=5')
+                .set('Authorization', `Bearer ${tok('user-2')}`),
+        ]);
+        expect(r1.body).toEqual({ ctx: 'user-1', req: 'user-1' });
+        expect(r2.body).toEqual({ ctx: 'user-2', req: 'user-2' });
     });
 });
 

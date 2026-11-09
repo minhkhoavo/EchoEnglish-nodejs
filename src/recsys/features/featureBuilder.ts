@@ -196,25 +196,27 @@ export class FeatureBuilder {
     async updateMastery(userId: string, now = new Date()): Promise<number> {
         const uid = new Types.ObjectId(userId);
         const cur = await LearnerFeatures.findOne({ userId: uid })
-            .select('masteryCursor')
-            .lean<{ masteryCursor?: Date } | null>();
+            .select('masteryCursorId')
+            .lean<{ masteryCursorId?: Types.ObjectId } | null>();
+        // Cursor = silver _id (insertion order). A timestamp cursor would permanently skip
+        // re-queued rejected events and the tail of a batch split across ETL runs.
         const filter: Record<string, unknown> = {
             userId: uid,
             type: 'question_answered',
         };
-        if (cur?.masteryCursor) filter.receivedAt = { $gt: cur.masteryCursor };
+        if (cur?.masteryCursorId) filter._id = { $gt: cur.masteryCursorId };
         const events = await CleanEvent.find(filter)
             .sort({ occurredAt: 1, _id: 1 })
-            .select('props occurredAt receivedAt')
+            .select('props occurredAt')
             .lean<
                 Array<{
+                    _id: Types.ObjectId;
                     props: {
                         skillKey: string;
                         correct: boolean;
                         difficulty?: string;
                     };
                     occurredAt: Date;
-                    receivedAt: Date;
                 }>
             >();
         if (events.length === 0) return 0;
@@ -225,18 +227,20 @@ export class FeatureBuilder {
         const state = new Map<string, MasteryState>(
             rows.map((r) => [r.skillKey, r])
         );
-        let maxReceived = cur?.masteryCursor ?? new Date(0);
+        let maxId = cur?.masteryCursorId ?? events[0]._id;
         const touched = new Set<string>();
         for (const e of events) {
             const key = e.props.skillKey;
-            const next = updateMastery(state.get(key) ?? newMastery(), {
-                correct: e.props.correct === true,
-                difficulty: e.props.difficulty,
-                at: e.occurredAt,
-            });
-            state.set(key, next);
+            state.set(
+                key,
+                updateMastery(state.get(key) ?? newMastery(), {
+                    correct: e.props.correct === true,
+                    difficulty: e.props.difficulty,
+                    at: e.occurredAt,
+                })
+            );
             touched.add(key);
-            if (e.receivedAt > maxReceived) maxReceived = e.receivedAt;
+            if (e._id.toString() > maxId.toString()) maxId = e._id;
         }
         await SkillMastery.bulkWrite(
             [...touched].map((k) => {
@@ -260,7 +264,7 @@ export class FeatureBuilder {
         await LearnerFeatures.updateOne(
             { userId: uid },
             {
-                $set: { masteryCursor: maxReceived },
+                $set: { masteryCursorId: maxId },
                 $setOnInsert: {
                     computedAt: now,
                     pipelineVersion: recsysConfig.pipelineVersion,

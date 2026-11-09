@@ -52,6 +52,14 @@ export function deriveSkillKey(
     return leaf ? `p${p}.${leaf.toLowerCase()}` : `part:${p}`;
 }
 
+/**
+ * A skill we can send the learner to practise. `unknown` (untagged question) and `part:N`
+ * (part known, skill not) have no meaningful drill target / deep link, so they are tracked for
+ * analytics but never recommended.
+ */
+export const isActionableSkill = (skillKey: string): boolean =>
+    /^p[1-7]\./.test(skillKey);
+
 /** Approximate number of scored questions per part (TOEIC L&R, 200 total). */
 const PART_QUESTIONS: Record<number, number> = {
     1: 6,

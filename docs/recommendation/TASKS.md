@@ -44,6 +44,8 @@ Legend: ✅ done in this branch (code + tests) · 📝 documented only · ⏭ la
 | T1.21 | Fix 53 pre-existing `tsc` errors in `src/controllers/*` (`req.params` is `string \| string[]`) | 1 | ⏭ |
 | T1.22 | Make `ci.yml` a required check and gate `deploy.yaml` on it once the full suite is verified green | 0.5 | ⏭ |
 | T1.23 | Legal: confirm PDPL/Decree 356 mapping, cross-border assessment, consent copy, ledger retention | external | ⏭ |
+| T1.25 | **Drill endpoint** for `skill_drill` deep links: select questions by `skillKey` across tests (+ UX decision on drill format) — the recommendation action has no backend today | 4 | ⏭ **(blocking for one-tap drills)** |
+| T1.26 | Consent UI is a prerequisite for personalisation: until it ships every learner gets cold-start lists (A/B variants have no effect in cold start) | (in T1.16) | ⏭ |
 | T1.24 | Staging environment + run k6 + tune thresholds | 2 | ⏭ |
 
 ## Phase 2 — Growth (months 2–4) ⏭

@@ -81,6 +81,55 @@ describe('weak-skill ranking', () => {
     });
 });
 
+describe('non-actionable skills (unknown / part:N) are never drill targets', () => {
+    const junk = [
+        skill('unknown', 0.2, 30),
+        skill('part:5', 0.2, 30, 0.9),
+        skill('part:3', 0.3, 3, 0.1),
+    ];
+
+    it('are excluded from weak-skill ranking and from exploration drills', () => {
+        expect(rankWeakSkills(junk)).toEqual([]);
+        const ids = generateCandidates(
+            ctx({
+                features: features({
+                    skills: [...junk, skill('p5.wordform', 0.4)],
+                }),
+            })
+        ).map((c) => c.id);
+        expect(ids).toContain('skill_drill:p5.wordform');
+        expect(
+            ids.some(
+                (i) =>
+                    i === 'skill_drill:unknown' ||
+                    i.startsWith('skill_drill:part:')
+            )
+        ).toBe(false);
+    });
+
+    it('do not count as evidence for personalised mode (a learner with only untagged data is cold-start)', () => {
+        expect(decideMode(ctx({ features: features({ skills: junk }) }))).toBe(
+            'cold_start'
+        );
+    });
+
+    it('the final list never contains a dead deep link', () => {
+        const out = buildRecommendations(
+            ctx({
+                features: features({
+                    skills: [...junk, skill('p5.wordform', 0.4)],
+                }),
+            }),
+            VARIANTS.control,
+            10
+        );
+        for (const it of out.items) {
+            if (it.type === 'skill_drill')
+                expect(it.skillKey).toMatch(/^p[1-7]\./);
+        }
+    });
+});
+
 describe('candidate generation', () => {
     it('personalised: SRS block, drills for weak skills, habit nudges', () => {
         const c = generateCandidates(

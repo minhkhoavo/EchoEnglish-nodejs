@@ -19,7 +19,7 @@ const featureSchema = new Schema(
         computedAt: { type: Date, required: true },
         pipelineVersion: { type: String, required: true },
         /** receivedAt of the newest clean event already folded into mastery. */
-        masteryCursor: { type: Date },
+        masteryCursorId: { type: Schema.Types.ObjectId },
         activity: { type: Schema.Types.Mixed },
         performance: { type: Schema.Types.Mixed },
         srs: { type: Schema.Types.Mixed },

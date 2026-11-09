@@ -9,6 +9,7 @@ import {
 } from '../../helpers/mongo.js';
 import recsysRouter from '~/recsys/http/routes.js';
 import { LearningEvent } from '~/recsys/events/eventModel.js';
+import { RecExposure } from '~/recsys/engine/exposureModel.js';
 import { Consent, ConsentLedger } from '~/recsys/privacy/consentModel.js';
 import {
     CleanEvent,
@@ -70,7 +71,8 @@ beforeAll(async () => {
         PipelineRun,
         PipelineLock,
         SkillMastery,
-        LearnerFeatures
+        LearnerFeatures,
+        RecExposure
     );
 });
 afterAll(stopMongo);
@@ -227,33 +229,91 @@ describe('GET /recommendations', () => {
         expect(imps).toBe(res.body.data.items.length);
     });
 
-    it('anti-repetition loop: shown + dismissed items are not served again', async () => {
-        const a = userApp();
-        await request(a).put('/privacy/consent').send({ analytics: true });
+    it('dismissals are honoured WITHOUT any consent (functional state), while analytics stays empty', async () => {
+        const a = userApp(); // default-off consent: nothing granted
         const first = (await request(a).get('/recommendations?refresh=true'))
             .body.data;
         const target = first.items[0];
-        await request(a)
-            .post('/events/batch')
-            .send({
-                events: [
-                    view({
-                        type: 'rec_dismiss',
-                        props: {
-                            recId: first.recId,
-                            itemType: target.type,
-                            itemRef: target.ref,
-                            variant: first.variant,
-                            reason: 'seen',
-                        },
-                    }),
-                ],
-            });
+        const fb = await request(a).post('/recommendations/feedback').send({
+            recId: first.recId,
+            itemType: target.type,
+            itemRef: target.ref,
+            action: 'dismiss',
+            variant: first.variant,
+            mode: first.mode,
+            reason: 'seen',
+        });
+        expect(fb.status).toBe(200);
         const second = (await request(a).get('/recommendations?refresh=true'))
             .body.data;
         expect(second.items.map((i: { id: string }) => i.id)).not.toContain(
             target.id
         );
+        // no analytics consent → no behavioural event was stored
+        expect(
+            await LearningEvent.countDocuments({
+                type: { $in: ['rec_impression', 'rec_dismiss'] },
+            })
+        ).toBe(0);
+    });
+
+    it('frequency cap works without consent: an item shown 3 times with no click stops being served', async () => {
+        const a = userApp();
+        let lastIds: string[] = [];
+        for (let i = 0; i < 4; i++) {
+            const r = (await request(a).get('/recommendations?refresh=true'))
+                .body.data;
+            lastIds = r.items.map((x: { id: string }) => x.id);
+            await new Promise((res) => setTimeout(res, 150)); // exposure write is fire-and-forget
+        }
+        // cold-start list is [starter diagnostic, …]; after 3 impressions it is capped out
+        expect(lastIds).not.toContain('mock_test:starter');
+    });
+
+    it('with analytics consent the same feedback also produces analytics events carrying variant and mode', async () => {
+        const a = userApp();
+        await request(a).put('/privacy/consent').send({ analytics: true });
+        const first = (await request(a).get('/recommendations?refresh=true'))
+            .body.data;
+        const t = first.items[0];
+        await request(a).post('/recommendations/feedback').send({
+            recId: first.recId,
+            itemType: t.type,
+            itemRef: t.ref,
+            action: 'click',
+            variant: first.variant,
+            mode: first.mode,
+        });
+        await new Promise((r) => setTimeout(r, 250));
+        const click = await LearningEvent.findOne({ type: 'rec_click' }).lean<{
+            props: { variant: string; mode: string };
+        }>();
+        expect(click!.props).toMatchObject({
+            variant: first.variant,
+            mode: 'cold_start',
+        });
+        const imp = await LearningEvent.findOne({
+            type: 'rec_impression',
+        }).lean<{ props: { mode: string } }>();
+        expect(imp!.props.mode).toBe('cold_start');
+    });
+
+    it('feedback validates input', async () => {
+        const a = userApp();
+        expect(
+            (
+                await request(a)
+                    .post('/recommendations/feedback')
+                    .send({ action: 'nope' })
+            ).status
+        ).toBe(400);
+        expect(
+            (
+                await request(a)
+                    .post('/recommendations/feedback')
+                    .send({ action: 'click', itemType: 'x', itemRef: 'y' })
+            ).status
+        ).toBe(400);
     });
 });
 
@@ -279,19 +339,28 @@ describe('privacy: export and erasure', () => {
         await pipelineService.runOnce({
             afterFacts: (ids) => featureBuilder.buildMany(ids),
         });
+        await request(a).post('/recommendations/feedback').send({
+            recId: 'r1',
+            itemType: 'resource',
+            itemRef: 'x',
+            action: 'dismiss',
+            variant: 'control',
+        });
 
         const exp = await request(a).get('/privacy/export');
-        expect(exp.body.data.events.length).toBe(2);
+        expect(exp.body.data.recommendationState.length).toBe(1);
+        expect(exp.body.data.events.length).toBe(3);
         expect(exp.body.data.dailyFacts.length).toBe(1);
         expect(exp.body.data.skillMastery.length).toBe(1);
         expect(exp.body.data.consentHistory.length).toBe(2);
 
         const del = await request(a).delete('/privacy/data');
         expect(del.body.data.deleted).toMatchObject({
-            events: 2,
+            events: 3,
             dailyFacts: 1,
             skillMastery: 1,
             features: 1,
+            recommendationState: 1,
         });
         for (const M of [
             LearningEvent,
@@ -299,6 +368,7 @@ describe('privacy: export and erasure', () => {
             DailyFacts,
             SkillMastery,
             LearnerFeatures,
+            RecExposure,
         ]) {
             expect(await M.countDocuments({ userId })).toBe(0);
         }

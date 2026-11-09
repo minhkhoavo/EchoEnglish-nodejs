@@ -19,9 +19,12 @@ docker rm echo-english 2>/dev/null || true
 docker run -d --name echo-english --restart unless-stopped \
   --env-file /home/apps/EchoEnglish/.env -p 4000:4000 "$IMAGE"
 for i in $(seq 1 10); do
-  code="$(curl -s -o /dev/null --max-time 5 -w '%{http_code}' http://localhost:4000/ || true)"
+  # probe from inside the container: no dependency on curl on the host.
   # any HTTP status (401 from the auth gate is fine) proves the process is serving
-  if [ "$code" != "000" ] && [ -n "$code" ]; then echo "Rolled back to ${TAG} (HTTP ${code})"; exit 0; fi
+  if docker exec echo-english node -e "require('http').get({host:'127.0.0.1',port:process.env.PORT||4000,path:'/',timeout:4000},r=>{r.resume();process.exit(0)}).on('error',()=>process.exit(1)).on('timeout',function(){this.destroy();process.exit(1)})" >/dev/null 2>&1; then
+    echo "Rolled back to ${TAG}"
+    exit 0
+  fi
   sleep 3
 done
 echo "Rollback target ${TAG} did not come up" >&2

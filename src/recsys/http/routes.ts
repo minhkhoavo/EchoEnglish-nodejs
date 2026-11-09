@@ -30,6 +30,7 @@ router.get('/privacy/export', perUser(5, 3_600_000), controller.exportData);
 router.delete('/privacy/data', perUser(3, 3_600_000), controller.eraseData);
 
 router.get('/recommendations', perUser(30), controller.recommendations);
+router.post('/recommendations/feedback', perUser(120), controller.feedback);
 
 router.get('/admin/recsys/kpis', hasAuthority(Role.ADMIN), controller.kpis);
 router.get(

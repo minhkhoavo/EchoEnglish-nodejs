@@ -19,14 +19,14 @@ push/PR ──► ci.yml
              │                  → jest (unit+integration+DQ+perf) → offline eval
              └─ full-suite (informational): all existing tests
 push main ─► deploy.yaml: build image tagged :<git-sha> AND :latest → push
-             → ssh to VPS: pull :<sha> → run → health probe (10×3 s) → on failure restart previous image
+             → ssh to VPS: pull :<sha> → run → health probe from INSIDE the container (10×3 s, no host `curl` needed) → on failure restart previous image → keep the 4 newest images, remove older ones
 ```
 
-Changes made to the existing pipeline (`deploy.yaml`): immutable **SHA tags** (rollback needs addressable versions; `:latest` alone is not rollback-able), **health-gated start with automatic rollback** to the previously running image, and `IMAGE_TAG` passed to the VPS. Health probe: any HTTP status from `localhost:4000/` proves the process is serving (the auth gate answers 401).
+Changes made to the existing pipeline (`deploy.yaml`): immutable **SHA tags** (rollback needs addressable versions; `:latest` alone is not rollback-able), **health-gated start with automatic rollback** to the previously running image, and `IMAGE_TAG` passed to the VPS. Health probe: `docker exec echo-english node -e "http.get(…)"` — any HTTP status proves the process is serving (the auth gate answers 401); verified locally: closed port → exit 1, live 401 server → exit 0. **Retention:** SHA-tagged images are never "dangling", so `docker image prune` alone would fill the disk; the script keeps the 4 most recent distinct images (current + previous + 2 spare).
 
 **Recommendation (not applied — it changes your release policy):** make `ci.yml / recsys-quality` a required status check on `main` and make `deploy.yaml` depend on tests. The repo-wide suite was not verified green in this environment (see `04-testing.md` §6), so `full-suite` is informational for now.
 
-> Pushing to `main` deploys to production. All work is on branch `feat/recommendation-platform`; nothing was pushed.
+> Pushing to `main` deploys to production. All work is on branch `feat/recommendation-platform`; nothing was pushed. **The `deploy.yaml` and `ci.yml` changes take effect when the branch is merged to `main`.**
 
 ## 3. Infrastructure as code
 * Today: GitHub Actions + `docker run` on a VPS; compose for local Mongo. Committed in this branch: `ci.yml`, `deploy.yaml` (SHA/rollback), `scripts/deploy/rollback.sh`, `scripts/ci/typecheck-recsys.sh`, `scripts/ops/recsys-health.ts`, `loadtest/recsys.k6.js`.

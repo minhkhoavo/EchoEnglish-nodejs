@@ -25,57 +25,122 @@ export interface SubmittedAnswerLike {
     isCorrect: boolean;
 }
 
-/** One `question_answered` per answer (skill-tagged from QuestionMetadata) + one `test_submitted`. */
+export interface QuestionTagInfo {
+    part?: string;
+    skillTags?: SkillTagsLike;
+    difficulty?: string;
+}
+
+interface DefQuestion {
+    questionNumber?: number;
+    skillTags?: (SkillTagsLike & { part?: string }) | null;
+    contentTags?: { difficulty?: string } | null;
+}
+interface DefPart {
+    partName?: string;
+    questions?: DefQuestion[];
+    questionGroups?: Array<{ questions?: DefQuestion[] }>;
+}
+
+const partFromName = (name?: string): string | undefined =>
+    /(\d)/.exec(name ?? '')?.[1];
+
+/**
+ * Skill tags live EMBEDDED in the test definition (questions[].skillTags / contentTags) — the
+ * same source the existing LR analysis (AnalysisEngineService) joins on `questionNumber`.
+ * The separate `question_metadata` collection is only a fallback.
+ */
+export function extractQuestionTags(
+    testDef: unknown
+): Map<number, QuestionTagInfo> {
+    const out = new Map<number, QuestionTagInfo>();
+    const parts = (testDef as { parts?: DefPart[] } | null)?.parts;
+    if (!Array.isArray(parts)) return out;
+    const add = (q: DefQuestion, part: DefPart) => {
+        if (typeof q.questionNumber !== 'number') return;
+        out.set(q.questionNumber, {
+            part: q.skillTags?.part ?? partFromName(part.partName),
+            skillTags: q.skillTags ?? undefined,
+            difficulty: q.contentTags?.difficulty,
+        });
+    };
+    for (const part of parts) {
+        for (const q of part.questions ?? []) add(q, part);
+        for (const g of part.questionGroups ?? [])
+            for (const q of g.questions ?? []) add(q, part);
+    }
+    return out;
+}
+
+/**
+ * One `question_answered` per answer (skill-tagged) + one `test_submitted`.
+ * Scores are attached ONLY for full tests (`full: true`): a Part-5-only practice has a
+ * "TOEIC score" of ~150 that would corrupt learner CEFR and the score-gain KPI.
+ */
 export function emitTestSubmitted(input: {
     userId: string;
     testId: string;
     answers: SubmittedAnswerLike[];
+    /** The test definition document (embedded skill/content tags). */
+    testDefinition?: unknown;
+    full: boolean;
     totalScore?: number;
     listeningScore?: number;
     readingScore?: number;
+    /** Seconds. Callers must convert (test submit sends milliseconds). */
     durationSec?: number;
     occurredAt?: Date;
 }): Promise<void> {
     return safe('test_submitted', async () => {
         const answers = input.answers.slice(0, 200);
-        const meta = Types.ObjectId.isValid(input.testId)
-            ? await QuestionMetadata.find({
-                  testId: new Types.ObjectId(input.testId),
-                  questionNumber: { $in: answers.map((a) => a.questionNumber) },
-              })
-                  .select(
-                      'questionNumber part skillTags contentTags.difficulty'
-                  )
-                  .lean<
-                      Array<{
-                          questionNumber: number;
-                          part: string;
-                          skillTags?: SkillTagsLike;
-                          contentTags?: { difficulty?: string };
-                      }>
-                  >()
-            : [];
-        const byNumber = new Map(meta.map((m) => [m.questionNumber, m]));
+        const tags = extractQuestionTags(input.testDefinition);
+
+        // Fallback for questions whose definition carries no tags: question_metadata collection.
+        const missing = answers
+            .filter((a) => !tags.get(a.questionNumber)?.skillTags)
+            .map((a) => a.questionNumber);
+        if (missing.length > 0 && Types.ObjectId.isValid(input.testId)) {
+            const meta = await QuestionMetadata.find({
+                testId: new Types.ObjectId(input.testId),
+                questionNumber: { $in: missing },
+            })
+                .select('questionNumber part skillTags contentTags.difficulty')
+                .lean<
+                    Array<{
+                        questionNumber: number;
+                        part: string;
+                        skillTags?: SkillTagsLike;
+                        contentTags?: { difficulty?: string };
+                    }>
+                >();
+            for (const m of meta) {
+                tags.set(m.questionNumber, {
+                    part: m.part,
+                    skillTags: m.skillTags,
+                    difficulty: m.contentTags?.difficulty,
+                });
+            }
+        }
+
         const at = input.occurredAt ?? new Date();
         const events: Array<{
             type: EventType;
             props: Record<string, unknown>;
             occurredAt?: Date;
         }> = answers.map((a) => {
-            const m = byNumber.get(a.questionNumber);
-            const part = m ? Number(m.part) : undefined;
+            const t = tags.get(a.questionNumber);
+            const part = t?.part ? Number(t.part) : undefined;
             return {
                 type: 'question_answered',
                 occurredAt: at,
                 props: {
-                    skillKey: m
-                        ? deriveSkillKey(m.part, m.skillTags)
-                        : 'unknown',
-                    ...(part ? { part } : {}),
+                    skillKey:
+                        t?.skillTags || t?.part
+                            ? deriveSkillKey(t?.part, t?.skillTags)
+                            : 'unknown',
+                    ...(part && part >= 1 && part <= 7 ? { part } : {}),
                     correct: a.isCorrect,
-                    ...(m?.contentTags?.difficulty
-                        ? { difficulty: m.contentTags.difficulty }
-                        : {}),
+                    ...(t?.difficulty ? { difficulty: t.difficulty } : {}),
                     testId: input.testId,
                     questionNumber: a.questionNumber,
                     origin: 'test',
@@ -88,13 +153,14 @@ export function emitTestSubmitted(input: {
             occurredAt: at,
             props: {
                 testId: input.testId,
-                ...(input.totalScore !== undefined
+                full: input.full,
+                ...(input.full && input.totalScore !== undefined
                     ? { totalScore: input.totalScore }
                     : {}),
-                ...(input.listeningScore !== undefined
+                ...(input.full && input.listeningScore !== undefined
                     ? { listeningScore: input.listeningScore }
                     : {}),
-                ...(input.readingScore !== undefined
+                ...(input.full && input.readingScore !== undefined
                     ? { readingScore: input.readingScore }
                     : {}),
                 correct,

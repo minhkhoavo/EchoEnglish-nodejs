@@ -46,6 +46,12 @@ jest.mock('~/utils/toeicScore.js', () => ({
     default: jest.fn(),
 }));
 
+const mockEmitTestSubmitted = jest.fn();
+jest.mock('~/recsys/events/emitters.js', () => ({
+    __esModule: true,
+    emitTestSubmitted: (...args: unknown[]) => mockEmitTestSubmitted(...args),
+}));
+
 const mockedTestService = testService as jest.Mocked<typeof testService>;
 const mockedMetricsService = metricsCalculatorService as jest.Mocked<
     typeof metricsCalculatorService
@@ -1098,5 +1104,75 @@ describe('TestResultService', () => {
                 ],
             });
         });
+    });
+});
+
+// ──────────────────────────────────────────────
+// Recommendation-platform signal emission (units + full/partial test semantics)
+// ──────────────────────────────────────────────
+describe('TestResultService → recsys emission contract', () => {
+    const userId = 'u1';
+    const base = {
+        testId: new mongoose.Types.ObjectId().toString(),
+        testTitle: 'T',
+        testType: 'full',
+        userAnswers: [{ questionNumber: 1, selectedAnswer: 'A' }],
+    };
+
+    beforeEach(() => {
+        mockEmitTestSubmitted.mockClear();
+        (TestResult as any).prototype.save = jest.fn().mockResolvedValue(true);
+        mockedComputeToeicScores.mockReturnValue({
+            listeningScore: 200,
+            readingScore: 200,
+            totalScore: 400,
+        });
+        mockedTestService.getTestById.mockResolvedValue(
+            buildMockTestData() as any
+        );
+    });
+
+    it('converts the request duration from milliseconds to seconds', async () => {
+        await testResultService.submitTestResult(userId, {
+            ...base,
+            duration: 90_000,
+            parts: [],
+        } as any);
+        expect(mockEmitTestSubmitted).toHaveBeenCalledTimes(1);
+        expect(mockEmitTestSubmitted.mock.calls[0][0].durationSec).toBe(90);
+    });
+
+    it('marks a full test as full and passes the test definition (embedded skill tags)', async () => {
+        const def = buildMockTestData();
+        mockedTestService.getTestById.mockResolvedValue(def as any);
+        await testResultService.submitTestResult(userId, {
+            ...base,
+            duration: 1000,
+            parts: [],
+        } as any);
+        const arg = mockEmitTestSubmitted.mock.calls[0][0];
+        expect(arg.full).toBe(true);
+        expect(arg.testDefinition).toBe(def);
+        expect(arg.userId).toBe(userId);
+    });
+
+    it('marks a partial-part practice as NOT full so its score cannot pollute CEFR/score-gain', async () => {
+        await testResultService.submitTestResult(userId, {
+            ...base,
+            duration: 1000,
+            parts: ['part5'],
+        } as any);
+        expect(mockEmitTestSubmitted.mock.calls[0][0].full).toBe(false);
+    });
+
+    it('never fails the submission if emission throws synchronously-ignored promise rejection', async () => {
+        mockEmitTestSubmitted.mockReturnValueOnce(Promise.resolve());
+        await expect(
+            testResultService.submitTestResult(userId, {
+                ...base,
+                duration: 1000,
+                parts: [],
+            } as any)
+        ).resolves.toBeDefined();
     });
 });

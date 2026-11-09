@@ -55,6 +55,7 @@ flowchart LR
 | Gold | `learner_daily_facts` | unique `{userId, day}`; `{day}` | replaced per recompute | until erasure (aggregate, recommend 24 mo) |
 | Features | `skill_mastery` | unique `{userId, skillKey}` | yes | until erasure |
 | Features | `learner_features` | unique `userId` | yes | until erasure |
+| Functional | `recsys_exposure` | unique `{userId, itemId}`; TTL `expireAt` (30 d after last touch) | yes | 30 d |
 | Privacy | `recsys_consents` / `recsys_consent_ledger` | unique `userId` / `{userId}` | state / append-only | state: life of account; ledger: legal retention (counsel) |
 | Ops | `recsys_pipeline_runs`, `recsys_locks` | `runId`; `_id='etl'` lease | yes | keep 90 d (add TTL when needed) |
 
@@ -71,13 +72,15 @@ Envelope: `eventId` (UUIDv4, idempotency key) · `schemaVersion` · `type` · `o
 | Type | Category | Key props | Producer |
 | --- | --- | --- | --- |
 | `question_answered` | service | `skillKey, correct, difficulty?, origin, timeMs?` | server (test submit) |
-| `test_submitted` | service | `testId, totalScore, listening/reading, correct, total, durationSec` | server |
+| `test_submitted` | service | `testId, full, totalScore*, listening/reading*, correct, total, durationSec` (*only when `full`) | server |
 | `flashcard_reviewed` | service | `flashcardId, remembered, prevLevel, newLevel, latencyMs?` | server |
 | `vocab_captured` | service | `source (object_detection\|manual\|ai_generated…), termCount` | server |
 | `pronunciation_scored` | service | `accuracy, fluency?, completeness?, prosody?` — **scores only, no audio** | server |
 | `credit_spent` / `ai_usage` | service | `feature, credits` / `model, tokens, costUsd` | server |
 | `session_started/ended`, `resource_viewed` | behavioural | `dwellSec, scrollDepth, completed` | client |
 | `rec_impression/click/complete/dismiss` | behavioural | `recId, itemType, itemRef, variant, position/reason` | server (impression) / client |
+
+**Units & semantics (verified against the existing code):** `durationSec` is **seconds** — the test-submit request carries milliseconds and is converted in `testResultService`; the speech pipeline's `metadata.duration` is already seconds. Scores are attached **only for full 7-part tests** (`full: true`); a Part-5-only practice has a "TOEIC score" of ~150 that would corrupt learner CEFR and the score-gain KPI.
 
 Rules enforced at ingest: schema + per-type props validation, batch ≤ 100, `occurredAt` within [−7 d, +5 min], duplicate `eventId` ignored, behavioural events dropped without `analytics` consent, ordered:false bulk insert so one bad row never blocks the batch.
 
@@ -106,7 +109,7 @@ learning_events (pending) ──clean──► learning_events_clean ──aggre
 
 ## 6. Feature layer
 
-* **Skill mastery** (`features/mastery.ts`): Elo/1-PL ability θ per (learner, skill); `P(correct)=σ(θ−b)` with item difficulty `b` from question metadata; learning rate decays with attempts (0.5/√(1+n/3), floor 0.06); θ decays toward 0 with τ=60 days when unpracticed; confidence = 1−e^(−n/10). Skills use the existing `QuestionMetadata.skillTags` (`p5.wordform`, `p3.inference`, …; coarse for P3/P4). Idempotent via a per-user cursor.
+* **Skill mastery** (`features/mastery.ts`): Elo/1-PL ability θ per (learner, skill); `P(correct)=σ(θ−b)` with item difficulty `b` from question metadata; learning rate decays with attempts (0.5/√(1+n/3), floor 0.06); θ decays toward 0 with τ=60 days when unpracticed; confidence = 1−e^(−n/10). Skill keys (`p5.wordform`, `p3.inference`, …; coarse for P3/P4) are derived from the tags **embedded in the test definition** (`questions[].skillTags/contentTags`, joined by `questionNumber` — the same source `AnalysisEngineService` uses); the `question_metadata` collection is only a fallback. Untagged answers become `part:N` / `unknown`: they are kept for analytics but are **never recommended** (no drill target / deep link) and do not count as evidence for personalised mode. Idempotent via a per-user cursor on the silver `_id` (insertion order; a `receivedAt` cursor would permanently skip re-queued rejected events and batch tails).
 * **Forgetting curve** (`features/retention.ts`): `R(t,S) = (1 + F·t/S)^(−d)`, `F = 0.9^(−1/d) − 1` so that `R(S,S)=0.9`; we use the FSRS-4.5 constants (`d=0.5`, `F=19/81`) with `S` = the Leitner interval of the card's level. FSRS-6 makes `d` trainable per user (default 0.1542) ([FSRS algorithm wiki](https://github.com/open-spaced-repetition/awesome-fsrs/wiki/The-Algorithm)); adopting it needs review logs, which `flashcard_reviewed` now captures.
 * **Learner features** (`learner_features`): activity (active days 7/30, minutes, streak, days since active), performance (acc 7/30 d, last test, score trend), SRS (due, new, avg retrievability, max overdue), timing (top-2 active hours), habits (days since test/pronunciation/vocab), engagement (rec CTR/dismiss rate, resource completion), per-skill mastery view.
 
@@ -134,16 +137,18 @@ Reviews prioritised by estimated retrievability and overdue time; Leitner fields
 Study timing: `timing.bestHour` = most active hour from the last 30 days, else preferred study time.
 
 ### 7.5 Guardrails (`engine/guardrails.ts`)
+**The inputs to the guardrails (what was shown/clicked/dismissed) live in a small functional store `recsys_exposure` that works WITHOUT analytics consent** (it is a service function — don't repeat yourself, honour "not interested" — tiny, 30-day TTL, erased with the user's data). Analytics events about the same interactions remain consent-gated.
+
 Hard filters: dismissed (14 d), frequency cap (≥3 impressions/7 d without click), completed cooldown (resources 30 d, drills 1 d), CEFR gap > 1, `suitableForLearners=false`. Selection: ≤2 per type, ≤2 per skill, 1 flashcard block, diversity floor (≥2 distinct types when possible, top item never displaced), time budget (trim lowest ranks beyond 1.25× the learner's daily minutes, keep ≥3).
 
 ### 7.6 Explainability
 Every item has a reason code, evidence params and EN + VI text from templates (`engine/explain.ts`): e.g. "Your accuracy on Part 5 · word form is about 45% over 20 questions — the biggest opportunity to gain points." No LLM.
 
 ### 7.7 Feedback loop
-Impressions are logged by the server when a list is generated (cache-miss only); clients send `rec_click/complete/dismiss` via `/events/batch` echoing `variant`. These events feed: guardrails (exposure map), ranker (recency penalty), KPI read-outs, offline replay.
+Impressions are written by the server when a list is generated (cache-miss only): always to the functional exposure store, and as a `rec_impression` analytics event when consented. Clients report `click/complete/dismiss` through `POST /recommendations/feedback` (updates the exposure store and emits the analytics event); the analytics events carry `variant` and `mode` (`personalized`/`cold_start`). These events feed: guardrails (exposure map), ranker (recency penalty), KPI read-outs, offline replay.
 
 ### 7.8 Experimentation
-Deterministic bucketing `sha256(experimentKey:userId)` → variant; kill switch `RECSYS_FORCE_VARIANT`. Read-out: CTR/completion/dismiss per variant + two-proportion z-test. **Pre-register** each test: primary metric, MDE, sample size, stop rule. Reference sample sizes (α=0.05, power 0.8): CTR 20%→22% ≈ 6.5k impressions/arm; D7 retention 25%→28% ≈ 3.3k users/arm. Guardrail metrics: dismiss rate, D1 retention, support contacts.
+Deterministic bucketing `sha256(experimentKey:userId)` → variant; kill switch `RECSYS_FORCE_VARIANT`. Read-out: CTR/completion/dismiss per **variant × mode** + two-proportion z-test within the same mode (cold-start lists ignore the variant, so mixing modes would dilute any real effect to zero). **Pre-register** each test: primary metric, MDE, sample size, stop rule. Reference sample sizes (α=0.05, power 0.8): CTR 20%→22% ≈ 6.5k impressions/arm; D7 retention 25%→28% ≈ 3.3k users/arm. Guardrail metrics: dismiss rate, D1 retention, support contacts.
 
 ### 7.9 Offline evaluation (`eval/`)
 * **Metrics:** P@k, recall@k, NDCG@k, MRR, catalogue coverage, list diversity.
@@ -172,6 +177,7 @@ Law **91/2025/QH15** (Personal Data Protection Law, passed 26 Jun 2025) and **De
 | Cross-border transfer impact assessment (ex-ante, MPS A05, 15-day review, 6-monthly updates) | Event store stays in the primary Mongo region; **open item:** Atlas region, Gemini (US), Azure Speech, Stripe flows must be inventoried and assessed |
 | Breach: notify authority; for location/biometric 72 h to data subjects; keep records ≥ 5 years | Runbook in `06-operations.md` §5; audit via lineage + ledger |
 | DPO / processing register | Owner assignment is organisational (open item) |
+| Functional vs analytics data | Repetition guard (`recsys_exposure`) is service data with 30-day TTL and works without consent; every analytics event stays consent-gated |
 | Minimisation & retention | Scores/ids only; TTL 400 d raw/clean; erasure removes derived data |
 
 ### 8.2 Threats and controls
@@ -201,7 +207,9 @@ src/recsys/
 hooks in existing code (additive, fail-safe): testResultService · flashcardService · creditsService · speechController · googleGenAIClient · authMiddleware
 ```
 
-API: `POST /events/batch` · `GET|PUT /privacy/consent` · `POST /privacy/consent/withdraw` · `GET /privacy/export` · `DELETE /privacy/data` · `GET /recommendations?limit=&refresh=` · `GET /admin/recsys/{kpis,experiments,pipeline,health}`.
+API: `POST /events/batch` · `POST /recommendations/feedback` · `GET|PUT /privacy/consent` · `POST /privacy/consent/withdraw` · `GET /privacy/export` · `DELETE /privacy/data` · `GET /recommendations?limit=&refresh=` · `GET /admin/recsys/{kpis,experiments,pipeline,health}`.
+
+**`skill_drill` action payload is a proposed contract.** `{screen:'skill_drill', skillKey, questions}` has **no backend route yet**: the `WeaknessDrill` model is commented out and the only drill route is `.../practice-drill/complete`, which marks an LLM-plan item done. Questions live embedded in test documents, so a drill endpoint (select questions by `skillKey` across tests) needs a product/UX decision (T1.25). Until then `skill_drill` items are a recommendation of *what* to practise, not a one-tap deep link; the other action types (`flashcard_review`, `resource`, test list, speech, vocab) map to existing screens.
 
 **Integration with the existing daily plan (follow-up, ~2 days):** feed `GET /recommendations` items as an extra candidate source into `DailySessionService.buildSessionPlan` and let the ranker order `findAvailableResources`. Not done in this branch to avoid changing LLM-driven plan behaviour without an A/B.
 

@@ -1,5 +1,9 @@
 import { Candidate, RecContext, ResourceLike } from './types.js';
-import { skillExamWeight, skillLabel } from '../features/skillTaxonomy.js';
+import {
+    isActionableSkill,
+    skillExamWeight,
+    skillLabel,
+} from '../features/skillTaxonomy.js';
 import { SkillFeature } from '../features/featureModels.js';
 import {
     cefrFit,
@@ -35,7 +39,10 @@ export type RecMode = 'personalized' | 'cold_start';
 /** Personalised only with consent AND enough evidence on at least one skill. */
 export function decideMode(ctx: RecContext): RecMode {
     if (!ctx.personalization || !ctx.features) return 'cold_start';
-    return ctx.features.skills.some((s) => s.n >= MIN_ATTEMPTS)
+    // Only actionable skills count as evidence: `unknown` / `part:N` cannot be drilled.
+    return ctx.features.skills.some(
+        (s) => s.n >= MIN_ATTEMPTS && isActionableSkill(s.skillKey)
+    )
         ? 'personalized'
         : 'cold_start';
 }
@@ -47,7 +54,7 @@ export interface WeakSkill extends SkillFeature {
 /** need = gap-to-target × exam weight × evidence. Higher = fixing it moves the score most. */
 export function rankWeakSkills(skills: SkillFeature[]): WeakSkill[] {
     return skills
-        .filter((s) => s.n >= MIN_ATTEMPTS)
+        .filter((s) => s.n >= MIN_ATTEMPTS && isActionableSkill(s.skillKey))
         .map((s) => {
             const gap =
                 Math.max(0, TARGET_MASTERY - s.mastery) / TARGET_MASTERY;
@@ -128,6 +135,7 @@ function drillCandidates(weak: WeakSkill[], all: SkillFeature[]): Candidate[] {
     }
     // exploration: thinly-evidenced skills where one drill would cut uncertainty the most
     for (const s of all) {
+        if (!isActionableSkill(s.skillKey)) continue;
         if (out.has(s.skillKey) || s.n < 1 || s.confidence >= 0.5) continue;
         out.set(s.skillKey, {
             id: `skill_drill:${s.skillKey}`,

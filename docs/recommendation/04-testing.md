@@ -5,23 +5,23 @@ Test pyramid, weighted toward **real-database integration tests** wherever Mongo
 
 | Layer | Files (`__tests__/…`) | Cases | What it proves |
 | --- | --- | --- | --- |
-| Unit – contract | `unit/recsys/eventTypes` | 7 | schema strictness, client allow-list, variant required on feedback events |
-| Unit – ETL | `unit/recsys/etl` | 11 | local-day boundary (UTC+7), clamping, no double-counted study time, determinism, DQ rules |
+| Unit – contract | `unit/recsys/eventTypes` | 8 | schema strictness, client allow-list, variant required on feedback events |
+| Unit – ETL | `unit/recsys/etl` | 12 | local-day boundary (UTC+7), clamping, no double-counted study time, determinism, DQ rules |
 | Unit – features | `unit/recsys/features` | 16 | mastery convergence/bounds/decay, `R(S,S)=0.9`, streak, trend, empty learner |
-| Unit – engine | `unit/recsys/engine` | 30 | candidates, cold start, ranker, every guardrail, explanations (EN+VI, no `undefined`), hash-bucket split, end-to-end properties |
+| Unit – engine | `unit/recsys/engine` | 33 | candidates, cold start, ranker, every guardrail, explanations (EN+VI, no `undefined`), hash-bucket split, end-to-end properties |
 | Unit – eval | `unit/recsys/eval` | 10 | metrics on known lists, replay join, seeded simulation criteria |
-| Unit – KPI | `unit/recsys/kpi` | 16 | activation/retention maturity, k-anonymity, score gain, unit economics, z-test |
-| Unit – AI usage | `unit/recsys/aiUsage` | 8 | token extraction, rate config, attribution, never-throws |
+| Unit – KPI | `unit/recsys/kpi` | 17 | activation/retention maturity, k-anonymity, score gain, unit economics, z-test |
+| Unit – AI usage | `unit/recsys/aiUsage` | 10 | token extraction, rate config, attribution, never-throws |
 | Integration – ingest | `integration/recsys/eventIngest` | 7 | idempotency on real unique index, consent gate, stale/future, mixed batches, emit never throws |
 | Integration – pipeline | `integration/recsys/pipeline` | 6 | bronze→silver→gold, replay idempotency, late events, rejects, lease contention |
-| Integration – features | `integration/recsys/features` | 2 | cursor-based mastery updates, persisted feature set with real flashcards |
-| Integration – HTTP | `integration/recsys/http` | 11 | consent API, auth/validation, spoofed `userId`, **closed loop** events→recs→impressions, anti-repetition, export+erase, admin RBAC |
-| Integration – emitters | `integration/recsys/emitters` | 4 | skill-tagged events from real `QuestionMetadata`, no-op when disabled |
+| Integration – features | `integration/recsys/features` | 3 | cursor-based mastery updates, persisted feature set with real flashcards |
+| Integration – HTTP | `integration/recsys/http` | 14 | consent API, auth/validation, spoofed `userId`, **closed loop** events→recs→impressions, anti-repetition, export+erase, admin RBAC |
+| Integration – emitters | `integration/recsys/emitters` | 6 | skill tags from the embedded test definition (+ metadata fallback), full vs partial test scores, no-op when disabled |
 | Integration – health | `integration/recsys/health` | 5 | ok/degraded/down logic |
 | Performance | `integration/recsys/performance` | 2 | latency and throughput budgets (§3) |
-| **Total new** | | **135** | |
+| **Total new** | | **149** | (+4 emission-contract tests added to the existing `testResultService` suite) |
 
-Regression: the existing suites for every file touched (`flashcardService`, `testResultService`, `payment/*`, `authMiddleware`, `googleGenAIClient`, `DailySessionService`) pass unchanged (252 + 28 tests).
+**Latest run:** platform suites + every existing suite for files I touched (`flashcardService`, `testResultService`, `payment/*`, `authMiddleware`, `googleGenAIClient`, `recommendation/*`) = **35 suites, 647 tests, all passing**.
 
 ## 2. Data-quality tests
 * Run-time DQ (`etl/dataQuality.ts`) — unit-tested thresholds and an integration test where a contract-violating raw row yields `rejected` + `degraded` while good rows still flow.
@@ -50,7 +50,7 @@ Default-off consent; ledger entry per change; behavioural events dropped without
 * **Not executed here:** k6 load test; CI workflows on GitHub; deploy/rollback scripts against a real VPS (written, shell-reviewed only).
 * No real-user validation of reason copy, consent wording, or recommendation usefulness (README §4/§6).
 * Real-data replay evaluation requires production logs.
-* Full existing suite status: **not completed.** The first attempt had a jest worker SIGKILLed by the OS and the second run was stopped by the harness for low memory (2.9 GB VM). Only the suites for files I touched were run (all green, 280 tests); `DailySessionService` passed (28/28) when re-run in isolation. Run the full suite on CI (`ci.yml / full-suite`) or a larger machine before making CI a required check.
+* Full existing suite status: **not completed.** The first attempt had a jest worker SIGKILLed by the OS and the second run was stopped by the harness for low memory (2.9 GB VM). Only the suites for files I touched were run (all green, 647 tests); `DailySessionService` passed (28/28) when re-run in isolation. Run the full suite on CI (`ci.yml / full-suite`) or a larger machine before making CI a required check.
 * Repo-wide `tsc` has 53 pre-existing errors (controllers); new code adds none (`scripts/ci/typecheck-recsys.sh`).
 
 ## 7. How to run

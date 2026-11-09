@@ -40,6 +40,8 @@ export const eventPropsSchemas = {
     }),
     test_submitted: z.object({
         testId: oid,
+        /** true only for a full 7-part test; scores are present only then. */
+        full: z.boolean().default(true),
         totalScore: finite.min(0).max(990).optional(),
         listeningScore: finite.min(0).max(495).optional(),
         readingScore: finite.min(0).max(495).optional(),
@@ -101,6 +103,8 @@ export const eventPropsSchemas = {
         itemRef: z.string().max(80).optional(),
         position: z.number().int().min(0).max(50),
         variant: z.string().max(40),
+        /** Cold-start lists ignore the variant; the read-out must split by mode. */
+        mode: z.enum(['personalized', 'cold_start']).optional(),
         algo: z.string().max(40).optional(),
         skillKey: skillKey.optional(),
     }),
@@ -111,12 +115,14 @@ export const eventPropsSchemas = {
         position: z.number().int().min(0).max(50).optional(),
         /** Echo of the variant returned with the recommendation (needed for A/B read-outs). */
         variant: z.string().min(1).max(40),
+        mode: z.enum(['personalized', 'cold_start']).optional(),
     }),
     rec_complete: z.object({
         recId: z.string().min(1).max(64),
         itemType: z.string().min(1).max(40),
         itemRef: z.string().max(80).optional(),
         variant: z.string().min(1).max(40),
+        mode: z.enum(['personalized', 'cold_start']).optional(),
         outcome: score.optional(),
     }),
     rec_dismiss: z.object({
@@ -124,6 +130,7 @@ export const eventPropsSchemas = {
         itemType: z.string().min(1).max(40),
         itemRef: z.string().max(80).optional(),
         variant: z.string().min(1).max(40),
+        mode: z.enum(['personalized', 'cold_start']).optional(),
         reason: z
             .enum(['too_easy', 'too_hard', 'not_relevant', 'seen'])
             .optional(),

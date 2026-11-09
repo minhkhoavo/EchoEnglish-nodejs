@@ -23,6 +23,8 @@ import { LearningEvent } from '../events/eventModel.js';
 import { CleanEvent } from '../etl/models.js';
 import { consentService } from '../privacy/consentService.js';
 import { eventService } from '../events/eventService.js';
+import { exposureService } from './exposureService.js';
+import { recsysConfig } from '../config.js';
 import { User } from '../../models/userModel.js';
 import { Resource } from '../../models/resource.js';
 
@@ -153,61 +155,24 @@ export const mongoDeps: RecDeps = {
     },
 
     async loadExposure(userId, now) {
+        // Functional store (works without analytics consent) …
+        const map = await exposureService.load(userId, now);
+        // … plus resource completions seen in behavioural events (only exist for consenting users).
         const since = new Date(now.getTime() - 30 * DAY_MS);
-        const rows = await LearningEvent.find({
+        const viewed = await LearningEvent.find({
             userId: new Types.ObjectId(userId),
+            type: 'resource_viewed',
+            'props.completed': true,
             occurredAt: { $gte: since },
-            type: {
-                $in: [
-                    'rec_impression',
-                    'rec_click',
-                    'rec_dismiss',
-                    'rec_complete',
-                    'resource_viewed',
-                ],
-            },
         })
-            .select('type occurredAt props')
-            .lean<
-                Array<{
-                    type: string;
-                    occurredAt: Date;
-                    props: Record<string, string | boolean | undefined>;
-                }>
-            >();
-        const map: ExposureMap = new Map();
-        const get = (id: string) => {
-            let e = map.get(id);
-            if (!e) map.set(id, (e = { shown7d: 0, clicked: false }));
-            return e;
-        };
-        for (const r of rows) {
-            if (r.type === 'resource_viewed') {
-                if (r.props.completed === true) {
-                    const e = get(`resource:${r.props.resourceId}`);
-                    if (!e.completedAt || r.occurredAt > e.completedAt)
-                        e.completedAt = r.occurredAt;
-                }
-                continue;
-            }
-            const id = `${r.props.itemType}:${r.props.itemRef ?? ''}`;
-            const e = get(id);
-            if (
-                r.type === 'rec_impression' &&
-                now.getTime() - r.occurredAt.getTime() < 7 * DAY_MS
-            )
-                e.shown7d++;
-            else if (r.type === 'rec_click') e.clicked = true;
-            else if (
-                r.type === 'rec_dismiss' &&
-                (!e.dismissedAt || r.occurredAt > e.dismissedAt)
-            )
-                e.dismissedAt = r.occurredAt;
-            else if (
-                r.type === 'rec_complete' &&
-                (!e.completedAt || r.occurredAt > e.completedAt)
-            )
+            .select('occurredAt props.resourceId')
+            .lean<Array<{ occurredAt: Date; props: { resourceId: string } }>>();
+        for (const r of viewed) {
+            const id = `resource:${r.props.resourceId}`;
+            const e = map.get(id) ?? { shown7d: 0, clicked: false };
+            if (!e.completedAt || r.occurredAt > e.completedAt)
                 e.completedAt = r.occurredAt;
+            map.set(id, e);
         }
         return map;
     },
@@ -306,6 +271,22 @@ export class RecommenderService {
         };
         cache.set(key, { exp: now.getTime() + CACHE_TTL_MS, value: response });
 
+        // Functional repetition guard: recorded for everyone (no consent needed), tiny + TTL'd.
+        if (recsysConfig.enabled()) {
+            exposureService
+                .recordImpressions(
+                    userId,
+                    response.items.map((i) => i.id),
+                    now
+                )
+                .catch((e) =>
+                    console.error(
+                        '[recsys] exposure write failed:',
+                        (e as Error).message
+                    )
+                );
+        }
+
         if (opts.logImpressions !== false) {
             // Impressions are behavioural events: stored only for users who consented to analytics.
             void eventService.emitManyAsync(
@@ -318,6 +299,7 @@ export class RecommenderService {
                         itemRef: it.ref,
                         position: it.rank - 1,
                         variant: response.variant,
+                        mode: response.mode,
                         algo: response.algo,
                         ...(it.skillKey ? { skillKey: it.skillKey } : {}),
                     },
@@ -325,6 +307,12 @@ export class RecommenderService {
             );
         }
         return response;
+    }
+
+    /** Drop this user's cached lists (call after feedback so the next fetch reflects it). */
+    invalidate(userId: string) {
+        for (const k of cache.keys())
+            if (k.startsWith(`${userId}:`)) cache.delete(k);
     }
 
     clearCache() {

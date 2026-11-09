@@ -210,6 +210,60 @@ describe('experiment read-out', () => {
         ).toBeNull();
         expect(rows[0].ctr).toBe(0.2);
     });
+    it('compares variants only within the same mode (cold-start lists cannot dilute the result)', () => {
+        const rows = experimentReadout([
+            {
+                variant: 'control',
+                mode: 'personalized',
+                impressions: 10_000,
+                clicks: 2_000,
+                completes: 0,
+                dismisses: 0,
+                users: 1,
+            },
+            {
+                variant: 'srs_heavy',
+                mode: 'personalized',
+                impressions: 10_000,
+                clicks: 2_400,
+                completes: 0,
+                dismisses: 0,
+                users: 1,
+            },
+            {
+                variant: 'control',
+                mode: 'cold_start',
+                impressions: 10_000,
+                clicks: 1_000,
+                completes: 0,
+                dismisses: 0,
+                users: 1,
+            },
+            {
+                variant: 'srs_heavy',
+                mode: 'cold_start',
+                impressions: 10_000,
+                clicks: 1_000,
+                completes: 0,
+                dismisses: 0,
+                users: 1,
+            },
+        ]);
+        const pers = rows.find(
+            (r) => r.variant === 'srs_heavy' && r.mode === 'personalized'
+        )!;
+        const cold = rows.find(
+            (r) => r.variant === 'srs_heavy' && r.mode === 'cold_start'
+        )!;
+        expect(pers.significant95).toBe(true);
+        expect(cold.zVsControl).toBe(0); // identical → exactly no difference, not polluted by the other mode
+        expect(
+            rows.find(
+                (r) => r.variant === 'control' && r.mode === 'cold_start'
+            )!.zVsControl
+        ).toBeNull();
+    });
+
     it('no impressions → null rates', () => {
         const [r] = experimentReadout([
             {

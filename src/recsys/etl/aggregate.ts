@@ -92,7 +92,7 @@ export function aggregateDay(
             case 'test_submitted':
                 f.testsSubmitted++;
                 f.studySeconds += n(p.durationSec);
-                if (typeof p.totalScore === 'number') {
+                if (typeof p.totalScore === 'number' && p.full !== false) {
                     const at = e.occurredAt.getTime();
                     if (!lastTest || at >= lastTest.at)
                         lastTest = { at, score: p.totalScore };

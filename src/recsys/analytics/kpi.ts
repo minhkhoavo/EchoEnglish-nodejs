@@ -204,6 +204,8 @@ export function unitEconomics(facts: FactRow[], money: MoneyInput) {
 
 export interface VariantRow {
     variant: string;
+    /** Cold-start lists ignore the variant, so rows are compared only within the same mode. */
+    mode?: string;
     impressions: number;
     clicks: number;
     completes: number;
@@ -213,8 +215,10 @@ export interface VariantRow {
 
 /** Variant read-out with a two-proportion z-test on CTR (control vs each other variant). */
 export function experimentReadout(rows: VariantRow[], control = 'control') {
-    const base = rows.find((r) => r.variant === control);
     return rows.map((r) => {
+        const base = rows.find(
+            (b) => b.variant === control && b.mode === r.mode
+        );
         const ctr = r.impressions ? r.clicks / r.impressions : null;
         let z: number | null = null;
         if (base && r !== base && r.impressions > 0 && base.impressions > 0) {

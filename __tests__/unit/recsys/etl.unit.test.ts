@@ -115,6 +115,30 @@ describe('aggregateDay', () => {
         expect(f.lastTestScore).toBe(600);
     });
 
+    it('a partial-part test (full:false) never sets lastTestScore, a full one does', () => {
+        const partial = aggregateDay('u1', 'd', [
+            ev('test_submitted', {
+                durationSec: 600,
+                totalScore: 150,
+                correct: 20,
+                total: 30,
+                full: false,
+            }),
+        ]);
+        expect(partial.lastTestScore).toBeUndefined();
+        expect(partial.testsSubmitted).toBe(1);
+        const full = aggregateDay('u1', 'd', [
+            ev('test_submitted', {
+                durationSec: 600,
+                totalScore: 640,
+                correct: 120,
+                total: 200,
+                full: true,
+            }),
+        ]);
+        expect(full.lastTestScore).toBe(640);
+    });
+
     it('session_ended is not study time; sessions are counted from session_started', () => {
         const f = aggregateDay('u1', 'd', [
             ev('session_started', {}),
