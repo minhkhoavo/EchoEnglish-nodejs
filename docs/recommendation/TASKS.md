@@ -74,7 +74,7 @@ Legend: **Verified live** = exercised against a real server in Docker (opt-in te
 ### Phase 3 follow-ups
 | ID | Task | Status |
 | --- | --- | --- |
-| T3.11 | Kafka TLS/SASL against a secured broker | ✅ **Verified live** (SASL/SCRAM-SHA-256 over TLS, private CA; refusals tested). Found and fixed a real defect on the way (object-form `ssl` is rejected by the client). **Still untested: ClickHouse over HTTPS.** |
+| T3.11 | Kafka TLS/SASL and ClickHouse HTTPS against secured endpoints | ✅ **Verified live**: Redpanda with SASL/SCRAM-SHA-256 over TLS (private CA) and ClickHouse over HTTPS (private CA); wrong password, plaintext client and untrusted CA are refused. Found and fixed a real defect on the way (the client rejects object-form `ssl`). Used self-signed test CAs on localhost — **not** a managed/production endpoint |
 | T3.12 | Run the Gemini embedding provider on the real catalogue; calibrate `RECSYS_SEMANTIC_MIN`; cost-check one run | ⛔ **Blocked: needs a Gemini API key and the real catalogue** (neither exists in the dev environment) |
 | T3.13 | First real retrain (dry run) once ≥ 20k personalised impressions exist; retune thresholds | ⛔ **Blocked: needs production data** (and consented users, hence the front-end consent UI, T1.16) |
 | T3.14 | Capacity: loader throughput + storage | 🟡 **Measured on the dev VM** (≈ 930 events/s end to end, 84 B/event compressed; `npm run recsys:bench`). Production capacity, rebalancing and long runs **not** measured |

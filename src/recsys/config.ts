@@ -61,6 +61,8 @@ export const recsysConfig = {
         database: () => process.env.RECSYS_CLICKHOUSE_DB ?? 'echo',
         username: () => process.env.RECSYS_CLICKHOUSE_USER ?? 'default',
         password: () => process.env.RECSYS_CLICKHOUSE_PASSWORD ?? '',
+        /** PEM path of a private CA when the URL is https:// and the server cert is not publicly signed. */
+        caFile: () => process.env.RECSYS_CLICKHOUSE_CA_FILE,
         /** Event rows older than this are dropped by ClickHouse TTL (days). */
         retentionDays: () =>
             num(process.env.RECSYS_CLICKHOUSE_RETENTION_DAYS, 400),

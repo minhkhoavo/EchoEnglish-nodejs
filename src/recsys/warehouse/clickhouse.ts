@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { recsysConfig } from '../config.js';
 
 /** Narrow port over ClickHouse so loader/erasure are testable and the client stays lazy. */
@@ -21,6 +22,10 @@ export async function createWarehouse(
         url: cfg.url(),
         username: cfg.username(),
         password: cfg.password(),
+        // A private CA is trusted explicitly; an unreadable file throws rather than going insecure.
+        ...(cfg.caFile()
+            ? { tls: { ca_cert: readFileSync(cfg.caFile()!) } }
+            : {}),
         ...(opts.bootstrap ? {} : { database: cfg.database() }),
         clickhouse_settings: { date_time_input_format: 'best_effort' },
     });
