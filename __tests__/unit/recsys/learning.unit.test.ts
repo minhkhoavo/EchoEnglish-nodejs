@@ -14,6 +14,9 @@ import {
 } from '~/recsys/learning/train.js';
 import { rng } from '~/recsys/eval/simulator.js';
 
+// Training 12–15k rows takes ~1 s alone but several seconds under CPU contention.
+jest.setTimeout(60_000);
+
 const sigmoid = (z: number) => 1 / (1 + Math.exp(-z));
 const TH: Thresholds = {
     minRows: 2000,
