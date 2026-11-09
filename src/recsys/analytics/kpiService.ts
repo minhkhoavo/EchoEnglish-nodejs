@@ -144,7 +144,14 @@ export class KpiService {
                 Math.min(MAX_WINDOW_DAYS, opts.windowDays ?? 14) * 86_400_000
         );
         return this.withSource(async (src) => ({
-            variants: experimentReadout(await src.variantRows(since)),
+            // GROUP BY output order is unspecified in both stores → sort for a stable API.
+            variants: experimentReadout(
+                (await src.variantRows(since)).sort(
+                    (a, b) =>
+                        (a.mode ?? '').localeCompare(b.mode ?? '') ||
+                        a.variant.localeCompare(b.variant)
+                )
+            ),
         }));
     }
 }
