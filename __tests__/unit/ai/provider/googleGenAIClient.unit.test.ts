@@ -314,9 +314,8 @@ describe('GoogleGenAIClient', () => {
     // ════════════════════════════════════════════
     describe('_isMultimodalModel monkey-patch', () => {
         it('should correctly identify multimodal models', async () => {
-            const { ChatGoogleGenerativeAI } = await import(
-                '@langchain/google-genai'
-            );
+            const { ChatGoogleGenerativeAI } =
+                await import('@langchain/google-genai');
             const instance = Object.create(ChatGoogleGenerativeAI.prototype);
 
             const testCases = [
