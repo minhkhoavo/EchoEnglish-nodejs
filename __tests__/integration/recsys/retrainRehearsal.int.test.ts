@@ -193,21 +193,27 @@ it('logs → features → training → registry works end to end on production-p
         );
     const byUser = new Map<
         string,
-        Array<{ type: 'rec_click'; props: Record<string, unknown> }>
+        Array<{
+            type: 'rec_click' | 'rec_complete';
+            props: Record<string, unknown>;
+        }>
     >();
     for (const i of imps)
         if (r() < truth(i.props.signals)) {
             const k = i.userId.toString();
-            (byUser.get(k) ?? byUser.set(k, []).get(k)!).push({
-                type: 'rec_click',
-                props: {
-                    recId: i.props.recId,
-                    itemType: i.props.itemType,
-                    itemRef: i.props.itemRef,
-                    variant: i.props.variant,
-                    mode: i.props.mode,
-                },
-            });
+            const props = {
+                recId: i.props.recId,
+                itemType: i.props.itemType,
+                itemRef: i.props.itemRef,
+                variant: i.props.variant,
+                mode: i.props.mode,
+            };
+            // The default training label is "a click that led to learning", so these
+            // learners also finish what they open.
+            (byUser.get(k) ?? byUser.set(k, []).get(k)!).push(
+                { type: 'rec_click', props },
+                { type: 'rec_complete', props }
+            );
         }
     for (const [u, evs] of byUser) await eventService.emitManyAsync(u, evs);
     const clicks = await LearningEvent.countDocuments({ type: 'rec_click' });
@@ -217,6 +223,7 @@ it('logs → features → training → registry works end to end on production-p
     const rows = await loadTrainingRows(new Date(Date.now() - 86_400_000));
     expect(rows).toHaveLength(shown);
     expect(rows.filter((x) => x.clicked).length).toBe(clicks);
+    expect(rows.filter((x) => x.label).length).toBe(clicks);
     expect(
         rows.filter((x) => x.segment !== null).length / rows.length
     ).toBeGreaterThan(0.99);

@@ -6,6 +6,7 @@ import { StreamExporter } from './stream/exporter.js';
 import { createKafkaProducer, StreamProducer } from './stream/producer.js';
 import { retrainService } from './learning/retrain.js';
 import { PseudonymConfigError } from './stream/pseudonym.js';
+import { sendAlert } from './analytics/alerts.js';
 
 let started = false;
 
@@ -14,8 +15,15 @@ let started = false;
  * instance runs a given tick; the others return immediately.
  * Disabled unless RECSYS_ENABLED=true (kill switch / staged rollout).
  */
-export function startRecsysScheduler(): void {
-    if (started || !recsysConfig.enabled()) return;
+export function startRecsysScheduler(opts: { worker?: boolean } = {}): boolean {
+    if (started) return true;
+    if (!recsysConfig.enabled()) return false;
+    // API instances skip the jobs when a dedicated worker runs them
+    // (scripts/ops/recsys-worker.ts); the worker itself always schedules.
+    if (!opts.worker && !recsysConfig.schedulerEnabled()) {
+        console.log('[recsys] scheduler disabled on this instance');
+        return false;
+    }
     started = true;
     cron.schedule('*/2 * * * *', async () => {
         try {
@@ -30,18 +38,20 @@ export function startRecsysScheduler(): void {
                     const failed = run.dq
                         .filter((c) => !c.passed)
                         .map((c) => c.name);
-                    console.warn(
-                        `[recsys] etl ${run.status}: ${run.error ?? failed.join(',')}`
+                    void sendAlert(
+                        `etl_${run.status}`,
+                        run.error ?? `failed checks: ${failed.join(', ')}`
                     );
                 }
             }
         } catch (err) {
-            console.error('[recsys] etl tick crashed:', (err as Error).message);
+            void sendAlert('etl_crashed', (err as Error).message);
         }
     });
     startStreamExporter();
     startRetraining();
     console.log('[recsys] scheduler started');
+    return true;
 }
 
 let producerPromise: Promise<StreamProducer> | null = null;
@@ -88,13 +98,14 @@ function startRetraining(): void {
                 `[recsys] retrain ${r.status}${r.version ? ` v${r.version}` : ''} activated=${r.activated}${r.reason ? ` (${r.reason})` : ''}`
             );
         } catch (err) {
-            console.error('[recsys] retrain crashed:', (err as Error).message);
+            void sendAlert('retrain_crashed', (err as Error).message);
         }
     });
     cron.schedule('30 20 * * *', async () => {
         try {
             const g = await retrainService.guard();
-            if (g.retired) console.warn(`[recsys] ${g.reason}`);
+            if (g.retired)
+                void sendAlert('model_auto_retired', g.reason ?? 'retired');
         } catch (err) {
             console.error(
                 '[recsys] model guard crashed:',

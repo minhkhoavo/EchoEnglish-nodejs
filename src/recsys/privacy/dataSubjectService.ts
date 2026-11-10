@@ -6,6 +6,7 @@ import { Consent, ConsentLedger } from './consentModel.js';
 import { consentService } from './consentService.js';
 import { recommenderService } from '../engine/recommender.js';
 import { RecExposure } from '../engine/exposureModel.js';
+import { RecServed } from '../engine/servedModel.js';
 import { FeatureSnapshot } from '../featurestore/snapshotModel.js';
 import { recsysConfig } from '../config.js';
 import { pseudonymise, requirePseudonymSalt } from '../stream/pseudonym.js';
@@ -84,6 +85,7 @@ export class DataSubjectService {
             exposure,
             snapshots,
             region,
+            served,
         ] = await Promise.all([
             LearningEvent.find({ userId: uid })
                 .sort({ occurredAt: -1 })
@@ -110,6 +112,11 @@ export class DataSubjectService {
             LearnerRegion.findOne({ userId: uid })
                 .select('-_id -userId')
                 .lean(),
+            RecServed.find({ userId: uid })
+                .sort({ servedAt: -1 })
+                .limit(2000)
+                .select('-_id -userId -expireAt')
+                .lean(),
         ]);
         return {
             exportedAt: new Date().toISOString(),
@@ -119,6 +126,7 @@ export class DataSubjectService {
             skillMastery: mastery,
             features,
             recommendationState: exposure,
+            servedRecommendations: served,
             featureSnapshots: snapshots,
             dataRegion: region,
             consent,
@@ -134,17 +142,27 @@ export class DataSubjectService {
     async eraseUserData(userId: string) {
         const uid = new Types.ObjectId(userId);
         const downstream = await this.propagateErasure(userId);
-        const [events, clean, facts, mastery, features, exposure, snapshots] =
-            await Promise.all([
-                LearningEvent.deleteMany({ userId: uid }),
-                CleanEvent.deleteMany({ userId: uid }),
-                DailyFacts.deleteMany({ userId: uid }),
-                SkillMastery.deleteMany({ userId: uid }),
-                LearnerFeatures.deleteMany({ userId: uid }),
-                RecExposure.deleteMany({ userId: uid }),
-                FeatureSnapshot.deleteMany({ userId: uid }),
-                LearnerRegion.deleteMany({ userId: uid }),
-            ]);
+        const [
+            events,
+            clean,
+            facts,
+            mastery,
+            features,
+            exposure,
+            snapshots,
+            ,
+            served,
+        ] = await Promise.all([
+            LearningEvent.deleteMany({ userId: uid }),
+            CleanEvent.deleteMany({ userId: uid }),
+            DailyFacts.deleteMany({ userId: uid }),
+            SkillMastery.deleteMany({ userId: uid }),
+            LearnerFeatures.deleteMany({ userId: uid }),
+            RecExposure.deleteMany({ userId: uid }),
+            FeatureSnapshot.deleteMany({ userId: uid }),
+            LearnerRegion.deleteMany({ userId: uid }),
+            RecServed.deleteMany({ userId: uid }),
+        ]);
         await consentService.withdrawAll(userId);
         recommenderService.clearCache();
         return {
@@ -157,6 +175,7 @@ export class DataSubjectService {
                 features: features.deletedCount,
                 recommendationState: exposure.deletedCount,
                 featureSnapshots: snapshots.deletedCount,
+                servedRecommendations: served.deletedCount,
             },
             consentWithdrawn: true,
             downstream,

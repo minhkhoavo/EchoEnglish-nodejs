@@ -52,6 +52,40 @@ export interface WeakSkill extends SkillFeature {
     need: number;
 }
 
+/** A skill counts as "strong but fading" after this many days without practice. */
+const REFRESH_AFTER_DAYS = 30;
+
+/**
+ * Why a skill is being recommended. A learner who measurably mastered a skill and then left it
+ * alone has a decayed ESTIMATE, not poor accuracy: say "refresh", never "you are weak at this".
+ */
+export function skillReason(s: SkillFeature): Candidate['reason'] {
+    const skill = skillLabel(s.skillKey);
+    const acc =
+        typeof s.accuracy === 'number'
+            ? Math.round(s.accuracy * 100)
+            : undefined;
+    const days = Math.floor(s.daysSincePractice ?? 0);
+    if (
+        typeof s.accuracy === 'number' &&
+        s.accuracy >= TARGET_MASTERY &&
+        days >= REFRESH_AFTER_DAYS
+    )
+        return {
+            code: 'refresh_skill',
+            params: { skill, acc: acc as number, days },
+        };
+    return {
+        code: 'weak_skill',
+        params: {
+            skill,
+            pct: Math.round(s.mastery * 100),
+            n: s.n,
+            ...(acc !== undefined ? { acc } : {}),
+        },
+    };
+}
+
 /** need = gap-to-target × exam weight × evidence. Higher = fixing it moves the score most. */
 export function rankWeakSkills(skills: SkillFeature[]): WeakSkill[] {
     return skills
@@ -87,6 +121,7 @@ function srsCandidate(ctx: RecContext): Candidate | null {
         type: 'flashcard_review',
         ref: 'due',
         title: `Review ${count} due flashcards`,
+        titleVi: `Ôn ${count} thẻ đến hạn`,
         estMinutes: Math.max(2, Math.ceil((count * SECONDS_PER_CARD) / 60)),
         signals: { srs: urgency },
         reason: away
@@ -116,17 +151,11 @@ function drillCandidates(weak: WeakSkill[], all: SkillFeature[]): Candidate[] {
             type: 'skill_drill',
             ref: s.skillKey,
             title: `Practice: ${skillLabel(s.skillKey)}`,
+            titleVi: `Luyện tập: ${skillLabel(s.skillKey)}`,
             estMinutes: 10,
             skillKey: s.skillKey,
             signals: { need: s.need, explore: 1 - s.confidence },
-            reason: {
-                code: 'weak_skill',
-                params: {
-                    skill: skillLabel(s.skillKey),
-                    pct: Math.round(s.mastery * 100),
-                    n: s.n,
-                },
-            },
+            reason: skillReason(s),
             action: {
                 screen: 'skill_drill',
                 skillKey: s.skillKey,
@@ -143,6 +172,7 @@ function drillCandidates(weak: WeakSkill[], all: SkillFeature[]): Candidate[] {
             type: 'skill_drill',
             ref: s.skillKey,
             title: `Practice: ${skillLabel(s.skillKey)}`,
+            titleVi: `Luyện tập: ${skillLabel(s.skillKey)}`,
             estMinutes: 8,
             skillKey: s.skillKey,
             signals: { explore: 1 - s.confidence },
@@ -214,14 +244,7 @@ function resourceCandidates(
                 ...(sem > 0 ? { semantic: sem } : {}),
             },
             reason: bestSkill
-                ? {
-                      code: 'weak_skill',
-                      params: {
-                          skill: skillLabel(bestSkill.skillKey),
-                          pct: Math.round(bestSkill.mastery * 100),
-                          n: bestSkill.n,
-                      },
-                  }
+                ? skillReason(bestSkill)
                 : interested
                   ? {
                         code: 'interest_match',
@@ -268,6 +291,7 @@ function habitCandidates(ctx: RecContext): Candidate[] {
             type: 'mock_test',
             ref: 'starter',
             title: 'Take a short diagnostic test',
+            titleVi: 'Làm bài kiểm tra chẩn đoán ngắn',
             estMinutes: 20,
             signals: { habit: 1 },
             boost: 0.5,
@@ -281,6 +305,7 @@ function habitCandidates(ctx: RecContext): Candidate[] {
             type: 'mock_test',
             ref: 'progress',
             title: 'Take a mini test to track progress',
+            titleVi: 'Làm bài test ngắn để theo dõi tiến bộ',
             estMinutes: 25,
             signals: { habit: clamp01(days / 30) },
             reason: { code: 'habit_test', params: { days } },
@@ -297,6 +322,7 @@ function habitCandidates(ctx: RecContext): Candidate[] {
             type: 'pronunciation_practice',
             ref: 'daily',
             title: 'Practise pronunciation',
+            titleVi: 'Luyện phát âm',
             estMinutes: 5,
             signals: { habit: clamp01(f.daysSince.pronunciation / 21) },
             reason: {
@@ -312,6 +338,7 @@ function habitCandidates(ctx: RecContext): Candidate[] {
             type: 'vocab_capture',
             ref: 'daily',
             title: 'Capture new words around you',
+            titleVi: 'Thu thập từ mới quanh bạn',
             estMinutes: 5,
             signals: { habit: clamp01(f.daysSince.vocab / 21) },
             reason: {

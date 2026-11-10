@@ -1,7 +1,7 @@
 import { DailyFacts } from '../etl/models.js';
 import { LearningEvent } from '../events/eventModel.js';
 import { recsysConfig } from '../config.js';
-import { FactRow, VariantRow } from './kpi.js';
+import { FactRow, UserVariantRow, VariantRow } from './kpi.js';
 import { pseudonymise, requirePseudonymSalt } from '../stream/pseudonym.js';
 import { regionService } from '../stream/regions.js';
 import { createWarehouse, Warehouse } from '../warehouse/clickhouse.js';
@@ -16,7 +16,12 @@ export interface AnalyticsSource {
     keys(userIds: string[]): Promise<Map<string, string>>;
     facts(fromDay: string): Promise<FactRow[]>;
     variantRows(since: Date): Promise<VariantRow[]>;
+    /** Same counts per learner (keys in this source's key space), for per-learner statistics. */
+    userVariantRows(since: Date): Promise<UserVariantRow[]>;
 }
+
+/** Upper bound on learner × variant rows read for one experiment read-out. */
+const MAX_USER_ROWS = 500_000;
 
 type MongoFact = Omit<FactRow, 'userId'> & { userId: { toString(): string } };
 
@@ -78,6 +83,65 @@ export const mongoSource: AnalyticsSource = {
             clicks: get(i._id.v, i._id.m, 'rec_click'),
             completes: get(i._id.v, i._id.m, 'rec_complete'),
             dismisses: get(i._id.v, i._id.m, 'rec_dismiss'),
+        }));
+    },
+    async userVariantRows(since) {
+        const rows = await LearningEvent.aggregate<{
+            _id: { u: { toString(): string }; v: string; m: string };
+            impressions: number;
+            clicks: number;
+            completes: number;
+            dismisses: number;
+        }>([
+            {
+                $match: {
+                    type: {
+                        $in: [
+                            'rec_impression',
+                            'rec_click',
+                            'rec_complete',
+                            'rec_dismiss',
+                        ],
+                    },
+                    occurredAt: { $gte: since },
+                },
+            },
+            {
+                $group: {
+                    _id: {
+                        u: '$userId',
+                        v: '$props.variant',
+                        m: { $ifNull: ['$props.mode', 'unknown'] },
+                    },
+                    ...Object.fromEntries(
+                        (
+                            [
+                                ['impressions', 'rec_impression'],
+                                ['clicks', 'rec_click'],
+                                ['completes', 'rec_complete'],
+                                ['dismisses', 'rec_dismiss'],
+                            ] as const
+                        ).map(([field, type]) => [
+                            field,
+                            {
+                                $sum: {
+                                    $cond: [{ $eq: ['$type', type] }, 1, 0],
+                                },
+                            },
+                        ])
+                    ),
+                },
+            },
+            { $limit: MAX_USER_ROWS },
+        ]);
+        return rows.map((r) => ({
+            userId: r._id.u.toString(),
+            variant: r._id.v,
+            mode: r._id.m,
+            impressions: r.impressions,
+            clicks: r.clicks,
+            completes: r.completes,
+            dismisses: r.dismisses,
         }));
     },
 };
@@ -163,6 +227,39 @@ export function clickhouseSource(
                     mode: r.mode,
                     impressions: Number(r.impressions),
                     users: Number(r.users),
+                    clicks: Number(r.clicks),
+                    completes: Number(r.completes),
+                    dismisses: Number(r.dismisses),
+                }));
+            }),
+        userVariantRows: (since) =>
+            withWh(async (wh) => {
+                const rows = await wh.query<{
+                    user_pseudo: string;
+                    variant: string;
+                    mode: string;
+                    impressions: string;
+                    clicks: string;
+                    completes: string;
+                    dismisses: string;
+                }>(
+                    `SELECT user_pseudo, variant, if(mode = '', 'unknown', mode) AS mode,
+                            countIf(type = 'rec_impression') AS impressions,
+                            countIf(type = 'rec_click') AS clicks,
+                            countIf(type = 'rec_complete') AS completes,
+                            countIf(type = 'rec_dismiss') AS dismisses
+                     FROM stg_events
+                     WHERE type IN ('rec_impression','rec_click','rec_complete','rec_dismiss')
+                       AND occurred_at >= parseDateTime64BestEffort({since:String}, 3, 'UTC')
+                     GROUP BY user_pseudo, variant, mode
+                     LIMIT ${MAX_USER_ROWS}`,
+                    { since: since.toISOString() }
+                );
+                return rows.map((r) => ({
+                    userId: r.user_pseudo,
+                    variant: r.variant,
+                    mode: r.mode,
+                    impressions: Number(r.impressions),
                     clicks: Number(r.clicks),
                     completes: Number(r.completes),
                     dismisses: Number(r.dismisses),

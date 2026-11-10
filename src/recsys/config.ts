@@ -108,6 +108,25 @@ export const recsysConfig = {
         /** Upper bound of resources embedded per job run (cost guard). */
         maxPerRun: () => num(process.env.RECSYS_EMBEDDINGS_MAX_PER_RUN, 500),
     },
+    /** Server-side served-list log (feedback attribution + training logs), TTL in days. */
+    servedRetentionDays: () =>
+        num(process.env.RECSYS_SERVED_RETENTION_DAYS, 30),
+    explore: {
+        /**
+         * Share of requests (percent) in which ONE slot is filled uniformly at random from the
+         * eligible pool. This is what makes position bias measurable and lets logged data
+         * evaluate a policy other than the one that produced it. 0 disables. Hard-capped.
+         */
+        pct: () =>
+            Math.min(30, Math.max(0, num(process.env.RECSYS_EXPLORE_PCT, 10))),
+    },
+    /** 'outcome' = click that led to verified learning (default); 'click' = any click. */
+    trainLabel: (): 'outcome' | 'click' =>
+        process.env.RECSYS_TRAIN_LABEL === 'click' ? 'click' : 'outcome',
+    /** false on API instances when a dedicated worker runs the scheduler. */
+    schedulerEnabled: () => process.env.RECSYS_SCHEDULER_ENABLED !== 'false',
+    /** Slack-compatible webhook for operational alerts; unset = log only. */
+    alertWebhookUrl: () => process.env.RECSYS_ALERT_WEBHOOK_URL,
     /** Default data region for learners without an explicit residency tag. */
     defaultRegion: () => process.env.RECSYS_DEFAULT_REGION ?? 'vn',
 

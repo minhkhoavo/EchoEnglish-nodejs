@@ -35,6 +35,7 @@
         "recsys:bench": "tsx scripts/ops/recsys-bench.ts",
         "recsys:sandbox": "tsx scripts/ops/recsys-sandbox.ts",
         "recsys:health": "tsx scripts/ops/recsys-health.ts",
+        "recsys:worker": "tsx scripts/ops/recsys-worker.ts",
         "prepare": "husky"
     },
     "devDependencies": {

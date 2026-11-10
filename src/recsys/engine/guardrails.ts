@@ -45,6 +45,8 @@ export interface Suppressed {
 export interface GuardrailResult {
     selected: ScoredCandidate[];
     suppressed: Suppressed[];
+    /** Everything that passed the hard filters, in rank order (selected or not). */
+    kept: ScoredCandidate[];
 }
 
 const DAY_MS = 86_400_000;
@@ -180,5 +182,61 @@ export function applyGuardrails(
     return {
         selected: selectDiverse(kept, ctx.availableMinutes, cfg),
         suppressed,
+        kept,
+    };
+}
+
+export const EXPLORE_POOL_MAX = 20;
+
+/**
+ * Candidates the randomised slot may draw from: passed every hard filter, not already shown,
+ * and near the top of the ranking so exploration never surfaces junk.
+ */
+export function explorationPool(
+    selected: ScoredCandidate[],
+    kept: ScoredCandidate[]
+): ScoredCandidate[] {
+    const shown = new Set(selected.map((c) => c.id));
+    const hasFlashcards = selected.some((c) => c.type === 'flashcard_review');
+    return kept
+        .filter(
+            (c) =>
+                !shown.has(c.id) &&
+                !(hasFlashcards && c.type === 'flashcard_review')
+        )
+        .slice(0, EXPLORE_POOL_MAX);
+}
+
+export interface ExploreSwap {
+    selected: ScoredCandidate[];
+    slot: number;
+    pickedId: string;
+    replacedId: string;
+    /** Probability the picked item had of landing in the slot (uniform over the pool). */
+    propensity: number;
+}
+
+/** Replace one uniformly chosen slot by one uniformly chosen pool item. Pure given `rng`. */
+export function exploreSwap(
+    selected: ScoredCandidate[],
+    pool: ScoredCandidate[],
+    rng: () => number
+): ExploreSwap | null {
+    if (selected.length < 2 || pool.length === 0) return null;
+    const slot = Math.min(
+        selected.length - 1,
+        Math.floor(rng() * selected.length)
+    );
+    const pick =
+        pool[Math.min(pool.length - 1, Math.floor(rng() * pool.length))];
+    const out = [...selected];
+    const replaced = out[slot];
+    out[slot] = pick;
+    return {
+        selected: out,
+        slot,
+        pickedId: pick.id,
+        replacedId: replaced.id,
+        propensity: 1 / pool.length,
     };
 }

@@ -11,6 +11,9 @@ import {
     addDays,
     dayNRetention,
     experimentReadout,
+    outcomesByVariant,
+    perLearnerReadout,
+    sampleRatioCheck,
     scoreGain,
     studyTime,
     unitEconomics,
@@ -21,6 +24,7 @@ import {
     clickhouseSource,
     mongoSource,
 } from './sources.js';
+import { RANKER_EXPERIMENT } from '../engine/experiments.js';
 
 const MAX_WINDOW_DAYS = 90;
 
@@ -143,16 +147,49 @@ export class KpiService {
             now.getTime() -
                 Math.min(MAX_WINDOW_DAYS, opts.windowDays ?? 14) * 86_400_000
         );
-        return this.withSource(async (src) => ({
-            // GROUP BY output order is unspecified in both stores → sort for a stable API.
-            variants: experimentReadout(
-                (await src.variantRows(since)).sort(
-                    (a, b) =>
-                        (a.mode ?? '').localeCompare(b.mode ?? '') ||
-                        a.variant.localeCompare(b.variant)
-                )
-            ),
-        }));
+        const today = localDayHour(now).day;
+        return this.withSource(async (src) => {
+            const [rows, userRows, facts] = await Promise.all([
+                src.variantRows(since),
+                src.userVariantRows(since),
+                // outcomes look further back than the read-out: score gain needs two tests
+                src.facts(addDays(today, -56)),
+            ]);
+            const perLearner = perLearnerReadout(userRows);
+            // Learners per arm of the ranker experiment (the learned layer is separate and
+            // takes the same share out of every arm, so it does not distort the ratio).
+            const arm = new Map<string, Set<string>>();
+            for (const r of userRows)
+                (
+                    arm.get(r.variant) ??
+                    arm.set(r.variant, new Set()).get(r.variant)!
+                ).add(r.userId);
+            return {
+                // GROUP BY output order is unspecified in both stores → sort for a stable API.
+                variants: experimentReadout(
+                    rows.sort(
+                        (a, b) =>
+                            (a.mode ?? '').localeCompare(b.mode ?? '') ||
+                            a.variant.localeCompare(b.variant)
+                    )
+                ).map((v) => ({
+                    ...v,
+                    perLearner:
+                        perLearner.find(
+                            (p) =>
+                                p.variant === v.variant &&
+                                p.mode === (v.mode ?? 'unknown')
+                        ) ?? null,
+                })),
+                sampleRatio: sampleRatioCheck(
+                    Object.fromEntries(
+                        [...arm].map(([v, set]) => [v, set.size])
+                    ),
+                    RANKER_EXPERIMENT.variants
+                ),
+                outcomes: outcomesByVariant(userRows, facts),
+            };
+        });
     }
 }
 

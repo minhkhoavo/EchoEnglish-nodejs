@@ -14,6 +14,7 @@ import { ModelError, modelRegistry } from '../learning/registry.js';
 import { retrainService } from '../learning/retrain.js';
 import { RegionError, regionService } from '../stream/regions.js';
 import { ItemType } from '../engine/types.js';
+import { servedItem, servedService } from '../engine/servedService.js';
 
 const uid = (req: Request): string => {
     const id = req.user?.id;
@@ -124,8 +125,9 @@ class RecsysController {
 
     /**
      * POST /recommendations/feedback
-     * { recId, itemType, itemRef, action: click|complete|dismiss, variant, mode?, reason?, outcome? }
-     * Updates the functional repetition guard (always) and emits the analytics event (consent-gated).
+     * { recId, itemType, itemRef, action: click|complete|dismiss, reason?, outcome? }
+     * Updates the functional repetition guard (always). The analytics event is emitted only when
+     * (recId, item) matches a list served to this user, and is consent-gated.
      */
     feedback = async (req: Request, res: Response) => {
         const b = req.body ?? {};
@@ -134,14 +136,14 @@ class RecsysController {
             throw bad('action must be click|complete|dismiss');
         if (typeof b.itemType !== 'string' || typeof b.itemRef !== 'string')
             throw bad('itemType and itemRef are required');
-        if (typeof b.recId !== 'string' || typeof b.variant !== 'string')
-            throw bad('recId and variant are required');
+        if (typeof b.recId !== 'string') throw bad('recId is required');
+        if (b.variant !== undefined && typeof b.variant !== 'string')
+            throw bad('variant must be a string');
         // These values become a stored key in the repetition guard: accept only what the
         // recommender can have produced, never arbitrary client strings.
         if (!FEEDBACK_ITEM_TYPES.has(b.itemType)) throw bad('unknown itemType');
         if (!b.itemRef || b.itemRef.length > 80) throw bad('invalid itemRef');
-        if (!b.recId || b.recId.length > 64 || b.variant.length > 40)
-            throw bad('invalid recId or variant');
+        if (!b.recId || b.recId.length > 64) throw bad('invalid recId');
         const userId = uid(req);
         await exposureService.recordFeedback(
             userId,
@@ -150,6 +152,17 @@ class RecsysController {
             { reason: typeof b.reason === 'string' ? b.reason : undefined }
         );
         recommenderService.invalidate(userId);
+        // Analytics are attributed ONLY against the list the server actually served to this
+        // user: variant, mode and position come from that record, never from the request body
+        // (a client cannot move its feedback into another experiment arm).
+        const served = await servedService.find(userId, b.recId);
+        const item = servedItem(served, b.itemType, b.itemRef);
+        if (!served || !item)
+            return res
+                .status(200)
+                .json(
+                    new ApiResponse('Feedback recorded', { attributed: false })
+                );
         const type =
             action === 'click'
                 ? 'rec_click'
@@ -160,14 +173,17 @@ class RecsysController {
             recId: b.recId,
             itemType: b.itemType,
             itemRef: b.itemRef,
-            variant: b.variant,
-            ...(b.mode ? { mode: b.mode } : {}),
+            variant: served.variant,
+            mode: served.mode,
+            ...(action === 'click' ? { position: item.position } : {}),
             ...(action === 'dismiss' && b.reason ? { reason: b.reason } : {}),
             ...(action === 'complete' && typeof b.outcome === 'number'
                 ? { outcome: b.outcome }
                 : {}),
         });
-        return res.status(200).json(new ApiResponse('Feedback recorded'));
+        return res
+            .status(200)
+            .json(new ApiResponse('Feedback recorded', { attributed: true }));
     };
 
     kpis = async (req: Request, res: Response) => {

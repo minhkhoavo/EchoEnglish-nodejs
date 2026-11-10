@@ -386,14 +386,16 @@ describe('privacy: export and erasure', () => {
 
         const exp = await request(a).get('/privacy/export');
         expect(exp.body.data.recommendationState.length).toBe(1);
-        expect(exp.body.data.events.length).toBe(3);
+        // view + answer; the dismiss names a list that was never served, so it updates the
+        // repetition guard above but is not recorded as an analytics event
+        expect(exp.body.data.events.length).toBe(2);
         expect(exp.body.data.dailyFacts.length).toBe(1);
         expect(exp.body.data.skillMastery.length).toBe(1);
         expect(exp.body.data.consentHistory.length).toBe(2);
 
         const del = await request(a).delete('/privacy/data');
         expect(del.body.data.deleted).toMatchObject({
-            events: 3,
+            events: 2,
             dailyFacts: 1,
             skillMastery: 1,
             features: 1,

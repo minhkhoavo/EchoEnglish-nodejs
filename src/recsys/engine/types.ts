@@ -20,7 +20,8 @@ export type ReasonCode =
     | 'starter_diagnostic'
     | 'popular_for_level'
     | 'similar_to_completed'
-    | 'welcome_back';
+    | 'welcome_back'
+    | 'refresh_skill';
 
 export interface ReasonFact {
     code: ReasonCode;
@@ -45,6 +46,8 @@ export interface Candidate {
     type: ItemType;
     ref: string;
     title: string;
+    /** Vietnamese title; defaults to `title` (resource titles are not translated). */
+    titleVi?: string;
     estMinutes: number;
     skillKey?: string;
     cefr?: string;
@@ -114,6 +117,7 @@ export interface RecommendationItem {
     type: ItemType;
     ref: string;
     title: string;
+    titleI18n: { en: string; vi: string };
     estMinutes: number;
     skillKey?: string;
     score: number;
@@ -131,7 +135,11 @@ export interface RecommendationResponse {
     variant: string;
     algo: string;
     mode: 'personalized' | 'cold_start';
-    timing: { bestHour: number | null; suggestion: string };
+    timing: {
+        bestHour: number | null;
+        suggestion: string;
+        suggestionI18n: { en: string; vi: string };
+    };
     totalMinutes: number;
     items: RecommendationItem[];
 }

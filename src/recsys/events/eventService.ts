@@ -11,6 +11,14 @@ import {
 } from './eventTypes.js';
 import { consentService } from '../privacy/consentService.js';
 import { recsysConfig } from '../config.js';
+import { servedItem, servedService } from '../engine/servedService.js';
+
+const REC_FEEDBACK_TYPES: ReadonlySet<string> = new Set([
+    'rec_impression',
+    'rec_click',
+    'rec_complete',
+    'rec_dismiss',
+]);
 
 export interface IngestResult {
     accepted: number;
@@ -68,8 +76,21 @@ export class EventService {
             now.getTime() - recsysConfig.maxEventAgeDays * 86_400_000;
         const newest = now.getTime() + recsysConfig.maxFutureSkewMs;
 
-        rawEvents.forEach((raw, index) => {
-            const v = validateEvent(raw);
+        const validated = rawEvents.map((raw) => validateEvent(raw));
+        // Client-reported recommendation events must refer to a list the server served to this
+        // user; experiment fields are then overwritten from that record (anti-forgery).
+        const served = opts.trusted
+            ? null
+            : await servedService.findMany(
+                  userId,
+                  validated.flatMap((v) =>
+                      v.ok && REC_FEEDBACK_TYPES.has(v.event.type)
+                          ? [String(v.event.props.recId)]
+                          : []
+                  )
+              );
+
+        validated.forEach((v, index) => {
             if (!v.ok) {
                 result.rejected.push({ index, reason: v.reason });
                 return;
@@ -89,6 +110,29 @@ export class EventService {
                     reason: 'occurredAt out of accepted window',
                 });
                 return;
+            }
+            if (served && REC_FEEDBACK_TYPES.has(e.type)) {
+                const list = served.get(String(e.props.recId));
+                const item = servedItem(
+                    list,
+                    String(e.props.itemType),
+                    e.props.itemRef as string | undefined
+                );
+                if (!list || !item) {
+                    result.rejected.push({
+                        index,
+                        reason: 'recId/item was not served to this user',
+                    });
+                    return;
+                }
+                e.props = {
+                    ...e.props,
+                    variant: list.variant,
+                    mode: list.mode,
+                    ...(e.type === 'rec_impression' || e.type === 'rec_click'
+                        ? { position: item.position }
+                        : {}),
+                };
             }
             if (EVENT_CATEGORY[e.type] === 'behavioral' && !analyticsOk) {
                 result.droppedNoConsent++;

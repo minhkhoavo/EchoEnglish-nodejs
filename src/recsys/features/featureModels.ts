@@ -42,6 +42,8 @@ export interface SkillFeature {
     confidence: number;
     n: number;
     daysSincePractice: number | null;
+    /** Measured share of correct answers (not decayed, not modelled). Absent on old documents. */
+    accuracy?: number | null;
 }
 
 export interface LearnerFeatureSet {

@@ -26,6 +26,20 @@ export const RANKER_EXPERIMENT: ExperimentDef = {
  */
 export const LEARNED_LAYER = 'rec_learned_layer_v1';
 
+/** Hash layer deciding which REQUESTS get a randomised slot (keyed by recId, not user). */
+export const EXPLORE_LAYER = 'rec_explore_v1';
+
+/** Small deterministic PRNG (mulberry32) seeded from a string: reproducible exploration. */
+export function seededRng(seed: string): () => number {
+    let a = createHash('sha256').update(seed).digest().readUInt32BE(0);
+    return () => {
+        a = (a + 0x6d2b79f5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 0x1_0000_0000;
+    };
+}
+
 /** Uniform value in [0,1) derived from sha256(experiment:user). */
 export function bucket(userId: string, experimentKey: string): number {
     const h = createHash('sha256')

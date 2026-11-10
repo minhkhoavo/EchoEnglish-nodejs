@@ -4,7 +4,9 @@ import { recsysConfig } from '../config.js';
 import { kpiService } from '../analytics/kpiService.js';
 import { ModelDoc, ModelError, modelRegistry } from './registry.js';
 import { TrainReport, TrainingRow, trainRanker } from './train.js';
-import { loadTrainingRows } from './dataset.js';
+import { loadExploreLogs, loadTrainingRows } from './dataset.js';
+import { replayEstimate } from '../eval/counterfactual.js';
+import { VARIANTS } from '../engine/ranker.js';
 
 const LEASE_ID = 'retrain';
 const DAY_MS = 86_400_000;
@@ -65,15 +67,21 @@ export class RetrainService {
             return { status: 'locked', activated: false };
         try {
             const dataSource = opts.dataSource ?? 'production';
-            const rows =
-                opts.rows ??
-                (await loadTrainingRows(
-                    new Date(
-                        now.getTime() -
-                            recsysConfig.retrain.trainingWindowDays() * DAY_MS
-                    )
-                ));
+            const since = new Date(
+                now.getTime() -
+                    recsysConfig.retrain.trainingWindowDays() * DAY_MS
+            );
+            const rows = opts.rows ?? (await loadTrainingRows(since));
             const report = await trainRanker(rows);
+            // Real-log check next to the holdout AUC: what the randomised slot says each
+            // policy is worth. Informational (it needs exploration traffic to mean anything).
+            if (report.payload && !opts.rows) {
+                const logs = await loadExploreLogs(since, rows);
+                report.metrics.counterfactual = {
+                    control: replayEstimate(logs, VARIANTS.control.weights),
+                    learned: replayEstimate(logs, report.payload.global),
+                };
+            }
             if (opts.dryRun)
                 return {
                     status: 'skipped',
@@ -134,10 +142,13 @@ export class RetrainService {
         const row = variants.find(
             (v) => v.variant === 'learned' && v.mode === 'personalized'
         );
-        if (!row || row.impressions < 1000 || row.zVsControl === null)
+        // Per-learner test: impressions from one learner are correlated, so an
+        // impression-level z would retire (or keep) a model on overstated evidence.
+        const t = row?.perLearner?.tCtrVsControl ?? null;
+        if (!row || row.impressions < 1000 || t === null)
             return { retired: false };
-        if (row.zVsControl <= -1.96) {
-            const reason = `auto-retired: CTR z=${row.zVsControl} vs control over ${row.impressions} impressions`;
+        if (t <= -1.96) {
+            const reason = `auto-retired: per-learner CTR t=${t} vs control over ${row.perLearner?.learners} learners / ${row.impressions} impressions`;
             try {
                 await modelRegistry.retire(live.version, reason, now);
             } catch (e) {

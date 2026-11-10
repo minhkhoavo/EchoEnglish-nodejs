@@ -38,9 +38,15 @@ export function learningRate(n: number): number {
 
 export function updateMastery(
     s: MasteryState,
-    outcome: { correct: boolean; difficulty?: string; at: Date }
+    outcome: {
+        correct: boolean;
+        difficulty?: string;
+        at: Date;
+        /** Calibrated per-question difficulty; overrides the three-level label when known. */
+        b?: number;
+    }
 ): MasteryState {
-    const p = sigmoid(s.theta - difficultyB(outcome.difficulty));
+    const p = sigmoid(s.theta - (outcome.b ?? difficultyB(outcome.difficulty)));
     const theta = Math.min(
         THETA_MAX,
         Math.max(

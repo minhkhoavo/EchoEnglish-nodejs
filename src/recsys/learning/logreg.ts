@@ -2,6 +2,8 @@
 export interface LabelledRow {
     x: number[];
     y: 0 | 1;
+    /** Sample weight (default 1), e.g. an inverse examination propensity. */
+    w?: number;
 }
 export interface LogReg {
     w: number[];
@@ -67,8 +69,9 @@ export async function trainLogReg(
             let z = beta[d];
             for (let j = 0; j < d; j++) z += beta[j] * r.x[j];
             const p = sigmoid(z);
-            const err = p - r.y;
-            const wgt = Math.max(p * (1 - p), 1e-6);
+            const sw = r.w ?? 1;
+            const err = sw * (p - r.y);
+            const wgt = sw * Math.max(p * (1 - p), 1e-6);
             for (let j = 0; j < dim; j++) {
                 const xj = j < d ? r.x[j] : 1;
                 g[j] += err * xj;

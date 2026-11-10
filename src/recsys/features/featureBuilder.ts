@@ -18,6 +18,7 @@ import {
 import { CardLike, cardRetention } from './retention.js';
 import { recsysConfig } from '../config.js';
 import { featureStore } from '../featurestore/store.js';
+import { calibratedB, itemKey, loadItemStats } from './itemDifficulty.js';
 
 const DAY_MS = 86_400_000;
 const dayKey = (d: Date) => localDayHour(d).day;
@@ -121,6 +122,7 @@ export function computeFeatures(i: FeatureInput): LearnerFeatureSet {
             confidence: v.confidence,
             n: m.n,
             daysSincePractice: v.daysSincePractice,
+            accuracy: m.n > 0 ? m.correct / m.n : null,
         };
     });
 
@@ -216,6 +218,8 @@ export class FeatureBuilder {
                         skillKey: string;
                         correct: boolean;
                         difficulty?: string;
+                        testId?: string;
+                        questionNumber?: number;
                     };
                     occurredAt: Date;
                 }>
@@ -228,6 +232,12 @@ export class FeatureBuilder {
         const state = new Map<string, MasteryState>(
             rows.map((r) => [r.skillKey, r])
         );
+        // Questions with enough answers use their measured difficulty, not the coarse label.
+        const stats = await loadItemStats(
+            events.flatMap(
+                (e) => itemKey(e.props.testId, e.props.questionNumber) ?? []
+            )
+        );
         let maxId = cur?.masteryCursorId ?? events[0]._id;
         const touched = new Set<string>();
         for (const e of events) {
@@ -238,6 +248,21 @@ export class FeatureBuilder {
                     correct: e.props.correct === true,
                     difficulty: e.props.difficulty,
                     at: e.occurredAt,
+                    ...(() => {
+                        const st = stats.get(
+                            itemKey(e.props.testId, e.props.questionNumber) ??
+                                ''
+                        );
+                        return st
+                            ? {
+                                  b: calibratedB(
+                                      st.n,
+                                      st.correct,
+                                      e.props.difficulty
+                                  ),
+                              }
+                            : {};
+                    })(),
                 })
             );
             touched.add(key);

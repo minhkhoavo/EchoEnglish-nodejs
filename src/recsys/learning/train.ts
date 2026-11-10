@@ -3,9 +3,11 @@ import { WeightSet } from '../engine/types.js';
 import { VARIANTS } from '../engine/ranker.js';
 import { recsysConfig } from '../config.js';
 import { auc, trainLogReg } from './logreg.js';
+import { ReplayEstimate } from '../eval/counterfactual.js';
 import {
     LearnedModelPayload,
     SIGNAL_KEYS,
+    POSITION_CAP,
     SEGMENTS,
     Segment,
     coefToSignalCoef,
@@ -21,6 +23,58 @@ export interface TrainingRow {
     position: number;
     segment: Segment | null;
     clicked: boolean;
+    /**
+     * What the model learns to predict. Absent = `clicked`. The production loader sets it to
+     * "a click that led to verified learning" (see dataset.ts) so the ranker is not rewarded
+     * for items that are merely attractive.
+     */
+    label?: boolean;
+    /** Shown by the randomised slot: its position is independent of its relevance. */
+    explored?: boolean;
+    /** `recId|itemType|itemRef`, to join back to the served-list log. */
+    itemKey?: string;
+}
+
+const positive = (r: TrainingRow): boolean => r.label ?? r.clicked;
+const y = (r: TrainingRow): 0 | 1 => (positive(r) ? 1 : 0);
+
+/** Explored impressions needed at a position before its examination rate is trusted. */
+export const MIN_EXPLORED_PER_POSITION = 200;
+const MIN_THETA = 0.1;
+
+export interface PositionBias {
+    /** Relative chance an item is examined at each position (position 0 = 1). */
+    theta: number[];
+    explored: number[];
+}
+
+/**
+ * Position bias from the randomised slot. Items placed there are random with respect to
+ * relevance, so the positive rate per position among them is proportional to how often that
+ * position is examined. Returns null until positions 0 and 1 both have enough explored
+ * impressions; positions without enough data inherit the previous position's value.
+ */
+export function estimatePositionBias(rows: TrainingRow[]): PositionBias | null {
+    const n: number[] = [];
+    const pos: number[] = [];
+    for (const r of rows) {
+        if (!r.explored) continue;
+        const k = Math.min(Math.max(0, r.position), POSITION_CAP);
+        n[k] = (n[k] ?? 0) + 1;
+        pos[k] = (pos[k] ?? 0) + y(r);
+    }
+    const enough = (k: number) => (n[k] ?? 0) >= MIN_EXPLORED_PER_POSITION;
+    if (!enough(0) || !enough(1) || !(pos[0] > 0)) return null;
+    const base = pos[0] / n[0];
+    const theta: number[] = [];
+    for (let k = 0; k <= POSITION_CAP; k++)
+        theta[k] = enough(k)
+            ? Math.min(1, Math.max(MIN_THETA, pos[k] / n[k] / base))
+            : (theta[k - 1] ?? 1);
+    return {
+        theta: theta.map((t) => Number(t.toFixed(4))),
+        explored: Array.from({ length: POSITION_CAP + 1 }, (_, k) => n[k] ?? 0),
+    };
 }
 
 export interface Thresholds {
@@ -52,6 +106,13 @@ export interface TrainReport {
         aucLearned: number | null;
         aucControl: number | null;
         lift: number | null;
+        /** How position bias was handled: IPW from the randomised slot, or a covariate. */
+        positionBias?: { method: 'ipw' | 'covariate'; theta?: number[] };
+        /** Replay estimate on real exploration logs (set by the retrain service). */
+        counterfactual?: {
+            control: ReplayEstimate;
+            learned: ReplayEstimate;
+        };
         segments: Partial<
             Record<
                 Segment,
@@ -78,20 +139,39 @@ const score = (w: WeightSet, signals: Partial<Record<string, number>>) =>
 const aucOf = (rows: TrainingRow[], w: WeightSet) =>
     auc(
         rows.map((r) => score(w, r.signals)),
-        rows.map((r) => (r.clicked ? 1 : 0))
+        rows.map(y)
     );
 
 const yieldToEventLoop = () => new Promise<void>((r) => setImmediate(r));
 
-const fit = async (rows: TrainingRow[]): Promise<WeightSet | null> => {
+/**
+ * With a measured position bias the fit is inverse-propensity weighted (a positive seen at a
+ * rarely examined position counts for more) and position is no longer a covariate. Without it,
+ * position stays a training-only covariate — weaker, because position and relevance are
+ * confounded in logs produced by a deterministic ranker.
+ */
+const fit = async (
+    rows: TrainingRow[],
+    bias: PositionBias | null
+): Promise<WeightSet | null> => {
     // Built in yielded chunks: training runs inside the API process.
-    const labelled: Array<{ x: number[]; y: 0 | 1 }> = [];
+    const labelled: Array<{ x: number[]; y: 0 | 1; w?: number }> = [];
     for (let i = 0; i < rows.length; i += 20_000) {
-        for (const r of rows.slice(i, i + 20_000))
-            labelled.push({
-                x: featureVector(r.signals, r.position),
-                y: r.clicked ? 1 : 0,
-            });
+        for (const r of rows.slice(i, i + 20_000)) {
+            const label = y(r);
+            if (bias) {
+                const k = Math.min(Math.max(0, r.position), POSITION_CAP);
+                labelled.push({
+                    x: featureVector(r.signals, 0),
+                    y: label,
+                    w: label ? 1 / bias.theta[k] : 1,
+                });
+            } else
+                labelled.push({
+                    x: featureVector(r.signals, r.position),
+                    y: label,
+                });
+        }
         await yieldToEventLoop();
     }
     const m = await trainLogReg(labelled);
@@ -113,8 +193,8 @@ export async function trainRanker(
     const train: TrainingRow[] = [];
     const hold: TrainingRow[] = [];
     for (const r of rows) (inHoldout(r.userId) ? hold : train).push(r);
-    const positives = rows.filter((r) => r.clicked).length;
-    const holdPos = hold.filter((r) => r.clicked).length;
+    const positives = rows.filter(positive).length;
+    const holdPos = hold.filter(positive).length;
     const report: TrainReport = {
         payload: null,
         gatePassed: false,
@@ -136,10 +216,15 @@ export async function trainRanker(
     if (rows.length < th.minRows)
         reasons.push(`only ${rows.length} impressions (< ${th.minRows})`);
     if (positives < th.minPositives)
-        reasons.push(`only ${positives} clicks (< ${th.minPositives})`);
+        reasons.push(`only ${positives} positives (< ${th.minPositives})`);
     if (reasons.length) return report; // data gate first: never fit on a handful of rows
 
-    const global = await fit(train);
+    // Estimated on TRAIN users only, so the holdout stays untouched.
+    const bias = estimatePositionBias(train);
+    report.metrics.positionBias = bias
+        ? { method: 'ipw', theta: bias.theta }
+        : { method: 'covariate' };
+    const global = await fit(train, bias);
     if (!global) {
         reasons.push('no positive signal weight was learned');
         return report;
@@ -148,9 +233,9 @@ export async function trainRanker(
     for (const seg of SEGMENTS) {
         const tr = train.filter((r) => r.segment === seg);
         const ho = hold.filter((r) => r.segment === seg);
-        const trPos = tr.filter((r) => r.clicked).length;
+        const trPos = tr.filter(positive).length;
         if (trPos < th.minSegmentPositives || ho.length === 0) continue;
-        const w = await fit(tr);
+        const w = await fit(tr, bias);
         if (!w) continue;
         const aucSeg = aucOf(ho, w);
         const aucGlob = aucOf(ho, global);
@@ -174,12 +259,13 @@ export async function trainRanker(
         hold.map((r) =>
             score((r.segment && segments[r.segment]) || global, r.signals)
         ),
-        hold.map((r) => (r.clicked ? 1 : 0))
+        hold.map(y)
     );
     const controlAuc = aucOf(hold, VARIANTS.control.weights);
     report.metrics.aucLearned = servedAuc;
     report.metrics.aucControl = controlAuc;
-    if (holdPos < 50) reasons.push(`holdout has only ${holdPos} clicks (< 50)`);
+    if (holdPos < 50)
+        reasons.push(`holdout has only ${holdPos} positives (< 50)`);
     if (servedAuc === null || controlAuc === null) {
         reasons.push('holdout lacks both classes');
         return report;

@@ -115,6 +115,11 @@ export const eventPropsSchemas = {
             .record(z.number().min(0).max(1))
             .refine((o) => Object.keys(o).length <= 12, 'too many signals')
             .optional(),
+        /** Learner segment the ranker used at serve time (training reads this, not a later value). */
+        segment: z.enum(['new', 'established']).optional(),
+        /** True when this item was placed by the randomised slot; propensity = 1 / pool size. */
+        explored: z.boolean().optional(),
+        propensity: z.number().gt(0).max(1).optional(),
     }),
     rec_click: z.object({
         recId: z.string().min(1).max(64),

@@ -245,3 +245,143 @@ export function experimentReadout(rows: VariantRow[], control = 'control') {
         };
     });
 }
+
+/** One learner's totals inside one variant × mode. The unit of analysis for experiments. */
+export interface UserVariantRow {
+    userId: string;
+    variant: string;
+    mode?: string;
+    impressions: number;
+    clicks: number;
+    completes: number;
+    dismisses: number;
+}
+
+const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
+const variance = (xs: number[], m: number) =>
+    xs.reduce((a, x) => a + (x - m) ** 2, 0) / (xs.length - 1);
+
+/** Welch's t statistic for two independent samples; null with < 2 values or no variance. */
+export function welchT(a: number[], b: number[]): number | null {
+    if (a.length < 2 || b.length < 2) return null;
+    const ma = mean(a);
+    const mb = mean(b);
+    const se = Math.sqrt(
+        variance(a, ma) / a.length + variance(b, mb) / b.length
+    );
+    return se > 0 ? round((ma - mb) / se, 3) : null;
+}
+
+/** Fewest learners per arm before a per-learner test is reported. */
+export const MIN_USERS_PER_ARM = 30;
+
+/**
+ * Per-learner read-out. One learner produces many impressions and they are correlated, so an
+ * impression-level z-test overstates significance. Here every learner contributes ONE value
+ * (their own rate) and arms are compared with Welch's t-test (normal approximation; arms below
+ * MIN_USERS_PER_ARM report no test). Completion and dismissal are guardrail metrics.
+ */
+export function perLearnerReadout(rows: UserVariantRow[], control = 'control') {
+    const groups = new Map<string, UserVariantRow[]>();
+    for (const r of rows) {
+        if (r.impressions <= 0) continue;
+        const k = `${r.variant}|${r.mode ?? 'unknown'}`;
+        (groups.get(k) ?? groups.set(k, []).get(k)!).push(r);
+    }
+    const rate = (g: UserVariantRow[], f: (r: UserVariantRow) => number) =>
+        g.map((r) => f(r) / r.impressions);
+    return [...groups.entries()].map(([k, g]) => {
+        const [variant, mode] = k.split('|');
+        const base = groups.get(`${control}|${mode}`);
+        const test = (f: (r: UserVariantRow) => number) =>
+            base &&
+            base !== g &&
+            g.length >= MIN_USERS_PER_ARM &&
+            base.length >= MIN_USERS_PER_ARM
+                ? welchT(rate(g, f), rate(base, f))
+                : null;
+        const tCtr = test((r) => r.clicks);
+        const tDismiss = test((r) => r.dismisses);
+        return {
+            variant,
+            mode,
+            learners: g.length,
+            meanCtr: suppress(round(mean(rate(g, (r) => r.clicks))), g.length),
+            meanCompletionRate: suppress(
+                round(mean(rate(g, (r) => r.completes))),
+                g.length
+            ),
+            meanDismissRate: suppress(
+                round(mean(rate(g, (r) => r.dismisses))),
+                g.length
+            ),
+            tCtrVsControl: tCtr,
+            ctrSignificant95: tCtr === null ? null : Math.abs(tCtr) >= 1.96,
+            /** Guardrail: true when learners dismiss significantly MORE than in control. */
+            dismissWorse95: tDismiss === null ? null : tDismiss >= 1.96,
+        };
+    });
+}
+
+/** χ² critical values at p = 0.001 for 1–4 degrees of freedom. */
+const CHI2_P001 = [10.828, 13.816, 16.266, 18.467];
+
+/**
+ * Sample-ratio mismatch: are the arms the sizes the assignment weights say they should be?
+ * A mismatch means assignment or logging is broken and NO metric from the experiment can be
+ * trusted. Uses p < 0.001, the usual threshold for this check.
+ */
+export function sampleRatioCheck(
+    observed: Record<string, number>,
+    weights: Array<{ name: string; weight: number }>
+) {
+    const total = weights.reduce((a, w) => a + (observed[w.name] ?? 0), 0);
+    const wsum = weights.reduce((a, w) => a + w.weight, 0);
+    if (total === 0 || weights.length < 2 || weights.length > 5)
+        return { learners: total, chi2: null, mismatch: null };
+    let chi2 = 0;
+    for (const w of weights) {
+        const expected = (total * w.weight) / wsum;
+        chi2 += ((observed[w.name] ?? 0) - expected) ** 2 / expected;
+    }
+    return {
+        learners: total,
+        chi2: round(chi2, 3),
+        mismatch: chi2 > CHI2_P001[weights.length - 2],
+    };
+}
+
+/**
+ * What the experiment is really for: learning outcomes per variant (personalised lists only).
+ * Score gain needs ≥ 2 test days per learner in the fact window; active days is the engagement
+ * outcome. Small cohorts are suppressed.
+ */
+export function outcomesByVariant(rows: UserVariantRow[], facts: FactRow[]) {
+    const variantOf = new Map<string, string>();
+    for (const r of rows)
+        if (r.mode === 'personalized' && r.impressions > 0)
+            variantOf.set(r.userId, r.variant);
+    const byVariant = new Map<string, FactRow[]>();
+    const users = new Map<string, Set<string>>();
+    for (const f of facts) {
+        const v = variantOf.get(f.userId);
+        if (!v) continue;
+        (byVariant.get(v) ?? byVariant.set(v, []).get(v)!).push(f);
+    }
+    for (const [u, v] of variantOf)
+        (users.get(v) ?? users.set(v, new Set()).get(v)!).add(u);
+    return [...users.entries()]
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([variant, set]) => {
+            const f = byVariant.get(variant) ?? [];
+            const active = activeDaysByUser(f);
+            let days = 0;
+            for (const d of active.values()) days += d.size;
+            return {
+                variant,
+                learners: set.size,
+                meanActiveDays: suppress(round(days / set.size, 2), set.size),
+                scoreGain: scoreGain(f),
+            };
+        });
+}

@@ -6,6 +6,7 @@ import { cleanEvent, CleanedEvent, RawEventLike } from './clean.js';
 import { aggregateDay } from './aggregate.js';
 import { DqCheck, dqStatus, evaluateDataQuality } from './dataQuality.js';
 import { recsysConfig } from '../config.js';
+import { recordAnswers } from '../features/itemDifficulty.js';
 
 const LOCK_ID = 'etl';
 const MAX_BATCHES_PER_RUN = 10;
@@ -141,6 +142,19 @@ export class PipelineService {
                         { ordered: false }
                     );
                     summary.counts.cleaned += res.upsertedCount;
+                    // Item difficulty counts only FIRST-TIME silver rows, so a re-run of the
+                    // same batch can never count an answer twice. Never fails the run.
+                    await recordAnswers(
+                        Object.keys(res.upsertedIds ?? {}).map(
+                            (i) => good[Number(i)]
+                        ),
+                        now
+                    ).catch((e) =>
+                        console.error(
+                            '[recsys] item difficulty update failed:',
+                            (e as Error).message
+                        )
+                    );
                     summary.counts.alreadyClean +=
                         good.length - res.upsertedCount;
                     for (const e of good) {

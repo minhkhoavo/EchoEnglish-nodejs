@@ -11,10 +11,22 @@ const days = (p: Params) => (p.days === undefined ? '30+' : String(p.days));
  */
 const TEMPLATES: Record<ReasonFact['code'], Template> = {
     weak_skill: {
+        // `acc` is measured (correct / answered); `pct` is the model's current ESTIMATE, which
+        // also reflects question difficulty and time since practice. Never present one as the other.
         en: (p) =>
-            `Your accuracy on ${p.skill} is about ${p.pct}% over ${p.n} questions — the biggest opportunity to gain points.`,
+            p.acc !== undefined
+                ? `You answered ${p.acc}% of ${p.n} questions on ${p.skill} correctly (estimated mastery now ${p.pct}%) — the biggest opportunity to gain points.`
+                : `Your estimated mastery of ${p.skill} is about ${p.pct}% from ${p.n} questions — the biggest opportunity to gain points.`,
         vi: (p) =>
-            `Độ chính xác của bạn ở ${p.skill} khoảng ${p.pct}% trong ${p.n} câu — đây là phần có thể tăng điểm nhiều nhất.`,
+            p.acc !== undefined
+                ? `Bạn trả lời đúng ${p.acc}% trong ${p.n} câu ở ${p.skill} (mức thành thạo ước tính hiện tại ${p.pct}%) — đây là phần có thể tăng điểm nhiều nhất.`
+                : `Mức thành thạo ước tính của bạn ở ${p.skill} khoảng ${p.pct}% từ ${p.n} câu — đây là phần có thể tăng điểm nhiều nhất.`,
+    },
+    refresh_skill: {
+        en: (p) =>
+            `You were strong at ${p.skill} (${p.acc}% correct) but have not practised it for ${p.days} days. A short drill keeps it from fading.`,
+        vi: (p) =>
+            `Bạn từng làm tốt ${p.skill} (đúng ${p.acc}%) nhưng đã ${p.days} ngày chưa luyện lại. Một bài luyện ngắn giúp bạn không bị quên.`,
     },
     srs_due: {
         en: (p) =>
