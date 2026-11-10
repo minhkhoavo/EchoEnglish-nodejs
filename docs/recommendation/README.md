@@ -76,6 +76,7 @@ First two weeks of production are **measurement only** (baselines); targets are 
 
 | File | SDLC phase |
 | --- | --- |
+| `FEATURE-DOCUMENT.md` | **Start here for a complete, consolidated description** (goals, architecture, privacy, engine, Phase 3, verification, operations, risks) |
 | `01-requirements.md` | Business & requirements analysis |
 | `02-plan.md`, `TASKS.md` | Planning (roadmap, estimates, risks) |
 | `03-architecture.md` | Architecture, data model, pipeline, recommender, security/privacy, cost, infra options |

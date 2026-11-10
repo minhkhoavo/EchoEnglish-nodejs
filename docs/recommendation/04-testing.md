@@ -85,3 +85,5 @@ bash scripts/ci/typecheck-recsys.sh               # typecheck guard
 k6 run -e BASE_URL=... -e TOKENS_FILE=tokens.json loadtest/recsys.k6.js
 ```
 Tip: on machines with ≤ 3 GB RAM use `--maxWorkers=2` and don't run other heavy jobs concurrently (workers get OOM-killed).
+
+**Manual (non-unit) checks:** `npm run recsys:sandbox -- --walkthrough` drives the real HTTP routes and services over throwaway data and prints 19 PASS/FAIL checks; `npm run recsys:sandbox` serves the same API for curl/Postman. See `FEATURE-DOCUMENT.md` §9 for the full list.
