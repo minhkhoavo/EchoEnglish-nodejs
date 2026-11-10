@@ -167,7 +167,7 @@ curl -s $A $J -X POST ${base}/admin/recsys/models/retrain -d '{"dryRun":true}'`)
             body: opts.body ? JSON.stringify(opts.body) : undefined,
         });
         const json = (await res.json().catch(() => ({}))) as {
-            data?: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+            data?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
         };
         return { label, status: res.status, data: json.data };
     };
