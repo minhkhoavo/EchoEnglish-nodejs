@@ -422,6 +422,15 @@ describe('admin endpoints', () => {
             expect((await request(adminApp()).get(path)).status).toBe(200);
         }
     });
+    it('health is admin-only and reports a status (503 only when down)', async () => {
+        expect(
+            (await request(userApp()).get('/admin/recsys/health')).status
+        ).toBe(403);
+        const res = await request(adminApp()).get('/admin/recsys/health');
+        expect([200, 503]).toContain(res.status);
+        expect(['ok', 'degraded', 'down']).toContain(res.body.data.status);
+        expect(res.status === 503).toBe(res.body.data.status === 'down');
+    });
     it('KPI overview works on an empty database (no NaN, suppressed cohorts)', async () => {
         const res = await request(adminApp()).get(
             '/admin/recsys/kpis?windowDays=30'

@@ -38,6 +38,7 @@ router.get(
     hasAuthority(Role.ADMIN),
     controller.experiments
 );
+router.get('/admin/recsys/health', hasAuthority(Role.ADMIN), controller.health);
 router.get(
     '/admin/recsys/pipeline',
     hasAuthority(Role.ADMIN),
