@@ -4,7 +4,7 @@
 | --- | --- |
 | **Document status** | Living document, consolidated 2026-11-10 |
 | **Product** | EchoEnglish — AI-assisted TOEIC / English learning for Vietnamese learners (Node.js, LangChain, MongoDB) |
-| **Branch** | `feat/recommendation-platform` (about 46 commits ahead of `main`; **nothing has been pushed**, and a push to `main` deploys to production) |
+| **Branch** | `feat/recommendation-platform` (about 48 commits ahead of `main`; **nothing has been pushed**, and a push to `main` deploys to production) |
 | **Code** | `src/recsys/`, `analytics/dbt/`, `scripts/ops/`, `docker-compose.analytics.yml` |
 | **Detailed sources** | `01-requirements.md` … `06-operations.md`, `TASKS.md`, `README.md` in this folder. This document consolidates them and does not replace them |
 | **Decision authority** | All product and architecture decisions were delegated to engineering by the owner and are open to challenge |
@@ -162,6 +162,19 @@ Existing collections (`flashcards`, `users.preferences`, `resources.labels`, `qu
 
 **None of these triggers has fired.** Hence Phase 3 stays dormant in production.
 
+### 3.6 Architecture diagrams (draw.io)
+
+Editable sources live in `docs/recommendation/diagrams/` (open the `.drawio` files in draw.io, the VS Code draw.io extension, or diagrams.net). Each was generated from a script (`build-*.mjs`, run with `drawio-ai run`), so a diagram can be regenerated after a code change instead of redrawn. All four pass the layout validator with no errors, warnings or advice. A PNG export was **not** produced because the draw.io desktop CLI is not installed in this environment; export from draw.io when needed.
+
+| Diagram | File | Shows |
+| --- | --- | --- |
+| 1. System architecture (MVP closed loop) | `diagrams/01-architecture.drawio` | Clients and services → collect → bronze/silver/gold → features → recommend; scheduler; privacy, analytics and operations as cross-cutting bands |
+| 2. Recommender request flow | `diagrams/02-recommender.drawio` | One `GET /recommendations`: request, cache, context load, candidates, ranking and guardrails, explanation, impressions |
+| 3. Phase 3 (Scale) | `diagrams/03-phase3.drawio` | Exporter, Redpanda, loader, ClickHouse, dbt, KPI backend switch, and the learning loop (snapshots, training, registry, harm guard, embeddings) |
+| 4. Erasure process (BPMN swimlane) | `diagrams/04-erasure.drawio` | `DELETE /privacy/data` across learner, API, MongoDB and stream/warehouse lanes, including the failed-delete retry path |
+
+The Mermaid diagram in §3.2 is kept as an inline overview that renders on GitHub; the draw.io files are the detailed versions.
+
 ---
 
 ## 4. Data, consent and privacy
@@ -229,6 +242,14 @@ Metrics P@k, recall@k, NDCG@k, MRR, coverage, diversity; a replay evaluator join
 
 ### 5.5 Known limitation
 `skill_drill` items carry a proposed action payload `{screen:'skill_drill', skillKey, questions}` for which **no backend route exists yet** (T1.25). Until then they say *what* to practise but are not one-tap links.
+
+### 5.6 Request lifecycle and serving rules (as implemented)
+1. **Auth and rate limit.** Per-user limits: `/recommendations` 30/min, `/recommendations/feedback` 120/min, `/events/batch` 60/min, consent changes 20/min, export 5/h, erase 3/h, retrain 5/h.
+2. **Cache.** Responses are cached per user and limit for 120 s; `refresh=true` bypasses the cache.
+3. **Context.** Features, profile, up to 300 resources (recent plus the learner's interest domains), the 30-day exposure map, 30-day popularity, and optionally semantic similarity.
+4. **Variant.** `RECSYS_FORCE_VARIANT`, if set, wins. Otherwise the learner is served the **learned** model only when *all* hold: retraining flag on, a model is `active`, it was trained on `production` data (synthetic models can never serve), and the learner's hash bucket in `rec_learned_layer_v1` is below the model's `allocationPct`. Any other case (or a registry failure) falls back to the `control`/`srs_heavy` assignment.
+5. **Selection.** Candidates → weighted score → guardrails → explanation. Ranking signals are logged with impressions for training and are never returned to clients.
+6. **Side effects.** Impressions are always written to the functional exposure store; a `rec_impression` event is written only with analytics consent. Both are fire-and-forget and cannot fail the response.
 
 ---
 
@@ -370,7 +391,18 @@ The sandbox never reads `MONGO_URI`; pointing it at a database requires the expl
 | `RECSYS_EMBEDDINGS_ENABLED` / `_PROVIDER` / `RECSYS_SEMANTIC_MIN` | off / `gemini` / 0.75 | Embeddings |
 | `RECSYS_REGIONS` / `RECSYS_DEFAULT_REGION` / `RECSYS_LOADER_REGION` | `vn` | Residency |
 
-### 10.2 API reference
+### 10.2 Scheduled jobs (`src/recsys/scheduler.ts`)
+
+| Job | Schedule | Gate | Notes |
+| --- | --- | --- | --- |
+| ETL tick (clean → aggregate → features) | every 2 min | `RECSYS_ENABLED` | Mongo lease; safe on every instance |
+| Stream exporter | every minute | `RECSYS_STREAM_ENABLED` | Own lease and cursor; broker failure never affects the API |
+| Retraining | Saturday 20:00 UTC | `RECSYS_RETRAIN_ENABLED` | Gated; auto-activates at ≤ 5 % only |
+| Harm guard | daily 20:30 UTC | `RECSYS_RETRAIN_ENABLED` | Retires a significantly worse live model |
+| Warehouse loader | continuous, **separate process** | `npm run recsys:loader` | One per region; keep a supervisor |
+| dbt build | hourly (GitHub workflow) | `RECSYS_DBT_ENABLED` repo variable | Inert until configured; never run on GitHub yet |
+
+### 10.3 API reference
 
 | Route | Role | Purpose |
 | --- | --- | --- |
@@ -383,13 +415,13 @@ The sandbox never reads `MONGO_URI`; pointing it at a database requires the expl
 | `GET /admin/recsys/models`; `POST …/models/retrain`, `…/:version/activate`, `…/:version/retire` | admin | Model registry |
 | `PUT /admin/recsys/learners/:userId/region` | admin | Residency assignment |
 
-### 10.3 Rollout (each step reversible)
+### 10.4 Rollout (each step reversible)
 1. Deploy with `RECSYS_ENABLED=false`; smoke-test existing flows.
 2. Enable on one instance; watch `/admin/recsys/health` for an hour; then all instances.
 3. Follow shadow → 10 % → 100 % (`02-plan.md` §4); first two weeks measurement only.
 4. Phase 3 steps, in order, only when a trigger has fired: secret salt → snapshots → stream and loader → dbt → KPI cut-over → embeddings → retraining (`05-deployment.md` §5b).
 
-### 10.4 Rollback matrix
+### 10.5 Rollback matrix
 
 | Failure | Action |
 | --- | --- |
@@ -401,7 +433,7 @@ The sandbox never reads `MONGO_URI`; pointing it at a database requires the expl
 | Warehouse down | Nothing: KPIs answer from Mongo and say so; failed erasures retry |
 | Bad learned model | `POST …/retire`, or force `control`; the guard also auto-retires on significant harm |
 
-### 10.5 Runbooks
+### 10.6 Runbooks
 Pipeline stalled · data-quality degraded · bad recommendations · privacy incident · data-subject request · stream not flowing · loader lag · erase reported `failed` · KPI fallback · retraining · embedding job — see `06-operations.md` §4 and §4b. Operating cadence: weekly KPI review, per-experiment pre-registration and write-up, monthly offline re-evaluation and TTL review, quarterly weight tuning and trigger review.
 
 ---
