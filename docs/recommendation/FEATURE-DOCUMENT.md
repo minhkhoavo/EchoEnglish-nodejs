@@ -4,7 +4,7 @@
 | --- | --- |
 | **Document status** | Living document, consolidated 2026-11-10 |
 | **Product** | EchoEnglish — AI-assisted TOEIC / English learning for Vietnamese learners (Node.js, LangChain, MongoDB) |
-| **Branch** | `feat/recommendation-platform` (about 44 commits ahead of `main`; **nothing has been pushed**, and a push to `main` deploys to production) |
+| **Branch** | `feat/recommendation-platform` (about 46 commits ahead of `main`; **nothing has been pushed**, and a push to `main` deploys to production) |
 | **Code** | `src/recsys/`, `analytics/dbt/`, `scripts/ops/`, `docker-compose.analytics.yml` |
 | **Detailed sources** | `01-requirements.md` … `06-operations.md`, `TASKS.md`, `README.md` in this folder. This document consolidates them and does not replace them |
 | **Decision authority** | All product and architecture decisions were delegated to engineering by the owner and are open to challenge |
