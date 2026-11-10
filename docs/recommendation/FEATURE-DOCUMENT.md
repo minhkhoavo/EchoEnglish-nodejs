@@ -245,8 +245,8 @@ Metrics P@k, recall@k, NDCG@k, MRR, coverage, diversity; a replay evaluator join
 
 ### 5.6 Request lifecycle and serving rules (as implemented)
 1. **Auth and rate limit.** Per-user limits: `/recommendations` 30/min, `/recommendations/feedback` 120/min, `/events/batch` 60/min, consent changes 20/min, export 5/h, erase 3/h, retrain 5/h.
-2. **Cache.** Responses are cached per user and limit for 120 s; `refresh=true` bypasses the cache.
-3. **Context.** Features, profile, up to 300 resources (recent plus the learner's interest domains), the 30-day exposure map, 30-day popularity, and optionally semantic similarity.
+2. **Cache.** Responses are cached per user and limit for 120 s; `refresh=true` bypasses the cache. The cache is per process and bounded to 5 000 lists (expired first, then oldest).
+3. **Context.** Features (rebuilt on read when older than 6 h, because the ETL only rebuilds them when the learner produces events), profile, up to 300 resources (recent plus the learner's interest domains), the 30-day exposure map, 30-day popularity, and optionally semantic similarity.
 4. **Variant.** `RECSYS_FORCE_VARIANT`, if set, wins. Otherwise the learner is served the **learned** model only when *all* hold: retraining flag on, a model is `active`, it was trained on `production` data (synthetic models can never serve), and the learner's hash bucket in `rec_learned_layer_v1` is below the model's `allocationPct`. Any other case (or a registry failure) falls back to the `control`/`srs_heavy` assignment.
 5. **Selection.** Candidates → weighted score → guardrails → explanation. Ranking signals are logged with impressions for training and are never returned to clients.
 6. **Side effects.** Impressions are always written to the functional exposure store; a `rec_impression` event is written only with analytics consent. Both are fire-and-forget and cannot fail the response.
@@ -410,7 +410,7 @@ The sandbox never reads `MONGO_URI`; pointing it at a database requires the expl
 | `GET`, `PUT /privacy/consent`; `POST /privacy/consent/withdraw` | user | Read, set, withdraw consent |
 | `GET /privacy/export`; `DELETE /privacy/data` | user | Data-subject access and erasure |
 | `GET /recommendations?limit=&refresh=` | user | Explained next-best actions |
-| `POST /recommendations/feedback` | user | click / complete / dismiss |
+| `POST /recommendations/feedback` | user | click / complete / dismiss; `itemType` must be a recommender item type, `itemRef` ≤ 80 chars |
 | `GET /admin/recsys/{kpis,experiments,pipeline,health}` | admin | Analytics and health |
 | `GET /admin/recsys/models`; `POST …/models/retrain`, `…/:version/activate`, `…/:version/retire` | admin | Model registry |
 | `PUT /admin/recsys/learners/:userId/region` | admin | Residency assignment |

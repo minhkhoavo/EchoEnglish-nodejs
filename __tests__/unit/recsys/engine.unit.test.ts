@@ -28,7 +28,11 @@ import {
     bucket,
     RANKER_EXPERIMENT,
 } from '~/recsys/engine/experiments.js';
-import { buildRecommendations } from '~/recsys/engine/recommender.js';
+import {
+    buildRecommendations,
+    CACHE_MAX_ENTRIES,
+    RecommenderService,
+} from '~/recsys/engine/recommender.js';
 import { cefrFit, cefrFromToeic, parseCefr } from '~/recsys/engine/cefr.js';
 import {
     Candidate,
@@ -610,5 +614,37 @@ describe('buildRecommendations (end to end, pure)', () => {
         expect(second.filter((id) => first.includes(id)).length).toBeLessThan(
             first.length
         );
+    });
+});
+
+describe('recommendation cache', () => {
+    it('is bounded however many learners ask', async () => {
+        const svc = new RecommenderService({
+            loadFeatures: async () => null,
+            loadProfile: async () => ({
+                interests: [],
+                studyMinutesPerDay: 30,
+            }),
+            loadResources: async () => [],
+            loadExposure: async () => new Map(),
+            loadPopularity: async () => new Map(),
+            hasPersonalizationConsent: async () => false,
+        });
+        svc.clearCache();
+        for (let i = 0; i < CACHE_MAX_ENTRIES + 50; i++)
+            await svc.recommend(`u${i}`, { now: NOW, logImpressions: false });
+        expect(svc.cacheSize()).toBe(CACHE_MAX_ENTRIES);
+        // the newest entry survives, the oldest was evicted
+        const last = `u${CACHE_MAX_ENTRIES + 49}`;
+        const a = await svc.recommend(last, {
+            now: NOW,
+            logImpressions: false,
+        });
+        const b = await svc.recommend(last, {
+            now: NOW,
+            logImpressions: false,
+        });
+        expect(b.recId).toBe(a.recId);
+        svc.clearCache();
     });
 });

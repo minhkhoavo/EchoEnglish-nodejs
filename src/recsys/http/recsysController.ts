@@ -13,6 +13,7 @@ import { exposureService } from '../engine/exposureService.js';
 import { ModelError, modelRegistry } from '../learning/registry.js';
 import { retrainService } from '../learning/retrain.js';
 import { RegionError, regionService } from '../stream/regions.js';
+import { ItemType } from '../engine/types.js';
 
 const uid = (req: Request): string => {
     const id = req.user?.id;
@@ -22,6 +23,15 @@ const uid = (req: Request): string => {
 const bad = (message: string) => new ApiError({ message, status: 400 });
 const platformSource = (v: unknown) =>
     v === 'ios' || v === 'android' ? v : 'web';
+
+const FEEDBACK_ITEM_TYPES: ReadonlySet<string> = new Set<ItemType>([
+    'flashcard_review',
+    'skill_drill',
+    'resource',
+    'mock_test',
+    'pronunciation_practice',
+    'vocab_capture',
+]);
 
 const modelErr = (e: unknown) => {
     if (!(e instanceof ModelError)) return e;
@@ -126,6 +136,12 @@ class RecsysController {
             throw bad('itemType and itemRef are required');
         if (typeof b.recId !== 'string' || typeof b.variant !== 'string')
             throw bad('recId and variant are required');
+        // These values become a stored key in the repetition guard: accept only what the
+        // recommender can have produced, never arbitrary client strings.
+        if (!FEEDBACK_ITEM_TYPES.has(b.itemType)) throw bad('unknown itemType');
+        if (!b.itemRef || b.itemRef.length > 80) throw bad('invalid itemRef');
+        if (!b.recId || b.recId.length > 64 || b.variant.length > 40)
+            throw bad('invalid recId or variant');
         const userId = uid(req);
         await exposureService.recordFeedback(
             userId,

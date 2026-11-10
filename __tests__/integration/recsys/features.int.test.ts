@@ -21,6 +21,7 @@ import { featureBuilder } from '~/recsys/features/featureBuilder.js';
 import { pipelineService } from '~/recsys/etl/pipeline.js';
 import { eventService } from '~/recsys/events/eventService.js';
 import { Flashcard } from '~/models/flashcardModel.js';
+import { FEATURE_MAX_AGE_MS, mongoDeps } from '~/recsys/engine/recommender.js';
 
 jest.setTimeout(120_000);
 const uid = new mongoose.Types.ObjectId().toString();
@@ -157,4 +158,30 @@ it('cursor is the silver _id: a late/re-queued event with an OLD receivedAt is s
         skillKey: 'p5.wordform',
     }).lean<{ n: number }>();
     expect(m!.n).toBe(3);
+});
+
+it('serving refreshes features that went stale while the learner was away', async () => {
+    await eventService.emitManyAsync(uid, [answer('p5.wordform', true)]);
+    await pipelineService.runOnce({
+        afterFacts: (ids) => featureBuilder.buildMany(ids),
+    });
+    const built = await LearnerFeatures.findOne({ userId: uid }).lean<{
+        computedAt: Date;
+    }>();
+    const t0 = built!.computedAt.getTime();
+
+    // still fresh: the stored copy is served untouched
+    const fresh = await mongoDeps.loadFeatures(uid, new Date(t0 + 60_000));
+    expect(fresh!.activity.daysSinceActive).toBe(0);
+    expect(new Date(fresh!.computedAt).getTime()).toBe(t0);
+
+    // ten days later, no new events: the ETL never rebuilt, so serving must
+    const later = new Date(t0 + FEATURE_MAX_AGE_MS + 10 * 86_400_000);
+    const stale = await mongoDeps.loadFeatures(uid, later);
+    expect(stale!.activity.daysSinceActive).toBeGreaterThanOrEqual(10);
+    expect(stale!.activity.streak).toBe(0);
+    const stored = await LearnerFeatures.findOne({ userId: uid }).lean<{
+        computedAt: Date;
+    }>();
+    expect(stored!.computedAt.getTime()).toBe(later.getTime());
 });

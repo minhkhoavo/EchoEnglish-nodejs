@@ -330,6 +330,27 @@ describe('GET /recommendations', () => {
                     .send({ action: 'click', itemType: 'x', itemRef: 'y' })
             ).status
         ).toBe(400);
+        // the item key is stored: only item types the recommender produces, bounded refs
+        const ok = {
+            action: 'click',
+            recId: 'r1',
+            variant: 'control',
+            itemType: 'resource',
+            itemRef: 'abc',
+        };
+        for (const bad of [
+            { ...ok, itemType: 'anything' },
+            { ...ok, itemRef: 'x'.repeat(81) },
+            { ...ok, itemRef: '' },
+            { ...ok, recId: 'r'.repeat(65) },
+        ])
+            expect(
+                (await request(a).post('/recommendations/feedback').send(bad))
+                    .status
+            ).toBe(400);
+        expect(
+            (await request(a).post('/recommendations/feedback').send(ok)).status
+        ).toBe(200);
     });
 });
 

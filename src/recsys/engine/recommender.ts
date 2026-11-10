@@ -26,6 +26,7 @@ import {
 } from '../embeddings/semantic.js';
 import { LearnerFeatureSet } from '../features/featureModels.js';
 import { LearnerFeatures } from '../features/featureModels.js';
+import { featureBuilder } from '../features/featureBuilder.js';
 import { LearningEvent } from '../events/eventModel.js';
 import { CleanEvent } from '../etl/models.js';
 import { consentService } from '../privacy/consentService.js';
@@ -110,7 +111,7 @@ export function buildRecommendations(
 
 /** Data access used by the service. Overridable in tests. */
 export interface RecDeps {
-    loadFeatures(userId: string): Promise<LearnerFeatureSet | null>;
+    loadFeatures(userId: string, now?: Date): Promise<LearnerFeatureSet | null>;
     loadProfile(userId: string): Promise<LearnerProfile>;
     loadResources(profile: LearnerProfile): Promise<ResourceLike[]>;
     loadExposure(userId: string, now: Date): Promise<ExposureMap>;
@@ -124,16 +125,36 @@ export interface RecDeps {
 }
 
 const DAY_MS = 86_400_000;
+/** Time-dependent features (due cards, days since X, mastery decay) are refreshed on read past this age. */
+export const FEATURE_MAX_AGE_MS = 6 * 3_600_000;
 
 export const mongoDeps: RecDeps = {
-    async loadFeatures(userId) {
+    /**
+     * Features are rebuilt by the ETL only when a learner produces events, so for someone who
+     * has been away they describe the day they left (due cards, days since active, decayed
+     * mastery are all stale). Rebuild on read once they are older than FEATURE_MAX_AGE_MS; a
+     * failed rebuild serves the stored copy.
+     */
+    async loadFeatures(userId, now = new Date()) {
         const doc = await LearnerFeatures.findOne({
             userId: new Types.ObjectId(userId),
         }).lean<
             | (Omit<LearnerFeatureSet, 'userId'> & { userId: Types.ObjectId })
             | null
         >();
-        return doc ? ({ ...doc, userId } as LearnerFeatureSet) : null;
+        if (!doc) return null;
+        const stored = { ...doc, userId } as LearnerFeatureSet;
+        const age = now.getTime() - new Date(doc.computedAt).getTime();
+        if (age <= FEATURE_MAX_AGE_MS) return stored;
+        try {
+            return await featureBuilder.build(userId, now);
+        } catch (e) {
+            console.error(
+                '[recsys] stale feature rebuild failed:',
+                (e as Error).message
+            );
+            return stored;
+        }
     },
 
     async loadProfile(userId) {
@@ -234,7 +255,20 @@ export const mongoDeps: RecDeps = {
 };
 
 const CACHE_TTL_MS = 120_000;
+/** Hard bound on cached lists: the map is per process and must not grow with the user base. */
+export const CACHE_MAX_ENTRIES = 5000;
 const cache = new Map<string, { exp: number; value: RecommendationResponse }>();
+
+function cachePut(key: string, value: RecommendationResponse, nowMs: number) {
+    cache.delete(key); // re-insert so Map order stays oldest-first
+    cache.set(key, { exp: nowMs + CACHE_TTL_MS, value });
+    if (cache.size <= CACHE_MAX_ENTRIES) return;
+    for (const [k, v] of cache) if (v.exp <= nowMs) cache.delete(k);
+    for (const k of cache.keys()) {
+        if (cache.size <= CACHE_MAX_ENTRIES) break;
+        cache.delete(k);
+    }
+}
 let popularityCache: { exp: number; value: Map<string, number> } | null = null;
 
 export class RecommenderService {
@@ -261,7 +295,7 @@ export class RecommenderService {
         const personalization =
             await this.deps.hasPersonalizationConsent(userId);
         const [features, profile, exposure] = await Promise.all([
-            this.deps.loadFeatures(userId),
+            this.deps.loadFeatures(userId, now),
             this.deps.loadProfile(userId),
             this.deps.loadExposure(userId, now),
         ]);
@@ -311,7 +345,7 @@ export class RecommenderService {
             ...body,
             ...(algo ? { algo } : {}),
         };
-        cache.set(key, { exp: now.getTime() + CACHE_TTL_MS, value: response });
+        cachePut(key, response, now.getTime());
 
         // Functional repetition guard: recorded for everyone (no consent needed), tiny + TTL'd.
         if (recsysConfig.enabled()) {
@@ -395,6 +429,10 @@ export class RecommenderService {
     invalidate(userId: string) {
         for (const k of cache.keys())
             if (k.startsWith(`${userId}:`)) cache.delete(k);
+    }
+
+    cacheSize() {
+        return cache.size;
     }
 
     clearCache() {
