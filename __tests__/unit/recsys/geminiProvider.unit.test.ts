@@ -84,9 +84,9 @@ describe('createGeminiProvider (mocked client)', () => {
         process.env.GENAI_API_KEY = 'k';
         const p = await createGeminiProvider();
         embedDocuments.mockResolvedValue([[1, 0]]);
-        await expect(p.embed(['a', 'b'])).rejects.toThrow(/invalid response/);
+        await expect(p.embed(['a', 'b'])).rejects.toThrow(/empty vectors/);
         embedDocuments.mockResolvedValue([[1, 0], []]);
-        await expect(p.embed(['a', 'b'])).rejects.toThrow(/invalid response/);
+        await expect(p.embed(['a', 'b'])).rejects.toThrow(/empty vectors/);
     });
 
     it('propagates API failures (the indexer counts them as a failed batch)', async () => {

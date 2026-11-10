@@ -55,7 +55,11 @@ export async function createGeminiProvider(): Promise<EmbeddingProvider> {
         async embed(texts) {
             const out = await client.embedDocuments(texts);
             if (out.length !== texts.length || out.some((v) => !v?.length))
-                throw new Error('Embedding API returned an invalid response');
+                throw new Error(
+                    'Embedding API returned empty vectors. The LangChain client swallows HTTP errors ' +
+                        '(observed with an exhausted-credits 402), so check the key, quota and billing ' +
+                        'with a direct embedContent call before debugging the code'
+                );
             return out.map(normalise);
         },
     };
