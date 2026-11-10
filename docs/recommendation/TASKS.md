@@ -83,23 +83,23 @@ Legend: **Verified live** = exercised against a real server in Docker (opt-in te
 | T3.17 | Exporter / erasure / live-model state in `/admin/recsys/health` | ✅ Built + tested |
 
 ## Phase 4 — Recommender best-practice hardening (from the architecture audit)
-Scope: every gap the audit found in the recommender itself. Order = dependency order. Each task ships with tests.
+Scope: every gap the audit found in the recommender itself. Each task ships with tests (`__tests__/unit/recsys/hardening.unit.test.ts`, `__tests__/integration/recsys/hardening.int.test.ts`). Built and tested here; none of it has seen real traffic, so T4.2–T4.4, T4.8 and T4.9 only start to matter once exploration data and answers accumulate.
 
 | ID | Gap | Task | Status |
 | --- | --- | --- | --- |
-| T4.1 | Served lists are not logged server-side; feedback trusts client `recId`/`variant` | `rec_served` store (TTL): every served list with items, positions, scores, variant, mode, segment. Feedback and client `rec_*` events are checked against it; variant/mode always come from the server record | ⏳ |
-| T4.2 | No exploration: logs only contain what the current ranker chose | Randomised slot on a configurable share of requests (`RECSYS_EXPLORE_PCT`), seeded per `recId`, hard filters still apply; slot, pool and propensity are logged | ⏳ |
-| T4.3 | Position bias is not identifiable | Estimate examination propensity per position from the randomised slot; inverse-propensity-weighted training when there is enough exploration data, position-as-covariate fallback otherwise | ⏳ |
-| T4.4 | Learned ranker optimises clicks | Training label = a click that led to server-verified learning within 24 h (`RECSYS_TRAIN_LABEL=outcome`, `click` kept as an option) | ⏳ |
-| T4.5 | Training/serving feature skew | Segment and feature timestamp are logged at serve time and used for training (snapshot join only as fallback) | ⏳ |
-| T4.6 | Experiment read-out: impression-level z-test on CTR only | Per-learner metrics with Welch t-test, sample-ratio-mismatch check, guardrail metrics (dismiss, completion), outcome metrics per variant (score gain, active days); harm guard uses the per-learner test | ⏳ |
-| T4.7 | Candidate retrieval scans a fixed slice of the catalogue | Index-backed, bounded retrieval per reason (interest, level, weak-skill topics, popular, recent) + Resource indexes | ⏳ |
-| T4.8 | Item difficulty has three fixed levels | Per-question difficulty calibrated from answers (`item_difficulty`), used by the mastery update once a question has enough answers | ⏳ |
-| T4.9 | Offline evaluation is simulator-only | Counterfactual replay estimator over the randomised slot (real logs); reported with every retrain | ⏳ |
-| T4.10 | Explanation shows a decayed estimate as "accuracy"; decayed strong skills flagged as weak | Explanation separates estimate from measured accuracy; new `refresh_skill` reason for strong-but-unpractised skills | ⏳ |
-| T4.11 | Consent withdrawal can be served stale from another instance's cache; titles are English-only | Consent is read before the cache and is part of the cache key; `titleI18n` (EN/VI) on every item | ⏳ |
-| T4.12 | No alerting | Webhook alert (`RECSYS_ALERT_WEBHOOK_URL`) on failed/degraded/stalled ETL and auto-retired models, rate-limited | ⏳ |
-| T4.13 | ETL and training share the API process | `RECSYS_SCHEDULER_ENABLED` switch + standalone worker entry point | ⏳ |
+| T4.1 | Served lists are not logged server-side; feedback trusts client `recId`/`variant` | `rec_served` store (TTL): every served list with items, positions, scores, variant, mode, segment. Feedback and client `rec_*` events are checked against it; variant/mode always come from the server record | ✅ Built + tested |
+| T4.2 | No exploration: logs only contain what the current ranker chose | Randomised slot on a configurable share of requests (`RECSYS_EXPLORE_PCT`), seeded per `recId`, hard filters still apply; slot, pool and propensity are logged | ✅ Built + tested |
+| T4.3 | Position bias is not identifiable | Estimate examination propensity per position from the randomised slot; inverse-propensity-weighted training when there is enough exploration data, position-as-covariate fallback otherwise | ✅ Built + tested |
+| T4.4 | Learned ranker optimises clicks | Training label = a click that led to server-verified learning within 24 h (`RECSYS_TRAIN_LABEL=outcome`, `click` kept as an option) | ✅ Built + tested |
+| T4.5 | Training/serving feature skew | Segment and feature timestamp are logged at serve time and used for training (snapshot join only as fallback) | ✅ Built + tested |
+| T4.6 | Experiment read-out: impression-level z-test on CTR only | Per-learner metrics with Welch t-test, sample-ratio-mismatch check, guardrail metrics (dismiss, completion), outcome metrics per variant (score gain, active days); harm guard uses the per-learner test | ✅ Built + tested |
+| T4.7 | Candidate retrieval scans a fixed slice of the catalogue | Index-backed, bounded retrieval per reason (interest, level, weak-skill topics, popular, recent) + Resource indexes | ✅ Built + tested |
+| T4.8 | Item difficulty has three fixed levels | Per-question difficulty calibrated from answers (`item_difficulty`), used by the mastery update once a question has enough answers | ✅ Built + tested |
+| T4.9 | Offline evaluation is simulator-only | Counterfactual replay estimator over the randomised slot (real logs); reported with every retrain | ✅ Built + tested |
+| T4.10 | Explanation shows a decayed estimate as "accuracy"; decayed strong skills flagged as weak | Explanation separates estimate from measured accuracy; new `refresh_skill` reason for strong-but-unpractised skills | ✅ Built + tested |
+| T4.11 | Consent withdrawal can be served stale from another instance's cache; titles are English-only | Consent is read before the cache and is part of the cache key; `titleI18n` (EN/VI) on every item | ✅ Built + tested |
+| T4.12 | No alerting | Webhook alert (`RECSYS_ALERT_WEBHOOK_URL`) on failed/degraded/stalled ETL and auto-retired models, rate-limited | ✅ Built + tested |
+| T4.13 | ETL and training share the API process | `RECSYS_SCHEDULER_ENABLED` switch + standalone worker entry point | ✅ Built + tested |
 
 Not in Phase 4 (need another repo or a product decision): consent UI (T1.16), drill endpoint (T1.25), daily-session integration (T1.15), history backfill (T1.17).
 

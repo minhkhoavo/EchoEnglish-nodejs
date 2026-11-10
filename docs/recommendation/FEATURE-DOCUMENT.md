@@ -243,13 +243,25 @@ Metrics P@k, recall@k, NDCG@k, MRR, coverage, diversity; a replay evaluator join
 ### 5.5 Known limitation
 `skill_drill` items carry a proposed action payload `{screen:'skill_drill', skillKey, questions}` for which **no backend route exists yet** (T1.25). Until then they say *what* to practise but are not one-tap links.
 
+### 5.5b Learning from outcomes, not clicks (Phase 4)
+| Concern | How it is handled | Where |
+| --- | --- | --- |
+| Training label | A row is positive only if the item was clicked **and** the matching activity was recorded within 24 h (drill → answers on that skill, flashcards → reviews, test → submission, resource → completed view), or the client reported completion. `RECSYS_TRAIN_LABEL=click` restores click labels | `learning/dataset.ts` |
+| Position bias | Examination rate per position is estimated from the randomised slot; with ≥ 200 explored impressions at positions 0 and 1 the fit is inverse-propensity weighted. Before that, position is a training-only covariate (weaker) | `learning/train.ts` |
+| Train/serve skew | The learner segment the ranker used is logged with each impression and read back for training; the feature-store join is only a fallback for older impressions | `engine/recommender.ts`, `learning/dataset.ts` |
+| Item difficulty | Each question's difficulty is calibrated from answer counts (shrunk toward its labelled level) and used by the mastery update once the question has 20 answers | `features/itemDifficulty.ts` |
+| Offline evaluation on real logs | Replay estimator over the randomised slot: a policy is scored on the logs where it agrees with the random draw. Reported with every retrain (`metrics.counterfactual`) next to the holdout AUC | `eval/counterfactual.ts` |
+| Experiment read-out | Per-learner rates with Welch's t-test (arms under 30 learners report no test), sample-ratio-mismatch check at p < 0.001, dismissal as a guardrail, score gain and active days per variant. The harm guard retires a model on the per-learner test | `analytics/kpi.ts` |
+
 ### 5.6 Request lifecycle and serving rules (as implemented)
 1. **Auth and rate limit.** Per-user limits: `/recommendations` 30/min, `/recommendations/feedback` 120/min, `/events/batch` 60/min, consent changes 20/min, export 5/h, erase 3/h, retrain 5/h.
-2. **Cache.** Responses are cached per user and limit for 120 s; `refresh=true` bypasses the cache. The cache is per process and bounded to 5 000 lists (expired first, then oldest).
-3. **Context.** Features (rebuilt on read when older than 6 h, because the ETL only rebuilds them when the learner produces events), profile, up to 300 resources (recent plus the learner's interest domains), the 30-day exposure map, 30-day popularity, and optionally semantic similarity.
+2. **Cache.** Consent is read first and is part of the cache key, so a withdrawal takes effect on every instance at once. Responses are cached per user, limit and consent state for 120 s; `refresh=true` bypasses the cache. The cache is per process and bounded to 5 000 lists (expired first, then oldest).
+3. **Context.** Features (rebuilt on read when older than 6 h, because the ETL only rebuilds them when the learner produces events), profile, resources retrieved by five bounded index-backed queries (recent, interest domain, level ± 1, weak-skill topics, popular), the 30-day exposure map, 30-day popularity, and optionally semantic similarity.
 4. **Variant.** `RECSYS_FORCE_VARIANT`, if set, wins. Otherwise the learner is served the **learned** model only when *all* hold: retraining flag on, a model is `active`, it was trained on `production` data (synthetic models can never serve), and the learner's hash bucket in `rec_learned_layer_v1` is below the model's `allocationPct`. Any other case (or a registry failure) falls back to the `control`/`srs_heavy` assignment.
 5. **Selection.** Candidates → weighted score → guardrails → explanation. Ranking signals are logged with impressions for training and are never returned to clients.
-6. **Side effects.** Impressions are always written to the functional exposure store; a `rec_impression` event is written only with analytics consent. Both are fire-and-forget and cannot fail the response.
+6. **Exploration.** On `RECSYS_EXPLORE_PCT` percent of requests (default 10, max 30, 0 = off) one slot is filled uniformly at random from the 20 best eligible candidates that were not shown. Hard filters still apply. The slot, the pool and the propensity (1 / pool size) are logged. This is what makes position bias measurable and lets real logs evaluate a policy other than the one that produced them.
+7. **Served-list log.** Every served list is written to `rec_served` (TTL `RECSYS_SERVED_RETENTION_DAYS`, default 30): items, positions, scores, variant, mode, learner segment. Ranking signals and the not-shown pool are stored only with analytics consent. Feedback and client `rec_*` events are attributed against this record; variant, mode and position are always taken from it, never from the request.
+8. **Side effects.** Impressions are always written to the functional exposure store; a `rec_impression` event is written only with analytics consent. Both are fire-and-forget and cannot fail the response.
 
 ---
 
@@ -410,7 +422,7 @@ The sandbox never reads `MONGO_URI`; pointing it at a database requires the expl
 | `GET`, `PUT /privacy/consent`; `POST /privacy/consent/withdraw` | user | Read, set, withdraw consent |
 | `GET /privacy/export`; `DELETE /privacy/data` | user | Data-subject access and erasure |
 | `GET /recommendations?limit=&refresh=` | user | Explained next-best actions |
-| `POST /recommendations/feedback` | user | click / complete / dismiss; `itemType` must be a recommender item type, `itemRef` ≤ 80 chars |
+| `POST /recommendations/feedback` | user | `{recId, itemType, itemRef, action}`. Always updates the repetition guard; returns `attributed: true` and logs the analytics event only if that item was in a list served to this user |
 | `GET /admin/recsys/{kpis,experiments,pipeline,health}` | admin | Analytics and health |
 | `GET /admin/recsys/models`; `POST …/models/retrain`, `…/:version/activate`, `…/:version/retire` | admin | Model registry |
 | `PUT /admin/recsys/learners/:userId/region` | admin | Residency assignment |
