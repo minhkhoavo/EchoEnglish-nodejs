@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main] # main is covered by the deploy workflow
+  workflow_dispatch: {}
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  recsys-quality:
+    name: Recommendation platform (lint, types, tests)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # The Dockerfile uses `npm install` (the lockfile is not enforced), so CI mirrors it.
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps --ignore-scripts --no-audit --no-fund
+
+      - name: Lint (recsys + touched hooks)
+        run: npx eslint src/recsys scripts __tests__/unit/recsys __tests__/integration __tests__/helpers
+
+      # Repo-wide `tsc` has pre-existing errors in src/controllers/*; new code must add none.
+      - name: Type-check (no errors allowed in new code)
+        run: bash scripts/ci/typecheck-recsys.sh
+
+      - name: Cache MongoDB binary for mongodb-memory-server
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/mongodb-binaries
+          key: mongodb-binaries-7.0.24
+
+      - name: Unit + integration + data-quality tests
+        run: npx jest __tests__/unit/recsys __tests__/integration --testPathIgnorePatterns performance --maxWorkers=2 --ci
+
+      # Latency budgets are meaningless under CPU contention, so they run alone and serially.
+      - name: Performance budgets (serial)
+        run: npx jest __tests__/integration/recsys/performance --runInBand --ci
+
+      - name: Offline recommendation evaluation (regression guard)
+        run: npm run recsys:eval
+
+  full-suite:
+    name: Full existing test suite (informational until verified green)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm install --legacy-peer-deps --ignore-scripts --no-audit --no-fund
+      - run: npx jest --maxWorkers=2 --ci

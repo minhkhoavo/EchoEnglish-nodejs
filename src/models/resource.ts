@@ -64,6 +64,25 @@ const resourceSchema = new Schema(
     }
 );
 
+// Recommendation retrieval (src/recsys/engine/recommender.ts loadResources): every query is
+// "suitable, matching one label, newest first", so each gets a compound index.
+resourceSchema.index({ suitableForLearners: 1, publishedAt: -1 });
+resourceSchema.index({
+    suitableForLearners: 1,
+    'labels.domain': 1,
+    publishedAt: -1,
+});
+resourceSchema.index({
+    suitableForLearners: 1,
+    'labels.cefr': 1,
+    publishedAt: -1,
+});
+resourceSchema.index({
+    suitableForLearners: 1,
+    'labels.topic': 1,
+    publishedAt: -1,
+});
+
 setBaseOptions(resourceSchema);
 
 export type ResourceTypeModel = InferSchemaType<typeof resourceSchema> & {
