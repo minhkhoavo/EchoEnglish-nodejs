@@ -5,9 +5,11 @@
  *   npm run recsys:sandbox                  # serve on :4010 (in-memory MongoDB, seeded catalogue)
  *   npm run recsys:sandbox -- --walkthrough # drive every step over HTTP, print results, exit 0/1
  *   PORT=4011 RECSYS_SANDBOX_MONGO_URI=mongodb://localhost:27017/sandbox npm run recsys:sandbox
+ *   RECSYS_EXPLORE_PCT=10 npm run recsys:sandbox   # turn the randomised exploration slot back on
  *
  * Auth is a header stub (sandbox only): `x-demo-user: <24-hex id>`, `x-demo-role: USER|ADMIN`.
  * It never reads MONGO_URI on purpose: pointing it at a real database must be a deliberate act.
+ * Postman: import docs/recommendation/postman/* (see docs/recommendation/DEVELOPER-GUIDE.md).
  */
 import { createServer } from 'node:http';
 import express from 'express';
@@ -18,6 +20,8 @@ Object.assign(process.env, {
     RECSYS_ENABLED: 'true',
     RECSYS_PSEUDONYM_SALT:
         process.env.RECSYS_PSEUDONYM_SALT ?? 'sandbox-only-salt-0123456789',
+    // Same request, same list: the randomised exploration slot is off unless asked for.
+    RECSYS_EXPLORE_PCT: process.env.RECSYS_EXPLORE_PCT ?? '0',
 });
 const { default: recsysRouter } =
     await import('../../src/recsys/http/routes.js');
@@ -144,7 +148,11 @@ curl -s $A -X POST ${base}/sandbox/tick                               # run ETL 
 curl -s $U "${base}/recommendations?limit=5&refresh=true"             # personalised, explained
 curl -s $A ${base}/admin/recsys/health ; curl -s $A ${base}/admin/recsys/kpis
 curl -s $U ${base}/privacy/export ; curl -s $U -X DELETE ${base}/privacy/data
-curl -s $A $J -X POST ${base}/admin/recsys/models/retrain -d '{"dryRun":true}'`);
+curl -s $A $J -X POST ${base}/admin/recsys/models/retrain -d '{"dryRun":true}'
+
+Postman: import docs/recommendation/postman/recsys.postman_collection.json and
+recsys-sandbox.postman_environment.json, pick the "EchoEnglish recsys - sandbox" environment and
+run the collection (it creates its own learner id). CLI: npx -y newman@6.2.1 run <collection> -e <env>`);
     for (const s of ['SIGINT', 'SIGTERM'] as const)
         process.on(s, () => void shutdown().then(() => process.exit(0)));
 } else {
