@@ -34,7 +34,7 @@ How the collection works:
 
 - Each run starts a **fresh learner**: the first request generates a new `userId`, so per-learner rate limits and earlier erasures never get in the way.
 - Requests **chain**: `GET /recommendations` saves `recId` and the first two items into collection variables, and the feedback requests use them. Sent on their own before any list, the feedback requests fail with `400` because those variables are still empty.
-- Folder *0* (real-app login) skips itself in the sandbox, and the `[sandbox]` requests skip themselves against the real app. Running the whole collection works in both environments.
+- Folder *0* (real-app login) skips itself in the sandbox, and the `[sandbox]` requests skip themselves against the real app. The same collection is meant to run in both environments. The sandbox path is verified with newman; the local-app path (real login, JWT decode, scheduler timing) has not been run end to end yet, so report anything that breaks there.
 - Folder *3* erases the learner's data, so it comes after the workflow and admin folders.
 - The model activate and retire requests use version `999999`, which does not exist, so they return `404` and change nothing. Set `version` to a real one to try them.
 

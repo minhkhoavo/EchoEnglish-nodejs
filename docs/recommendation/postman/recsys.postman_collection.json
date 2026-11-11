@@ -160,6 +160,8 @@
                                 "exec": [
                                     "{",
                                     "    if ((pm.environment.get('authMode') || 'sandbox') === 'sandbox') pm.execution.skipRequest();",
+                                    "    // The app's login limiter allows one request per 100 ms per IP; leave a gap after the learner login.",
+                                    "    else setTimeout(() => {}, 300);",
                                     "}"
                                 ]
                             }
