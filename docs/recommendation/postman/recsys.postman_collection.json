@@ -1,0 +1,1851 @@
+{
+    "info": {
+        "name": "EchoEnglish recommendation platform",
+        "_postman_id": "6f1c2a4e-2b7d-4c55-9a43-0e6f1d7b9c21",
+        "description": "Every recommendation-platform endpoint, ordered as a client would call them, with tests on each request.\n\n**Sandbox (no setup):** run `npm run recsys:sandbox`, select the *EchoEnglish recsys - sandbox* environment and run the whole collection (folder 0 skips itself).\n\n**Local app:** select *EchoEnglish recsys - local app*, fill in two test accounts (a learner and an admin) and run the whole collection. The `[sandbox]` requests skip themselves; the app scheduler runs the ETL every 2 minutes, so personalised results appear after the next tick.\n\nGuide: `docs/recommendation/DEVELOPER-GUIDE.md`. A unit test (`__tests__/unit/recsys/postmanCollection.unit.test.ts`) fails when a route is added without a request here.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "string"
+            }
+        ]
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "{",
+                    "    // Sandbox: make sure a learner id exists even when a single request is sent on its own.",
+                    "    if ((pm.environment.get('authMode') || 'sandbox') === 'sandbox' && !pm.collectionVariables.get('userId')) {",
+                    "        pm.collectionVariables.set('userId', Array.from({ length: 24 }, () => Math.floor(Math.random() * 16).toString(16)).join(''));",
+                    "    }",
+                    "}"
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "userId",
+            "value": "",
+            "description": "Learner id; generated in the sandbox, taken from the JWT in the app"
+        },
+        {
+            "key": "recId",
+            "value": ""
+        },
+        {
+            "key": "itemType",
+            "value": ""
+        },
+        {
+            "key": "itemRef",
+            "value": ""
+        },
+        {
+            "key": "dismissType",
+            "value": ""
+        },
+        {
+            "key": "dismissRef",
+            "value": ""
+        },
+        {
+            "key": "eventId",
+            "value": ""
+        }
+    ],
+    "item": [
+        {
+            "name": "0. Log in to the real app (app environment only)",
+            "description": "Skipped automatically in the sandbox. Against a locally running app (`npm run dev`, port 4000) it logs in a learner and an admin with the credentials from the environment and stores `token`, `adminToken` and `userId`. Never point the app environment at production.",
+            "auth": {
+                "type": "noauth"
+            },
+            "item": [
+                {
+                    "name": "Log in as a learner",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/login",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["auth", "login"]
+                        },
+                        "description": "Stores `data.token` as `token` and the JWT `userId` claim as `userId`.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    if ((pm.environment.get('authMode') || 'sandbox') === 'sandbox') pm.execution.skipRequest();",
+                                    "}"
+                                ]
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('returns a token', () => pm.expect(data.token).to.be.a('string'));",
+                                    "    pm.environment.set('token', data.token);",
+                                    "    const claims = JSON.parse(atob(data.token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));",
+                                    "    pm.collectionVariables.set('userId', claims.userId);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Log in as an admin",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/login",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["auth", "login"]
+                        },
+                        "description": "Stores `data.token` as `adminToken`. The account must have the ADMIN role.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    if ((pm.environment.get('authMode') || 'sandbox') === 'sandbox') pm.execution.skipRequest();",
+                                    "}"
+                                ]
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('returns a token', () => pm.expect(data.token).to.be.a('string'));",
+                                    "    pm.environment.set('adminToken', data.token);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "1. Learner workflow (run in order)",
+            "description": "The client journey: consent, cold start, events, recommendations, feedback. Requests save what the next one needs (`recId`, item type and ref) in collection variables, so run them in order. In the sandbox, the first request creates a fresh learner each run.",
+            "item": [
+                {
+                    "name": "Start: a new learner has every consent purpose off",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/privacy/consent",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["privacy", "consent"]
+                        },
+                        "description": "Consent defaults to off (PDPL). In the sandbox this request also starts a fresh learner id for the run."
+                    },
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    const sandbox = (pm.environment.get('authMode') || 'sandbox') === 'sandbox';",
+                                    "    if (sandbox) {",
+                                    "        const hex = Array.from({ length: 24 }, () => Math.floor(Math.random() * 16).toString(16)).join('');",
+                                    "        pm.collectionVariables.set('userId', hex);",
+                                    "    }",
+                                    "    ['recId', 'itemType', 'itemRef', 'dismissType', 'dismissRef', 'eventId'].forEach((k) => pm.collectionVariables.unset(k));",
+                                    "}"
+                                ]
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    const sandbox = (pm.environment.get('authMode') || 'sandbox') === 'sandbox';",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('has the three purposes', () => pm.expect(data).to.have.all.keys('analytics', 'personalization', 'research'));",
+                                    "    if (sandbox) pm.test('all purposes are off', () => pm.expect(Object.values(data).every((v) => v === false)).to.be.true);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Cold start: a new learner gets a starter list",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations?limit=5",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations"],
+                            "query": [
+                                {
+                                    "key": "limit",
+                                    "value": "5"
+                                }
+                            ]
+                        },
+                        "description": "No history yet, so the list is `cold_start` with the 20-minute starter diagnostic first."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    const sandbox = (pm.environment.get('authMode') || 'sandbox') === 'sandbox';",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('items are explained in English and Vietnamese', () => {",
+                                    "        pm.expect(data.items).to.be.an('array').that.is.not.empty;",
+                                    "        data.items.forEach((i) => {",
+                                    "            pm.expect(i.reason.text.en).to.be.a('string').and.not.empty;",
+                                    "            pm.expect(i.reason.text.vi).to.be.a('string').and.not.empty;",
+                                    "            pm.expect(i.titleI18n).to.have.all.keys('en', 'vi');",
+                                    "        });",
+                                    "    });",
+                                    "    if (sandbox) pm.test('cold start, starter diagnostic first', () => {",
+                                    "        pm.expect(data.mode).to.eql('cold_start');",
+                                    "        pm.expect(data.items[0].id).to.eql('mock_test:starter');",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Without consent, behavioural events are dropped",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-client-platform",
+                                "value": "web",
+                                "description": "web | ios | android"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/events/batch",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["events", "batch"]
+                        },
+                        "description": "The request succeeds, but the event is counted in `droppedNoConsent` and not stored.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"events\": [\n    {\n      \"eventId\": \"{{$guid}}\",\n      \"schemaVersion\": 1,\n      \"type\": \"resource_viewed\",\n      \"occurredAt\": \"{{$isoTimestamp}}\",\n      \"props\": {\n        \"resourceId\": \"aaaaaaaaaaaaaaaaaaaaaaaa\",\n        \"dwellSec\": 20\n      }\n    }\n  ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    const sandbox = (pm.environment.get('authMode') || 'sandbox') === 'sandbox';",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('result has the four counters', () => pm.expect(data).to.include.all.keys('accepted', 'duplicates', 'droppedNoConsent', 'rejected'));",
+                                    "    if (sandbox) pm.test('dropped, not stored', () => {",
+                                    "        pm.expect(data.droppedNoConsent).to.eql(1);",
+                                    "        pm.expect(data.accepted).to.eql(0);",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Grant analytics and personalisation consent",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/privacy/consent",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["privacy", "consent"]
+                        },
+                        "description": "Send only the purposes the learner changed; omitted purposes keep their value. Every change is written to an append-only ledger.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"analytics\": true,\n  \"personalization\": true\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('both purposes granted', () => {",
+                                    "        pm.expect(data.analytics).to.eql(true);",
+                                    "        pm.expect(data.personalization).to.eql(true);",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Send a behavioural event (accepted)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-client-platform",
+                                "value": "web"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/events/batch",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["events", "batch"]
+                        },
+                        "description": "`eventId` is a client-generated UUID; it makes retries safe.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"events\": [\n    {\n      \"eventId\": \"{{eventId}}\",\n      \"schemaVersion\": 1,\n      \"type\": \"resource_viewed\",\n      \"occurredAt\": \"{{$isoTimestamp}}\",\n      \"props\": {\n        \"resourceId\": \"aaaaaaaaaaaaaaaaaaaaaaaa\",\n        \"dwellSec\": 20\n      }\n    }\n  ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.collectionVariables.set('eventId', pm.variables.replaceIn('{{$guid}}'));",
+                                    "}"
+                                ]
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('accepted', () => pm.expect(data.accepted).to.eql(1));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Send the same event again (idempotent retry)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-client-platform",
+                                "value": "web"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/events/batch",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["events", "batch"]
+                        },
+                        "description": "Same `eventId` as the previous request: counted as a duplicate, stored once.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"events\": [\n    {\n      \"eventId\": \"{{eventId}}\",\n      \"schemaVersion\": 1,\n      \"type\": \"resource_viewed\",\n      \"occurredAt\": \"{{$isoTimestamp}}\",\n      \"props\": {\n        \"resourceId\": \"aaaaaaaaaaaaaaaaaaaaaaaa\",\n        \"dwellSec\": 20\n      }\n    }\n  ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('counted as a duplicate', () => {",
+                                    "        pm.expect(data.accepted).to.eql(0);",
+                                    "        pm.expect(data.duplicates).to.eql(1);",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Invalid events are rejected one by one",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/events/batch",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["events", "batch"]
+                        },
+                        "description": "One good event and two bad ones: a server-only type and a malformed `eventId`. The batch is not all-or-nothing; `rejected` lists each bad index with a reason.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"events\": [\n    {\n      \"eventId\": \"{{$guid}}\",\n      \"schemaVersion\": 1,\n      \"type\": \"resource_viewed\",\n      \"occurredAt\": \"{{$isoTimestamp}}\",\n      \"props\": {\n        \"resourceId\": \"aaaaaaaaaaaaaaaaaaaaaaaa\",\n        \"dwellSec\": 5\n      }\n    },\n    {\n      \"eventId\": \"{{$guid}}\",\n      \"schemaVersion\": 1,\n      \"type\": \"question_answered\",\n      \"occurredAt\": \"{{$isoTimestamp}}\",\n      \"props\": {\n        \"skillKey\": \"p5.wordform\",\n        \"correct\": true\n      }\n    },\n    {\n      \"eventId\": \"not-a-uuid\",\n      \"schemaVersion\": 1,\n      \"type\": \"resource_viewed\",\n      \"occurredAt\": \"{{$isoTimestamp}}\",\n      \"props\": {\n        \"resourceId\": \"aaaaaaaaaaaaaaaaaaaaaaaa\",\n        \"dwellSec\": 5\n      }\n    }\n  ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('the good event is accepted', () => pm.expect(data.accepted).to.eql(1));",
+                                    "    pm.test('bad events are listed by index', () => {",
+                                    "        pm.expect(data.rejected.map((r) => r.index)).to.eql([1, 2]);",
+                                    "        pm.expect(data.rejected[0].reason).to.include('server-only');",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "[sandbox] Simulate practice history",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/sandbox/learner/:userId/practice",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "sandbox",
+                                "learner",
+                                ":userId",
+                                "practice"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "userId",
+                                    "value": "{{userId}}"
+                                }
+                            ]
+                        },
+                        "description": "Sandbox only. Emits the server-side events the app would emit itself: 104 answers (weak on p5.wordform and p6.conjunction, strong on p3/p2) and one test submission."
+                    },
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    if ((pm.environment.get('authMode') || 'sandbox') !== 'sandbox') pm.execution.skipRequest();",
+                                    "}"
+                                ]
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('events emitted', () => pm.expect(data.emitted).to.be.above(0));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "[sandbox] Run the ETL and feature build now",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/sandbox/tick",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["sandbox", "tick"]
+                        },
+                        "description": "Sandbox only. In the app the scheduler runs this every 2 minutes (bronze → silver → gold → features)."
+                    },
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    if ((pm.environment.get('authMode') || 'sandbox') !== 'sandbox') pm.execution.skipRequest();",
+                                    "}"
+                                ]
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('a pipeline run is reported', () => pm.expect(data.run).to.be.an('object'));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Personalised recommendations",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations?limit=5&refresh=true",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations"],
+                            "query": [
+                                {
+                                    "key": "limit",
+                                    "value": "5"
+                                },
+                                {
+                                    "key": "refresh",
+                                    "value": "true",
+                                    "description": "Skip the 5-minute response cache"
+                                }
+                            ]
+                        },
+                        "description": "Saves `recId` and the first two items for the feedback requests that follow. `items[].action` tells the client what to open."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    const sandbox = (pm.environment.get('authMode') || 'sandbox') === 'sandbox';",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('has a recId and items', () => {",
+                                    "        pm.expect(data.recId).to.be.a('string');",
+                                    "        pm.expect(data.items).to.be.an('array').that.is.not.empty;",
+                                    "    });",
+                                    "    pm.test('every item is explained', () => data.items.forEach((i) => pm.expect(i.reason.text.en.length).to.be.above(5)));",
+                                    "    pm.test('ranking signals are not sent to clients', () => pm.expect(pm.response.text()).not.to.include('\"signals\"'));",
+                                    "    if (sandbox) {",
+                                    "        pm.test('personalised, weak skills drilled, strong skills not', () => {",
+                                    "            pm.expect(data.mode).to.eql('personalized');",
+                                    "            const ids = data.items.map((i) => i.id);",
+                                    "            pm.expect(ids.some((id) => /^skill_drill:p(5\\.wordform|6\\.conjunction)$/.test(id))).to.be.true;",
+                                    "            pm.expect(ids.some((id) => /^skill_drill:p(2|3)\\./.test(id))).to.be.false;",
+                                    "        });",
+                                    "    }",
+                                    "    pm.collectionVariables.set('recId', data.recId);",
+                                    "    pm.collectionVariables.set('itemType', data.items[0].type);",
+                                    "    pm.collectionVariables.set('itemRef', data.items[0].ref);",
+                                    "    const second = data.items[1] || data.items[0];",
+                                    "    pm.collectionVariables.set('dismissType', second.type);",
+                                    "    pm.collectionVariables.set('dismissRef', second.ref);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Same request again is served from the cache",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations?limit=5",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations"],
+                            "query": [
+                                {
+                                    "key": "limit",
+                                    "value": "5"
+                                }
+                            ]
+                        },
+                        "description": "Without `refresh=true` the same list (same `recId`) comes back for up to 5 minutes, unless feedback or a consent change invalidated it."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('same recId as the previous list', () => pm.expect(data.recId).to.eql(pm.collectionVariables.get('recId')));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Feedback: click",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations/feedback",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations", "feedback"]
+                        },
+                        "description": "Send when the learner opens an item. Variant, mode and position are taken from the served list on the server; a `variant` in the body is ignored.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"recId\": \"{{recId}}\",\n  \"itemType\": \"{{itemType}}\",\n  \"itemRef\": \"{{itemRef}}\",\n  \"action\": \"click\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('attributed to the served list', () => pm.expect(data.attributed).to.eql(true));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Feedback: complete with an outcome",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations/feedback",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations", "feedback"]
+                        },
+                        "description": "Send when the learner finishes the item. `outcome` is an optional score from 0 to 100.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"recId\": \"{{recId}}\",\n  \"itemType\": \"{{itemType}}\",\n  \"itemRef\": \"{{itemRef}}\",\n  \"action\": \"complete\",\n  \"outcome\": 80\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('attributed to the served list', () => pm.expect(data.attributed).to.eql(true));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Feedback: dismiss with a reason",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations/feedback",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations", "feedback"]
+                        },
+                        "description": "Dismissed items are hidden for 14 days. `reason`: too_easy | too_hard | not_relevant | seen.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"recId\": \"{{recId}}\",\n  \"itemType\": \"{{dismissType}}\",\n  \"itemRef\": \"{{dismissRef}}\",\n  \"action\": \"dismiss\",\n  \"reason\": \"too_easy\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('attributed to the served list', () => pm.expect(data.attributed).to.eql(true));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Feedback on a list that was never served is not attributed",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations/feedback",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations", "feedback"]
+                        },
+                        "description": "Still 200 (the repetition guard is updated), but no analytics event is written: `attributed: false`. If you see this for real feedback, the client sent a `recId` or item that did not come from `GET /recommendations` for this user.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"recId\": \"never-served\",\n  \"itemType\": \"skill_drill\",\n  \"itemRef\": \"p5.wordform\",\n  \"action\": \"click\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('not attributed', () => pm.expect(data.attributed).to.eql(false));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Client rec_* events must match a served list",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/events/batch",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["events", "batch"]
+                        },
+                        "description": "Batched `rec_impression/click/complete/dismiss` events are checked against the lists the server served. Prefer `POST /recommendations/feedback` for feedback.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"events\": [\n    {\n      \"eventId\": \"{{$guid}}\",\n      \"schemaVersion\": 1,\n      \"type\": \"rec_click\",\n      \"occurredAt\": \"{{$isoTimestamp}}\",\n      \"props\": {\n        \"recId\": \"never-served\",\n        \"itemType\": \"skill_drill\",\n        \"itemRef\": \"p5.wordform\",\n        \"variant\": \"control\",\n        \"position\": 0\n      }\n    }\n  ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('rejected as not served', () => pm.expect(data.rejected[0].reason).to.include('not served'));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "2. Admin and operations",
+            "description": "Admin-only endpoints. In the sandbox the `x-demo-role: ADMIN` header grants the role; in the app the folder uses `adminToken`.",
+            "auth": {
+                "type": "bearer",
+                "bearer": [
+                    {
+                        "key": "token",
+                        "value": "{{adminToken}}",
+                        "type": "string"
+                    }
+                ]
+            },
+            "item": [
+                {
+                    "name": "Health",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/health",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["admin", "recsys", "health"]
+                        },
+                        "description": "Pipeline lag, failed runs, feature freshness, data-quality alarms. Returns 503 when `down`."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 or 503', () => pm.expect(pm.response.code).to.be.oneOf([200, 503]));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('reports a status', () => pm.expect(data.status).to.be.oneOf(['ok', 'degraded', 'down']));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Recent pipeline runs",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/pipeline",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["admin", "recsys", "pipeline"]
+                        },
+                        "description": "Last 20 ETL runs with counts and data-quality results."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('a list of runs', () => pm.expect(data).to.be.an('array'));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "KPIs",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/kpis?windowDays=7",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["admin", "recsys", "kpis"],
+                            "query": [
+                                {
+                                    "key": "windowDays",
+                                    "value": "7"
+                                }
+                            ]
+                        },
+                        "description": "Activation, retention, study time, score gain, credit spend, AI cost, recommendation funnel. Cohorts under 5 learners are suppressed."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('no NaN or Infinity', () => pm.expect(pm.response.text()).not.to.match(/NaN|Infinity/));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Experiment read-out",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/experiments",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["admin", "recsys", "experiments"]
+                        },
+                        "description": "Per variant and mode: impressions, clicks, CTR, per-learner test, sample-ratio check, outcomes."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Model registry",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/models",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["admin", "recsys", "models"]
+                        },
+                        "description": "Learned-ranker versions with status, allocation and training report."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('a list', () => pm.expect(data).to.be.an('array'));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Retrain (dry run)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/models/retrain",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["admin", "recsys", "models", "retrain"]
+                        },
+                        "description": "Runs the training gates without registering a model. Limited to 5 per hour per admin.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"dryRun\": true\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    const sandbox = (pm.environment.get('authMode') || 'sandbox') === 'sandbox';",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('reports a status', () => pm.expect(data.status).to.be.a('string'));",
+                                    "    if (sandbox) pm.test('refuses to train on sandbox-sized data', () => pm.expect(data.status).not.to.be.oneOf(['trained', 'registered']));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Activate a model version",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/models/:version/activate",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "admin",
+                                "recsys",
+                                "models",
+                                ":version",
+                                "activate"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "version",
+                                    "value": "1"
+                                }
+                            ]
+                        },
+                        "description": "Admins may allocate up to 50 %. 404 when the version does not exist (the sandbox has no models).",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"allocationPct\": 5\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200, or 404 when the version does not exist', () => pm.expect(pm.response.code).to.be.oneOf([200, 404]));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Retire a model version",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/models/:version/retire",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "admin",
+                                "recsys",
+                                "models",
+                                ":version",
+                                "retire"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "version",
+                                    "value": "1"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"reason\": \"retired from Postman\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200, or 404 when the version does not exist', () => pm.expect(pm.response.code).to.be.oneOf([200, 404]));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Set a learner's residency region",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "x-demo-role",
+                                "value": "ADMIN",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/learners/:userId/region",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "admin",
+                                "recsys",
+                                "learners",
+                                ":userId",
+                                "region"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "userId",
+                                    "value": "{{userId}}"
+                                }
+                            ]
+                        },
+                        "description": "Allowed values come from `RECSYS_REGIONS` (default `vn`). Affects future exports only.",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"region\": \"vn\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('region stored', () => pm.expect(data.region).to.eql('vn'));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "3. Privacy: export, withdraw, erase (destructive, run last)",
+            "description": "Data-subject rights. `DELETE /privacy/data` really erases the learner's behavioural data. Export is limited to 5 per hour and erasure to 3 per hour per learner.",
+            "item": [
+                {
+                    "name": "Export my data",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/privacy/export",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["privacy", "export"]
+                        },
+                        "description": "Everything the platform holds about the learner, as JSON."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('includes events and served lists', () => pm.expect(data).to.include.all.keys('events', 'servedRecommendations'));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Withdraw all consent",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/privacy/consent/withdraw",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["privacy", "consent", "withdraw"]
+                        },
+                        "description": "One call turns every purpose off; withdrawing is as easy as granting."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('all purposes off', () => pm.expect(Object.values(data).every((v) => v === false)).to.be.true);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Erase my data (destructive)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/privacy/data",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["privacy", "data"]
+                        },
+                        "description": "WARNING: permanently deletes this learner's events, facts, features and recommendation state. The consent ledger is kept as proof. Never run against a real account you care about."
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('reports what was deleted', () => pm.expect(data.deleted).to.be.an('object'));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Export after erasure is empty",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/privacy/export",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["privacy", "export"]
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('200 OK', () => pm.response.to.have.status(200));",
+                                    "    const data = pm.response.json().data;",
+                                    "    pm.test('no events remain', () => pm.expect(data.events).to.have.lengthOf(0));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "4. Error cases",
+            "description": "What clients see when a request is wrong. Errors use the same envelope: `{ \"message\": \"...\" }`.",
+            "item": [
+                {
+                    "name": "No credentials: 401",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations"]
+                        },
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('401', () => pm.response.to.have.status(401));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Learner calling an admin endpoint: 403",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/admin/recsys/kpis",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["admin", "recsys", "kpis"]
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('403', () => pm.response.to.have.status(403));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Feedback with an unknown action: 400",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations/feedback",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations", "feedback"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"recId\": \"x\",\n  \"itemType\": \"skill_drill\",\n  \"itemRef\": \"p5.wordform\",\n  \"action\": \"like\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('400', () => pm.response.to.have.status(400));",
+                                    "    pm.test('says why', () => pm.expect(pm.response.json().message).to.include('action'));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Feedback with an unknown item type: 400",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/recommendations/feedback",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["recommendations", "feedback"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"recId\": \"x\",\n  \"itemType\": \"video\",\n  \"itemRef\": \"abc\",\n  \"action\": \"click\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('400', () => pm.response.to.have.status(400));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Events body is not an array: 400",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/events/batch",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["events", "batch"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"events\": \"nope\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('400', () => pm.response.to.have.status(400));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Consent update without a boolean purpose: 400",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "x-demo-user",
+                                "value": "{{userId}}",
+                                "description": "Sandbox login stub (ignored by the real app)"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/privacy/consent",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["privacy", "consent"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"analytics\": \"yes\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "{",
+                                    "    pm.test('400', () => pm.response.to.have.status(400));",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
