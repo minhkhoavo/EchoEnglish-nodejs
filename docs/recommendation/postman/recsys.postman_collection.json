@@ -688,7 +688,7 @@
                                 {
                                     "key": "refresh",
                                     "value": "true",
-                                    "description": "Skip the 5-minute response cache"
+                                    "description": "Skip the 2-minute response cache"
                                 }
                             ]
                         },
@@ -752,7 +752,7 @@
                                 }
                             ]
                         },
-                        "description": "Without `refresh=true` the same list (same `recId`) comes back for up to 5 minutes, unless feedback or a consent change invalidated it."
+                        "description": "Without `refresh=true` the same list (same `recId`) comes back for up to 2 minutes, unless feedback or a consent change invalidated it."
                     },
                     "event": [
                         {
@@ -1308,11 +1308,12 @@
                             "variable": [
                                 {
                                     "key": "version",
-                                    "value": "1"
+                                    "value": "999999",
+                                    "description": "A version that does not exist, so nothing changes; use one from GET /admin/recsys/models to try it for real"
                                 }
                             ]
                         },
-                        "description": "Admins may allocate up to 50 %. 404 when the version does not exist (the sandbox has no models).",
+                        "description": "Admins may allocate up to 50 %. The default version (999999) does not exist, so this returns 404 and changes nothing; set `version` to a real one to activate it.",
                         "body": {
                             "mode": "raw",
                             "raw": "{\n  \"allocationPct\": 5\n}",
@@ -1370,7 +1371,8 @@
                             "variable": [
                                 {
                                     "key": "version",
-                                    "value": "1"
+                                    "value": "999999",
+                                    "description": "A version that does not exist, so nothing changes; use one from GET /admin/recsys/models to try it for real"
                                 }
                             ]
                         },
