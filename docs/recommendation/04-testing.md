@@ -86,4 +86,4 @@ k6 run -e BASE_URL=... -e TOKENS_FILE=tokens.json loadtest/recsys.k6.js
 ```
 Tip: on machines with ≤ 3 GB RAM use `--maxWorkers=2` and don't run other heavy jobs concurrently (workers get OOM-killed).
 
-**Manual (non-unit) checks:** `npm run recsys:sandbox -- --walkthrough` drives the real HTTP routes and services over throwaway data and prints 19 PASS/FAIL checks; `npm run recsys:sandbox` serves the same API for curl/Postman. See `FEATURE-DOCUMENT.md` §9 for the full list.
+**Manual (non-unit) checks:** `npm run recsys:sandbox -- --walkthrough` drives the real HTTP routes and services over throwaway data and prints 19 PASS/FAIL checks; `npm run recsys:sandbox` serves the same API for curl and for the Postman collection in `postman/` (35 requests, 70 assertions; also runnable with newman). `__tests__/unit/recsys/postmanCollection.unit.test.ts` fails when the collection and the router disagree. See `FEATURE-DOCUMENT.md` §9 for the full list and `DEVELOPER-GUIDE.md` for how to use them.

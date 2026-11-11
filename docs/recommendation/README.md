@@ -77,6 +77,8 @@ First two weeks of production are **measurement only** (baselines); targets are 
 | File | SDLC phase |
 | --- | --- |
 | `FEATURE-DOCUMENT.md` | **Start here for a complete, consolidated description** (goals, architecture, privacy, engine, Phase 3, verification, operations, risks) |
+| `DEVELOPER-GUIDE.md` | **For developers:** run the sandbox, call the API from Postman or a client, change the code, test and debug |
+| `postman/*.json` | Postman collection (every route, in client order, with tests) and two environments (sandbox, local app) |
 | `diagrams/*.drawio` | Editable architecture diagrams (system, recommender flow, Phase 3, erasure); regenerate with `drawio-ai run diagrams/build-*.mjs` |
 | `01-requirements.md` | Business & requirements analysis |
 | `02-plan.md`, `TASKS.md` | Planning (roadmap, estimates, risks) |
@@ -85,4 +87,4 @@ First two weeks of production are **measurement only** (baselines); targets are 
 | `05-deployment.md` | Environments, CI/CD, rollout/rollback |
 | `06-operations.md` | Monitoring, alerting, cost tracking, incident handling, KPI iteration |
 
-Code lives in `src/recsys/` (see the code map in `03-architecture.md` §9). Run `npm run recsys:eval` for the offline evaluation report; `npx jest __tests__/unit/recsys __tests__/integration` for the platform test suites.
+Code lives in `src/recsys/` (see the code map in `03-architecture.md` §9). Run `npm run recsys:eval` for the offline evaluation report; `npx jest __tests__/unit/recsys __tests__/integration --maxWorkers=1` for the platform test suites; `npm run recsys:sandbox` plus the Postman collection to try the API by hand (`DEVELOPER-GUIDE.md`).

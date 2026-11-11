@@ -370,7 +370,7 @@ The key was read from the running `echo-english` container into the environment 
 | # | Method | Command | What you see | Needs |
 | --- | --- | --- | --- | --- |
 | 1 | **Guided walkthrough** over the real HTTP routes and services | `npm run recsys:sandbox -- --walkthrough` | 19 PASS/FAIL checks: auth, consent gating, cold start, ETL, personalised list with explanations, feedback, admin refusal, health, KPIs, model registry, retrain dry-run, region validation, export, erase | Nothing (in-memory MongoDB, seeded catalogue) |
-| 2 | **Interactive sandbox** — try it with curl or Postman | `npm run recsys:sandbox` | Prints a learner id and ready-to-paste `curl` commands (consent → practice → tick → recommendations → health → KPIs → export → erase). Auth is a header stub: `x-demo-user`, `x-demo-role` | Nothing |
+| 2 | **Interactive sandbox** — try it with curl or Postman | `npm run recsys:sandbox`, then import `docs/recommendation/postman/` (collection + sandbox environment) and run it, or `npx -y newman@6.2.1 run …` | Postman: 35 requests in client order with 70 assertions; requests chain `recId` and item ids. curl: a learner id and ready-to-paste commands. Auth is a header stub: `x-demo-user`, `x-demo-role`. See `DEVELOPER-GUIDE.md` | Nothing |
 | 3 | Offline evaluation report | `npm run recsys:eval` | Ranker comparison table | Nothing |
 | 4 | Health probe against a real database | `MONGO_URI=… npm run recsys:health` | JSON report, exit code 0/1/2 | A MongoDB |
 | 5 | Phase 3 live stack | `docker compose -f docker-compose.analytics.yml up -d`, then the opt-in live tests (`RECSYS_LIVE_KAFKA`, `RECSYS_LIVE_CLICKHOUSE` …) and `npm run recsys:loader` | Real events through Redpanda into ClickHouse; KPI parity | Docker, ~1.5 GB free RAM |
