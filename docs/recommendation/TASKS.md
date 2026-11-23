@@ -42,14 +42,14 @@ Legend: ✅ done in this branch (code + tests) · 📝 documented only · ⏭ la
 | T1.19 | Regenerate `package-lock.json` (`npm ci` currently fails: `@types/express-rate-limit` missing) | 0.5 | ⏭ |
 | T1.20 | Fix `findAvailableResources` upper/lower-case `labels.domain` mismatch | 0.25 | ⏭ |
 | T1.21 | Fix 53 pre-existing `tsc` errors in `src/controllers/*` (`req.params` is `string \| string[]`) | 1 | ⏭ |
-| T1.22 | Make `ci.yml` a required check and gate `deploy.yaml` on it once the full suite is verified green | 0.5 | ⏭ |
+| T1.22 | Make `ci.yml` a required check and gate `deploy.yaml` on it once the full suite is verified green | 0.5 | ⏭ **Unblocked:** the full existing suite passed on GitHub CI (commit `bf5015a`, 2026-11-11). Making a check required is a repository-settings change for the owner |
 | T1.23 | Legal: confirm PDPL/Decree 356 mapping, cross-border assessment, consent copy, ledger retention | external | ⏭ |
 | T1.25 | **Drill endpoint** for `skill_drill` deep links: select questions by `skillKey` across tests (+ UX decision on drill format) — the recommendation action has no backend today | 4 | ⏭ **(blocking for one-tap drills)** |
 | T1.26 | Consent UI is a prerequisite for personalisation: until it ships every learner gets cold-start lists (A/B variants have no effect in cold start) | (in T1.16) | ⏭ |
 | T1.24 | Staging environment + run k6 + tune thresholds | 2 | ⏭ |
 
 ## Phase 2 — Growth (months 2–4) ⏭
-BullMQ + Redis for pipeline jobs · FSRS via `ts-fsrs` (shadow mode first) · learned ranker / contextual bandit · GrowthBook · Terraform · front-end consent UI · weekly KPI review ritual.
+BullMQ + Redis for pipeline jobs · FSRS via `ts-fsrs` (shadow mode first) · contextual bandit (the learned ranker itself was built in Phase 3) · GrowthBook · Terraform · front-end consent UI · weekly KPI review ritual.
 Triggers: see `03-architecture.md` §10.
 
 ## Phase 3 — Scale: ✅ built and verified as far as this environment allows; what remains needs real inputs (Gemini key + catalogue, production data, a second region)
@@ -98,10 +98,19 @@ Scope: every gap the audit found in the recommender itself. Each task ships with
 | T4.9 | Offline evaluation is simulator-only | Counterfactual replay estimator over the randomised slot (real logs); reported with every retrain | ✅ Built + tested |
 | T4.10 | Explanation shows a decayed estimate as "accuracy"; decayed strong skills flagged as weak | Explanation separates estimate from measured accuracy; new `refresh_skill` reason for strong-but-unpractised skills | ✅ Built + tested |
 | T4.11 | Consent withdrawal can be served stale from another instance's cache; titles are English-only | Consent is read before the cache and is part of the cache key; `titleI18n` (EN/VI) on every item | ✅ Built + tested |
-| T4.12 | No alerting | Webhook alert (`RECSYS_ALERT_WEBHOOK_URL`) on failed/degraded/stalled ETL and auto-retired models, rate-limited | ✅ Built + tested |
+| T4.12 | No alerting | Webhook alert (`RECSYS_ALERT_WEBHOOK_URL`) on degraded, failed or crashed ETL runs, retrain crashes and auto-retired models, rate-limited. A scheduler that stops entirely sends nothing; that stays the job of the health probe | ✅ Built + tested |
 | T4.13 | ETL and training share the API process | `RECSYS_SCHEDULER_ENABLED` switch + standalone worker entry point | ✅ Built + tested |
 
 Not in Phase 4 (need another repo or a product decision): consent UI (T1.16), drill endpoint (T1.25), daily-session integration (T1.15), history backfill (T1.17).
+
+### Developer tooling
+| ID | Task | Status |
+| --- | --- | --- |
+| T4.14 | Postman collection (35 requests in client order, tests on each) with sandbox and local-app environments; drift test against the router; sandbox deterministic by default | ✅ Built; verified with newman against the sandbox (70 assertions). **Not yet run against a real app instance** |
+| T4.15 | `DEVELOPER-GUIDE.md`: five-minute start, client contract, code recipes, test commands, troubleshooting | ✅ Done |
+| T4.16 | OpenAPI 3.1 generated from zod request/response schemas, try-it page in the sandbox, spec drift and breaking-change checks in CI, typed client for the apps | ⏭ Proposed (needs new dev dependencies; `npm ci` is still broken, T1.19) |
+| T4.17 | Docs brought in line with the code after Phase 4 (architecture, feature document, testing, deployment, operations, diagrams 1–3) | ✅ Done 2026-11-23 |
+| T4.18 | Recommendation latency headroom: P1 (p95 ≤ 25 ms) passes when run alone (16.7 ms) and on CI, but went over twice on the busy dev VM after Phase 4. Profile the request path (exploration pool, served-list record) before touching the budget | ⏭ |
 
 ## Top risks
 | Risk | Likelihood | Impact | Mitigation |

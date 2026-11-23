@@ -9,7 +9,7 @@
 | **staging** (to create) | k6 + rollout rehearsal | synthetic users with consent | `RECSYS_ENABLED=true` |
 | **production** (VPS, Docker) | users | real | **`RECSYS_ENABLED=false` at first deploy** |
 
-Configuration (see `.env.example`): `RECSYS_ENABLED`, `RECSYS_EVENT_RETENTION_DAYS`, `RECSYS_PIPELINE_BATCH`, `RECSYS_FORCE_VARIANT`, `RECSYS_AI_RATES_JSON`, `RECSYS_USD_VND`. Note: values in a Docker `--env-file` are taken literally — do not wrap `RECSYS_AI_RATES_JSON` in quotes.
+Configuration (see `.env.example`, section *Recommendation platform*, for every variable with its default): MVP `RECSYS_ENABLED`, `RECSYS_EVENT_RETENTION_DAYS`, `RECSYS_PIPELINE_BATCH`, `RECSYS_FORCE_VARIANT`, `RECSYS_AI_RATES_JSON`, `RECSYS_USD_VND`; Phase 4 `RECSYS_EXPLORE_PCT` (10), `RECSYS_SERVED_RETENTION_DAYS` (30), `RECSYS_TRAIN_LABEL` (`outcome`), `RECSYS_SCHEDULER_ENABLED` (`true`), `RECSYS_ALERT_WEBHOOK_URL`; Phase 3 flags in §5b. Note: values in a Docker `--env-file` are taken literally — do not wrap `RECSYS_AI_RATES_JSON` in quotes.
 
 ## 2. CI/CD
 
@@ -26,16 +26,18 @@ Changes made to the existing pipeline (`deploy.yaml`): immutable **SHA tags** (r
 
 **Recommendation (not applied — it changes your release policy):** make `ci.yml / recsys-quality` a required status check on `main` and make `deploy.yaml` depend on tests. The repo-wide suite was not verified green in this environment (see `04-testing.md` §6), so `full-suite` is informational for now.
 
-> Pushing to `main` deploys to production. All work is on branch `feat/recommendation-platform`; nothing was pushed. **The `deploy.yaml` and `ci.yml` changes take effect when the branch is merged to `main`.**
+> Pushing to `main` deploys to production. All work is on branch `feat/recommendation-platform`, pushed and open as PR #43; nothing has been merged. `ci.yml` already runs on the branch (both the recommendation job and the full existing suite are green for commit `bf5015a`; the `owasp-scan` and `trivy-scan` jobs fail and are tracked separately). **The `deploy.yaml` changes take effect when the branch is merged to `main`.**
 
 ## 3. Infrastructure as code
-* Today: GitHub Actions + `docker run` on a VPS; compose for local Mongo. Committed in this branch: `ci.yml`, `deploy.yaml` (SHA/rollback), `scripts/deploy/rollback.sh`, `scripts/ci/typecheck-recsys.sh`, `scripts/ops/recsys-health.ts`, `loadtest/recsys.k6.js`.
+* Today: GitHub Actions + `docker run` on a VPS; compose for local Mongo. Committed in this branch: `ci.yml`, `deploy.yaml` (SHA/rollback), `scripts/deploy/rollback.sh`, `scripts/ci/typecheck-recsys.sh`, `scripts/ops/recsys-health.ts`, `scripts/ops/recsys-worker.ts`, `loadtest/recsys.k6.js`.
 * **Phase 2 (design, unvalidated sketch):** Terraform for managed Redis (BullMQ) with `maxmemory-policy=noeviction` and AOF; secrets in the cloud secret manager; staging stack. Phase 3: ClickHouse + Redpanda modules. They are deliberately not committed until needed (an unused, unvalidated IaC file is a liability).
 
 ## 4. First-time enablement runbook
 1. Deploy image with `RECSYS_ENABLED=false`; smoke test existing flows.
-2. Mongoose creates indexes on first use; for large clusters pre-create them off-peak: `learning_events` (6 indexes incl. TTL), `learning_events_clean`, `learner_daily_facts`, `skill_mastery`, `learner_features`, consents.
-3. Set `RECSYS_AI_RATES_JSON` from the provider's *current* price list.
+2. Mongoose creates indexes on first use; for large clusters pre-create them off-peak: `learning_events` (6 indexes incl. TTL), `learning_events_clean`, `learner_daily_facts`, `skill_mastery`, `learner_features`, `recsys_exposure`, `rec_served` (TTL), `item_difficulty`, consents. **This deploy also adds four compound indexes to the existing `resources` collection** (`suitableForLearners` + `publishedAt`, and with `labels.domain` / `labels.cefr` / `labels.topic`); they build in the background on first start whether or not `RECSYS_ENABLED` is on. With a large catalogue, create them off-peak first.
+3. Set `RECSYS_AI_RATES_JSON` from the provider's *current* price list. Optionally set `RECSYS_ALERT_WEBHOOK_URL` so ETL failures, retrain crashes and auto-retired models are pushed to a channel.
+3b. Decide where the jobs run. Default: every API instance runs the scheduler (leases make that safe). To keep ETL and training off the API's event loop, set `RECSYS_SCHEDULER_ENABLED=false` on API instances and run `npm run recsys:worker` as one supervised process (systemd or Docker `restart: always`) with the same environment.
+3c. Decide on exploration at launch. `RECSYS_EXPLORE_PCT` defaults to 10: one list position on 10 % of requests is filled at random from the next-best eligible items. That is what later makes position-bias correction and off-policy evaluation possible. Set `0` to launch without it and turn it on once the ranker itself has been observed.
 4. Flip `RECSYS_ENABLED=true` on one instance, watch `/admin/recsys/health` for 1 h, then all instances.
 5. Verify: emit a test event, see it in `learner_daily_facts` within ~2–4 min.
 6. Follow the rollout table in `02-plan.md` §4 (shadow → 10% → 100%).
@@ -47,6 +49,8 @@ Changes made to the existing pipeline (`deploy.yaml`): immutable **SHA tags** (r
 | Bad release | `scripts/deploy/rollback.sh <sha>` (or automatic on failed health probe) | none |
 | Platform misbehaving | `RECSYS_ENABLED=false` + restart → no events, no scheduler, recs endpoint still answers (cold start) | collected data kept |
 | Bad ranking variant | `RECSYS_FORCE_VARIANT=control` | none |
+| Exploration slot unwanted | `RECSYS_EXPLORE_PCT=0` | none; position-bias correction falls back to the covariate method |
+| Jobs starve the API | `RECSYS_SCHEDULER_ENABLED=false` on API instances + `npm run recsys:worker` | none |
 | Buggy ETL logic | fix, bump `pipelineVersion`, `pipelineService.rebuildUser()` / re-run from silver; gold is replace-not-increment | gold rebuilt |
 | Wrong data collected | `DELETE /privacy/data` per user or targeted `deleteMany` by `type/occurredAt` (bronze is a regular collection) | derived data rebuilt |
 
@@ -71,4 +75,4 @@ Order, each step independently reversible; stop at any point:
 | Pseudonym secret leaked | rotate, re-export, erase old pseudonyms (tombstones cover old ones only if computed with the old secret — keep it for erasure) | warehouse rebuilt |
 
 ## 6. Migration from the current stack
-No data migration is required: all new collections; existing collections are read-only inputs. Flashcard scheduling is unchanged (Leitner). Backfill option: seed `question_answered` history from existing `testresults` via a one-off script (Phase 1.1; not needed for launch — mastery warms up from new answers, and cold start covers the gap).
+No data migration is required: all new collections; existing collections are read-only inputs (the only change to an existing collection is the four new `resources` indexes, §4). Flashcard scheduling is unchanged (Leitner). Backfill option: seed `question_answered` history from existing `testresults` via a one-off script (Phase 1.1; not needed for launch — mastery warms up from new answers, and cold start covers the gap).

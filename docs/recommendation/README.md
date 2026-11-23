@@ -1,7 +1,7 @@
 # EchoEnglish Recommendation Platform — Overview & Recommendation
 
-> Status: MVP slice **and Phase 3 (Scale)** implemented on branch `feat/recommendation-platform`. **Phase 3 was built ahead of its own triggers and is dormant behind flags that default to off** (see `03-architecture.md` §12). **Phase 2** (BullMQ + Redis, FSRS, GrowthBook, Terraform) is **still open / design only**.
-> Date: 2026-11-09 · Owner decisions: delegated to engineering (all decisions below were made by the engineering lead and are open to challenge).
+> Status: MVP slice, **Phase 3 (Scale)** and **Phase 4 (recommender hardening)** implemented on branch `feat/recommendation-platform` (PR #43, not merged). **Phase 3 was built ahead of its own triggers and is dormant behind flags that default to off** (see `03-architecture.md` §12). Phase 4 changes the serving path itself (served-list log, exploration slot, outcome labels, per-learner experiment read-out) and is active whenever `RECSYS_ENABLED` is on. **Phase 2** (BullMQ + Redis, FSRS, GrowthBook, Terraform) is **still open / design only**.
+> Date: 2026-11-09, updated 2026-11-23 · Owner decisions: delegated to engineering (all decisions below were made by the engineering lead and are open to challenge).
 
 ## 1. Business case in one page
 
@@ -55,12 +55,16 @@ First two weeks of production are **measurement only** (baselines); targets are 
 | --- | --- | --- |
 | Data gathering | Event contract v1 (zod), idempotent ingest, consent gate, batched client endpoint, server emit points (test submit, flashcard review, credits, speech, resource view) | Mobile SDK batching/offline queue |
 | ETL | bronze→silver→gold, DQ checks, lineage, lease/watermark, scheduler | BullMQ+Redis (P2), Redpanda + ClickHouse + dbt (P3) |
-| Recommender | Mastery (Elo-style), forgetting-curve, candidates, ranker, guardrails, cold start, explanations, feedback loop, A/B, offline replay eval | Learned ranker/bandit (P2), FSRS (P2), embeddings for content (P3) |
+| Recommender | Mastery (Elo-style), forgetting-curve, candidates, ranker, guardrails, cold start, explanations, feedback loop, A/B, offline replay eval | Contextual bandit and FSRS (P2) |
 | Analytics | KPI service + admin endpoints | Metabase/Grafana dashboards on ClickHouse (P3) |
 | Infra | CI, SHA-tagged deploy + rollback script, k6 test (not executed) | Terraform, managed Redis (P2); managed Redpanda/ClickHouse, multi-region infrastructure (design only) |
 | **Phase 3 (flagged, off by default)** | Stream exporter → Redpanda; ClickHouse sink/loader with erase propagation; dbt marts; KPI backend switch with Mongo fallback; feature store (point-in-time); learned ranker + retraining + challenger layer + harm guard; content embeddings; code-level residency | Production sizing, regional infrastructure, Metabase/Grafana, Feast |
+| **Phase 4 (on with the platform)** | Server-side served-list log and feedback attribution; exploration slot (`RECSYS_EXPLORE_PCT`, 10 %); position-bias correction (IPW); outcome-based training label; serve-time segment logging; per-learner experiment read-out with sample-ratio check; bounded index-backed retrieval; calibrated item difficulty; counterfactual replay; `refresh_skill` and EN/VI titles; webhook alerts; standalone worker | Needs real logs to show any effect |
+| **Developer tooling** | Sandbox server and 19-check walkthrough; Postman collection (35 requests with tests) and environments; drift test; `DEVELOPER-GUIDE.md` | Generated OpenAPI spec and typed client (proposed) |
 
 **Not done / needs real users or legal sign-off** — see §4 and `06-operations.md`.
+
+**What Phase 4 does and does not prove.** Every Phase 4 piece has unit and integration tests, and the sandbox and Postman runs exercise the serving changes over HTTP. Exploration, inverse-propensity weighting, calibrated difficulty and the counterfactual estimator have only seen test data; on an empty system they fall back to the earlier behaviour.
 
 **What Phase 3 does and does not prove.** Verified against real servers: Redpanda, ClickHouse and dbt (Mongo and ClickHouse+dbt produce identical KPIs on the same events). Also verified live: a secured broker (SASL/SCRAM over TLS) and ClickHouse over HTTPS (both with test CAs on localhost) and dev-VM throughput. **Not** verified, because the inputs do not exist yet: the learned ranker on real data (only synthetic), the Gemini embedding provider (never called — no API key), production capacity, regional infrastructure. Every Phase 3 threshold is a judgement call to retune on real data. No §10 trigger has fired, so the right production default is to leave all Phase 3 flags off until one does.
 

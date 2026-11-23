@@ -2,11 +2,11 @@
 
 | | |
 | --- | --- |
-| **Document status** | Living document, consolidated 2026-11-10 |
+| **Document status** | Living document, consolidated 2026-11-10, brought in line with the code on 2026-11-23 (Phase 4 and developer tooling) |
 | **Product** | EchoEnglish — AI-assisted TOEIC / English learning for Vietnamese learners (Node.js, LangChain, MongoDB) |
-| **Branch** | `feat/recommendation-platform` (about 48 commits ahead of `main`; **nothing has been pushed**, and a push to `main` deploys to production) |
+| **Branch** | `feat/recommendation-platform`, pushed and open as **PR #43** against `main`. Not merged: a push to `main` deploys to production |
 | **Code** | `src/recsys/`, `analytics/dbt/`, `scripts/ops/`, `docker-compose.analytics.yml` |
-| **Detailed sources** | `01-requirements.md` … `06-operations.md`, `TASKS.md`, `README.md` in this folder. This document consolidates them and does not replace them |
+| **Detailed sources** | `01-requirements.md` … `06-operations.md`, `TASKS.md`, `README.md` in this folder. This document consolidates them and does not replace them. For running, calling and changing the code: `DEVELOPER-GUIDE.md` |
 | **Decision authority** | All product and architecture decisions were delegated to engineering by the owner and are open to challenge |
 
 ---
@@ -25,6 +25,8 @@ Today "what should I do next" comes from an LLM-generated weekly roadmap that do
 | --- | --- | --- |
 | **MVP** (Phases 0–1) | Event contract and ingest, consent ledger, export/erase, bronze→silver→gold ETL with data-quality checks, mastery and forgetting model, explainable recommender, A/B bucketing, offline evaluation, KPI and health endpoints, CI, SHA-tagged deploy and rollback | **Built and tested.** Behind `RECSYS_ENABLED` (off until enabled) |
 | **Phase 3 — Scale** | Stream to Redpanda, ClickHouse warehouse, dbt marts, KPI backend switch, feature store, learned ranker with automated retraining, content embeddings, code-level data residency | **Built and verified as far as this environment allows; dormant behind flags that default to off.** Four items cannot be closed without external inputs (§11) |
+| **Phase 4 — Recommender hardening** | Server-side served-list log and feedback attribution, randomised exploration slot, position-bias correction, outcome-based training label, per-learner experiment read-out with sample-ratio check, bounded retrieval, calibrated item difficulty, counterfactual replay, honest explanations, webhook alerts, standalone worker (`TASKS.md` T4.1–T4.13) | **Built and tested.** Exploration is on by default (10 %) once `RECSYS_ENABLED` is on; the learning parts only matter once real logs accumulate |
+| **Developer tooling** | Postman collection and environments, a test that keeps the collection in step with the routes, developer guide | **Built.** Verified against the sandbox; not yet run against a real app instance |
 | **Phase 2 — Growth** | BullMQ + Redis, FSRS, GrowthBook, Terraform | **Not started** (design only). Phase 3 was built ahead of its own triggers at the owner's request |
 | **Follow-ups** | Front-end consent UI, `DailySessionService` integration, drill endpoint, backfill, legal review | **Open** (`TASKS.md` T1.15–T1.26) |
 
@@ -35,15 +37,16 @@ Today "what should I do next" comes from an LLM-generated weekly roadmap that do
 | Pipeline is idempotent and replay-safe | Integration tests: replay, late arrivals, crash-before-ack | In-memory MongoDB |
 | Personalisation beats random in simulation | `npm run recsys:eval`: control NDCG@5 **0.588** vs random 0.458; P@3 0.925 | **Synthetic ground truth** — validates plumbing and ordering, not real-world lift |
 | Phase 3 works against real servers | Opt-in live tests: Redpanda v25.2.1, ClickHouse 25.8, `dbt build` 12/12, Mongo-vs-ClickHouse KPI parity, SASL/SCRAM over TLS, ClickHouse over HTTPS | Test CAs on localhost; dev VM only |
-| Request path is fast | Recommendation p95 ≈ 18–22 ms against a 25 ms budget | Thin headroom; measured serially on a 2.9 GB dev VM |
+| Request path is fast | Recommendation compute p95 16.7 ms when the test runs alone (2026-11-23) against a 25 ms budget; the CI performance step passes | **Thin headroom:** on the 2.9 GB dev VM it went over twice while the machine was busy (25.07 ms and 25.29 ms) |
 | Erasure reaches every copy | Tombstones, Mongo delete, ClickHouse `DELETE`, retry sweep; tested and live-verified | Legal sufficiency needs counsel |
-| Default suite is green | 25 suites, 260 tests passed on the last full run (`--maxWorkers=1`); the one suite changed since (HTTP, +1 test) re-run: 18/18 | The wider existing repository suite has never been confirmed green (memory-limited VM) |
+| Default suite is green | 28 suites, 307 tests passed (`--maxWorkers=1`, 2026-11-23); CI on GitHub green for the recommendation job **and** the full existing suite (commit `bf5015a`) | The security scans (`owasp-scan`, `trivy-scan`) fail on the branch and are out of scope here |
 
 ### 1.5 What is *not* verified
 * The learned ranker has only ever seen synthetic or simulated data. Every threshold is a judgement call.
 * The Gemini embedding path has never produced a real embedding (§8.4: the key authenticates but the account has no credits).
 * Production capacity, regional infrastructure, and the scheduled dbt workflow on GitHub.
 * No recommendation has been shown to a real learner; real-world lift is unknown.
+* Exploration, position-bias correction, calibrated item difficulty and the counterfactual estimator need real logs before they do anything useful; with no data they fall back to the previous behaviour.
 
 ---
 
@@ -105,17 +108,20 @@ flowchart LR
     G[(learner_daily_facts - gold)]
     F[(skill_mastery, learner_features)]
     C[(consents + ledger)]
+    SV[(rec_served - served lists)]
   end
-  SCH[[Scheduler: node-cron every 2 min, Mongo lease]]
+  SCH[[Scheduler: node-cron every 2 min, Mongo lease; in the API or a separate worker]]
   W -- behavioural events --> EP --> B
   SVC -- emit, fail-safe --> B
   B --> SCH --> S --> G --> F
   F --> REC
   W --> REC
+  REC -- served list --> SV
   REC -- impressions --> B
-  W -- click/complete/dismiss --> EP
+  W -- click/complete/dismiss: POST /recommendations/feedback --> REC
+  SV -. attribution .-> REC
   ADM --> G
-  PRIV --> B & S & G & F & C
+  PRIV --> B & S & G & F & C & SV
 ```
 
 **Closed loop:** learn → events → ETL → features → recommend → impressions and outcomes → events. Guardrails, A/B tests and offline evaluation read the same data.
@@ -129,10 +135,12 @@ flowchart LR
 | Gold | `learner_daily_facts` (unique `{userId, day}`) | replaced per recompute | until erasure |
 | Features | `skill_mastery`, `learner_features` | yes | until erasure |
 | Functional | `recsys_exposure` (what was shown or dismissed) | yes | 30 days |
+| Functional | `rec_served` (every served list: items, positions, variant, mode, segment; signals and exploration pool only with analytics consent) | no | 30 days (`RECSYS_SERVED_RETENTION_DAYS`) |
+| Features | `item_difficulty` (answer counts per question, for calibrated difficulty) | yes | not personal data (no user id) |
 | Privacy | `recsys_consents`, `recsys_consent_ledger` | state / append-only | account life / legal retention |
 | Ops | `recsys_pipeline_runs`, `recsys_locks` | yes | 90 days suggested |
 
-Existing collections (`flashcards`, `users.preferences`, `resources.labels`, `question_metadata`, `payments`) are **read, never written**.
+Existing collections (`flashcards`, `users.preferences`, `resources.labels`, `question_metadata`, `payments`) are **read, never written**. The one schema change to existing code: four compound indexes on `resources` (`suitableForLearners` with `publishedAt`, `labels.domain`, `labels.cefr`, `labels.topic`) for bounded retrieval; they build on first start after deploy.
 
 **Measured sizing** (20 000 synthetic events, MongoDB 7.0.24): bronze ≈ 527 B/event, silver ≈ 462 B/event, gold ≈ 1.2 KB per learner-day (logical sizes). At 10 M events/month the two event layers grow ≈ 10 GB/month; with the 400-day TTL ≈ 130 GB steady state before compression. Setting retention to 120 days cuts this to ≈ 40 GB.
 
@@ -164,13 +172,13 @@ Existing collections (`flashcards`, `users.preferences`, `resources.labels`, `qu
 
 ### 3.6 Architecture diagrams (draw.io)
 
-Editable sources live in `docs/recommendation/diagrams/` (open the `.drawio` files in draw.io, the VS Code draw.io extension, or diagrams.net). Each was generated from a script (`build-*.mjs`, run with `drawio-ai run`), so a diagram can be regenerated after a code change instead of redrawn. All four pass the layout validator with no errors, warnings or advice. A PNG export was **not** produced because the draw.io desktop CLI is not installed in this environment; export from draw.io when needed.
+Editable sources live in `docs/recommendation/diagrams/` (open the `.drawio` files in draw.io, the VS Code draw.io extension, or diagrams.net). Each was generated from a script (`build-*.mjs`, run with `drawio-ai run`), so a diagram can be regenerated after a code change instead of redrawn. All four pass the file validator (`drawio-ai validate`) with no errors, warnings or advice; diagrams 1–3 were regenerated for Phase 4 on 2026-11-23. The earlier Phase 3 diagram passed the build-time check but not the file check (a duplicate cell id on the loader stage); its stage ids were renamed and it now passes both. A PNG export was **not** produced because the draw.io desktop CLI is not installed in this environment; export from draw.io when needed.
 
 | Diagram | File | Shows |
 | --- | --- | --- |
 | 1. System architecture (MVP closed loop) | `diagrams/01-architecture.drawio` | Clients and services → collect → bronze/silver/gold → features → recommend; scheduler; privacy, analytics and operations as cross-cutting bands |
-| 2. Recommender request flow | `diagrams/02-recommender.drawio` | One `GET /recommendations`: request, cache, context load, candidates, ranking and guardrails, explanation, impressions |
-| 3. Phase 3 (Scale) | `diagrams/03-phase3.drawio` | Exporter, Redpanda, loader, ClickHouse, dbt, KPI backend switch, and the learning loop (snapshots, training, registry, harm guard, embeddings) |
+| 2. Recommender request flow | `diagrams/02-recommender.drawio` | One `GET /recommendations`: request, consent-keyed cache, bounded context load, candidates, ranking, guardrails and the exploration slot, explanation, served-list log and impressions |
+| 3. Phase 3 (Scale) | `diagrams/03-phase3.drawio` | Exporter, Redpanda, loader, ClickHouse, dbt, KPI backend switch, and the learning loop (outcome labels, serve-time segment, inverse-propensity weighting, registry, per-learner harm guard, embeddings) |
 | 4. Erasure process (BPMN swimlane) | `diagrams/04-erasure.drawio` | `DELETE /privacy/data` across learner, API, MongoDB and stream/warehouse lanes, including the failed-delete retry path |
 
 The Mermaid diagram in §3.2 is kept as an inline overview that renders on GitHub; the draw.io files are the detailed versions.
@@ -190,21 +198,22 @@ Envelope: `eventId` (UUIDv4, idempotency key) · `schemaVersion` · `type` · `o
 | `vocab_captured`, `pronunciation_scored` | service | counts; **scores only, never audio** | server |
 | `credit_spent`, `ai_usage` | service | feature, credits / model, tokens, cost | server |
 | `session_started/ended`, `resource_viewed` | behavioural | dwell, scroll depth, completion | client |
-| `rec_impression/click/complete/dismiss` | behavioural | `recId, itemType, itemRef, variant, position/reason` (+ ranking `signals` on impressions, server-side only) | server / client |
+| `rec_impression/click/complete/dismiss` | behavioural | `recId, itemType, itemRef, variant, mode, position/reason/outcome`; impressions also carry ranking `signals`, the learner `segment`, `explored` and `propensity` (server-side only) | impressions: server. Feedback: server, from `POST /recommendations/feedback` |
 
-Ingest rules: schema and per-type validation; batch ≤ 100; `occurredAt` within [−7 days, +5 minutes]; duplicate `eventId` ignored; behavioural events dropped without `analytics` consent; unordered bulk insert so one bad row never blocks a batch.
+Ingest rules: schema and per-type validation; batch ≤ 100; `occurredAt` within [−7 days, +5 minutes]; duplicate `eventId` ignored; behavioural events dropped without `analytics` consent; unordered bulk insert so one bad row never blocks a batch. Client-sent `rec_*` events are accepted only if their `recId` and item match a list served to that learner (`rec_served`); variant, mode and position are overwritten from that record.
 
 ### 4.2 Consent
 Three purposes — `analytics`, `personalization`, `research` (reserved) — **default off**, versioned (`CURRENT_POLICY_VERSION`), recorded in an append-only ledger with timestamp and channel. Behavioural events need `analytics`; personalised ranking needs `personalization`. Without consent the product still works: learners get cold-start lists, and the repetition guard runs from a small functional store that is service data, not analytics.
 
 ### 4.3 Data-subject rights
-`GET /privacy/export` returns the learner's data (events, daily facts, mastery, features, recommendation state, feature snapshots, region, consent and history). `DELETE /privacy/data` erases it everywhere: Mongo layers, then downstream copies (§6.2). `POST /privacy/consent/withdraw` withdraws immediately. Endpoints execute at once and are rate-limited.
+`GET /privacy/export` returns the learner's data (events, daily facts, mastery, features, recommendation state, served lists, feature snapshots, region, consent and history). `DELETE /privacy/data` erases it everywhere: Mongo layers (including served lists), then downstream copies (§6.2). `POST /privacy/consent/withdraw` withdraws immediately. Endpoints execute at once and are rate-limited.
 
 ### 4.4 Threats and controls
 
 | Threat | Control |
 | --- | --- |
 | Event spoofing, score tampering | `userId` only from JWT; client allow-list; strict envelope; 60 requests/min per user |
+| Forged experiment attribution (feedback claiming another arm, or an item never shown) | Feedback and client `rec_*` events are attributed only against the server's `rec_served` record; variant, mode and position come from it; item type, ref and `recId` are length- and type-checked |
 | Replay or flooding | Idempotent `eventId`; batch cap; stale/future window |
 | Cross-user access | Every query scoped by `req.user.id`; erasure tested not to touch other users |
 | Admin exposure | `hasAuthority(ADMIN)`; cohorts under 5 suppressed |
@@ -218,7 +227,7 @@ Three purposes — `analytics`, `personalization`, `research` (reserved) — **d
 ## 5. The recommendation engine
 
 ### 5.1 Learner model
-* **Skill mastery** — Elo / 1-PL ability θ per (learner, skill); `P(correct)=σ(θ−b)`; learning rate decays with attempts; θ decays toward 0 when unpracticed (τ = 60 days); confidence = 1−e^(−n/10). Skill keys (`p5.wordform`, `p3.inference` …) come from tags **embedded in test definitions**. Untagged answers become `part:N`/`unknown`: kept for analytics, never recommended.
+* **Skill mastery** — Elo / 1-PL ability θ per (learner, skill); `P(correct)=σ(θ−b)`; learning rate decays with attempts; θ decays toward 0 when unpracticed (τ = 60 days); confidence = 1−e^(−n/10). Item difficulty `b` comes from the question's labelled level until that question has 20 answers, then from its calibrated value (`item_difficulty`). Measured accuracy is stored next to the estimate. Skill keys (`p5.wordform`, `p3.inference` …) come from tags **embedded in test definitions**. Untagged answers become `part:N`/`unknown`: kept for analytics, never recommended.
 * **Forgetting curve** — `R(t,S) = (1 + F·t/S)^(−d)` with FSRS-4.5 constants and `S` from the Leitner interval. Reviews are prioritised by retrievability; Leitner fields stay the source of truth.
 * **Learner features** — activity, performance, SRS state, timing (best study hours), habits, engagement, per-skill view.
 
@@ -226,19 +235,19 @@ Three purposes — `analytics`, `personalization`, `research` (reserved) — **d
 
 | Stage | Behaviour |
 | --- | --- |
-| Candidates | One SRS review block (≤ 20 cards); `skill_drill` for weak skills (≥ 3 attempts, mastery < 0.8) and thinly evidenced skills; resources matched by topic tags, interests, CEFR fit, popularity; habit nudges (mini test ≥ 21 days, pronunciation, vocab); **starter diagnostic** when no test exists |
+| Candidates | One SRS review block (≤ 20 cards); `skill_drill` for weak skills (≥ 3 attempts, mastery < 0.8), thinly evidenced skills, and `refresh_skill` for skills answered ≥ 80 % correctly but unpractised for ≥ 30 days; resources from five bounded, index-backed queries (recent, interest domain, level ± 1, weak-skill topics, popular), scored by topic tags, interests, CEFR fit, popularity; habit nudges (mini test ≥ 21 days, pronunciation, vocab); **starter diagnostic** when no test exists |
 | Ranker | `score = Σ wᵢ·signalᵢ + boost − recencyPenalty − completedRecently`. Variants `control` and `srs_heavy`; deterministic tie-break |
 | Cold start | No personalisation consent or no skill with ≥ 3 attempts: interests/level/popularity weights, starter diagnostic pinned, no drills |
-| Guardrails | Dismissed items 14 days; frequency cap (3 impressions / 7 days without a click); completion cooldowns; CEFR gap ≤ 1; ≤ 2 per type and per skill; diversity floor; time budget (1.25 × learner's daily minutes, keep ≥ 3) |
-| Explanation | Every item has a reason code, evidence parameters and EN + VI text from templates, e.g. "Your accuracy on Part 5 · word form is about 45 % over 20 questions — the biggest opportunity to gain points." |
+| Guardrails | Dismissed items 14 days; frequency cap (3 impressions / 7 days without a click); completion cooldowns; CEFR gap ≤ 1; ≤ 2 per type and per skill; diversity floor; time budget (1.25 × learner's daily minutes, keep ≥ 3). Then, on a share of requests, the exploration slot (§5.6 step 6) |
+| Explanation | Every item has a reason code, evidence parameters and EN + VI text from templates; titles are EN + VI too (`titleI18n`). Measured accuracy and the model's estimate are stated separately, e.g. "You answered 25 % of 12 questions on Part 5 · wordform correctly (estimated mastery now 34 %) — the biggest opportunity to gain points." |
 
 *Observation from the manual walkthrough (§9):* a learner who has practised but never taken a test gets the boosted 20-minute starter diagnostic first, which can consume most of a 30-minute budget and crowd out drills. This follows the current rules; whether it is desirable should be checked on real data.
 
 ### 5.3 Feedback loop and experiments
-Impressions are written when a list is generated; clients report `click/complete/dismiss` through `POST /recommendations/feedback`. Events carry `variant` and `mode`. Experiment assignment is `sha256(experiment:user)` bucketing with kill switch `RECSYS_FORCE_VARIANT`; read-outs are per variant × mode with a two-proportion z-test. Each test must be pre-registered (metric, MDE, sample size, stop rule). Reference sizes at α = 0.05, power 0.8: CTR 20 % → 22 % needs ≈ 6.5 k impressions per arm; D7 retention 25 % → 28 % needs ≈ 3.3 k users per arm.
+Impressions and the served list are written when a list is generated; clients report `click/complete/dismiss` through `POST /recommendations/feedback`, which is attributed against the served list (`attributed: true|false`). Events carry `variant` and `mode` from the server record. Experiment assignment is `sha256(experiment:user)` bucketing with kill switch `RECSYS_FORCE_VARIANT`; read-outs are per variant × mode: the impression-level z-test is still reported, but decisions use the per-learner Welch t-test, the sample-ratio check and the guardrail and outcome metrics (§5.5b). Each test must be pre-registered (metric, MDE, sample size, stop rule). Reference sizes at α = 0.05, power 0.8: CTR 20 % → 22 % needs ≈ 6.5 k impressions per arm; D7 retention 25 % → 28 % needs ≈ 3.3 k users per arm.
 
 ### 5.4 Offline evaluation
-Metrics P@k, recall@k, NDCG@k, MRR, coverage, diversity; a replay evaluator joins logged impressions and outcomes; a seeded simulator scores rankers against hidden ground truth. Result (500 learners, seed 42): random 0.458 / control **0.588** / srs_heavy 0.538 NDCG@5. **This is synthetic ground truth.**
+Metrics P@k, recall@k, NDCG@k, MRR, coverage, diversity; a replay evaluator joins logged impressions and outcomes; a counterfactual estimator scores a policy on the randomised-slot logs (§5.5b); a seeded simulator scores rankers against hidden ground truth. Result (500 learners, seed 42): random 0.458 / control **0.588** / srs_heavy 0.538 NDCG@5. **This is synthetic ground truth.**
 
 ### 5.5 Known limitation
 `skill_drill` items carry a proposed action payload `{screen:'skill_drill', skillKey, questions}` for which **no backend route exists yet** (T1.25). Until then they say *what* to practise but are not one-tap links.
@@ -276,7 +285,7 @@ Metrics P@k, recall@k, NDCG@k, MRR, coverage, diversity; a replay evaluator join
 | dbt marts | `stg_events` view, `learner_daily_facts` table, tests (`analytics/dbt/`) | — | `dbt build` 12/12 |
 | KPI backend switch | Mongo ⇄ ClickHouse with explicit fallback and `fallbackReason` | `RECSYS_ANALYTICS_BACKEND` | Live parity |
 | Feature store | 15 versioned features; append-only point-in-time snapshots; as-of join never returns a later snapshot | `RECSYS_FEATURE_SNAPSHOTS` | Tests |
-| Learned ranker | IRLS ridge logistic regression, position as a training-only covariate, user-level 80/20 split, gates, per-segment weights, registry | `RECSYS_RETRAIN_ENABLED` | Tests, **synthetic data only** |
+| Learned ranker | IRLS ridge logistic regression on outcome labels (§5.5b), inverse-propensity weighting from the random slot (position as a training-only covariate until there is enough exploration data), user-level 80/20 split, gates, per-segment weights, registry | `RECSYS_RETRAIN_ENABLED` | Tests, **synthetic data only** |
 | Content embeddings | Offline indexer (`npm run recsys:embed`), `semantic` signal | `RECSYS_EMBEDDINGS_ENABLED` | Hash provider only |
 | Data residency (code) | Region tag, region-scoped topic, consumer group and pseudonym, loader refuses foreign-region messages | `RECSYS_REGIONS` | Tests |
 
@@ -302,9 +311,9 @@ Delivery is **at-least-once**: the exporter advances its cursor only after the b
 * **Clock assumption.** Cursors resume from `_id` ordering; run NTP on every instance.
 
 ### 6.3 Learned ranker and retraining
-Logged impressions (with ranking `signals`, `position`, `recId`) are joined to clicks by `(recId, itemType, itemRef)`, enriched with as-of feature snapshots, and trained under gates: minimum impressions and clicks, holdout ≥ 50 clicks, AUC lift over `control` ≥ `RECSYS_RETRAIN_MIN_AUC_LIFT`. The result is converted into an ordinary `WeightSet` (negative weights to 0, normalised; position coefficient dropped) — **no engine change**, and offline evaluation output stays byte-identical to the pre-Phase-3 baseline.
+Logged impressions (with ranking `signals`, `position`, `recId`, serve-time `segment`, `explored`, `propensity`) are labelled by outcome — a click followed by the matching activity within 24 hours, or a reported completion (`RECSYS_TRAIN_LABEL=click` restores click labels) — matched by `(recId, itemType, itemRef)`. The segment logged at serve time is used; an as-of feature snapshot is only a fallback for older impressions. Training runs under gates: minimum impressions and positives (`RECSYS_RETRAIN_MIN_CLICKS` now counts positives), holdout ≥ 50 positives, AUC lift over `control` ≥ `RECSYS_RETRAIN_MIN_AUC_LIFT`; each report also carries the position-bias estimate and the counterfactual replay value. The result is converted into an ordinary `WeightSet` (negative weights to 0, normalised; position coefficient dropped) — **no engine change**, and offline evaluation output stays byte-identical to the pre-Phase-3 baseline.
 
-Serving uses its own hash layer (`rec_learned_layer_v1`) so existing assignments are not reshuffled. **Auto-activation is capped at 5 %; only an admin can raise it, to at most 50 %.** Models trained on synthetic data are `rejected` and can never be activated. A daily guard auto-retires a live model whose click-through is significantly worse than control (z ≤ −1.96 with ≥ 1 000 impressions). Automatic actions can shrink exposure; only a human can grow it.
+Serving uses its own hash layer (`rec_learned_layer_v1`) so existing assignments are not reshuffled. **Auto-activation is capped at 5 %; only an admin can raise it, to at most 50 %.** Models trained on synthetic data are `rejected` and can never be activated. A daily guard auto-retires a live model whose per-learner click-through is significantly worse than control (Welch t ≤ −1.96, at least 30 learners per arm and ≥ 1 000 impressions) and sends a webhook alert. Automatic actions can shrink exposure; only a human can grow it.
 
 Training runs in the API process, cooperatively: it yields to the event loop, uses at most the newest 200 000 impressions, and was measured at ≈ 2.6 s for 100 000 rows with a longest stall ≈ 0.5 s on the dev VM.
 
@@ -328,22 +337,22 @@ Not measured: query latency at scale, consumer-group rebalances, multi-hour runs
 ## 7. Analytics, KPIs and monitoring
 
 * **KPIs** (`GET /admin/recsys/kpis?windowDays=`): DAU/WAU/MAU, stickiness, activation, retention cohorts, study minutes, score gain, credit spend and unit economics, recommendation CTR/completion/dismiss by variant and mode. Cohorts under 5 are suppressed. The response states which backend produced the numbers and any fallback reason.
-* **Experiments** (`GET /admin/recsys/experiments`): per variant × mode read-out with significance test.
+* **Experiments** (`GET /admin/recsys/experiments`): per variant × mode — impressions, CTR, completion and dismiss rates with the impression-level z-test; per-learner rates with Welch's t-test (no test under 30 learners per arm); a sample-ratio-mismatch check (χ², flagged at p < 0.001); score gain and active days per variant.
 * **Pipeline** (`GET /admin/recsys/pipeline`): last 20 runs with counts and data-quality results.
 * **Health** (`GET /admin/recsys/health`, and `npm run recsys:health` with exit code 0/1/2): `ok / degraded / down` with reasons. Phase 3 adds exporter backlog and error, warehouse erasures pending > 10 minutes, and the live model. *This route was documented and implemented in the controller but never registered; it was found and fixed during the verification described in §8 (commit `54c6562`).*
 
 Data-quality checks per ETL run: reject rate ≤ 5 % (critical), duplicate rate ≤ 20 %, unknown-skill rate ≤ 30 %, null required fields = 0 (critical), freshness lag ≤ 30 minutes (critical). Every silver and gold row carries `pipelineVersion` and `runId`, so any number can be traced back to raw events.
 
-**Alert rules** (`06-operations.md` §2): pipeline down (P1), data quality degraded, freshness lag, recommendation health, AI cost spike, privacy endpoint failures (P1), event-volume anomaly. **Not yet wired:** loader consumer-group lag, persistent `fallbackReason`, `auto-retired` model alerts.
+**Alert rules** (`06-operations.md` §2): pipeline down (P1), data quality degraded, freshness lag, recommendation health, AI cost spike, privacy endpoint failures (P1), event-volume anomaly. **Pushed by the platform** to `RECSYS_ALERT_WEBHOOK_URL` (Slack-compatible, at most one per alert type per 30 minutes): ETL run degraded or failed, ETL crash, retrain crash, auto-retired model. **Not pushed — needs an external monitor:** a scheduler that has stopped running (poll `/admin/recsys/health` or `npm run recsys:health`), loader consumer-group lag, persistent `fallbackReason`, sample-ratio mismatch.
 
 ---
 
 ## 8. Quality and verification
 
 ### 8.1 Test strategy
-Unit (contract, mastery, retention, ranker, guardrails, explainability, learning, embeddings, Kafka config) · integration against in-memory MongoDB (ingest, pipeline, features, HTTP, privacy, health, stream, warehouse, KPI backend, feature store, retraining, residency) · data-quality tests · performance budgets (run serially) · offline evaluation as a regression guard · opt-in **live** tests (`__tests__/live`, gated by environment variables) for Redpanda, ClickHouse, secured broker and ClickHouse over HTTPS.
+Unit (contract, mastery, retention, ranker, guardrails, explainability, learning, embeddings, Kafka config, Phase 4 hardening, Postman collection drift) · integration against in-memory MongoDB (ingest, pipeline, features, HTTP, privacy, health, stream, warehouse, KPI backend, feature store, retraining, residency, Phase 4 hardening) · data-quality tests · performance budgets (run serially) · offline evaluation as a regression guard · opt-in **live** tests (`__tests__/live`, gated by environment variables) for Redpanda, ClickHouse, secured broker and ClickHouse over HTTPS.
 
-Current state: **25 suites / 260 tests passed** on the last full default run (`npx jest … --maxWorkers=1`); lint and the three-pass type guard `scripts/ci/typecheck-recsys.sh` clean; offline evaluation identical to baseline. One test was added afterwards (health route) and its suite re-run: 18/18.
+Current state (2026-11-23): **28 suites, 307 tests passed** in the CI set (`npx jest __tests__/unit/recsys __tests__/integration --testPathIgnorePatterns performance --maxWorkers=1`), plus the performance suite run on its own (2 tests; p50 12.7 ms / p95 16.7 ms when run alone, but over the 25 ms budget twice when the VM was busy — `04-testing.md` §3); lint and the three-pass type guard `scripts/ci/typecheck-recsys.sh` clean; offline evaluation identical to baseline. On GitHub, CI for the head commit is green for both the recommendation job and the full existing suite.
 
 ### 8.2 Defects found by verification (all fixed)
 | Defect | How found |
@@ -356,6 +365,11 @@ Current state: **25 suites / 260 tests passed** on the last full default run (`n
 | ClickHouse `CREATE DATABASE`, alias shadowing, unordered GROUP BY | Live runs |
 | **`GET /admin/recsys/health` never routed** | Manual verification review (this session) |
 | **Gemini failures hidden**: the LangChain client swallows the HTTP error and returns empty vectors | First real API call (this session); the provider now reports it clearly |
+| Features went stale for learners who stopped producing events (the ETL only rebuilds on new events) | Architecture audit; now rebuilt on read when older than 6 h |
+| Response cache had no size bound | Architecture audit; now capped at 5 000 lists |
+| Feedback stored arbitrary client strings as repetition-guard keys | Architecture audit; item type is now an allow-list and ids are length-checked |
+| Feedback trusted the client's `variant`, so a client could move clicks into another experiment arm | Architecture audit; attribution now comes from the server-side served list |
+| Outcome labels missed activity that happened after the impression in the same hour | Phase 4 integration test; each hour bucket now keeps its first and last activity time |
 
 ### 8.3 Known test-stability note
 A mastery test (`features.int`) failed intermittently under two-worker load; the root cause was **not established** (a clock-step hypothesis is unproven). It now sets an explicit `_id`. Heavy suites should run with `--maxWorkers=1` on small machines.
@@ -394,7 +408,12 @@ The sandbox never reads `MONGO_URI`; pointing it at a database requires the expl
 | `RECSYS_EVENT_RETENTION_DAYS` | 400 | TTL for bronze and silver |
 | `RECSYS_PIPELINE_BATCH` | 2000 | ETL batch size |
 | `RECSYS_FORCE_VARIANT` | empty | Kill switch for experiments (e.g. `control`) |
-| `RECSYS_PSEUDONYM_SALT` | empty | Required (≥ 16 chars, secret) for any export |
+| `RECSYS_EXPLORE_PCT` | 10 | Share of requests (0–30 %) with one randomised slot; 0 turns exploration off |
+| `RECSYS_SERVED_RETENTION_DAYS` | 30 | TTL for served lists (feedback attribution, outcome labels) |
+| `RECSYS_TRAIN_LABEL` | `outcome` | Learned-ranker label: `outcome` (click followed by the activity) or `click` |
+| `RECSYS_SCHEDULER_ENABLED` | `true` | Set `false` on API instances when `npm run recsys:worker` runs the jobs |
+| `RECSYS_ALERT_WEBHOOK_URL` | empty | Slack-compatible webhook for pushed alerts (§7) |
+| `RECSYS_PSEUDONYM_SALT` | empty | Required (≥ 16 chars, secret) for any analytics export (stream, warehouse); not needed for a learner's own data export |
 | `RECSYS_STREAM_ENABLED` / `_BROKERS` / `_TLS` / `_SASL_*` / `_RETENTION_HOURS` | off / – / off / – / 168 | Stream exporter |
 | `RECSYS_CLICKHOUSE_*` | off | Warehouse loader (URL, DB, credentials, CA file, retention) |
 | `RECSYS_ANALYTICS_BACKEND` | `mongo` | KPI source (`clickhouse` only after a week of parity checks) |
@@ -407,12 +426,14 @@ The sandbox never reads `MONGO_URI`; pointing it at a database requires the expl
 
 | Job | Schedule | Gate | Notes |
 | --- | --- | --- | --- |
-| ETL tick (clean → aggregate → features) | every 2 min | `RECSYS_ENABLED` | Mongo lease; safe on every instance |
+| ETL tick (clean → aggregate → features) | every 2 min | `RECSYS_ENABLED` | Mongo lease; safe on every instance; alerts on degraded, failed or crashed runs |
 | Stream exporter | every minute | `RECSYS_STREAM_ENABLED` | Own lease and cursor; broker failure never affects the API |
-| Retraining | Saturday 20:00 UTC | `RECSYS_RETRAIN_ENABLED` | Gated; auto-activates at ≤ 5 % only |
-| Harm guard | daily 20:30 UTC | `RECSYS_RETRAIN_ENABLED` | Retires a significantly worse live model |
+| Retraining | Saturday 20:00 UTC | `RECSYS_RETRAIN_ENABLED` | Gated; auto-activates at ≤ 5 % only; alerts on a crash |
+| Harm guard | daily 20:30 UTC | `RECSYS_RETRAIN_ENABLED` | Retires a significantly worse live model and alerts |
 | Warehouse loader | continuous, **separate process** | `npm run recsys:loader` | One per region; keep a supervisor |
 | dbt build | hourly (GitHub workflow) | `RECSYS_DBT_ENABLED` repo variable | Inert until configured; never run on GitHub yet |
+
+The four cron jobs run in every API process unless `RECSYS_SCHEDULER_ENABLED=false`. To keep ETL and training off the API's event loop, set it to `false` on API instances and run `npm run recsys:worker` as its own supervised process; the Mongo leases keep it safe to run more than one worker.
 
 ### 10.3 API reference
 
@@ -440,6 +461,7 @@ The sandbox never reads `MONGO_URI`; pointing it at a database requires the expl
 | Bad release | `scripts/deploy/rollback.sh <sha>` (automatic on failed health probe) |
 | Platform misbehaving | `RECSYS_ENABLED=false` and restart; the recommendations route still answers (cold start) |
 | Bad ranking variant | `RECSYS_FORCE_VARIANT=control` |
+| Exploration slot hurting the experience | `RECSYS_EXPLORE_PCT=0` (position-bias correction then falls back to the covariate method) |
 | Buggy ETL | Fix, bump `pipelineVersion`, rebuild from silver (gold is replace-not-increment) |
 | Exporter misbehaving | `RECSYS_STREAM_ENABLED=false`; the cursor is kept |
 | Warehouse down | Nothing: KPIs answer from Mongo and say so; failed erasures retry |
@@ -462,7 +484,7 @@ Pipeline stalled · data-quality degraded · bad recommendations · privacy inci
 | **T3.16** Regional infrastructure | No second region or cloud provider chosen | Follow the written runbook (`03-architecture.md` §12.7) |
 
 ### 11.2 Product and engineering follow-ups (not Phase 3)
-Integrate recommendations into `DailySessionService` behind an A/B (T1.15) · front-end consent UI and event batching (T1.16) · backfill of historical answers (T1.17) · per-feature AI cost tagging (T1.18) · drill endpoint for `skill_drill` (T1.25, blocking one-tap drills) · fix the existing `labels.domain` upper/lower-case bug in `findAvailableResources` (T1.20) · make `ci.yml` a required check once the full suite is confirmed green (T1.22) · staging environment and k6 run (T1.24) · legal review of the PDPL mapping, cross-border assessment, consent copy and ledger retention (T1.23).
+Integrate recommendations into `DailySessionService` behind an A/B (T1.15) · front-end consent UI and event batching (T1.16) · backfill of historical answers (T1.17) · per-feature AI cost tagging (T1.18) · drill endpoint for `skill_drill` (T1.25, blocking one-tap drills) · fix the existing `labels.domain` upper/lower-case bug in `findAvailableResources` (T1.20) · make `ci.yml` a required check (T1.22; unblocked — the full suite is green on GitHub CI, the setting is the owner's) · staging environment and k6 run (T1.24) · generated OpenAPI spec and typed client (T4.16, proposed) · legal review of the PDPL mapping, cross-border assessment, consent copy and ledger retention (T1.23).
 
 ### 11.3 Risk register
 
@@ -490,10 +512,11 @@ src/recsys/
   events/      eventTypes · eventModel · eventService · emitters · aiUsageTracker
   privacy/     consentModel · consentService · dataSubjectService
   etl/         models · clean · aggregate · dataQuality · pipeline
-  features/    skillTaxonomy · mastery · retention · featureModels · featureBuilder
-  engine/      types · cefr · contentTags · candidates · ranker · guardrails · explain · experiments · recommender
-  eval/        metrics · replay · simulator · cli
-  analytics/   kpi · kpiService · healthService · sources
+  features/    skillTaxonomy · mastery · retention · itemDifficulty · featureModels · featureBuilder
+  engine/      types · cefr · contentTags · candidates · ranker · guardrails · explain · experiments ·
+               exposureModel · exposureService · servedModel · servedService · recommender
+  eval/        metrics · replay · counterfactual · simulator · cli
+  analytics/   kpi · kpiService · healthService · sources · alerts
   http/        routes · recsysController
   stream/      pseudonym · wire · erasure · regions · kafkaConfig · producer · exporter        (Phase 3)
   warehouse/   schema · clickhouse · loader · erasure · consumer                                (Phase 3)
@@ -501,10 +524,11 @@ src/recsys/
   learning/    logreg · model · train · dataset · registry · retrain                           (Phase 3)
   embeddings/  provider · store · indexer · semantic                                           (Phase 3)
 analytics/dbt/                     staging and mart models, tests, pinned container
-scripts/ops/  recsys-sandbox · recsys-health · recsys-loader · recsys-embed · recsys-embed-calibrate · recsys-bench · run-dbt.sh
+scripts/ops/  recsys-sandbox · recsys-worker · recsys-health · recsys-loader · recsys-embed · recsys-embed-calibrate · recsys-bench · run-dbt.sh
 scripts/ci/   typecheck-recsys.sh
 docker-compose.analytics.yml       Redpanda v25.2.1 and ClickHouse 25.8 (pinned, memory-capped)
+docs/recommendation/postman/       Postman collection + sandbox and local-app environments
 ```
 
 ## Appendix B — Glossary
-**Bronze / silver / gold** raw, cleaned and aggregated data layers · **Cold start** list for a learner with no consent or too little evidence · **Elo / 1-PL** ability model used for skill mastery · **IRLS** iteratively reweighted least squares, the logistic-regression solver · **Leitner** fixed-interval flashcard system in use · **FSRS** a trainable spaced-repetition model (Phase 2) · **Pseudonym** HMAC of region and user id used in the warehouse · **Tombstone** record that a learner was erased, blocking later exports · **WeightSet** the set of ranking weights; a learned model is expressed as one · **MDE** minimum detectable effect.
+**Bronze / silver / gold** raw, cleaned and aggregated data layers · **Cold start** list for a learner with no consent or too little evidence · **Elo / 1-PL** ability model used for skill mastery · **IRLS** iteratively reweighted least squares, the logistic-regression solver · **Leitner** fixed-interval flashcard system in use · **FSRS** a trainable spaced-repetition model (Phase 2) · **Pseudonym** HMAC of region and user id used in the warehouse · **Tombstone** record that a learner was erased, blocking later exports · **WeightSet** the set of ranking weights; a learned model is expressed as one · **MDE** minimum detectable effect · **Exploration slot** one list position filled at random on a share of requests, so the logs show how items do outside the ranker's choice · **IPW** inverse-propensity weighting, which corrects training for how likely a position is to be looked at · **SRM** sample-ratio mismatch: arms that are not the size the assignment should give, a sign of a broken experiment.

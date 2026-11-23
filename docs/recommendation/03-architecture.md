@@ -29,8 +29,9 @@ flowchart LR
     F[(skill_mastery · learner_features)]
     C[(consents + ledger)]
     R[(pipeline_runs · locks)]
+    SV[(rec_served\nserved lists)]
   end
-  SCH[[Scheduler\n node-cron every 2 min\n Mongo lease]]
+  SCH[[Scheduler\n node-cron every 2 min\n Mongo lease\n API or recsys:worker]]
   W -- behavioural events --> EP
   SVC -- emit() fail-safe --> B
   EP --> B
@@ -38,10 +39,12 @@ flowchart LR
   B --> SCH
   F --> REC
   W --> REC
+  REC -- served list --> SV
   REC -- impressions --> B
-  W -- click/complete/dismiss --> EP
+  W -- click/complete/dismiss\nPOST /recommendations/feedback --> REC
+  SV -. attribution .-> REC
   ADM --> G
-  PRIV --> B & S & G & F & C
+  PRIV --> B & S & G & F & C & SV
 ```
 
 **Closed loop:** learn → events → ETL → features → recommend → impressions/outcomes → events (guardrails + A/B + offline eval read the same data).
@@ -56,12 +59,16 @@ flowchart LR
 | Features | `skill_mastery` | unique `{userId, skillKey}` | yes | until erasure |
 | Features | `learner_features` | unique `userId` | yes | until erasure |
 | Functional | `recsys_exposure` | unique `{userId, itemId}`; TTL `expireAt` (30 d after last touch) | yes | 30 d |
+| Functional | `rec_served` | unique `recId`; `{userId, servedAt}`; TTL `expireAt` | no | 30 d (`RECSYS_SERVED_RETENTION_DAYS`) |
+| Features | `item_difficulty` | `_id` = `testId:questionNumber` | yes (answer counts) | no user data; kept |
 | Privacy | `recsys_consents` / `recsys_consent_ledger` | unique `userId` / `{userId}` | state / append-only | state: life of account; ledger: legal retention (counsel) |
 | Ops | `recsys_pipeline_runs`, `recsys_locks` | `runId`; `_id='etl'` lease | yes | keep 90 d (add TTL when needed) |
 
 Why a regular collection for raw events (not Mongo time-series): the current MongoDB manual lists no unique indexes, updates limited to the `metaField`, no transactional writes and no change streams for time-series collections ([MongoDB limitations](https://www.mongodb.com/docs/manual/core/timeseries/timeseries-limitations/)); we need idempotent inserts and in-place ETL status.
 
-Existing collections are **read, never written** by the platform: `flashcards` (due cards / retrievability), `users.preferences`, `resources.labels`, `question_metadata` (skill tags), `payments` (revenue KPI).
+Existing collections are **read, never written** by the platform: `flashcards` (due cards / retrievability), `users.preferences`, `resources.labels`, `question_metadata` (skill tags), `payments` (revenue KPI). Phase 4 added four compound indexes to `resources` (`suitableForLearners` + `publishedAt`, and the same with `labels.domain`, `labels.cefr` or `labels.topic`) so candidate retrieval is index-backed; Mongoose builds them on first start.
+
+Phase 3 collections (`learner_feature_snapshots`, `rec_models`, `content_embeddings`, `learner_regions`, `recsys_erasure_tombstones`, `recsys_stream_state`) are described in §12.
 
 **Measured sizing** (20,000 synthetic events through the real pipeline, MongoDB 7.0.24): bronze ≈ **527 B/event** (436 B doc + indexes), silver ≈ **462 B/event**, gold ≈ **1.2 KB per learner-day** (uncompressed logical sizes; WiredTiger compression will reduce on-disk size — not measured). At the assumed 10M events/month the two event layers grow ≈ **10 GB/month**; with the default 400-day TTL that is ≈ 130 GB steady state before compression. **Cost lever:** `RECSYS_EVENT_RETENTION_DAYS=120` (silver/gold already hold what the recommender needs) cuts this to ≈ 40 GB; decide with the product owner how long raw events are needed for replay/audit.
 
@@ -78,11 +85,11 @@ Envelope: `eventId` (UUIDv4, idempotency key) · `schemaVersion` · `type` · `o
 | `pronunciation_scored` | service | `accuracy, fluency?, completeness?, prosody?` — **scores only, no audio** | server |
 | `credit_spent` / `ai_usage` | service | `feature, credits` / `model, tokens, costUsd` | server |
 | `session_started/ended`, `resource_viewed` | behavioural | `dwellSec, scrollDepth, completed` | client |
-| `rec_impression/click/complete/dismiss` | behavioural | `recId, itemType, itemRef, variant, position/reason` | server (impression) / client |
+| `rec_impression/click/complete/dismiss` | behavioural | `recId, itemType, itemRef, variant, mode, position/reason/outcome`; impressions add `signals`, `segment`, `explored`, `propensity` | server (impression; feedback via `POST /recommendations/feedback`); a client may batch `rec_*` events, but only for lists it was served |
 
 **Units & semantics (verified against the existing code):** `durationSec` is **seconds** — the test-submit request carries milliseconds and is converted in `testResultService`; the speech pipeline's `metadata.duration` is already seconds. Scores are attached **only for full 7-part tests** (`full: true`); a Part-5-only practice has a "TOEIC score" of ~150 that would corrupt learner CEFR and the score-gain KPI.
 
-Rules enforced at ingest: schema + per-type props validation, batch ≤ 100, `occurredAt` within [−7 d, +5 min], duplicate `eventId` ignored, behavioural events dropped without `analytics` consent, ordered:false bulk insert so one bad row never blocks the batch.
+Rules enforced at ingest: schema + per-type props validation, batch ≤ 100, `occurredAt` within [−7 d, +5 min], duplicate `eventId` ignored, behavioural events dropped without `analytics` consent, ordered:false bulk insert so one bad row never blocks the batch. Untrusted (client) `rec_*` events are rejected unless their `recId` and item match a list in `rec_served` for that learner; variant, mode and position are then overwritten from that record.
 
 ## 5. ETL / data pipeline
 
@@ -109,9 +116,9 @@ learning_events (pending) ──clean──► learning_events_clean ──aggre
 
 ## 6. Feature layer
 
-* **Skill mastery** (`features/mastery.ts`): Elo/1-PL ability θ per (learner, skill); `P(correct)=σ(θ−b)` with item difficulty `b` from question metadata; learning rate decays with attempts (0.5/√(1+n/3), floor 0.06); θ decays toward 0 with τ=60 days when unpracticed; confidence = 1−e^(−n/10). Skill keys (`p5.wordform`, `p3.inference`, …; coarse for P3/P4) are derived from the tags **embedded in the test definition** (`questions[].skillTags/contentTags`, joined by `questionNumber` — the same source `AnalysisEngineService` uses); the `question_metadata` collection is only a fallback. Untagged answers become `part:N` / `unknown`: they are kept for analytics but are **never recommended** (no drill target / deep link) and do not count as evidence for personalised mode. Idempotent via a per-user cursor on the silver `_id` (insertion order; a `receivedAt` cursor would permanently skip re-queued rejected events and batch tails).
+* **Skill mastery** (`features/mastery.ts`): Elo/1-PL ability θ per (learner, skill); `P(correct)=σ(θ−b)` with item difficulty `b` from question metadata until the question has 20 answers, then calibrated from its answer counts (`features/itemDifficulty.ts`, shrunk toward the labelled level); learning rate decays with attempts (0.5/√(1+n/3), floor 0.06); θ decays toward 0 with τ=60 days when unpracticed; confidence = 1−e^(−n/10). Skill keys (`p5.wordform`, `p3.inference`, …; coarse for P3/P4) are derived from the tags **embedded in the test definition** (`questions[].skillTags/contentTags`, joined by `questionNumber` — the same source `AnalysisEngineService` uses); the `question_metadata` collection is only a fallback. Untagged answers become `part:N` / `unknown`: they are kept for analytics but are **never recommended** (no drill target / deep link) and do not count as evidence for personalised mode. Idempotent via a per-user cursor on the silver `_id` (insertion order; a `receivedAt` cursor would permanently skip re-queued rejected events and batch tails).
 * **Forgetting curve** (`features/retention.ts`): `R(t,S) = (1 + F·t/S)^(−d)`, `F = 0.9^(−1/d) − 1` so that `R(S,S)=0.9`; we use the FSRS-4.5 constants (`d=0.5`, `F=19/81`) with `S` = the Leitner interval of the card's level. FSRS-6 makes `d` trainable per user (default 0.1542) ([FSRS algorithm wiki](https://github.com/open-spaced-repetition/awesome-fsrs/wiki/The-Algorithm)); adopting it needs review logs, which `flashcard_reviewed` now captures.
-* **Learner features** (`learner_features`): activity (active days 7/30, minutes, streak, days since active), performance (acc 7/30 d, last test, score trend), SRS (due, new, avg retrievability, max overdue), timing (top-2 active hours), habits (days since test/pronunciation/vocab), engagement (rec CTR/dismiss rate, resource completion), per-skill mastery view.
+* **Learner features** (`learner_features`): activity (active days 7/30, minutes, streak, days since active), performance (acc 7/30 d, last test, score trend), SRS (due, new, avg retrievability, max overdue), timing (top-2 active hours), habits (days since test/pronunciation/vocab), engagement (rec CTR/dismiss rate, resource completion), per-skill view (estimated mastery **and** measured accuracy). Built by the ETL when a learner produces events, and rebuilt on read by the recommender when older than 6 h (time-dependent values such as due cards and decay would otherwise go stale for inactive learners).
 
 ## 7. Recommender
 
@@ -119,9 +126,9 @@ learning_events (pending) ──clean──► learning_events_clean ──aggre
 | Source | Candidate | Signals |
 | --- | --- | --- |
 | SRS | one "review N due cards" block (≤ 20) | urgency = 0.6·due/20 + 0.4·risk(1−avgR) |
-| Weak skills (≥3 attempts, mastery < 0.8) | `skill_drill:<skill>` | need = gap × exam-part weight × evidence |
+| Weak skills (≥3 attempts, mastery < 0.8) | `skill_drill:<skill>`; reason `refresh_skill` instead of `weak_skill` when measured accuracy is ≥ 80 % and the skill was last practised ≥ 30 days ago (a decayed estimate, not a weakness) | need = gap × exam-part weight × evidence |
 | Thin evidence skills | drill with `explore_skill` reason | explore = 1−confidence |
-| Resources | matched to weak skills via topic tags, interests, CEFR fit, popularity | need, interest, levelFit, popularity |
+| Resources | retrieved by five bounded, index-backed queries (recent, interest domain, level ± 1, weak-skill topics, popular), then matched to weak skills via topic tags, interests, CEFR fit, popularity | need, interest, levelFit, popularity |
 | Habits | mini test (≥21 d), pronunciation (≥7 d), vocab capture (≥7 d), **starter diagnostic** (no test ever) | habit staleness |
 
 Content tagging: `labels.cefr/domain/topic` (already produced at ingest) interpreted by `engine/contentTags.ts`; skill→topic keywords table; learner CEFR from last TOEIC score via ETS bands (A2 225, B1 550, B2 785, C1 945) else self-reported level.
@@ -141,25 +148,36 @@ Study timing: `timing.bestHour` = most active hour from the last 30 days, else p
 
 Hard filters: dismissed (14 d), frequency cap (≥3 impressions/7 d without click), completed cooldown (resources 30 d, drills 1 d), CEFR gap > 1, `suitableForLearners=false`. Selection: ≤2 per type, ≤2 per skill, 1 flashcard block, diversity floor (≥2 distinct types when possible, top item never displaced), time budget (trim lowest ranks beyond 1.25× the learner's daily minutes, keep ≥3).
 
+**Exploration slot** (`engine/guardrails.ts` `exploreSwap`). On `RECSYS_EXPLORE_PCT` % of requests (default 10, capped at 30, 0 = off; decided by a hash of the `recId` in its own layer `rec_explore_v1`, and drawn with a generator seeded by the same `recId`, so a list can be reproduced), one position of the final list is replaced by an item drawn uniformly from the 20 best candidates that passed the hard filters but were not selected. The slot can be any position. The item, its position, the pool and the propensity (1 / pool size) are logged on the impression and in `rec_served`. This is the data that makes position bias measurable (§12.5) and lets logs evaluate a policy other than the one that produced them (§7.9).
+
 ### 7.6 Explainability
-Every item has a reason code, evidence params and EN + VI text from templates (`engine/explain.ts`): e.g. "Your accuracy on Part 5 · word form is about 45% over 20 questions — the biggest opportunity to gain points." No LLM.
+Every item has a reason code, evidence params and EN + VI text from templates (`engine/explain.ts`), and an EN + VI title (`titleI18n`). Measured accuracy and the model's estimate are stated separately: e.g. "You answered 25% of 12 questions on Part 5 · wordform correctly (estimated mastery now 34%) — the biggest opportunity to gain points." No LLM.
 
 ### 7.7 Feedback loop
-Impressions are written by the server when a list is generated (cache-miss only): always to the functional exposure store, and as a `rec_impression` analytics event when consented. Clients report `click/complete/dismiss` through `POST /recommendations/feedback` (updates the exposure store and emits the analytics event); the analytics events carry `variant` and `mode` (`personalized`/`cold_start`). These events feed: guardrails (exposure map), ranker (recency penalty), KPI read-outs, offline replay.
+When a list is generated (cache-miss only) the server writes: the **served list** to `rec_served` (items, positions, scores, variant, mode, learner segment; ranking signals and the exploration pool only with analytics consent); the impressions to the functional exposure store (always); and `rec_impression` analytics events when consented (with `signals`, `segment`, `explored`, `propensity`). Clients report `click/complete/dismiss` through `POST /recommendations/feedback`. That call always updates the exposure store; it emits the analytics event only when `(recId, itemType, itemRef)` matches a list served to this learner, with variant, mode and position taken from the served record (the response says `attributed: true|false`). A client therefore cannot move its feedback into another experiment arm or credit an item it was never shown. These events feed: guardrails (exposure map), ranker (recency penalty), KPI read-outs, offline replay, training labels (§12.5).
 
 ### 7.8 Experimentation
-Deterministic bucketing `sha256(experimentKey:userId)` → variant; kill switch `RECSYS_FORCE_VARIANT`. Read-out: CTR/completion/dismiss per **variant × mode** + two-proportion z-test within the same mode (cold-start lists ignore the variant, so mixing modes would dilute any real effect to zero). **Pre-register** each test: primary metric, MDE, sample size, stop rule. Reference sample sizes (α=0.05, power 0.8): CTR 20%→22% ≈ 6.5k impressions/arm; D7 retention 25%→28% ≈ 3.3k users/arm. Guardrail metrics: dismiss rate, D1 retention, support contacts.
+Deterministic bucketing `sha256(experimentKey:userId)` → variant; kill switch `RECSYS_FORCE_VARIANT`. Read-out (`GET /admin/recsys/experiments`, `analytics/kpi.ts`), always per **variant × mode** (cold-start lists ignore the variant, so mixing modes would dilute any real effect to zero):
+
+* impression-level CTR/completion/dismiss with a two-proportion z-test — kept for reference, but it overstates evidence because one learner's impressions are not independent;
+* **per-learner** rates with Welch's t-test (the unit of randomisation is the learner; no test below 30 learners per arm) — this is the one decisions and the harm guard use;
+* a **sample-ratio-mismatch** check (χ² of learners per arm against the configured split, flagged at p < 0.001), which catches broken assignment or logging before anyone reads the effect;
+* outcome metrics per variant: score gain and active days.
+
+**Pre-register** each test: primary metric, MDE, sample size, stop rule. Reference sample sizes (α=0.05, power 0.8): CTR 20%→22% ≈ 6.5k impressions/arm; D7 retention 25%→28% ≈ 3.3k users/arm. Guardrail metrics: dismiss rate, D1 retention, support contacts.
 
 ### 7.9 Offline evaluation (`eval/`)
 * **Metrics:** P@k, recall@k, NDCG@k, MRR, catalogue coverage, list diversity.
 * **Replay evaluator** joins logged impressions with outcomes per variant (note selection/position bias; consenting users only).
+* **Counterfactual estimator** (`eval/counterfactual.ts`, Li et al. 2011): over the exploration slots, a candidate policy is scored on the logs where its choice agrees with the random draw. Unbiased for the slot, needs real exploration logs, and is reported with every retrain (`metrics.counterfactual`).
 * **Simulator** (seeded): learners with hidden true abilities generate answers; the *real* mastery model builds estimates; rankers are scored against ground-truth need. `npm run recsys:eval` (500 learners, seed 42):
 
 | Ranker | NDCG@5 | P@3 | Diversity | Coverage |
 | --- | --- | --- | --- | --- |
-| random drills | 0.458 | 0.689 | 0.20 | 0.88 |
-| **control** | **0.588** | **0.925** | 0.76 | ≤1 |
-| srs_heavy | 0.538 | 0.916 | 0.76 | ≤1 |
+| random drills | 0.458 | 0.689 | 0.20 | 0.74 |
+| popularity only | 0.365 | 0.705 | 0.78 | 0.74 |
+| **control** | **0.588** | **0.925** | 0.76 | 0.95 |
+| srs_heavy | 0.538 | 0.916 | 0.76 | 0.95 |
 
 Reading: personalisation adds +0.13 NDCG@5 over random in simulation. NDCG is capped well below 1 *by design* — guardrails limit lists to 2 drills and force type diversity. **Synthetic ground truth: this validates the plumbing and relative ordering, not real-world lift.** Real validation = shadow period + replay + A/B.
 
@@ -184,6 +202,8 @@ Law **91/2025/QH15** (Personal Data Protection Law, passed 26 Jun 2025) and **De
 | Threat | Control |
 | --- | --- |
 | Event spoofing / score tampering | `userId` only from JWT; client allow-list (behavioural types only); strict envelope; per-user rate limit (60 req/min) |
+| Forged experiment attribution | Feedback and client `rec_*` events attributed only against the server's `rec_served` record; item type allow-listed, ids length-checked |
+| Stale personalisation after consent withdrawal | Consent is read before the response cache and is part of its key |
 | Replay/duplicate flooding | idempotent `eventId`; batch ≤ 100; stale/future windows |
 | Cross-user data access | every query scoped by `req.user.id`; erasure tested not to touch other users |
 | Admin endpoints exposure | `hasAuthority(ADMIN)`; cohorts < 5 suppressed |
@@ -198,10 +218,11 @@ src/recsys/
   events/    eventTypes · eventModel · eventService · emitters · aiUsageTracker
   privacy/   consentModel · consentService · dataSubjectService
   etl/       models · clean · aggregate · dataQuality · pipeline
-  features/  skillTaxonomy · mastery · retention · featureModels · featureBuilder
-  engine/    types · cefr · contentTags · candidates · ranker · guardrails · explain · experiments · recommender
-  eval/      metrics · replay · simulator · cli
-  analytics/ kpi · kpiService · healthService
+  features/  skillTaxonomy · mastery · retention · itemDifficulty · featureModels · featureBuilder
+  engine/    types · cefr · contentTags · candidates · ranker · guardrails · explain · experiments ·
+             exposureModel · exposureService · servedModel · servedService · recommender
+  eval/      metrics · replay · counterfactual · simulator · cli
+  analytics/ kpi · kpiService · healthService · alerts
   http/      routes · recsysController
   scheduler.ts
   stream/    pseudonym · wire · erasure · regions · kafkaConfig · producer · exporter      (Phase 3)
@@ -214,7 +235,9 @@ src/recsys/
 hooks in existing code (additive, fail-safe): testResultService · flashcardService · creditsService · speechController · googleGenAIClient · authMiddleware
 ```
 
-API: `POST /events/batch` · `POST /recommendations/feedback` · `GET|PUT /privacy/consent` · `POST /privacy/consent/withdraw` · `GET /privacy/export` · `DELETE /privacy/data` · `GET /recommendations?limit=&refresh=` · `GET /admin/recsys/{kpis,experiments,pipeline,health}`.
+API: `POST /events/batch` · `POST /recommendations/feedback` · `GET|PUT /privacy/consent` · `POST /privacy/consent/withdraw` · `GET /privacy/export` · `DELETE /privacy/data` · `GET /recommendations?limit=&refresh=` · `GET /admin/recsys/{kpis,experiments,pipeline,health,models}` · `POST /admin/recsys/models/retrain` · `POST /admin/recsys/models/:version/{activate,retire}` · `PUT /admin/recsys/learners/:userId/region`. Request and response details: `DEVELOPER-GUIDE.md` §3–4 and the Postman collection in `postman/`.
+
+Ops entry points (`scripts/ops/`): `recsys-worker` (scheduler outside the API), `recsys-sandbox`, `recsys-health`, `recsys-loader`, `recsys-embed`, `recsys-embed-calibrate`, `recsys-bench`, `run-dbt.sh`.
 
 **`skill_drill` action payload is a proposed contract.** `{screen:'skill_drill', skillKey, questions}` has **no backend route yet**: the `WeaknessDrill` model is commented out and the only drill route is `.../practice-drill/complete`, which marks an LLM-plan item done. Questions live embedded in test documents, so a drill endpoint (select questions by `skillKey` across tests) needs a product/UX decision (T1.25). Until then `skill_drill` items are a recommendation of *what* to practise, not a one-tap deep link; the other action types (`flashcard_review`, `resource`, test list, speech, vocab) map to existing screens.
 
@@ -229,10 +252,10 @@ API: `POST /events/batch` · `POST /recommendations/feedback` · `GET|PUT /priva
 | Concern | MVP decision | Options considered | Why MVP choice | **Trigger to move** → Phase |
 | --- | --- | --- | --- | --- |
 | Event store | MongoDB regular collection | Mongo time-series; ClickHouse; BigQuery | No new system; ~10M events/month fits; erasure by `userId` is trivial | raw > ~200M rows or KPI queries > 1 s p95 or analytics load hurts API p95 → **ClickHouse (P3)** |
-| Job runner | `node-cron` + Mongo lease | BullMQ + Redis; Temporal; cloud scheduler | Retries/locking solved without Redis at this scale | need delayed/retry per-job, fan-out > 1 worker, or > 3 job types → **BullMQ + Redis (P2)** |
+| Job runner | `node-cron` + Mongo lease; in the API process or a separate `npm run recsys:worker` (`RECSYS_SCHEDULER_ENABLED=false` on API instances) | BullMQ + Redis; Temporal; cloud scheduler | Retries/locking solved without Redis at this scale | need delayed/retry per-job, fan-out > 1 worker, or > 3 job types → **BullMQ + Redis (P2)** |
 | Stream | none (poll pending) | Kafka/Redpanda; Mongo change streams | Change streams need a replica set (dev compose is standalone) | > 500 events/s sustained or multiple consumers → **Redpanda (P3)** |
 | Feature store | Mongo docs | Redis; Feast | Reads are 1 doc/user | p95 `/recommendations` DB time > 100 ms → Redis cache (P2) |
-| Ranker | weighted, deterministic | LightGBM/bandit | Needs logged impressions | ≥ 100k impressions with outcomes → **learned re-ranker (P2)** |
+| Ranker | weighted, deterministic | LightGBM/bandit | Needs logged impressions | ≥ 100k impressions with outcomes → learned re-ranker (built in **P3**, outcome labels and exploration in **P4**; dormant) |
 | Experiments | in-house hash buckets | GrowthBook, Statsig | Free; 2–3 tests | > 3 concurrent tests or non-engineers running tests → GrowthBook (P2) |
 | BI | admin JSON endpoints | Metabase/Grafana on ClickHouse | Enough for KPI review | stakeholders need self-serve → **P3** |
 | SRS | Leitner + retrievability priority | FSRS (`ts-fsrs` 5.x, Node ≥ 20) | Zero schema risk | ≥ 30 d review logs → **FSRS shadow → flag (P2)** |
@@ -244,7 +267,7 @@ BullMQ production requirements (when adopted): Redis `maxmemory-policy=noevictio
 ## 11. Cost model
 * **Incremental runtime infra (MVP): none.** Storage only (§3 sizing: bytes/event × events/month × retention). Price storage at your Atlas tier's $/GB — not quoted here because I could not verify current vendor prices.
 * **AI cost:** the recommender adds **0 LLM calls**. Per-learner LLM cost is now *measured* (`ai_usage`), enabling a margin guardrail (target: AI cost ≤ 3% of ARPU — to validate).
-* **Compute:** ≈ 6 ms CPU per recommendation (plain Node, 300 candidates; ≈ 14 ms p50 under Jest instrumentation) + a few indexed reads; ETL ≈ 700 events/s on the dev VM (measured, in-memory DB).
+* **Compute:** ≈ 6 ms CPU per recommendation (plain Node, 300 candidates; ≈ 13–14 ms p50 under Jest instrumentation) + bounded indexed reads (five resource queries since Phase 4) and one served-list insert per cache miss; ETL ≈ 700 events/s on the dev VM (measured, in-memory DB).
 * **Phase 2 adds:** one small managed Redis (BullMQ) and CI minutes; **Phase 3 adds:** ClickHouse + Redpanda (managed or 2–3 VMs) — size from observed event volume at that time.
 
 ## 12. Phase 3 (Scale) — built ahead of triggers, dormant behind flags
@@ -294,11 +317,15 @@ In-house, deliberately small. `featurestore/registry.ts` lists the flat learner 
 
 ### 12.5 Learned ranker and automated retraining
 ```
-rec_impression{signals, position, recId}  +  rec_click  ──join (recId,itemRef)──►  labelled rows
-                         │ as-of join to feature snapshots → learner segment (new / established)
+rec_impression{signals, position, recId, segment, explored, propensity}
+   + outcome: rec_click followed by the matching activity ≤ 24 h, or rec_complete
+   ──join (recId, itemType, itemRef)──►  labelled rows
+                         │ segment logged at serve time (as-of snapshot join only as a fallback)
                          ▼
- trainRanker: user-level 80/20 split → IRLS logistic regression (signals + position)
-   gates: ≥ minRows impressions, ≥ minPositives clicks, holdout ≥ 50 clicks, AUC lift over control ≥ minAucLift
+ trainRanker: user-level 80/20 split → IRLS logistic regression (signals [+ position])
+   inverse-propensity weights from the exploration slot when ≥ 200 explored impressions at positions 0 and 1
+   gates: ≥ minRows impressions, ≥ minPositives positives, holdout ≥ 50 positives, AUC lift over control ≥ minAucLift
+   report: + position-bias estimate, counterfactual replay value
    per-segment weights adopted only if they beat the global weights on that segment's holdout
                          ▼
  weights → existing WeightSet (negative → 0, normalised to 1; position coefficient DROPPED)
@@ -306,10 +333,11 @@ rec_impression{signals, position, recId}  +  rec_click  ──join (recId,itemRe
  rec_models registry:  rejected | candidate → active(≤5% auto) → retired
 ```
 * **No engine change.** A model is just a `WeightSet`, so the ranker, guardrails and explanations are untouched; offline eval output is byte-identical to the pre-Phase-3 baseline (checked after every engine commit).
-* **Position bias.** Position is a *training covariate* (so a signal that merely correlates with top slots is not credited — tested with collinear data) and is not part of serving weights. Logged impressions only contain items that were *shown*, so offline lift is a pointwise (AUC) estimate under selection bias; the online experiment is the real test.
+* **Labels.** A positive is a click that led to learning the server can verify within 24 h (drill → answers on that skill, flashcards → reviews, test → submission, resource → completed view) or a client-reported completion. Clicks alone reward attractive titles; `RECSYS_TRAIN_LABEL=click` restores them if needed.
+* **Position bias.** With enough exploration data (≥ 200 explored impressions at positions 0 and 1), the examination rate per position is estimated from the random slot and rows are inverse-propensity weighted. Until then position is a *training covariate* (so a signal that merely correlates with top slots is not credited — tested with collinear data). Either way it is not part of serving weights. Offline lift is still a pointwise (AUC) estimate; the counterfactual replay value and the online experiment are the stronger tests.
 * **Serving.** A separate hash layer (`rec_learned_layer_v1`) routes `allocationPct`% of users to `variant=learned`; everyone else keeps their original `control`/`srs_heavy` assignment (tested: no reshuffling). Auto-activation is hard-capped at **5 %**; only an admin may raise it, to at most **50 %**. The registry read is cached (60 s) and any failure degrades to the default path. `RECSYS_FORCE_VARIANT` overrides everything.
-* **Safety rails.** Models trained on synthetic data are `rejected` and cannot be activated even by an admin. A new model replaces the live one only if its lift is higher. A daily guard auto-**retires** the live model if its personalised-mode CTR is significantly worse than control (z ≤ −1.96 with ≥ 1000 impressions). Automatic actions can shrink exposure; only a human can grow it.
-* **Runs inside the API process, so it is cooperative.** Training (weekly cron and `POST /admin/recsys/models/retrain`) yields to the event loop between small chunks, and uses the newest 200 000 impressions at most. Measured on the 2.9 GB dev VM: 100 000 rows ≈ 2.6 s total with a longest event-loop stall ≈ 0.5 s (includes JIT warm-up); 200 000 rows ≈ 3.6 s, longest stall ≈ 0.2 s. Before this was done, 500 000 rows blocked the loop for ≈ 15 s (found by measuring, not by design). If volume ever outgrows this, move training to its own process like the loader. The snapshot join is time-bounded (`asOf ∈ [min t − 72 h, max t]`).
+* **Safety rails.** Models trained on synthetic data are `rejected` and cannot be activated even by an admin. A new model replaces the live one only if its lift is higher. A daily guard auto-**retires** the live model if its personalised-mode per-learner CTR is significantly worse than control (Welch t ≤ −1.96, ≥ 30 learners per arm, ≥ 1000 impressions) and posts a webhook alert. Automatic actions can shrink exposure; only a human can grow it.
+* **Runs inside the API process by default, so it is cooperative** (or in `npm run recsys:worker`, see §10). Training (weekly cron and `POST /admin/recsys/models/retrain`) yields to the event loop between small chunks, and uses the newest 200 000 impressions at most. Measured on the 2.9 GB dev VM: 100 000 rows ≈ 2.6 s total with a longest event-loop stall ≈ 0.5 s (includes JIT warm-up); 200 000 rows ≈ 3.6 s, longest stall ≈ 0.2 s. Before this was done, 500 000 rows blocked the loop for ≈ 15 s (found by measuring, not by design). If volume ever outgrows this, move training to its own process like the loader. The snapshot join is time-bounded (`asOf ∈ [min t − 72 h, max t]`).
 * **The model registry cache is 60 s and is never touched by background jobs** (`fetchActive()` is the uncached read used by retrain/guard) — a bug in the first version passed a far-future `now` to bypass the cache, which also stored a far-future expiry; it was found in review and is covered by a regression test. With several instances, a retire or allocation change is therefore visible everywhere within ~60 s.
 * **Not validated.** All thresholds (`RECSYS_RETRAIN_MIN_*`, 5 % challenger) are judgement calls. The trainer has only ever seen synthetic rows. Expect to retune once real impressions exist.
 

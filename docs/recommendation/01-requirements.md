@@ -27,12 +27,12 @@ Priority: **M**ust (MVP) · **S**hould (Phase 2) · **C**ould (Phase 3).
 | US-6 | As a learner without personalisation consent I still get a working app | Behavioural features ignored; only own-deck due cards, starter test and resources are used | M | `engine.unit` |
 | US-7 | As the system I must not lose or double-count signals | Same `eventId` ingested twice ⇒ one row; replaying ETL ⇒ identical facts; late events recompute the day | M | `eventIngest.int`, `pipeline.int` |
 | US-8 | As an analyst I see activation, retention, study time, score gain, credit spend, AI cost/learner | `GET /admin/recsys/kpis` returns the KPIs with cohort sizes; cohorts < 5 suppressed | M | `kpi.unit`, `http.int` |
-| US-9 | As an analyst I can compare ranking variants | Variant assigned by stable hash; every impression/click/dismiss carries `variant`; read-out gives CTR with z-test | M | `engine.unit`, `kpi.unit`, `eventTypes.unit` |
+| US-9 | As an analyst I can compare ranking variants | Variant assigned by stable hash; every impression/click/dismiss carries the `variant` the server served (never the client's claim); read-out gives per-learner rates with Welch's t-test, a sample-ratio-mismatch check and outcome metrics (impression-level z-test kept for reference) | M | `engine.unit`, `kpi.unit`, `eventTypes.unit`, `hardening.unit`, `hardening.int` |
 | US-10 | As ops I know when the pipeline is unhealthy | Health endpoint/probe reports `ok/degraded/down` with reasons; DQ checks on every run | M | `health.int`, `etl.unit` |
 | US-11 | As finance I see AI cost per learner | Every LLM completion by an authenticated learner produces `ai_usage` (tokens + cost from configured rates) | M | `aiUsage.unit` |
 | US-12 | As a learner I see "best time to study" | Response includes `timing.bestHour` from my most active hours (or my preference) | S→done | `engine.unit` |
 | US-13 | Flashcard scheduling adapts to me (FSRS) | Review logs captured; shadow-mode FSRS vs Leitner comparison; switch behind flag | S | Phase 2 |
-| US-14 | Ranking learns from outcomes | Learned re-ranker/bandit beats `control` in an A/B by pre-registered margin | S | Phase 2 |
+| US-14 | Ranking learns from outcomes | Learned re-ranker/bandit beats `control` in an A/B by pre-registered margin | S | Learned ranker built (Phase 3) and trained on outcome labels with exploration data (Phase 4): `learning.unit`, `retrain.int`, `retrainRehearsal.int`, `hardening.*`. **Acceptance not met yet:** no real A/B has run |
 | US-15 | Warehouse-grade analytics | Dashboards on ClickHouse/BI without loading the app DB | C | Phase 3 |
 
 ## 3. Non-functional requirements
@@ -58,7 +58,7 @@ Priority: **M**ust (MVP) · **S**hould (Phase 2) · **C**ould (Phase 3).
 | Score gain | Latest − earliest TOEIC score in 8 weeks, learners with ≥2 tests (suppressed if < 5) | `kpi.scoreGain` |
 | Credit spend | Credits/active learner, spender rate, payer conversion | `kpi.unitEconomics` |
 | AI cost per learner | Σ `ai_usage.costUsd` / active learners; share of revenue | `kpi.unitEconomics` |
-| Rec acceptance | `rec_click / rec_impression` (consenting users) | `kpi.experimentReadout` |
+| Rec acceptance | `rec_click / rec_impression` (consenting users); per-learner mean for experiment decisions | `kpi.experimentReadout`, `kpi.perLearnerReadout` |
 
 Targets and baselines: see `README.md` §1 (first two weeks are measurement only).
 

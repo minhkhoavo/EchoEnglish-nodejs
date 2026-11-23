@@ -201,7 +201,7 @@ The exact property schemas are `eventPropsSchemas` in `src/recsys/events/eventTy
 
 | Call | Purpose |
 | --- | --- |
-| `GET /privacy/export` | Everything held about the learner (events, daily facts, mastery, features, exposure, served lists, consent and its history, region) as JSON |
+| `GET /privacy/export` | Everything held about the learner (events, daily facts, mastery, features, recommendation state, served lists, feature snapshots, region, consent and its history) as JSON |
 | `DELETE /privacy/data` | Erases behavioural data and withdraws consent. The consent ledger is kept as proof |
 
 ---
