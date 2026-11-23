@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { attachAiUsage } from '../../recsys/events/aiUsageTracker.js';
 
 dotenv.config();
 
@@ -57,15 +58,18 @@ export class GoogleGenAIClient {
             apiKey,
             maxRetries: 4,
         });
+        attachAiUsage(this.model, this.modelName);
     }
 
     public getModel(model?: string): ChatGoogleGenerativeAI {
-        return new ChatGoogleGenerativeAI({
-            model: model ?? this.modelName,
+        const name = model ?? this.modelName;
+        const instance = new ChatGoogleGenerativeAI({
+            model: name,
             temperature: 0.2,
             apiKey,
             maxRetries: 4,
         });
+        return attachAiUsage(instance, name);
     }
 
     async generate(text: string, images?: InlineImage[]) {

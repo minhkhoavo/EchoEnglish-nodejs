@@ -1,0 +1,13 @@
+version: 2
+sources:
+  - name: echo
+    schema: "{{ env_var('DBT_CH_DATABASE', 'echo') }}"
+    description: Loaded by `npm run recsys:loader` (ReplacingMergeTree, deduplicated on event_id).
+    tables:
+      - name: events
+        columns:
+          - name: event_id
+            tests: [not_null]
+          - name: user_pseudo
+            description: Region-scoped keyed pseudonym. Never a raw user id.
+            tests: [not_null]

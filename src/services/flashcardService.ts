@@ -5,6 +5,10 @@ import { Flashcard, FlashcardType } from '~/models/flashcardModel.js';
 import { Types } from 'mongoose';
 import { PaginationHelper } from '~/utils/pagination.js';
 import omit from 'lodash/omit.js';
+import {
+    emitFlashcardReviewed,
+    emitVocabCaptured,
+} from '../recsys/events/emitters.js';
 import spacedRepetitionService, {
     ReviewResult,
 } from './spacedRepetitionService.js';
@@ -58,6 +62,12 @@ class FlashCardService {
         });
 
         const flashcardSaved = await newFlashcard.save();
+        emitVocabCaptured(userId, [
+            {
+                source: request.source ?? undefined,
+                isAIGenerated: request.isAIGenerated,
+            },
+        ]);
 
         return omit(flashcardSaved.toObject(), ['__v', 'createBy']);
     };
@@ -287,6 +297,14 @@ class FlashCardService {
             }
         }
 
+        emitVocabCaptured(
+            userId,
+            flashcardDocs.map((d) => ({
+                source: d.source,
+                isAIGenerated: d.isAIGenerated,
+            }))
+        );
+
         return savedFlashcards.map((fc) =>
             omit(fc.toObject(), ['__v', 'createBy'])
         );
@@ -363,6 +381,14 @@ class FlashCardService {
         flashcard.reviewCount = (flashcard.reviewCount || 0) + 1;
 
         await flashcard.save();
+
+        emitFlashcardReviewed({
+            userId,
+            flashcardId,
+            remembered: reviewResult.remember,
+            prevLevel: currentLevel,
+            newLevel: schedule.level_memory,
+        });
 
         return omit(flashcard.toObject(), ['__v', 'createBy']);
     };

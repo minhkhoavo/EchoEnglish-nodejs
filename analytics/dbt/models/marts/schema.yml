@@ -1,0 +1,21 @@
+version: 2
+models:
+  - name: stg_events
+    columns:
+      - name: event_id
+        tests: [not_null, unique]
+      - name: type
+        tests:
+          - accepted_values:
+              arguments:
+                values: [session_started, session_ended, resource_viewed, rec_impression, rec_click,
+                  rec_complete, rec_dismiss, question_answered, test_submitted, flashcard_reviewed,
+                  vocab_captured, pronunciation_scored, writing_scored, credit_spent, ai_usage]
+  - name: learner_daily_facts
+    columns:
+      - name: user_pseudo
+        tests: [not_null]
+      - name: day
+        tests: [not_null]
+      - name: study_seconds
+        tests: [not_null]

@@ -12,6 +12,7 @@ import resourceService from './services/transcription/resourceService.js';
 import paymentService from './services/payment/paymentService.js';
 import socketService from './services/notifications/socketService.js';
 import { createServer } from 'http';
+import { startRecsysScheduler } from './recsys/scheduler.js';
 
 dotenv.config();
 
@@ -45,6 +46,8 @@ cron.schedule('*/1 * * * *', async () => {
     //console.log('[CRON] Trigger Check Payment Expired fetching...');
     await paymentService.triggerExpiredPayment();
 });
+
+startRecsysScheduler();
 
 // app.use(morgan('combined'));
 app.use(globalAuth);

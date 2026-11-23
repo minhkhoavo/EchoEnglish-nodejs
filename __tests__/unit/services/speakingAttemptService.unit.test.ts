@@ -682,9 +682,8 @@ describe('SpeakingAttemptService', () => {
         ])(
             'should update level to %s and totalScore to %s when AI overallScore is %s',
             async (score, expectedLevel, expectedScore) => {
-                const { aiScoringService } = await import(
-                    '~/ai/service/toeicSpeakingScoringService.js'
-                );
+                const { aiScoringService } =
+                    await import('~/ai/service/toeicSpeakingScoringService.js');
                 const mockedAiScoring = aiScoringService as jest.Mocked<
                     typeof aiScoringService
                 >;
@@ -753,9 +752,8 @@ describe('SpeakingAttemptService', () => {
         );
 
         it('should write scoring_failed when AI scoring throws', async () => {
-            const { aiScoringService } = await import(
-                '~/ai/service/toeicSpeakingScoringService.js'
-            );
+            const { aiScoringService } =
+                await import('~/ai/service/toeicSpeakingScoringService.js');
             const mockedAiScoring = aiScoringService as jest.Mocked<
                 typeof aiScoringService
             >;
@@ -790,9 +788,8 @@ describe('SpeakingAttemptService', () => {
         });
 
         it('should handle missing freshAttemptDoc or non-array parts/questions when calculating total score', async () => {
-            const { aiScoringService } = await import(
-                '~/ai/service/toeicSpeakingScoringService.js'
-            );
+            const { aiScoringService } =
+                await import('~/ai/service/toeicSpeakingScoringService.js');
             const mockedAiScoring = aiScoringService as jest.Mocked<
                 typeof aiScoringService
             >;
@@ -1255,9 +1252,8 @@ describe('SpeakingAttemptService', () => {
             });
 
             it('should fallback to defaults when partIndex, questionText, promptImage, partScenario, overallScore, or totalScore are missing', async () => {
-                const { aiScoringService } = await import(
-                    '~/ai/service/toeicSpeakingScoringService.js'
-                );
+                const { aiScoringService } =
+                    await import('~/ai/service/toeicSpeakingScoringService.js');
                 const mockedAiScoring = aiScoringService as jest.Mocked<
                     typeof aiScoringService
                 >;

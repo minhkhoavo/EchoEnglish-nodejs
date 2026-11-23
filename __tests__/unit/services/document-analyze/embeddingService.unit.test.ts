@@ -56,9 +56,8 @@ describe('EmbeddingService', () => {
 
         it('should return correct modelName', async () => {
             await jest.isolateModulesAsync(async () => {
-                const { embeddingService } = await import(
-                    '~/services/document-analyze/embeddingService.js'
-                );
+                const { embeddingService } =
+                    await import('~/services/document-analyze/embeddingService.js');
                 expect(embeddingService.modelName).toBe('test-model');
             });
         });
@@ -66,9 +65,8 @@ describe('EmbeddingService', () => {
         it('should fallback to default modelName if env is missing', async () => {
             delete process.env.GENAI_EMBEDDING_MODEL;
             await jest.isolateModulesAsync(async () => {
-                const { embeddingService } = await import(
-                    '~/services/document-analyze/embeddingService.js'
-                );
+                const { embeddingService } =
+                    await import('~/services/document-analyze/embeddingService.js');
                 expect(embeddingService.modelName).toBe('gemini-embedding-001');
             });
         });
@@ -80,9 +78,7 @@ describe('EmbeddingService', () => {
         beforeEach(async () => {
             await jest.isolateModulesAsync(async () => {
                 embeddingService = (
-                    await import(
-                        '~/services/document-analyze/embeddingService.js'
-                    )
+                    await import('~/services/document-analyze/embeddingService.js')
                 ).embeddingService;
             });
         });
@@ -186,9 +182,7 @@ describe('EmbeddingService', () => {
         beforeEach(async () => {
             await jest.isolateModulesAsync(async () => {
                 embeddingService = (
-                    await import(
-                        '~/services/document-analyze/embeddingService.js'
-                    )
+                    await import('~/services/document-analyze/embeddingService.js')
                 ).embeddingService;
             });
         });

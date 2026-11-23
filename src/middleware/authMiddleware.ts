@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import ApiResponse from '~/dto/response/apiResponse.js';
 import { ErrorMessage } from '~/enum/errorMessage.js';
 import { ApiError } from './apiError.js';
+import { runWithUser } from '../recsys/events/aiUsageTracker.js';
 
 const SECRET_KEY = process.env.JWT_SECRETKEY!;
 
@@ -68,7 +69,8 @@ export function authenticateJWT(
             email: decoded.sub || '',
             scope: decoded.scope || '',
         };
-        next();
+        // Request-scoped user for AI-usage cost attribution (no cross-request leakage).
+        runWithUser(req.user.id, () => next());
     } catch (err) {
         console.error('JWT verification error:', err);
         return res
