@@ -4,38 +4,38 @@ import { Diagram, icon, box, stage, band, endpoint, phantom, frame, renderTree }
 
 const d = new Diagram("pipeline");
 
-const src = stage("a", 0, "Source of truth", [
+const src = stage("st_src", 0, "Source of truth", [
   icon("silver", "mongodb", "learning_events_clean\nsilver (MongoDB)"),
   box("tomb", "Erasure tombstones\npseudonym · no TTL"),
 ]);
-const exp = stage("b", 1, "Exporter (cron 1 min)", [
+const exp = stage("st_exp", 1, "Exporter (cron 1 min)", [
   box("gate", "Gates: analytics consent ·\ntombstone · region lookup"),
   box("pseudo", "HMAC-SHA256(salt,\nregion:userId)[:32]\nfails closed without salt"),
   box("cursor", "Cursor on silver _id\nadvance only after broker ack"),
 ]);
-const bus = stage("c", 2, "Redpanda v25.2.1", [
+const bus = stage("st_bus", 2, "Redpanda v25.2.1", [
   icon("topic", "kafka", "echo.learning_events.v1.<region>\nretention 168 h"),
 ]);
-const load = stage("d", 3, "Loader (own process)", [
+const load = stage("st_load", 3, "Loader (own process)", [
   box("parse", "Validate · drop foreign-region\nand erased events"),
   box("commit", "Insert, then commit offsets\nat-least-once"),
   box("sweep", "Erase sweep every minute\nretries warehousePending"),
 ]);
-const wh = stage("e", 4, "ClickHouse 25.8", [
+const wh = stage("st_wh", 4, "ClickHouse 25.8", [
   icon("ch", "clickhouse", "events\nReplacingMergeTree(event_id)"),
   icon("dbt", "dbt", "dbt: stg_events → learner_daily_facts\n12 tests"),
 ]);
-const kpi = stage("f", 5, "Analytics", [
+const kpi = stage("st_kpi", 5, "Analytics", [
   box("kpi", "KpiService\nRECSYS_ANALYTICS_BACKEND\nclickhouse | mongo"),
   box("fb", "Fallback to Mongo\nreports fallbackReason"),
 ]);
 
 const learn = band("learn", "Learning loop (weekly retrain, guard daily)", [
-  box("imp", "rec_impression + rec_click\njoin (recId, itemType, itemRef)"),
-  box("snap", "Feature snapshots\nas-of join, never future\nmax age 72 h"),
-  box("train", "trainRanker: IRLS ridge logistic\nuser-level 80/20 split\nposition = training covariate"),
+  box("imp", "Impressions + outcome label:\nclick followed by the activity\nwithin 24 h (or rec_complete)"),
+  box("snap", "Segment logged at serve time;\nsnapshot as-of join only as\nfallback (never future, ≤ 72 h)"),
+  box("train", "trainRanker: IRLS ridge logistic\nuser-level 80/20 split · IPW\nfrom the random slot (else\nposition covariate)"),
   box("reg", "rec_models registry\nrejected → candidate →\nactive ≤ 5 % → retired"),
-  box("guardm", "Harm guard\nz ≤ −1.96, ≥ 1000 imps\n→ auto-retire"),
+  box("guardm", "Harm guard: per-learner\nt ≤ −1.96, ≥ 1000 imps\n→ auto-retire + alert"),
   box("embed", "Embeddings (offline)\nsemantic signal, weight 0\nthreshold uncalibrated"),
 ]);
 
@@ -46,11 +46,11 @@ const tree = phantom("root", "", { dir: "col", gap: 34, align: "center", header:
 renderTree(d, tree, [40, 80]);
 d.title("Phase 3 (Scale) — stream, warehouse, dbt and learning loop (flag-gated, dormant)");
 
-d.link("a", "b", "export", { flow: true });
-d.link("b", "c", "produce", { flow: true });
-d.link("c", "d", "consume", { flow: true });
-d.link("d", "e", "insert", { flow: true });
-d.link("e", "f", "marts", { flow: true });
+d.link("st_src", "st_exp", "export", { flow: true });
+d.link("st_exp", "st_bus", "produce", { flow: true });
+d.link("st_bus", "st_load", "consume", { flow: true });
+d.link("st_load", "st_wh", "insert", { flow: true });
+d.link("st_wh", "st_kpi", "marts", { flow: true });
 d.link("imp", "snap", "");
 d.link("snap", "train", "");
 d.link("train", "reg", "");

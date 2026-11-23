@@ -16,25 +16,27 @@ const lake = stage("lake", 1, "2 · Store & clean (MongoDB)", [
 ]);
 
 const feat = stage("feat", 2, "3 · Features", [
-  box("mastery", "skill_mastery\nElo / 1-PL ability θ per skill\ndecay τ = 60 d"),
+  box("mastery", "skill_mastery\nElo / 1-PL ability θ per skill\ndecay τ = 60 d · item_difficulty"),
   box("lf", "learner_features\nactivity · accuracy · SRS due\nbest hours · engagement"),
 ]);
 
 const serve = stage("srv", 3, "4 · Recommend", [
   box("cand", "Candidates\nSRS · drills · resources · habits"),
-  box("rank", "Ranker + guardrails\nweights · caps · cooldowns · budget"),
+  box("rank", "Ranker + guardrails\nweights · caps · cooldowns · budget\nexploration slot (10 %)"),
   box("expl", "Explain + A/B\nEN/VI templates · hash buckets"),
+  icon("served", "mongodb", "rec_served\nserved lists · TTL 30 d\nfeedback attributed here"),
 ]);
 
-const sched = frame("sched", "Scheduler (node-cron, every 2 min)", { dir: "col", gap: 8 }, [
+const sched = frame("sched", "Scheduler (node-cron, every 2 min) — in the API or npm run recsys:worker", { dir: "row", gap: 12 }, [
   box("lease", "Mongo lease recsys_locks\none runner across instances"),
   box("dq", "Data-quality checks per run\nreject ≤ 5 % · lag ≤ 30 min"),
+  box("alert", "Webhook alerts\nETL failed/degraded/crashed\nretrain crash · model retired"),
 ]);
 
 const xcut = band("ops", "Privacy · Analytics · Operations (cross-cutting)", [
   box("consent", "Consent ledger\nanalytics · personalization · research\ndefault off"),
   box("dsr", "Export / erase\nGET /privacy/export\nDELETE /privacy/data"),
-  box("kpi", "KPIs + experiments\n/admin/recsys/kpis\n/admin/recsys/experiments"),
+  box("kpi", "KPIs + experiments\n/admin/recsys/kpis · /experiments\nper-learner t-test · SRM check"),
   box("health", "Health + runs\n/admin/recsys/health\n/admin/recsys/pipeline"),
 ]);
 

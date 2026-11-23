@@ -5,20 +5,20 @@ import { Diagram, box, stage, endpoint, phantom, renderTree } from "drawio-ai-ki
 const d = new Diagram("pipeline");
 
 const entry = stage("s0", 0, "1 · Request", [
-  box("auth", "JWT principal\n401 if missing"),
-  box("cache", "Cache per user + limit\n120 s · refresh=true bypasses"),
-  box("consent", "Consent check\npersonalization granted?"),
+  box("auth", "JWT principal\n401 if missing · 30 req/min"),
+  box("consent", "Consent read first\npersonalization granted?"),
+  box("cache", "Cache: user + limit + consent\n120 s · ≤ 5 000 lists\nrefresh=true bypasses"),
 ]);
 const load = stage("s1", 1, "2 · Load context (RecDeps)", [
-  box("feat", "learner_features\n+ profile (level, interests,\nminutes/day)"),
-  box("res", "Resources ≤ 300\nrecent + interest domains"),
+  box("feat", "learner_features (rebuilt\nif older than 6 h) + profile\n(level, interests, minutes/day)"),
+  box("res", "Resources: 5 bounded indexed\nqueries — recent · interest ·\nlevel ± 1 · weak-skill topics · popular"),
   box("exp", "Exposure map (30 d)\nshown · clicked · dismissed"),
   box("pop", "Popularity 30 d\nlog-scaled · cached"),
 ]);
 const cand = stage("s2", 2, "3 · Candidates", [
   box("mode", "decideMode\ncold_start unless a skill\nhas ≥ 3 attempts"),
   box("srs", "SRS block ≤ 20 cards\nurgency + retention risk"),
-  box("drill", "skill_drill\nweak: mastery < 0.8 · explore"),
+  box("drill", "skill_drill\nweak: mastery < 0.8 · explore ·\nrefresh (≥ 80 % accuracy, idle ≥ 30 d)"),
   box("rsrc", "Resources by tag, interest,\nCEFR fit, popularity,\nsemantic similarity (opt.)"),
   box("habit", "Habits: mini test · speech ·\nvocab · starter diagnostic"),
 ]);
@@ -26,11 +26,13 @@ const rank = stage("s3", 3, "4 · Rank + guardrails", [
   box("var", "Variant: control · srs_heavy\nlearned layer ≤ 5 % (admin ≤ 50 %)\nRECSYS_FORCE_VARIANT wins"),
   box("score", "score = Σ w·signal + boost\n− recency − completed"),
   box("guard", "Dismissed 14 d · cap 3/7 d ·\ncooldowns · CEFR gap ≤ 1\n≤ 2 per type/skill · budget 1.25×"),
+  box("explore", "Exploration (RECSYS_EXPLORE_PCT, 10 %)\none slot drawn from the next 20\neligible items · propensity logged"),
 ]);
 const out = stage("s4", 4, "5 · Explain + respond", [
   box("why", "Reason code + params\nEN / VI templates\nno LLM"),
-  box("resp", "Response: recId, mode, variant,\nitems[rank, type, ref, action]\nsignals never sent to clients"),
-  box("log", "Impressions: exposure store (always)\nrec_impression event (if analytics\nconsent) incl. ranking signals"),
+  box("resp", "Response: recId, mode, variant,\nitems[rank, type, ref, titleI18n,\nreason, action] · no signals"),
+  box("served", "rec_served (TTL 30 d): items,\npositions, variant, mode, segment\nfeedback is attributed against it"),
+  box("log", "Exposure store (always) ·\nrec_impression if analytics consent\n(signals, segment, explored, propensity)"),
 ]);
 
 const tree = phantom("root", "", { dir: "row", gap: 46, align: "top", header: 0, pad: 10 }, [
