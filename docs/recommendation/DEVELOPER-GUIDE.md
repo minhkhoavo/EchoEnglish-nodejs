@@ -188,7 +188,8 @@ x-client-platform: web | ios | android
 
 | Rule | Detail |
 | --- | --- |
-| Types a client may send | `session_started` `{platform?}`, `session_ended` `{durationSec}`, `resource_viewed` `{resourceId, dwellSec, resourceType?, scrollDepth?}`. `rec_*` events are accepted but checked against served lists; use `/recommendations/feedback` instead. Everything else (answers, tests, flashcards, credits, speech) is emitted by the server and rejected from clients as `server-only` |
+| Types a client may send | `session_started` `{platform?}`, `session_ended` `{durationSec}`, `resource_viewed` `{resourceId, dwellSec, resourceType?, scrollDepth?, completed?}`. `rec_*` events are accepted but checked against served lists; use `/recommendations/feedback` instead. Everything else (answers, tests, flashcards, credits, speech) is emitted by the server and rejected from clients as `server-only` |
+| Resource completion | Send `completed: true` on `resource_viewed` when the learner reaches the end of an article or video (it defaults to `false`). The server never infers completion from dwell or scroll depth. A recommended resource counts as a successful recommendation for training only with this flag or `action: complete` feedback, and the completion metrics read it too |
 | `eventId` | UUID generated **once per event** and reused on every retry. That makes retries safe (`duplicates` counter) |
 | `occurredAt` | ISO time on the device. Rejected if older than 7 days or more than 5 minutes in the future |
 | Batch size | At most 100 events |

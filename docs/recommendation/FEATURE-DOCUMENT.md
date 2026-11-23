@@ -255,7 +255,7 @@ Metrics P@k, recall@k, NDCG@k, MRR, coverage, diversity; a replay evaluator join
 ### 5.5b Learning from outcomes, not clicks (Phase 4)
 | Concern | How it is handled | Where |
 | --- | --- | --- |
-| Training label | A row is positive only if the item was clicked **and** the matching activity was recorded within 24 h (drill → answers on that skill, flashcards → reviews, test → submission, resource → completed view), or the client reported completion. `RECSYS_TRAIN_LABEL=click` restores click labels | `learning/dataset.ts` |
+| Training label | A row is positive only if the item was clicked **and** the matching activity was recorded within 24 h (drill → answers on that skill, flashcards → reviews, test → submission, resource → a `resource_viewed` event with `completed: true`, which only the client can send), or the client reported completion. `RECSYS_TRAIN_LABEL=click` restores click labels | `learning/dataset.ts` |
 | Position bias | Examination rate per position is estimated from the randomised slot; with ≥ 200 explored impressions at positions 0 and 1 the fit is inverse-propensity weighted. Before that, position is a training-only covariate (weaker) | `learning/train.ts` |
 | Train/serve skew | The learner segment the ranker used is logged with each impression and read back for training; the feature-store join is only a fallback for older impressions | `engine/recommender.ts`, `learning/dataset.ts` |
 | Item difficulty | Each question's difficulty is calibrated from answer counts (shrunk toward its labelled level) and used by the mastery update once the question has 20 answers | `features/itemDifficulty.ts` |
